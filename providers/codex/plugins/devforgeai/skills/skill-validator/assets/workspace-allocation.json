@@ -1,0 +1,45 @@
+{
+  "schema_version": "devforge.skill-workspace-allocation/v1",
+  "allocation_id": "{{unique-allocation-id}}",
+  "owner": "{{actual-allocation-owner}}",
+  "authorization_source": "{{actual-user-or-protected-runtime-assignment}}",
+  "execution_ref": null,
+  "mode": "git_worktrees",
+  "selection_source": "{{explicit-or-carried-user-choice}}",
+  "repository": {
+    "root": "{{selected-absolute-consuming-repository}}",
+    "git_common_dir": "{{observed-absolute-common-directory}}",
+    "base_commit": "{{resolved-full-commit-id}}",
+    "base_selection_source": "{{assigned-revision-or-observed-HEAD}}"
+  },
+  "workspace_count": null,
+  "workspace_parent": "{{assigned-absolute-parent}}",
+  "workspaces": [
+    {
+      "workspace_id": "{{unique-workspace-id}}",
+      "project_path": "{{fresh-absolute-destination}}",
+      "detached": true,
+      "branch": null,
+      "preparation_actions": [
+        "Create detached Git worktree at recorded base"
+      ]
+    }
+  ],
+  "permitted_writes": {
+    "workspace_paths": [],
+    "git_administrative_scope": "{{narrow-registration-writes-in-recorded-common-directory}}",
+    "output_root": "{{assigned-preparation-evidence-directory}}"
+  },
+  "protected_roots": [],
+  "snapshot_refs": [],
+  "preflight_refs": [],
+  "missing_allocation_inputs": [],
+  "native_inputs_pending": [
+    "client/model",
+    "authentication arrangement",
+    "cases and repetitions",
+    "attempt/time budgets",
+    "observation methods and demonstrated boundaries"
+  ],
+  "scope_note": "Template only. Finalize bounded count and all allocation facts before provisioning. Native inputs may remain pending. This record creates no runtime authority."
+}

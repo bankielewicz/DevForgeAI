@@ -1,0 +1,38 @@
+{
+  "schema_version": "devforge.skill-environment-setup/v1",
+  "run_id": "{{frozen-validation-run-id}}",
+  "plan_ref": {
+    "path": "{{frozen-plan-path}}",
+    "sha256": "{{frozen-plan-sha256}}"
+  },
+  "mode": "{{git_worktrees/existing/static_only}}",
+  "selection_source": "{{actual-user-selection}}",
+  "repository": {
+    "root": null,
+    "git_common_dir": null,
+    "base_commit": null
+  },
+  "workspace_status": "NOT_ATTEMPTED",
+  "native_readiness": "NOT_ESTABLISHED",
+  "attempts": [
+    {
+      "attempt_id": "{{planned-attempt-id}}",
+      "arm": "{{candidate/baseline}}",
+      "project_path": null,
+      "head_commit": null,
+      "detached": null,
+      "branch": null,
+      "workspace_status": "NOT_ATTEMPTED",
+      "output_directory": null,
+      "client_state_directory": null,
+      "provisioning_evidence_refs": [],
+      "installation_manifest_ref": null,
+      "boundary_refs": [],
+      "authentication_observation_ref": null,
+      "missing_prerequisites": []
+    }
+  ],
+  "missing_prerequisites": [],
+  "retention": "Retain created worktrees and evidence; cleanup is a separate assignment.",
+  "cause": "Template only; no environment has been prepared."
+}

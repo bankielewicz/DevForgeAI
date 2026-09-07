@@ -1,0 +1,26 @@
+{
+  "source": "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/skill-validator",
+  "destination": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator",
+  "source_manifest": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-after-manifest.json",
+  "before_installed_manifest": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before-manifest.json",
+  "expected_installed_manifest": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-expected-manifest.json",
+  "changed_files": [
+    "SKILL.md",
+    "assets/environment-setup.json",
+    "assets/handoff.md",
+    "assets/run-manifest.json",
+    "assets/validation-plan.json",
+    "assets/verification-results.md",
+    "assets/workspace-allocation.json",
+    "references/derivation.json",
+    "references/enforcement-design.md",
+    "references/native-evaluation.md",
+    "references/results-contract.md",
+    "references/sources.md",
+    "references/worktree-environment.md"
+  ],
+  "permitted_method": "Scoped byte-preserving generation from completed canonical validator, per explicit user authorization and existing scoped integration path. Apply inspected install_framework.py authoring_only exclusions. No provider-wide installer, hooks, global inventory or sibling writes.",
+  "concurrency_policy": "Require full before manifest before any write; recheck source/each destination before replacement. Fail closed on any differing bytes; preserve partial work and receipt.",
+  "source_files": 28,
+  "runtime_files": 27
+}

@@ -1,0 +1,10 @@
+{
+  "scope": "Authoring preservation and scoped generation only; not skill validation",
+  "source_manifest_matches_live_and_preserved": true,
+  "installed_manifest_matches_live": true,
+  "specification_matches_preserved_copy": true,
+  "previous_evaluation_full_inventory_matches": true,
+  "source_helpers_and_selected_contracts_unchanged": true,
+  "runtime_excludes_evals": true,
+  "changed_runtime_files": 13
+}

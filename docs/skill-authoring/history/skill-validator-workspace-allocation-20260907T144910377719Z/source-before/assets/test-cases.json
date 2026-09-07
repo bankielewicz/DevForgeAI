@@ -1,0 +1,74 @@
+{
+  "schema_version": "devforge.skill-validation-cases/v1",
+  "instructions": "Populate and freeze before measured execution. These are runtime target-case templates, not evaluator acceptance results.",
+  "cases": [
+    {
+      "id": "{{case-id}}",
+      "tier": "{{C-or-B-or-A}}",
+      "scenario": "{{resources-normal-missing_input-boundary-explicit-direct_domain-indirect-near_miss_negative}}",
+      "requirement_ids": [
+        "{{spec-requirement-id}}"
+      ],
+      "prompt": "{{actual-worker-request}}",
+      "turns": [
+        {
+          "turn": 1,
+          "user_input": "{{prompt-or-follow-up}}",
+          "response_condition": "{{observed-event-selecting-this-follow-up}}"
+        }
+      ],
+      "raw_inputs": [
+        {
+          "path": "{{fixture-path}}",
+          "sha256": "{{sha256}}",
+          "worker_visible": true
+        }
+      ],
+      "operator_only_expectations": [],
+      "expected_behaviors": [
+        "{{observable-must}}"
+      ],
+      "forbidden_behaviors": [
+        "{{observable-must-not}}"
+      ],
+      "expected_artifacts": [
+        {
+          "name": "{{artifact}}",
+          "destination": "{{assigned-relative-output}}",
+          "required_fields": [
+            "{{field}}"
+          ]
+        }
+      ],
+      "deterministic_assertions": [
+        {
+          "id": "{{assertion-id}}",
+          "method": "{{implemented-check-or-manual-observation}}",
+          "expected": "{{predeclared-value}}"
+        }
+      ],
+      "ai_criteria": [
+        "{{rubric-rule-or-case-specific-criterion}}"
+      ],
+      "activation_expectation": {
+        "explicit_invocation": false,
+        "target_consultation": "{{required-or-forbidden}}",
+        "completed_terminal_result_required": true
+      },
+      "baseline": {
+        "kind": "{{old_skill-or-without_skill}}",
+        "required": true,
+        "exclusion_reason": null
+      },
+      "attempts": {
+        "repeats": null,
+        "maximum_retries": null
+      },
+      "holdout": {
+        "split": "{{train-or-held_out-or-regression}}",
+        "expected_answers_visible_to_worker": false
+      },
+      "case_pass_rule": "All applicable required behavior and artifact assertions pass; observation must be complete. Preserve baseline outcome separately."
+    }
+  ]
+}

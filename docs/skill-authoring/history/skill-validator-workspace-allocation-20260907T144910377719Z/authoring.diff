@@ -1,0 +1,758 @@
+--- before/SKILL.md
++++ after/SKILL.md
+@@ -24,7 +24,7 @@
+ 
+ | Phase | Tasks | Exit record |
+ |---|---|---|
+-| P1 Intake and baseline | T01 identify target, provider, authority, specification and write fence; T02 freeze candidate/specification/cases/rubric/baseline | Frozen validation plan and identity records, or explicit missing-input causes |
++| P1 Intake and baseline | T01 identify target, provider, authority, specification and write fence; T02 freeze candidate/specification/cases/rubric/baseline | Frozen input identities; bounded workspace allocation when selected; complete experiment plan before native execution, or explicit missing-input causes |
+ | P2 Deterministic checks | T03 inspect structure, references, source/installed resource identity and documented script syntax | Raw structural results; semantic behavior remains unevaluated |
+ | P3 AI review | T04 independently inspect prompt engineering and framework compliance against the rubric | Per-criterion findings with source evidence and reviewer identity |
+ | P4 Behavioral tests | T05 establish isolated runtime/fixtures; T06 installed resources (C); T07 candidate/baseline output quality (B); T08 discovery/activation (A) | Separate case outcomes, run manifests, artifacts and transcripts |
+@@ -43,7 +43,9 @@
+ 
+ Resolve the testing-environment choice before treating the absence of an existing environment as a blocker. Offer **Create Git worktrees for validation**, **Use an existing validation environment**, and **Continue with static review only**. Recommend creation when no environment exists. Reuse an explicit prior choice; a prior answer of "no existing environment" still needs this alternative. See [worktree environment setup](references/worktree-environment.md) for the exact question, preparation path and records. Worktrees provide an alternative testing workspace; selecting them directs the validator to create and prepare it during T05.
+ 
+-The asset is a template, not a completed plan. Replace placeholders, supply real IDs and hashes, and keep missing facts explicit. Freeze the completed plan's exact bytes before execution. A complete successful campaign includes all six evidence groups: intake, structure, AI, C, B, and A. Individual exclusions need predefined scope reasons and cannot remove an entire required phase.
++For selected creation, finalize [workspace-allocation.json](assets/workspace-allocation.json) with repository/common-directory identity, base, bounded count, destinations, permitted writes and authorization. Carry out T05 workspace preparation from that allocation even while model, authentication, repetitions and test budgets are pending. Preparation may proceed while P1 experiment planning remains incomplete; no phase or Enforced classification changes. Ask only for consequential unresolved allocation inputs, resolving routine details from the assignment.
++
++The assets are templates, not completed records. Freeze allocation bytes before workspace writes and input identities before their inspection/review. Freeze the complete experiment plan before measured native execution, after preparation and readiness observations are available; bind each attempt to an unused allocated workspace and independent client state. Workspace count is a preparation bound, separate from native attempt/time budgets. Additional workspaces need a new bounded allocation; preserve prior allocations, plans and observations. A complete successful campaign includes all six evidence groups: intake, structure, AI, C, B, and A. Individual exclusions need predefined scope reasons and cannot remove an entire required phase.
+ 
+ Missing original design requirements block behavioral conformance claims. Independent static inspection may still report findings, with incomplete scope. A post-hoc suggestion remains a proposed improvement rather than a retroactively failed accepted requirement.
+ 
+@@ -71,7 +73,7 @@
+ 
+ Read [native evaluation](references/native-evaluation.md) and the case definitions before starting. The supported baseline is a manually operated, isolated subscribed Codex terminal; no automatic native supervisor is supplied here.
+ 
+-Perform T05 using the selected existing-environment or Git-worktree setup path, then establish and observe the filesystem, source visibility, client-state/history/memory, fixture, permission, and process boundaries before execution. Record workspace preparation separately from native readiness. If static-only was selected, retain the required native cases with explicit missing-observation causes and finish the remaining phases. A fresh chat or subagent alone does not prove these boundaries. Failed boundary/authentication setup produces COULD_NOT_RUN for affected cases; never retry unconfined.
++Perform T05 workspace preparation using the selected existing-environment path or frozen Git workspace allocation; an incomplete native plan does not independently block this preparation. Before measured execution, finalize the experiment plan and establish and observe the filesystem, source visibility, client-state/history/memory, fixture, permission, and process boundaries before execution. Record workspace preparation separately from native readiness. If static-only was selected, retain the required native cases with explicit missing-observation causes and finish the remaining phases. A fresh chat or subagent alone does not prove these boundaries. Failed boundary/authentication setup produces COULD_NOT_RUN for affected cases; never retry unconfined.
+ 
+ Run C, then B, then A. Use [run-manifest.json](assets/run-manifest.json) and [case-grade.json](assets/case-grade.json) for every attempt and arm. Keep cases, outputs, successful/denied auxiliary tool use, complete transcripts, and failures separate. Use matched raw facts and actual appropriate baselines.
+ 
+--- before/assets/environment-setup.json
++++ after/assets/environment-setup.json
+@@ -1,10 +1,7 @@
+ {
+   "schema_version": "devforge.skill-environment-setup/v1",
+-  "run_id": "{{frozen-validation-run-id}}",
+-  "plan_ref": {
+-    "path": "{{frozen-plan-path}}",
+-    "sha256": "{{frozen-plan-sha256}}"
+-  },
++  "run_id": null,
++  "plan_ref": null,
+   "mode": "{{git_worktrees/existing/static_only}}",
+   "selection_source": "{{actual-user-selection}}",
+   "repository": {
+@@ -14,25 +11,24 @@
+   },
+   "workspace_status": "NOT_ATTEMPTED",
+   "native_readiness": "NOT_ESTABLISHED",
+-  "attempts": [
++  "attempts": [],
++  "missing_prerequisites": [],
++  "retention": "Retain created worktrees and evidence; cleanup is a separate assignment.",
++  "cause": "Template only. Bind workspace_allocation_ref for Git preparation; run_id/plan_ref and attempts may remain unresolved until experiment allocation. No environment prepared.",
++  "workspace_allocation_ref": null,
++  "workspaces": [
+     {
+-      "attempt_id": "{{planned-attempt-id}}",
+-      "arm": "{{candidate/baseline}}",
++      "workspace_id": "{{allocated-workspace-id}}",
+       "project_path": null,
+       "head_commit": null,
+       "detached": null,
+       "branch": null,
+       "workspace_status": "NOT_ATTEMPTED",
+-      "output_directory": null,
+-      "client_state_directory": null,
++      "preparation_actions": [],
+       "provisioning_evidence_refs": [],
+       "installation_manifest_ref": null,
+-      "boundary_refs": [],
+-      "authentication_observation_ref": null,
+-      "missing_prerequisites": []
++      "remaining_setup": [],
++      "prior_use_refs": []
+     }
+-  ],
+-  "missing_prerequisites": [],
+-  "retention": "Retain created worktrees and evidence; cleanup is a separate assignment.",
+-  "cause": "Template only; no environment has been prepared."
++  ]
+ }
+--- before/assets/handoff.md
++++ after/assets/handoff.md
+@@ -71,3 +71,15 @@
+ - Owned processes and assignment disposition: {{actual identities; retained/handed off/released with owner record}}.
+ - Invalidating changes: {{candidate, installed copy, cases, rubric, contracts, baseline, runtime, assignment}}.
+ - Resume point: {{last completed phase and exact pending task}}.
++
++## Workspace preparation and native continuation
++
++- Selected environment and carried authorization: {{actual choice and source}}.
++- Frozen workspace allocation references/count/paths: {{saved path and SHA-256, or non-Git reason}}.
++- Preparation observations: {{saved setup references; actual retained paths and statuses}}.
++- Remaining native inputs/readiness: {{model/auth/budgets/observations/boundaries still missing; no inference from creation}}.
++- Complete experiment plan and attempt/workspace/client-state bindings: {{saved refs, or explicit pending cause}}.
++- Additional workspaces: {{new bounded allocation or none; no silent independent-attempt reuse}}.
++- Protected runtime admission/integration status: {{actual evidence or unavailable; no active-enforcement claim from templates}}.
++
++Prepared workspaces can be delivered with native execution NOT_RUN and dependent observations COULD_NOT_RUN. Preserve all old allocations, setup records, plans and attempts. No cleanup, acceptance or release follows from preparation.
+--- before/assets/run-manifest.json
++++ after/assets/run-manifest.json
+@@ -62,5 +62,9 @@
+   "worker_visible_input_refs": [],
+   "operator_only_input_refs": [],
+   "deviations": [],
+-  "environment_setup_ref": null
++  "environment_setup_ref": null,
++  "validation_plan_ref": null,
++  "workspace_allocation_ref": null,
++  "workspace_id": null,
++  "client_state_directory": null
+ }
+--- before/assets/validation-plan.json
++++ after/assets/validation-plan.json
+@@ -64,11 +64,18 @@
+           "detached": null,
+           "branch": null,
+           "output_directory": "{{assigned-absolute-output-directory}}",
+-          "client_state_directory": "{{assigned-absolute-independent-client-state}}"
++          "client_state_directory": "{{assigned-absolute-independent-client-state}}",
++          "workspace_id": "{{unused-allocated-workspace-id}}",
++          "workspace_allocation_ref": null,
++          "environment_setup_ref": null,
++          "readiness_evidence_refs": []
+         }
+       ],
+-      "missing_inputs": []
+-    }
++      "missing_inputs": [],
++      "workspace_allocation_refs": [],
++      "preparation_record_refs": []
++    },
++    "observation_methods": null
+   },
+   "budget": {
+     "max_attempts": null,
+@@ -321,5 +328,6 @@
+   ],
+   "findings_from_previous_iteration": [],
+   "criteria_freeze_record": "{{time-and-source-of-pre-run-expectations}}",
+-  "scope_exclusions": []
++  "scope_exclusions": [],
++  "plan_scope": "Complete experiment plan required before native execution; workspace preparation uses a separate frozen workspace allocation and may precede this plan."
+ }
+--- before/assets/verification-results.md
++++ after/assets/verification-results.md
+@@ -96,3 +96,15 @@
+ - Retest scope: {{affected cases plus required regressions; no reuse across stale dependencies}}.
+ - Output custody: {{permitted outbox; completed files read back}}.
+ - Limits: {{unavailable features, unresolved AI judgment, unobserved performance or native behavior}}.
++
++## Workspace preparation and native continuation
++
++- Selected environment and carried authorization: {{actual choice and source}}.
++- Frozen workspace allocation references/count/paths: {{saved path and SHA-256, or non-Git reason}}.
++- Preparation observations: {{saved setup references; actual retained paths and statuses}}.
++- Remaining native inputs/readiness: {{model/auth/budgets/observations/boundaries still missing; no inference from creation}}.
++- Complete experiment plan and attempt/workspace/client-state bindings: {{saved refs, or explicit pending cause}}.
++- Additional workspaces: {{new bounded allocation or none; no silent independent-attempt reuse}}.
++- Protected runtime admission/integration status: {{actual evidence or unavailable; no active-enforcement claim from templates}}.
++
++Prepared workspaces can be delivered with native execution NOT_RUN and dependent observations COULD_NOT_RUN. Preserve all old allocations, setup records, plans and attempts. No cleanup, acceptance or release follows from preparation.
+--- before/assets/workspace-allocation.json
++++ after/assets/workspace-allocation.json
+@@ -0,0 +1,45 @@
++{
++  "schema_version": "devforge.skill-workspace-allocation/v1",
++  "allocation_id": "{{unique-allocation-id}}",
++  "owner": "{{actual-allocation-owner}}",
++  "authorization_source": "{{actual-user-or-protected-runtime-assignment}}",
++  "execution_ref": null,
++  "mode": "git_worktrees",
++  "selection_source": "{{explicit-or-carried-user-choice}}",
++  "repository": {
++    "root": "{{selected-absolute-consuming-repository}}",
++    "git_common_dir": "{{observed-absolute-common-directory}}",
++    "base_commit": "{{resolved-full-commit-id}}",
++    "base_selection_source": "{{assigned-revision-or-observed-HEAD}}"
++  },
++  "workspace_count": null,
++  "workspace_parent": "{{assigned-absolute-parent}}",
++  "workspaces": [
++    {
++      "workspace_id": "{{unique-workspace-id}}",
++      "project_path": "{{fresh-absolute-destination}}",
++      "detached": true,
++      "branch": null,
++      "preparation_actions": [
++        "Create detached Git worktree at recorded base"
++      ]
++    }
++  ],
++  "permitted_writes": {
++    "workspace_paths": [],
++    "git_administrative_scope": "{{narrow-registration-writes-in-recorded-common-directory}}",
++    "output_root": "{{assigned-preparation-evidence-directory}}"
++  },
++  "protected_roots": [],
++  "snapshot_refs": [],
++  "preflight_refs": [],
++  "missing_allocation_inputs": [],
++  "native_inputs_pending": [
++    "client/model",
++    "authentication arrangement",
++    "cases and repetitions",
++    "attempt/time budgets",
++    "observation methods and demonstrated boundaries"
++  ],
++  "scope_note": "Template only. Finalize bounded count and all allocation facts before provisioning. Native inputs may remain pending. This record creates no runtime authority."
++}
+--- before/evals/evals.json
++++ after/evals/evals.json
+@@ -433,12 +433,12 @@
+       "validator_request": "Generate Git worktrees for the validation test environment using the supplied assignment, then continue with the available validation work.",
+       "operator_setup": [
+         "Before evaluation, provide an actual disposable local Git repository, resolved base commit, available supported Git runtime, recorded shared metadata scope, fresh assigned destinations, and collision-free branch names or detached-state choice.",
+-        "Bind the candidate, baseline, and planned attempts, preserve repository/worktree inventories before the run, and permit the selected T05 setup writes. Keep frozen target and governing bytes protected.",
++        "Bind a complete bounded workspace allocation independently of native attempt planning; preserve source/baseline bytes and repository/worktree inventories, and permit only listed T05 preparation writes.",
+         "Observe actual tool results and resulting worktree identities; do not substitute a proposed command or synthetic success receipt."
+       ],
+       "required_observations": [
+         "The validator carries forward the supplied selection, checks repository identity and destination/branch collisions, and actually creates the assigned worktrees when prerequisites hold.",
+-        "It records actual paths, base commits, branch or detached state, arm/attempt mapping, repository/common-directory identity, and provisioning evidence.",
++        "It records actual paths, base commits, detached/branch state, workspace IDs, repository/common-directory identity, allocation reference and provisioning evidence. Attempt/arm mappings may remain pending until experiment allocation.",
+         "Writes stay within the assigned new worktrees and necessary recorded shared Git metadata; frozen inputs and unrelated work remain unchanged.",
+         "It treats workspace provisioning as a selected activity within Enforced T05 and continues the separately required native boundary/authentication setup without claiming those requirements passed from worktree creation alone.",
+         "Completion retains the worktrees and their custody records unless a separate applicable user instruction authorizes cleanup."
+@@ -488,7 +488,7 @@
+       "fixture_set": "base_target",
+       "validator_request": "Generate the assigned validation worktrees and run the native checks where their prerequisites can be established.",
+       "operator_setup": [
+-        "Provide a supported disposable repository and authorized collision-free worktree assignments so provisioning can genuinely succeed.",
++        "Provide a supported disposable repository and complete authorized collision-free bounded workspace allocation so provisioning can genuinely succeed without a complete native plan.",
+         "Use independent attempts with actual evidence of unavailable subscription authentication and of a missing required source/process/client-state boundary. Supply no acceptable alternative runtime.",
+         "Preserve the actual created workspace identities and prerequisite observations; do not fake a native transcript."
+       ],
+@@ -496,7 +496,8 @@
+         "The validator reports and delivers the successfully created workspace paths and their provisioning records even though native execution remains unavailable.",
+         "The missing authentication or boundary observation produces native COULD_NOT_RUN with the concrete cause; dependent unattempted cases remain identified.",
+         "It does not equate worktrees with containment, copy credentials or global client state, switch to an API-backed or synthetic harness, or launch unconfined execution.",
+-        "The report keeps workspace setup success separate from native results, preserves all Enforced task outcomes, and completes independent work plus the builder handoff."
++        "The report keeps workspace setup success separate from native results, preserves all Enforced task outcomes, and completes independent work plus the builder handoff.",
++        "Missing native model/authentication/budget choices do not independently prevent creation from the completed workspace allocation; the full experiment plan remains required before measured launch."
+       ]
+     },
+     {
+@@ -517,6 +518,147 @@
+         "It does not auto-commit, stash, reset, or otherwise alter original dirty source to populate worktrees, and it does not silently substitute the committed version for the frozen candidate.",
+         "If the exact required snapshot or supported installation cannot be established, it preserves that cause and withholds dependent native claims instead of reporting an identity match or PASS."
+       ]
++    },
++    {
++      "id": "SV-024",
++      "title": "Prepare workspaces while native choices remain pending",
++      "tier": "B",
++      "status": "NOT_RUN",
++      "fixture_set": "base_target",
++      "requirement_ids": [
++        "SV-WA-01",
++        "SV-WA-02",
++        "SV-WA-03",
++        "SV-WA-04",
++        "SV-WA-05",
++        "SV-WA-06"
++      ],
++      "validator_request": "Use my selected Git worktree environment and supplied workspace allocation; prepare what is authorized and continue validation only where prerequisites are established.",
++      "operator_setup": [
++        "Provide a real disposable Git repository with observed base/common-directory identities, a positive bounded count and fresh destinations, actual preparation write authority, explicit creation selection, and frozen source/baseline bytes. No complete native test plan is supplied.",
++        "Use independent attempts withholding respectively model choice, subscription authentication arrangement, native repetitions/attempt-time budget, and all those inputs together. Preserve actual pre/post inventories, tool outputs and worker transcript. Do not simulate Git success."
++      ],
++      "required_observations": [
++        "The validator freezes workspace-allocation.json and creates exactly the authorized workspaces without requiring the missing native inputs or repeating creation permission.",
++        "It delivers actual paths/HEADs and preparation records bound to the allocation while plan_ref may remain null; missing native choices are recorded separately.",
++        "It does not invent test budgets, model/auth facts, cases or attempt IDs merely to unlock creation; no measured native run launches while its prerequisites are unresolved.",
++        "It preserves original dirty source, baseline, protected inputs and other workspaces. This self-case requires actual confined subscribed outer evaluator evidence; pending inputs belong to the inner validation task, not permission to launch the outer worker unconfined."
++      ]
++    },
++    {
++      "id": "SV-025",
++      "title": "Prepared workspace cannot bypass experiment freeze",
++      "tier": "B",
++      "status": "NOT_RUN",
++      "fixture_set": "base_target",
++      "requirement_ids": [
++        "SV-WA-01",
++        "SV-WA-02",
++        "SV-WA-03",
++        "SV-WA-04",
++        "SV-WA-05",
++        "SV-WA-06"
++      ],
++      "validator_request": "Use my selected Git worktree environment and supplied workspace allocation; prepare what is authorized and continue validation only where prerequisites are established.",
++      "operator_setup": [
++        "Provide actual prepared workspaces and immutable allocation/setup evidence produced under a separate authorized preparation. Supply no native completion evidence.",
++        "Use distinct attempts leaving one required native input absent (model, auth arrangement, repetitions, attempt/time bounds, observation method or demonstrated boundary). In a separate positive-control attempt supply a genuinely complete frozen experiment and actual admitted subscribed runtime; if unavailable mark that control COULD_NOT_RUN."
++      ],
++      "required_observations": [
++        "Missing native requirements block measured launch despite PREPARED status. The validator records exact causes, keeps execution NOT_RUN and dependent observations COULD_NOT_RUN, and delivers independent reports.",
++        "It completes the full plan and per-attempt workspace/client-state bindings before any positive-control measured request, retaining actual admission/observation evidence.",
++        "It does not equate allocation/setup hashes or prose with authentication, isolation, success or protected runtime admission; no API, synthetic or unconfined fallback."
++      ]
++    },
++    {
++      "id": "SV-026",
++      "title": "Additional attempts need bounded unused workspaces",
++      "tier": "B",
++      "status": "NOT_RUN",
++      "fixture_set": "base_target",
++      "requirement_ids": [
++        "SV-WA-01",
++        "SV-WA-02",
++        "SV-WA-03",
++        "SV-WA-04",
++        "SV-WA-05",
++        "SV-WA-06"
++      ],
++      "validator_request": "Use my selected Git worktree environment and supplied workspace allocation; prepare what is authorized and continue validation only where prerequisites are established.",
++      "operator_setup": [
++        "Provide one unused prepared workspace with its allocation and a later selected case/arm/retry schedule needing more independent workspaces than available. Supply actual authorization for a bounded addition in one attempt; withhold that addition authority in another.",
++        "Include a separately retained workspace with real prior worker use or contaminated client state and preserve its contents. Give each outer test an independent fixture/repository."
++      ],
++      "required_observations": [
++        "The validator binds at most one independent attempt to each unused prepared workspace and separate output/client state.",
++        "It records a new positive bounded allocation before creating additional authorized workspaces; unsupported additions remain pending without silently expanding writes.",
++        "It never resets, cleans or reuses prior writable attempt/workspace/history state, or repeats the already selected environment question.",
++        "It retains old allocation/setup/plan records and maps all later attempts to the correct identities before native execution."
++      ]
++    },
++    {
++      "id": "SV-027",
++      "title": "Workspace allocation gaps still block provisioning",
++      "tier": "B",
++      "status": "NOT_RUN",
++      "fixture_set": "base_target",
++      "requirement_ids": [
++        "SV-WA-01",
++        "SV-WA-02",
++        "SV-WA-03",
++        "SV-WA-04",
++        "SV-WA-05",
++        "SV-WA-06"
++      ],
++      "validator_request": "Use my selected Git worktree environment and supplied workspace allocation; prepare what is authorized and continue validation only where prerequisites are established.",
++      "operator_setup": [
++        "Use independent actual assignments with ambiguous consuming repository, absent bounded count/write authority, or an occupied destination. Leave native model/auth/budgets pending in every branch.",
++        "Retain pre/post Git and protected-file inventories; supply no authorized alternative that resolves the missing allocation input."
++      ],
++      "required_observations": [
++        "The validator asks only for the consequential unresolved allocation fact or reports the real collision and does not provision outside assigned bounds.",
++        "It does not demand unrelated native choices as prerequisites for resolving the allocation and does not invent a repository, count, base or permission.",
++        "It preserves occupied work, original changes and failed evidence, continues independent reporting and retains the explicit creation selection."
++      ]
++    },
++    {
++      "id": "SV-028",
++      "title": "Allocation preparation plan and run bindings remain acyclic",
++      "tier": "B",
++      "status": "NOT_RUN",
++      "fixture_set": "base_target",
++      "requirement_ids": [
++        "SV-WA-01",
++        "SV-WA-02",
++        "SV-WA-03",
++        "SV-WA-04",
++        "SV-WA-05",
++        "SV-WA-06"
++      ],
++      "validator_request": "Use my selected Git worktree environment and supplied workspace allocation; prepare what is authorized and continue validation only where prerequisites are established.",
++      "operator_setup": [
++        "Provide actual bounded preparation evidence while native choices are pending, followed by an operator answer schedule supplying the missing experiment inputs and genuine readiness evidence in a separate authorized run.",
++        "Retain exact allocation, initial setup, final plan and later setup/run bytes; observe actual native evidence only if a confined subscribed control is available."
++      ],
++      "required_observations": [
++        "Initial setup binds allocation without inventing a completed plan or self hash. The final plan references existing preparation/readiness records and complete test bindings.",
++        "The run manifest binds the exact frozen plan, allocation, workspace, independent client-state directory and immutable setup snapshot; no digest-reference cycle or retroactive mutation occurs.",
++        "PREPARED and native readiness/execution remain distinct throughout; unavailable control observations are not relabeled success.",
++        "Protected runtime owns admission/transitions; no ceremonial completion marker or experiment reducer with fabricated budgets is used to authorize preparation."
++      ]
+     }
+-  ]
++  ],
++  "workspace_allocation_refinement": {
++    "change_id": "CHG-WA-01",
++    "requirement_ids": [
++      "SV-WA-01",
++      "SV-WA-02",
++      "SV-WA-03",
++      "SV-WA-04",
++      "SV-WA-05",
++      "SV-WA-06"
++    ],
++    "status": "AUTHORED_NOT_EXECUTED",
++    "historical_expectations": "Former exact evals retained in authoring history; no previous evaluation rewritten."
++  }
+ }
+--- before/references/derivation.json
++++ after/references/derivation.json
+@@ -123,7 +123,7 @@
+     },
+     {
+       "destination": "assets/verification-results.md",
+-      "destination_sha256": "cc095e4abe91ee2ca5666fa93ce81f4d9b2361ec20ca0545e39339fed7d6aa72",
++      "destination_sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/mvp/templates/skill-authoring/evaluation-report.md",
+@@ -138,12 +138,12 @@
+           "source_revision": null
+         }
+       ],
+-      "transformation": "Retain SEVAL shared envelope; expand identity, static/AI/C/B/A evidence, findings, scope, comparison and continuation fields.",
++      "transformation": "Retain SEVAL shared envelope; expand identity, static/AI/C/B/A evidence, findings, scope, comparison and continuation fields. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+     },
+     {
+       "destination": "assets/handoff.md",
+-      "destination_sha256": "2e984e001cd45e77472f45457e56d0817639c3bab0cd0a04fe4a6cf72afc2c7f",
++      "destination_sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+@@ -152,12 +152,12 @@
+           "source_revision": null
+         }
+       ],
+-      "transformation": "Retain shared handoff envelope, exact-byte custody and no self-digest; specialize continuation to builder remediation and validator retest.",
++      "transformation": "Retain shared handoff envelope, exact-byte custody and no self-digest; specialize continuation to builder remediation and validator retest. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+     },
+     {
+       "destination": "assets/run-manifest.json",
+-      "destination_sha256": "8be8df1eee315c6beb2c293b8ccfd71845b7d08fcd2ea2b0bb682c5b16e713e9",
++      "destination_sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/mvp/templates/skill-authoring/run-manifest.json",
+@@ -166,7 +166,7 @@
+           "source_revision": null
+         }
+       ],
+-      "transformation": "Retain all native core fields; select Codex; add attempt/case/arm/transcript digest and observation/boundary references. Templates make no observed success claim. Add nullable environment_setup_ref to bind actual attempt preparation separately from the frozen plan.",
++      "transformation": "Retain all native core fields; select Codex; add attempt/case/arm/transcript digest and observation/boundary references. Templates make no observed success claim. Add nullable environment_setup_ref to bind actual attempt preparation separately from the frozen plan. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+     },
+     {
+@@ -191,7 +191,7 @@
+     },
+     {
+       "destination": "references/worktree-environment.md",
+-      "destination_sha256": "79342e7f18ad2bb7a293a028f7c7b603f98e4edf3efac11b97fe7fae5d00b602",
++      "destination_sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
+@@ -200,7 +200,7 @@
+           "source_revision": null
+         }
+       ],
+-      "transformation": "Apply the selected execution boundary and worktree assignment rules to the user-selected alternative test environment. Git command semantics are separately attributed in references/sources.md. This does not refresh shared contract revisions.",
++      "transformation": "Apply the selected execution boundary and worktree assignment rules to the user-selected alternative test environment. Git command semantics are separately attributed in references/sources.md. This does not refresh shared contract revisions. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+     }
+   ],
+@@ -221,5 +221,82 @@
+     "scope": "User-selected local Git worktree alternative within existing T01/T02/T05",
+     "validation_status": "NOT_PERFORMED",
+     "hook_status": "DESIGN_ONLY"
++  },
++  "workspace_allocation_refinement": {
++    "change_id": "CHG-WA-01",
++    "authorization": "Direct user-authorized skill-validator-only usability enhancement; not a prior evaluation finding. Authoring and scoped installed refresh only.",
++    "date": "2026-09-07",
++    "design_ref": {
++      "path": "framework/DevForgeAI/docs/skill-authoring/skill-validator-design.md",
++      "sha256": "3195bb4125970fcd59eaaae4695af60d11de0d99eb204381548331c29c77f5d7",
++      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/design-after.md",
++      "source_revision": null
++    },
++    "previous_source_manifest": {
++      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-before-manifest.json",
++      "sha256": "c8b3f6bc6b600aff342fe5ac699385a34ea3fe856e5df4f8a5ea37ef0d438f60"
++    },
++    "affected_resources": [
++      {
++        "destination": "SKILL.md",
++        "destination_sha256": "bdc7696ab46377202729ec9ac2959026152ccdcaa8341d21e9e8e049d682d423"
++      },
++      {
++        "destination": "assets/environment-setup.json",
++        "destination_sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b"
++      },
++      {
++        "destination": "assets/handoff.md",
++        "destination_sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99"
++      },
++      {
++        "destination": "assets/run-manifest.json",
++        "destination_sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
++      },
++      {
++        "destination": "assets/validation-plan.json",
++        "destination_sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1"
++      },
++      {
++        "destination": "assets/verification-results.md",
++        "destination_sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
++      },
++      {
++        "destination": "assets/workspace-allocation.json",
++        "destination_sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5"
++      },
++      {
++        "destination": "evals/evals.json",
++        "destination_sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c"
++      },
++      {
++        "destination": "references/enforcement-design.md",
++        "destination_sha256": "4447abf0cf5022e19755808059fdcc56417f07eff1a7ca5db9c130f587f466e8"
++      },
++      {
++        "destination": "references/native-evaluation.md",
++        "destination_sha256": "109a416cbe94b3790b7cf3ef99fc8f8a244b5b9954839d7056198b007bc2953c"
++      },
++      {
++        "destination": "references/results-contract.md",
++        "destination_sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f"
++      },
++      {
++        "destination": "references/sources.md",
++        "destination_sha256": "492bfe071d72f8e918862b0f5051fd16914aae9b8a3ae76167b4db66efa118f7"
++      },
++      {
++        "destination": "references/worktree-environment.md",
++        "destination_sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
++      }
++    ],
++    "record_semantics": "Workspace allocation freezes preparation scope independently of native model/auth/repetitions/budgets. Complete experiment freeze and observed boundaries precede native launch. Local templates are not runtime admission schemas.",
++    "shared_contracts": "Existing exact selected copies retained; no migration to concurrent shared revision.",
++    "runtime_integration_record": {
++      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/runtime-integration-requirements.md",
++      "sha256": "188ceca026b091fca71f953eaa24d83f794b37bb0c33440a4cba15cadbffee01"
++    },
++    "validation_status": "NOT_PERFORMED",
++    "hook_status": "DESIGN_ONLY"
+   }
+ }
+--- before/references/enforcement-design.md
++++ after/references/enforcement-design.md
+@@ -6,8 +6,8 @@
+ 
+ | Proposal | Protected transition | Covered tasks | Required evidence |
+ |---|---|---|---|
+-| H1 Intake guard | Start measured inspection/review or native evaluation | T01-T02 | Selected target/spec/cases/rubric identities; owner/write fence; baseline; budget and runtime arrangement; selected environment mode and bounded worktree allocation when applicable |
+-| H2 Native launch guard | Start target scripts or native task workers | T03-T05 | Relevant structural result; independent AI review or documented inability; observed filesystem/process/client-state boundaries; explicit permitted native runtime; separate worktree preparation and readiness evidence when selected |
++| H1 Intake guard | Allocate/prepare workspaces or start measured inspection/review | T01-T02 | For preparation: actual authorization plus frozen repository/common-directory/base/count/destinations/write allocation; native model/auth/budgets may be pending. For inspection/review: selected frozen target/spec/rubric and scoped inputs/write fence |
++| H2 Native launch guard | Start native task workers or measured target execution | T03-T05 | Complete frozen cases/candidate/baseline/client/model/auth/repetitions/attempt-time/observation plan; unique attempt-to-workspace/client-state bindings; relevant static records; actual installation and demonstrated boundaries/readiness; allocation/preparation evidence is insufficient alone |
+ | H3 Tier order guard | Start dependent tier B or A campaign | T06-T08 | Applicable prior C/B observations; failures/unavailability preserved; no dependent PASS claim when a prerequisite is unavailable |
+ | H4 Verdict guard | Write a suitable-for-stated-scope or passing completion record | T09 | Frozen plan and all required current evidence; coherent decision receipt and no missing required observations |
+ | H5 Handoff guard | Announce final delivery or transfer work to builder | T10-T12 | Saved verification report, bounded enhancement specification, output identities, incomplete-work causes, next owner and handoff |
+@@ -43,3 +43,9 @@
+ - H1-H5 are design proposals only. No hook files/configuration are installed, activated, run or validated by this authoring package.
+ - Feasibility: Partial with ordinary Codex hooks; complete workflow/semantic enforcement is not established.
+ - Reference: [official Codex hooks](https://learn.chatgpt.com/docs/hooks). Recheck actual target runtime documentation before proposing concrete configuration.
++
++## Workspace allocation integration requirement
++
++The protected runtime owns mechanical admission and phase transitions. Its integration owner must distinguish bounded workspace preparation admitted from an actual authorized allocation from measured launch requiring the complete experiment and readiness evidence. Preserve those separate references and consumed workspace/client-state assignments, cover additional bounded allocations and reject stale identities or state reuse. Missing model/authentication/test budget must not independently deny otherwise authorized preparation. Missing preparation authority still blocks creation; missing native requirements still blocks native launch.
++
++These are integration requirements, not a claim of implementation. Allocation/setup templates are local records; neither helper supplies this admission distinction or validates all new allocation bindings. Do not invoke the experiment evidence reducer as a preparation gate or fill invented native budgets to satisfy it. Record unsupported runtime admission separately and retain reports/prepared workspaces. No shared policy, hooks, supervisor, model completion marker or phase-advance command is installed here.
+--- before/references/native-evaluation.md
++++ after/references/native-evaluation.md
+@@ -1,6 +1,6 @@
+ # Native evaluation procedure
+ 
+-Use this guide only during an authorized validation run, after intake, frozen inputs, deterministic inspection, and AI review have produced their own records. It is an operator-supported procedure for a normal subscribed Codex terminal. It neither provides a native launcher nor installs hooks.
++Use this guide during an authorized validation run. Workspace preparation can start from its own bounded frozen allocation while the native plan is incomplete. Measured execution requires frozen inputs, deterministic inspection, AI review records, the complete experiment plan and observed readiness. It is an operator-supported procedure for a normal subscribed Codex terminal. It neither provides a native launcher nor installs hooks.
+ 
+ Follow the selected [skill authoring contract](contracts/skill-authoring-contract.md), [artifact contract](contracts/artifact-contract.md), and [execution contract](contracts/execution-contract.md). Keep the target candidate read-only. The validator produces evidence and a builder handoff; skill-builder owns subsequent repairs. A changed candidate starts a new affected evaluation iteration.
+ 
+@@ -22,6 +22,8 @@
+ 
+ ## 1. Freeze the experiment before native execution
+ 
++First perform available workspace preparation under [workspace-allocation.json](../assets/workspace-allocation.json) and the setup guide. Native model/authentication/repetitions/budget choices do not gate that allocation. Preparation, installation and boundary observations may be saved before this plan is complete. The list below governs measured launch, not worktree creation.
++
+ Freeze cases in a separate file derived from test-cases.json. Bind it in the plan's input_refs using kind=cases and its exact path/digest; never place the plan's own complete-byte digest inside itself. Expand plan.checks[] into each required attempt and arm before execution. Candidate checks use expectation='pass'; baseline checks use expectation='observation', because an observed baseline FAIL is comparison evidence and does not by itself fail the candidate. A missing required baseline observation still limits the comparison. Record the following in the plan and bound case files:
+ 
+ 1. Candidate source package and intended installation mode: project-local or exported-plugin. Select one per run; a result in one mode does not prove the other.
+@@ -31,7 +33,7 @@
+ 5. Time/subscription budget, per-attempt deadline, number of scheduled attempts/repeats, retry policy, arm order, and the rule for each declared conclusion. Declare repeats even for a small pilot. Report counts for small samples without inventing statistical confidence.
+ 6. Fixed development/held-out split for description changes and fresh final queries. Keep held-out expected answers away from the author and task worker. If the evaluation is a single fixed candidate with no optimization, state that scope and still preserve cases before execution.
+ 7. Authority-selected assignment, report store or outbox, operator identity, runtime/authentication arrangement, supported process controls, and verified isolation method.
+-8. Environment selection and selection source; for Git worktrees, repository/common-directory identity, resolved base commit, assigned absolute paths, detached/branch state, and one attempt/arm-to-workspace/output/client-state mapping per planned run. Use runtime.environment_setup in the plan and [the setup guide](worktree-environment.md). Record setup observations separately after the plan is frozen.
++8. Environment selection and selection source; for Git worktrees, repository/common-directory identity, resolved base commit, assigned absolute paths, detached/branch state, and one attempt/arm-to-workspace/output/client-state mapping per planned run. Use runtime.environment_setup in the plan and [the setup guide](worktree-environment.md). Bind the existing workspace allocation and preparation/readiness observations, and reserve a distinct unused workspace per attempt. Save additional observations separately; do not create plan/setup digest cycles.
+ 9. Effective runtime configuration to hold constant: provider/client version, observable model setting, project instructions, sibling skills/plugins, tool and connector availability, network policy, memory/history arrangement, and relevant local settings.
+ 
+ Changes to the candidate, installed copy, selected specification, fixture, baseline, expectation, or material runtime setting create a new affected iteration. Keep old attempts. Diagnostic cases added after a failure are labeled diagnostic; they do not retroactively improve the measured result.
+@@ -42,7 +44,7 @@
+ 
+ The operator owns the environment assignment and runtime boundary. The validator performs the authorized preparation: reuse an assigned existing environment, or create and prepare local Git worktrees following [worktree environment setup](worktree-environment.md). Offer creation when no existing environment is available; do not stop at asking the operator to supply a ready environment. If the user selects static-only, preserve required native observations as unavailable and finish static review and reporting.
+ 
+-Save preparation observations using [environment-setup.json](../assets/environment-setup.json) outside the frozen plan. Worktree creation supplies the alternative workspace; continue with the remaining installation, runtime and authentication setup. A fresh directory, worktree, conversation, subagent, or CODEX_HOME value alone does not prove containment or clean context.
++Save preparation observations using [environment-setup.json](../assets/environment-setup.json), initially bound to the workspace allocation with nullable plan_ref. Preparation and harmless readiness probes may precede the complete experiment plan; freeze that plan with their evidence before measured launch. Protected runtime admission remains separate. Worktree creation supplies the alternative workspace; continue with the remaining installation, runtime and authentication setup. A fresh directory, worktree, conversation, subagent, or CODEX_HOME value alone does not prove containment or clean context.
+ 
+ Before launching the measured worker, obtain observed evidence for each required boundary:
+ 
+@@ -71,7 +73,7 @@
+ 
+ For each scheduled case/arm/retry, perform these actions separately:
+ 
+-1. Use the operator-assigned unique attempt ID, consuming-project directory, writable output directory, isolated client history/memory store, and owned runtime process. For the worktree branch, create each assigned attempt worktree through the setup guide; candidate, baseline and retries never reuse a writable workspace or history. Bind the completed setup record to the run manifest's environment_setup_ref (path and SHA-256) and retain the corresponding access probes.
++1. Use the operator-assigned unique attempt ID, consuming-project directory, writable output directory, isolated client history/memory store, and owned runtime process. For the worktree branch, bind an unused prepared workspace from a frozen allocation; allocate bounded additions before creating further worktrees. Candidate, baseline and retries never reuse a writable workspace or history. Bind validation_plan_ref, workspace_allocation_ref, workspace_id, client_state_directory and environment_setup_ref in the run manifest, retaining corresponding access probes. Native launch waits for the complete frozen plan and demonstrated readiness.
+ 2. Stage the same underlying raw task facts into candidate and baseline projects. Differences must be limited to the declared skill treatment and recorded unavoidable runtime differences. Keep candidate, baseline, grader, and operator writable areas separate.
+ 3. Install the exact frozen runtime package through the selected supported installation/export mechanism. Use its actual documented/help-listed command surface. Do not invent a DevForge command, slash command, harness flag, or plugin flag. Keep authored eval cases outside normal runtime exports.
+ 4. Verify installation path, relative file inventory and digests, provider, mode, actual entrypoint identity, and allowed supporting resources. A partial export is retained as failed evidence; a retry uses a new destination rather than overwriting it.
+--- before/references/results-contract.md
++++ after/references/results-contract.md
+@@ -12,6 +12,8 @@
+ 
+ ## Files and sequence
+ 
++Workspace preparation has an earlier independent allocation: [workspace-allocation.json](../assets/workspace-allocation.json) freezes repository/common-directory/base, bounded count, destinations, permitted writes and authorization; [environment-setup.json](../assets/environment-setup.json) records actual preparation with nullable plan_ref and no invented attempts. Native inputs can remain pending. The experiment sequence below must be complete before measured native execution; it is not a prerequisite for creating allocated workspaces. Preserve allocation -> setup/readiness -> plan -> run references without cycles.
++
+ 1. skill-design-spec.md: existing design supplied by skill-builder, or the actual selected equivalent specification.
+ 2. test-cases.json: versioned requirement-derived tasks, multi-turn inputs, expected/forbidden behavior, artifact assertions, baseline treatment, repetitions and held-out designation. Freeze it before measuring.
+ 3. validation-plan.json: binds specification/rubric/cases/framework contract references, scope, owner, runtime arrangement, budget, baseline and each expected check/attempt/arm. Complete every template placeholder.
+@@ -22,6 +24,8 @@
+ 8. decision.json: immutable output from assess_evidence.py, binding the plan/results and required evidence groups.
+ 9. verification-results.md and skill-enhancement-spec.md: human-readable report and builder-ready change specification.
+ 10. handoff.md: hashes the completed outputs and assigns the next task. Its own digest is delivered externally.
++
++Run manifests additionally bind validation_plan_ref, workspace_allocation_ref (null with a reason for non-Git environments), workspace_id, client_state_directory and environment_setup_ref. The complete plan maps every attempt to an unused workspace and independent state; allocation additions remain separately bounded. Protected runtime admission owns these checks; the current reducer does not enforce all of these extensions. Pending test budgets can leave its receipt unavailable without preventing allocation-backed preparation.
+ 
+ The source and installed package manifests are distinct. The candidate_root in the plan is the frozen source being evaluated. The structural_report reference in results must be the source-mode inspection of that root. Native run manifests separately bind the actual installed package.
+ 
+--- before/references/sources.md
++++ after/references/sources.md
+@@ -17,3 +17,7 @@
+ ## Worktree environment enhancement — 2026-09-07
+ 
+ [Official Git worktree documentation](https://git-scm.com/docs/git-worktree) supplies the local worktree add/list interface and detached/shared-metadata semantics used in [worktree environment setup](worktree-environment.md). The user's selected alternative-environment requirement and the existing packaged execution contract supply the setup scope, independent-attempt and evidence requirements. This addition does not refresh the previously selected shared contract revisions or assert active hook enforcement.
++
++## Workspace allocation refinement — 2026-09-07
++
++The current user authorizes a new usability enhancement: freeze a bounded workspace allocation before preparation, and require the complete experiment only before measured native execution. Model, authentication, repetitions and test budgets may remain pending during preparation. This supersedes the former plan-before-provisioning dependency, not the former evaluation's findings or evidence. Git interfaces and selected packaged contracts are unchanged. Provenance and the exact pre-enhancement bytes are retained outside the runtime package and referenced in derivation.json. Runtime integration remains separate under protected ownership.
+--- before/references/worktree-environment.md
++++ after/references/worktree-environment.md
+@@ -1,65 +1,74 @@
+ # Alternative test environment with Git worktrees
+ 
+-Use this branch for T01/T02 environment selection and T05 preparation. Its purpose is to provide a usable alternative test workspace when the user has no existing environment. The validator creates the selected workspaces and continues preparation; the user need not provision them beforehand. This is a conditional path inside existing Enforced tasks, not a new workflow or a model-controlled gate.
++This conditional path refines T01/T02 intake and freezing and T05 setup. P1–P6 and T01–T12 remain Enforced; preparation can proceed while experiment planning is incomplete. It introduces no new phase, classification question or model-controlled transition.
+ 
+ ## Resolve the environment choice
+ 
+-Reuse a previous explicit selection. Otherwise ask:
++Reuse a previous explicit selection. Otherwise ask "Which testing environment should skill-validator use?"
+ 
+-"Which testing environment should skill-validator use?"
++- **Create Git worktrees for validation (Recommended when none exists):** Prepare bounded local workspaces, then resolve native readiness.
++- **Use an existing validation environment:** Record the assigned paths and establish readiness.
++- **Continue with static review only:** Complete independent inspection/review and reporting; native observations remain unavailable.
+ 
+-- **Create Git worktrees for validation (Recommended when none exists):** Create separate local test workspaces for candidate and baseline attempts, then prepare the runtime.
+-- **Use an existing validation environment:** Use the supplied assigned paths and establish readiness.
+-- **Continue with static review only:** Perform deterministic inspection, AI review, results and builder handoff; required native observations remain unavailable.
++"No existing environment" and silence do not select an option. Once creation is selected, carry that authorization forward without asking for it again. Resolve routine details from the assignment; ask only for consequential unresolved choices. A local Git worktree needs no GitHub hosting, remote branch or pull request.
+ 
+-"No existing environment" does not select static-only. An unanswered or preselected choice does not authorize creation. Once creation is selected, carry that authorization forward through bounded setup without asking for the same permission again. Resolve only missing consequential inputs. "GitHub worktree" means a local Git worktree of the selected repository; this option needs no GitHub-hosted environment, remote branch or pull request.
++## Freeze a workspace allocation
+ 
+-## Prepare the assignment before freezing the plan
++Fill [workspace-allocation.json](../assets/workspace-allocation.json) in the assigned evidence area. This record authorizes bounded preparation under the actual user/runtime assignment; its model-authored contents do not create authority. It is separate from [validation-plan.json](../assets/validation-plan.json).
+ 
+-Use `runtime.environment_setup` in [validation-plan.json](../assets/validation-plan.json). Record the actual choice and its source. For existing or static-only mode, leave inapplicable Git fields null with a reason. For worktrees:
++Record:
+ 
+-- Resolve the actual consuming Git repository, independently of the candidate skill directory. An outer workspace may contain several repositories or none. If ownership is unclear, ask which repository supplies the test project; do not initialize or clone one implicitly.
+-- Inspect repository identity, common Git directory, current commit/state and existing worktrees. Use the repository's native filesystem/client: for a WSL repository, operate inside its WSL distribution using Linux paths.
+-- Default the test-project base to the selected repository's observed current HEAD commit unless the assignment selects another existing revision. Resolve it to a full commit ID and record the selection basis. Use the same base for both arms. A Git base identifies project contents; frozen candidate/baseline manifests independently identify the skill bytes to install.
+-- Allocate fresh absolute paths under an assigned test-workspace parent, outside protected candidate/grader/source directories. Allocate a unique worktree, output directory and independent client-state directory for every planned case/arm/retry. Record these against the frozen attempt IDs. Resolve path aliases and reject overlap with another assignment or existing destination.
+-- Include the new worktree destinations and the narrow Git administrative writes needed to register them in the setup write fence. Linked worktrees share repository metadata; measured workers must not gain write access to the common directory or the original checkout.
+-- Retain frozen source, baseline, specification, cases and expectations outside worker-visible test inputs. Dirty candidate files remain part of their exact frozen snapshot; do not silently substitute the committed version.
++- The selected consuming Git repository and actual common Git directory, independently of the skill source. If the assignment does not identify the repository and ownership is ambiguous, ask; do not initialize or clone one implicitly. Use the repository's native filesystem/client, including Linux paths for a WSL repository.
++- Its observed current HEAD as the default base unless another existing revision is assigned; resolve the full commit ID and selection source. Keep the same project base for candidate and baseline. Git base and frozen skill manifests identify different bytes.
++- A positive bounded workspace count, the assigned parent and exactly that many fresh absolute destinations, each with a workspace ID. Derive count from an explicit assignment or a clearly bounded requested preparation scope; otherwise ask for that allocation choice, not the native test budget. Detached checkout is the routine default; record any explicitly assigned branch and check ownership/occupancy. Do not invent case or attempt IDs to allocate workspaces.
++- Permitted writes: only the listed new workspace paths, their explicitly assigned preparation contents, the report outbox, and narrow common-directory registration writes. Record authorization source, owner and any real protected runtime assignment reference. Measured workers must not gain write access to shared Git metadata or the original checkout.
++- Protected candidate/baseline/source/grader paths and known snapshot references. Preserve exact source, baseline and governing bytes before installing or consuming them; source snapshot selection may remain pending during empty project preparation. No committed skill version substitutes for an uncommitted frozen candidate.
+ 
+-Save and freeze the completed plan before provisioning. If a required path, assignment, base or budget is unresolved, complete independent work while requesting that input. Actual setup observations belong in a separate [environment-setup.json](../assets/environment-setup.json) record; do not edit frozen plan bytes to report progress.
++Inspect current repository/worktree inventory, applicable checkout hooks/filters and path aliases. Reject occupied or overlapping destinations, including protected roots and other assignments. Retain these observations. Save and freeze the complete allocation before provisioning; record its digest externally. The allocation contains no required model, authentication, repetitions, native attempt/time budget or case schedule. Those unresolved test inputs must not independently prevent creation.
+ 
+-## Create the selected workspaces
++If an allocation input is unresolved, preserve it with its specific cause and continue independent work. Existing/static-only choices create no worktrees and use no Git allocation. Do not change an already frozen allocation; assign additions or retries in a new bounded allocation, retaining the former one.
+ 
+-The following is the command shape, using resolved arguments through the actual shell or an argument-vector process API. It is not a command to run with literal placeholders:
++## Prepare the selected workspaces
++
++Use resolved arguments through the actual shell or argument-vector API:
+ 
+ ```text
+ git -C <repository-root> worktree list --porcelain
+-git -C <repository-root> worktree add --detach <new-attempt-worktree> <resolved-base-commit>
++git -C <repository-root> worktree add --detach <new-workspace-path> <resolved-base-commit>
+ ```
+ 
+-Create each assigned attempt at the recorded base. Detached worktrees are the default for validation; no new branch is needed. If the user explicitly assigned a branch, record it and use the corresponding supported Git form after checking branch ownership and occupancy. Inspect applicable checkout hooks/filters before preparation; do not execute evaluated skill code or unassigned setup side effects through checkout.
++Recheck destination absence, repository/common-directory identity, base and authorization before each add. Do not execute evaluated skill code or unassigned checkout side effects. Create only the allocated count. Save actual command output, exit status, path, HEAD and detached/branch state in [environment-setup.json](../assets/environment-setup.json), bound to `workspace_allocation_ref`. `plan_ref` may be null: no complete native plan is needed for this record.
+ 
+-Before each add, recheck destination absence and the common-directory/assignment identity. On success, retain command output, exit status and actual worktree path/HEAD/branch state in the setup evidence. On partial failure, preserve the created paths and metadata as failed preparation. Do not force reuse, reset, stash, commit, prune, remove worktrees, overwrite another destination or alter remote state to make setup succeed. A retry requires a newly assigned path and a new plan iteration if the frozen allocation changes.
++Continue the preparation available under that allocation: inventory the checkout and create only explicitly permitted preparation directories or stage already selected raw inputs. Once exact skill snapshots and a supported installation mechanism are selected, install only those frozen runtime bytes and retain an independent installed manifest. Do not guess an installation treatment to fill pending experiment choices. Record outstanding fixture, installation, client, authentication and boundary work alongside the delivered paths. Missing those later inputs does not undo successful worktree preparation.
+ 
+-Continue by staging the case's permitted raw facts and installing the **exact frozen** candidate or baseline runtime package through the supported installation mechanism. Preserve uncommitted candidate changes via their frozen bytes rather than changing the original checkout. Keep authored evals, held-out answers and source-only documents outside the worker view. If a checkout already contains another target installation, resolve that collision only inside this attempt's assigned disposable scope; otherwise request a suitable project or boundary. A without-skill baseline must not discover a target through ancestor, global or plugin paths.
++Keep authored evals, hidden expectations and source-only documents outside measured worker views. Resolve duplicate target installations only within assigned disposable scope; otherwise retain the collision as a native readiness prerequisite. Preserve all dirty original source and the actual old_skill baseline. Never commit, stash or reset originals to populate worktrees.
+ 
+-## Continue to native readiness and testing
++On failure, retain created paths, Git metadata and exact errors. Do not force reuse, prune, remove worktrees, overwrite occupied destinations, change the base or branch, or alter remote state to make preparation succeed. A retry gets a new destination and bounded allocation; no native test budget authorizes extra workspace writes implicitly.
+ 
+-Prepare the subscribed client, separate history/memory and owned process arrangement for each attempt using the supported runtime surface. Subscription sign-in remains an operator interaction when required. Do not copy credentials or ordinary client stores, or assume Windows and WSL clients share authentication. Ask for sign-in at the concrete prepared workspace when it is the remaining dependency.
++## Bind prepared workspaces to the experiment
+ 
+-Then apply the actual boundary probes, installation observations and transcript controls in [native evaluation](native-evaluation.md#2-establish-an-actual-execution-boundary). Worktree preparation is not isolation proof: Git metadata is shared, a framework checkout may expose source-only material, and client state/authentication need their own arrangement. A source-readable sandbox cannot satisfy tier C source exclusion merely because the working directory changed.
++Once cases and repetition/attempt limits are selected, allocate each case/arm/retry to an unused prepared workspace, its own output directory and independent client-state directory. Record workspace ID, allocation reference and actual setup evidence in the complete plan. A workspace is not an attempt until this binding is made. Verify its preparation/use history and contents; a workspace used by a previous worker, preparation model session or contaminated client must not be silently reset or shared with another independent attempt. Retain it and allocate a fresh workspace when clean state cannot be demonstrated.
+ 
+-When those prerequisites are observed, continue the frozen C, B and A schedule in the prepared environments. When unavailable, retain the delivered workspaces, identify each exact missing prerequisite and mark affected native observations COULD_NOT_RUN. Continue independent review and P5/P6 reporting. Never report that a created worktree proves a native test passed.
++More attempts than unused workspaces require additional bounded allocations before creation. Additional destinations may be derived within existing explicit authority; ask only where that authority or a consequential choice is missing. Do not repeat the settled environment-choice question. Preserve previous plans and setup records when bindings change.
+ 
+-## Record the outcome and continuation
++Before native launch, freeze the full experiment: cases/fixtures and expected assertions, exact candidate/baseline identities and installed treatment, client/model, subscription authentication arrangement, repetitions, attempt/time limits, observation methods, and demonstrated filesystem/source/process/history/tool boundaries. Bind actual installation and readiness observations. Use [native evaluation](native-evaluation.md#2-establish-an-actual-execution-boundary) for the required probes and transcript controls. A complete allocation or a created worktree is not native admission.
+ 
+-The setup template is a local evidence format, not a registered runtime admission schema. Fill known observations; use null and a cause for missing facts. Use these values:
++Subscription sign-in is an operator interaction under the selected runtime arrangement. Request it at the concrete prepared workspace when it is the remaining dependency. Do not copy credentials or normal client stores, assume Windows/WSL authentication is shared, or launch a model to work around an unknown runtime choice. Preparation can precede authentication; native execution cannot.
+ 
+-- `workspace_status`: NOT_ATTEMPTED, PREPARED, PARTIAL, FAILED, or SKIPPED. PREPARED requires all assigned workspaces for the record's scope to exist at their recorded identities; PARTIAL preserves mixed outcomes.
+-- `native_readiness`: NOT_ESTABLISHED, READY, BLOCKED, or NOT_REQUESTED. READY requires the referenced installation, boundary, auth and observation evidence for that scope; worktree creation alone leaves NOT_ESTABLISHED.
+-- Each attempt retains its actual paths/state, provisioning evidence, installed manifest, boundary/auth references and missing prerequisites. References contain a saved absolute path and exact SHA-256; never include secrets. Snapshot each completed record separately and bind its identity in the corresponding run manifest's `environment_setup_ref`.
++When these prerequisites are observed, the protected runtime owns admission and phase transitions; execute the frozen C, B and A schedule only after its applicable admission. If unavailable, retain the delivered workspaces and mark affected native observations COULD_NOT_RUN, with execution NOT_RUN for unlaunched attempts. Complete independent review and P5/P6 reporting without claiming native success or acceptance.
+ 
+-Report workspace preparation and native observations separately in verification results and handoff. Include retained workspace paths, source/base identities, outstanding setup and the next action needed to resume. Do not mutate a setup record already cited by a completed run; save a successor and preserve earlier evidence. Completion does not authorize cleanup or release of worktrees.
++## Record outcomes without changing frozen inputs
+ 
+-Mechanical admission and phase transitions remain the external runtime/operator's responsibility under existing H1/H2 proposals. This guide supplies preparation work and evidence, and does not install hooks or implement a native supervisor.
++The allocation and setup templates are local evidence formats, not registered runtime admission schemas or active enforcement.
+ 
+-Command semantics: [official Git worktree documentation](https://git-scm.com/docs/git-worktree), consulted 2026-09-07; creation, detached checkout, shared metadata and inventory. Framework boundary requirements remain the selected [execution contract](contracts/execution-contract.md).
++- `workspace_status`: NOT_ATTEMPTED, PREPARED, PARTIAL, FAILED or SKIPPED. PREPARED means all workspaces in the record's allocation scope exist at the recorded identities and allocated preparation actions are complete; unresolved native choices may remain. Preserve mixed outcomes as PARTIAL.
++- `native_readiness`: NOT_ESTABLISHED, READY, BLOCKED or NOT_REQUESTED. READY requires actual installation, authentication, boundary and observation evidence for bound attempts; no claim follows from PREPARED alone.
++- `workspaces` records paths/identities, preparation actions, errors and remaining setup. `attempts` may be empty until test allocation. Every evidence reference identifies saved absolute path and exact SHA-256; record no secrets.
++
++Avoid reference cycles: allocation precedes preparation observations; readiness observations may retain null `plan_ref` while the experiment is incomplete. Freeze a plan binding those existing records, then the run manifest binds that exact plan, allocation, workspace and setup snapshot. A later observation can reference the frozen plan, but the plan is not rewritten to point back to it. No record includes its own digest.
++
++Report retained paths, allocation and setup identities, source/base distinctions, incomplete native choices and concrete continuation in verification results and handoff. Save successor observations rather than altering records already referenced by a plan/run. Completion never authorizes cleanup or release of worktrees.
++
++Existing H1/H2 proposals need runtime-owner integration to distinguish allocation-backed preparation from native admission. See [enforcement design](enforcement-design.md). This guide installs no hook or native supervisor and adds no ceremonial completion marker.
++
++Command semantics remain the selected [official Git worktree documentation](https://git-scm.com/docs/git-worktree), consulted 2026-09-07. Existing packaged execution-contract boundaries remain selected; the current user enhancement refines preparation dependencies only.

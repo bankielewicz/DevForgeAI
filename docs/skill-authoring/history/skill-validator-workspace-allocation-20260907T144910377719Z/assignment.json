@@ -1,0 +1,11 @@
+{
+  "authorization": "Current user: skill-validator-only usability enhancement and scoped installed refresh. No validation/helper execution, test worktrees, hooks, native tests or previous evaluation edits.",
+  "source": "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/skill-validator",
+  "installed": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator",
+  "specification": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-validator-design.md",
+  "history": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z",
+  "previous_evaluation": "/home/bryan/Projects/DevForge/tmp/skill-validator-evaluation-20260907T131059825418Z",
+  "selection_carried": "Create Git worktrees for validation; future validation only",
+  "baseline_manifest": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-before-manifest.json",
+  "shared_contract_policy": "Retain prior selected package contract bytes; no modernization or shared policy changes"
+}

@@ -1,0 +1,114 @@
+{
+  "schema_version": "devforge.skill-authoring-record/v1",
+  "artifact_id": "SAUTH-skill-validator-worktree-20260907",
+  "recorded_at_utc": "2026-09-07T13:06:38.577340+00:00",
+  "observer": "Codex root authoring and scoped generated-copy integration",
+  "scope": "CHG-WT-01: alternative testing environment through selected local Git worktrees",
+  "authorization_source": "User requested skill-builder enhancement of skill-validator and clarified the worktree purpose",
+  "assignment_id": null,
+  "source_root": "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/skill-validator",
+  "installed_root": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator",
+  "source_before": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-worktree-2026-09-07/source-before-manifest.json",
+    "sha256": "d15bae85be649abd3d7277266248c906e64b6720dd90097c950f0a688f011e98"
+  },
+  "source_after": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-worktree-2026-09-07/source-after-manifest.json",
+    "sha256": "c8b3f6bc6b600aff342fe5ac699385a34ea3fe856e5df4f8a5ea37ef0d438f60"
+  },
+  "installed_after": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-worktree-2026-09-07/installed-after-manifest.json",
+    "sha256": "0d321965ae31662c575015af8e0e75c8bc1a486cbee43e5f5ae192b3e60e66d1"
+  },
+  "specification": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-validator-design.md",
+    "sha256": "3436380f01c72c15979a9225bc6ed4c9c8125b8d20de2ea71174891810d37469"
+  },
+  "specification_before": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-worktree-2026-09-07/design-before.md",
+    "sha256": "685d9623e55d061112508bc00af4b436f01fa4f9f6c5c5ac24f10b3fc8455cec"
+  },
+  "template_sources": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-worktree-2026-09-07/design-template.md",
+      "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-worktree-2026-09-07/handoff-template.md",
+      "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931"
+    }
+  ],
+  "changes": [
+    {
+      "path": "SKILL.md",
+      "before_sha256": "e8310693ad1b756f85a57ec96bab4b0fe2ea3d75c70f1fe5143b416e9122516c",
+      "after_sha256": "bae0c6ae9118376329d2706ffe74216d632c2d2958593a5fa2c1cb98554df698"
+    },
+    {
+      "path": "assets/environment-setup.json",
+      "before_sha256": null,
+      "after_sha256": "cde1dbd028fbccf6582f0b41dc1639db8eeac267fb020181f1f3240b3f55a128"
+    },
+    {
+      "path": "assets/run-manifest.json",
+      "before_sha256": "37f271e45c883dd6d21d7c164113b0e4deaa9cfd8421744d0b5e4492b1f77b43",
+      "after_sha256": "8be8df1eee315c6beb2c293b8ccfd71845b7d08fcd2ea2b0bb682c5b16e713e9"
+    },
+    {
+      "path": "assets/validation-plan.json",
+      "before_sha256": "a23728d7931f110f35f7fdf35dfd517487fc0b13330c2e2474c1cab2e78ed795",
+      "after_sha256": "ab0f6cf7729be9935ef5a088db36479f0ab7c0787a0b7391913bdd8915e0f207"
+    },
+    {
+      "path": "evals/evals.json",
+      "before_sha256": "8065a574765254ba75eb3d582299eb6365c9c3ec7afedfe88c3aab8b55f5ee8e",
+      "after_sha256": "f4408778e506242de0624baa04f9c3232be50bb8194421cacc5a1f6e24d7a10a"
+    },
+    {
+      "path": "references/derivation.json",
+      "before_sha256": "482e17ebf27b365baa1dc53a9229eccea611eced73f5df0106358b320de01aaa",
+      "after_sha256": "400b9578723b84c77737b977df58a31f6f3fc4524fa1e5af423c981e0c4dabaf"
+    },
+    {
+      "path": "references/enforcement-design.md",
+      "before_sha256": "7aa4fe8a08ea4c9cb08f1277b0e1be442b0540025eb582ad522708eb2ce10ac1",
+      "after_sha256": "92ecd62fdd20a698067e5794029abd6f34137dd6e3a7ffc6b82df3b41893f7c3"
+    },
+    {
+      "path": "references/native-evaluation.md",
+      "before_sha256": "f91e383d410b35fe8aa48fe1d1a01b2b0de84592e6b7ebddfcf082166b214160",
+      "after_sha256": "d2295fd6991e2461143b050a47329969d997381e735d7cde225d6accdac52941"
+    },
+    {
+      "path": "references/sources.md",
+      "before_sha256": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113",
+      "after_sha256": "f019799003d70ab1440f2b6d723b3f71e9df883f1d6bd633c7c92a381a70f45f"
+    },
+    {
+      "path": "references/worktree-environment.md",
+      "before_sha256": null,
+      "after_sha256": "79342e7f18ad2bb7a293a028f7c7b603f98e4edf3efac11b97fe7fae5d00b602"
+    }
+  ],
+  "generated_files": [
+    "SKILL.md",
+    "assets/environment-setup.json",
+    "assets/run-manifest.json",
+    "assets/validation-plan.json",
+    "references/derivation.json",
+    "references/enforcement-design.md",
+    "references/native-evaluation.md",
+    "references/sources.md",
+    "references/worktree-environment.md"
+  ],
+  "preserved_history": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-worktree-2026-09-07",
+  "validation_status": "NOT_PERFORMED",
+  "behavior_status": "NOT_EVALUATED",
+  "hook_status": "DESIGN_ONLY",
+  "native_tests_run": 0,
+  "worktrees_created": 0,
+  "runtime_transition_admission": "NOT_OBSERVED",
+  "runtime_receipt_publication": "NOT_RUN",
+  "receiving_skill_invocation": "NOT_RUN",
+  "observation_limit": "Ordinary source/write identities only; no protected runtime receipt or acceptance."
+}

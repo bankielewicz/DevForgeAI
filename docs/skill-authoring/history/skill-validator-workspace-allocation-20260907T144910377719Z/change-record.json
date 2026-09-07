@@ -1,0 +1,201 @@
+{
+  "schema_version": "devforge.skill-authoring-record/v1",
+  "artifact_id": "SAUTH-skill-validator-workspace-allocation-20260907",
+  "recorded_at_utc": "2026-09-07T14:57:44.123056+00:00",
+  "change_id": "CHG-WA-01",
+  "classification": "New user-authorized usability enhancement; not a retroactive finding",
+  "finding_ids": [],
+  "author": "Codex root using skill-creator guidance; skill-builder not invoked",
+  "scope": "skill-validator canonical package, working specification, new history and scoped installed-copy generation only",
+  "source_root": "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/skill-validator",
+  "installed_root": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator",
+  "source_before": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-before-manifest.json",
+    "sha256": "c8b3f6bc6b600aff342fe5ac699385a34ea3fe856e5df4f8a5ea37ef0d438f60"
+  },
+  "source_after": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-after-manifest.json",
+    "sha256": "c96165449fbbdb2ad6d5330f6b71dc3f25b4c8c13ec3bbc6228fd1caf9e0aeca"
+  },
+  "installed_before": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before-manifest.json",
+    "sha256": "0d321965ae31662c575015af8e0e75c8bc1a486cbee43e5f5ae192b3e60e66d1"
+  },
+  "installed_after": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-after-manifest.json",
+    "sha256": "962e414e78634efb8c6cde660a9ef9556697993e0feb43745629ef74c44fb824"
+  },
+  "specification_before": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/design-before.md",
+    "sha256": "3436380f01c72c15979a9225bc6ed4c9c8125b8d20de2ea71174891810d37469"
+  },
+  "specification_after": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-validator-design.md",
+    "sha256": "3195bb4125970fcd59eaaae4695af60d11de0d99eb204381548331c29c77f5d7"
+  },
+  "preserved_specification_after": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/design-after.md",
+    "sha256": "3195bb4125970fcd59eaaae4695af60d11de0d99eb204381548331c29c77f5d7"
+  },
+  "preserved_candidate_after": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-after",
+  "previous_evaluation_inputs": [
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-validator-evaluation-20260907T131059825418Z/verification-results.md",
+      "sha256": "360c688012f6c93ba06ab7af79c740184abba93a3a7d04e16133d0d8235a0615"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-validator-evaluation-20260907T131059825418Z/skill-enhancement-spec.md",
+      "sha256": "78179c179adb72744c32fbeb70660c9ab80fcaaa4d322e9ff9173652bf0004b6"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-validator-evaluation-20260907T131059825418Z/handoff.md",
+      "sha256": "472128fb7a56887eadd70b1b66df390ce641dfaab429f0af067267f52ce052bd"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-validator-evaluation-20260907T131059825418Z/validation-plan-02.json",
+      "sha256": "aeb3f5aa18744356472abe98448a43ff33faaac82dd0aae2f8c91fe7c3fff939"
+    }
+  ],
+  "previous_evaluation_preservation": {
+    "manifest": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/previous-evaluation-manifest.json",
+      "sha256": "a292ed18d339bdbf7f0fd20fb24e3d1119893ef470adb2049b6b40f63674fa79"
+    },
+    "matches_before_after": true,
+    "historical_result": "Structural and independent static PASS; native C/B/A unexecuted; no established target defects. Preserved without reinterpretation."
+  },
+  "requirements": [
+    "SV-WA-01",
+    "SV-WA-02",
+    "SV-WA-03",
+    "SV-WA-04",
+    "SV-WA-05",
+    "SV-WA-06"
+  ],
+  "changes": [
+    {
+      "path": "SKILL.md",
+      "before_sha256": "bae0c6ae9118376329d2706ffe74216d632c2d2958593a5fa2c1cb98554df698",
+      "after_sha256": "bdc7696ab46377202729ec9ac2959026152ccdcaa8341d21e9e8e049d682d423"
+    },
+    {
+      "path": "assets/environment-setup.json",
+      "before_sha256": "cde1dbd028fbccf6582f0b41dc1639db8eeac267fb020181f1f3240b3f55a128",
+      "after_sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b"
+    },
+    {
+      "path": "assets/handoff.md",
+      "before_sha256": "2e984e001cd45e77472f45457e56d0817639c3bab0cd0a04fe4a6cf72afc2c7f",
+      "after_sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99"
+    },
+    {
+      "path": "assets/run-manifest.json",
+      "before_sha256": "8be8df1eee315c6beb2c293b8ccfd71845b7d08fcd2ea2b0bb682c5b16e713e9",
+      "after_sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
+    },
+    {
+      "path": "assets/validation-plan.json",
+      "before_sha256": "ab0f6cf7729be9935ef5a088db36479f0ab7c0787a0b7391913bdd8915e0f207",
+      "after_sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1"
+    },
+    {
+      "path": "assets/verification-results.md",
+      "before_sha256": "cc095e4abe91ee2ca5666fa93ce81f4d9b2361ec20ca0545e39339fed7d6aa72",
+      "after_sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
+    },
+    {
+      "path": "assets/workspace-allocation.json",
+      "before_sha256": null,
+      "after_sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5"
+    },
+    {
+      "path": "evals/evals.json",
+      "before_sha256": "f4408778e506242de0624baa04f9c3232be50bb8194421cacc5a1f6e24d7a10a",
+      "after_sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c"
+    },
+    {
+      "path": "references/derivation.json",
+      "before_sha256": "400b9578723b84c77737b977df58a31f6f3fc4524fa1e5af423c981e0c4dabaf",
+      "after_sha256": "63ae09f641bb4fa3c569d9c1863ef4a21a7ad378813804ce1f0508688460d8f8"
+    },
+    {
+      "path": "references/enforcement-design.md",
+      "before_sha256": "92ecd62fdd20a698067e5794029abd6f34137dd6e3a7ffc6b82df3b41893f7c3",
+      "after_sha256": "4447abf0cf5022e19755808059fdcc56417f07eff1a7ca5db9c130f587f466e8"
+    },
+    {
+      "path": "references/native-evaluation.md",
+      "before_sha256": "d2295fd6991e2461143b050a47329969d997381e735d7cde225d6accdac52941",
+      "after_sha256": "109a416cbe94b3790b7cf3ef99fc8f8a244b5b9954839d7056198b007bc2953c"
+    },
+    {
+      "path": "references/results-contract.md",
+      "before_sha256": "bf33f727b346d59c7e4bf94b2a62eda5ec3f599d848b8b690761bcfcad312841",
+      "after_sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f"
+    },
+    {
+      "path": "references/sources.md",
+      "before_sha256": "f019799003d70ab1440f2b6d723b3f71e9df883f1d6bd633c7c92a381a70f45f",
+      "after_sha256": "492bfe071d72f8e918862b0f5051fd16914aae9b8a3ae76167b4db66efa118f7"
+    },
+    {
+      "path": "references/worktree-environment.md",
+      "before_sha256": "79342e7f18ad2bb7a293a028f7c7b603f98e4edf3efac11b97fe7fae5d00b602",
+      "after_sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
+    }
+  ],
+  "operational_files_refreshed": [
+    "SKILL.md",
+    "assets/environment-setup.json",
+    "assets/handoff.md",
+    "assets/run-manifest.json",
+    "assets/validation-plan.json",
+    "assets/verification-results.md",
+    "assets/workspace-allocation.json",
+    "references/derivation.json",
+    "references/enforcement-design.md",
+    "references/native-evaluation.md",
+    "references/results-contract.md",
+    "references/sources.md",
+    "references/worktree-environment.md"
+  ],
+  "source_only_files_changed": [
+    "evals/evals.json"
+  ],
+  "new_source_cases": [
+    "SV-024",
+    "SV-025",
+    "SV-026",
+    "SV-027",
+    "SV-028"
+  ],
+  "revised_source_cases": [
+    "SV-019",
+    "SV-022"
+  ],
+  "case_execution_status": "NOT_RUN",
+  "refresh_method": "Scoped byte-preserving generation from completed canonical validator, per explicit user authorization and existing scoped integration path. Apply inspected install_framework.py authoring_only exclusions. No provider-wide installer, hooks, global inventory or sibling writes.",
+  "refresh_receipt": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/refresh-execution.jsonl",
+    "sha256": "4b66d02332d6d0aa0679a1781a8dd3fabe81a9c085ef2381cd044cf14365b51e"
+  },
+  "source_file_count": 28,
+  "installed_file_count": 27,
+  "helper_and_selected_contract_bytes_unchanged": true,
+  "runtime_integration_requirements": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/runtime-integration-requirements.md",
+    "sha256": "188ceca026b091fca71f953eaa24d83f794b37bb0c33440a4cba15cadbffee01"
+  },
+  "retained_environment_selection": "Create Git worktrees for validation; carry forward only during future validation, not authorization to create them during this authoring task.",
+  "validation_status": "NOT_PERFORMED",
+  "behavioral_status": "NOT_EVALUATED",
+  "hook_status": "DESIGN_ONLY",
+  "authored_validation_helpers_executed": false,
+  "native_tests_launched": 0,
+  "test_worktrees_created": 0,
+  "shared_runtime_policy_modified": false,
+  "sibling_skills_modified_by_this_task": false,
+  "runtime_admission": "NOT_OBSERVED",
+  "receiving_skill_invocation": "NOT_RUN",
+  "adoption_ref": null
+}

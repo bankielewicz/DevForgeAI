@@ -1,0 +1,34 @@
+{
+  "schema_version": "devforge.skill-environment-setup/v1",
+  "run_id": null,
+  "plan_ref": null,
+  "mode": "{{git_worktrees/existing/static_only}}",
+  "selection_source": "{{actual-user-selection}}",
+  "repository": {
+    "root": null,
+    "git_common_dir": null,
+    "base_commit": null
+  },
+  "workspace_status": "NOT_ATTEMPTED",
+  "native_readiness": "NOT_ESTABLISHED",
+  "attempts": [],
+  "missing_prerequisites": [],
+  "retention": "Retain created worktrees and evidence; cleanup is a separate assignment.",
+  "cause": "Template only. Bind workspace_allocation_ref for Git preparation; run_id/plan_ref and attempts may remain unresolved until experiment allocation. No environment prepared.",
+  "workspace_allocation_ref": null,
+  "workspaces": [
+    {
+      "workspace_id": "{{allocated-workspace-id}}",
+      "project_path": null,
+      "head_commit": null,
+      "detached": null,
+      "branch": null,
+      "workspace_status": "NOT_ATTEMPTED",
+      "preparation_actions": [],
+      "provisioning_evidence_refs": [],
+      "installation_manifest_ref": null,
+      "remaining_setup": [],
+      "prior_use_refs": []
+    }
+  ]
+}
