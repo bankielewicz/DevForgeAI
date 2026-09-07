@@ -1,0 +1,27 @@
+{
+  "schema_version": "devforge.builder-change-record/v1",
+  "scope": "Bounded F-STATIC-001 provenance correction only",
+  "authority": "User modernization request and independent static review finding F-STATIC-001",
+  "decision": "Enhance existing canonical builder; retain settled selection and all runtime classification gaps",
+  "canonical_source": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+  "before_sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634",
+  "after_sha256": "d0f737a2065553b2cc66d48f263df707b3bdbd4a96bc8030842f415a051ded35",
+  "change": "Qualify prior concurrent-source record as historical/superseded and identify current selected revision-3 hash; preserve every old hash and disposition",
+  "prior_bytes": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/candidate/skill-builder/references/derivation.json",
+  "dispositions": [
+    {
+      "finding_id": "F-STATIC-001",
+      "status": "Applied in authored source; independent reevaluation pending"
+    }
+  ],
+  "unchanged_requirement_groups": [
+    "SB01-SB10",
+    "CHG-001",
+    "CHG-002",
+    "CHG-003"
+  ],
+  "validation_status": "Not performed during authoring",
+  "hook_status": "Design only",
+  "managed_runtime": "NOT_ADMITTED; classification pending",
+  "receiving_invocation": "NOT_OBSERVED"
+}

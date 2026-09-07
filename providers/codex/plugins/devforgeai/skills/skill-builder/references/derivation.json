@@ -279,8 +279,10 @@
   "authored_resources": "Other resources implement the user-selected design; authored does not mean evaluated.",
   "validation_status": "NOT_PERFORMED",
   "hook_status": "DESIGN_ONLY",
-  "concurrent_source_changes": {
+  "historical_concurrent_source_changes": {
     "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md": {
+      "status": "Historical pre-modernization observation; superseded by the revision-3 source_selection and entries above.",
+      "current_selection_sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
       "selected_sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
       "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
       "current_sha256": "2f5cd33a603009d6118e698443a5358999ed535c723c5cac226499db5124a9fd",
