@@ -25,8 +25,9 @@ The report prints the exact prepared project, external policy, and state paths. 
 | Skill | Purpose |
 | --- | --- |
 | `devforge-brainstorm` | Explore ideas and preserve proposals, assumptions, evidence, and decisions. |
-| `devforge-project-expert-creator` | Specify, author, bind, evaluate, and refresh project-specific expert skills. |
+| `devforge-project-expert-creator` | Discover, specify, author and refresh grounded expertise; prepare a user-mediated evaluation handoff. |
 | `devforge-develop` | Follow a bounded story through external RED/GREEN checks. |
+| `devforge-evaluate-expert` | Independently evaluate exact framework/project experts; return evidence and bounded repair guidance. |
 | `devforge-review` | Review meaning and evidence without confusing structural checks with acceptance. |
 
 Provider packages live separately in `providers/claude/plugins/devforgeai` and `providers/codex/plugins/devforgeai`. Claude agents travel with its plugin; Codex subagent definitions remain under `providers/codex/agents`. Native plugin manifests exist for both providers. The installer can instead place project-local copies in each provider's discovery directories, without changing global configuration.
@@ -47,3 +48,5 @@ The proposed [MVP authoring package](docs/mvp/README.md) contains the 12-skill r
 The [authoring contract](docs/mvp/skill-authoring-contract.md) defines source ownership and A/B/C evaluation. Runtime installation/export excludes authored eval cases and fixtures. The Claude brainstorm candidate was preserved during migration and requires alignment with the refreshed contract; the Codex brainstorm draft retains the original POC baseline. Neither is behaviorally accepted. The immediate milestone is brainstorm in both terminals, then a product brief consuming its ledger.
 
 For practical guidance on scope expansion, repeated approval/review cycles and recovering a clear delivery path, see [Learned behavior: keeping delivery bounded](docs/learned-behaviors/bounded-delivery.md).
+
+Codex expert foundation: the promoted creator and evaluator replace the obsolete skill-builder/skill-validator packages. They are promotion candidates pending required verification and operational adoption. Claude packages and managed v1 workflow IDs remain unchanged. Manual invocation and handoffs are supported by the authored flow; automatic orchestration remains deferred. See the [creator](providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md) and [evaluator](providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md) command/handoff references for actual predicates and limitations.

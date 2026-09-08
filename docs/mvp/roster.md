@@ -29,8 +29,8 @@ This describes the intended architecture. The current POC and draft implementati
 | SKILL-004 | [devforge-prototype](specifications/skill-004-devforge-prototype.md): Test a consequential uncertainty | experiment-plan; prototype-report | Proposed |
 | SKILL-005 | [devforge-architect](specifications/skill-005-devforge-architect.md): Establish the project contract | architecture-contract | Proposed |
 | SKILL-006 | [devforge-plan](specifications/skill-006-devforge-plan.md): Derive epics and implementable stories | epic; story | Proposed |
-| SKILL-007 | [devforge-project-expert-creator](specifications/skill-007-devforge-project-expert-creator.md): Create or refresh project expertise | expert-spec; expert-package; native skill instructions | Draft instructions exist |
-| SKILL-008 | [devforge-evaluate-expert](specifications/skill-008-devforge-evaluate-expert.md): Measure expert skill behavior | expert-evaluation-plan; expert-evaluation-report | Proposed |
+| SKILL-007 | [devforge-project-expert-creator](specifications/skill-007-devforge-project-expert-creator.md): Create or refresh project expertise | expert-spec; expert-package; native skill instructions | Codex promotion candidate; Claude draft unchanged |
+| SKILL-008 | [devforge-evaluate-expert](specifications/skill-008-devforge-evaluate-expert.md): Measure expert skill behavior | expert-evaluation-plan; expert-evaluation-report | Codex promotion candidate; Claude proposed |
 | SKILL-009 | [devforge-develop](specifications/skill-009-devforge-develop.md): Implement one governed story | development-record | Draft instructions exist |
 | SKILL-010 | [devforge-review](specifications/skill-010-devforge-review.md): Review correctness and readiness | review-report | Draft instructions exist |
 | SKILL-011 | [devforge-release](specifications/skill-011-devforge-release.md): Prepare and record delivery | release-record | Proposed |

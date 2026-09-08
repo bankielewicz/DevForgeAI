@@ -1,7 +1,7 @@
 # SKILL-007: devforge-project-expert-creator
 
-Status: DRAFT MVP specification, revision 2, refreshed 2026-09-05 UTC. This document defines required behavior; it is not an installed skill or a passing evaluation.
-Current implementation: a draft instruction file exists in the POC; this expanded contract and its terminal behavior are not yet validated.
+Status: Codex promotion candidate, revision 3, 2026-09-08. Manual invocation, handoffs and commands; operational and behavioral status remain evidence-dependent.
+Current implementation: providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator. Claude scope is unchanged.
 
 ## User goal and use-case inventory
 
@@ -37,12 +37,17 @@ Use the [execution contract](../execution-contract.md): every writing session ha
 
 ## Workflow and phase exits
 
-| Phase | Work | Exit condition |
+All five named phases and required actions below are Enforced; these preserve the former builder's accepted identities. SKILL-007's older four-phase draft is superseded for Codex by this explicit mapping.
+
+| Phase | Required work | Exit condition |
 | --- | --- | --- |
-| 1. Identify the gap | Match the task against existing expertise and its freshness. | A new capability, targeted refresh, or reuse decision is justified. |
-| 2. Specify | Record activation examples, required decisions, knowledge sources, output expectations, and evaluation cases. | A candidate-independent capability specification exists. |
-| 3. Author | Use the available native skill creator where suitable; write concise project-specific guidance and focused references. | Native skill files exist and resolve their supporting resources. |
-| 4. Bind for evaluation | Record exact file and input identities; request external structural checks and installation into an evaluation workspace. | The installed candidate is identified; behavioral status remains NOT_EVALUATED until observed. |
+| Intake | Recover project goal, accepted constraints, source/version identities, provider and write fence. | Actual authority and missing inputs recorded. |
+| Selection | Search existing expertise and source/install mapping. | Justified reuse, bounded enhancement or creation, with collision handling. |
+| Design | Focused Q&A; preserve decisions/API versions; populate skill-design-spec and classifications. | Grounded specification, requirements and proposed cases recorded before authoring. |
+| Authoring | Create/enhance only the canonical candidate and its necessary resources. | Useful authoring and change record; no target tests, binding or installation by creator. |
+| PreparedTransfer | Save candidate/XSPEC/XPKG identities and an actionable evaluator handoff. | Prepared handoff with actual limitations and next user invocation; no receiver execution claim. |
+
+Legacy four-phase mapping: Identify the gap -> Intake/Selection; Specify -> Design; Author -> Authoring; Bind for evaluation -> PreparedTransfer plus separately owned operator binding/installation. This does not turn binding into creator work.
 
 These phases describe the skill's workflow, not new CLI subcommands. The user can invoke the skill in an ordinary subscribed terminal once it is installed and discovered. Only documented, implemented DevForge commands may be named as executable gates. On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.
 
@@ -100,7 +105,8 @@ Goal: Create or improve devforge-project-expert-creator to satisfy SKILL-007.
 Context: Read this specification, its named templates, and only the relevant
 sections of the shared artifact and execution contracts.
 Output: A focused skill in the assigned provider source, its needed runtime
-resources, reproducible eval cases/fixtures, and separate A/B/C observations.
+resources, reproducible eval cases/fixtures and a prepared handoff. A separate
+evaluation owner supplies actual A/B/C observations.
 Record the real installation mode and candidate/baseline identities.
 Do not claim implicit activation from a run explicitly supplied SKILL.md.
 Boundaries: Preserve user scope and existing approval. Keep DevForge authority
@@ -112,3 +118,15 @@ The native creator may improve wording and packaging without changing this speci
 ## Completion handoff
 
 You are here: Create or refresh project expertise. Completion means the specified artifacts exist, their declared inputs resolve, required observations are recorded, and the next task is explicit. A document's accepted status and an external gate's passing result are separate facts.
+
+## F01–F08 manual promotion contract
+
+The Codex packages replace skill-builder/skill-validator as discoverable workflows. Their managed v1 protocol IDs and old receipts remain unchanged; no new-name managed adapter is admitted. The creator authors, the evaluator evaluates read-only, and the user initiates each receiving skill and relevant command. Automatic orchestration and G8 funded-launch repair remain deferred; original cases and failed evidence are preserved.
+
+Use the creator's skill-design-spec.md as the detailed XSPEC source; XPKG is its exact candidate/provenance map. EVPLAN and EVREPORT bind the evaluator's detailed plan/results/decision rather than demanding duplicated reports. Preserve both producer handoffs and the bounded repair specification.
+
+The accepted Routine/Full policy applies to manual mode. Routine requires an accepted baseline and scope, immediate/cumulative impact, compatibility and independent reviewed coverage. First qualification and consequential control/transfer changes require Full, including real user-mediated receiving evidence; merely saying validate or install does not require Full. Every phase/task retains its classification and a result or explicit conditional disposition.
+
+Mechanical checks and semantic review are separate. Existing expert prepare/bind/status/check and the evaluator's helpers enforce only their implemented predicates, not universal phase completion. Missing enforcement blocks its dependent claim/action; reporting remains possible. The package manual-operation reference documents exact commands, owners, outputs and gaps.
+
+Retain existing-environment, create-Git-worktrees and static-only choices. Preparation is not native readiness. Observe source/history/output boundaries and authentication before native execution. No credential changes or old execution-window renewal is implied.

@@ -98,3 +98,13 @@ The actual Claude author gets a real operator-maintained worktree assignment dis
 ## Completion
 
 The [roster](roster.md) remains the behavioral roadmap. Promote one bounded skill only for the provider, installation mode, and use cases supported by actual evidence. The immediate proof is SKILL-001 in both terminals, then SKILL-002 consuming its ledger. Neither the current migration nor this document completes that proof.
+
+## Codex expert foundation manual selection
+
+For promoted SKILL-007/008, the accepted September 8 Routine/Full policy governs manual evaluation: see the [portable policy](../../providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/contracts/skill-authoring-contract.md#accepted-vpr-2-validation-policy-for-manual-mode) and [record shapes](../../providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-records.md). Source selection preserves 8ede26450ae737a5e928c5f70a945aa995969b30 and relevant policy material from 22e864951066c71a46873321f9bde2220aba653a; the implementation handoff records subsequent acceptance despite the preserved proposal's historical draft label.
+
+All five creator phases and evaluator W1/P1–P6/T01–T12 remain Enforced. The supported installer gates operational adoption on current evidence for these obligations, including original case coverage, separate semantic review and actual owner-selected acceptance. This is an adoption prerequisite, not universal phase-order/editor/hook enforcement. Independent semantic and actual native observations remain required where selected.
+
+Routine may support a bounded accepted-scope update after complete selected checks, immediate/cumulative impact and compatible environment evidence, without claiming Full for new bytes. First qualification and consequential control/receiving changes require Full. The words validate, install and release do not alone select Full. User-initiated receiving transfers use real producer artifacts and observed receiver action; T12 merely prepares the evaluator's handoff and does not recursively qualify a receiver.
+
+Automated receiver invocation, scheduling, background continuation and repair loops remain deferred. The G8 funded-launch defect, original assertions and frozen failures are preserved; automatic funded-launch accounting does not become a universal prerequisite for manual work. Export remains unaccepted staging for required pre-adoption native resource tests.

@@ -1,0 +1,154 @@
+{
+  "schema_version": "devforge.skill-validation-results/v2",
+  "run_id": "{{same-run-id-as-plan}}",
+  "plan": {
+    "path": "{{frozen-plan.json}}",
+    "sha256": "{{sha256}}"
+  },
+  "structural_report": {
+    "path": "{{source-structural-checks.json}}",
+    "sha256": "{{sha256}}"
+  },
+  "ai_review": {
+    "path": "{{ai-review.json}}",
+    "sha256": "{{sha256}}"
+  },
+  "results": [],
+  "findings": [],
+  "task_results": [
+    {
+      "task_id": "T01",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T02",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T03",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T04",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T05",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T06",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T07",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T08",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T09",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T10",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T11",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    },
+    {
+      "task_id": "T12",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
+      "outcome": "NOT_RUN",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
+      "evidence": []
+    }
+  ],
+  "assertion_results": [],
+  "report_completion": "PARTIAL",
+  "validation_disposition": "INSUFFICIENT_EVIDENCE",
+  "routine_adoption_eligible": false,
+  "lineage": {
+    "qualified_anchor": {
+      "status": "UNKNOWN",
+      "identity": null,
+      "evidence": null
+    },
+    "accepted_unqualified_baseline": null,
+    "current_routinely_accepted": null,
+    "previous_acceptance": null,
+    "acceptance_chain": []
+  },
+  "owner_acceptance_ref": null,
+  "receiving_transfer": {
+    "selection": "REQUIRED",
+    "outcome": "NOT_RUN",
+    "target_output": null,
+    "receiver_contract": null,
+    "receiver_observation": null,
+    "completed_action": null,
+    "observed_at_utc": null,
+    "reason": "Template only; freeze actual receiving applicability. Required transfer precedes Full T09."
+  }
+}

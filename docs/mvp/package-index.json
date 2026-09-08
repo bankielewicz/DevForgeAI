@@ -281,7 +281,7 @@
         },
         "codex": {
           "source": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator",
-          "status": "DRAFT_REFRESH_REQUIRED",
+          "status": "PROMOTION_CANDIDATE",
           "native_behavior": "NOT_EVALUATED"
         }
       }
@@ -322,8 +322,8 @@
           "native_behavior": "NOT_EVALUATED"
         },
         "codex": {
-          "source": null,
-          "status": "NOT_IMPLEMENTED",
+          "source": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert",
+          "status": "PROMOTION_CANDIDATE",
           "native_behavior": "NOT_EVALUATED"
         }
       }

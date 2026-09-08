@@ -1,0 +1,4 @@
+interface:
+  display_name: "DevForge Evaluate Expert"
+  short_description: "Evaluate skills and specify evidence-based repairs"
+  default_prompt: "Use $devforge-evaluate-expert to evaluate the selected DevForgeAI skill and prepare a repair specification for devforge-project-expert-creator."

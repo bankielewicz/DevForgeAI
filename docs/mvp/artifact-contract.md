@@ -111,3 +111,7 @@ Record each source package and actual installed/exported package independently: 
 A run-manifest (devforge.skill-run/v1) is a transport/evidence sidecar, not an adopted product artifact. The SEVAL/EVREPORT envelope supplies its provenance, actual execution assignment, and review state. Old results remain bound to old inputs. A new installed identity or changed referenced contract makes dependent old evidence stale; it does not imply every unrelated case must be rerun.
 
 An artifact never contains its own complete-byte digest. Write the ledger first, hash it into the handoff, then hash the completed handoff in an external report/receipt if needed. Do not create a self-referencing digest loop.
+
+## Codex expert foundation artifact mapping
+
+For promoted SKILL-007/008, the detailed skill-design-spec.md is the design source. XSPEC records its exact reference and relevant stable sections; XPKG records canonical/installed maps, file identities and provenance. EVPLAN references validation-plan.json; EVREPORT references the verification report, results and advisory decision with actual scope. Reuse exact content/references rather than maintaining duplicate specifications or reports. Preserve the evaluator repair specification and creator/evaluator handoffs. Source/installed identity, report completion, Routine/Full disposition, human acceptance and actual receiving invocation remain distinct. Older artifacts and receipts retain their original IDs and bytes.

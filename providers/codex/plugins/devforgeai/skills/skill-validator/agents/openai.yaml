@@ -1,4 +1,0 @@
-interface:
-  display_name: "DevForgeAI Skill Validator"
-  short_description: "Evaluate skills and specify evidence-based repairs"
-  default_prompt: "Use $skill-validator to evaluate the selected DevForgeAI skill and prepare a repair specification for skill-builder."

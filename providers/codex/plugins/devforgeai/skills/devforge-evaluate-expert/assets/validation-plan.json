@@ -1,0 +1,258 @@
+{
+  "schema_version": "devforge.skill-validation-plan/v2",
+  "run_id": "{{run-id}}",
+  "provider": "codex",
+  "candidate_root": "{{absolute-source-skill-path}}",
+  "input_refs": [
+    {
+      "kind": "specification",
+      "path": "{{absolute-path}}",
+      "sha256": "{{sha256}}"
+    },
+    {
+      "kind": "rubric",
+      "path": "{{absolute-path}}",
+      "sha256": "{{sha256}}"
+    },
+    {
+      "kind": "cases",
+      "path": "{{absolute-path}}",
+      "sha256": "{{sha256}}"
+    },
+    {
+      "kind": "framework_contract",
+      "path": "{{absolute-path}}",
+      "sha256": "{{sha256}}"
+    }
+  ],
+  "baseline": {
+    "kind": "{{old_skill-or-without_skill}}",
+    "source_snapshot": null,
+    "reason": "{{why-this-baseline}}"
+  },
+  "assignment": {
+    "owner": "{{actual-owner}}",
+    "execution_ref": null,
+    "authorization_source": "{{actual-user-or-operator-assignment}}",
+    "allowed_output_root": "{{absolute-evaluation-root}}",
+    "protected_roots": [
+      "{{candidate-and-governing-roots}}"
+    ],
+    "missing_inputs": []
+  },
+  "runtime": null,
+  "budget": null,
+  "checks": [],
+  "findings_from_previous_iteration": [],
+  "criteria_freeze_record": "{{time-and-source-of-pre-run-expectations}}",
+  "scope_exclusions": [],
+  "plan_scope": "Unpopulated VPR-2 template. Freeze complete original inventory and independent selection before observations. Runtime/budget may be null only for reviewed no-native selection; separate bounded workspace preparation remains available.",
+  "validation_policy": {
+    "version": "VPR-2",
+    "policy_ref": {
+      "path": "{{canonical-absolute-frozen-path}}",
+      "sha256": "{{sha256}}"
+    },
+    "acceptance_ref": {
+      "path": "{{canonical-absolute-frozen-path}}",
+      "sha256": "{{sha256}}"
+    },
+    "mode": "Routine",
+    "requested_claim": {
+      "kind": "scoped_update",
+      "text": "{{actual-owner-requested-claim; Full when any trigger applies}}",
+      "requires_full": false,
+      "contract_ref": null
+    },
+    "accepted_scope_ref": null,
+    "baseline_identity": null,
+    "candidate_identity": {
+      "candidate": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      },
+      "environment": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      }
+    },
+    "lineage": {
+      "qualified_anchor": {
+        "status": "UNKNOWN",
+        "identity": null,
+        "evidence": null
+      },
+      "accepted_unqualified_baseline": null,
+      "current_routinely_accepted": null,
+      "previous_acceptance": null,
+      "acceptance_chain": []
+    },
+    "impact": {
+      "immediate_diff": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      },
+      "cumulative_diff": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      },
+      "immediate_requirements": [],
+      "cumulative_requirements": [],
+      "dependency_closure": [],
+      "matched_rules": [],
+      "bounded": false,
+      "full_triggers": []
+    },
+    "compatibility": [
+      {
+        "id": "CP-01",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      },
+      {
+        "id": "CP-02",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      },
+      {
+        "id": "CP-03",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      },
+      {
+        "id": "CP-04",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      }
+    ],
+    "catalog_refs": [
+      {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      }
+    ],
+    "catalog_assertions": [],
+    "assertions": [],
+    "task_selection": [
+      {
+        "task_id": "T01",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T02",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T03",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T04",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T05",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T06",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T07",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T08",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T09",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T10",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T11",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T12",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      }
+    ],
+    "observations": [],
+    "call_graph": [],
+    "selection_reviewer": "{{externally-selected-independent-producer}}"
+  }
+}

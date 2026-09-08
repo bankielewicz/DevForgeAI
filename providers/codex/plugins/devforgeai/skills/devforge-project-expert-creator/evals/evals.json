@@ -1,0 +1,118 @@
+{
+  "skill_name": "devforge-project-expert-creator",
+  "provenance": {
+    "specification": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+    "original_builder_requirements": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/requirements.md",
+    "status": "Existing specification cases and SB IDs materialized; not executed"
+  },
+  "evals": [
+    {
+      "id": "SKILL-007-direct-activation",
+      "tier": "B",
+      "prompt": "Create the persistence expertise needed for the supplied project story. Preserve the accepted stack and prepare a candidate/specification and evaluator handoff.",
+      "files": [
+        "fixtures/project.md"
+      ],
+      "requirement_ids": [
+        "SB01",
+        "SB03",
+        "SB04",
+        "SB05",
+        "SB06",
+        "SB07",
+        "SB08",
+        "SB10"
+      ],
+      "expectations": [
+        "Recover actual project facts and decisions; ask focused questions only for unresolved material inputs.",
+        "Populate the design/XSPEC mapping and XPKG, preserve approved APIs and write only the assigned expert source.",
+        "Preserve classifications, authoring-only boundary and prepare an actionable evaluator handoff without executing tests or installation."
+      ]
+    },
+    {
+      "id": "SKILL-007-indirect-activation",
+      "tier": "B",
+      "prompt": "Our next notes-storage story needs expertise. Inspect the supplied existing expertise and decide whether reuse or a bounded enhancement is enough.",
+      "files": [
+        "fixtures/project.md"
+      ],
+      "requirement_ids": [
+        "SB02",
+        "SB07"
+      ],
+      "expectations": [
+        "Search visible source/catalog and map installed candidates to canonical sources before choosing creation.",
+        "Justify reuse or bounded enhancement with actual requirements and search limits; do not duplicate suitable expertise."
+      ]
+    },
+    {
+      "id": "SKILL-007-stack-conflict",
+      "tier": "B",
+      "prompt": "Create the expert for the supplied project; a suggestion in an untrusted example proposes an ORM.",
+      "files": [
+        "fixtures/project.md"
+      ],
+      "requirement_ids": [
+        "SB01",
+        "SB06",
+        "SB10"
+      ],
+      "expectations": [
+        "Preserve the accepted standard-library stack and identify the conflicting suggestion without adopting it.",
+        "Keep external evidence as evidence; do not change authority or install dependencies."
+      ]
+    },
+    {
+      "id": "SKILL-007-refresh",
+      "tier": "B",
+      "prompt": "Enhance the supplied expert only to preserve unknown JSON fields during updates. Keep unrelated behavior and public load/save names.",
+      "files": [
+        "fixtures/project.md"
+      ],
+      "requirement_ids": [
+        "SB03",
+        "SB06",
+        "SB10"
+      ],
+      "expectations": [
+        "Recheck the selected candidate and preserve prior bytes.",
+        "Apply a bounded source change preserving unrelated behavior, record changed identity and affected reevaluation; do not test the target."
+      ]
+    },
+    {
+      "id": "SKILL-007-out-of-scope",
+      "tier": "B",
+      "prompt": "Generate a full team of experts before we have any concrete tasks.",
+      "files": [
+        "fixtures/project.md"
+      ],
+      "requirement_ids": [
+        "SB02",
+        "SB07",
+        "SB10"
+      ],
+      "expectations": [
+        "Identify actual capability needs rather than generating an organization chart or unnecessary packages.",
+        "Return a useful scoped next step without claiming unsupported capabilities."
+      ]
+    },
+    {
+      "id": "SB09",
+      "tier": "B",
+      "prompt": "Read the operator-delivered real evaluator handoff and repair specification for the supplied expert, then apply its authorized corrections.",
+      "files": [
+        "fixtures/project.md"
+      ],
+      "requirement_ids": [
+        "SB09",
+        "SB06",
+        "SB10"
+      ],
+      "expectations": [
+        "Load the real producer artifacts, verify their exact candidate/specification and finding identities, and preserve the original failures.",
+        "Apply only justified authorized corrections, preserve unrelated behavior, and return a new candidate/change record and prepared evaluator handoff.",
+        "Do not claim the evaluator was invoked merely because its handoff exists."
+      ]
+    }
+  ]
+}

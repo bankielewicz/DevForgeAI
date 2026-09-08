@@ -1,0 +1,477 @@
+{
+  "schema_version": "devforge.skill-derivation/v1",
+  "skill": "devforge-project-expert-creator",
+  "recorded_at_utc": "2026-09-08T18:52:43.937755+00:00",
+  "path_base": "DevForge workspace root",
+  "source_selection": "F01\u2013F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged.",
+  "entries": [
+    {
+      "destination": "references/contracts/skill-authoring-contract.md",
+      "destination_sha256": "9505d89f95ca0552e43460321c84658df9a8bd02d5dfcea719d4f89c697d2133",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        },
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+          "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+      "previous_destination_sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b"
+    },
+    {
+      "destination": "references/contracts/artifact-contract.md",
+      "destination_sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/artifact-contract.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "references/contracts/execution-contract.md",
+      "destination_sha256": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/execution-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        },
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+          "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/docs/integration/utility-runtime-contract.md",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/docs/integration/utility-runtime-contract.md",
+          "sha256": "537c33f5efea5b8a49b66bbbb29dea18dca654b79b91c651c5e44eeb8f2ee56a",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/supervisor.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/supervisor.py",
+          "sha256": "08e15b7bd1968a3be506cae7fa289129988d1a145369775775fac84fc8131fd6",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/utility_evidence.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_evidence.py",
+          "sha256": "f9cfcd9a34c215409baf50c093a9b14eb0e8b7c6be7de91dd62c469b57495f0f",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/utility_state.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
+          "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        }
+      ],
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "references/framework-context.md",
+      "destination_sha256": "c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/AGENTS.md",
+          "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/roster.md",
+          "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/roster.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/POC.md",
+          "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/POC.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/artifact-contract.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/execution-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        },
+        {
+          "path": "framework/DevForge/scripts/install_framework.py",
+          "sha256": "eded6bde788fe27a9c011123aafd7b4a57f5dc3a8733f89ea0dfdcd68bf161e6",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/scripts/install_framework.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/scripts/validate_framework.py",
+          "sha256": "9ec5656285f3b6cf250d3b3ff3d434e8e88201071abcf31cade26e3b1a005a81",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/scripts/validate_framework.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/scripts/validate_mvp.py",
+          "sha256": "b74e26336ab13475c9e77524785b2c0e6f56d12bd9be8451c345a4ce17d94be9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/scripts/validate_mvp.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/supervisor.py",
+          "sha256": "f3ccac298d1ff042df1aee4500994f2c7a646818b2d1c1bcbfbc236a60ced0fa",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/runtime/delivery/supervisor.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/src/main.rs",
+          "sha256": "54765ef3899ee5be11f76980db45a4837ed4797878d02521ab5eecd9879e043f",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/src/main.rs",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+          "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/docs/integration/utility-runtime-contract.md",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/docs/integration/utility-runtime-contract.md",
+          "sha256": "537c33f5efea5b8a49b66bbbb29dea18dca654b79b91c651c5e44eeb8f2ee56a",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/supervisor.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/supervisor.py",
+          "sha256": "08e15b7bd1968a3be506cae7fa289129988d1a145369775775fac84fc8131fd6",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/utility_evidence.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_evidence.py",
+          "sha256": "f9cfcd9a34c215409baf50c093a9b14eb0e8b7c6be7de91dd62c469b57495f0f",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/utility_state.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
+          "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        }
+      ],
+      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+      "previous_destination_sha256": "6601ab3b2364506ac6cb75eea2cc2e53d0f47e4285edd9fe5007934c6d619dd1"
+    },
+    {
+      "destination": "SKILL.md",
+      "destination_sha256": "41873d8fad910c2bf6ec9ac4e087f96abaaa6c54811bb0eba65317fe6844a7ad",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/SKILL.md",
+          "sha256": "1d4934310c2fc41abe057d45a49d09af54cf331436d042f80e99d0a5110a238d",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/AGENTS.md",
+          "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        }
+      ],
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+      "previous_destination_sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8"
+    },
+    {
+      "destination": "agents/openai.yaml",
+      "destination_sha256": "f278b26bdf70811b7e91ac62a7ba960898be542e0d334f900999bd3b2fabf0e7",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/agents/openai.yaml",
+          "sha256": "09b57882760894264e118317188a7120c15d91754f5e108b416e4905dd44f75e",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/AGENTS.md",
+          "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        }
+      ],
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+      "previous_destination_sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1"
+    },
+    {
+      "destination": "references/interview-guide.md",
+      "destination_sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/references/interview-guide.md",
+          "sha256": "fc7359f9725d71f0db4c618359db25c93c141d5a2f6c9ba1701dc816c6184f44",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/AGENTS.md",
+          "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        }
+      ],
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "references/existing-skill-selection.md",
+      "destination_sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/references/existing-skill-selection.md",
+          "sha256": "43b546b02d41152f44695e90e69f6dc13a05a25738bde4e38a9a21efe0535a55",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/AGENTS.md",
+          "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        }
+      ],
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "assets/skill-design-spec.md",
+      "destination_sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/assets/skill-design-specification-template.md",
+          "sha256": "c9c310037d82ccf7cab62b97d9739d1bb1e5e2637db56f16e3ddb2398492a06f",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/AGENTS.md",
+          "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+          "source_revision": "draft revision 3, 2026-09-07"
+        }
+      ],
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+      "previous_destination_sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+    },
+    {
+      "destination": "assets/handoff.md",
+      "destination_sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/shared-handoff.md",
+          "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "refresh_condition": "Explicit owner-selected source change; preserve former bytes, reconcile affected resources, evaluate separately.",
+      "previous_destination_sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931"
+    },
+    {
+      "destination": "references/managed-authoring.md",
+      "destination_sha256": "4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/skill-enhancement-spec-v3.md",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+          "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/docs/integration/utility-runtime-contract.md",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/docs/integration/utility-runtime-contract.md",
+          "sha256": "537c33f5efea5b8a49b66bbbb29dea18dca654b79b91c651c5e44eeb8f2ee56a",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/supervisor.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/supervisor.py",
+          "sha256": "08e15b7bd1968a3be506cae7fa289129988d1a145369775775fac84fc8131fd6",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/utility_evidence.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_evidence.py",
+          "sha256": "f9cfcd9a34c215409baf50c093a9b14eb0e8b7c6be7de91dd62c469b57495f0f",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/utility_state.py",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
+          "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
+          "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        }
+      ],
+      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "refresh_condition": "Explicit owner-selected source change; preserve former bytes, reconcile affected resources, evaluate separately.",
+      "previous_destination_sha256": "10d06a55b47254c9f8cc50bdca966e85e83fbc9f484596fd6e3f1c1aa7a2c14d"
+    },
+    {
+      "destination": "references/manual-operation.md",
+      "destination_sha256": "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f",
+      "sources": [
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder",
+          "source_revision": "c2a42eb68cc441437f8d37e1c52ae85cde489a76"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/implementation-handoff.md",
+          "sha256": "55f46aef30139022ece76bd26f67a55334d2d8ed9a3faecefdae6a2b9890fe55"
+        },
+        {
+          "source_revision": "8ede26450ae737a5e928c5f70a945aa995969b30",
+          "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/policy-revision.md"
+        },
+        {
+          "source_revision": "22e864951066c71a46873321f9bde2220aba653a",
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder",
+          "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
+        }
+      ],
+      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
+      "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
+    }
+  ],
+  "external_references": "references/sources.md",
+  "authored_resources": "Other resources implement the user-selected design; authored does not mean evaluated.",
+  "validation_status": "NOT_PERFORMED",
+  "hook_status": "DESIGN_ONLY",
+  "historical_concurrent_source_changes": {
+    "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md": {
+      "status": "Historical pre-modernization observation; superseded by the revision-3 source_selection and entries above.",
+      "current_selection_sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+      "selected_sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "current_sha256": "2f5cd33a603009d6118e698443a5358999ed535c723c5cac226499db5124a9fd",
+      "disposition": "Retain selected preserved source; concurrent current change requires explicit refresh selection and affected reevaluation."
+    }
+  },
+  "runtime_alignment": {
+    "requirements": {
+      "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+      "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc",
+      "source_revision": null
+    },
+    "selected_runtime": [
+      {
+        "path": "framework/DevForge/docs/integration/utility-runtime-contract.md",
+        "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/docs/integration/utility-runtime-contract.md",
+        "sha256": "537c33f5efea5b8a49b66bbbb29dea18dca654b79b91c651c5e44eeb8f2ee56a",
+        "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+      },
+      {
+        "path": "framework/DevForge/runtime/delivery/supervisor.py",
+        "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/supervisor.py",
+        "sha256": "08e15b7bd1968a3be506cae7fa289129988d1a145369775775fac84fc8131fd6",
+        "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+      },
+      {
+        "path": "framework/DevForge/runtime/delivery/utility_evidence.py",
+        "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_evidence.py",
+        "sha256": "f9cfcd9a34c215409baf50c093a9b14eb0e8b7c6be7de91dd62c469b57495f0f",
+        "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+      },
+      {
+        "path": "framework/DevForge/runtime/delivery/utility_state.py",
+        "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
+        "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
+        "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+      }
+    ],
+    "mechanical_scope": "Protected utility phase/evidence/waiting/correction/artifact custody; no native acceptance claim",
+    "prior_candidate": {
+      "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/assignment.json",
+      "sha256": "8d1d2261cdd18b75f09c7183c2f5073d3dbe66067d655085536f6905793d859d"
+    },
+    "validation_status": "NOT_PERFORMED",
+    "hook_status": "DESIGN_ONLY",
+    "native_execution": "NOT_RUN",
+    "receiving_invocation": "NOT_RUN"
+  },
+  "promotion_sources": [
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder",
+      "source_revision": "c2a42eb68cc441437f8d37e1c52ae85cde489a76"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/implementation-handoff.md",
+      "sha256": "55f46aef30139022ece76bd26f67a55334d2d8ed9a3faecefdae6a2b9890fe55"
+    },
+    {
+      "source_revision": "8ede26450ae737a5e928c5f70a945aa995969b30",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/policy-revision.md"
+    },
+    {
+      "source_revision": "22e864951066c71a46873321f9bde2220aba653a",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder",
+      "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
+    }
+  ]
+}

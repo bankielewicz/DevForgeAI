@@ -1,7 +1,7 @@
 # SKILL-008: devforge-evaluate-expert
 
-Status: DRAFT MVP specification, revision 2, refreshed 2026-09-05 UTC. This document defines required behavior; it is not an installed skill or a passing evaluation.
-Current implementation: no callable implementation is supplied by this design package.
+Status: Codex promotion candidate, revision 3, 2026-09-08. Manual invocation, handoffs and commands; operational and behavioral status remain evidence-dependent.
+Current implementation: providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert. Claude scope is unchanged.
 
 ## User goal and use-case inventory
 
@@ -36,12 +36,19 @@ Use the [execution contract](../execution-contract.md): every writing session ha
 
 ## Workflow and phase exits
 
-| Phase | Work | Exit condition |
-| --- | --- | --- |
-| 1. Plan | Define representative direct, indirect, missing-input, negative, and out-of-scope cases from the specification; retain held-out cases where useful. | Expectations and evaluation scope are recorded before runs. |
-| 2. Establish runtime | Check the actual target terminal, installed skill discovery, permissions, and session isolation. | The runtime and discovery check are observed or explicitly unavailable. |
-| 3. Exercise | Run equivalent tasks with the candidate and an appropriate baseline, with equal underlying project facts and separate outputs. | Actual artifacts, case outcomes, and environment limitations are preserved. |
-| 4. Assess | Judge outputs against expectations; distinguish triggering, task quality, constraint compliance, and resource cost. | The report supports a scoped recommendation, failure, or unavailable result without claiming certification. |
+All phases P1–P6 and tasks T01–T12 remain Enforced. These replace the older four-phase draft table for Codex while preserving original validator IDs.
+
+| Phase | Tasks | Exit record |
+|---|---|---|
+| P1 Intake and baseline | T01 identify target, provider, authority, specification and write fence; T02 freeze candidate/specification/cases/rubric/baseline | Frozen input identities; bounded workspace allocation when selected; complete experiment plan before native execution, or explicit missing-input causes |
+| P2 Deterministic checks | T03 inspect structure, references, source/installed resource identity and documented script syntax | Raw structural results; semantic behavior remains unevaluated |
+| P3 AI review | T04 independently inspect prompt engineering and framework compliance against the rubric | Per-criterion findings with source evidence and reviewer identity |
+| P4 Behavioral tests | T05 establish isolated runtime/fixtures; T06 installed resources (C); T07 candidate/baseline output quality (B); T08 discovery/activation (A) | Separate case outcomes, run manifests, artifacts and transcripts |
+| P5 Verdict | T09 adjudicate evidence, applicability, findings, incomplete coverage and freshness | Deterministic decision receipt plus evidence-based disposition |
+| P6 Builder handoff | T10 write verification results; T11 write bounded repair/enhancement specification and rerun plan; T12 deliver custody/handoff | Saved results, repair specification, and handoff with exact identities |
+
+
+Legacy mapping: Plan -> P1; Establish runtime -> P4/T05; Exercise -> P4/T06–T08; Assess -> P2/P3/P5, with explicit P6 reporting and repair handoff.
 
 These phases describe the skill's workflow, not new CLI subcommands. The user can invoke the skill in an ordinary subscribed terminal once it is installed and discovered. Only documented, implemented DevForge commands may be named as executable gates. On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.
 
@@ -97,7 +104,8 @@ Goal: Create or improve devforge-evaluate-expert to satisfy SKILL-008.
 Context: Read this specification, its named templates, and only the relevant
 sections of the shared artifact and execution contracts.
 Output: A focused skill in the assigned provider source, its needed runtime
-resources, reproducible eval cases/fixtures, and separate A/B/C observations.
+resources, reproducible eval cases/fixtures and a prepared handoff. A separate
+evaluation owner supplies actual A/B/C observations.
 Record the real installation mode and candidate/baseline identities.
 Do not claim implicit activation from a run explicitly supplied SKILL.md.
 Boundaries: Preserve user scope and existing approval. Keep DevForge authority
@@ -109,3 +117,15 @@ The native creator may improve wording and packaging without changing this speci
 ## Completion handoff
 
 You are here: Measure expert skill behavior. Completion means the specified artifacts exist, their declared inputs resolve, required observations are recorded, and the next task is explicit. A document's accepted status and an external gate's passing result are separate facts.
+
+## F01–F08 manual promotion contract
+
+The Codex packages replace skill-builder/skill-validator as discoverable workflows. Their managed v1 protocol IDs and old receipts remain unchanged; no new-name managed adapter is admitted. The creator authors, the evaluator evaluates read-only, and the user initiates each receiving skill and relevant command. Automatic orchestration and G8 funded-launch repair remain deferred; original cases and failed evidence are preserved.
+
+Use the creator's skill-design-spec.md as the detailed XSPEC source; XPKG is its exact candidate/provenance map. EVPLAN and EVREPORT bind the evaluator's detailed plan/results/decision rather than demanding duplicated reports. Preserve both producer handoffs and the bounded repair specification.
+
+The accepted Routine/Full policy applies to manual mode. Routine requires an accepted baseline and scope, immediate/cumulative impact, compatibility and independent reviewed coverage. First qualification and consequential control/transfer changes require Full, including real user-mediated receiving evidence; merely saying validate or install does not require Full. Every phase/task retains its classification and a result or explicit conditional disposition.
+
+Mechanical checks and semantic review are separate. Existing expert prepare/bind/status/check and the evaluator's helpers enforce only their implemented predicates, not universal phase completion. Missing enforcement blocks its dependent claim/action; reporting remains possible. The package manual-operation reference documents exact commands, owners, outputs and gaps.
+
+Retain existing-environment, create-Git-worktrees and static-only choices. Preparation is not native readiness. Observe source/history/output boundaries and authentication before native execution. No credential changes or old execution-window renewal is implied.

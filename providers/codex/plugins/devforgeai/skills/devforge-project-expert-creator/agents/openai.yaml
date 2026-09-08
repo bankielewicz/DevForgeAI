@@ -1,0 +1,4 @@
+interface:
+  display_name: "DevForge Project Expert Creator"
+  short_description: "Specify and author DevForgeAI skills"
+  default_prompt: "Use $devforge-project-expert-creator to discuss my workflow, compare existing skills, and create or enhance its canonical source from a specification, including any validator findings."

@@ -1,0 +1,21 @@
+{
+  "schema_version": "devforge.manual-review-context/v1",
+  "mode": "manual",
+  "owner": "{{evaluation-owner}}",
+  "reviewer": "{{separate-selected-reviewer}}",
+  "validation_policy": {
+    "version": "VPR-2",
+    "policy_ref": {
+      "path": "{{absolute-preserved-policy}}",
+      "sha256": "{{sha256}}"
+    },
+    "acceptance_ref": {
+      "path": "{{absolute-policy-acceptance}}",
+      "sha256": "{{sha256}}"
+    },
+    "plan": {
+      "path": "{{absolute-frozen-plan}}",
+      "sha256": "{{sha256}}"
+    }
+  }
+}

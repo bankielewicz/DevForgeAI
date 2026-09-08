@@ -59,3 +59,7 @@ missing_inputs: []
 - Sibling availability and actual invocations: {{separate observations}}
 - Client/harness version and subscription execution method: {{verified method}}
 - Human feedback and metrics: {{observed or unavailable}}
+
+## Promoted Codex content mapping
+
+Reference the exact detailed source and its stable sections; do not duplicate an independently maintained design/report. XSPEC maps to skill-design-spec.md; XPKG maps to the candidate file/provenance manifest; EVPLAN maps to validation-plan.json; EVREPORT maps to verification-results.md, validation-results.json and decision.json. Preserve original artifact IDs and exact input revisions/hashes. Include actual Routine/Full selection, requested claim, current/qualified lineage, unresolved evidence and next user-mediated handoff where applicable. A prepared handoff is not receiving execution.
