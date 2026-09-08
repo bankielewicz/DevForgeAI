@@ -45,3 +45,5 @@ The proposed [MVP authoring package](docs/mvp/README.md) contains the 12-skill r
 
 
 The [authoring contract](docs/mvp/skill-authoring-contract.md) defines source ownership and A/B/C evaluation. Runtime installation/export excludes authored eval cases and fixtures. The Claude brainstorm candidate was preserved during migration and requires alignment with the refreshed contract; the Codex brainstorm draft retains the original POC baseline. Neither is behaviorally accepted. The immediate milestone is brainstorm in both terminals, then a product brief consuming its ledger.
+
+For practical guidance on scope expansion, repeated approval/review cycles and recovering a clear delivery path, see [Learned behavior: keeping delivery bounded](docs/learned-behaviors/bounded-delivery.md).
