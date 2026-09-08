@@ -1,402 +1,285 @@
 {
-  "document_kind": "pilot_allocation_proposal_not_runtime_schema",
-  "id": "CMP-1",
-  "status": "UNFUNDED_DRAFT_NOT_ADMITTED",
+  "document_kind": "staged_cost_measurement_proposal_not_runtime_schema",
+  "revision": "CMP-2",
+  "status": "DRAFT_NOT_APPROVED_NOT_EXECUTED",
   "purpose": "COST_MEASUREMENT_ONLY",
-  "created_at_utc": "2026-09-08T11:57:04.876032+00:00",
-  "source_refs": {
-    "candidate": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
-    "old_skill": "a78b9bff83c090153952b31b84b0584ef1650f02",
-    "runtime_reference": "c7b2a62696c7f3764fdea3313182b9e896339a2a"
-  },
-  "input_catalog": {
-    "path": "pilot-packets.json",
-    "sha256": "02f8dc0d578f754989de646cc31a01e4df91a602ab207cef94798d9dd143bf28"
-  },
-  "source_inventory": {
+  "proposal_parent_commit": "5eaa7c081fe34e3f97cd965b7d5d0ec300775bf9",
+  "replaces_current_proposal": "CMP-1; preserved in parent Git commit and original custody",
+  "source_inventory_ref": {
     "path": "source-inventory.json",
-    "sha256": "076822658ec371990b446cedb4a9a25f9408932b64487d549e72723fcc9e1456"
+    "sha256": "e96f49e35b4c8af9363275104d658bf5bbcb3b15ad0758872ba9dd367f282069"
+  },
+  "packets_ref": {
+    "path": "pilot-packets.json",
+    "sha256": "d424239a0650293adeb3c1dd8c5be202cd68918bdfcb35bd161dd645e9af2b18"
   },
   "authority": {
-    "specification_acceptance": null,
-    "pilot_design_acceptance": null,
-    "execution_authorization": null,
-    "authentication_authorization": null,
-    "original_cap": 24,
-    "retained_charges": 24,
-    "available_calls": 0,
-    "proposed_cap_change": 0,
-    "funding_status": "UNAVAILABLE; no reset, refund, new campaign or extra tranche inferred"
-  },
-  "maximum_demand": {
-    "generations": 10,
-    "fresh_profiles": 7,
-    "same_parent_continuations": 3,
-    "repetitions_per_condition": 1,
-    "retries": 0,
-    "recursive_graders": 0,
-    "independent_grading_generations": 2,
-    "static_review_generations": 2,
-    "worker_generations_including_continuations": 6
-  },
-  "nodes": [
-    {
-      "id": "M01",
-      "role": "focused_static_review",
-      "profile": "F01",
-      "parent": null,
-      "generation_kind": "fresh_initial",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 600,
-      "settled_dependencies": [],
-      "admission_predicate": "All global authority, funding, identity, isolation and readiness prerequisites satisfied",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M02",
-      "role": "builder_candidate_initial",
-      "profile": "F02",
-      "parent": null,
-      "generation_kind": "fresh_initial",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 240,
-      "settled_dependencies": [],
-      "admission_predicate": "All global authority, funding, identity, isolation and readiness prerequisites satisfied",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M03",
-      "role": "builder_candidate_answer",
-      "profile": "F02",
-      "parent": "M02",
-      "generation_kind": "continuation",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 180,
-      "settled_dependencies": [
-        "M02"
-      ],
-      "admission_predicate": "Actual eligible pending question plus authorized matching literal answer; same intact parent and sufficient original deadline",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M04",
-      "role": "builder_baseline_initial",
-      "profile": "F03",
-      "parent": null,
-      "generation_kind": "fresh_initial",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 240,
-      "settled_dependencies": [],
-      "admission_predicate": "All global authority, funding, identity, isolation and readiness prerequisites satisfied",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M05",
-      "role": "builder_baseline_answer",
-      "profile": "F03",
-      "parent": "M04",
-      "generation_kind": "continuation",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 180,
-      "settled_dependencies": [
-        "M04"
-      ],
-      "admission_predicate": "Actual eligible pending question plus authorized matching literal answer; same intact parent and sufficient original deadline",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M06",
-      "role": "builder_pair_grader",
-      "profile": "F04",
-      "parent": null,
-      "generation_kind": "fresh_initial",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 600,
-      "settled_dependencies": [
-        "M02",
-        "M03",
-        "M04",
-        "M05"
-      ],
-      "admission_predicate": "Dependencies settled with authentic completed/failure/unavailable/nonlaunch records; exact allowed grading inputs",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M07",
-      "role": "validator_parent_initial",
-      "profile": "F05",
-      "parent": null,
-      "generation_kind": "fresh_initial",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 150,
-      "settled_dependencies": [],
-      "admission_predicate": "All global authority, funding, identity, isolation and readiness prerequisites satisfied",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M08",
-      "role": "nested_independent_ai_review",
-      "profile": "F06",
-      "parent": "M07",
-      "generation_kind": "fresh_initial",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 150,
-      "settled_dependencies": [
-        "M07"
-      ],
-      "admission_predicate": "Actual independent request from M07; fresh profile, raw packet and sufficient unchanged parent deadline",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M09",
-      "role": "validator_parent_result_return",
-      "profile": "F05",
-      "parent": "M07",
-      "generation_kind": "continuation",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 150,
-      "settled_dependencies": [
-        "M08"
-      ],
-      "admission_predicate": "Authentic matching child result/failure; actual same-parent return authorized, intact safe parent and sufficient unchanged deadline",
-      "status": "NOT_RUN"
-    },
-    {
-      "id": "M10",
-      "role": "validator_output_grader",
-      "profile": "F07",
-      "parent": null,
-      "generation_kind": "fresh_initial",
-      "max_generations": 1,
-      "max_generation_wall_seconds": 600,
-      "settled_dependencies": [
-        "M07",
-        "M08",
-        "M09"
-      ],
-      "admission_predicate": "Dependencies settled with authentic completed/failure/unavailable/nonlaunch records; exact allowed grading inputs",
-      "status": "NOT_RUN"
-    }
-  ],
-  "profiles": [
-    {
-      "id": "F01",
-      "proposed_workspace": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F01/workspace",
-      "proposed_output": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F01/output",
-      "proposed_client_state": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F01/client-state",
-      "status": "UNCREATED",
-      "authentication": "NOT_AUTHORIZED_NOT_ATTEMPTED"
-    },
-    {
-      "id": "F02",
-      "proposed_workspace": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F02/workspace",
-      "proposed_output": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F02/output",
-      "proposed_client_state": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F02/client-state",
-      "status": "UNCREATED",
-      "authentication": "NOT_AUTHORIZED_NOT_ATTEMPTED"
-    },
-    {
-      "id": "F03",
-      "proposed_workspace": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F03/workspace",
-      "proposed_output": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F03/output",
-      "proposed_client_state": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F03/client-state",
-      "status": "UNCREATED",
-      "authentication": "NOT_AUTHORIZED_NOT_ATTEMPTED"
-    },
-    {
-      "id": "F04",
-      "proposed_workspace": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F04/workspace",
-      "proposed_output": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F04/output",
-      "proposed_client_state": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F04/client-state",
-      "status": "UNCREATED",
-      "authentication": "NOT_AUTHORIZED_NOT_ATTEMPTED"
-    },
-    {
-      "id": "F05",
-      "proposed_workspace": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F05/workspace",
-      "proposed_output": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F05/output",
-      "proposed_client_state": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F05/client-state",
-      "status": "UNCREATED",
-      "authentication": "NOT_AUTHORIZED_NOT_ATTEMPTED"
-    },
-    {
-      "id": "F06",
-      "proposed_workspace": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F06/workspace",
-      "proposed_output": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F06/output",
-      "proposed_client_state": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F06/client-state",
-      "status": "UNCREATED",
-      "authentication": "NOT_AUTHORIZED_NOT_ATTEMPTED"
-    },
-    {
-      "id": "F07",
-      "proposed_workspace": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F07/workspace",
-      "proposed_output": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F07/output",
-      "proposed_client_state": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/future-native-pilot-01/F07/client-state",
-      "status": "UNCREATED",
-      "authentication": "NOT_AUTHORIZED_NOT_ATTEMPTED"
-    }
-  ],
-  "schedule": {
-    "parallel_generations": 1,
-    "order": [
-      "M01",
-      "M02",
-      "M03",
-      "M04",
-      "M05",
-      "M06",
-      "M07",
-      "M08",
-      "M09",
-      "M10"
-    ],
-    "candidate_baseline_order": "candidate first; one pair only",
-    "paired_grade_display_order": "neutral baseline output first; record leakage; no statistical counterbalance claim",
-    "parent_deadline_groups": [
+    "original_approved": 24,
+    "original_charged": 24,
+    "original_remaining": 0,
+    "additional_approved": 0,
+    "specification_accepted": false,
+    "evaluation_authorized": false,
+    "authentication_authorized": false,
+    "exhausted_budget_rule": "The original allowance cannot fund new work. New review/pilot units require explicit separate linked authority; no reset/refund/implicit approval.",
+    "separate_requests": [
       {
-        "parent": "M02",
-        "nodes": [
-          "M02",
-          "M03"
-        ],
-        "components_seconds": {
-          "initial": 240,
-          "operator_wait_transport": 120,
-          "continuation": 180,
-          "settlement": 60
-        },
-        "max_elapsed_seconds": 600
+        "id": "R2-REVIEW",
+        "generations": 1,
+        "elapsed_ceiling_seconds": 1200,
+        "max_generation_seconds": 600,
+        "retries": 0,
+        "status": "PROPOSED_NOT_APPROVED",
+        "scope": "Independent read-only review of final VPR-2 policy/allocation audit/stages, no implementation/evaluation execution"
       },
       {
-        "parent": "M04",
-        "nodes": [
-          "M04",
-          "M05"
-        ],
-        "components_seconds": {
-          "initial": 240,
-          "operator_wait_transport": 120,
-          "continuation": 180,
-          "settlement": 60
-        },
-        "max_elapsed_seconds": 600
-      },
-      {
-        "parent": "M07",
-        "nodes": [
-          "M07",
-          "M08",
-          "M09"
-        ],
-        "components_seconds": {
-          "initial": 150,
-          "child": 150,
-          "continuation": 150,
-          "transport_settlement": 150
-        },
-        "max_elapsed_seconds": 600
+        "id": "CMP-2.A",
+        "generations": 2,
+        "elapsed_ceiling_seconds": 1800,
+        "max_generation_seconds": 600,
+        "retries": 0,
+        "status": "PROPOSED_NOT_APPROVED",
+        "scope": "Stage A only"
       }
     ],
-    "deadline_rule": "Absolute original parent/campaign clocks include waiting, children, transport and settlement; no pause/reset. Check remaining bound before every dependent admission."
+    "if_both_explicitly_approved_and_fully_consumed_historical_plus_new_charges": 27,
+    "later_stage_funding_requested": false,
+    "implementation_funding_requested": false,
+    "new_generations_executed": 0,
+    "executed_count_scope": "No additional agent/reviewer/pilot task-slot generation dispatched. Current root authoring is explicitly requested; its provider usage is unmeasured and not claimed zero."
   },
-  "time": {
-    "existing_whole_attempt_limit_seconds": 600,
-    "existing_campaign_limit_seconds": 14400,
-    "proposed_pilot_elapsed_limit_seconds": 10800,
-    "clock_bound": false,
-    "components_max_seconds": {
-      "model_generation_windows": 3090,
-      "direct_signin": 4200,
-      "builder_wait_transport": 240,
-      "builder_settlement": 120,
-      "validator_nested_transport_settlement": 150,
-      "staging_identity_readiness": 600,
-      "closeout": 1800,
-      "nonmodel_contingency": 600
+  "stages": [
+    {
+      "id": "A",
+      "status": "PROPOSED_UNFUNDED_NOT_RUN",
+      "funding_request": "CMP-2.A",
+      "gap": "Initial small prompt-edit and independent-review dispatch/usage/time/operator measurements",
+      "method": "Existing hosted task/subagent interface; fresh prompt contexts with no inherited author conversation; text in/text out; no local native client, tools, skill execution or new authentication",
+      "availability_evidence": "Current session exposes task dispatch, fresh-context and text-return capabilities; no model call made to verify execution. Budget approval remains required.",
+      "nodes": [
+        {
+          "id": "A1",
+          "kind": "initial",
+          "role": "instruction_editor",
+          "context": "A-WORK",
+          "max_seconds": 600,
+          "packet": "A1"
+        },
+        {
+          "id": "A2",
+          "kind": "initial",
+          "role": "independent_reviewer",
+          "context": "A-REVIEW",
+          "max_seconds": 600,
+          "packet": "A2",
+          "requires": "Authentic A1 response/partial/failure record and a separate fresh review context"
+        }
+      ],
+      "max_generations": 2,
+      "fresh_evidence_contexts": 2,
+      "continuations": 0,
+      "retries": 0,
+      "elapsed_ceiling_seconds": 1800,
+      "time_components_seconds": {
+        "generation_windows": 1200,
+        "packet_identity_preparation": 180,
+        "operator_capture": 180,
+        "closeout": 240
+      },
+      "new_auth_events_planned": 0,
+      "proves_only": "Observed costs and task/review workload occurrence; no native isolation or validation claim",
+      "current_dependencies": [
+        "Explicit additional allocation approval",
+        "Existing task interface still available; otherwise stop",
+        "Raw bounded role packets and no undisclosed author history in reviewer"
+      ],
+      "not_dependencies": [
+        "Proposed policy implementation",
+        "Native profile authentication",
+        "Interactive answer transport",
+        "Nested validator broker",
+        "Full qualification allocation"
+      ],
+      "deadline_rule": "600 seconds per task from dispatch through terminal settlement; interrupt unfinished tasks, retain charge/censored result; no pause/reset.",
+      "dispatch_interface": {
+        "tool": "collaboration.spawn_agent",
+        "agent_type": "default",
+        "fork_turns": "none",
+        "model_override": null,
+        "task_names": [
+          "cmp2_a1_instruction_edit",
+          "cmp2_a2_independent_review"
+        ],
+        "execution_rule": "After explicit funding only; one initial call per task. No followup_task/resume/child delegation. A2 receives exact A1 output plus raw task/criteria, no parent conversation.",
+        "root_parallel_work": "Prepare/capture timestamp, identity and usage/operator records while each task runs; no extra model work.",
+        "availability_limit": "If this tool is not available at execution time, report unavailable and retain the proposed allocation; do not switch methods silently."
+      }
     },
-    "interpretation": "Allocation bounds, not measured costs; implementation gaps block admission and are not hidden in staging."
-  },
-  "measurement": {
-    "events": [
-      "preparation_start",
-      "signin_start",
-      "signin_end",
-      "readiness_observed",
-      "generation_dispatched",
-      "first_output",
-      "generation_settled",
-      "operator_active_start",
-      "operator_active_end",
-      "child_request",
-      "child_result_return",
-      "grade_start",
-      "grade_end",
-      "closeout_end"
-    ],
-    "usage_fields": [
-      "observable_model_configuration",
-      "external_generation_count",
-      "internal_provider_request_count_if_observable",
-      "input_tokens",
-      "cached_input_tokens",
-      "output_tokens",
-      "other_native_token_categories",
-      "tool_calls",
-      "automatic_retry_compaction_counts_if_observable"
-    ],
-    "time_fields": [
-      "utc_timestamp",
-      "monotonic_offset_seconds",
-      "generation_wall_seconds",
-      "parent_elapsed_seconds",
-      "tool_wait_seconds_if_observable",
-      "model_service_seconds_if_directly_observable",
-      "operator_active_person_seconds",
-      "operator_wait_seconds",
-      "total_elapsed_union_seconds"
-    ],
-    "unknown_value": "NOT_OBSERVABLE with reason, never zero",
-    "overlap_rule": "Union total wall intervals; do not sum parent and nested child wall spans. Do not sum cumulative usage and its constituent deltas.",
-    "grading_nodes": [
-      "M06",
-      "M10"
-    ],
-    "review_nodes": [
-      "M01",
-      "M08"
-    ],
-    "future_deliverables": [
-      "cost-events.jsonl",
-      "cost-observations.json",
-      "operator-intervals.jsonl",
-      "measurement-report.md",
-      "raw-usage-evidence/",
-      "review-grade-evidence/"
-    ]
-  },
-  "required_before_execution": [
-    "Explicit pilot design acceptance",
-    "Actual authorized funding under unchanged user budget; currently zero available",
-    "Collision-safe exact fresh paths, package/install manifests and source visibility binding",
-    "Demonstrated native filesystem/process/client-state boundary",
-    "Supported independently checked fresh nested review and counted same-parent return",
-    "Actually authorized direct sign-in and freshness checks; no credential copying",
-    "Counted and authorized implementation/review work if prerequisites remain unimplemented",
-    "Complete raw role packets within declared transport limit; no hidden expected-answer leak",
-    "Demonstrated cost-measurement admission with intact existing gates; any additional model-driven bootstrap/control/probe is unallocated and requires a reviewed allocation revision within unchanged limits"
+    {
+      "id": "B",
+      "status": "FUTURE_OPTION_NO_FUNDING_REQUEST",
+      "gap": "Installed native utility/resource, pair-output or native usage-capture cost absent from A and needed by a selected validation plan",
+      "max_generations": 3,
+      "fresh_evidence_contexts": 3,
+      "continuations": 0,
+      "retries": 0,
+      "roles": [
+        "candidate_author",
+        "baseline_author",
+        "independent_pair_grader"
+      ],
+      "elapsed_ceiling_seconds": 3600,
+      "max_generation_seconds": 600,
+      "requires": [
+        "Actual measured gap",
+        "Own explicit later allocation",
+        "Exact installed identities and supported actual native boundary",
+        "Practical authorized authentication lifecycle",
+        "Complete independently graded pair inputs"
+      ],
+      "cannot_establish": [
+        "Interactive latency",
+        "Nested review",
+        "Routine PASS",
+        "Full qualification"
+      ]
+    },
+    {
+      "id": "C",
+      "status": "FUTURE_OPTION_NO_FUNDING_REQUEST",
+      "gap": "Operator-answer and continuation cost remains needed and unmeasured after earlier selected stages",
+      "max_generations": 5,
+      "fresh_evidence_contexts": 3,
+      "continuations": 2,
+      "retries": 0,
+      "roles": [
+        "candidate_initial",
+        "candidate_answer_continuation",
+        "baseline_initial",
+        "baseline_answer_continuation",
+        "independent_pair_grader"
+      ],
+      "elapsed_ceiling_seconds": 4500,
+      "parent_bound_seconds": 600,
+      "parent_components_seconds": {
+        "initial": 240,
+        "continuation": 180,
+        "wait_interpretation_transport_settlement": 180
+      },
+      "requires": [
+        "Specific measured gap",
+        "Own explicit later allocation",
+        "Supported actual question/answer transport",
+        "Existing original parent deadline; no reset",
+        "Exact native boundary/authentication arrangement"
+      ],
+      "cannot_establish": [
+        "Spontaneous clarification success rate",
+        "General dialogue cost",
+        "Nested review",
+        "Routine PASS",
+        "Full qualification"
+      ]
+    },
+    {
+      "id": "D",
+      "status": "FUTURE_OPTION_NO_FUNDING_REQUEST",
+      "gap": "Real inner review, parent return/resumption and report grading cost remains needed and unmeasured",
+      "max_generations": 4,
+      "fresh_evidence_contexts": 3,
+      "continuations": 1,
+      "retries": 0,
+      "roles": [
+        "validator_parent_initial",
+        "fresh_independent_child_review",
+        "same_parent_result_return",
+        "independent_report_grader"
+      ],
+      "elapsed_ceiling_seconds": 3600,
+      "parent_bound_seconds": 600,
+      "parent_components_seconds": {
+        "initial": 150,
+        "child": 150,
+        "return": 150,
+        "transport_settlement": 150
+      },
+      "requires": [
+        "Specific measured gap",
+        "Own explicit later allocation",
+        "Supported independently checked nested review and counted return",
+        "Actual matching raw child evidence and safe parent",
+        "Exact native boundary/authentication arrangement"
+      ],
+      "cannot_establish": [
+        "Complete inner C/B/A campaign",
+        "Arbitrary nesting",
+        "Routine PASS",
+        "Full qualification"
+      ]
+    }
   ],
-  "packet_transport_max_bytes": 1048576,
-  "overflow_action": "Stop affected node; retain cause; do not truncate required input or dispatch an unallocated model call",
-  "outcome_claims": [
-    "measurement_complete_for_observed_components",
+  "accounting": {
+    "external_generations": "Count actual initial dispatches and continuations separately, retaining failed/censored charges and authentic nonlaunch status.",
+    "internal_requests": "Only observable actual requests/retries/compaction with source/scope; otherwise NOT_OBSERVABLE.",
+    "usage_fields": [
+      "reported_input_tokens",
+      "reported_cached_input_tokens",
+      "reported_output_tokens",
+      "reported_other_native_categories",
+      "usage_scope_turn_or_session",
+      "usage_counter_semantics",
+      "observable_internal_request_count"
+    ],
+    "cached_input_rule": "May be a subset of input; preserve provider meaning and do not double count.",
+    "cumulative_rule": "Do not add session totals to their constituent turn deltas.",
+    "deterministic_execution": "Separate count, duration, exit and purpose; model calls behind commands remain model work.",
+    "operator": "Active per-person intervals separated from waiting; authentication/answers/review/closeout included.",
+    "elapsed": "Actual wall interval union through closeout; do not sum overlapping parent/child or operator/model spans.",
+    "clock": "UTC plus monotonic where observable; disclose resolution/source. No paused/restarted parent cutoff.",
+    "unknown": "NOT_OBSERVABLE with cause; never zero or inferred consumption.",
+    "subscription_limit": "Dispatch counts and time ceilings are not reliable consumption estimates; no conversion without actual provider-defined measurements.",
+    "root_authoring_usage": "NOT_OBSERVABLE in this record; do not infer zero consumption from zero added task-slot dispatches."
+  },
+  "authentication": {
+    "separate_from": "Evidence context, writable workspace, history/memory and review independence",
+    "stage_A": "Existing authenticated host task service; zero new login/profile actions planned; no credential or ordinary global state access",
+    "native_reuse_status": "Cached login/refresh and credential-store primitives documented; exact isolated native combination and cross-root behavior unresolved",
+    "prohibited": [
+      "Credential copying/symlinking/extraction into worker state",
+      "Ordinary global-home exposure",
+      "Unsupported external token bridge",
+      "One-browser-login-per-generation assumption"
+    ],
+    "native_later_context_counts": {
+      "B": 3,
+      "C": 3,
+      "D": 3
+    },
+    "operator_sensitivity_assumption_minutes_per_login": [
+      5,
+      10
+    ],
+    "historical_907_login_operator_hours": [
+      75.58333333333333,
+      151.16666666666666
+    ],
+    "three_login_operator_minutes": [
+      15,
+      30
+    ],
+    "sensitivity_status": "Unmeasured planning assumptions only; actual burden determines practicality."
+  },
+  "output_record": "Use existing plan/result + ordinary raw transcript/custody files; machine-generate metric joins/identities; no extra approval artifact per metric.",
+  "result_labels": [
+    "measurement_complete_for_observed_fields",
     "partial_measurement"
   ],
-  "prohibited_claims": [
-    "routine_validation_passed",
-    "full_qualification_passed",
-    "original_mandatory_case_closed",
-    "release_accepted",
-    "statistical_failure_rate",
-    "automatic_budget_increase"
+  "forbidden_claims": [
+    "Routine PASS",
+    "Full qualification PASS",
+    "Original mandatory case closed",
+    "Policy accepted",
+    "Native isolation established by fresh prompt context",
+    "Measured subscription consumption inferred from attempt/time bounds"
   ]
 }
