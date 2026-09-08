@@ -105,6 +105,8 @@ For promoted SKILL-007/008, the accepted September 8 Routine/Full policy governs
 
 All five creator phases and evaluator W1/P1–P6/T01–T12 remain Enforced. The supported installer gates operational adoption on current evidence for these obligations, including original case coverage, separate semantic review and actual owner-selected acceptance. This is an adoption prerequisite, not universal phase-order/editor/hook enforcement. Independent semantic and actual native observations remain required where selected.
 
+The earlier `--runtime` and hook-merging requirements govern delivery-aware project installation. The separate Codex `--manual-experts-only --manual-evidence PATH` mode refreshes only these two promoted workflows through their adoption-evidence gate; it does not require `--runtime` or change installed agents, hooks or runtime inventories.
+
 Routine may support a bounded accepted-scope update after complete selected checks, immediate/cumulative impact and compatible environment evidence, without claiming Full for new bytes. First qualification and consequential control/receiving changes require Full. The words validate, install and release do not alone select Full. User-initiated receiving transfers use real producer artifacts and observed receiver action; T12 merely prepares the evaluator's handoff and does not recursively qualify a receiver.
 
 Automated receiver invocation, scheduling, background continuation and repair loops remain deferred. The G8 funded-launch defect, original assertions and frozen failures are preserved; automatic funded-launch accounting does not become a universal prerequisite for manual work. Export remains unaccepted staging for required pre-adoption native resource tests.
