@@ -13,3 +13,11 @@ Canonical framework skill sources are provider-specific: providers/claude/plugin
 For skill authoring, read docs/mvp/skill-authoring-contract.md and the relevant specification/templates. Shared contracts and installer integration have one integration owner; report ambiguities rather than changing them from a skill-only assignment. Authored eval inputs live under the skill's evals directory, while run outputs live in the assigned provider evaluation workspace. No package or file-hash check certifies native activation or behavioral quality.
 
 The POC is Linux/WSL2 and local-only. Read docs/POC.md for commands, actual guarantees, and remaining evaluation work.
+
+## Learned behavior: bounded delivery
+
+Apply [keeping delivery bounded](docs/learned-behaviors/bounded-delivery.md) when specifications or validation/integration work expand faster than progress toward the user's outcome. Keep a concrete finish line, accepted requirements, exclusions and total remaining delivery path in the existing plan.
+
+Justify added work with an observed blocker, the requirement it serves, simpler alternatives, expected evidence and bounded cost. Carry settled decisions forward. When a model over-expands the specification, consolidate necessary blockers, defer optional generalization, and narrow its assignment. Request a material scope or funding change only after making the decision concrete; continue unaffected authorized work.
+
+Preserve accepted checks, ownership, budgets and historical results. Guidance cannot activate a proposed Routine policy, bypass Full qualification, or turn a prepared handoff into operational completion. Distinguish justified iteration from recursive review, setup overhead, stale recaps and premature simplification. Reuse the existing plan/report rather than adding a workflow for controlling workflows.
