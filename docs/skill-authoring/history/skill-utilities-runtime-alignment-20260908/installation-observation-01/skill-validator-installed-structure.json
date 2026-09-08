@@ -1,0 +1,346 @@
+{
+  "schema_version": "devforge.skill-structure/v1",
+  "created_at_utc": "2026-09-08T01:43:39.011495Z",
+  "skill_root": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator",
+  "mode": "installed",
+  "specification": {
+    "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/design-amendment.md",
+    "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc"
+  },
+  "files_sha256": {
+    "SKILL.md": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39",
+    "agents/openai.yaml": "3b3576c181d6565e8614036912208cd265e03f790560a8a73486abff6db829d3",
+    "assets/ai-review.json": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701",
+    "assets/case-grade.json": "740e78c0d1ea43ed8fe565bd0700673174d43e8d17716f36749b0c17ef58383d",
+    "assets/environment-setup.json": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b",
+    "assets/handoff.md": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea",
+    "assets/run-manifest.json": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a",
+    "assets/skill-enhancement-spec.md": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e",
+    "assets/test-cases.json": "9dafe0dfc168a287fdc75f9cab1005a8a102185465c9a914a48e7ec306912e57",
+    "assets/validation-plan.json": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1",
+    "assets/validation-results.json": "c3daa442028af72cf265a59609aa85aeded68e34b2b8ca8fd17acd487a9ad539",
+    "assets/verification-results.md": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa",
+    "assets/workspace-allocation.json": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5",
+    "references/ai-review-rubric.md": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f",
+    "references/contracts/artifact-contract.md": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+    "references/contracts/execution-contract.md": "4224508eb87d3dcabb6c00551d04393284334f834dcd543133eea5146857b5a8",
+    "references/contracts/skill-authoring-contract.md": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b",
+    "references/derivation.json": "e65eb71f63a82ad22d652f16503bb7348adcb77e7fba96ea8838fbd7f8785176",
+    "references/enforcement-design.md": "b596e439d6a1643afc3836b7457d6065aa529d285a60ba5712b5c03973b25c14",
+    "references/framework-context.md": "7e2697f11df23f5c695327f62c4f534741968360b01b060e2ee90b420866ecbe",
+    "references/managed-validation.md": "0a7c4748726b738d5f39858bee4caf828a42b22aef4ba8630a00fdb1eaea06dd",
+    "references/native-evaluation.md": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8",
+    "references/results-contract.md": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f",
+    "references/sources.md": "526a4163d8e275c9bf00011e43fdbdd832f4a943fd90be151759dbf199544ae4",
+    "references/structural-checks.md": "1d79c437bd3c20ea86913e15c1b448129c3861fa21052bbbabc8c90106bf1086",
+    "references/worktree-environment.md": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d",
+    "scripts/assess_evidence.py": "d5b31a5448b84ecee81816a2997577366fe348dd281adb1d1fc6d487c47e7066",
+    "scripts/inspect_skill.py": "6054d6a01776590c706612afd9b1d1688ac71923044660094c111a7708591e4d"
+  },
+  "checks": [
+    {
+      "id": "S001",
+      "outcome": "PASS",
+      "reason": "Directory found.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator"
+        }
+      ]
+    },
+    {
+      "id": "S002",
+      "outcome": "PASS",
+      "reason": "Hashed 28 files; read 284244 package bytes. Limits: 4096 entries, depth 32, 16777216 bytes/file, 134217728 total bytes.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator"
+        }
+      ]
+    },
+    {
+      "id": "S003",
+      "outcome": "PASS",
+      "reason": "SKILL.md decoded as UTF-8 (an optional BOM is accepted).",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S004",
+      "outcome": "PASS",
+      "reason": "Parsed with PyYAML 6.0.3; safe loader and duplicate-key rejection.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S005",
+      "outcome": "PASS",
+      "reason": "Additional frontmatter fields are permitted; their semantics are not evaluated.",
+      "evidence": []
+    },
+    {
+      "id": "S006",
+      "outcome": "PASS",
+      "reason": "Name format and exact folder match satisfied.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S007",
+      "outcome": "PASS",
+      "reason": "Examined 53 local links; ignored 12 external URLs and 0 empty/anchor-only destinations. Anchor existence is not checked.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 10
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 14
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 19
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 25
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 42
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 48
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 50
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 58
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 70
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 72
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 78
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 82
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 90
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 104
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/SKILL.md",
+          "line": 110
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/ai-review-rubric.md",
+          "line": 5
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/ai-review-rubric.md",
+          "line": 133
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/contracts/execution-contract.md",
+          "line": 47
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/enforcement-design.md",
+          "line": 63
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/framework-context.md",
+          "line": 54
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/framework-context.md",
+          "line": 55
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/framework-context.md",
+          "line": 56
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/framework-context.md",
+          "line": 66
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 5
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 7
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 25
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 36
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 45
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 47
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 68
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 108
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/native-evaluation.md",
+          "line": 158
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/results-contract.md",
+          "line": 15
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/sources.md",
+          "line": 3
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/sources.md",
+          "line": 19
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/structural-checks.md",
+          "line": 3
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/worktree-environment.md",
+          "line": 17
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/worktree-environment.md",
+          "line": 40
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/worktree-environment.md",
+          "line": 54
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/worktree-environment.md",
+          "line": 72
+        }
+      ]
+    },
+    {
+      "id": "S008",
+      "outcome": "PASS",
+      "reason": "Package symlinks are resolvable and remain inside the package.",
+      "evidence": []
+    },
+    {
+      "id": "S009",
+      "outcome": "PASS",
+      "reason": "No top-level evals found in installed mode.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator"
+        }
+      ]
+    },
+    {
+      "id": "S010",
+      "outcome": "PASS",
+      "reason": "Parsed 9 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/ai-review.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/case-grade.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/environment-setup.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/run-manifest.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/test-cases.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/validation-plan.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/validation-results.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/assets/workspace-allocation.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/references/derivation.json"
+        }
+      ]
+    },
+    {
+      "id": "S011",
+      "outcome": "PASS",
+      "reason": "Parsed 0 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": []
+    },
+    {
+      "id": "S012",
+      "outcome": "PASS",
+      "reason": "Parsed 2 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/scripts/assess_evidence.py"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/.agents/skills/skill-validator/scripts/inspect_skill.py"
+        }
+      ]
+    },
+    {
+      "id": "S013",
+      "outcome": "PASS",
+      "reason": "Specification bytes hashed; specification meaning is not evaluated.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/design-amendment.md"
+        }
+      ]
+    }
+  ],
+  "overall": "PASS",
+  "behavior": "NOT_EVALUATED"
+}

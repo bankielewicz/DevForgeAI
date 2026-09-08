@@ -1,0 +1,9 @@
+{
+  "source_commit": "214dd797d6ec564595fc316dbc1f01916fb2bfd2",
+  "main_commit": "214dd797d6ec564595fc316dbc1f01916fb2bfd2",
+  "branch": "impl/skill-builder-runtime-alignment-20260907",
+  "merge": "FAST_FORWARD",
+  "preserved_preexisting_dirty_files": 13,
+  "worktree_clean": true,
+  "native_acceptance": "NOT_GRANTED"
+}

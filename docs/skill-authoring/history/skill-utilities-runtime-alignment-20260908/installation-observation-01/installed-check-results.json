@@ -1,0 +1,48 @@
+[
+  {
+    "skill": "skill-builder",
+    "exit_code": 0,
+    "overall": "PASS",
+    "checks": {
+      "S001": "PASS",
+      "S002": "PASS",
+      "S003": "PASS",
+      "S004": "PASS",
+      "S005": "PASS",
+      "S006": "PASS",
+      "S007": "PASS",
+      "S008": "PASS",
+      "S009": "PASS",
+      "S010": "PASS",
+      "S011": "PASS",
+      "S012": "PASS",
+      "S013": "PASS"
+    },
+    "report": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/skill-builder-installed-structure.json",
+    "sha256": "6011737c971a4bda60ec3ec17b10ae734553eb1b9c27a771677c042b08b052cd",
+    "scope": "Installed structural checks only; native C not run"
+  },
+  {
+    "skill": "skill-validator",
+    "exit_code": 0,
+    "overall": "PASS",
+    "checks": {
+      "S001": "PASS",
+      "S002": "PASS",
+      "S003": "PASS",
+      "S004": "PASS",
+      "S005": "PASS",
+      "S006": "PASS",
+      "S007": "PASS",
+      "S008": "PASS",
+      "S009": "PASS",
+      "S010": "PASS",
+      "S011": "PASS",
+      "S012": "PASS",
+      "S013": "PASS"
+    },
+    "report": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/skill-validator-installed-structure.json",
+    "sha256": "d720ad2bbdc02d061c6d6054a0ca8282d733239c3c3475f70e2215e45e30fbff",
+    "scope": "Installed structural checks only; native C not run"
+  }
+]
