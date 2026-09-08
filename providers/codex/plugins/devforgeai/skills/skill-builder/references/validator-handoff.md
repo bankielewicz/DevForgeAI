@@ -25,6 +25,8 @@ Before any dependent target edit, recover:
 4. Report/handoff/enhancement-spec identities and immutable evidence locators.
 5. Stable finding IDs `F-###`, change IDs `CHG-###`, affected requirement/workflow IDs, and the expected behavior.
 6. Existing authoring decisions, Optional/Enforced classifications and named group answers.
+7. For VPR-2, the actual requested claim, policy/source/acceptance pins, accepted base/capability/environment scope, exact plan and actual independent T04 selection review if present. Retain report completion, raw outcomes, validation disposition and owner decisions separately.
+8. For that VPR-2 selection, the current routinely accepted identity/acceptance chain, fixed qualified anchor with Full evidence or ABSENT/UNKNOWN and explicit accepted unqualified baseline; immediate and cumulative diffs, affected dependency/regression union and CP-01–CP-04 compatibility evidence/gaps.
 
 Read the relevant original evidence and target source. Do not execute tests, cases, helpers, compilation, target workflows, or a validator to reproduce a finding.
 
@@ -46,6 +48,10 @@ Classify each requested change as:
 Missing native discovery, loading, output-quality, or installed-resource observations create **evaluation prerequisites**. They do not alone justify editing the skill. Never weaken an accepted expectation, remove a case, or modify a sibling gate to turn a recorded failure into a pass.
 
 A contract defect belongs to its integration owner. Record the blocked change and evidence; continue independent assigned edits.
+
+For VPR-2, carry the actual scope/claim into the proposed Routine/Full revalidation using the [packaged policy](contracts/skill-authoring-contract.md#opt-in-vpr-2-validation-policy). A bounded repair within an accepted scope can remain Routine; new qualification, supported scope, consequential control/receiving changes, a Full-required contract or unbounded cumulative impact selects Full. Prior use, a Routine PASS or a completed report cannot invent an accepted baseline or move the qualified anchor. Several accepted Routine updates do not reset the cumulative diff or automatically trigger Full. Missing applicable compatibility or receiving evidence remains an evaluation gap, not permission to change criteria.
+
+An evaluator's prepared T12 handoff does not require recursive Full qualification. Actual target receiving integration, when selected and for Full, uses eligible measured target output, observed receiver loading and its required completed action or expected negative disposition before T09. Do not confuse that prior evidence with this repair request, a receipt or the builder's next prepared handoff.
 
 ## Preserve settled Q&A and enforcement choices
 
@@ -79,6 +85,7 @@ Include substantive change content in the populated specification or an assigned
 - A prepared [handoff](../assets/handoff.md) at completion, transfer or recovery, identifying the actual next owner; no receiving invocation or admitted transition is inferred.
 - Canonical-to-installed mapping, derivation/contract gaps and installation work remaining.
 - Evaluation prerequisites, deferred proposals and unresolved evidence.
+- For VPR-2, the carried claim/scope/base, unchanged qualification lineage, both diff/dependency/compatibility records and an eligible proposed Routine/Full handoff. Preserve previous report completion, validation disposition, owner acceptance and missing target receiving observations separately; applied source changes establish none of these outcomes.
 - **Validation status: Not performed.**
 - **Hook status: Design only** when applicable.
 - **Finding status: Source changes recorded; reevaluation required.**

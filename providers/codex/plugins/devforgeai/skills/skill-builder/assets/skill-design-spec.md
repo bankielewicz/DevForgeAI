@@ -262,6 +262,32 @@ A provider source folder alone is not a discovered installation. Installed copie
 **Authoring and release status:**  
 [Authored candidate / design only / reuse recommended. Evaluation and adoption remain separate; source or package identities do not establish native activation, quality, or release readiness.]
 
+### Validation claim and lineage — for explicitly selected VPR-2 work
+
+For other assignments retain their selected policy and mark this block outside scope; do not apply v2 exclusions to v1. These are authoring inputs and a prepared validation scope, not a runtime plan submission or a result issued by the builder.
+
+| Fact | Exact reference, scope and remaining gap |
+|---|---|
+| Policy and authority | [VPR-2 accepted source/commit/hash, actual external acceptance and selected v2 delivery/plan contract; unknown values with cause.] |
+| Requested claim | [Actual wording; qualification requested or not; any release/support contract requiring Full. “Validate,” installation, tagging or distribution alone is neutral.] |
+| Owner-accepted base and scope | [Exact candidate/environment, capability boundary, accepting owner/decision and authorized destination; do not invent acceptance from use or a passing report.] |
+| Current routinely accepted identity | [Candidate/environment and actual acceptance-chain reference, or none; distinct from the candidate now being authored.] |
+| Last qualified anchor | [Exact candidate/environment and matching Full evidence; otherwise ABSENT or UNKNOWN with cause. Routine never advances this identity.] |
+| Accepted unqualified baseline | [Explicit owner-accepted candidate/environment and scope when no qualified anchor exists; preserve the missing qualification.] |
+| Immediate impact | [Current accepted candidate to new candidate diff, effective configuration/install/provider changes and affected requirement IDs.] |
+| Cumulative impact | [Fixed qualified anchor or accepted unqualified baseline to new candidate diff; union of immediate/cumulative requirements, transitive dependencies, regressions and negative branches.] |
+| Compatibility | [CP-01–CP-04 used-capability assessment, exact old/new environment/configuration and retained evidence; changed unknown capabilities stay unresolved.] |
+| Prepared validation scope | [Routine or Full proposal/carried selection, matching CI-01–CI-09 union and Full triggers; actual external T04 review reference only if it exists.] |
+| Acceptance/install conditions | [Carried owner authority, destination, exact bytes/effective controls, required post-install identity/resource/compatibility observations and recovery owner. No authority granted here.] |
+
+Routine needs an identified accepted baseline, bounded scope and understood immediate/cumulative dependencies. Full is required for first/explicit qualification, genuinely new capability/environment scope, consequential control/authority/enforcement/receiving semantics, a Full-required claim contract or remaining unbounded impact. Several Routine updates alone do not trigger Full; unresolved consequential cumulative interaction does. Keep the fixed anchor and all historical failures through repairs, installation and rollback.
+
+**Selected evidence and review prerequisites — capture only:**
+[Affected original assertion IDs and source identities, dependencies, required deterministic/independent/native evidence, compatibility observations and paired comparisons. Preserve existing Enforced classifications; validator W1, P1–P6 and T01–T12 stay Enforced. Only an actual externally selected independent T04 review can support conditional selection. Unselected native observations remain NOT_RUN, not PASS or invented NOT_APPLICABLE. The runtime/operator owns checks and admission.]
+
+**Receiving evidence versus prepared handoff:**
+[When selected, including Full qualification: actual eligible output from the measured target, receiving contract, observed receiver loading and required completed action or expected negative disposition must exist before T09. Capture references already available and name missing evidence/owner; do not fabricate or execute it. A validator's own prepared T12 handoff does not enqueue recursive Full qualification.]
+
 ## 11. Validator remediation intake — when applicable
 
 Use a supplied frozen validator handoff without restarting settled Q&A. Retain report/evidence bytes and existing requirement IDs. The validator evaluates; the builder changes the selected canonical source.
@@ -280,6 +306,10 @@ Use a supplied frozen validator handoff without restarting settled Q&A. Retain r
 
 **Current target versus frozen target:**  
 [Matching identities or observed drift, affected paths/requirements, owner/scope reconciliation, retained old/current baselines, and the new candidate chosen for edits. Do not apply stale findings blindly.]
+
+**Carried validation and acceptance facts — when VPR-2 applies:**
+
+[Preserved policy/plan/T04 review and exact report identities; separate report completion, observed outcomes, validation disposition, scoped owner acceptance, current routinely accepted identity and last qualified anchor or explicit unqualified baseline. Carry the section 10 immediate/cumulative and compatibility assessment forward. An earlier Routine PASS does not qualify edited bytes or close a finding.]
 
 **Finding and requested-change intake:**
 
@@ -332,6 +362,10 @@ Complete substantive change content after authoring or enhancement. This authori
 
 **Deferred proposals, gaps, and evaluation prerequisites:**  
 [Remaining items with reasons/owners. Missing evidence or unsupported enforcement stays explicit.]
+
+**Prepared validation scope and lineage — when VPR-2 applies:**
+
+[Carry the actual requested claim, accepted scope/base, fixed anchor and both diff/dependency/compatibility records from section 10. State eligible proposed Routine/Full coverage and its unresolved prerequisites, not ROUTINE_PASS/FULL_PASS for authored bytes. Preserve historical results, owner decisions and qualification limits separately. Record target receiving evidence as observed only with actual references before its T09 use; T12 preparation is distinct.]
 
 **Finding status — when applicable:**  
 Source changes recorded; reevaluation required.

@@ -1,6 +1,6 @@
 # Packaged skill authoring contract
 
-Derived for these Codex authoring utilities from DevForgeAI docs/mvp/skill-authoring-contract.md, draft revision 3, 2026-09-07. Exact source and destination hashes are in ../derivation.json. This operational summary retains applicable requirements; the assignment's selected source bytes govern any conflict. It does not declare draft framework capabilities implemented.
+Portable operational derivation of DevForgeAI docs/mvp/skill-authoring-contract.md at G1 commit `75bcba915fd1d5f88477318d4b27db6e6961ca81`, selected 2026-09-08. Exact source and destination hashes are in ../derivation.json. The historical summary below is retained, with the opt-in VPR-2 section mechanically transcribed from G1. Only source-only links are converted to provenance locators; selected canonical bytes govern conflicts. This is authored contract content, not runtime or native evidence.
 
 ## Ownership and package
 
@@ -32,7 +32,7 @@ Manual isolated subscribed terminal evaluation is a supported method. No model A
 
 ## Three independent native tiers
 
-Perform C, then B, then A, and report each separately.
+For legacy assignments, perform C, then B, then A, and report each separately. Explicit VPR-2 validator opt-in follows the reviewed conditional coverage below; Full retains required C/B/A ordering.
 
 - C, installed resources: use the actual installation in a consuming project with source docs demonstrably unavailable. Exercise package-local templates/references/helpers and output paths. A changed working directory does not establish source inaccessibility.
 - B, quality and boundaries: explicit skill-path input is permitted. Give candidate and old_skill/without_skill baseline the same raw facts with isolated contexts/output. Grade required named behavior, artifacts, constraints and provenance. Baseline FAIL may be useful comparison evidence; unrun baseline is NOT_RUN.
@@ -48,10 +48,81 @@ Use PASS and FAIL only for supported observed conditions. NOT_RUN means unattemp
 
 Retain native outputs in their own formats. The report binds them with exact references rather than rewriting history. Promote only the provider, installation mode and use cases supported by evidence. A refreshed installation or integration candidate requires affected rechecks.
 
-## Revision-3 controlled refresh
+## Historical revision-3 controlled refresh
 
-This assignment explicitly selects the revision-3 sources preserved in derivation.json. Historical evaluations retain their original revision-2 authoring contract and exact inputs. No previous result becomes revision-3 conformance evidence.
+The earlier modernization selected the preserved revision-3 sources. G5 now selects G1 for the appended VPR-2 requirements; prior evaluations retain their original contracts and exact inputs. No previous result becomes conformance evidence for this new selection.
 
-Managed operation keeps useful phase work in the skill and mechanical transitions, evidence predicates, waiting, correction bounds and receipt publication in the protected runtime. The selected shared source describes the brainstorm adapter. A separately reviewed utility component supplies mechanical builder/validator phases; consult the package-local managed reference for its bounded interface. Complete native integration remains separate and unobserved. Native admission is NOT_VALIDATED and native activation/rendered delivery NOT_OBSERVED.
+Managed operation keeps useful phase work in the skill and mechanical transitions, evidence predicates, waiting, correction bounds and receipt publication in the protected runtime. The earlier selected shared source described the brainstorm adapter. A separately reviewed utility component supplies mechanical builder/validator phases; consult the package-local managed reference for its bounded interface. Complete native integration remains separate and unobserved. Native admission is NOT_VALIDATED and native activation/rendered delivery NOT_OBSERVED.
 
 Keep conditional managed guidance package-local. Final identities and receipts come from runtime observations; no model-issued completion check or helper fallback. Delivery-aware installation/export belongs to integration and must bind the explicit runtime executable, six-field requirement and single effective synchronous callback per event from the execution contract. Package/source compatibility does not certify native behavior. Frozen case expectations, task deadlines, old failures and separate C/B/A results remain intact; runtime-aware measurement requires newly allocated independent evidence.
+
+## Opt-in VPR-2 validation policy
+
+This section transcribes the owner-accepted VPR-2 policy (`docs/skill-authoring/proposals/validation-policy-v1-20260908/policy-revision.md`; frozen source locator in derivation.json) and requirement diff (`docs/skill-authoring/proposals/validation-policy-v1-20260908/requirement-diff.md`; frozen source locator in derivation.json) at DevForgeAI commit `8ede26450ae737a5e928c5f70a945aa995969b30`. Historical proposal labels and results stay unchanged. Policy acceptance authorizes this contract meaning; it does not establish runtime support, native qualification, funding or installation. The [execution contract](execution-contract.md#vpr-2-record-contract) freezes exact v2 record shapes, producer bindings and cross-version rules. The validator design (`docs/skill-authoring/skill-validator-design.md#vpr-2-accepted-policy-amendment--2026-09-08`; frozen source locator in derivation.json) freezes requirement-derived discriminators.
+
+Only an external assignment selecting policy version `VPR-2`, its exact accepted source and a v2 delivery contract opts in. A v1 record, another provider, brainstorm or a generic request does not inherit conditional exclusions. Preserve every v1 predicate, including C/B/A ordering. A generic “validate” request is neutral: determine its actual claim, accepted baseline and scope, then select coverage. Resolve only consequential missing facts.
+
+### Claims, selection and lineage
+
+Select `Routine` for a bounded update to an identified owner-accepted baseline within its accepted capability/environment scope, with understood immediate and cumulative dependencies. Select `Full` for first or explicit qualification, a new supported capability/environment, consequential control/authority/enforcement/receiving semantics, a release/support contract requiring Full, or remaining unbounded impact. Adoption, installation, tagging and distribution inside an already accepted scope do not alone select Full. Record the requested claim in its actual words and its qualification requirement.
+
+Routine PASS means the selected update meets complete current required evidence under that coverage. It may support scoped owner acceptance and installation when destination, exact bytes, effective controls and applicable post-install identity/resource/compatibility checks are bound and complete. Carried conditional owner authority can cover this; no per-check approval ceremony is required. A mismatch blocks affected use under the existing recovery arrangement. A Routine result never grants owner authority or qualifies new bytes. Full PASS means complete applicable assertion coverage for the exact candidate/environment, including actual native obligations and receiving transfer; release and human acceptance remain distinct.
+
+Keep `current_routinely_accepted` separate from `qualified_anchor`. The latter is the last fully qualified candidate/environment with its evidence, or explicitly `ABSENT`/`UNKNOWN`. Routine never advances it. If no qualified anchor exists, bind the explicitly accepted unqualified baseline; preserve the missing qualification. Every update binds its immediate diff from the current accepted candidate and cumulative diff from the qualified anchor or that unqualified baseline, including effective configuration, installation and provider/client behavior. Review the union of affected requirements and transitive dependencies across both diffs. The acceptance chain cannot reset the anchor, erase a failure, or manufacture qualification. There is no fixed number of Routine edits after which Full becomes mandatory; unresolved consequential cumulative interaction is the trigger.
+
+### Enforced tasks and reviewed conditional coverage
+
+W1, P1–P6 and T01–T12 remain `Enforced`. Each task records its obligation disposition separately from observations. Native observations excluded by accepted Routine selection remain `NOT_RUN`; only a genuine scope exclusion may be `NOT_APPLICABLE`. Neither is native PASS. Accurate reporting may complete P5/P6 with failed or unavailable evidence.
+
+| Tasks | Required obligation |
+| --- | --- |
+| T01–T02 | Bind external authority, policy, actual claim, accepted base/scope, candidate/environment, lineage, both diffs, dependency closure and frozen evidence selection. Full accounts for every applicable original assertion. |
+| T03 | Preserve all applicable S001–S013 checks and affected deterministic regressions; source checks do not establish installed behavior. |
+| T04 | Obtain one actual fresh independent AI review of selection, affected/dependent clauses and all R01–R10 invariants. Full reviews all applicable anchors. Retain separate criterion judgments and observed independence limits; no reviewer per criterion is required. |
+| T05 | Complete the selected preparation/readiness obligation. A reviewed no-native selection records no-native disposition, without fabricating a native plan, boundary evidence or launch. The separately authorized workspace preparation branch remains available before native choices are complete. |
+| T06–T08 | Record C/B/A observations or exact reviewed conditional/dependency dispositions. Every selected native behavior needs matching installed C and actual readiness. |
+| T09 | Adjudicate candidate outcomes, required comparisons, coverage, freshness, compatibility and cumulative lineage. Full target receiving evidence must already exist. |
+| T10–T12 | Save honest results, bounded repairs/enhancements and a prepared handoff. Report completion, suitability, owner acceptance, qualification and receiving invocation separately. |
+
+T04 must be selected by the external owner, independent of the author/measured workers, and bind the frozen plan and actual reviewed bytes. A self-declared reviewer or a hash alone does not establish independence or adequate judgment. Missing applicable invariant context remains unavailable. Review selection once at this boundary; do not add per-row approval or recursive review chains.
+
+Selected C failure, missing evidence or stale identity blocks dependent B/A. Under v2 Routine only, a pre-run T04-reviewed `NOT_SELECTED` B disposition permits selected A after matching C. It is never B PASS; an observed selected B failure cannot be relabeled as unselected. An intact B quality FAIL can remain an observed comparison while later independently permissible collection proceeds; candidate suitability still fails for a required candidate violation. Full retains required C/B/A ordering. Later observations cannot repair an earlier admission retroactively.
+
+### Impact and compatibility union
+
+Take every matching CI rule across immediate and cumulative changes, plus all affected regressions and negative branches. Cost targets do not choose applicability.
+
+| Rule | Trigger | Required evidence or disposition |
+| --- | --- | --- |
+| CI-01 | Spelling/layout/commentary without semantic, metadata, resolution or output-contract change | Applicable D checks and focused independent S review; no native work unless semantic impact is found. |
+| CI-02 | Trigger/invocation/selection exposure | Matching C and affected explicit/direct/indirect/near-miss A including adjacent negatives; B when promised behavior changes. |
+| CI-03 | Resources/dependencies/helpers/templates/package/output destinations | D resolution/identity/regressions, affected actual installed C and downstream B; A if discovery changes; CI-06 if transfer meaning changes. |
+| CI-04 | Bounded workflow/prompt/clarification/quality/failure behavior | C and affected normal/edge/negative B/prior failures; matched candidate/baseline arms for behavior change or a comparative claim; A for selection impact. |
+| CI-05 | Consequential authority/permission/trust/enforcement/gate/evidence authenticity | Full before adoption of the changed contract, D denial/identity tests, S meaning review and representative actual native controls. |
+| CI-06 | Receiving prerequisites/output meaning/receipt authority/transfer/completion | Full before adoption, producer/consumer contract checks and actual eligible target-to-receiver transfer/failures. Unchanged prose spelling follows CI-01. |
+| CI-07 | Client/provider/installation/configuration | Apply CP-01–CP-04 to used capabilities. Names/version strings establish neither compatibility nor incompatibility. |
+| CI-08 | Requirement/case/oracle/grading meaning | Explicit specification decision before use; new revision and affected assertion reevaluation; preserve originals and historical outcomes. |
+| CI-09 | Unbounded impact/unresolved cumulative interaction | Full or insufficient evidence; no Routine adoption for the affected unbounded claim. |
+
+| Rule | Bound compatibility obligation |
+| --- | --- |
+| CP-01 | Pin old/new client/provider/installer and effective configuration, applicable official change information/local source evidence, used capabilities, changed/unknown dependencies and affected assertions. Identical relevant bytes are not a behavioral change. |
+| CP-02 | Observe affected schema/install/resource/parser/control mechanics and negative inputs using deterministic checks. Documentation and a version probe are insufficient native evidence. |
+| CP-03 | Changed executable/provider/installer: observe exact-installed load and a completed bounded task, plus each affected control/selection denial, failure or activation probe. Add paired B for possible provider/model output-quality change; retain source visibility, capture completeness and effective differences. |
+| CP-04 | Routine is eligible only for evidenced equivalence within accepted used-capability scope with unchanged trust/control/transfer meaning. New unsupported scope, consequential meaning or remaining unbounded impact selects Full. Unknown changed components stay unresolved. |
+
+Unchanged components may reuse exact fresh evidence with a stated scope. Do not run every compatibility permutation. A post-install check may share an actual load/task observation only when its conditions, identities, timing and required outputs match.
+
+### Assertion evidence, receiving and results
+
+`D` is deterministic mechanical evidence, `S` independent semantic judgment, and `N` actual native observation. D tests of native evidence admission do not supply N. Full completeness means every original applicable case/assertion/variant has its required evidence kinds and independent per-arm/assertion judgment. Preserve all original catalogs, S001–S013, R01–R10 and historical outcomes. No optimized Full call total exists until its complete reviewed observation map exists.
+
+One raw observation can serve compatible assertions only with matching candidate/environment/input, prompt and forcing conditions, arm, visibility, time/freshness and prerequisite order. Disclose shared sample counts and correlation. Opposite arms, incompatible variants and forced-versus-implicit prompts remain distinct. One independent bounded paired/batch grade may assess complete actual raw outputs, retaining each arm/assertion judgment, neutral labels where possible and order/arm leakage. Baseline quality FAIL may complete an intact comparison; absent/mismatched baseline evidence cannot. The pair summary never overwrites candidate judgment. A child-output grade and parent interpretation remain distinct assertions, without a recursive grader campaign.
+
+Validator self-evaluation keeps every explicitly native outer/inner source assertion, including SV-009, SV-012 and SV-024–SV-028 and representative actual nested review/return/failure/receiving integration. A generic validation subtask does not automatically invoke a 17-case inner Full suite. Real compatible bundles may support adjudication assertions; synthetic bundles support only explicitly synthetic/mechanical/error handling assertions, never clean native negatives, installed resources, isolation, callback origin, nested execution or receiving.
+
+Full T09 consumes eligible output actually produced by the measured target, observed receiver loading, and the required completed receiver action or expected negative disposition under the receiving contract. Record evidence before adjudication. The evaluator's own prepared T12 handoff does not invoke or recursively qualify another evaluator. Receipt creation, publication/readback and actual receiver invocation remain separate facts.
+
+Required candidate/protocol FAIL yields `FAIL`; otherwise any required missing/unavailable evidence prevents PASS and yields `INSUFFICIENT_EVIDENCE`. With all required evidence complete and current, select `ROUTINE_PASS` or `FULL_PASS` according to the admitted mode. A complete honest report can carry any of those dispositions. Helpers advise; they do not authenticate observations, grant acceptance or publish protected receipts.
+
+Authentication lifecycle reuse is conceptually separate from independent native evidence state. Supported cached authentication need not mean one login per generation, but credential copying, writable history reuse or unproved global-state isolation is not authorized. Native authentication/transport implementation remains unresolved and outside this amendment's engineering grant.

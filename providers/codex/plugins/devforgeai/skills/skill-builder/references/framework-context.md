@@ -1,6 +1,6 @@
 # DevForgeAI intrinsic context
 
-Selected source snapshot: 2026-09-07. Exact source and package identities are recorded in derivation.json. This describes observed POC capabilities and governing draft contracts; it does not promote them to accepted production guarantees.
+Historical tooling snapshot: 2026-09-07; VPR-2 shared-contract refresh selects G1 commit `75bcba915fd1d5f88477318d4b27db6e6961ca81`. Exact source and package identities are recorded in derivation.json. Accepted policy meaning, authored implementation requirements and observed POC capabilities remain distinct; none is promoted here to a production guarantee.
 
 ## Identity and authority
 
@@ -32,7 +32,7 @@ For these utilities, authored means files have been written. Evaluated means act
 
 ## Runtime packaging and evidence
 
-The selected authoring contract uses separate C (installed resources), B (output quality), and A (native activation) results, exercised in that order. A path-supplied worker cannot establish implicit activation.
+The legacy authoring contract uses separate C (installed resources), B (output quality), and A (native activation) results, exercised in that order. Explicitly opted-in VPR-2 validator assignments use the [packaged policy's reviewed conditional coverage](contracts/skill-authoring-contract.md#opt-in-vpr-2-validation-policy); v1, other providers and brainstorm retain their obligations. Full retains required C/B/A order. A path-supplied worker cannot establish implicit activation.
 
 Runtime resources belong in scripts, references and assets. Tests of the skill itself belong in evals and are excluded from runtime exports. Package-local copied contracts/templates carry source and destination digests in references/derivation.json. Installed skills resolve their resources internally; source documentation need not be reachable.
 
@@ -57,8 +57,10 @@ Load the relevant selected contract when needed:
 
 derivation.json preserves the source paths and hashes of these packaged derivations. If a user supplies a different accepted revision, record that selection and its exact bytes; do not silently substitute the newest checkout.
 
-## Controlled modernization selection
+## Historical modernization selection and current policy refresh
 
-The user-selected SENH revision 3 explicitly refreshes this builder to the preserved revision-3 authoring/execution sources in derivation.json. Historical evaluation inputs and outcomes stay unchanged. The shared handoff governing path is the same one used by skill-validator; the builder copy selects its current preserved bytes, and the bounded validator alignment now selects that same preserved revision under the recorded release.
+The earlier SENH revision 3 selected preserved revision-3 authoring/execution sources. G5 now selects G1's authoring/execution contracts and shared handoff template at `75bcba915fd1d5f88477318d4b27db6e6961ca81`, transcribing the accepted VPR-2 policy at `8ede26450ae737a5e928c5f70a945aa995969b30`. The unchanged artifact-contract derivation retains its prior bytes. derivation.json records the exact sources, transformations and destination hashes; historical evaluation inputs and outcomes stay unchanged.
 
-The selected shared contracts describe the brainstorm adapter and four provider callback declarations. Separately selected DevForge utility sources provide protected builder/validator mechanics; derivation.json pins that reviewed component. Native readiness, effective callback behavior, activation and rendered delivery remain unobserved. See [managed authoring](managed-authoring.md) when admitted context or handoff delivery applies. Substantive authoring belongs to the skill; protected runtime owns transitions, evidence checks, waiting, corrections and final receipts. Missing adapters never justify ceremonial self-certification.
+Historical packaged guidance retains the brainstorm adapter and four provider callback declarations; separately selected DevForge utility sources describe protected builder/validator mechanics. G1 adds the opt-in validator v2 record contract without changing builder delivery or certifying a runtime implementation. Native readiness, effective callback behavior, activation and rendered delivery remain unobserved by this authoring refresh. See [managed authoring](managed-authoring.md) when admitted context or handoff delivery applies. Substantive authoring belongs to the skill; protected runtime owns transitions, evidence checks, waiting, corrections and final receipts. Missing adapters never justify ceremonial self-certification.
+
+Routine scoped owner acceptance, Full qualification and release authority are separate. Carry the actual claim, accepted scope/base, current routinely accepted identity and fixed qualified anchor or explicit unqualified baseline through authoring and transfer. A prepared validator T12 handoff does not require another Full campaign; actual selected target-to-receiver evidence remains a distinct pre-T09 obligation. G5 authors these distinctions only; evaluation, integration, installation and acceptance remain with their allocated owners.

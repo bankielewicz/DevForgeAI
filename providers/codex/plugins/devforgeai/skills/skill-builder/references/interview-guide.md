@@ -35,9 +35,13 @@ Do not demand another example when the task is already clear. Propose a concrete
 | Placement and maintenance | Provider, canonical source, runtime destinations, owner | Who owns the durable source and installation mapping? |
 | Authoring decision | Search scope, candidates, gaps, create/enhance/reuse rationale | Does an existing workflow own this change? |
 | Framework authority | Selected contracts/specification bytes, assignment, source identities and gaps | Which conflicting source, if any, needs an owner decision? |
+| Validation claim and accepted scope | Actual claim wording, accepted policy/version, owner-accepted base/environment scope, current Routine acceptance and fixed qualified anchor or explicit unqualified baseline | Does the requested claim require qualification or introduce a capability outside the accepted scope? |
+| Change and compatibility impact | Immediate and cumulative diff references, affected requirements/dependencies, used client/provider/install capabilities and unresolved evidence | Which consequential unknown could change Routine/Full selection or block the intended use? |
 | Remediation and receipt | Frozen inputs, F/CHG IDs, permitted changes, retained requirements | Is this a required repair, authorized enhancement, proposal, or investigation? |
 
 Derive routine details such as a proposed skill name and discovery description. Distinguish proposed defaults from user requirements. Never request credential or secret values.
+
+For explicitly selected VPR-2 work, use the [packaged policy](contracts/skill-authoring-contract.md#opt-in-vpr-2-validation-policy). “Validate” is neutral. Installation, tagging or distribution inside an accepted scope does not alone select Full; first/explicit qualification, new supported scope, consequential control/receiving changes, a Full-required claim contract or unbounded impact does. Carry an existing conditional owner decision and its checks forward. Ask only about a material missing claim, scope or authority fact, without adding per-check approvals. Capture future evidence needs; the builder does not perform them.
 
 ## Ask Optional or Enforced only where unresolved
 
