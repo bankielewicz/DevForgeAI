@@ -1,0 +1,491 @@
+{
+  "document_kind": "bounded_implementation_proposal_not_execution_authority",
+  "id": "VPI-01",
+  "revision": 1,
+  "status": "PROPOSED_NOT_APPROVED_NOT_RUN",
+  "design_acceptance": {
+    "accepted_commit": "8ede26450ae737a5e928c5f70a945aa995969b30",
+    "authority": "User current instruction: I accept the validation policy revision at commit 8ede26450ae737a5e928c5f70a945aa995969b30 as the design specification.",
+    "scope": "Design specification only; no additional charged execution, implementation, integration merge or operational installation authorized."
+  },
+  "continuation_source": {
+    "path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-r2-review-stage-a-20260908T135135757276Z/review-and-stage-a-report.md",
+    "sha256": "a11ddd75b4602dbd193c76db429bf291eeff176670352312bae7fe27ca2c9695"
+  },
+  "historical_ledgers": [
+    {
+      "id": "original",
+      "approved": 24,
+      "charged": 24,
+      "remaining": 0
+    },
+    {
+      "id": "R2-REVIEW",
+      "approved": 1,
+      "charged": 1,
+      "remaining": 0
+    },
+    {
+      "id": "CMP-2.A",
+      "approved": 2,
+      "charged": 2,
+      "remaining": 0
+    }
+  ],
+  "history_aggregate_external_units": 27,
+  "stage_a": "COMPLETE_WITH_RECORDED_CLOSEOUT_SUBLIMIT_DEVIATION; never rerun as a prerequisite",
+  "subscription_affordability": "NOT_ESTABLISHED",
+  "additional_approved": 0,
+  "additional_dispatched": 0,
+  "requested": {
+    "max_generations": 9,
+    "normal_generations": 7,
+    "conditional_generations": 2,
+    "max_elapsed_seconds": 21600,
+    "generation_window_total_seconds": 13800,
+    "overhead_seconds": {
+      "identity_and_workspace_preparation": 1800,
+      "deterministic_checks_and_staging_including_affected_rechecks": 3600,
+      "custody_and_closeout": 1800,
+      "non_model_contingency": 600
+    },
+    "new_authentication": 0,
+    "native_evaluation_generations": 0,
+    "later_measurement_stage_generations": 0,
+    "operational_installation": false,
+    "shared_main_merge": false,
+    "if_fully_used_aggregate_external_units": 36,
+    "bound_not_cost_estimate": true,
+    "scope": "Isolated implementation, deterministic fixture verification/staged installation, independent combined review, at most one bounded repair, and qualification-planning handoff only"
+  },
+  "selected_bases": {
+    "accepted_design_commit": "8ede26450ae737a5e928c5f70a945aa995969b30",
+    "DevForgeAI_committed_base": "8ede26450ae737a5e928c5f70a945aa995969b30",
+    "DevForge_committed_base": "c7b2a62696c7f3764fdea3313182b9e896339a2a",
+    "working_tree_changes": "Excluded from implementation base selection, preserved for owner reconciliation before any shared integration; not rolled back."
+  },
+  "nodes": [
+    {
+      "owner": "shared_contract_owner",
+      "minutes": 20,
+      "dependencies": [],
+      "workspaces": [
+        "contracts"
+      ],
+      "purpose": "Transcribe accepted VPR-2 into scoped shared contracts and freeze v2 record rules plus independent requirement-derived test expectations; no redesign or runtime execution.",
+      "writes": [
+        "docs/skill-authoring/skill-validator-design.md",
+        "docs/mvp/skill-authoring-contract.md",
+        "docs/mvp/execution-contract.md",
+        "docs/mvp/templates/skill-authoring/run-manifest.json",
+        "docs/mvp/templates/skill-authoring/evaluation-report.md",
+        "docs/mvp/templates/shared/handoff.md"
+      ],
+      "repository": "DevForgeAI",
+      "id": "G1",
+      "max_generation_seconds": 1200,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN"
+    },
+    {
+      "owner": "runtime_policy_owner",
+      "minutes": 30,
+      "dependencies": [
+        "G1"
+      ],
+      "workspaces": [
+        "runtime-core"
+      ],
+      "purpose": "Implement protected policy/coverage/lineage parsing and typed task/gate dispositions with discriminating RED/GREEN; preserve every legacy v1 predicate.",
+      "writes": [
+        "runtime/delivery/validation_policy.py",
+        "runtime/delivery/utility_state.py",
+        "runtime/delivery/utility_evidence.py",
+        "src/delivery.rs",
+        "tests/test_validation_policy.py",
+        "tests/test_utility_state.py",
+        "tests/test_utility_runtime.py",
+        "docs/integration/utility-runtime-contract.md"
+      ],
+      "repository": "DevForge",
+      "id": "G2",
+      "max_generation_seconds": 1800,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN"
+    },
+    {
+      "owner": "runtime_schedule_owner",
+      "minutes": 30,
+      "dependencies": [
+        "G2"
+      ],
+      "workspaces": [
+        "runtime-schedule"
+      ],
+      "purpose": "Implement policy-bound schedule dependencies, complete typed call allocation and distinct funded v2 limits through actual collector/router/capability consumers; retain original v1 24/600/14400 limits.",
+      "writes": [
+        "runtime/delivery/validation_policy.py",
+        "runtime/delivery/utility_state.py",
+        "runtime/delivery/utility_evidence.py",
+        "runtime/delivery/utility_schedule.py",
+        "runtime/delivery/native_schedule.py",
+        "runtime/delivery/native_process.py",
+        "runtime/delivery/supervisor.py",
+        "runtime/delivery/workflow_runtime.py",
+        "src/delivery.rs",
+        "tests/test_utility_schedule.py",
+        "tests/test_native_schedule.py",
+        "tests/test_native_process.py",
+        "tests/test_utility_native_admission.py",
+        "tests/test_utility_native_lifecycle.py",
+        "tests/test_native_interactive.py",
+        "tests/test_native_terminal.py",
+        "docs/integration/utility-runtime-contract.md",
+        "docs/integration/native-lifecycle-contract.md"
+      ],
+      "repository": "DevForge",
+      "id": "G3",
+      "max_generation_seconds": 1800,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN"
+    },
+    {
+      "owner": "canonical_validator_owner",
+      "minutes": 30,
+      "dependencies": [
+        "G1",
+        "G2",
+        "D-RED"
+      ],
+      "workspaces": [
+        "validator"
+      ],
+      "purpose": "Update only canonical Codex validator instructions/references/templates and evidence reducer for Routine/Full and versioned selection, preserving source oracles. Runtime/operator performs helper RED/GREEN.",
+      "writes": [
+        "providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/agents/openai.yaml",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/ai-review.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/case-grade.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/environment-setup.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/handoff.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/run-manifest.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/skill-enhancement-spec.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/test-cases.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-plan.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-results.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/verification-results.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/assets/workspace-allocation.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/ai-review-rubric.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/artifact-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/execution-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/skill-authoring-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/enforcement-design.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/framework-context.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/managed-validation.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/results-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/sources.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/structural-checks.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/references/worktree-environment.md",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/scripts/assess_evidence.py",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/scripts/inspect_skill.py",
+        "providers/codex/plugins/devforgeai/skills/skill-validator/evals/validation-policy-cases.json"
+      ],
+      "repository": "DevForgeAI",
+      "id": "G4",
+      "max_generation_seconds": 1800,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN"
+    },
+    {
+      "owner": "canonical_builder_owner",
+      "minutes": 20,
+      "dependencies": [
+        "G1"
+      ],
+      "workspaces": [
+        "builder"
+      ],
+      "purpose": "Update canonical Codex builder intake, design/handoff/results language and derived shared references to preserve Routine acceptance versus qualification and a nonrecursive prepared handoff; no evaluation.",
+      "writes": [
+        "providers/codex/plugins/devforgeai/skills/skill-builder/SKILL.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/agents/openai.yaml",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/assets/handoff.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/assets/skill-design-spec.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/artifact-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/execution-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/skill-authoring-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/existing-skill-selection.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/framework-context.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/interview-guide.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/managed-authoring.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/results-contract.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/sources.md",
+        "providers/codex/plugins/devforgeai/skills/skill-builder/references/validator-handoff.md"
+      ],
+      "repository": "DevForgeAI",
+      "id": "G5",
+      "max_generation_seconds": 1200,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN"
+    },
+    {
+      "owner": "integration_owner",
+      "minutes": 30,
+      "dependencies": [
+        "G3",
+        "G4",
+        "G5",
+        "D-GREEN-FOCUSED"
+      ],
+      "workspaces": [
+        "integration-ai",
+        "integration-cli"
+      ],
+      "purpose": "Combine only frozen owner commits in isolated integration trees; reconcile capability/installer/helper pins and fixture compatibility; prepare combined candidate and qualification-planning handoff without native execution.",
+      "writes": [
+        "scripts/install_framework.py",
+        "scripts/runtime_requirements.py",
+        "scripts/validate_framework.py",
+        "tests/test_installer.py",
+        "tests/test_validation.py",
+        "policies/notes-json.json",
+        "policies/notes-sqlite.json",
+        "docs/integration/utility-runtime-contract.md",
+        "docs/integration/native-lifecycle-contract.md",
+        "docs/POC.md"
+      ],
+      "repository": "both",
+      "id": "G6",
+      "max_generation_seconds": 1800,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN",
+      "merge_scope": {
+        "DevForgeAI": [
+          "G1.frozen_commit",
+          "G4.frozen_commit",
+          "G5.frozen_commit"
+        ],
+        "DevForge": [
+          "G3.frozen_commit"
+        ],
+        "rule": "Only the selected predecessor patch paths may enter the two integration trees; G6 additional edits are limited to its declared DevForge paths. Shared source main is not writable."
+      }
+    },
+    {
+      "owner": "independent_combined_reviewer",
+      "minutes": 20,
+      "dependencies": [
+        "G6",
+        "D-VERIFY"
+      ],
+      "workspaces": [],
+      "purpose": "One fresh read-only review of exact combined diffs, accepted spec, frozen expectations, original catalogs, actual RED/GREEN and complete check outputs. Review both utility packages, runtime and integration; no self-review or native claim.",
+      "writes": [],
+      "repository": "both",
+      "id": "G7",
+      "max_generation_seconds": 1200,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN"
+    },
+    {
+      "owner": "bounded_remediation_owner",
+      "minutes": 30,
+      "dependencies": [
+        "ACTUAL_BLOCKING_FINDING_OR_CHECK_FAILURE"
+      ],
+      "workspaces": [
+        "repair-ai",
+        "repair-cli"
+      ],
+      "purpose": "Optional single repair task within existing scope against actual failing evidence. Cannot change accepted policy/oracles, implement native transport, or broaden installation. One repair opportunity across the entire tranche.",
+      "writes": [],
+      "repository": "both",
+      "conditional": true,
+      "id": "G8",
+      "max_generation_seconds": 1800,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN",
+      "conditional_write_scope": "Bind actual finding paths before dispatch, strictly within G1-G6 declared repository scopes and selected frozen commits; no broader files, accepted policy/oracle changes or new objectives."
+    },
+    {
+      "owner": "fresh_independent_reviewer",
+      "minutes": 20,
+      "dependencies": [
+        "G8",
+        "D-VERIFY-AFFECTED"
+      ],
+      "workspaces": [],
+      "purpose": "Optional one fresh read-only re-review when G7 already reviewed a candidate changed by G8; no recursive grader or further repair. If G8 was used before G7, G7 is the independent final review and G9 remains unspent.",
+      "writes": [],
+      "repository": "both",
+      "conditional": true,
+      "id": "G9",
+      "max_generation_seconds": 1200,
+      "initial_generations": 1,
+      "continuations": 0,
+      "child_dispatches": 0,
+      "status": "PROPOSED_NOT_APPROVED_NOT_RUN"
+    }
+  ],
+  "deterministic_nodes": {
+    "D-RED": "G1 freezes hand-derived expectations. G2 implements/finalizes the companion regression tests and retains required assertion RED on unchanged package helper bytes before G4. Runtime authors retain RED before each runtime implementation and GREEN after it. Operator runs the frozen package-helper discriminator using the G2 test commit before G4; no concurrent read of a changing test oracle.",
+    "D-GREEN-FOCUSED": "Rebuild before compiled CLI/helper acceptance; run unchanged discriminators against new bytes; fixed fixtures do not prove native behavior.",
+    "D-VERIFY": "After G6, run required complete commands and isolated staging; freeze exact source/binary/output hashes before G7. All deterministic time counts within the 3600-second block if not already inside a generation; never double-count overlap.",
+    "D-VERIFY-AFFECTED": "After the single G8 repair, repeat required affected and full executable checks as required by actual changes within the same remaining block; no timer reset."
+  },
+  "control_flow": "G1 -> (G2, G5); G2 -> (G3, D-RED -> G4); (G3, G4, G5) -> D-GREEN-FOCUSED -> G6 -> D-VERIFY -> G7. One G8 may repair an actual earlier failing check or G7 blocker. If used before G7, G7 reviews final repaired bytes and G9 is unused. If used after G7, require D-VERIFY-AFFECTED then G9. Any further blocker is a terminal incomplete result; no further calls.",
+  "workspaces": [
+    {
+      "id": "contracts",
+      "repository": "DevForgeAI",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-contracts",
+      "branch": "impl/vpi01-20260908T144631697661Z-contracts",
+      "base_binding": "accepted_design_commit",
+      "materialized": false,
+      "conditional": false,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/contracts",
+      "outputs_materialized": false
+    },
+    {
+      "id": "runtime-core",
+      "repository": "DevForge",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-core",
+      "branch": "impl/vpi01-20260908T144631697661Z-runtime-core",
+      "base_binding": "runtime_committed_base",
+      "materialized": false,
+      "conditional": false,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/runtime-core",
+      "outputs_materialized": false
+    },
+    {
+      "id": "runtime-schedule",
+      "repository": "DevForge",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-schedule",
+      "branch": "impl/vpi01-20260908T144631697661Z-runtime-schedule",
+      "base_binding": "G2.frozen_commit",
+      "materialized": false,
+      "conditional": false,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/runtime-schedule",
+      "outputs_materialized": false
+    },
+    {
+      "id": "validator",
+      "repository": "DevForgeAI",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-validator",
+      "branch": "impl/vpi01-20260908T144631697661Z-validator",
+      "base_binding": "G1.frozen_commit",
+      "materialized": false,
+      "conditional": false,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/validator",
+      "outputs_materialized": false
+    },
+    {
+      "id": "builder",
+      "repository": "DevForgeAI",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-builder",
+      "branch": "impl/vpi01-20260908T144631697661Z-builder",
+      "base_binding": "G1.frozen_commit",
+      "materialized": false,
+      "conditional": false,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/builder",
+      "outputs_materialized": false
+    },
+    {
+      "id": "integration-ai",
+      "repository": "DevForgeAI",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-integration-ai",
+      "branch": "impl/vpi01-20260908T144631697661Z-integration-ai",
+      "base_binding": "G1.frozen_commit",
+      "materialized": false,
+      "conditional": false,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/integration-ai",
+      "outputs_materialized": false
+    },
+    {
+      "id": "integration-cli",
+      "repository": "DevForge",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-integration-cli",
+      "branch": "impl/vpi01-20260908T144631697661Z-integration-cli",
+      "base_binding": "G3.frozen_commit",
+      "materialized": false,
+      "conditional": false,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/integration-cli",
+      "outputs_materialized": false
+    },
+    {
+      "id": "repair-ai",
+      "repository": "DevForgeAI",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-ai",
+      "branch": "impl/vpi01-20260908T144631697661Z-repair-ai",
+      "base_binding": "frozen_combined_ai_candidate",
+      "materialized": false,
+      "conditional": true,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/repair-ai",
+      "outputs_materialized": false
+    },
+    {
+      "id": "repair-cli",
+      "repository": "DevForge",
+      "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-cli",
+      "branch": "impl/vpi01-20260908T144631697661Z-repair-cli",
+      "base_binding": "frozen_combined_cli_candidate",
+      "materialized": false,
+      "conditional": true,
+      "output_root": "/home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/repair-cli",
+      "outputs_materialized": false
+    }
+  ],
+  "max_new_git_worktrees": 9,
+  "max_parallel_writers": 3,
+  "review_contexts": "fresh prompt contexts without author conversation, read-only specified bytes; shared model/system and filesystem exposure disclosed; no native isolation claim",
+  "worker_rules": [
+    "No worker may change another checkout or assigned scope",
+    "No child delegation, followup_task, automatic model retry or unallocated continuation",
+    "Each initial dispatch is charged once even if failed/censored; internal calls are reported only when observable",
+    "Commit and freeze each node output within its time window; ownership transfer binds the actual predecessor commit before next writes",
+    "No background process may outlive the owner deadline; stop and settle only owned work",
+    "One live origin includes setup, waiting, testing, staging and closeout; no borrowed time from historical allocations",
+    "No hook registration/auth reuse/token transport implementation or native measurement stage in this tranche"
+  ],
+  "installation_gate": "CI-05 applies to adoption of this enforcement change: complete applicable Full qualification of exact integrated candidate/environment plus owner operational destination authority are required. Implementation reviews and synthetic fixture PASS do not waive this.",
+  "future_qualification": "G6 prepares the assertion/evidence/dependency handoff; final exact native observation allocation and supported method remain separate. Do not invent a reduced Full count or dispatch from the old 1099-unit proposal.",
+  "current_root_work": "Proposal authoring and read-only inspection only. Provider usage unmeasured, not zero. No further charged task dispatched.",
+  "dispatch_interface": {
+    "tool": "collaboration.spawn_agent",
+    "agent_type": "default",
+    "fork_turns": "none",
+    "model_override": null,
+    "task_name_pattern": "vpi01_g<number>_<allocation_stamp>",
+    "continuations": 0,
+    "child_delegation": 0,
+    "availability": "Recheck at execution admission without model probe; this proposal does not dispatch or test it. Record exposed model/system/counter scope; unknown model metadata stays unknown. Hosted engineering work is not a native qualification context."
+  },
+  "declared_new_source_files": {
+    "DevForge": [
+      "runtime/delivery/validation_policy.py",
+      "tests/test_validation_policy.py"
+    ],
+    "DevForgeAI": [
+      "providers/codex/plugins/devforgeai/skills/skill-validator/evals/validation-policy-cases.json"
+    ]
+  }
+}
