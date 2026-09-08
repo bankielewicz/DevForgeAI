@@ -2,7 +2,7 @@
   "schema_version": "devforge.skill-ai-review/v2",
   "run_id": "{{run-id}}",
   "candidate_ref": {
-    "path": "{{source-structural-checks.json}}",
+    "path": "{{exact-runtime-manifest-selected-by-validation_policy.candidate_identity.candidate}}",
     "sha256": "{{sha256}}"
   },
   "reviewer": {

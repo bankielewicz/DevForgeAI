@@ -7,7 +7,7 @@
   "entries": [
     {
       "destination": "references/contracts/skill-authoring-contract.md",
-      "destination_sha256": "9505d89f95ca0552e43460321c84658df9a8bd02d5dfcea719d4f89c697d2133",
+      "destination_sha256": "ce96f7400966bdcd3abc91a0cf4c0adaf93d76d32ad1261d1bc8aa0ed9e92754",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
