@@ -1,6 +1,6 @@
 # Packaged skill authoring contract
 
-Derived for these Codex authoring utilities from DevForgeAI docs/mvp/skill-authoring-contract.md, draft revision 2, 2026-09-05. Exact source and destination hashes are in ../derivation.json. This operational summary retains applicable requirements; the assignment's selected source bytes govern any conflict. It does not declare draft framework capabilities implemented.
+Derived for these Codex authoring utilities from DevForgeAI docs/mvp/skill-authoring-contract.md, draft revision 3, 2026-09-07. Exact source and destination hashes are in ../derivation.json. This operational summary retains applicable requirements; the assignment's selected source bytes govern any conflict. It does not declare draft framework capabilities implemented.
 
 ## Ownership and package
 
@@ -47,3 +47,11 @@ Grade behavior, artifact delivery and overall result independently against accep
 Use PASS and FAIL only for supported observed conditions. NOT_RUN means unattempted; COULD_NOT_RUN means required observation unavailable with cause; NOT_APPLICABLE means predefined scoped exclusion with reason. Required phases cannot be silently excluded. A small pilot reports its counts and limits, not unsupported statistical claims.
 
 Retain native outputs in their own formats. The report binds them with exact references rather than rewriting history. Promote only the provider, installation mode and use cases supported by evidence. A refreshed installation or integration candidate requires affected rechecks.
+
+## Revision-3 controlled refresh
+
+This assignment explicitly selects the revision-3 sources preserved in derivation.json. Historical evaluations retain their original revision-2 authoring contract and exact inputs. No previous result becomes revision-3 conformance evidence.
+
+Managed operation keeps useful phase work in the skill and mechanical transitions, evidence predicates, waiting, correction bounds and receipt publication in the protected runtime. The selected shared source describes the brainstorm adapter. A separately reviewed utility component supplies mechanical builder/validator phases; consult the package-local managed reference for its bounded interface. Complete native integration remains separate and unobserved. Native admission is NOT_VALIDATED and native activation/rendered delivery NOT_OBSERVED.
+
+Keep conditional managed guidance package-local. Final identities and receipts come from runtime observations; no model-issued completion check or helper fallback. Delivery-aware installation/export belongs to integration and must bind the explicit runtime executable, six-field requirement and single effective synchronous callback per event from the execution contract. Package/source compatibility does not certify native behavior. Frozen case expectations, task deadlines, old failures and separate C/B/A results remain intact; runtime-aware measurement requires newly allocated independent evidence.

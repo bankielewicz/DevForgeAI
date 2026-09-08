@@ -1,0 +1,69 @@
+{
+  "schema_version": "devforge.static-evaluation-custody/v1",
+  "scope": "Deterministic source and fresh static AI review only; no native acceptance",
+  "candidate_manifest": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/candidate-manifest.json",
+    "sha256": "6974a1a4eddd9acd2354a5d177cc727f3d51ac8e6fa6b3198771e3fade7996fd"
+  },
+  "reports": [
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/coverage-source-continuity.json",
+      "sha256": "7ea5f42401e9859982b1936b6041df9c9e73f04634030d81c98bcab06f93c55c"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/framework-checks.json",
+      "sha256": "7643a39c2c39ce60ce1fbe02ed24e91e6544d5b5d4d37bb27b858b71b7370754"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/framework-frozen-baseline.log",
+      "sha256": "a8919f646fd7a0ebced1e7fa118f9c3125c7888965f2c126f2f057beede7d763"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/framework-source-branch.log",
+      "sha256": "a8919f646fd7a0ebced1e7fa118f9c3125c7888965f2c126f2f057beede7d763"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/independent-review.md",
+      "sha256": "97a33fd3327f0a157d66978c69f5b62fe329a2f33ce38ae62378604ca24b54f2"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/manifest.json",
+      "sha256": "20a9605dc0627f53ca42d610b581d87b950daff7b62fdf228136839a0b9f7175"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-builder-ai-review.json",
+      "sha256": "7ed183e42881bd1f88eb813368fb0468cb6330dfdb69bd5d0c2073c3fe9af983"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-builder-structure.json",
+      "sha256": "94a08f68559f022070b36bfc6fd5797fa6303524e66b4c2d5bf4323acf1faa35"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-builder-structure.log",
+      "sha256": "45b79175693c7d2ed09b0910bf303f0fa5c4a0ea0a980beaf616f7d5f5726240"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-enhancement-spec.md",
+      "sha256": "d7147f6acce6f6177d88d06fbea76bb481ebad9fff4eaf6e0cc7d88e7a435217"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-validator-ai-review.json",
+      "sha256": "1fe3c3ee14e01e030efff3158e0ac624f716f0e534e17e7d96f017094e802616"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-validator-structure.json",
+      "sha256": "fe9c5ff2a5b9bf672d72b126bb2873c5a32eed5736ced2dc72e7574e8d2c65d2"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-validator-structure.log",
+      "sha256": "7a9ec9df305344d06e3538188de203866542ad95196fbf593b93584b000c9107"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/verification-results.md",
+      "sha256": "3097f96a96d6b31ee1ab16cef3dc842280e1657fe0fe6cb6155c4a745f954faa"
+    }
+  ],
+  "overall": "INSUFFICIENT_NATIVE_EVIDENCE",
+  "native": "NOT_RUN",
+  "receiving": "NOT_RUN"
+}

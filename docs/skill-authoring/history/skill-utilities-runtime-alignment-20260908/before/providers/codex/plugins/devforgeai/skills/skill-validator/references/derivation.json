@@ -1,0 +1,302 @@
+{
+  "schema_version": "devforge.skill-derivation/v1",
+  "skill": "skill-validator",
+  "recorded_at_utc": "2026-09-07T12:09:25.153931+00:00",
+  "path_base": "DevForge workspace root",
+  "source_selection": "User-directed authoring on 2026-09-07; no source commit manufactured",
+  "entries": [
+    {
+      "destination": "references/contracts/skill-authoring-contract.md",
+      "destination_sha256": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "references/contracts/artifact-contract.md",
+      "destination_sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "references/contracts/execution-contract.md",
+      "destination_sha256": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "sha256": "1b4e729e1c564bb3e861d1e3558538d72734cf5310e39c125c8b5a10a1b6a396",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "references/framework-context.md",
+      "destination_sha256": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/AGENTS.md",
+          "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/roster.md",
+          "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/roster.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/POC.md",
+          "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/POC.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "sha256": "1b4e729e1c564bb3e861d1e3558538d72734cf5310e39c125c8b5a10a1b6a396",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/scripts/install_framework.py",
+          "sha256": "eded6bde788fe27a9c011123aafd7b4a57f5dc3a8733f89ea0dfdcd68bf161e6",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/scripts/install_framework.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/scripts/validate_framework.py",
+          "sha256": "9ec5656285f3b6cf250d3b3ff3d434e8e88201071abcf31cade26e3b1a005a81",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/scripts/validate_framework.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/scripts/validate_mvp.py",
+          "sha256": "b74e26336ab13475c9e77524785b2c0e6f56d12bd9be8451c345a4ce17d94be9",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/scripts/validate_mvp.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/runtime/delivery/supervisor.py",
+          "sha256": "f3ccac298d1ff042df1aee4500994f2c7a646818b2d1c1bcbfbc236a60ced0fa",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/runtime/delivery/supervisor.py",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/src/main.rs",
+          "sha256": "54765ef3899ee5be11f76980db45a4837ed4797878d02521ab5eecd9879e043f",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/src/main.rs",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "assets/verification-results.md",
+      "destination_sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/templates/skill-authoring/evaluation-report.md",
+          "sha256": "d4929c36980ff5237ee3e6a3363392d9fa6303ba1f3028b8b184a85fd31b0ddc",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/templates/skill-authoring/evaluation-report.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Retain SEVAL shared envelope; expand identity, static/AI/C/B/A evidence, findings, scope, comparison and continuation fields. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "assets/handoff.md",
+      "destination_sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+          "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Retain shared handoff envelope, exact-byte custody and no self-digest; specialize continuation to builder remediation and validator retest. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "assets/run-manifest.json",
+      "destination_sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/templates/skill-authoring/run-manifest.json",
+          "sha256": "9f8d7a8eed826dd4ff7e0f64988b6cded6839aca73b5ebc6c04dec543c1e414f",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/templates/skill-authoring/run-manifest.json",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Retain all native core fields; select Codex; add attempt/case/arm/transcript digest and observation/boundary references. Templates make no observed success claim. Add nullable environment_setup_ref to bind actual attempt preparation separately from the frozen plan. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "assets/skill-enhancement-spec.md",
+      "destination_sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/artifact-contract.md",
+          "source_revision": null
+        },
+        {
+          "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+          "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Derive shared envelope and custody semantics; introduce explicit local paired-utility remediation type, findings, changes, preservation constraints and rerun closure. Not a registered DevForge CLI schema.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    },
+    {
+      "destination": "references/worktree-environment.md",
+      "destination_sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d",
+      "sources": [
+        {
+          "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "sha256": "1b4e729e1c564bb3e861d1e3558538d72734cf5310e39c125c8b5a10a1b6a396",
+          "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/execution-contract.md",
+          "source_revision": null
+        }
+      ],
+      "transformation": "Apply the selected execution boundary and worktree assignment rules to the user-selected alternative test environment. Git command semantics are separately attributed in references/sources.md. This does not refresh shared contract revisions. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+    }
+  ],
+  "external_references": "references/sources.md",
+  "authored_resources": "Other resources implement the user-selected design; authored does not mean evaluated.",
+  "validation_status": "NOT_PERFORMED",
+  "hook_status": "DESIGN_ONLY",
+  "concurrent_source_changes": {
+    "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md": {
+      "selected_sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "preserved_path": "framework/DevForgeAI/docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "current_sha256": "2f5cd33a603009d6118e698443a5358999ed535c723c5cac226499db5124a9fd",
+      "disposition": "Retain selected preserved source; concurrent current change requires explicit refresh selection and affected reevaluation."
+    }
+  },
+  "environment_enhancement": {
+    "date": "2026-09-07",
+    "scope": "User-selected local Git worktree alternative within existing T01/T02/T05",
+    "validation_status": "NOT_PERFORMED",
+    "hook_status": "DESIGN_ONLY"
+  },
+  "workspace_allocation_refinement": {
+    "change_id": "CHG-WA-01",
+    "authorization": "Direct user-authorized skill-validator-only usability enhancement; not a prior evaluation finding. Authoring and scoped installed refresh only.",
+    "date": "2026-09-07",
+    "design_ref": {
+      "path": "framework/DevForgeAI/docs/skill-authoring/skill-validator-design.md",
+      "sha256": "3195bb4125970fcd59eaaae4695af60d11de0d99eb204381548331c29c77f5d7",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/design-after.md",
+      "source_revision": null
+    },
+    "previous_source_manifest": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-before-manifest.json",
+      "sha256": "c8b3f6bc6b600aff342fe5ac699385a34ea3fe856e5df4f8a5ea37ef0d438f60"
+    },
+    "affected_resources": [
+      {
+        "destination": "SKILL.md",
+        "destination_sha256": "bdc7696ab46377202729ec9ac2959026152ccdcaa8341d21e9e8e049d682d423"
+      },
+      {
+        "destination": "assets/environment-setup.json",
+        "destination_sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b"
+      },
+      {
+        "destination": "assets/handoff.md",
+        "destination_sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99"
+      },
+      {
+        "destination": "assets/run-manifest.json",
+        "destination_sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
+      },
+      {
+        "destination": "assets/validation-plan.json",
+        "destination_sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1"
+      },
+      {
+        "destination": "assets/verification-results.md",
+        "destination_sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
+      },
+      {
+        "destination": "assets/workspace-allocation.json",
+        "destination_sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5"
+      },
+      {
+        "destination": "evals/evals.json",
+        "destination_sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c"
+      },
+      {
+        "destination": "references/enforcement-design.md",
+        "destination_sha256": "4447abf0cf5022e19755808059fdcc56417f07eff1a7ca5db9c130f587f466e8"
+      },
+      {
+        "destination": "references/native-evaluation.md",
+        "destination_sha256": "109a416cbe94b3790b7cf3ef99fc8f8a244b5b9954839d7056198b007bc2953c"
+      },
+      {
+        "destination": "references/results-contract.md",
+        "destination_sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f"
+      },
+      {
+        "destination": "references/sources.md",
+        "destination_sha256": "492bfe071d72f8e918862b0f5051fd16914aae9b8a3ae76167b4db66efa118f7"
+      },
+      {
+        "destination": "references/worktree-environment.md",
+        "destination_sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
+      }
+    ],
+    "record_semantics": "Workspace allocation freezes preparation scope independently of native model/auth/repetitions/budgets. Complete experiment freeze and observed boundaries precede native launch. Local templates are not runtime admission schemas.",
+    "shared_contracts": "Existing exact selected copies retained; no migration to concurrent shared revision.",
+    "runtime_integration_record": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/runtime-integration-requirements.md",
+      "sha256": "188ceca026b091fca71f953eaa24d83f794b37bb0c33440a4cba15cadbffee01"
+    },
+    "validation_status": "NOT_PERFORMED",
+    "hook_status": "DESIGN_ONLY"
+  }
+}

@@ -14,7 +14,7 @@ All validator phases P1-P6 and tasks T01-T12 are Enforced requirements, explicit
 
 Each proposal applies only to a registered validator evaluation assignment and its protected candidate/outbox paths. It must not infer the active workflow from arbitrary words in a chat or run globally against unrelated tasks.
 
-## Proposed event and decision design
+## Historical generic hook proposal: event and decision design
 
 Use synchronous PreToolUse only where the installed Codex runtime supports the relevant local tool path. Match exact tool names/aliases for shell, apply_patch or applicable MCP calls, then inspect the actual action and registered run paths. There is no native workflow-phase event.
 
@@ -36,11 +36,11 @@ A complete boundary must cover alternate write/launch routes, already-running sh
 
 No override is implied. An allowed exception needs actual authority, recorded scope, expiry/attempt identity and its effect on the validation claim. Changed target/plan/runtime/assignment invalidates affected registration and receipts.
 
-## Current implementation status
+## Historical proposal status and selected mechanical implementation
 
 - Workflow obligations and evidence-result rules are authored in this skill.
 - inspect_skill.py and assess_evidence.py implement deterministic inspection/record processing; they are not native launch enforcers.
-- H1-H5 are design proposals only. No hook files/configuration are installed, activated, run or validated by this authoring package.
+- H1-H5 remain required controls. Their older generic hook configuration is historical design only; no hook files/configuration are installed, activated, run or validated by this authoring package. The selected protected utility component supplies the bounded mechanical mapping below.
 - Feasibility: Partial with ordinary Codex hooks; complete workflow/semantic enforcement is not established.
 - Reference: [official Codex hooks](https://learn.chatgpt.com/docs/hooks). Recheck actual target runtime documentation before proposing concrete configuration.
 
@@ -48,4 +48,18 @@ No override is implied. An allowed exception needs actual authority, recorded sc
 
 The protected runtime owns mechanical admission and phase transitions. Its integration owner must distinguish bounded workspace preparation admitted from an actual authorized allocation from measured launch requiring the complete experiment and readiness evidence. Preserve those separate references and consumed workspace/client-state assignments, cover additional bounded allocations and reject stale identities or state reuse. Missing model/authentication/test budget must not independently deny otherwise authorized preparation. Missing preparation authority still blocks creation; missing native requirements still blocks native launch.
 
-These are integration requirements, not a claim of implementation. Allocation/setup templates are local records; neither helper supplies this admission distinction or validates all new allocation bindings. Do not invoke the experiment evidence reducer as a preparation gate or fill invented native budgets to satisfy it. Record unsupported runtime admission separately and retain reports/prepared workspaces. No shared policy, hooks, supervisor, model completion marker or phase-advance command is installed here.
+The selected component distinguishes native schedule admission from ordinary authorized preparation; actual Git workspace creation remains operator-owned under its frozen bounded allocation. Allocation/setup templates are local records; neither evaluator helper supplies that preparation admission or validates every new allocation binding. Do not invoke the experiment evidence reducer as a preparation gate or fill invented native budgets to satisfy it. Record unsupported runtime admission separately and retain reports/prepared workspaces. No shared policy, hooks, supervisor, model completion marker or phase-advance command is installed here.
+
+## H1-H5 mapping for an admitted utility assignment
+
+| Control | Selected protected mechanics | Remaining observation or owner |
+| --- | --- | --- |
+| H1 / T01-T02 | Session/delivery/assignment identity and output preimage admission; immutable selected input snapshots | Operator authorizes bounded Git preparation and records actual workspace actions; semantic completeness is not a hash predicate |
+| H2 / T03-T05 | Required external P2 deterministic-inspection and P3 independent-review gates; native-prerequisites gate before P4 schedule binding | Complete native allocation, authentication and effective isolation/hooks must be separately observed before any worker launch |
+| H3 / T06-T08 | Protected C/B/A dependency map, one-use reservations and original campaign clock | Reservation alone is not execution; real process custody and independent exact-tier review are additional prerequisites |
+| H4 / T09 | P5 evidence coverage/freshness and ordered phase admission; immutable accepted artifacts | Reducer and producer identities do not authenticate semantic judgments or grant external acceptance |
+| H5 / T10-T12 | P6 saved artifact checks, exclusive runtime receipt publication and readback | Prepared continuation is distinct from native transport, rendered delivery and receiving invocation |
+
+The selected schema family is devforge.utility-session/delivery/checkpoint/receipt v1, described in [managed validation](managed-validation.md). The worker supplies substantive artifacts and allocated evidence; protected runtime owns the transition. Do not install the historical generic PreToolUse/Stop proposals beside managed callbacks automatically. Effective provider callbacks require the selected trusted configuration, exactly observed event behavior and external acceptance of their limits. An error, disabled/duplicate hook or failed transport cannot establish managed completion.
+
+Feasibility is Partial: the selected mechanical component is implemented and separately reviewed, while native event coverage, interactive answer transport, semantic grading, actual delivery and acceptance remain separate. Hook status for this authoring package: Design only; not installed, activated, executed, or validated.

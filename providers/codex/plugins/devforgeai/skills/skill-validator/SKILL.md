@@ -16,9 +16,13 @@ Read [framework context](references/framework-context.md) at intake. DevForgeAI 
 - Do not change governing checks, cases, fixtures, or expectations to make a measured candidate pass. Changed inputs require a new identity and affected reruns.
 - Use actual supported commands and subscribed Codex sessions. No hidden model API calls, credential copying, global client-state changes, or unconfined fallback. An unavailable requirement has an explicit outcome.
 - All phases and tasks below are Enforced requirements by user decision. Missing evidence prevents a suitable-for-scope verdict. Failure never prevents reporting the failure and preparing the builder handoff.
-- Hook proposals in [the enforcement design](references/enforcement-design.md) are not installed enforcement. Run receipt checks and preserve external acceptance regardless of hook status.
+- [The enforcement design](references/enforcement-design.md) maps H1-H5 requirements to protected utility mechanics and retains historical hook proposals. It does not install enforcement. Evaluator receipt processing is scoped analysis; managed final checks and authoritative receipt publication/readback belong to runtime.
 
 Derive the installed skill root from this loaded SKILL.md, and resolve every helper and template relative to it. Resolve target source, consuming project, evidence directory, and external authority separately. Do not assume this package's repository exists at runtime.
+
+## Managed operation
+
+When actual protected context identifies a validator assignment, read [managed validation](references/managed-validation.md). Perform substantive evaluation for its current phase and save the allocated useful artifacts. Runtime owns admission, ordered transitions, waiting, correction and final receipt publication/readback. Do not call advance/resume/complete/check/verify or a receipt helper as a fallback. Without admitted context, authorized standalone evaluation remains possible, with a prepared handoff and explicit unavailable managed observations.
 
 ## Enforced workflow
 
@@ -71,7 +75,7 @@ Static AI review does not execute the skill and cannot fill native A/B/C results
 
 ## P4: Exercise actual native behavior
 
-Read [native evaluation](references/native-evaluation.md) and the case definitions before starting. The supported baseline is a manually operated, isolated subscribed Codex terminal; no automatic native supervisor is supplied here.
+Read [native evaluation](references/native-evaluation.md) and the case definitions before starting. A manually operated, isolated subscribed Codex terminal remains supported. A separately selected native controller needs its own complete allocation and observed readiness; this package neither installs it nor treats a reservation or synthetic receipt as a run.
 
 Perform T05 workspace preparation using the selected existing-environment path or frozen Git workspace allocation; an incomplete native plan does not independently block this preparation. Before measured execution, finalize the experiment plan and establish and observe the filesystem, source visibility, client-state/history/memory, fixture, permission, and process boundaries before execution. Record workspace preparation separately from native readiness. If static-only was selected, retain the required native cases with explicit missing-observation causes and finish the remaining phases. A fresh chat or subagent alone does not prove these boundaries. Failed boundary/authentication setup produces COULD_NOT_RUN for affected cases; never retry unconfined.
 
@@ -103,7 +107,7 @@ Use BLOCKER, MAJOR, MINOR, or ADVISORY as defined in the result contract. Assign
 
 Every repair specification names skill-builder as the next owner. It authorizes no automatic edits, invocation, acceptance or release. Carry existing user authorization forward without expanding it. If no target changes are justified, write a specification stating that explicitly and list only missing evaluation work.
 
-Save reports outside the evaluated candidate. Hash completed outputs into [handoff.md](assets/handoff.md), excluding the handoff's own digest. Preserve producer/target identities and null adoption when no actual adoption exists. A handoff receipt may hash the completed handoff externally.
+Save reports outside the evaluated candidate. At completion, transfer or recovery populate [handoff.md](assets/handoff.md) using only observations already available at creation. In unmanaged operation label ordinary saved-output identities as author observations; in managed operation final identities and authoritative custody come from runtime. Exclude the handoff's own digest and circular receipt dependencies. Preserve producer/target identities and null adoption when no actual adoption exists. Keep preparation, runtime transition and receiving invocation separate; never rewrite the handoff to claim a later receipt.
 
 On a later builder revision, compare its change record and new candidate identity to prior findings, rerun affected checks and required regressions, and close a finding only with matching new evidence. Preserve the original failure history. Do not fix the target inside this skill.
 

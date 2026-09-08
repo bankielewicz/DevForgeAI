@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "scope": "source-branch",
+      "command": [
+        "python3",
+        "-B",
+        "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-continuation-20260907T220803638693Z/scripts/validate_framework.py",
+        "--framework",
+        "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 0.0744674860034138,
+      "log": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/framework-source-branch.log",
+      "sha256": "a8919f646fd7a0ebced1e7fa118f9c3125c7888965f2c126f2f057beede7d763"
+    },
+    {
+      "scope": "frozen-baseline",
+      "command": [
+        "python3",
+        "-B",
+        "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-continuation-20260907T220803638693Z/scripts/validate_framework.py",
+        "--framework",
+        "/home/bryan/Projects/DevForge/tmp/skill-utilities-journal-integration-20260907T231223422364Z/framework-fixture-source"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 0.08202424200135283,
+      "log": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/framework-frozen-baseline.log",
+      "sha256": "a8919f646fd7a0ebced1e7fa118f9c3125c7888965f2c126f2f057beede7d763"
+    }
+  ],
+  "scope_limit": "A first failure does not prove absence of other full-tree defects."
+}

@@ -21,3 +21,7 @@ Refresh sequence: select source revision with the assignment owner; preserve old
 ## Workspace allocation refinement — 2026-09-07
 
 The current user authorizes a new usability enhancement: freeze a bounded workspace allocation before preparation, and require the complete experiment only before measured native execution. Model, authentication, repetitions and test budgets may remain pending during preparation. This supersedes the former plan-before-provisioning dependency, not the former evaluation's findings or evidence. Git interfaces and selected packaged contracts are unchanged. Provenance and the exact pre-enhancement bytes are retained outside the runtime package and referenced in derivation.json. Runtime integration remains separate under protected ownership.
+
+## Bounded runtime alignment selection
+
+The later user-authorized alignment explicitly selects the exact preserved revision-3 authoring/execution and shared-handoff inputs already used by builder, plus the separately reviewed DevForge utility mechanical interface. derivation.json records the active sources, former records as historical, transformations and refresh conditions. This selection supersedes earlier statements that shared-contract refresh was deferred; earlier observations and evaluations are unchanged. Native implementation, effective callbacks and model behavior require their own evidence.

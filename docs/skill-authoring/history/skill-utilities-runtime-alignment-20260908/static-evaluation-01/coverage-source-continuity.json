@@ -1,0 +1,16 @@
+{
+  "schema_version": "devforge.coverage-source-continuity/v1",
+  "case_inventory_sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c",
+  "prior_and_current_cases_identical": true,
+  "current_candidate_manifest": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/candidate-manifest.json",
+    "sha256": "6974a1a4eddd9acd2354a5d177cc727f3d51ac8e6fa6b3198771e3fade7996fd"
+  },
+  "prior_coverage_analysis": {
+    "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/coverage-analysis.json",
+    "sha256": "97c3b63a9a8b208563ec5a6cb0f246916da6eff487d667bd35c87eb816317219"
+  },
+  "limit": "Prior analysis establishes a preserved lower bound of 40 required validator amendment outer executions. It is not a complete executable allocation for the changed source; no case has been removed. Additional AL requirements do not reduce required coverage.",
+  "native_plan": "COMPLETE_EXECUTABLE_ALLOCATION_NOT_FROZEN_INFEASIBLE",
+  "native_executions": 0
+}

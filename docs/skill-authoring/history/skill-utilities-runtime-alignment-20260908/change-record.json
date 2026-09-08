@@ -1,0 +1,106 @@
+{
+  "schema_version": "devforge.builder-change-record/v1",
+  "requirements": [
+    "AL-01",
+    "AL-02",
+    "AL-03",
+    "AL-04",
+    "AL-05",
+    "AL-06",
+    "AL-07",
+    "AL-08",
+    "AL-09",
+    "AL-10",
+    "AL-11",
+    "AL-12"
+  ],
+  "dispositions": {
+    "applied": "AL-01 through AL-12 source guidance and historical provenance reconciliation",
+    "deferred": "Native interaction/launch/isolation observations and campaign allocation remain integration/evaluation work",
+    "declined": []
+  },
+  "changes": [
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/execution-contract.md",
+      "before": "a48aa2a93a2e8d287c652e4e0a4fb1ceb05c4811f42036596b683b14a7d7255b",
+      "after": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/skill-authoring-contract.md",
+      "before": "962a27b2c538b7033d458bf12900a1fe32a1f161ba6e535f171ae93847b22fe9",
+      "after": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+      "before": "d0f737a2065553b2cc66d48f263df707b3bdbd4a96bc8030842f415a051ded35",
+      "after": "509222fc268cacb169ea1fc42d22fc96a9c39988722ee5aaec7ef4a0db6f1284"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/framework-context.md",
+      "before": "cd04400b9f3cb7e31aaed5974d1edde4fb7cd495b377df3df56a28317fc1de0e",
+      "after": "6601ab3b2364506ac6cb75eea2cc2e53d0f47e4285edd9fe5007934c6d619dd1"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/managed-authoring.md",
+      "before": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7",
+      "after": "10d06a55b47254c9f8cc50bdca966e85e83fbc9f484596fd6e3f1c1aa7a2c14d"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+      "before": "bdc7696ab46377202729ec9ac2959026152ccdcaa8341d21e9e8e049d682d423",
+      "after": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/handoff.md",
+      "before": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99",
+      "after": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/execution-contract.md",
+      "before": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3",
+      "after": "4224508eb87d3dcabb6c00551d04393284334f834dcd543133eea5146857b5a8"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/skill-authoring-contract.md",
+      "before": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa",
+      "after": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+      "before": "63ae09f641bb4fa3c569d9c1863ef4a21a7ad378813804ce1f0508688460d8f8",
+      "after": "e65eb71f63a82ad22d652f16503bb7348adcb77e7fba96ea8838fbd7f8785176"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/enforcement-design.md",
+      "before": "4447abf0cf5022e19755808059fdcc56417f07eff1a7ca5db9c130f587f466e8",
+      "after": "b596e439d6a1643afc3836b7457d6065aa529d285a60ba5712b5c03973b25c14"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/framework-context.md",
+      "before": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+      "after": "7e2697f11df23f5c695327f62c4f534741968360b01b060e2ee90b420866ecbe"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/managed-validation.md",
+      "before": null,
+      "after": "0a7c4748726b738d5f39858bee4caf828a42b22aef4ba8630a00fdb1eaea06dd"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+      "before": "109a416cbe94b3790b7cf3ef99fc8f8a244b5b9954839d7056198b007bc2953c",
+      "after": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8"
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/sources.md",
+      "before": "492bfe071d72f8e918862b0f5051fd16914aae9b8a3ae76167b4db66efa118f7",
+      "after": "526a4163d8e275c9bf00011e43fdbdd832f4a943fd90be151759dbf199544ae4"
+    }
+  ],
+  "prior_findings": "Preserved historical builder F-001/F-002 and subsequent static records; no native finding or outcome closed by authoring",
+  "candidate_manifest": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/candidate-manifest.json",
+    "sha256": "6974a1a4eddd9acd2354a5d177cc727f3d51ac8e6fa6b3198771e3fade7996fd"
+  },
+  "validation_status": "NOT_PERFORMED",
+  "hook_status": "DESIGN_ONLY"
+}

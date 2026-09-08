@@ -1,10 +1,10 @@
 # Packaged execution and authority contract
 
-Operational derivation of DevForgeAI docs/mvp/execution-contract.md, draft revision 2, 2026-09-05; exact selected bytes are identified in ../derivation.json. These are requirements, not a claim that a registry, outbox adapter, native launcher or hooks are implemented.
+Operational derivation of DevForgeAI docs/mvp/execution-contract.md, draft revision 3, 2026-09-07; exact selected bytes are identified in ../derivation.json. These are requirements, not a claim that a registry, outbox adapter, native launcher or hooks are implemented.
 
 ## Authority and assignment
 
-Use normal subscribed Codex sessions and supported deterministic helpers. Human-operated transitions are valid. Native installation, discovery, activation, resource loading and output must each be demonstrated for the stated provider. Do not invent slash commands, DevForge commands or a callable skill for a draft capability.
+Use normal subscribed Codex sessions and supported deterministic helpers. Human-operated transitions remain valid for existing gates; managed phase transitions and delivery belong to the protected runtime. Native installation, discovery, activation, resource loading and output must each be demonstrated for the stated provider. Do not invent slash commands, DevForge commands or a callable skill for a draft capability.
 
 A writing assignment names the actual owner, task, provider, permitted source paths, evaluation output area, protected paths, runtime configuration and integration owner. Git work also records the repository/common-directory identity, worktree, branch/detached state and real base commit. Missing metadata does not prove exclusive ownership.
 
@@ -33,3 +33,15 @@ Do not modify sibling DevForge policy, runner, shared contracts or gate definiti
 Freeze the candidate and preserve receipts before another owner evaluates it. Integration, rebase, conflict resolution or changed governing context creates a new relevant identity requiring affected checks. Passing task-branch evidence does not certify a combined candidate.
 
 Completion does not authorize deleting a worktree, global state, old attempts or another session's work. Record custody, remaining tasks, actual gate state and next owner. A proposed continuation, discovered sibling and actually invoked sibling are separate facts.
+
+## Selected revision-3 managed contract
+
+The selected shared revision-3 implementation contract is brainstorm-specific: Recover → Explore → Record → Focus, with owner-selected handoff-only Recover → Focus. Those phases cannot be reused as evidence of a builder/validator engine. The separately selected utility component has its own phase IDs, session/delivery/checkpoint/receipt schemas and explicitly assigned correction limit; use the package-local managed reference. Native admission remains NOT_VALIDATED; native activation/rendered delivery remain NOT_OBSERVED.
+
+Protected runtime context supplies phase, accepted inputs, output/evidence destinations, fresh challenge and unchanged deadline. State, executable, selected inputs and receipt store must be worker-inaccessible for writes. WAITING_USER preserves the pending phase; a new message does not prove an answer or adoption. Missing/stale/replayed/out-of-order evidence and exhausted bounded correction prevent dependent completion. Each phase permits one correction under the selected brainstorm contract; the utility adapter binds its own authorized limits without resetting deadlines.
+
+On qualifying synchronous Stop after READY, runtime rechecks actual files, exclusively publishes the selected receipt, reads it back and emits its actual locator/full digest through systemMessage. Every Stop rechecks bytes; drift makes a historical receipt currently inapplicable. Receipt publication, transport, turn completion and rendered human delivery are separate observations. Never rewrite a handoff to claim events later than its creation.
+
+The selected provider sources declare one unconditional synchronous handler per SessionStart, UserPromptSubmit, Stop and SessionEnd. The six-field devforge.runtime-requirement/v1 binds runtime devforge.delivery, protocol devforge.delivery-runtime/v1, selected provider, managed-session and those ordered events. This records source declarations, not native support. Integration owns schemas, adapters, protected configuration, installation/export and independent effective callback observation. No new builder hooks are installed by this derivation. Do not blindly combine older validator H1-H5 proposals with managed callbacks.
+
+The model supplies substantive artifacts and evidence, never calls delivery advance/resume/complete/check/verify or receipt helpers as fallback. Unmanaged draft authoring can continue without a runtime completion claim. See [managed operation](../managed-validation.md) for workflow-specific behavior; accepted evidence and human adoption remain distinct.

@@ -59,4 +59,8 @@ derivation.json preserves the source paths and hashes of these packaged derivati
 
 ## Concurrent source change
 
-A concurrent authoring-contract revision 3 dated 2026-09-07 appeared after this assignment selected revision 2. These packages retain their preserved selected sources; they do not claim conformance to the concurrent revision. A new assignment must select its governing revision and reconcile affected package requirements before claiming conformance.
+Historical creation selected revision 2 before concurrent revision 3 appeared. The bounded runtime-alignment assignment now explicitly selects the preserved revision-3 authoring/execution sources and shared handoff already selected for builder. Earlier selections and evaluations remain historical in derivation.json; their outcomes do not transfer to the new bytes.
+
+## Selected utility integration
+
+The separately reviewed DevForge utility component supplies mechanical P1-P6 admission, evidence checks, waiting, bounded correction and final artifact receipt custody. The exact selected commit and preserved sources are in derivation.json. Use [managed validation](managed-validation.md) only with actual admitted context. Source descriptions, synthetic tests and package installation do not establish effective native hooks, authentication, source/history isolation, interactive answer transport, native C/B/A or receiving invocation. The dated tooling observations above remain evidence about their original revisions; this alignment does not silently promote an unobserved native implementation.

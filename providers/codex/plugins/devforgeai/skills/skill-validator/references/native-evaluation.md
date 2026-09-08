@@ -152,3 +152,7 @@ The three tiers, client-state and process boundaries, manifest schema, manual na
 
 [OpenAI skill documentation](https://learn.chatgpt.com/docs/build-skills), retrieved 2026-09-07, documents explicit and implicit selection and local discovery locations. Use the installed client's actual observable behavior for the evaluated version; documentation cannot replace consultation evidence. Recheck affected provider behavior after a client, packaging, discovery configuration, or governing-contract change.
 
+
+## Conditional protected utility integration
+
+For an admitted validator assignment follow [managed validation](managed-validation.md). The dated supervisor observations above describe their retained revisions. A new selected launcher must establish its own exact implementation and effective boundary; no component name or process receipt replaces those observations. Freeze all required calls, including controls, probes, graders, receiving executions, failed launches and any interaction continuations, within the approved cap. If the complete allocation cannot fit, preserve the cases and report the shortfall before launch. Pauses preserve the original campaign deadline, and no automatic retry is implied. Interactive cases need an owned answer transport and selected answer policy; a single-turn invocation cannot substitute.

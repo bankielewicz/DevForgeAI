@@ -17,7 +17,9 @@ decision_ref: null
 missing_inputs: []
 ---
 
-# Skill validation handoff
+# Prepared skill validation handoff
+
+Populate at completion, transfer or recovery using only observations already available when this document is authored. A prepared handoff is substantive continuation, not a runtime receipt or receiving invocation. Never amend it to claim a later check, publication or delivery event.
 
 ## You are here
 
@@ -29,11 +31,11 @@ missing_inputs: []
 
 ## Inputs and completed outputs
 
-Hash only saved complete files; never include this handoff's own digest.
+Reference saved complete files; never include this handoff's own digest or create circular receipt references. Runtime owns managed final identities and authoritative custody. If those identities have not yet been supplied, retain the exact path with null and a cause. Unmanaged ordinary source/write identities may be labelled as author observations.
 
 | Direction | Artifact / revision | Path | SHA-256 | Relevant IDs | Freshness / decision state |
 | --- | --- | --- | --- | --- | --- |
-| input | {{candidate manifest/spec/plan}} | {{path}} | {{digest}} | {{requirements}} | {{state}} |
+| input | {{candidate manifest/spec/plan}} | {{path}} | {{digest or unavailable cause}} | {{requirements}} | {{state}} |
 | output | {{verification report}} | {{path}} | {{digest}} | {{F IDs}} | {{state}} |
 | output | {{decision receipt or explicit unavailable}} | {{path or none}} | {{digest or none}} | {{checks}} | {{state}} |
 | output | {{enhancement specification}} | {{path}} | {{digest}} | {{CHG IDs}} | {{state}} |
@@ -67,7 +69,7 @@ When no target changes are justified, replace that prompt with the concrete oper
 
 - Saved output paths and readback: {{completed outputs only}}.
 - This handoff location: {{actual saved path; no self-digest}}.
-- External handoff receipt: compute and deliver after saving; do not write that digest back into this document.
+- External handoff receipt: {{actual preexisting reference or null; later publication/readback NOT_RUN at creation}}. Protected runtime owns managed final-byte checks, snapshot, receipt publication/readback and transport. Do not call a receipt helper or controller as a fallback; never write a later digest back into this document.
 - Owned processes and assignment disposition: {{actual identities; retained/handed off/released with owner record}}.
 - Invalidating changes: {{candidate, installed copy, cases, rubric, contracts, baseline, runtime, assignment}}.
 - Resume point: {{last completed phase and exact pending task}}.
@@ -83,3 +85,16 @@ When no target changes are justified, replace that prompt with the concrete oper
 - Protected runtime admission/integration status: {{actual evidence or unavailable; no active-enforcement claim from templates}}.
 
 Prepared workspaces can be delivered with native execution NOT_RUN and dependent observations COULD_NOT_RUN. Preserve all old allocations, setup records, plans and attempts. No cleanup, acceptance or release follows from preparation.
+
+## Creation-time runtime observations
+
+| Observation | Outcome at creation | Exact evidence or missing cause |
+| --- | --- | --- |
+| Handoff preparation | {{prepared / partial}} | {{saved substantive outputs}} |
+| Protected final-byte checks | {{observed / NOT_RUN}} | {{actual evidence or null with cause}} |
+| Runtime receipt publication/readback | {{separate actual observations / NOT_RUN}} | {{actual evidence or null with cause}} |
+| Runtime transition admission | {{observed / NOT_OBSERVED}} | {{actual evidence or null with cause}} |
+| Receiving skill invocation | {{observed / NOT_RUN}} | {{allocated execution evidence or null with cause}} |
+| Rendered human delivery | {{observed / NOT_OBSERVED}} | {{actual observation or null with cause}} |
+
+These fields do not authorize new execution, expand the budget or transfer a protected lease. Changed source, installation, runtime, assignment or accepted inputs requires affected reconciliation and new evidence.

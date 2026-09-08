@@ -1,0 +1,14 @@
+{
+  "schema_version": "devforge.author-write-custody/v1",
+  "scope": "Unmanaged author readback only; not protected runtime receipt",
+  "handoff": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/prepared-handoff.md",
+    "sha256": "405fa86c38d3d21086d06a82539dca1ed4dcec1191c8eb46205a2881e230dde2"
+  },
+  "continuation_prompt": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/continuation-prompt.md",
+    "sha256": "f814679d7e3e4279457d4a1e3351a184f008eec2fa40ae1c29c40e93fcab35bf"
+  },
+  "validation": "NOT_PERFORMED",
+  "receiving_execution": "NOT_RUN"
+}

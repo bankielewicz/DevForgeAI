@@ -361,3 +361,12 @@ Root authors skill-validator only using skill-creator guidance under the direct 
 The new candidate manifest is source-after-manifest.json there. The prepared validator handoff is handoff.md there, with a separately saved continuation prompt and external digest. No source commit, runtime assignment ID, receiving invocation or adoption is fabricated. Previously selected package contract revisions are retained; this enhancement changes preparation dependencies only, not shared modernization ownership.
 
 Validation status: Not performed. Behavioral status: NOT_EVALUATED. Hook status: Design only.
+
+
+## Bounded utility runtime alignment — 2026-09-08
+
+This later amendment replaces earlier current-status statements only where named here. Earlier sections and snapshots retain original requirements, search rationale, creation-time choices and evaluation history. The active source selection is now the exact preserved revision-3 authoring/execution and shared handoff already selected for builder; former revision-2 and deferred-refresh dispositions are historical.
+
+[The runtime alignment amendment](history/skill-utilities-runtime-alignment-20260908/design-amendment.md) defines AL-01–AL-12 against the separately reviewed mechanical utility interface and records the released edit reservation. It preserves W1/P1–P6/T01–T12 Enforced, all authored cases, the Git-worktree choice, bounded preparation before native-plan completion and read-only target ownership. Managed validator evidence remains substantive work; protected runtime owns transitions, waiting, correction and final receipt custody. H1–H5 map to that component in the package-local enforcement design; earlier generic hook proposals are historical, never automatically combined with managed callbacks.
+
+Native campaign allocation does not fit the approved cap. Authentication, effective native boundaries/hooks, interactive answer transport and actual receiving execution remain independent prerequisites. No helper, source edit, installed refresh, review or deterministic fixture implies these observations. Use creation-time handoff statuses and preserve all former outcomes. Validation status for this authoring amendment: Not performed. Hook status: Design only.

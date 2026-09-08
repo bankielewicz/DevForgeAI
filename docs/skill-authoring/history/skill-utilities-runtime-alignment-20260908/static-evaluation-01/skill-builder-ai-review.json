@@ -1,0 +1,737 @@
+{
+  "schema_version": "devforge.skill-ai-review/v1",
+  "run_id": "utility-alignment-independent-static-01-skill-builder",
+  "candidate_ref": {
+    "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/manifest.json",
+    "sha256": "20a9605dc0627f53ca42d610b581d87b950daff7b62fdf228136839a0b9f7175",
+    "candidate_prefix": "candidate/skill-builder"
+  },
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/manifest.json",
+    "sha256": "20a9605dc0627f53ca42d610b581d87b950daff7b62fdf228136839a0b9f7175",
+    "file_count": 99
+  },
+  "reviewer": {
+    "identity": "/root/utility_alignment_review_01",
+    "role": "independent static AI reviewer",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "configuration_source": "explicit parent review assignment",
+    "runtime": "Codex agent; client version unknown",
+    "provider": "OpenAI",
+    "client_version": "unknown",
+    "service_tier": "unknown",
+    "independence_evidence": "Fresh task-specific prompt with frozen packet and no other review artifacts; isolation limits retained below.",
+    "limits": [
+      "Fresh review prompt supplied by parent; no author reports, structure results or other review artifacts read.",
+      "Shared filesystem and tooling; no demonstrated OS, process, history or memory isolation. General system/developer instructions and skill catalog were visible; no memory files were read.",
+      "Required builder specification exposes prior F-001/F-002 findings and modernization recommendations. Required validator design exposes historical static-pass statements and native nonexecution. This unavoidable historical exposure is disclosed and was not treated as a desired grade for these candidates.",
+      "Model override gpt-6-astra and medium reasoning were supplied in the review assignment; no independent backend model introspection was available. Client version, provider build and service tier are unknown.",
+      "Single bounded static review of instruction alignment; no candidate/helper execution, native run, independent runtime audit, installation test, acceptance decision or baseline quality comparison. Baseline file bytes were hash-verified; baseline was not independently behaviorally graded."
+    ]
+  },
+  "timing": {
+    "started_at_utc": "unknown",
+    "start_evidence": "Initial manifest read and independent all-99-file hash verification preceded content review.",
+    "completed_at_utc": "2026-09-08T01:41:09.978282+00:00",
+    "attempt_bound": "single review; parent imposed ten-minute bound; no retry or delegation"
+  },
+  "input_refs": [
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/SKILL.md",
+      "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/agents/openai.yaml",
+      "sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/assets/handoff.md",
+      "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/assets/skill-design-spec.md",
+      "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/contracts/artifact-contract.md",
+      "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/contracts/execution-contract.md",
+      "sha256": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/contracts/skill-authoring-contract.md",
+      "sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/derivation.json",
+      "sha256": "509222fc268cacb169ea1fc42d22fc96a9c39988722ee5aaec7ef4a0db6f1284"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/existing-skill-selection.md",
+      "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/framework-context.md",
+      "sha256": "6601ab3b2364506ac6cb75eea2cc2e53d0f47e4285edd9fe5007934c6d619dd1"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/interview-guide.md",
+      "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/managed-authoring.md",
+      "sha256": "10d06a55b47254c9f8cc50bdca966e85e83fbc9f484596fd6e3f1c1aa7a2c14d"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/results-contract.md",
+      "sha256": "028a4350910fced221f950003b5eab0c1b80f5b0d2870213112ebb071a565e2b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/sources.md",
+      "sha256": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-builder/references/validator-handoff.md",
+      "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/SKILL.md",
+      "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/agents/openai.yaml",
+      "sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/assets/handoff.md",
+      "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/assets/skill-design-spec.md",
+      "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/contracts/artifact-contract.md",
+      "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/contracts/execution-contract.md",
+      "sha256": "a48aa2a93a2e8d287c652e4e0a4fb1ceb05c4811f42036596b683b14a7d7255b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/contracts/skill-authoring-contract.md",
+      "sha256": "962a27b2c538b7033d458bf12900a1fe32a1f161ba6e535f171ae93847b22fe9"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/derivation.json",
+      "sha256": "d0f737a2065553b2cc66d48f263df707b3bdbd4a96bc8030842f415a051ded35"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/existing-skill-selection.md",
+      "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/framework-context.md",
+      "sha256": "cd04400b9f3cb7e31aaed5974d1edde4fb7cd495b377df3df56a28317fc1de0e"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/interview-guide.md",
+      "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/managed-authoring.md",
+      "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/results-contract.md",
+      "sha256": "028a4350910fced221f950003b5eab0c1b80f5b0d2870213112ebb071a565e2b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/sources.md",
+      "sha256": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-builder/references/validator-handoff.md",
+      "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/SKILL.md",
+      "sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/agents/openai.yaml",
+      "sha256": "3b3576c181d6565e8614036912208cd265e03f790560a8a73486abff6db829d3"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/ai-review.json",
+      "sha256": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/case-grade.json",
+      "sha256": "740e78c0d1ea43ed8fe565bd0700673174d43e8d17716f36749b0c17ef58383d"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/environment-setup.json",
+      "sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/handoff.md",
+      "sha256": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/run-manifest.json",
+      "sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/skill-enhancement-spec.md",
+      "sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/test-cases.json",
+      "sha256": "9dafe0dfc168a287fdc75f9cab1005a8a102185465c9a914a48e7ec306912e57"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/validation-plan.json",
+      "sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/validation-results.json",
+      "sha256": "c3daa442028af72cf265a59609aa85aeded68e34b2b8ca8fd17acd487a9ad539"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/verification-results.md",
+      "sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/assets/workspace-allocation.json",
+      "sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/evals/evals.json",
+      "sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/ai-review-rubric.md",
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/contracts/artifact-contract.md",
+      "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/contracts/execution-contract.md",
+      "sha256": "4224508eb87d3dcabb6c00551d04393284334f834dcd543133eea5146857b5a8"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/contracts/skill-authoring-contract.md",
+      "sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/derivation.json",
+      "sha256": "e65eb71f63a82ad22d652f16503bb7348adcb77e7fba96ea8838fbd7f8785176"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/enforcement-design.md",
+      "sha256": "b596e439d6a1643afc3836b7457d6065aa529d285a60ba5712b5c03973b25c14"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/framework-context.md",
+      "sha256": "7e2697f11df23f5c695327f62c4f534741968360b01b060e2ee90b420866ecbe"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/managed-validation.md",
+      "sha256": "0a7c4748726b738d5f39858bee4caf828a42b22aef4ba8630a00fdb1eaea06dd"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/native-evaluation.md",
+      "sha256": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/results-contract.md",
+      "sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/sources.md",
+      "sha256": "526a4163d8e275c9bf00011e43fdbdd832f4a943fd90be151759dbf199544ae4"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/structural-checks.md",
+      "sha256": "1d79c437bd3c20ea86913e15c1b448129c3861fa21052bbbabc8c90106bf1086"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/references/worktree-environment.md",
+      "sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/scripts/assess_evidence.py",
+      "sha256": "d5b31a5448b84ecee81816a2997577366fe348dd281adb1d1fc6d487c47e7066"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/candidate/skill-validator/scripts/inspect_skill.py",
+      "sha256": "6054d6a01776590c706612afd9b1d1688ac71923044660094c111a7708591e4d"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/SKILL.md",
+      "sha256": "bdc7696ab46377202729ec9ac2959026152ccdcaa8341d21e9e8e049d682d423"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/agents/openai.yaml",
+      "sha256": "3b3576c181d6565e8614036912208cd265e03f790560a8a73486abff6db829d3"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/ai-review.json",
+      "sha256": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/case-grade.json",
+      "sha256": "740e78c0d1ea43ed8fe565bd0700673174d43e8d17716f36749b0c17ef58383d"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/environment-setup.json",
+      "sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/handoff.md",
+      "sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/run-manifest.json",
+      "sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/skill-enhancement-spec.md",
+      "sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/test-cases.json",
+      "sha256": "9dafe0dfc168a287fdc75f9cab1005a8a102185465c9a914a48e7ec306912e57"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/validation-plan.json",
+      "sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/validation-results.json",
+      "sha256": "c3daa442028af72cf265a59609aa85aeded68e34b2b8ca8fd17acd487a9ad539"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/verification-results.md",
+      "sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/assets/workspace-allocation.json",
+      "sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/evals/evals.json",
+      "sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/ai-review-rubric.md",
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/contracts/artifact-contract.md",
+      "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/contracts/execution-contract.md",
+      "sha256": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/contracts/skill-authoring-contract.md",
+      "sha256": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/derivation.json",
+      "sha256": "63ae09f641bb4fa3c569d9c1863ef4a21a7ad378813804ce1f0508688460d8f8"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/enforcement-design.md",
+      "sha256": "4447abf0cf5022e19755808059fdcc56417f07eff1a7ca5db9c130f587f466e8"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/framework-context.md",
+      "sha256": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/native-evaluation.md",
+      "sha256": "109a416cbe94b3790b7cf3ef99fc8f8a244b5b9954839d7056198b007bc2953c"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/results-contract.md",
+      "sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/sources.md",
+      "sha256": "492bfe071d72f8e918862b0f5051fd16914aae9b8a3ae76167b4db66efa118f7"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/structural-checks.md",
+      "sha256": "1d79c437bd3c20ea86913e15c1b448129c3861fa21052bbbabc8c90106bf1086"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/references/worktree-environment.md",
+      "sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/scripts/assess_evidence.py",
+      "sha256": "d5b31a5448b84ecee81816a2997577366fe348dd281adb1d1fc6d487c47e7066"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/baseline/skill-validator/scripts/inspect_skill.py",
+      "sha256": "6054d6a01776590c706612afd9b1d1688ac71923044660094c111a7708591e4d"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/design-amendment.md",
+      "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/validator-design.md",
+      "sha256": "cc996485b5016d63b90f6ee0af453de1e2ce135bdbeae316c488dc4ab5e53357"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/builder-specification-v3.md",
+      "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/ai-review-rubric.md",
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-runtime/docs/integration/utility-runtime-contract.md",
+      "sha256": "537c33f5efea5b8a49b66bbbb29dea18dca654b79b91c651c5e44eeb8f2ee56a"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-runtime/runtime/delivery/supervisor.py",
+      "sha256": "08e15b7bd1968a3be506cae7fa289129988d1a145369775775fac84fc8131fd6"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-runtime/runtime/delivery/utility_evidence.py",
+      "sha256": "f9cfcd9a34c215409baf50c093a9b14eb0e8b7c6be7de91dd62c469b57495f0f"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-runtime/runtime/delivery/utility_state.py",
+      "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-contracts/skill-authoring-contract.md",
+      "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-contracts/execution-contract.md",
+      "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-contracts/shared-handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+    },
+    {
+      "kind": "frozen_input",
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/inputs/selected-contracts/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "R01",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Task identity matches the authoring-only utility and bounded modernization; metadata excludes testing.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/SKILL.md#Authoring boundary",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/SKILL.md frontmatter",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/builder-specification-v3.md#Responsibility boundary",
+      "finding_ids": []
+    },
+    {
+      "id": "R02",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Intake, specification, candidate change record and prepared handoff have explicit missing-input handling and completion conditions.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/SKILL.md#Deliver useful authoring content",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/assets/handoff.md#Inputs consumed and outputs produced",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/builder-specification-v3.md#CHG-003: Replace the prior handoff-checklist recommendation with runtime integration",
+      "finding_ids": []
+    },
+    {
+      "id": "R03",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Canonical source fences, collision reconciliation and selected authority remain distinct from installation and runtime ownership.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/SKILL.md#Recover framework authority and the target",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/references/validator-handoff.md#Interpret findings without expanding scope",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/design-amendment.md AL-01, AL-11",
+      "finding_ids": []
+    },
+    {
+      "id": "R04",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Settled group decisions persist; five integration phases and required actions are explicitly Enforced; pending questions block only dependent work.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/SKILL.md#Classify workflows, phases, and tasks",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/references/managed-authoring.md#Useful work and evidence",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/design-amendment.md AL-03, AL-09",
+      "finding_ids": []
+    },
+    {
+      "id": "R05",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Managed guidance is package-local and conditional on supplied context; missing adapters cannot trigger fictional commands or completion.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/SKILL.md#Managed operation",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/references/managed-authoring.md#Selected utility boundary",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/design-amendment.md AL-02, AL-08, AL-12",
+      "finding_ids": []
+    },
+    {
+      "id": "R06",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Selected task/contract authority controls source and report interpretation; supplied content cannot confer permission or adopt proposals.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/references/contracts/artifact-contract.md#Shared envelope and meaning",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/references/validator-handoff.md#Interpret findings without expanding scope",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/selected-contracts/artifact-contract.md",
+      "finding_ids": []
+    },
+    {
+      "id": "R07",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "All active derivation destination hashes match. Active revision-3 sources match selected input hashes; former selection is explicitly historical. No containing self-digest is requested.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/references/derivation.json /entries and /historical_concurrent_source_changes",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/assets/skill-design-spec.md#12. Builder change receipt",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/design-amendment.md AL-10, AL-11",
+      "finding_ids": []
+    },
+    {
+      "id": "R08",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Entry point routes conditional managed, interview, selection and remediation content where needed; substantive workflow remains accessible.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/SKILL.md#Choose the entry path",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/SKILL.md#Managed operation",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/builder-specification-v3.md#Governing direction",
+      "finding_ids": []
+    },
+    {
+      "id": "R09",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Authored content, validation, hook activation and runtime observations have separate truthful statuses; historical findings are not declared closed by editing.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/SKILL.md#Deliver useful authoring content",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/references/validator-handoff.md#Builder change receipt",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/design-amendment.md AL-07, AL-12",
+      "finding_ids": []
+    },
+    {
+      "id": "R10",
+      "applicability": "APPLICABLE: DevForgeAI skill with supplied inputs, artifacts and enforced workflow requirements; runtime anchors assessed statically only.",
+      "outcome": "PASS",
+      "reason": "Creation-time handoff excludes self/circular digests and later receipt claims; runtime controls mechanics and the receiving skill is not implicitly invoked.",
+      "evidence": [
+        {
+          "path": "candidate/skill-builder/assets/handoff.md#Observed completion evidence",
+          "locator_kind": "stable section or JSON pointer"
+        },
+        {
+          "path": "candidate/skill-builder/references/managed-authoring.md#Boundary on mechanics",
+          "locator_kind": "stable section or JSON pointer"
+        }
+      ],
+      "required_behavior_source": "inputs/builder-specification-v3.md#CHG-001: Eliminate circular and model-managed completion receipts",
+      "finding_ids": []
+    }
+  ],
+  "findings": [],
+  "disagreements": [],
+  "additional_reviewer_refs": [],
+  "overall": "PASS",
+  "overall_scope": "Bounded static instruction alignment only; no native or integration acceptance.",
+  "native": {
+    "execution": "NOT_RUN",
+    "required_observations": "COULD_NOT_RUN",
+    "cause": "No admitted complete native allocation; authentication, effective boundaries/hooks, interactive answer transport and receiving execution unobserved.",
+    "acceptance": "NOT_GRANTED"
+  },
+  "custody": {
+    "manifest_sha256": "20a9605dc0627f53ca42d610b581d87b950daff7b62fdf228136839a0b9f7175",
+    "before_file_hashes": "99/99 match",
+    "after_file_hashes": "99/99 match",
+    "active_derivation_destination_hashes": "all match",
+    "output_path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-approved-continuation-20260908T010546709607Z/alignment-evaluation-01/skill-builder-ai-review.json",
+    "output_self_digest": "excluded; external readback records final digest"
+  }
+}

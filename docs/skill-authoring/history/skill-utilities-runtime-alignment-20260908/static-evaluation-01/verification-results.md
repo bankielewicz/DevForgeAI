@@ -1,0 +1,15 @@
+# Utility alignment verification results
+
+The bounded AL-01–AL-12 source revision has passing deterministic structural checks (S001–S013 for each skill) and fresh independent static review (R01–R10 for each skill). No actionable source defect was identified. Exact artifacts and raw reports are preserved alongside this report and in the original external evaluation packet. The candidate manifest and all 99 frozen review inputs matched readback. The new source candidate has 15 builder files and 29 validator files, including one source-only evals file.
+
+Overall disposition: insufficient evidence for native suitability or integration acceptance. Static review does not certify behavior, installed resource consultation or activation. All required C/B/A native executions remain NOT_RUN; prerequisite-dependent observations are COULD_NOT_RUN. Actual builder-to-validator receiving execution and rendered delivery are NOT_OBSERVED. No case was removed to fit the budget. The preserved validator amendment subset alone needs 40 paired outer executions; full coverage, controls, graders and receiving execution exceed the approved 24. The clock remains NOT_BOUND. Authentication staging in one fresh profile expired without login; no credential was copied.
+
+The complete executable experiment plan is not frozen because it cannot fit the authorized cap. The formal evidence reducer cannot receive a complete admitted native plan; reducer decision receipt status is COULD_NOT_RUN for that input gap. This report is evaluator adjudication, not an invented reducer or protected-runtime receipt.
+
+The full-framework structural check exits 2 with the same archived skill-builder-mvp-2026-09-07/SKILL.md blocker on the updated tree and frozen baseline. This is retained as BLOCKED, not a full-framework pass, and the first failure does not prove absence of further whole-tree defects. Governing checks were not changed.
+
+Target authoring was completed before this evaluation. The evaluator did not edit the candidates. Original source snapshots, earlier findings and old evaluation records remain unchanged. The target source helpers were not executed by the static reviewer; root used the separately selected installed evaluator for deterministic inspection. Its exact helper bytes equal the retained baseline.
+
+No source repair is justified by these observations. Missing native prerequisites remain integration/operator work: a complete authorized allocation, fresh subscription login, observed effective filesystem/history/config/tool/hook boundaries, owned interactive answer transport, independent semantic grading and an allocated receiving execution. The current native process implementation is under separate review and cannot establish these observations.
+
+Next integration actions authorized by the user: commit/merge this reviewed bounded source revision locally, regenerate the two named runtime installations using the scoped supported policy, record exact source/installed identities and inspect installed packages. No remote push, release, global hook change, cleanup or native retry is authorized by this report.
