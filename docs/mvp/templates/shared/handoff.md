@@ -28,6 +28,17 @@ missing_inputs: []
 - Exact candidate or artifact scope: {{identity}}
 - Existing authorization carried forward: {{reference}}
 
+For a VPR-2 skill-validation handoff, retain the following from the frozen plan/results; for other workflows, retain their governing contract and mark this policy block outside scope. This optional reporting block does not change the devforge.artifact/v1 envelope or issue execution authority.
+
+- Policy and actual requested claim: {{version/source/acceptance pins, Routine or Full, exact claim and any Full-required contract}}
+- Accepted baseline/scope and impact: {{owner decision, immediate/cumulative diff pins, fixed anchor and affected dependency union}}
+- Current routinely accepted identity: {{actual candidate/environment and acceptance-chain pin, or none}}
+- Last fully qualified identity: {{candidate/environment and exact Full evidence, ABSENT or UNKNOWN; unchanged by Routine}}
+- Validation/report dispositions: {{separate ROUTINE_PASS/FULL_PASS/FAIL/INSUFFICIENT_EVIDENCE and COMPLETE/PARTIAL/BLOCKED}}
+- Conditional native coverage: {{reviewed selections and independent T04 pin; unselected observations remain NOT_RUN}}
+- Owner acceptance/install authority: {{actual carried decision and conditions, or not granted}}
+- Deferred qualification observations: {{required actual native/compatibility/control/receiving evidence and next owner}}
+
 ## Inputs consumed and outputs produced
 
 | Direction | Artifact ID/revision | Store/path | SHA-256 | Relevant sections | Decision/freshness state |
@@ -68,3 +79,5 @@ Use an actual installed skill name or known command. If the capability is not im
 - Worktree ownership disposition: {{retained / handed off / released with operator reference}}
 - External gate state: {{actual receipt reference, not an inferred phase}}
 - Conditions invalidating this handoff: {{source, candidate, runtime, or assignment changes}}
+- Target receiving evidence: {{when qualification requires it, actual eligible target-produced output and receiver action observed before T09; not this prepared evaluator handoff}}
+- Handoff execution state: {{prepared / actual receiving invocation observed with evidence; a prepared T12 handoff enqueues no recursive evaluator qualification}}

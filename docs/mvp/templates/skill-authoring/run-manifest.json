@@ -1,8 +1,8 @@
 {
-  "schema_version": "devforge.skill-run/v1",
+  "schema_version": "devforge.skill-run/v2",
   "run_id": "{{unique-run-id}}",
   "tier": "{{A/B/C}}",
-  "provider": "{{claude/codex}}",
+  "provider": "codex",
   "client_version": null,
   "model_configuration": null,
   "installation_mode": "{{project-local/exported-plugin}}",
@@ -26,5 +26,45 @@
     "total_tokens": null,
     "duration_ms": null
   },
-  "grading_evidence": []
+  "grading_evidence": [],
+  "validation_plan_ref": {
+    "path": "{{absolute-frozen-v2-plan-path}}",
+    "sha256": "{{sha256}}"
+  },
+  "observation_id": "{{frozen-observation-id}}",
+  "assertion_ids": [],
+  "selection": "REQUIRED",
+  "evidence_kind": "N",
+  "conditions": {
+    "identity": {
+      "candidate": {
+        "path": "{{absolute-candidate-manifest-path}}",
+        "sha256": "{{sha256}}"
+      },
+      "environment": {
+        "path": "{{absolute-effective-environment-manifest-path}}",
+        "sha256": "{{sha256}}"
+      }
+    },
+    "input_refs": [],
+    "prompt_ref": {
+      "path": "{{absolute-frozen-prompt-path}}",
+      "sha256": "{{sha256}}"
+    },
+    "arm": "candidate",
+    "variant": "{{frozen-variant}}",
+    "repetition": 1,
+    "invocation": "{{explicit/implicit/loaded/none}}",
+    "visibility_ref": {
+      "path": "{{absolute-visibility-evidence-path}}",
+      "sha256": "{{sha256}}"
+    },
+    "freshness_ref": {
+      "path": "{{absolute-freshness-conditions-path}}",
+      "sha256": "{{sha256}}"
+    },
+    "before_task": "{{earliest-consuming-task-id}}"
+  },
+  "integrity": "NOT_OBSERVED",
+  "raw_output_refs": []
 }
