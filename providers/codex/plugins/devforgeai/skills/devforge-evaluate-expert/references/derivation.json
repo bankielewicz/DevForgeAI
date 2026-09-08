@@ -3,11 +3,11 @@
   "skill": "devforge-evaluate-expert",
   "recorded_at_utc": "2026-09-08T18:52:43.939173+00:00",
   "path_base": "DevForge workspace root",
-  "source_selection": "F01\u2013F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged.",
+  "source_selection": "F01\u2013F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved.",
   "entries": [
     {
       "destination": "references/contracts/skill-authoring-contract.md",
-      "destination_sha256": "ce96f7400966bdcd3abc91a0cf4c0adaf93d76d32ad1261d1bc8aa0ed9e92754",
+      "destination_sha256": "e22e74b8e7e0abb30b98223c6790965770da79eb11dfbf2c7f77382bdbc1b62c",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
@@ -19,11 +19,19 @@
           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
           "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc",
           "source_revision": null
+        },
+        {
+          "path": "framework/DevForge/docs/integration/manual-expert-adoption.md",
+          "source_revision": "4859a279784f902d5f9dabcb0664907b24b297a5",
+          "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
         }
       ],
-      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
-      "previous_destination_sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b"
+      "previous_destination_sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b",
+      "prior_destination_identities": [
+        "ce96f7400966bdcd3abc91a0cf4c0adaf93d76d32ad1261d1bc8aa0ed9e92754"
+      ]
     },
     {
       "destination": "references/contracts/artifact-contract.md",
@@ -494,7 +502,7 @@
     },
     {
       "destination": "references/manual-operation.md",
-      "destination_sha256": "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f",
+      "destination_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
       "sources": [
         {
           "path": "providers/codex/plugins/devforgeai/skills/skill-validator",
@@ -512,10 +520,18 @@
           "source_revision": "22e864951066c71a46873321f9bde2220aba653a",
           "path": "providers/codex/plugins/devforgeai/skills/skill-validator",
           "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
+        },
+        {
+          "path": "framework/DevForge/docs/integration/manual-expert-adoption.md",
+          "source_revision": "4859a279784f902d5f9dabcb0664907b24b297a5",
+          "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
         }
       ],
-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
-      "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
+      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
+      "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification.",
+      "prior_destination_identities": [
+        "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f"
+      ]
     },
     {
       "destination": "references/manual-records.md",

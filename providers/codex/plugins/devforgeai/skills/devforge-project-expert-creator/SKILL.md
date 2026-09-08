@@ -107,3 +107,6 @@ Record creation/enhancement/reuse rationale and search limits, canonical-to-inst
 The builder change record is substantive authoring evidence, not an authoritative runtime receipt. In managed operation the runtime computes final identities, preserves inspected bytes and publishes/readbacks its receipt. A containing document never includes its own complete-byte digest. Runtime observations absent at creation remain explicit; do not rewrite the handoff to claim later completion.
 
 Return the new candidate and prepared handoff to the allocated next owner. Shared adapter gaps go to integration before any dependent runtime claim; separate validation is not launched automatically. Report "Validation status: Not performed." and "Hook status: Design only." Authoring is not adoption, native activation, enforced transition or receiving-skill invocation.
+
+
+Owner-selected local adoption may use the separate [unqualified baseline acceptance path](references/manual-operation.md#local-unqualified-baseline-option). It preserves the required workflow classifications and remaining qualification cases; a local installation result is not Full qualification.

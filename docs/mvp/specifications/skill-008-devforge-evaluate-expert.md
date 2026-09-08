@@ -129,3 +129,6 @@ The accepted Routine/Full policy applies to manual mode. Routine requires an acc
 Mechanical checks and semantic review are separate. Existing expert prepare/bind/status/check and the evaluator's helpers enforce only their implemented predicates, not universal phase completion. Missing enforcement blocks its dependent claim/action; reporting remains possible. The package manual-operation reference documents exact commands, owners, outputs and gaps.
 
 Retain existing-environment, create-Git-worktrees and static-only choices. Preparation is not native readiness. Observe source/history/output boundaries and authentication before native execution. No credential changes or old execution-window renewal is implied.
+
+
+An owner-approved local unqualified baseline may be installed after the separate [bounded local acceptance set](../skill-authoring-contract.md#owner-approved-local-unqualified-baseline) passes. This is not first/Full qualification: preserve unexecuted qualification cases as NOT_RUN and all historical failures. Required workflow classifications and ownership boundaries are unchanged.

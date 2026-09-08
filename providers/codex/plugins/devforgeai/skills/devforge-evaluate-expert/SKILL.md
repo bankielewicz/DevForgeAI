@@ -118,3 +118,6 @@ On a later builder revision, compare its change record and new candidate identit
 Return report, decision receipt, enhancement specification and handoff paths with actual scope and unresolved observations. Use the documented states; never call a skill certified, ambiguity-free, or behaviorally passed on static evidence alone.
 
 On interruption, preserve the last completed phase, plan/candidate hashes, owned process identities and evidence paths. Resume only after verifying the assignment and frozen inputs still match. A changed input starts a new affected iteration. Report unrun work as NOT_RUN and failed observation attempts as COULD_NOT_RUN. Do not overwrite old attempts or terminate unrelated processes.
+
+
+Owner-selected local adoption may use the separate [unqualified baseline acceptance path](references/manual-operation.md#local-unqualified-baseline-option). It preserves the required workflow classifications and remaining qualification cases; a local installation result is not Full qualification.
