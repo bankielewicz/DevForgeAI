@@ -1,6 +1,6 @@
 # Result and handoff contract
 
-This is the paired skill-builder/skill-validator authoring contract. JSON schema identifiers below identify these local record shapes; they are not new DevForge CLI gate schemas. The bundled helper checks only the fields documented for it.
+This is the paired skill-builder/skill-validator authoring contract. The legacy descriptions below retain their original v1 meanings. For an explicitly opted-in VPR-2 validator assignment, the [packaged execution contract](contracts/execution-contract.md#vpr-2-record-contract) supplies the G1 v2 record freeze and the VPR-2 section below supplies builder intake/reporting guidance. Unknown or mixed versions cannot authorize exclusions. The validator's helper belongs to its allocated operator; this builder does not execute it or claim that authored schemas are implemented.
 
 ## Identity and storage
 
@@ -12,9 +12,9 @@ Preserve original candidate source, actual installed files, baseline, cases, fix
 
 ## Managed integration boundary
 
-The following evaluator record shapes describe the older paired utility, not an implemented managed builder/validator adapter. A reducer decision is scoped evidence, not an authoritative completion receipt or authentication of native execution. Shared adapter and validator reconciliation belong to their allocated owners. Keep old reports and outcomes under their original contracts. For managed builder evidence and delivery, use [managed-authoring.md](managed-authoring.md).
+The legacy evaluator record descriptions retain the older paired utility contract. Separately selected managed utility interfaces and G1's authored v2 requirements have their own exact provenance in derivation.json; none establishes native admission or qualification. A reducer decision is scoped evidence, not an authoritative completion receipt or authentication of native execution. Shared adapter and validator reconciliation belong to their allocated owners. Keep old reports and outcomes under their original contracts. For managed builder evidence and delivery, use [managed-authoring.md](managed-authoring.md).
 
-## Files and sequence
+## Legacy v1 files and sequence
 
 1. skill-design-spec.md: existing design supplied by skill-builder, or the actual selected equivalent specification.
 2. test-cases.json: versioned requirement-derived tasks, multi-turn inputs, expected/forbidden behavior, artifact assertions, baseline treatment, repetitions and held-out designation. Freeze it before measuring.
@@ -29,7 +29,7 @@ The following evaluator record shapes describe the older paired utility, not an 
 
 The source and installed package manifests are distinct. The candidate_root in the plan is the frozen source being evaluated. The structural_report reference in results must be the source-mode inspection of that root. Native run manifests separately bind the actual installed package.
 
-## Outcomes and disposition
+## Outcomes and legacy v1 disposition
 
 | Outcome | Exact meaning |
 |---|---|
@@ -52,7 +52,7 @@ The reducer preserves raw outcomes and derives effective outcomes. Any applicabl
 
 A report status such as draft/in_review/accepted, external adoption, structural freshness, and behavioral outcome are separate facts. suitable_for_stated_scope is a recommendation, not acceptance.
 
-## Deterministic helper interfaces
+## Legacy v1 deterministic helper interfaces — validator/operator only
 
 inspect_skill.py: see structural-checks.md. Python 3.11+; YAML checks also require PyYAML. It never executes target scripts. Output creation is exclusive and outside the target. Retain exit status and errors.
 
@@ -68,13 +68,35 @@ assess_evidence.py --plan FILE --results FILE --output NEW_FILE:
 
 Neither helper proves reviewer honesty, actual native consultation, context independence, fixture validity, causal improvement, or completeness of the chosen test plan. The validator must inspect those substantive claims against raw observations. The reducer does not launch tests, contact AI, authenticate a log, install hooks, or grant external acceptance.
 
-## Native grade binding
+## Legacy v1 native grade binding
 
 Use devforge.skill-run/v1 with the supplied extensions case_id, attempt_id, arm and transcript_sha256. Keep original provider output intact, and reference it rather than rewriting it as a better-looking transcript. Core source/installed/baseline/case/fixture identities, runtime, context isolation and execution_ref must remain populated for observed runs.
 
 Use devforge.skill-case-grade/v1 for each grade. outcome in the run manifest and overall in the grade record represent the final observed case outcome, distinct from the terminal's raw exit status. The observation extension records raw terminal completion/exit, target selection, actual resource consultation and its evidence. A successful process alone does not prove a case PASS.
 
 Grade named behavior, artifact delivery, constraints and activation separately. A dimension is NOT_APPLICABLE only when genuinely outside that case's purpose, with its reason. Compute the case outcome from all applicable required assertions and complete observation; never average away a failed requirement. Record short evidence-based rationale, not hidden model reasoning.
+
+## VPR-2 intake, results and prepared transfer
+
+Only an external assignment selecting the exact accepted VPR-2 source and v2 validator delivery opts in. Carry its actual requested claim, accepted scope/base, candidate/environment, fixed qualification lineage, immediate and cumulative impact/dependency union, CP-01–CP-04 evidence and actual T04 review into repair/design/handoff records. Use the [packaged authoring policy](contracts/skill-authoring-contract.md#opt-in-vpr-2-validation-policy) for Routine/Full selection; the word “validate” is neutral. The builder proposes the eligible next scope and records actual selected inputs; it does not issue the external selection or approving review.
+
+Preserve the exact v2 plan/results/decision and all original assertion/case/variant identities. W1, P1–P6 and T01–T12 stay Enforced. Record every task's classification, selection, obligation disposition and observed outcome separately. A reviewed `NOT_SELECTED` native observation stays `NOT_RUN`; only a genuine scope exclusion is `NOT_APPLICABLE`. Both differ from native PASS. A no-native selection fabricates no native plan, boundary or successful launch. Matching C remains required for selected B/A; only a pre-run independent T04-reviewed Routine B exclusion permits selected A after C. Prior selected failures cannot be relabeled after observation.
+
+Keep these facts distinct:
+
+| Record | Meaning carried into authoring |
+| --- | --- |
+| `report_completion` | COMPLETE/PARTIAL/BLOCKED accounts for honest obligations and outputs; a complete report may contain failure or unavailable observations. |
+| `validation_disposition` | ROUTINE_PASS/FULL_PASS/FAIL/INSUFFICIENT_EVIDENCE is the exact recorded result for its frozen candidate/environment; edited source has no new result yet. |
+| `routine_adoption_eligible` | Scoped eligibility after current complete evidence, bounded lineage/compatibility and required destination/post-install conditions; it grants no owner decision. |
+| `owner_acceptance_ref` | Actual external decision or null; existing conditional authority may cover scoped acceptance/installation without per-check approvals. |
+| `lineage.current_routinely_accepted` | Actual accepted candidate/environment and acceptance chain, separate from new authored bytes. |
+| `lineage.qualified_anchor` | Last fully qualified candidate/environment and matching evidence, or explicit ABSENT/UNKNOWN with accepted unqualified baseline; Routine never moves it. |
+| `receiving_transfer` | Selected actual eligible target output, receiver contract/load and required completed action or expected negative disposition observed before T09; never inferred from T12 preparation. |
+
+Required candidate/protocol failure prevents PASS. Missing required evidence prevents Routine/Full PASS even when reporting can finish. An intact baseline quality FAIL may complete its comparison without replacing the candidate's judgment; missing or mismatched required baseline evidence cannot. Prior observations retain only their exact unchanged scope/freshness; acceptance chains cannot erase failures, reset the cumulative anchor or qualify new bytes. No fixed Routine edit count selects Full; unresolved consequential cumulative interaction does.
+
+Full qualification includes applicable native/control/compatibility and actual target receiving evidence before T09. The evaluator's prepared T12 handoff does not invoke or recursively qualify another evaluator. The builder's receipt/change record carries missing evidence and the next owner, never claiming that validation, runtime admission, receiving execution or acceptance occurred. Helper reduction, protected custody and independent semantic judgment remain separately owned.
 
 ## Findings and severity
 

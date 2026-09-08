@@ -31,6 +31,24 @@ Populate only at actual authoring completion, transfer or a recovery checkpoint.
 - Session/worktree assignment and existing write fence: {{actual authority, worktree/branch/base, allowed paths; missing values and reasons}}.
 - Existing authorization carried forward: {{user-selected scope and decision references; no expanded permission}}.
 
+## Validation claim, acceptance and lineage
+
+For explicitly selected VPR-2 work, carry the following from the design and any frozen plan/results. Otherwise mark this block outside scope and retain the governing version. This block prepares the next owner's work; it does not issue a validator decision or opt a v1 assignment into v2.
+
+- Policy and actual requested claim: {{accepted policy/source/commit/hash and external decision; actual claim wording; any Full-required release/support contract}}.
+- Accepted base/scope and destination: {{owner decision, exact candidate/environment, capability scope and authorized installation mapping; missing facts stay explicit}}.
+- Current routinely accepted identity: {{actual candidate/environment and acceptance chain, or none; not the newly authored candidate by inference}}.
+- Last qualified anchor: {{exact candidate/environment and matching Full evidence, ABSENT or UNKNOWN; Routine never advances it}}.
+- Accepted unqualified baseline: {{explicit accepted base/scope when there is no qualified anchor; retain qualification absence}}.
+- Impact and compatibility: {{immediate and cumulative diff references, union of affected requirements/transitive dependencies/regressions/negatives, CI-01–CI-09 and CP-01–CP-04 evidence or gaps}}.
+- Prepared validator scope: {{eligible Routine/Full proposal or carried external selection and reasons; actual T04 review pin if available, otherwise pending under the receiver's allocation}}.
+- Prior results: {{separate report COMPLETE/PARTIAL/BLOCKED, ROUTINE_PASS/FULL_PASS/FAIL/INSUFFICIENT_EVIDENCE, raw outcomes and exact historical candidate/plan; no new evaluation result from authoring}}.
+- Conditional native coverage: {{actual reviewed selections only; unselected observations remain NOT_RUN; no fabricated native plan or launch}}.
+- Owner acceptance/install conditions: {{carried authority, exact bytes/effective controls, applicable post-install identity/resource/compatibility checks and recovery owner; no acceptance granted here}}.
+- Target receiving evidence: {{when selected, including Full: actual eligible target-produced output, receiving contract, observed receiver load and required completed action or expected negative disposition before T09; exact references or missing evidence with owner}}.
+
+Routine acceptance can support a scoped installation once its required evidence and carried owner conditions are satisfied; it never qualifies the new bytes. Installation, tagging or distribution inside accepted scope does not alone demand Full. First/explicit qualification, new supported scope, consequential control/receiving semantics, a Full-required contract or unbounded impact does. A validator's prepared T12 handoff creates no recursive Full campaign. Actual target receiving evidence, this prepared document and a later receiving invocation remain separate facts.
+
 ## Inputs consumed and outputs produced
 
 Exclude this document's own digest. Use complete saved artifact references; runtime computes final identities in managed operation. If that has not occurred, retain exact paths with null identities and reasons, rather than claiming protected checks. Ordinary unmanaged authoring observations may be identified as such. Do not create circular references through a later receipt.
