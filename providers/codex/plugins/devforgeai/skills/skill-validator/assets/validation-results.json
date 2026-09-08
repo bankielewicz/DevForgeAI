@@ -1,5 +1,5 @@
 {
-  "schema_version": "devforge.skill-validation-results/v1",
+  "schema_version": "devforge.skill-validation-results/v2",
   "run_id": "{{same-run-id-as-plan}}",
   "plan": {
     "path": "{{frozen-plan.json}}",
@@ -13,156 +13,142 @@
     "path": "{{ai-review.json}}",
     "sha256": "{{sha256}}"
   },
-  "results": [
+  "results": [],
+  "findings": [],
+  "task_results": [
     {
-      "check_id": "INTAKE",
+      "task_id": "T01",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "STRUCTURE",
+      "task_id": "T02",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R01",
+      "task_id": "T03",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R02",
+      "task_id": "T04",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R03",
+      "task_id": "T05",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R04",
+      "task_id": "T06",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R05",
+      "task_id": "T07",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R06",
+      "task_id": "T08",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R07",
+      "task_id": "T09",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R08",
+      "task_id": "T10",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R09",
+      "task_id": "T11",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
     },
     {
-      "check_id": "AI-R10",
+      "task_id": "T12",
+      "classification": "Enforced",
+      "selection": "REQUIRED",
+      "disposition": "NOT_RUN",
       "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
+      "reason": "Template only; populate exact frozen selection and actual obligation evidence.",
       "evidence": []
-    },
-    {
-      "check_id": "C-RESOURCES",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "B-NORMAL-C",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "B-NORMAL-BASE",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "B-MISSING-C",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "B-MISSING-BASE",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "B-BOUNDARY-C",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "B-BOUNDARY-BASE",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "A-EXPLICIT",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "A-DIRECT",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "A-INDIRECT",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
-    },
-    {
-      "check_id": "A-NEGATIVE",
-      "outcome": "NOT_RUN",
-      "reason": "Planned; not attempted.",
-      "evidence": [],
-      "case_grade": null
     }
   ],
-  "findings": []
+  "assertion_results": [],
+  "report_completion": "PARTIAL",
+  "validation_disposition": "INSUFFICIENT_EVIDENCE",
+  "routine_adoption_eligible": false,
+  "lineage": {
+    "qualified_anchor": {
+      "status": "UNKNOWN",
+      "identity": null,
+      "evidence": null
+    },
+    "accepted_unqualified_baseline": null,
+    "current_routinely_accepted": null,
+    "previous_acceptance": null,
+    "acceptance_chain": []
+  },
+  "owner_acceptance_ref": null,
+  "receiving_transfer": {
+    "selection": "REQUIRED",
+    "outcome": "NOT_RUN",
+    "target_output": null,
+    "receiver_contract": null,
+    "receiver_observation": null,
+    "completed_action": null,
+    "observed_at_utc": null,
+    "reason": "Template only; freeze actual receiving applicability. Required transfer precedes Full T09."
+  }
 }

@@ -126,7 +126,7 @@ Do not calculate an average, weighted score, or overall percentage from these ou
 
 ## Resolve disputes and compare outputs
 
-First check whether disagreement concerns different frozen bytes, scope, source revisions, or omitted evidence. Correct the evidence binding while retaining the original reviews. If interpretation still changes a consequential outcome, use a second fresh reviewer with the same raw packet and rubric, without the first verdict. Record both reviews and compare cited evidence; do not use majority vote to override a clear controlling requirement. Unresolved consequential interpretation is COULD_NOT_RUN for that assertion and an open decision for the owner. It is never a negotiated PASS.
+First check whether disagreement concerns different frozen bytes, scope, source revisions, or omitted evidence. Correct the evidence binding while retaining the original reviews. If interpretation still changes a consequential outcome, use a separately authorized second fresh reviewer only if allocated, with the same raw packet and rubric, without the first verdict; otherwise record the unresolved judgment. Record both reviews and compare cited evidence; do not use majority vote to override a clear controlling requirement. Unresolved consequential interpretation is COULD_NOT_RUN for that assertion and an open decision for the owner. It is never a negotiated PASS.
 
 For candidate/baseline semantic grading, first apply the same predeclared requirement anchors independently to each completed output. Present outputs with neutral labels when their origin can be hidden without altering evidence. Counterbalance presentation order across repeated pairwise comparisons; retain the label map outside the grader packet. Report when paths, style, or content reveal the arm. Judge task satisfaction, not length or sophistication of wording. Do not truncate required artifacts merely to equalize length. Record any order sensitivity, visibility differences, effective tool assistance, and incomplete arm; a missing arm supports no improvement claim.
 
@@ -142,3 +142,9 @@ These operational rubric IDs and outcome anchors are DevForgeAI validator design
 
 Recheck a source when its affected API, runtime, provider feature, or governing revision changes. Preserve the old reference identity and conclusion; apply a new revision to a new affected evaluation iteration.
 
+
+## VPR-2 selection review without changing invariant meanings
+
+For an opted-in VPR-2 plan, one actual fresh T04 reviewer selected outside the author/measured-worker boundary reviews the complete original assertion projection, immediate and cumulative impact/dependencies, CI-01–CI-09 union, CP-01–CP-04 compatibility, all exclusions and observation-sharing conditions. Retain the R01–R10 criteria above, each with its own judgment and evidence. Missing context is unavailable; a hash or self-declared reviewer is insufficient. Bind plan/delivery before review and review before observations, without a digest cycle.
+
+A paired/batch grader can judge complete actual raw outputs in one independently allocated review while keeping each case/arm/assertion judgment, actual grader identity and raw-output pins. Disclose neutral-label limits, order/arm leakage, reused sample count and correlation; shared evidence is not independent samples. Baseline quality FAIL can complete an intact comparison without overwriting candidate judgment. Missing/mismatched arms cannot. Preserve child-output grading and parent interpretation as distinct assertions, without a recursive grader campaign. Additional reviews require their own selected graph/funding; no review per invariant or policy row is required.

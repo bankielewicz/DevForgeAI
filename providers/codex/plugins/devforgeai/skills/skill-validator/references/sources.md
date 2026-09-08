@@ -25,3 +25,11 @@ The current user authorizes a new usability enhancement: freeze a bounded worksp
 ## Bounded runtime alignment selection
 
 The later user-authorized alignment explicitly selects the exact preserved revision-3 authoring/execution and shared-handoff inputs already used by builder, plus the separately reviewed DevForge utility mechanical interface. derivation.json records the active sources, former records as historical, transformations and refresh conditions. This selection supersedes earlier statements that shared-contract refresh was deferred; earlier observations and evaluations are unchanged. Native implementation, effective callbacks and model behavior require their own evidence.
+
+## G1 VPR-2 frozen authoring selection
+
+Canonical shared inputs: DevForgeAI `75bcba915fd1d5f88477318d4b27db6e6961ca81`, `docs/mvp/execution-contract.md`, `docs/mvp/skill-authoring-contract.md`, shared handoff/run/report templates and `docs/skill-authoring/skill-validator-design.md`. [derivation.json](derivation.json) binds exact canonical and portable bytes. Portable contract copies preserve requirement text while resolving package links or labeling source-only locators.
+
+Accepted policy source: `8ede26450ae737a5e928c5f70a945aa995969b30`, `docs/skill-authoring/proposals/validation-policy-v1-20260908/`. Seventeen-row supplemental oracle: `a92c3ec3042d692f9b286d104b25d31bf1124b07`, `docs/skill-authoring/proposals/validation-policy-implementation-v1-20260908/requirement-map.json`, transcribed unchanged into source-only `evals/validation-policy-cases.json`. It supplements original evals/evals.json; no historical outcomes or original assertion meanings change.
+
+G2 runtime helper discriminator and source predecessor: DevForge `9ed3559d92da9b9ef7c5d4fb1c02f84f4d2f5dbd`, `tests/test_validation_policy.py`. Operator owns RED/GREEN; G4 authoring executes no helper/evaluation. Exact current capability, native observation and final integration remain separate evidence. This selection does not alter historical exhausted ledgers or Stage A's completed record/closeout deviation and establishes no subscription-affordability result.

@@ -1,0 +1,266 @@
+{
+  "schema_version": "devforge.validation-policy-cases/v1",
+  "purpose": "Versioned VPI-01 regression supplement; never replaces original catalog or defines an automatic inner Full suite. D fixtures cannot establish required S/N evidence.",
+  "source": {
+    "commit": "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+    "path": "docs/skill-authoring/proposals/validation-policy-implementation-v1-20260908/requirement-map.json",
+    "sha256": "66e69c64f68a743754ad109d96893236ad62236f949af32ba2243e1a40ce8ae8"
+  },
+  "canonical_expectations": {
+    "commit": "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+    "path": "docs/skill-authoring/skill-validator-design.md",
+    "sha256": "96879134e96b91d034968c3877d066dcf76cb316302e2c5b2ab87b8e313df3e7",
+    "section": "VPI-01 frozen discriminator expectations"
+  },
+  "original_catalog_sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c",
+  "cases": [
+    {
+      "id": "VPI-01",
+      "title": "Legacy v1 remains strict",
+      "frozen_discriminator": "A v1 selection with empty C/B predecessors or arbitrary exclusion remains rejected; old 24-call/600-second/14400-second limits and original charged history remain unchanged.",
+      "evidence": [
+        "D"
+      ],
+      "policy_amendments": [
+        "R2-05",
+        "R2-13",
+        "R2-14"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-02",
+      "title": "Routine no-native reporting",
+      "frozen_discriminator": "A reviewed spelling-only v2 selection completes all six phases/twelve tasks through typed selection dispositions; each unselected C/B/A observation stays NOT_RUN and no native claim becomes PASS. Missing T04 evidence rejects the same request.",
+      "evidence": [
+        "D",
+        "S"
+      ],
+      "policy_amendments": [
+        "R2-01",
+        "R2-05"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-03",
+      "title": "Authority and version cannot be supplied by worker",
+      "frozen_discriminator": "Unknown policy/schema, wrong owner producer, worker-writable selection, missing acceptance pin and stale plan/reviewer digest reject admission without partial state writes.",
+      "evidence": [
+        "D"
+      ],
+      "policy_amendments": [
+        "R2-05",
+        "R2-14"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-04",
+      "title": "Selected native prerequisites cannot be removed",
+      "frozen_discriminator": "Matching C PASS and a pre-run independently reviewed unselected B disposition permit selected A under v2; C FAIL/missing/stale still blocks A. Selecting B then relabeling its failure as excluded is rejected.",
+      "evidence": [
+        "D",
+        "N"
+      ],
+      "policy_amendments": [
+        "R2-05"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-05",
+      "title": "Cumulative lineage cannot reset",
+      "frozen_discriminator": "Every Routine update preserves the exact qualified anchor or explicit unqualified baseline, checks immediate and cumulative dependency union, rejects changed-anchor substitution and retains unknown qualification as unknown. Consequential cumulative interaction prevents Routine adoption.",
+      "evidence": [
+        "D",
+        "S"
+      ],
+      "policy_amendments": [
+        "R2-02",
+        "R2-04"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-06",
+      "title": "Compatibility is evidenced",
+      "frozen_discriminator": "A compatible patch with complete used-capability evidence can stay Routine; version-label-only, changed executable with no actual load/completed task, and missing affected denial/activation observation cannot establish compatibility. A new control or transfer contract selects Full.",
+      "evidence": [
+        "D",
+        "S",
+        "N"
+      ],
+      "policy_amendments": [
+        "R2-03"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-07",
+      "title": "Baseline and candidate outcomes remain separate",
+      "frozen_discriminator": "An intact baseline quality FAIL may complete the required comparison; absent or mismatched baseline evidence blocks it. Neither a failed baseline nor a passing pair summary overwrites the candidate-specific judgment.",
+      "evidence": [
+        "D",
+        "S"
+      ],
+      "policy_amendments": [
+        "R2-06",
+        "R2-07"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-08",
+      "title": "Assertion coverage is complete",
+      "frozen_discriminator": "Every original case/assertion/variant is accounted for. An omitted native obligation, duplicate assertion identity, incompatible evidence kind or orphan graph node rejects Full completeness even if listed tasks passed.",
+      "evidence": [
+        "D",
+        "S"
+      ],
+      "policy_amendments": [
+        "R2-06",
+        "R2-08",
+        "R2-14"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-09",
+      "title": "Shared evidence is bound to the same conditions",
+      "frozen_discriminator": "One observation may serve compatible assertions only with exact candidate/environment/input, prompt, arm, visibility, time/freshness and prerequisite-order bindings. Cross-arm, forced activation for an implicit case, stale evidence or late evidence for an earlier admission rejects reuse.",
+      "evidence": [
+        "D",
+        "S"
+      ],
+      "policy_amendments": [
+        "R2-06",
+        "R2-07",
+        "R2-09"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-10",
+      "title": "Batched grades retain independent judgments",
+      "frozen_discriminator": "One fresh independent paired review must retain each arm/assertion result and bind complete actual raw outputs. Missing one arm, author-as-reviewer, unsupported correlation claims and prewritten results reject sufficiency.",
+      "evidence": [
+        "D",
+        "S"
+      ],
+      "policy_amendments": [
+        "R2-07"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-11",
+      "title": "Synthetic data proves only mechanical handling",
+      "frozen_discriminator": "A synthetic clean transcript may exercise a reducer error branch, but cannot satisfy native clean-negative, installed-resource, isolation, callback-origin, nested execution or actual receiving predicates. Original SV-009/012/024-028 native requirements remain explicit.",
+      "evidence": [
+        "D",
+        "S",
+        "N"
+      ],
+      "policy_amendments": [
+        "R2-08",
+        "R2-10",
+        "R2-14"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-12",
+      "title": "Target receiving transfer is distinct from evaluator handoff",
+      "frozen_discriminator": "Full T09 requires eligible actual target-produced output, receiver loading and the required completed action or expected negative disposition before adjudication. A prepared evaluator T12 handoff does not enqueue recursive qualification.",
+      "evidence": [
+        "D",
+        "S",
+        "N"
+      ],
+      "policy_amendments": [
+        "R2-10"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-13",
+      "title": "New funding cannot reopen old ledgers",
+      "frozen_discriminator": "A v2 allocation requires a distinct externally selected grant and complete typed call/continuation inventory. Reused exhausted authority, unallocated dispatch, omitted review/return call, exceeded cap and reset clock reject. Failed allocated launch remains charged.",
+      "evidence": [
+        "D"
+      ],
+      "policy_amendments": [
+        "R2-09",
+        "R2-13"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-14",
+      "title": "Receipt and replay stay honest",
+      "frozen_discriminator": "Repeated/resumed contexts retain original deadlines/challenges/counters; changed final bytes, stale review, receipt collision and wrong outcome lineage reject current completion. Unknown token or person-time fields remain unknown, never zero or PASS.",
+      "evidence": [
+        "D"
+      ],
+      "policy_amendments": [
+        "R2-04",
+        "R2-05",
+        "R2-13",
+        "R2-14"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-15",
+      "title": "Installation preserves evidence identities",
+      "frozen_discriminator": "Staged project-local installation and export preserve the selected runtime resources and omit evals. Wrong binary/capability, modified owned destination, unsupported version and unreviewed provider-wide changes reject before writes; compatible identical refresh is idempotent.",
+      "evidence": [
+        "D",
+        "N"
+      ],
+      "policy_amendments": [
+        "R2-01",
+        "R2-03"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-16",
+      "title": "Owner acceptance and qualification differ",
+      "frozen_discriminator": "Routine suitability can support scoped owner acceptance and installation but cannot issue human approval, move qualified identity or satisfy explicit Full release requirements. This enforcement implementation itself requires CI-05 Full evidence before operational use.",
+      "evidence": [
+        "D",
+        "S",
+        "N"
+      ],
+      "policy_amendments": [
+        "R2-01",
+        "R2-02",
+        "R2-04"
+      ],
+      "current_execution": "NOT_RUN"
+    },
+    {
+      "id": "VPI-17",
+      "title": "Failure reporting can complete without passing",
+      "frozen_discriminator": "Unavailable required work prevents Routine/Full PASS while P5/P6 may publish accurate results and a prepared handoff. Genuine NOT_APPLICABLE needs its actual scope basis; policy-unselected native work remains NOT_RUN.",
+      "evidence": [
+        "D",
+        "S"
+      ],
+      "policy_amendments": [
+        "R2-05",
+        "R2-14"
+      ],
+      "current_execution": "NOT_RUN"
+    }
+  ],
+  "evidence_meanings": {
+    "D": "Deterministic parsing/reducer/CLI/control fixture tests; no native claim",
+    "S": "Independent semantic review of actual policy/skill/diff/output meaning, not a model per row",
+    "N": "Actual selected native skill/control/receiving observation required for later qualification; not supplied by implementation fixtures"
+  },
+  "original_catalog_edited": false,
+  "execution_status": "NOT_RUN"
+}

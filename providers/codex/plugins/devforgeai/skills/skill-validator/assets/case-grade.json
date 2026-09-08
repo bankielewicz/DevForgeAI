@@ -1,5 +1,5 @@
 {
-  "schema_version": "devforge.skill-case-grade/v1",
+  "schema_version": "devforge.skill-case-grade/v2",
   "run_id": "{{run-id}}",
   "case_id": "{{case-id}}",
   "attempt_id": "{{attempt-id}}",
@@ -42,5 +42,6 @@
   "overall": "NOT_RUN",
   "cause": "Not attempted.",
   "finding_ids": [],
-  "limitations": []
+  "limitations": [],
+  "assertion_judgments": []
 }

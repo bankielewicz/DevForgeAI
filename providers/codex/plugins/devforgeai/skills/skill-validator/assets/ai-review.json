@@ -1,5 +1,5 @@
 {
-  "schema_version": "devforge.skill-ai-review/v1",
+  "schema_version": "devforge.skill-ai-review/v2",
   "run_id": "{{run-id}}",
   "candidate_ref": {
     "path": "{{source-structural-checks.json}}",
@@ -113,5 +113,28 @@
   ],
   "disagreements": [],
   "additional_reviewer_refs": [],
-  "overall": "NOT_RUN"
+  "overall": "NOT_RUN",
+  "plan": {
+    "path": "{{canonical-absolute-frozen-path}}",
+    "sha256": "{{sha256}}"
+  },
+  "selection_review": {
+    "outcome": "NOT_RUN",
+    "reason": "Actual independent review not performed.",
+    "evidence": [],
+    "reviewed_assertion_ids": [],
+    "reviewed_rule_ids": [],
+    "invariant_ids": [
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R05",
+      "R06",
+      "R07",
+      "R08",
+      "R09",
+      "R10"
+    ]
+  }
 }

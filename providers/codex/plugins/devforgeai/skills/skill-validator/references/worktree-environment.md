@@ -72,3 +72,7 @@ Report retained paths, allocation and setup identities, source/base distinctions
 Existing H1/H2 proposals need runtime-owner integration to distinguish allocation-backed preparation from native admission. See [enforcement design](enforcement-design.md). This guide installs no hook or native supervisor and adds no ceremonial completion marker.
 
 Command semantics remain the selected [official Git worktree documentation](https://git-scm.com/docs/git-worktree), consulted 2026-09-07. Existing packaged execution-contract boundaries remain selected; the current user enhancement refines preparation dependencies only.
+
+## VPR-2 no-native selection
+
+Carry a settled environment choice forward. For a pre-run independently reviewed Routine no-native selection, record the exact T05 selection obligation with native NOT_RUN; do not fabricate a native plan or automatically provision unused workspaces. A separately authorized frozen workspace allocation can still prepare only its bounded destinations before native choices are complete. Preparation is not native readiness, C PASS, qualification or permission to launch. Full/legacy and selected native work retain every readiness and fresh-state requirement above.

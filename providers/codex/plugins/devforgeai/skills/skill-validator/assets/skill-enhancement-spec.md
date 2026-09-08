@@ -104,3 +104,15 @@ The builder authors the changes and a separate return record. It does not mark t
 | {{F / requirement}} | {{new manifest}} | {{IDs and affected tiers}} | {{matching observed outcome, exact evidence}} | skill-validator |
 
 Retain the old FAIL and old candidate. A builder statement that a fix was applied does not close a finding. Reevaluate affected dependencies; keep unrelated prior evidence only when its frozen inputs still match. External acceptance remains a separate authority decision.
+
+## VPR-2 carried claim and qualification boundary
+
+- Frozen policy/mode, exact requested claim and independent T04 review: {{pins; actual review only}}.
+- Current Routine acceptance versus fixed qualified/unqualified anchor: {{copy exact plan lineage; UNKNOWN stays UNKNOWN}}.
+- Immediate/cumulative impact and affected CI/CP union: {{diff pins and dependency closure}}.
+- Report completion versus validation disposition: {{separate states; missing/failed requirements never become PASS}}.
+- Required actual receiving evidence: {{target-produced output/receiver action before Full T09; a prepared handoff is separate}}.
+- Required next evaluation: {{affected original assertions and applicable supplemental VPI IDs; no automatic generic inner Full suite}}.
+- Full-required adoption boundary: {{CI-05/CI-06/claim requirement, or actual unaffected scope}}.
+
+Authoring changes preserve all original cases/assertions and do not advance owner acceptance or a qualified identity. This prepared specification authorizes no recursive reviewer, receiving invocation, native funding or operational installation.

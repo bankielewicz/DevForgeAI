@@ -98,3 +98,19 @@ Prepared workspaces can be delivered with native execution NOT_RUN and dependent
 | Rendered human delivery | {{observed / NOT_OBSERVED}} | {{actual observation or null with cause}} |
 
 These fields do not authorize new execution, expand the budget or transfer a protected lease. Changed source, installation, runtime, assignment or accepted inputs requires affected reconciliation and new evidence.
+
+## VPR-2 claim and lineage
+
+For a VPR-2 skill-validation handoff, retain the following from the frozen plan/results; for other workflows, retain their governing contract and mark this policy block outside scope. This optional reporting block does not change the devforge.artifact/v1 envelope or issue execution authority.
+
+- Policy and actual requested claim: {{version/source/acceptance pins, Routine or Full, exact claim and any Full-required contract}}
+- Accepted baseline/scope and impact: {{owner decision, immediate/cumulative diff pins, fixed anchor and affected dependency union}}
+- Current routinely accepted identity: {{actual candidate/environment and acceptance-chain pin, or none}}
+- Last fully qualified identity: {{candidate/environment and exact Full evidence, ABSENT or UNKNOWN; unchanged by Routine}}
+- Validation/report dispositions: {{separate ROUTINE_PASS/FULL_PASS/FAIL/INSUFFICIENT_EVIDENCE and COMPLETE/PARTIAL/BLOCKED}}
+- Conditional native coverage: {{reviewed selections and independent T04 pin; unselected observations remain NOT_RUN}}
+- Owner acceptance/install authority: {{actual carried decision and conditions, or not granted}}
+- Deferred qualification observations: {{required actual native/compatibility/control/receiving evidence and next owner}}
+
+
+Target receiving evidence: {{actual eligible target output, receiver load and completed action before Full T09, or missing}}. This evaluator T12 handoff enqueues zero recursive qualification calls.

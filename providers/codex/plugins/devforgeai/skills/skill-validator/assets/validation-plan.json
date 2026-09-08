@@ -1,5 +1,5 @@
 {
-  "schema_version": "devforge.skill-validation-plan/v1",
+  "schema_version": "devforge.skill-validation-plan/v2",
   "run_id": "{{run-id}}",
   "provider": "codex",
   "candidate_root": "{{absolute-source-skill-path}}",
@@ -40,294 +40,219 @@
     ],
     "missing_inputs": []
   },
-  "runtime": {
-    "client_version": "{{actual-client-version}}",
-    "model_configuration": "{{actual-configuration}}",
-    "installation_mode": "{{project-local-or-exported-plugin}}",
-    "boundary_record": null,
-    "authentication_arrangement": "{{operator-established-subscription-access-without-evidence-secrets}}",
-    "environment_setup": {
-      "mode": "{{git_worktrees/existing/static_only}}",
-      "selection_source": "{{actual-user-answer-or-carried-selection}}",
-      "repository_root": null,
-      "git_common_dir": null,
-      "base_commit": null,
-      "base_selection_source": null,
-      "allowed_worktree_parent": null,
-      "metadata_write_scope": null,
-      "setup_record_path": "{{new-absolute-environment-setup-record-path}}",
-      "attempts": [
-        {
-          "attempt_id": "{{planned-unique-attempt-id}}",
-          "arm": "{{candidate/baseline}}",
-          "project_path": "{{assigned-absolute-consuming-project}}",
-          "detached": null,
-          "branch": null,
-          "output_directory": "{{assigned-absolute-output-directory}}",
-          "client_state_directory": "{{assigned-absolute-independent-client-state}}",
-          "workspace_id": "{{unused-allocated-workspace-id}}",
-          "workspace_allocation_ref": null,
-          "environment_setup_ref": null,
-          "readiness_evidence_refs": []
-        }
-      ],
-      "missing_inputs": [],
-      "workspace_allocation_refs": [],
-      "preparation_record_refs": []
-    },
-    "observation_methods": null
-  },
-  "budget": {
-    "max_attempts": null,
-    "max_seconds": null,
-    "repeats_per_case": null,
-    "stop_on_budget_exhaustion": true
-  },
-  "checks": [
-    {
-      "id": "INTAKE",
-      "group": "intake",
-      "expectation": "pass",
-      "description": "Assignment, plan identities, baseline, budgets and runtime arrangement recorded.",
-      "requirement_ids": [
-        "SV-T01",
-        "SV-T02"
-      ]
-    },
-    {
-      "id": "STRUCTURE",
-      "group": "structure",
-      "expectation": "pass",
-      "description": "Applicable deterministic source package checks pass.",
-      "requirement_ids": [
-        "SV-T03"
-      ]
-    },
-    {
-      "id": "AI-R01",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R01.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R02",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R02.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R03",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R03.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R04",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R04.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R05",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R05.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R06",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R06.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R07",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R07.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R08",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R08.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R09",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R09.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "AI-R10",
-      "group": "ai_review",
-      "expectation": "pass",
-      "description": "Applicable prompt/framework rubric criterion R10.",
-      "requirement_ids": [
-        "SV-T04"
-      ]
-    },
-    {
-      "id": "C-RESOURCES",
-      "group": "C",
-      "expectation": "pass",
-      "description": "resources candidate observation",
-      "case_id": "C-resources",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T06"
-      ]
-    },
-    {
-      "id": "B-NORMAL-C",
-      "group": "B",
-      "expectation": "pass",
-      "description": "normal candidate observation",
-      "case_id": "B-normal",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T07"
-      ]
-    },
-    {
-      "id": "B-NORMAL-BASE",
-      "group": "B",
-      "expectation": "observation",
-      "description": "normal baseline observation",
-      "case_id": "B-normal",
-      "arm": "baseline",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T07"
-      ]
-    },
-    {
-      "id": "B-MISSING-C",
-      "group": "B",
-      "expectation": "pass",
-      "description": "missing_input candidate observation",
-      "case_id": "B-missing_input",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T07"
-      ]
-    },
-    {
-      "id": "B-MISSING-BASE",
-      "group": "B",
-      "expectation": "observation",
-      "description": "missing_input baseline observation",
-      "case_id": "B-missing_input",
-      "arm": "baseline",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T07"
-      ]
-    },
-    {
-      "id": "B-BOUNDARY-C",
-      "group": "B",
-      "expectation": "pass",
-      "description": "boundary candidate observation",
-      "case_id": "B-boundary",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T07"
-      ]
-    },
-    {
-      "id": "B-BOUNDARY-BASE",
-      "group": "B",
-      "expectation": "observation",
-      "description": "boundary baseline observation",
-      "case_id": "B-boundary",
-      "arm": "baseline",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T07"
-      ]
-    },
-    {
-      "id": "A-EXPLICIT",
-      "group": "A",
-      "expectation": "pass",
-      "description": "explicit candidate observation",
-      "case_id": "A-explicit",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T08"
-      ]
-    },
-    {
-      "id": "A-DIRECT",
-      "group": "A",
-      "expectation": "pass",
-      "description": "direct_domain candidate observation",
-      "case_id": "A-direct_domain",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T08"
-      ]
-    },
-    {
-      "id": "A-INDIRECT",
-      "group": "A",
-      "expectation": "pass",
-      "description": "indirect candidate observation",
-      "case_id": "A-indirect",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T08"
-      ]
-    },
-    {
-      "id": "A-NEGATIVE",
-      "group": "A",
-      "expectation": "pass",
-      "description": "near_miss_negative candidate observation",
-      "case_id": "A-near_miss_negative",
-      "arm": "candidate",
-      "attempt_id": "{{unique-attempt-id}}",
-      "requirement_ids": [
-        "SV-T08"
-      ]
-    }
-  ],
+  "runtime": null,
+  "budget": null,
+  "checks": [],
   "findings_from_previous_iteration": [],
   "criteria_freeze_record": "{{time-and-source-of-pre-run-expectations}}",
   "scope_exclusions": [],
-  "plan_scope": "Complete experiment plan required before native execution; workspace preparation uses a separate frozen workspace allocation and may precede this plan."
+  "plan_scope": "Unpopulated VPR-2 template. Freeze complete original inventory and independent selection before observations. Runtime/budget may be null only for reviewed no-native selection; separate bounded workspace preparation remains available.",
+  "validation_policy": {
+    "version": "VPR-2",
+    "policy_ref": {
+      "path": "{{canonical-absolute-frozen-path}}",
+      "sha256": "{{sha256}}"
+    },
+    "acceptance_ref": {
+      "path": "{{canonical-absolute-frozen-path}}",
+      "sha256": "{{sha256}}"
+    },
+    "mode": "Routine",
+    "requested_claim": {
+      "kind": "scoped_update",
+      "text": "{{actual-owner-requested-claim; Full when any trigger applies}}",
+      "requires_full": false,
+      "contract_ref": null
+    },
+    "accepted_scope_ref": null,
+    "baseline_identity": null,
+    "candidate_identity": {
+      "candidate": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      },
+      "environment": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      }
+    },
+    "lineage": {
+      "qualified_anchor": {
+        "status": "UNKNOWN",
+        "identity": null,
+        "evidence": null
+      },
+      "accepted_unqualified_baseline": null,
+      "current_routinely_accepted": null,
+      "previous_acceptance": null,
+      "acceptance_chain": []
+    },
+    "impact": {
+      "immediate_diff": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      },
+      "cumulative_diff": {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      },
+      "immediate_requirements": [],
+      "cumulative_requirements": [],
+      "dependency_closure": [],
+      "matched_rules": [],
+      "bounded": false,
+      "full_triggers": []
+    },
+    "compatibility": [
+      {
+        "id": "CP-01",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      },
+      {
+        "id": "CP-02",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      },
+      {
+        "id": "CP-03",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      },
+      {
+        "id": "CP-04",
+        "disposition": "UNRESOLVED",
+        "old_environment": null,
+        "new_environment": {
+          "path": "{{canonical-absolute-frozen-path}}",
+          "sha256": "{{sha256}}"
+        },
+        "used_capabilities": [],
+        "affected_assertions": [],
+        "evidence": [],
+        "reason": "Template only; establish used-capability evidence."
+      }
+    ],
+    "catalog_refs": [
+      {
+        "path": "{{canonical-absolute-frozen-path}}",
+        "sha256": "{{sha256}}"
+      }
+    ],
+    "catalog_assertions": [],
+    "assertions": [],
+    "task_selection": [
+      {
+        "task_id": "T01",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T02",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T03",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T04",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T05",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T06",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T07",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T08",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T09",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T10",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T11",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      },
+      {
+        "task_id": "T12",
+        "classification": "Enforced",
+        "selection": "REQUIRED",
+        "assertion_ids": [],
+        "reason": "Template only; freeze required or reviewed native selection from complete original assertion inventory."
+      }
+    ],
+    "observations": [],
+    "call_graph": [],
+    "selection_reviewer": "{{externally-selected-independent-producer}}"
+  }
 }
