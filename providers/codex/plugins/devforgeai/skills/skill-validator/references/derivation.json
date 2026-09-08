@@ -35,17 +35,17 @@
     },
     {
       "destination": "references/contracts/execution-contract.md",
-      "destination_sha256": "c18897bb1f57f3a7cf05f2d7eb92a9e5bca5dfce94857c29721012906ed24c36",
+      "destination_sha256": "de8a55745ef8d02860d4816fba5708dc8fb74f2caf35ee89f8c4fc9d28736959",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
-          "sha256": "5d8cfd7bcb24934931d11c6f9bb1920d190da29bd04ae221341907d73ff6a124",
-          "source_revision": "75bcba915fd1d5f88477318d4b27db6e6961ca81"
+          "sha256": "75f7320a64be81425c691d4a20b1b09d3472561653b9d148e9c1bc201b1ffc67",
+          "source_revision": "7da4ac18998d3905af37f42692fdd6f502940b36"
         }
       ],
-      "transformation": "Implement the accepted opt-in v2 claim/selection/lineage/reporting contract while preserving unchanged legacy requirements. Portable contract copies change only package links and label source-only locators. Templates are unpopulated new records, not runtime evidence.",
+      "transformation": "Implement the accepted opt-in v2 claim/selection/lineage/reporting contract while preserving unchanged legacy requirements. Portable contract copies change only package links and label source-only locators. Templates are unpopulated new records, not runtime evidence. Append exact approved G8 supporting-funding section; preserve the explicit partial implementation and funded-launch refusal.",
       "refresh_condition": "A new authorized source or candidate selection requires new identities and affected independent evaluation; do not rewrite historical evidence.",
-      "previous_destination_sha256": "4224508eb87d3dcabb6c00551d04393284334f834dcd543133eea5146857b5a8"
+      "previous_destination_sha256": "c18897bb1f57f3a7cf05f2d7eb92a9e5bca5dfce94857c29721012906ed24c36"
     },
     {
       "destination": "references/framework-context.md",
@@ -672,5 +672,13 @@
     "validation_status": "NOT_PERFORMED",
     "hook_status": "DESIGN_ONLY",
     "adoption_requirement": "CI-05 Full before operational adoption"
+  },
+  "g8_supporting_funding_selection": {
+    "source_revision": "7da4ac18998d3905af37f42692fdd6f502940b36",
+    "source_sha256": "75f7320a64be81425c691d4a20b1b09d3472561653b9d148e9c1bc201b1ffc67",
+    "source_path": "docs/mvp/execution-contract.md",
+    "recorded_at_utc": "2026-09-08T17:08:12.379596+00:00",
+    "status": "PARTIAL_IMPLEMENTATION_FUNDED_LAUNCH_NOT_ADMITTED",
+    "accepted_policy_unchanged": "8ede26450ae737a5e928c5f70a945aa995969b30"
   }
 }

@@ -61,12 +61,12 @@
     },
     {
       "destination": "references/contracts/execution-contract.md",
-      "destination_sha256": "a810802a2c14cc6f0ddaf253725d470db116a64a864f87caff89c2cdc8b6ae35",
+      "destination_sha256": "312c9eb267d5bfb98a6ffc77bd0b5190ecf6681712874f1f9cc84dfa05960769",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/mvp/execution-contract.md",
-          "sha256": "5d8cfd7bcb24934931d11c6f9bb1920d190da29bd04ae221341907d73ff6a124",
-          "source_revision": "75bcba915fd1d5f88477318d4b27db6e6961ca81"
+          "sha256": "75f7320a64be81425c691d4a20b1b09d3472561653b9d148e9c1bc201b1ffc67",
+          "source_revision": "7da4ac18998d3905af37f42692fdd6f502940b36"
         },
         {
           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
@@ -113,7 +113,7 @@
           "source_revision": "8ede26450ae737a5e928c5f70a945aa995969b30"
         }
       ],
-      "transformation": "Retain portable historical summary; append complete selected G1 section with only the recorded source-link replacements.",
+      "transformation": "Retain portable historical summary; append complete selected G1 section with only the recorded source-link replacements. Append exact approved G8 supporting-funding section; preserve the explicit partial implementation and funded-launch refusal.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "transcription": {
         "source": "docs/mvp/execution-contract.md",
@@ -126,7 +126,8 @@
           "../skill-authoring/skill-validator-design.md#vpr-2-accepted-policy-amendment--2026-09-08": "docs/skill-authoring/skill-validator-design.md#vpr-2-accepted-policy-amendment--2026-09-08",
           "../skill-authoring/skill-validator-design.md#vpi-01-frozen-discriminator-expectations": "docs/skill-authoring/skill-validator-design.md#vpi-01-frozen-discriminator-expectations"
         }
-      }
+      },
+      "previous_destination_sha256": "a810802a2c14cc6f0ddaf253725d470db116a64a864f87caff89c2cdc8b6ae35"
     },
     {
       "destination": "references/framework-context.md",
@@ -746,5 +747,13 @@
     "hook_status": "DESIGN_ONLY",
     "runtime_admission": "NOT_OBSERVED",
     "receiving_invocation": "NOT_RUN"
+  },
+  "g8_supporting_funding_selection": {
+    "source_revision": "7da4ac18998d3905af37f42692fdd6f502940b36",
+    "source_sha256": "75f7320a64be81425c691d4a20b1b09d3472561653b9d148e9c1bc201b1ffc67",
+    "source_path": "docs/mvp/execution-contract.md",
+    "recorded_at_utc": "2026-09-08T17:08:12.380218+00:00",
+    "status": "PARTIAL_IMPLEMENTATION_FUNDED_LAUNCH_NOT_ADMITTED",
+    "accepted_policy_unchanged": "8ede26450ae737a5e928c5f70a945aa995969b30"
   }
 }
