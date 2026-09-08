@@ -1,0 +1,1993 @@
+{
+  "document_kind": "proposed_policy_source_inventory",
+  "status": "PRESERVED_INPUTS_NOT_NEW_VALIDATION",
+  "source_pin": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+  "runtime_reference_pin": "c7b2a62696c7f3764fdea3313182b9e896339a2a",
+  "baseline_pin": "a78b9bff83c090153952b31b84b0584ef1650f02",
+  "authoring_allocation": {
+    "path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/authoring-allocation.json",
+    "sha256": "19f6aa199bf07c580256c25d789b2fbcca92a3cd7fcb53b02889735e5f2337e8"
+  },
+  "original_selected_sources": [
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "docs/skill-authoring/skill-validator-design.md",
+      "sha256": "cc996485b5016d63b90f6ee0af453de1e2ce135bdbeae316c488dc4ab5e53357",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/docs/skill-authoring/skill-validator-design.md",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+      "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "sha256": "d2850a7a687cc3ac6c6014164483c32a3856907aaf3820362c22b19228d2b94c",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/docs/mvp/skill-authoring-contract.md",
+      "live_bytes_equal_selected": false
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/docs/mvp/artifact-contract.md",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/docs/mvp/execution-contract.md",
+      "live_bytes_equal_selected": false
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+      "sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/evals/evals.json",
+      "sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/providers/codex/plugins/devforgeai/skills/skill-validator/evals/evals.json",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/ai-review-rubric.md",
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/providers/codex/plugins/devforgeai/skills/skill-validator/references/ai-review-rubric.md",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+      "sha256": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/results-contract.md",
+      "sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/providers/codex/plugins/devforgeai/skills/skill-validator/references/results-contract.md",
+      "live_bytes_equal_selected": true
+    },
+    {
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/SKILL.md",
+      "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/skill-validation-policy-proposal-20260908T114822309238Z/selected-inputs/providers/codex/plugins/devforgeai/skills/skill-builder/SKILL.md",
+      "live_bytes_equal_selected": true
+    }
+  ],
+  "prior_records_preserved": [
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-ni11-continuation-20260908T020630686864Z/budget-accounting-16.json",
+      "sha256": "6a8e14d172c8e3c2d85574191f6cfb66fc35725313ee83666e56bdf44dce1ae3"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-ni11-continuation-20260908T020630686864Z/planning/allocation-06.json",
+      "sha256": "3250e080dcddccd6fc8374356763209cc0edf02b83cad2646784473577a30fb7"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-ni11-continuation-20260908T020630686864Z/planning/review-selection-06.json",
+      "sha256": "b180f44da2a0cfd4e253e250768ad7cc9c2bc507993e330921025980cfcde61d"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-ni11-continuation-20260908T020630686864Z/final-continuation-report.md",
+      "sha256": "8aee315055d7ee3e6cf0bd2adf46192241121c446e384210a78766905a3ffecd"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-ni11-continuation-20260908T020630686864Z/final-custody.json",
+      "sha256": "a7e286cfa2e2ea3ead3bb57e134c2c7dd0a6f3d01757b3d5043324a0e67f817b"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-ni11-continuation-20260908T020630686864Z/allocation-review-03/independent-review.md",
+      "sha256": "a9906fec61abb32c37d3535d5d1733517dd82143ccfb0480231e3d33ea33f1b2"
+    }
+  ],
+  "current_mandatory_source_cases": [
+    {
+      "id": "SV-001",
+      "title": "Stale frozen input identity",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-002",
+      "title": "Missing installed runtime reference",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-003",
+      "title": "Malformed YAML frontmatter",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-004",
+      "title": "Untrusted target instruction override",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-005",
+      "title": "Required native confinement unavailable",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-006",
+      "title": "Subscribed native authentication unavailable",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-007",
+      "title": "Repairs stay in the builder handoff",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-008",
+      "title": "A PASS claim without required evidence is rejected",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-009",
+      "title": "A baseline failure does not fail a passing candidate",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-010",
+      "title": "Semantic failure despite structural success",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-011",
+      "title": "Incomplete negative activation cannot pass",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-012",
+      "title": "A complete clean negative is recognized",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-013",
+      "title": "Every enforced phase and task is accounted for",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-014",
+      "title": "Hook design is not active enforcement",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-015",
+      "title": "Changed bytes invalidate prior results",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-016",
+      "title": "An unavailable independent AI review remains unavailable",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-017",
+      "title": "Style alone is not a hard failure",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-018",
+      "title": "Missing test environment offers worktree generation",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-019",
+      "title": "Selected generation provisions assigned worktrees",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-020",
+      "title": "Existing environment or declined generation creates no worktrees",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-021",
+      "title": "Worktree setup failure preserves conflicting work",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-022",
+      "title": "Created worktrees do not satisfy missing native prerequisites",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-023",
+      "title": "Frozen uncommitted candidate remains distinct from Git base",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-024",
+      "title": "Prepare workspaces while native choices remain pending",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-025",
+      "title": "Prepared workspace cannot bypass experiment freeze",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-026",
+      "title": "Additional attempts need bounded unused workspaces",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-027",
+      "title": "Workspace allocation gaps still block provisioning",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    },
+    {
+      "id": "SV-028",
+      "title": "Allocation preparation plan and run bindings remain acyclic",
+      "original_status": "NOT_RUN",
+      "requirement": "All original fields/assertions retained in exact evals.json source bytes."
+    }
+  ],
+  "original_complete_allocation": {
+    "path": "/home/bryan/Projects/DevForge/tmp/skill-utilities-ni11-continuation-20260908T020630686864Z/planning/allocation-06.json",
+    "sha256": "3250e080dcddccd6fc8374356763209cc0edf02b83cad2646784473577a30fb7",
+    "cardinality": {
+      "unique_slots": 1099,
+      "sum_role_counts": 1099,
+      "fresh_profiles": 907,
+      "continuing_generations": 192,
+      "source_case_ids": 28,
+      "source_variants": 47,
+      "source_paired_outer_calls": 94,
+      "outer_initial_calls": 159,
+      "inner_native_calls": 393,
+      "control_native_calls": 17,
+      "correction_units": 2,
+      "human_answer_units": 20,
+      "broker_return_units": 170,
+      "dependency_dag_acyclic": true,
+      "every_dependency_has_typed_predicate": true,
+      "predicates_implemented": false
+    },
+    "cases": [
+      {
+        "allocation_case_id": "E001",
+        "case_id": "SV-001",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E002",
+        "case_id": "SV-002",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E003",
+        "case_id": "SV-003",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E004",
+        "case_id": "SV-004",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E005",
+        "case_id": "SV-005",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "source_visibility_failure",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E006",
+        "case_id": "SV-005",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "process_client_boundary_failure",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E007",
+        "case_id": "SV-006",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E008",
+        "case_id": "SV-007",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E009",
+        "case_id": "SV-008",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E010",
+        "case_id": "SV-009",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E011",
+        "case_id": "SV-010",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E012",
+        "case_id": "SV-011",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E013",
+        "case_id": "SV-012",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E014",
+        "case_id": "SV-013",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E015",
+        "case_id": "SV-014",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E016",
+        "case_id": "SV-015",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E017",
+        "case_id": "SV-016",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E018",
+        "case_id": "SV-017",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "base_style",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E019",
+        "case_id": "SV-017",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "equivalent_expanded_style",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E020",
+        "case_id": "SV-018",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E021",
+        "case_id": "SV-019",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E022",
+        "case_id": "SV-020",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "existing_environment",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E023",
+        "case_id": "SV-020",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "generation_declined",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E024",
+        "case_id": "SV-021",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "occupied_destination",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E025",
+        "case_id": "SV-021",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "conflicting_branch",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E026",
+        "case_id": "SV-021",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "git_unavailable",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E027",
+        "case_id": "SV-022",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "subscription_authentication_unavailable",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E028",
+        "case_id": "SV-022",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "required_boundary_unavailable",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E029",
+        "case_id": "SV-023",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": []
+      },
+      {
+        "allocation_case_id": "E030",
+        "case_id": "SV-024",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "model_pending",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E031",
+        "case_id": "SV-024",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "auth_arrangement_pending",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E032",
+        "case_id": "SV-024",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "repetitions_and_attempt_time_budget_pending",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E033",
+        "case_id": "SV-024",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "all_native_choices_pending",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E034",
+        "case_id": "SV-025",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "model_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E035",
+        "case_id": "SV-025",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "auth_arrangement_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E036",
+        "case_id": "SV-025",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "repetitions_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E037",
+        "case_id": "SV-025",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "attempt_and_time_bounds_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E038",
+        "case_id": "SV-025",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "observation_method_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E039",
+        "case_id": "SV-025",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "demonstrated_boundary_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E040",
+        "case_id": "SV-025",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "complete_experiment_positive_control",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E041",
+        "case_id": "SV-026",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "bounded_addition_authorized",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E042",
+        "case_id": "SV-026",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "bounded_addition_not_authorized",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E043",
+        "case_id": "SV-027",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "ambiguous_repository",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E044",
+        "case_id": "SV-027",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "bounded_count_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E045",
+        "case_id": "SV-027",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "write_authority_absent",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E046",
+        "case_id": "SV-027",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "occupied_destination",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E047",
+        "case_id": "SV-028",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "primary",
+        "requirement_ids": [
+          "SV-WA-01",
+          "SV-WA-02",
+          "SV-WA-03",
+          "SV-WA-04",
+          "SV-WA-05",
+          "SV-WA-06"
+        ]
+      },
+      {
+        "allocation_case_id": "E048",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "new_skill",
+        "requirement_ids": [
+          "SB01",
+          "SB02",
+          "SB03",
+          "SB04",
+          "SB05",
+          "SB06",
+          "SB07",
+          "SB08",
+          "SB10"
+        ]
+      },
+      {
+        "allocation_case_id": "E049",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "reuse_exact_owner",
+        "requirement_ids": [
+          "SB02",
+          "SB06"
+        ]
+      },
+      {
+        "allocation_case_id": "E050",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "enhance_owner",
+        "requirement_ids": [
+          "SB02",
+          "SB03",
+          "SB09"
+        ]
+      },
+      {
+        "allocation_case_id": "E051",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "ambiguous_owners",
+        "requirement_ids": [
+          "SB01",
+          "SB02"
+        ]
+      },
+      {
+        "allocation_case_id": "E052",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "missing_purpose",
+        "requirement_ids": [
+          "SB01",
+          "SB10"
+        ]
+      },
+      {
+        "allocation_case_id": "E053",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "unclassified_children",
+        "requirement_ids": [
+          "SB04",
+          "SB05"
+        ]
+      },
+      {
+        "allocation_case_id": "E054",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "named_group_retained",
+        "requirement_ids": [
+          "SB04",
+          "SB05"
+        ]
+      },
+      {
+        "allocation_case_id": "E055",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "optional_branch",
+        "requirement_ids": [
+          "SB04",
+          "SB05"
+        ]
+      },
+      {
+        "allocation_case_id": "E056",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "remediation_frozen",
+        "requirement_ids": [
+          "SB09",
+          "SB10",
+          "CHG-002"
+        ]
+      },
+      {
+        "allocation_case_id": "E057",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "remediation_source_drift",
+        "requirement_ids": [
+          "SB09",
+          "CHG-002"
+        ]
+      },
+      {
+        "allocation_case_id": "E058",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "conflicting_accepted_input",
+        "requirement_ids": [
+          "SB01",
+          "SB10",
+          "CHG-002"
+        ]
+      },
+      {
+        "allocation_case_id": "E059",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "missing_dependency",
+        "requirement_ids": [
+          "SB06",
+          "SB10"
+        ]
+      },
+      {
+        "allocation_case_id": "E060",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "canonical_unavailable",
+        "requirement_ids": [
+          "SB02",
+          "SB06",
+          "SB10"
+        ]
+      },
+      {
+        "allocation_case_id": "E061",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "out_of_scope_validate",
+        "requirement_ids": [
+          "SB06"
+        ]
+      },
+      {
+        "allocation_case_id": "E062",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "instruction_override",
+        "requirement_ids": [
+          "SB06",
+          "SB09",
+          "SB10"
+        ]
+      },
+      {
+        "allocation_case_id": "E063",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "prepared_handoff",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-10"
+        ]
+      },
+      {
+        "allocation_case_id": "E064",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "read_only_discussion",
+        "requirement_ids": [
+          "CHG-003",
+          "AL-10"
+        ]
+      },
+      {
+        "allocation_case_id": "E065",
+        "case_id": "SB-B",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "unapproved_proposal",
+        "requirement_ids": [
+          "SB09",
+          "SB10"
+        ]
+      },
+      {
+        "allocation_case_id": "E066",
+        "case_id": "C-RESOURCES",
+        "skill": "skill-builder",
+        "tier": "C",
+        "variant": "project_local",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E067",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-builder",
+        "tier": "A",
+        "variant": "explicit",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E068",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-builder",
+        "tier": "A",
+        "variant": "direct",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E069",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-builder",
+        "tier": "A",
+        "variant": "indirect",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E070",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-builder",
+        "tier": "A",
+        "variant": "near_miss",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E071",
+        "case_id": "C-RESOURCES",
+        "skill": "skill-validator",
+        "tier": "C",
+        "variant": "project_local",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E072",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-validator",
+        "tier": "A",
+        "variant": "explicit",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E073",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-validator",
+        "tier": "A",
+        "variant": "direct",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E074",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-validator",
+        "tier": "A",
+        "variant": "indirect",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E075",
+        "case_id": "A-ACTIVATION",
+        "skill": "skill-validator",
+        "tier": "A",
+        "variant": "near_miss",
+        "requirement_ids": [
+          "AL-07"
+        ]
+      },
+      {
+        "allocation_case_id": "E076",
+        "case_id": "TRANSFER",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "actual_receiving",
+        "requirement_ids": [
+          "CHG-003",
+          "AL-10"
+        ]
+      },
+      {
+        "allocation_case_id": "E077",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "unadmitted_context_no_fallback",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      },
+      {
+        "allocation_case_id": "E078",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "unrelated_answer_then_matching_answer",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      },
+      {
+        "allocation_case_id": "E079",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "invalid_checkpoint_denial_and_bounded_correction",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      },
+      {
+        "allocation_case_id": "E080",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-builder",
+        "tier": "B",
+        "variant": "actual_callback_and_rendered_receipt",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      },
+      {
+        "allocation_case_id": "E081",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "unadmitted_context_no_fallback",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      },
+      {
+        "allocation_case_id": "E082",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "unrelated_answer_then_matching_answer",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      },
+      {
+        "allocation_case_id": "E083",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "invalid_checkpoint_denial_and_bounded_correction",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      },
+      {
+        "allocation_case_id": "E084",
+        "case_id": "RT-NATIVE",
+        "skill": "skill-validator",
+        "tier": "B",
+        "variant": "actual_callback_and_rendered_receipt",
+        "requirement_ids": [
+          "CHG-001",
+          "CHG-003",
+          "AL-08",
+          "AL-09",
+          "AL-10",
+          "NI-10",
+          "NI-11"
+        ]
+      }
+    ],
+    "disposition": "Preserved full inventory; not an executed campaign and not replaced by pilot."
+  },
+  "package_manifests": [
+    {
+      "skill": "skill-builder",
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "files": [
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/SKILL.md",
+          "mode": "100644",
+          "git_blob": "7d9852b0c953821a1cee7c629a314df250379626",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "bytes": 11813,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/agents/openai.yaml",
+          "mode": "100644",
+          "git_blob": "ff5128638e872dd89b7528726522ae57b1a8b24d",
+          "sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1",
+          "bytes": 290,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/assets/handoff.md",
+          "mode": "100644",
+          "git_blob": "db9ee1d9e1bb4f9654543de56812466c8463fea7",
+          "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931",
+          "bytes": 6158,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/assets/skill-design-spec.md",
+          "mode": "100644",
+          "git_blob": "e6f826875d5a6f01f3864677df6c74cb5f00500c",
+          "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3",
+          "bytes": 21394,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/artifact-contract.md",
+          "mode": "100644",
+          "git_blob": "a2ad788af27d8197c34b19e150a2c9e25a0a8537",
+          "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+          "bytes": 3019,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/execution-contract.md",
+          "mode": "100644",
+          "git_blob": "330d45e30f57ae70175820d06a48236152b24c19",
+          "sha256": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8",
+          "bytes": 6919,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/skill-authoring-contract.md",
+          "mode": "100644",
+          "git_blob": "def36539abb9878a90ab73af0f2ee5a3024f7ae2",
+          "sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b",
+          "bytes": 8627,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+          "mode": "100644",
+          "git_blob": "e7a5dc46279b573ef88838a2f3c3f543c0674af7",
+          "sha256": "509222fc268cacb169ea1fc42d22fc96a9c39988722ee5aaec7ef4a0db6f1284",
+          "bytes": 29972,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/existing-skill-selection.md",
+          "mode": "100644",
+          "git_blob": "3fdfb3f16733d0f4c06ffa33d83852b90178adbf",
+          "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+          "bytes": 4836,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/framework-context.md",
+          "mode": "100644",
+          "git_blob": "2e1e20f94bce3bd2f08f8ed0ddc15eacf29b3646",
+          "sha256": "6601ab3b2364506ac6cb75eea2cc2e53d0f47e4285edd9fe5007934c6d619dd1",
+          "bytes": 6713,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/interview-guide.md",
+          "mode": "100644",
+          "git_blob": "19f98e47ac2d3af8326555d96271efbb0908ae3e",
+          "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+          "bytes": 5770,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/managed-authoring.md",
+          "mode": "100644",
+          "git_blob": "7104ea3c1360fb95c67d1340baa6c09e76f47fb5",
+          "sha256": "10d06a55b47254c9f8cc50bdca966e85e83fbc9f484596fd6e3f1c1aa7a2c14d",
+          "bytes": 5532,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/results-contract.md",
+          "mode": "100644",
+          "git_blob": "3bf0733cebe795391ccc066ccb9483b4cd4bc05d",
+          "sha256": "028a4350910fced221f950003b5eab0c1b80f5b0d2870213112ebb071a565e2b",
+          "bytes": 11541,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/sources.md",
+          "mode": "100644",
+          "git_blob": "944f759218e052bd38d7eccbb368fa52fbb3e0ea",
+          "sha256": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113",
+          "bytes": 2243,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/validator-handoff.md",
+          "mode": "100644",
+          "git_blob": "3eb47897f14e311e9ed9ec56ce15e7f669d4bfb8",
+          "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60",
+          "bytes": 7609,
+          "source_only_evaluation": false
+        }
+      ]
+    },
+    {
+      "skill": "skill-validator",
+      "commit": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "files": [
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+          "mode": "100644",
+          "git_blob": "7bf13cdfcbcc74e4fb1fff6f18583a1a21c87c01",
+          "sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39",
+          "bytes": 16445,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/agents/openai.yaml",
+          "mode": "100644",
+          "git_blob": "f75110f88d70ce55ae8a19107f1019e3e5cde4da",
+          "sha256": "3b3576c181d6565e8614036912208cd265e03f790560a8a73486abff6db829d3",
+          "bytes": 267,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/ai-review.json",
+          "mode": "100644",
+          "git_blob": "0cabd9b58d213fd98367416422cad96a282e69ef",
+          "sha256": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701",
+          "bytes": 2697,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/case-grade.json",
+          "mode": "100644",
+          "git_blob": "da5b121a79efe59fe62cc45627ff97ebf9de1c2e",
+          "sha256": "740e78c0d1ea43ed8fe565bd0700673174d43e8d17716f36749b0c17ef58383d",
+          "bytes": 1024,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/environment-setup.json",
+          "mode": "100644",
+          "git_blob": "1a6df747205d426d532780b28342809f77d7b5b3",
+          "sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b",
+          "bytes": 1138,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/handoff.md",
+          "mode": "100644",
+          "git_blob": "9e19ff6e2591ad58664a629f9b9966331a2878f4",
+          "sha256": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea",
+          "bytes": 6739,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/run-manifest.json",
+          "mode": "100644",
+          "git_blob": "44457196ebf148eef2cb5027f6b95ab67b4b46f2",
+          "sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a",
+          "bytes": 2517,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/skill-enhancement-spec.md",
+          "mode": "100644",
+          "git_blob": "fdc1f402505322d85d4a10e95b155e467d5414a4",
+          "sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e",
+          "bytes": 5486,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/test-cases.json",
+          "mode": "100644",
+          "git_blob": "213d1705c601848912635101a2972e941f5155a0",
+          "sha256": "9dafe0dfc168a287fdc75f9cab1005a8a102185465c9a914a48e7ec306912e57",
+          "bytes": 2285,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-plan.json",
+          "mode": "100644",
+          "git_blob": "99adb0a0d8f6d4e899d25c167c6735b04191db17",
+          "sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1",
+          "bytes": 9050,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-results.json",
+          "mode": "100644",
+          "git_blob": "b5ed696f84891afada63dd1b65b6d1a2d46be4ea",
+          "sha256": "c3daa442028af72cf265a59609aa85aeded68e34b2b8ca8fd17acd487a9ad539",
+          "bytes": 3814,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/verification-results.md",
+          "mode": "100644",
+          "git_blob": "3f4de835720e4a00093a4308aee0431e3f9295e4",
+          "sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa",
+          "bytes": 7199,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/workspace-allocation.json",
+          "mode": "100644",
+          "git_blob": "1b8d77892dcdff89fe67d24c8c39fe0f90346c01",
+          "sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5",
+          "bytes": 1672,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/evals/evals.json",
+          "mode": "100644",
+          "git_blob": "0504ff889b1ca5529617fde9d92c32dd0d892308",
+          "sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c",
+          "bytes": 47777,
+          "source_only_evaluation": true
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/ai-review-rubric.md",
+          "mode": "100644",
+          "git_blob": "d333f84d45d47a72ffc5cd71061448e97457b639",
+          "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f",
+          "bytes": 19414,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/artifact-contract.md",
+          "mode": "100644",
+          "git_blob": "a2ad788af27d8197c34b19e150a2c9e25a0a8537",
+          "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+          "bytes": 3019,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/execution-contract.md",
+          "mode": "100644",
+          "git_blob": "f52713819aaccef4ad117b4553bc62ca38500dcd",
+          "sha256": "4224508eb87d3dcabb6c00551d04393284334f834dcd543133eea5146857b5a8",
+          "bytes": 6920,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/skill-authoring-contract.md",
+          "mode": "100644",
+          "git_blob": "def36539abb9878a90ab73af0f2ee5a3024f7ae2",
+          "sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b",
+          "bytes": 8627,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+          "mode": "100644",
+          "git_blob": "330fa2dc32211ae64f79b215df5d6ba956ccdb88",
+          "sha256": "e65eb71f63a82ad22d652f16503bb7348adcb77e7fba96ea8838fbd7f8785176",
+          "bytes": 42985,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/enforcement-design.md",
+          "mode": "100644",
+          "git_blob": "79ccbee12d25485ad9c8e7188165abb01f4e3f90",
+          "sha256": "b596e439d6a1643afc3836b7457d6065aa529d285a60ba5712b5c03973b25c14",
+          "bytes": 9534,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/framework-context.md",
+          "mode": "100644",
+          "git_blob": "b5e7edc264dcd1cbee183a2ed778090684a120ae",
+          "sha256": "7e2697f11df23f5c695327f62c4f534741968360b01b060e2ee90b420866ecbe",
+          "bytes": 6730,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/managed-validation.md",
+          "mode": "100644",
+          "git_blob": "88110f9512cf8f3b9584c8c902f0dc4e1f13ba76",
+          "sha256": "0a7c4748726b738d5f39858bee4caf828a42b22aef4ba8630a00fdb1eaea06dd",
+          "bytes": 5896,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+          "mode": "100644",
+          "git_blob": "f96b54a2d64f044346b9346b45c606fc1d860c24",
+          "sha256": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8",
+          "bytes": 27629,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/results-contract.md",
+          "mode": "100644",
+          "git_blob": "263fcee2836d879ecea8fa0ceb8a143fafa9699a",
+          "sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f",
+          "bytes": 11957,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/sources.md",
+          "mode": "100644",
+          "git_blob": "fa310859c2b07ca3d05db5a38a7026d9b3fb99f2",
+          "sha256": "526a4163d8e275c9bf00011e43fdbdd832f4a943fd90be151759dbf199544ae4",
+          "bytes": 4116,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/structural-checks.md",
+          "mode": "100644",
+          "git_blob": "97e0d2e0be54eded2e6807e63de0cf6b66857606",
+          "sha256": "1d79c437bd3c20ea86913e15c1b448129c3861fa21052bbbabc8c90106bf1086",
+          "bytes": 13052,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/worktree-environment.md",
+          "mode": "100644",
+          "git_blob": "74a4c0b6838e02a78c0cb963c5b96bc824f562cd",
+          "sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d",
+          "bytes": 10740,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/scripts/assess_evidence.py",
+          "mode": "100644",
+          "git_blob": "f8936cb7c07b7e68795116877329859277b01775",
+          "sha256": "d5b31a5448b84ecee81816a2997577366fe348dd281adb1d1fc6d487c47e7066",
+          "bytes": 18514,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/scripts/inspect_skill.py",
+          "mode": "100644",
+          "git_blob": "c96aa47bcfb29bd2481d6cf155c35a1fbd8c83fb",
+          "sha256": "6054d6a01776590c706612afd9b1d1688ac71923044660094c111a7708591e4d",
+          "bytes": 34778,
+          "source_only_evaluation": false
+        }
+      ]
+    },
+    {
+      "skill": "skill-builder",
+      "commit": "a78b9bff83c090153952b31b84b0584ef1650f02",
+      "files": [
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/SKILL.md",
+          "mode": "100644",
+          "git_blob": "7d9852b0c953821a1cee7c629a314df250379626",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "bytes": 11813,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/agents/openai.yaml",
+          "mode": "100644",
+          "git_blob": "ff5128638e872dd89b7528726522ae57b1a8b24d",
+          "sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1",
+          "bytes": 290,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/assets/handoff.md",
+          "mode": "100644",
+          "git_blob": "db9ee1d9e1bb4f9654543de56812466c8463fea7",
+          "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931",
+          "bytes": 6158,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/assets/skill-design-spec.md",
+          "mode": "100644",
+          "git_blob": "e6f826875d5a6f01f3864677df6c74cb5f00500c",
+          "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3",
+          "bytes": 21394,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/artifact-contract.md",
+          "mode": "100644",
+          "git_blob": "a2ad788af27d8197c34b19e150a2c9e25a0a8537",
+          "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+          "bytes": 3019,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/execution-contract.md",
+          "mode": "100644",
+          "git_blob": "9ac45a820db06d2a042801b4fe9722677cfb3542",
+          "sha256": "a48aa2a93a2e8d287c652e4e0a4fb1ceb05c4811f42036596b683b14a7d7255b",
+          "bytes": 6695,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/skill-authoring-contract.md",
+          "mode": "100644",
+          "git_blob": "3f31128e44f6487ffe26492a3681254a41285ce5",
+          "sha256": "962a27b2c538b7033d458bf12900a1fe32a1f161ba6e535f171ae93847b22fe9",
+          "bytes": 8462,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+          "mode": "100644",
+          "git_blob": "701af5f0c021c99785effc9c078e1e1eccc14c1a",
+          "sha256": "d0f737a2065553b2cc66d48f263df707b3bdbd4a96bc8030842f415a051ded35",
+          "bytes": 20259,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/existing-skill-selection.md",
+          "mode": "100644",
+          "git_blob": "3fdfb3f16733d0f4c06ffa33d83852b90178adbf",
+          "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+          "bytes": 4836,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/framework-context.md",
+          "mode": "100644",
+          "git_blob": "5a26375fedaf8e0ebe278d2eea696bf501e4e45c",
+          "sha256": "cd04400b9f3cb7e31aaed5974d1edde4fb7cd495b377df3df56a28317fc1de0e",
+          "bytes": 6601,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/interview-guide.md",
+          "mode": "100644",
+          "git_blob": "19f98e47ac2d3af8326555d96271efbb0908ae3e",
+          "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+          "bytes": 5770,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/managed-authoring.md",
+          "mode": "100644",
+          "git_blob": "1c2b688dfde0d13af1acb4f2535cd2173f97f7b1",
+          "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7",
+          "bytes": 3876,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/results-contract.md",
+          "mode": "100644",
+          "git_blob": "3bf0733cebe795391ccc066ccb9483b4cd4bc05d",
+          "sha256": "028a4350910fced221f950003b5eab0c1b80f5b0d2870213112ebb071a565e2b",
+          "bytes": 11541,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/sources.md",
+          "mode": "100644",
+          "git_blob": "944f759218e052bd38d7eccbb368fa52fbb3e0ea",
+          "sha256": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113",
+          "bytes": 2243,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/validator-handoff.md",
+          "mode": "100644",
+          "git_blob": "3eb47897f14e311e9ed9ec56ce15e7f669d4bfb8",
+          "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60",
+          "bytes": 7609,
+          "source_only_evaluation": false
+        }
+      ]
+    },
+    {
+      "skill": "skill-validator",
+      "commit": "a78b9bff83c090153952b31b84b0584ef1650f02",
+      "files": [
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+          "mode": "100644",
+          "git_blob": "f2b1e2ae7c1d65f778f803ed67f53bca7844067f",
+          "sha256": "bdc7696ab46377202729ec9ac2959026152ccdcaa8341d21e9e8e049d682d423",
+          "bytes": 15265,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/agents/openai.yaml",
+          "mode": "100644",
+          "git_blob": "f75110f88d70ce55ae8a19107f1019e3e5cde4da",
+          "sha256": "3b3576c181d6565e8614036912208cd265e03f790560a8a73486abff6db829d3",
+          "bytes": 267,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/ai-review.json",
+          "mode": "100644",
+          "git_blob": "0cabd9b58d213fd98367416422cad96a282e69ef",
+          "sha256": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701",
+          "bytes": 2697,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/case-grade.json",
+          "mode": "100644",
+          "git_blob": "da5b121a79efe59fe62cc45627ff97ebf9de1c2e",
+          "sha256": "740e78c0d1ea43ed8fe565bd0700673174d43e8d17716f36749b0c17ef58383d",
+          "bytes": 1024,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/environment-setup.json",
+          "mode": "100644",
+          "git_blob": "1a6df747205d426d532780b28342809f77d7b5b3",
+          "sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b",
+          "bytes": 1138,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/handoff.md",
+          "mode": "100644",
+          "git_blob": "3bf1084e7146aa7fd210b497c6b47e96ed163204",
+          "sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99",
+          "bytes": 4956,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/run-manifest.json",
+          "mode": "100644",
+          "git_blob": "44457196ebf148eef2cb5027f6b95ab67b4b46f2",
+          "sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a",
+          "bytes": 2517,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/skill-enhancement-spec.md",
+          "mode": "100644",
+          "git_blob": "fdc1f402505322d85d4a10e95b155e467d5414a4",
+          "sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e",
+          "bytes": 5486,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/test-cases.json",
+          "mode": "100644",
+          "git_blob": "213d1705c601848912635101a2972e941f5155a0",
+          "sha256": "9dafe0dfc168a287fdc75f9cab1005a8a102185465c9a914a48e7ec306912e57",
+          "bytes": 2285,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-plan.json",
+          "mode": "100644",
+          "git_blob": "99adb0a0d8f6d4e899d25c167c6735b04191db17",
+          "sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1",
+          "bytes": 9050,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-results.json",
+          "mode": "100644",
+          "git_blob": "b5ed696f84891afada63dd1b65b6d1a2d46be4ea",
+          "sha256": "c3daa442028af72cf265a59609aa85aeded68e34b2b8ca8fd17acd487a9ad539",
+          "bytes": 3814,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/verification-results.md",
+          "mode": "100644",
+          "git_blob": "3f4de835720e4a00093a4308aee0431e3f9295e4",
+          "sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa",
+          "bytes": 7199,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/workspace-allocation.json",
+          "mode": "100644",
+          "git_blob": "1b8d77892dcdff89fe67d24c8c39fe0f90346c01",
+          "sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5",
+          "bytes": 1672,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/evals/evals.json",
+          "mode": "100644",
+          "git_blob": "0504ff889b1ca5529617fde9d92c32dd0d892308",
+          "sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c",
+          "bytes": 47777,
+          "source_only_evaluation": true
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/ai-review-rubric.md",
+          "mode": "100644",
+          "git_blob": "d333f84d45d47a72ffc5cd71061448e97457b639",
+          "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f",
+          "bytes": 19414,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/artifact-contract.md",
+          "mode": "100644",
+          "git_blob": "a2ad788af27d8197c34b19e150a2c9e25a0a8537",
+          "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+          "bytes": 3019,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/execution-contract.md",
+          "mode": "100644",
+          "git_blob": "86edb2b75d9e0f7f3f1c6ee8573ff6967ca96393",
+          "sha256": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3",
+          "bytes": 4232,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/skill-authoring-contract.md",
+          "mode": "100644",
+          "git_blob": "4bf12fb56fb4ca300338b8f2a9eeae30c63a38c4",
+          "sha256": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa",
+          "bytes": 7196,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+          "mode": "100644",
+          "git_blob": "7b19fedf75ff387986863c3c037bb7ad93a7d675",
+          "sha256": "63ae09f641bb4fa3c569d9c1863ef4a21a7ad378813804ce1f0508688460d8f8",
+          "bytes": 19309,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/enforcement-design.md",
+          "mode": "100644",
+          "git_blob": "40dd658f9f1c46554df2949edc70129b07dc7d68",
+          "sha256": "4447abf0cf5022e19755808059fdcc56417f07eff1a7ca5db9c130f587f466e8",
+          "bytes": 6959,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/framework-context.md",
+          "mode": "100644",
+          "git_blob": "9cbd9305617e96523acd91c8f37c3710d0292d8c",
+          "sha256": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+          "bytes": 5980,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+          "mode": "100644",
+          "git_blob": "703d7405f6b4a39ec49af34c21ae5ed2945067bc",
+          "sha256": "109a416cbe94b3790b7cf3ef99fc8f8a244b5b9954839d7056198b007bc2953c",
+          "bytes": 26796,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/results-contract.md",
+          "mode": "100644",
+          "git_blob": "263fcee2836d879ecea8fa0ceb8a143fafa9699a",
+          "sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f",
+          "bytes": 11957,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/sources.md",
+          "mode": "100644",
+          "git_blob": "a23854d4ddb968769c89715b9c8cf0faca4b7662",
+          "sha256": "492bfe071d72f8e918862b0f5051fd16914aae9b8a3ae76167b4db66efa118f7",
+          "bytes": 3506,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/structural-checks.md",
+          "mode": "100644",
+          "git_blob": "97e0d2e0be54eded2e6807e63de0cf6b66857606",
+          "sha256": "1d79c437bd3c20ea86913e15c1b448129c3861fa21052bbbabc8c90106bf1086",
+          "bytes": 13052,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/worktree-environment.md",
+          "mode": "100644",
+          "git_blob": "74a4c0b6838e02a78c0cb963c5b96bc824f562cd",
+          "sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d",
+          "bytes": 10740,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/scripts/assess_evidence.py",
+          "mode": "100644",
+          "git_blob": "f8936cb7c07b7e68795116877329859277b01775",
+          "sha256": "d5b31a5448b84ecee81816a2997577366fe348dd281adb1d1fc6d487c47e7066",
+          "bytes": 18514,
+          "source_only_evaluation": false
+        },
+        {
+          "path": "providers/codex/plugins/devforgeai/skills/skill-validator/scripts/inspect_skill.py",
+          "mode": "100644",
+          "git_blob": "c96aa47bcfb29bd2481d6cf155c35a1fbd8c83fb",
+          "sha256": "6054d6a01776590c706612afd9b1d1688ac71923044660094c111a7708591e4d",
+          "bytes": 34778,
+          "source_only_evaluation": false
+        }
+      ]
+    }
+  ],
+  "effective_budget": {
+    "total_counted_calls": 24,
+    "charged": 24,
+    "remaining": 0,
+    "whole_attempt_seconds": 600,
+    "campaign_seconds": 14400
+  },
+  "acceptance": null,
+  "execution_authorization": null
+}
