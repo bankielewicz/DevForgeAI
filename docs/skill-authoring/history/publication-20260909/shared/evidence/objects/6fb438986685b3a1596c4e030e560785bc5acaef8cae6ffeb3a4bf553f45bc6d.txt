@@ -1,0 +1,14 @@
+{
+  "base": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+  "worktree": "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z",
+  "files": {
+    "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md": "6ed2a5d7e91711a2f18a86e3131a81f23d36eafddcfa5f3e06af76cc303d1340",
+    "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md": "80d10de30e8301242d42abc6078c412f3dcf1a446f1d0e31fd3c3571cbe0d23d",
+    "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json": "edad2be36f486c44ef16d7685456050b1bc2a66ff476a35953fd05a793aa4606",
+    "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md": "a8e56317e96ef279797f2215465c10d8b079659d8663615bee068a92bf335858",
+    "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423",
+    "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4",
+    "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json": "aca7ee649acb5d31638d8650542a6405341692b63e1ce57975c94eecba7ac41b",
+    "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72"
+  }
+}

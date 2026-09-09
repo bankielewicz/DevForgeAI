@@ -1,0 +1,506 @@
+{
+  "searched_roots": [
+    "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project",
+    "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills",
+    "/home/bryan/.codex/skills",
+    "/home/bryan/.codex/plugins"
+  ],
+  "skills": [
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-brainstorm/SKILL.md",
+      "resolved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-brainstorm/SKILL.md",
+      "sha256": "eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0",
+      "metadata": [
+        "name: devforge-brainstorm",
+        "description: Brainstorm an undeveloped product idea with the user and maintain a project idea ledger that distinguishes suggestions, assumptions, evidence, and decisions."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-develop/SKILL.md",
+      "resolved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-develop/SKILL.md",
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+      "metadata": [
+        "name: devforge-develop",
+        "description: Implement a bounded project story using current project expert skills and the external DevForge RED-to-GREEN acceptance workflow."
+      ],
+      "inspection": "body read"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-evaluate-expert/SKILL.md",
+      "resolved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-evaluate-expert/SKILL.md",
+      "sha256": "b3a4e8085d7d122110d77a2886117f2d46aff2fb633c0cad87d230f5a45f33e1",
+      "metadata": [
+        "name: devforge-evaluate-expert",
+        "description: \"Validate DevForgeAI custom skills against a frozen specification using deterministic package checks, independent AI prompt review, and native Codex resource, behavior, and activation tests. Produce evidence-bound results and a repair/enhancement specification for devforge-project-expert-creator. Does not edit the evaluated skill or grant release acceptance.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/SKILL.md",
+      "resolved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/SKILL.md",
+      "sha256": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263",
+      "metadata": [
+        "name: devforge-project-expert-creator",
+        "description: \"Design, create, or enhance Codex skills through user Q&A, existing-skill discovery, and a DevForgeAI specification; remediate a frozen validator handoff by editing the selected canonical source. Includes optional/enforced workflow choices and hook proposals. Does not test or validate skills.\""
+      ],
+      "inspection": "body read"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-review/SKILL.md",
+      "resolved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-review/SKILL.md",
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+      "metadata": [
+        "name: devforge-review",
+        "description: Review a DevForge candidate or generated project expert skill against its upstream intent and evidence, distinguishing structural checks from semantic acceptance."
+      ],
+      "inspection": "body read"
+    },
+    {
+      "path": "/home/bryan/.codex/skills/.system/imagegen/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/skills/.system/imagegen/SKILL.md",
+      "sha256": "681ddb4ad6d06a2acc78a3535b583f8d0c1ea800ecda3d56370d3310fd2cd4ba",
+      "metadata": [
+        "name: \"imagegen\"",
+        "description: \"Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/skills/.system/openai-docs/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/skills/.system/openai-docs/SKILL.md",
+      "sha256": "7cb8fa1b2a0c635b5c61ffe1da7b8594a7ea0fce5b71e8d523e2025d88b2a05e",
+      "metadata": [
+        "name: \"openai-docs\"",
+        "description: \"Use for Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, customization, automations, and self-knowledge—including 'you,' 'your,' 'this app,' or 'this coding agent' when they refer to Codex—and for OpenAI APIs/products and ChatGPT Work. Also use for model choice/migration, prompting, SDKs, Responses, Realtime, agents, evals, and Chat/Work/Codex comparisons. Do not use for generic app/software tasks that merely mention Codex.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/skills/.system/plugin-creator/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/skills/.system/plugin-creator/SKILL.md",
+      "sha256": "71b95b8219644f95d633721e7f7cd3c469edfc8fe50f8415d400dfb2d74bc7b9",
+      "metadata": [
+        "name: plugin-creator",
+        "description: Create and scaffold plugin directories for Codex with a required `.codex-plugin/plugin.json`, optional plugin folders/files, valid manifest defaults, and personal-marketplace entries by default. Use when Codex needs to create a new personal plugin, add optional plugin structure, generate or update marketplace entries for plugin ordering and availability metadata, or update an existing local plugin during development with the CLI-driven cachebuster and reinstall flow."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/skills/.system/review-agent/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/skills/.system/review-agent/SKILL.md",
+      "sha256": "07079efd0dc76f05fade424e5dfb048dce1de2df7626e1a4f56292a4f3f92228",
+      "metadata": [
+        "name: review-agent",
+        "description: Perform a read-only, defect-first review of a specified code change and return every actionable finding. Use when another agent delegates review of uncommitted changes, a base-branch diff, a commit, or custom review instructions."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/skills/.system/skill-creator/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/skills/.system/skill-creator/SKILL.md",
+      "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+      "metadata": [
+        "name: skill-creator",
+        "description: Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources.",
+        "description: Create or edit Word documents when formatting, tracked changes, or comments require document-specific handling."
+      ],
+      "inspection": "body read"
+    },
+    {
+      "path": "/home/bryan/.codex/skills/.system/skill-installer/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/skills/.system/skill-installer/SKILL.md",
+      "sha256": "d68b77e5bbb34dedab89d134da52855f140fc4b4299b80104f534e3b9e98f8ee",
+      "metadata": [
+        "name: skill-installer",
+        "description: Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos)."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/assess-patch-risk/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/assess-patch-risk/SKILL.md",
+      "sha256": "7fbbd0eb220408c0a0b27aaac8b43a165c7be3c49b48404f850546727133c97e",
+      "metadata": [
+        "name: assess-patch-risk",
+        "description: \"Assess an immutable patch artifact's program impact, regression risk, and auto-merge eligibility. Use for generated patch files, provider pull-request diffs, or commit ranges when reviewers need evidence about affected runtime paths, contracts, tests, and recoverability. This skill is read-only and does not generate, edit, apply, push, or merge the patch.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/attack-path-analysis/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/attack-path-analysis/SKILL.md",
+      "sha256": "63e820ce598dd62c897283eab91d60ba0e4d81ecae8dc6e516d709e2ba6b0eaa",
+      "metadata": [
+        "name: attack-path-analysis",
+        "description: Use when Codex is already in the attack-path-analysis phase of a security scan or the user explicitly asks to trace a security finding from source to sink and calibrate severity. Do not use as the primary trigger for full PR, commit, branch, patch, or repository scans."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/deep-security-scan/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/deep-security-scan/SKILL.md",
+      "sha256": "9f6dd957c2893531401f0ea16dbb969c6636dbc66793436eeb549c6894a01ef6",
+      "metadata": [
+        "name: deep-security-scan",
+        "description: Use when the user asks for a deep, exhaustive, multi-pass, or variance-reducing repository-wide or scoped-path Codex Security scan. Run repeated complete independent Standard scans with the Codex Security deep-scan tool, which aggregates their validated findings and prepares the canonical artifacts; then complete the same scan once. Do not use for PRs, commits, branch diffs, or working-tree diffs."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/define-security-policy/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/define-security-policy/SKILL.md",
+      "sha256": "286f549d7d5b017e13e38031494723b5870949e3f82ac85b6a9c32d4718433bf",
+      "metadata": [
+        "name: define-security-policy",
+        "description: Define, review, or update SECURITY.md guidance for a repository or component. Use when the user wants to clarify what Codex Security should review, what is out of scope, which security properties must hold, or whether existing guidance still matches the code."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/finding-discovery/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/finding-discovery/SKILL.md",
+      "sha256": "938b73329188aa124770fcdf7cf7916e2941c8fdbf20acd9df96bc1a80185fe7",
+      "metadata": [
+        "name: finding-discovery",
+        "description: Use when Codex is already in the finding-discovery phase of a security scan or the user explicitly asks to discover candidate security findings in a repository or code change. Do not use as the primary trigger for full PR, commit, branch, patch, or repository scans."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/fix-finding/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/fix-finding/SKILL.md",
+      "sha256": "7eca2ea1175edf2338ef08c69baef335abc5a57d09bcf405840f7e35e851cef9",
+      "metadata": [
+        "name: fix-finding",
+        "description: Use when the user explicitly asks to fix and verify a validated or plausible security finding. Do not use as the primary trigger for full PR, commit, branch, patch, or repository scans."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/propose-security-hardening/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/propose-security-hardening/SKILL.md",
+      "sha256": "b9d2c81ecb99e6eb4ad6424dbd297a935feb66c2658692d48caf4d9840eaf306",
+      "metadata": [
+        "name: propose-security-hardening",
+        "description: Develop evidence-backed structural and architectural security hardening proposals from vulnerability disclosures, supplied findings, incident or assessment documents, source code, or a completed Codex Security scan. Use when a user asks for systemic improvements, alternatives beyond per-finding patches, before-and-after security architecture views, engineering tradeoff analysis, or an implementation-ready plan for a selected hardening option. Also use automatically after a Codex Security scan with reportable findings when the top-level scan workflow requests final-report hardening guidance."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/security-diff-scan/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/security-diff-scan/SKILL.md",
+      "sha256": "0a4c519ad713585876ea7eb0a8af4b59892c86746f4c69851db9ab347b7fad2f",
+      "metadata": [
+        "name: security-diff-scan",
+        "description: \"Review a pull request, commit, branch diff, or working-tree patch for security vulnerabilities.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/security-scan/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/security-scan/SKILL.md",
+      "sha256": "5b8f5d7debeca14c6b37e8e7ba737671362b8eb4b7f49e693c99c6bd04bc8fa0",
+      "metadata": [
+        "name: security-scan",
+        "description: \"Use for a standard, single-pass security audit of an entire repository or a scoped path, package, folder, or submodule with no diff to review. This is the default repository scan. Do not use for PR, commit, branch, or working-tree diffs, or for deep, multi-pass scans.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/threat-model/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/threat-model/SKILL.md",
+      "sha256": "9aa474aed20b89a350a1e9181c8fdf80c89b6ca05a300e5cc4727cd31ae3eadd",
+      "metadata": [
+        "name: threat-model",
+        "description: Use when Codex is already in the threat-modeling phase of a security scan, the user explicitly invokes $threat-model, or the user explicitly asks to create, update, or persist a repository threat model. Do not use as the primary trigger for full PR, commit, branch, patch, or repository scans."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/track-findings/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/track-findings/SKILL.md",
+      "sha256": "8e3726e86ef0df509f1a635961f268e1bf04a4622a83e21c1d079f546cc61dcb",
+      "metadata": [
+        "name: track-findings",
+        "description: Track validated Codex Security findings in Linear, Jira, GitHub issues, or draft GitHub security advisories. Use it for one finding or an explicitly selected batch of up to 25 findings tracked as Linear, Jira, or GitHub issues. Includes duplicate checks, exact previews, approval-gated writes, and readback. Do not use it for scans or fixes."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/triage-finding/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/triage-finding/SKILL.md",
+      "sha256": "70b0e771f286443ea32bbf466ad378b36f9123b4aa171ab02c6680fdbdb704f9",
+      "metadata": [
+        "name: triage-finding",
+        "description: \"Use when the user supplies or imports existing security findings, vulnerability reports, or security/vulnerability Jira/Linear tickets from scanners, advisories, GitHub, Atlassian Rovo, Linear, or similar backlog sources and wants static repo-impact triage. Do not use for discovery, duplicate-bug triage, validation, or fixes.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/validation/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/validation/SKILL.md",
+      "sha256": "9d9c2478c31d9eb8bcab6b3bbdc6d8aa1f58ceef75361148fef11e9311543f2e",
+      "metadata": [
+        "name: validation",
+        "description: Use when Codex is already in the validation phase of a security scan or the user explicitly asks to determine whether one or more candidate security findings are valid. Do not use as the primary trigger for full PR, commit, branch, patch, or repository scans."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/verify-fix/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/verify-fix/SKILL.md",
+      "sha256": "3b10a60ef709553c706a3b023c26889cfde3261df44663a53687ba32ca919d5d",
+      "metadata": [
+        "name: verify-fix",
+        "description: Use when the user asks whether an existing security fix, patch, finding, or completed issue actually remediates the original vulnerability without modifying the repository. Do not use to validate candidate findings, implement patches, or run full repository scans."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/vulnerability-writeup/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/codex-security/0.1.23/skills/vulnerability-writeup/SKILL.md",
+      "sha256": "78105d91972d8d8fce44e4c24311a2b1a4c7acb23bbc3d69e628410cbcc35416",
+      "metadata": [
+        "name: vulnerability-writeup",
+        "description: Turn vulnerability notes, disclosure reports, PoCs, source code, or Codex Security findings into self-contained, sceptically validated, natural-sounding vulnerability reports. Use for one vulnerability or a disclosure campaign; a Codex Security scan is optional."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/deep-research-work/0.1.15/skills/deep-research/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/deep-research-work/0.1.15/skills/deep-research/SKILL.md",
+      "sha256": "fe92f226b47314a3963738a7b98d5afc5d51973c7b589c72277e3cc9e59d44eb",
+      "metadata": [
+        "name: deep-research",
+        "description: Use only when the user asks for deep research (or a clear equivalent), invokes $deep-research, or selects Deep Research in Work mode. Produce a comprehensive, cited artifact. Skip ordinary research requests."
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-analytics-dashboard/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-analytics-dashboard/SKILL.md",
+      "sha256": "cf5360fd8b197673bb237c52c603c97fa319c875c3dfa2cd8efff52d4422f513",
+      "metadata": [
+        "name: artifact-template-analytics-dashboard",
+        "description: \"Create a spreadsheet using the Analytics Dashboard template and its retained reference file. Use when the user selects or names Analytics Dashboard. Monitor acquisition, engagement, retention, revenue, and conversion funnel KPIs with charts.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-business-review/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-business-review/SKILL.md",
+      "sha256": "27721fc1d67d1b41949caa75ac8f94f81952ff124406878af6524047929e60d2",
+      "metadata": [
+        "name: artifact-template-business-review",
+        "description: \"Create a presentation using the Business Review template and its retained reference file. Use when the user selects or names Business Review. Review business performance, KPIs, segment results, strategic priorities, decisions, and outlook.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-design-report/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-design-report/SKILL.md",
+      "sha256": "563722f53854e606f8a9f87e37e72d7ef70a22d46d5836b8e4d6abfb1b79e9e0",
+      "metadata": [
+        "name: artifact-template-design-report",
+        "description: \"Create a document using the Design Report template and its retained reference file. Use when the user selects or names Design Report. Produce design reports with an executive summary, key findings, implications, recommendations, and appendix.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-experiment-analysis/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-experiment-analysis/SKILL.md",
+      "sha256": "0b05effc47df0a14f8e0c3e3597e6722224747435546385d38a2cae279bd20b9",
+      "metadata": [
+        "name: artifact-template-experiment-analysis",
+        "description: \"Create a document using the Experiment Analysis template and its retained reference file. Use when the user selects or names Experiment Analysis. Analyze experiments with hypotheses, methodology, results, interpretation, limitations, and next steps.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-financial-budget/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-financial-budget/SKILL.md",
+      "sha256": "c0b6b7a62a15597aaf2b1ec679e21da48f533b756127f0aef957cdfe9f3da738",
+      "metadata": [
+        "name: artifact-template-financial-budget",
+        "description: \"Create a spreadsheet using the Financial Budget template and its retained reference file. Use when the user selects or names Financial Budget. Model actuals, budget and scenario forecasts, variances, cash runway, and departmental plans.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-investment-committee-memo/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-investment-committee-memo/SKILL.md",
+      "sha256": "68abd08cfe5e073e3c446a3f675f44c5bf98f57434dba679e8acd8a763379a8b",
+      "metadata": [
+        "name: artifact-template-investment-committee-memo",
+        "description: \"Create a document using the Investment Committee Memo template and its retained reference file. Use when the user selects or names Investment Committee Memo. Prepare investment committee memos with the thesis, transaction details, financial analysis, risks, and recommendation.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-legal-memorandum/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-legal-memorandum/SKILL.md",
+      "sha256": "51fb9d21baf6119c4ccb1903638a6bac0e859210de63460fffa7025d52e997e0",
+      "metadata": [
+        "name: artifact-template-legal-memorandum",
+        "description: \"Create a document using the Legal Memorandum template and its retained reference file. Use when the user selects or names Legal Memorandum. Draft legal memoranda with the issue, brief answer, relevant facts, analysis, and conclusion.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-market-trends-report/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-market-trends-report/SKILL.md",
+      "sha256": "d58d019b89cb6f292ac3ab991d561489eef477ff53ce05fb024a0c936f5af26a",
+      "metadata": [
+        "name: artifact-template-market-trends-report",
+        "description: \"Create a presentation using the Market Trends Report template and its retained reference file. Use when the user selects or names Market Trends Report. Communicate market or industry trends, supporting evidence, implications, and recommended responses.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-minimal-letterhead/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-minimal-letterhead/SKILL.md",
+      "sha256": "880ef094d4d0c89a7bde5ce9bbe4086625c186651e9e6efc8ba8bdd7cc77f9d5",
+      "metadata": [
+        "name: artifact-template-minimal-letterhead",
+        "description: \"Create a document using the Minimal Letterhead template and its retained reference file. Use when the user selects or names Minimal Letterhead. Write professional business letters with sender, recipient, message, and signature fields in a minimal letterhead layout.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-operating-calendar/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-operating-calendar/SKILL.md",
+      "sha256": "33bb660791a0b9a21628a42c34934932220203b6aabd84e98cb1b45327d0384c",
+      "metadata": [
+        "name: artifact-template-operating-calendar",
+        "description: \"Create a spreadsheet using the Operating Calendar template and its retained reference file. Use when the user selects or names Operating Calendar. Plan annual and monthly operating milestones, campaigns, launches, deadlines, and recurring events.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-operating-review/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-operating-review/SKILL.md",
+      "sha256": "6d63c5cd025ffe936e7bab5db3023672bbaec26af55c2bb8b057d38c202c9c32",
+      "metadata": [
+        "name: artifact-template-operating-review",
+        "description: \"Create a presentation using the Operating Review template and its retained reference file. Use when the user selects or names Operating Review. Run weekly operating reviews with scorecards, functional updates, risks, decisions, and action items.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-project-kickoff/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-project-kickoff/SKILL.md",
+      "sha256": "aa893ebd89e7c8d1db4261d01cc2b1add35d78d00785871ccaaa5fc8db783ec9",
+      "metadata": [
+        "name: artifact-template-project-kickoff",
+        "description: \"Create a presentation using the Project Kickoff template and its retained reference file. Use when the user selects or names Project Kickoff. Align teams on project goals, scope, roles, milestones, risks, and the working model.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-project-tracker/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-project-tracker/SKILL.md",
+      "sha256": "d97d5be20189b7f53dd269b6e1c5f694eaf53e5a72f6559fcb1578911b7cda82",
+      "metadata": [
+        "name: artifact-template-project-tracker",
+        "description: \"Create a spreadsheet using the Project Tracker template and its retained reference file. Use when the user selects or names Project Tracker. Manage workstreams, tasks, owners, status, priority, dates, launch pulse, and a Gantt schedule.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-sales-pipeline/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-sales-pipeline/SKILL.md",
+      "sha256": "15cfeeedf440021f16ed3f3ad8c7c1ef6d48898b9447741e223d2fb41cfc9800",
+      "metadata": [
+        "name: artifact-template-sales-pipeline",
+        "description: \"Create a spreadsheet using the Sales Pipeline template and its retained reference file. Use when the user selects or names Sales Pipeline. Track opportunities, stages, owners, deal sizes, probabilities, forecasts, next steps, and risks.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-simple-dark-mode/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-simple-dark-mode/SKILL.md",
+      "sha256": "b7c8d0c05f75878b9bc21e56a57c41ec1aa29700aca0a24822be0f9f1bd53207",
+      "metadata": [
+        "name: artifact-template-simple-dark-mode",
+        "description: \"Create a presentation using the Simple Dark Mode template and its retained reference file. Use when the user selects or names Simple Dark Mode. Create clean dark-mode presentations with bold typography, simple sections, charts, and imagery.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-simple-light-mode/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-simple-light-mode/SKILL.md",
+      "sha256": "7c68430c6cf57b55b457d4735dbd1a46b889bef135a32222902dd0848b6e1752",
+      "metadata": [
+        "name: artifact-template-simple-light-mode",
+        "description: \"Create a presentation using the Simple Light Mode template and its retained reference file. Use when the user selects or names Simple Light Mode. Create clean light-mode presentations with spacious typography, simple sections, charts, and imagery.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-strategy-memorandum/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-strategy-memorandum/SKILL.md",
+      "sha256": "51d7882ac94e8e57b323394825728c33925af878806e37277217c2dc12a912e5",
+      "metadata": [
+        "name: artifact-template-strategy-memorandum",
+        "description: \"Create a document using the Strategy Memorandum template and its retained reference file. Use when the user selects or names Strategy Memorandum. Present strategic context, choices, rationale, risks, milestones, and a clear recommendation.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-system-design/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-system-design/SKILL.md",
+      "sha256": "87f7b7ed1b0d8410f5e5971cd7f7db9a4165e2f37069e97e52dbfb469b75a57c",
+      "metadata": [
+        "name: artifact-template-system-design",
+        "description: \"Create a document using the System Design template and its retained reference file. Use when the user selects or names System Design. Document system architecture, requirements, components, data flows, APIs, tradeoffs, and operational considerations.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-team-alignment/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-team-alignment/SKILL.md",
+      "sha256": "26d7cafdcd1899a937b325c5d02ac57c162d45002153be33a934d35f81eb6110",
+      "metadata": [
+        "name: artifact-template-team-alignment",
+        "description: \"Create a presentation using the Team Alignment template and its retained reference file. Use when the user selects or names Team Alignment. Facilitate team offsites and planning with context, goals, priorities, decisions, and action items.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-three-statement-forecast/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-three-statement-forecast/SKILL.md",
+      "sha256": "74f4a5cccec0107b861548b157e04c51d9b58ec13a990c86394b4c529b8ecf41",
+      "metadata": [
+        "name: artifact-template-three-statement-forecast",
+        "description: \"Create a spreadsheet using the Three-Statement Forecast template and its retained reference file. Use when the user selects or names Three-Statement Forecast. Build an integrated income statement, balance sheet, and cash flow forecast with assumptions, checks, and an executive summary.\""
+      ],
+      "inspection": "name/description discovery only"
+    },
+    {
+      "path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/plugin-management/0.1.0/skills/plugin-management/SKILL.md",
+      "resolved_path": "/home/bryan/.codex/plugins/cache/openai-curated-remote/plugin-management/0.1.0/skills/plugin-management/SKILL.md",
+      "sha256": "653841cc21205269f08b0ce135891e1518dac616a766bcfb0b57d788d3f68b10",
+      "metadata": [
+        "name: plugin-management",
+        "description: Discover and suggest relevant plugins, inspect app permissions and dependencies, and manage plugin connections or removal. Use when the user asks about plugins or when a task would materially benefit from an external app, account, service, or data source that available tools cannot access."
+      ],
+      "inspection": "name/description discovery only"
+    }
+  ],
+  "absent_locations": [
+    "/home/bryan/.agents",
+    "/home/bryan/.local/share/codex",
+    "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage",
+    "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/notes-storage"
+  ],
+  "symlink_observation": "No symlinks returned by find in searched roots; resolved file paths recorded. No global alias registry inspected.",
+  "limits": [
+    "Available conversation catalog also considered.",
+    "Plugin cache presence does not establish enabled installation or runtime availability.",
+    "No network, installation, external catalog query, other model or subagent.",
+    "No suitable expert found in searched inventory; global uniqueness not established.",
+    "No private configuration, credentials or session history read. Unconfigured remote, other-provider and inaccessible inventories not searched."
+  ],
+  "decision": "Create notes-storage; generic authoring, development, review, security, research and document-template workflows do not own this persistence contract."
+}

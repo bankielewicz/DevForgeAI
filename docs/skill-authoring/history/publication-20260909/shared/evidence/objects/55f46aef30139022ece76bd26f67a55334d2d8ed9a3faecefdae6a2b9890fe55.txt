@@ -1,0 +1,124 @@
+# DevForgeAI expert foundation: CLI implementation handoff
+
+Prepared: 2026-09-08 UTC. Mode: user-initiated skills, manual handoffs and command execution. This consolidates the user's decisions into implementation scope. No skill source, runtime, installation or frozen VPI record was changed while preparing it. Validation and hook implementation/activation were not performed.
+
+## Outcome and settled decisions
+
+Promote the Codex prototypes into the DevForgeAI framework:
+
+- skill-builder -> devforge-project-expert-creator.
+- skill-validator -> devforge-evaluate-expert.
+
+The creator creates/enhances; the evaluator evaluates and supplies a bounded repair specification. The user initiates each receiving skill and the relevant commands. Automatic campaign orchestration is deferred and is not a prerequisite for this manual mode.
+
+The user requested this implementation handoff for the existing CLI session. Read the current workspace/repository AGENTS.md instructions and docs/learned-behaviors/bounded-delivery.md before continuing. Carry settled decisions forward. This document does not renew an expired VPI window, reassign its unused slots, approve a native campaign or authorize credential changes. Resolve any genuinely required new execution allocation once against concrete work; continue independent authorized work.
+
+Use targeted changes to existing specifications, packages and tests. Keep one existing implementation plan with this scope. Do not create another proposal/review/funding program before making the changes reviewable.
+
+## Source selection and ownership
+
+Workspace: /home/bryan/Projects/DevForge.
+
+| Repository | Observed main HEAD | Ownership |
+| --- | --- | --- |
+| /home/bryan/Projects/DevForge/framework/DevForgeAI | c2a42eb68cc441437f8d37e1c52ae85cde489a76 | Skills, methodology, templates, project expertise and provider registration |
+| /home/bryan/Projects/DevForge/framework/DevForge | c7b2a62696c7f3764fdea3313182b9e896339a2a | CLI, protected runtime, deterministic gates, installer and tests |
+
+Both shared checkouts contain pre-existing edits, including shared contracts and AGENTS.md files. These commits are observed references, not permission to overwrite working-tree content. Recheck actual branch/HEAD/status and assignments, select relevant current bytes explicitly, and preserve unrelated work. Use a separate implementation worktree/branch. Only the assigned integration owner updates shared main and installations. A companion-repository change needs bounded ownership; a skill rename does not authorize unrelated runtime policy changes.
+
+Canonical Codex package parent:
+ /home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/
+
+Generated operational package parent:
+ /home/bryan/Projects/DevForge/.agents/skills/
+
+The creator destination already contains an older three-file draft. Deliberately supersede it with the promoted builder, preserve its Git history, and retain relevant project-grounding requirements. Its old evaluation instructions must not enter the authoring-only creator. No evaluator package currently occupies the new name. Leave Claude packages unchanged and report Codex-only scope.
+
+Observed canonical SKILL.md identities:
+
+| Package | SHA-256 |
+| --- | --- |
+| skill-builder | 05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8 |
+| skill-validator | d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39 |
+| older devforge-project-expert-creator draft | 3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10 |
+
+Recover the accepted Routine/Full policy from commit 8ede26450ae737a5e928c5f70a945aa995969b30. Its preserved document still contains historical draft wording; later acceptance recorded in the VPI handoff governs selection. Applicable authored policy changes also exist in frozen AI candidate 22e864951066c71a46873321f9bde2220aba653a. Reuse relevant work deliberately; do not import the entire candidate or its funding contracts merely to obtain skill wording.
+
+Frozen CLI candidate bdcdd5eed28c95df70b90a95f72be11c9e9137a9 remains partial. Preserve both candidates, cases, reports, failures and ledgers. Current defect reference:
+ /home/bryan/Projects/DevForge/tmp/vpi01-execution-20260908T150659678746Z/repair-terminal-report.md
+ SHA-256: a3601e55f7b9414e0cbd7c723d21aa92fc95a75ab42d7c767ec78a63ee2149af.
+
+## Foundational requirements included in the promotion
+
+| ID | Required result | Concrete completion evidence |
+| --- | --- | --- |
+| F01 Identity and integration | Promote both Codex packages, replace the older creator draft, update active routing/metadata and refresh installations. | Correct canonical/installed names and manifests; explicit retirement of obsolete prototype copies; no duplicate discoverable workflow. |
+| F02 Useful expertise | Retain create/enhance/reuse discovery, focused Q&A, the design template and framework/project grounding. Preserve accepted constraints, API versions and relevant sources. | A representative request produces a grounded specification/candidate or justified reuse; a bounded enhancement preserves unrelated behavior. |
+| F03 Separation and handoffs | Creator never evaluates its target; evaluator never edits it. Both deliver actionable handoffs with exact inputs, outcomes, remaining work and next invocation. | Actual user-mediated creator-to-evaluator transfer and evaluator-to-creator repair intake, with receivers loading and acting on the producer's real artifacts. |
+| F04 Evaluation | Preserve deterministic package checks, independent semantic review and applicable installed-resource, behavior and activation cases. | Executed commands and scoped results; independent judgments cite evidence; native observations remain separate from static results. |
+| F05 Sustainable policy | Implement the accepted Routine/Full distinction for manual mode, including immediate/cumulative impact, compatibility and scoped claims. | Bounded maintenance can reach Routine under the implemented policy; consequential control/transfer claims receive applicable Full evidence. No default Full solely because a request says validate or install. |
+| F06 Mechanical enforcement | Preserve required phase/task classifications and protect actual actions through documented commands/gates. | Each claimed enforced action has a real predicate/command; missing/stale/invalid evidence yields the expected refusal; semantic quality has a separate review input. |
+| F07 Practical environment | Retain existing-environment, create-Git-worktrees and static-only choices; distinguish preparation from readiness. | Authorized workspace preparation; observed source/history/output boundaries and authentication readiness before dependent native tests. |
+| F08 Operational delivery | Deliver integrated operational packages, honest status and a usable command/handoff runbook. | Final source/install identities, actual checks, merge status, limitations and a demonstrated manual workflow; no automated readiness claim. |
+
+These rows consolidate accepted gaps; they add no workflow phases or per-row approval rounds. Preserve the builder's five named phases/required actions and evaluator's six phases/twelve tasks as Enforced requirements. Map old IDs into the renamed contracts. Reconcile older four-phase draft tables with that decision.
+
+Manual initiation does not itself disable implicit skill discovery. Preserve existing invocation policy and test renamed discovery claims appropriately.
+
+## Manual flow and command boundaries
+
+User invokes creator -> creator writes candidate/specification/handoff -> user invokes evaluator -> evaluator performs authorized checks and writes results/repair specification/handoff -> user invokes creator for justified corrections. Repairs create new candidate identities and affected reevaluation; they never rewrite old failures. No automatic receiver, retry or repair loop is required.
+
+Keep the creator's authoring-only boundary, including separation from target testing and installation. The evaluator, test operator and integration owner perform their assigned commands. Document each command's owner, inputs, outputs and failure meaning. Use implemented interfaces; inspect selected source/help before presenting a command as usable.
+
+Existing surfaces to reconcile include devforge expert prepare, devforge expert bind, devforge expert status, devforge check, and the evaluator helpers scripts/inspect_skill.py and scripts/assess_evidence.py. Structural binding/freshness is not behavioral acceptance or universal phase enforcement. Retain actual supported arguments; do not invent generic phase subcommands.
+
+Build on supported commands. Do not simulate protected admission or invoke managed advance/resume/complete helpers as a fallback. If a required manual action lacks a guard, identify its exact missing predicate and the smallest owner-scoped correction. Prose cannot establish enforcement. Unavailable enforcement blocks its specific claim/action while reporting remains possible.
+
+Keep hook proposals traceable to enforced requirements and prefer reusable controls. Generating/installing bespoke executable hooks for every expert is deferred. A design or fixture does not establish active native hooks.
+
+## Deferred automation and preserved obligations
+
+Defer automatic receiving-skill invocation, campaign scheduling, background resumption, automatic repair loops, generalized interactive answer transport, and exhaustive accounting for every automatically scheduled grader/return/continuation.
+
+G8-FUNDING-COMPLETION-01 remains a real defect in the automated funded-launch path. Do not delete its refusal, erase tests or relabel its result. Explicitly scope that path's requirements to deferred automation so they do not become universal manual-workflow prerequisites. Removing an automation dependency must not remove unrelated coverage, independence, integrity or authority requirements.
+
+The selected Full policy still applies to consequential enforcement or receiving-contract changes. Evaluate the manual path's applicable claims, including real user-mediated transfer; automatic transfer is not implied. Preserve original assertions and record applicability changes with reasons in the existing requirement/case mapping. Preparing the evaluator's own handoff does not initiate recursive qualification. Do not restart an old campaign or the completed Stage A pilot.
+
+## Minimal migration and compatibility
+
+Use the current skill-builder and skill-creator guidance for authoring, keeping evaluation with its separate owner. Apply relevant prompt-engineering and skill-authoring guidance already recorded in docs/research/skills/ and the evaluator rubric; add source research only for an actual unresolved technical dependency. Avoid generic boilerplate and speculative new requirements.
+
+Update promoted directories, SKILL.md entrypoints, agents/openai.yaml, active mutual handoff references, framework context, templates, result contracts and changed derivation records. Update live eval target/invocation names; preserve assertion IDs and frozen historical inputs. Preserve original source paths/hashes in provenance and recalculate only new derivative identities.
+
+Reconcile these DevForgeAI paths:
+
+- docs/mvp/specifications/skill-007-devforge-project-expert-creator.md.
+- docs/mvp/specifications/skill-008-devforge-evaluate-expert.md.
+- Their existing templates, docs/mvp/package-index.json, roster/README status and affected artifact-contract text.
+
+Use skill-design-spec.md as the detailed design source. Map content into XSPEC/XPKG and the evaluator's plan/results into EVPLAN/EVREPORT where existing consumers require them. Reuse content/references instead of demanding independently maintained duplicate specifications/reports. Retain the repair specification and both handoffs.
+
+Existing brainstorm/develop routing already names the creator; inspect semantic consistency rather than replacing strings unnecessarily. The Codex plugin manifest discovers ./skills/ and needs no invented per-skill registration list.
+
+Preserve devforge.skill-validator-self-evals/v1: DevForge's scripts/validate_framework.py accepts that schema identifier. Update skill_under_test to the new package identity. The helpers' generic devforge.skill-* schemas do not need renaming.
+
+DevForge runtime/delivery/utility_state.py and src/delivery.rs use skill-builder/skill-validator as managed v1 workflow IDs. Do not globally replace those IDs or rewrite receipts. With orchestration deferred, state that promotion does not admit a new-name managed adapter. A later mapping is an owner-scoped compatibility change; a protocol rename is not required merely for manually invoked package names.
+
+## Verification and operational finish
+
+Follow current repository checks and focused regressions for changed behavior. Separately assigned executable DevForge changes require its TDD/build/test sequence. Preserve verification-only versus actual preimplementation RED/GREEN distinctions. Avoid mirror tests for wording replacements.
+
+Demonstrate representative grounded creation/reuse, bounded enhancement, evaluator failure/missing-evidence handling, applicable installed-resource and renamed activation behavior, and actual manual handoff consumption. Map observations to existing cases; do not create an expanding catalog. Freeze relevant expectations before measured runs, separate candidate/baseline facts and reviewer context, and preserve failures.
+
+Apply the selected Routine/Full policy to determine complete required coverage; these examples do not waive its other applicable assertions. If native execution lacks material authorization or a bounded allocation, prepare concrete inputs and present the exact remaining runs together once. Do not infer subscription affordability from call counts. Unavailable token or human-effort measurements remain unknown.
+
+After applicable checks/review, the integration owner merges scoped changes and refreshes operational copies through the supported installer/export process. Inspect overwrite/removal behavior first. Retire only identified obsolete prototype installations, preserving other skills and user changes. Confirm evals stay source-only, resources resolve without the framework checkout, and installed files match canonical manifests.
+
+Final delivery identifies both canonical and operational paths, commits/branches and merge state, actual command/test results, manual transfer evidence, unresolved findings and deferred automation. A proposal or authored candidate alone is not the requested operational finish. If a concrete authority/environment defect prevents delivery, finish independent work and report the exact dependency without inventing another architecture program.
+
+## Preparation and resume record
+
+The GUI session prepared this handoff from user decisions, current source reads and the frozen G8 report, adapting the builder's existing handoff template into one document. No target validation, native run, source edit, installation, runtime transition or receiving invocation occurred during preparation. Source identities above are author observations, not protected runtime receipts.
+
+Receiving owner: the user's existing CLI session, subject to its actual repository assignment. Resume: read current guides, reconcile inputs/ownership, and apply this manual-mode foundation and promotion. Preserve other sessions' work and evidence. The handoff contains no self-digest; its completed bytes may be hashed separately.

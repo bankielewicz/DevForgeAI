@@ -1,0 +1,37 @@
+---
+name: notes-storage
+description: Guide changes and reviews of this project's Python 3.11 JSON notes persistence, including load/save errors and targeted text edits that preserve metadata. Use for notes_store.py behavior and notes-file edits; excludes unrelated storage systems or database/network migrations.
+---
+
+# Notes storage
+
+Apply this project's accepted persistence contract to the requested explanation, review, or authorized change. Keep work focused on local notes storage. These instructions grant no additional write or execution authority.
+
+## Ground the task
+
+The accepted stack is Python 3.11 with standard-library `json` and `pathlib`; no third-party dependency, database, or network. Preserve public `load(path)` and `save(path, notes)` names and signatures and unrelated behavior.
+
+Resolve the consuming workspace from the current assignment, independently of this skill's installation directory. The selected project sources are `project.md`, `project/docs/accepted-decisions.md`, and `project/src/notes_store.py`, relative to that workspace. Read the relevant available sources before proposing a change. Accepted decisions control desired behavior; code establishes current behavior. Do not silently replace accepted decisions with a new stack or source revision. If source is absent, distinguish advice based on the contract below from unverified current implementation claims. Ask only for missing task information that prevents the requested action, such as the data path, addressed note ID, or replacement text; do not reopen settled architecture.
+
+## Preserve the data and errors
+
+- A saved document is a JSON list of objects. Every note has a nonempty string `id` unique within the list and a string `text`. An empty string is valid text. Do not trim or normalize IDs or impose a new ID format.
+- A valid `[]` is an empty note list. A missing file raises `FileNotFoundError`; it is not an empty list. Empty file contents are invalid JSON, not an empty note list.
+- Surface invalid JSON, decoding, read, and schema errors. Do not catch them and substitute `[]`, initialize a replacement file, or save over unreadable input. A failed load stops the dependent edit/save.
+- When asked to edit one note's text, load the complete valid collection and address the note by its exact ID. Change only its `text`. Preserve all unknown JSON fields, including nested metadata, the note ID, list order, and every untouched note. Avoid reconstructing objects from only `id` and `text`.
+- If the addressed ID is absent, report that fact without saving or inventing a note. If input IDs are duplicated or otherwise invalid, surface the invalid input without choosing an arbitrary match. Missing edit details prevent the write; perform useful read-only work when possible.
+- Preserve the schema on any authorized write. Do not treat the existing `save` function as a validator or assume it protects a caller that bypasses a successful load. Surface write failures; do not claim a failed write left the old file intact.
+
+## Current source facts and their limits
+
+The selected source uses `json.loads(Path(path).read_text(encoding="utf-8"))`. `load` rejects a non-list with `ValueError("notes must be a list")`, rejects invalid note shape/types with `ValueError("invalid note")`, and rejects duplicate IDs with `ValueError("duplicate id")`. It returns the parsed objects, retaining unknown fields. No exception handler converts missing/unreadable input into an empty list.
+
+`save` directly calls `Path(path).write_text` with `json.dumps(notes, ensure_ascii=False, indent=2) + "\n"` and UTF-8 encoding. It has no schema validation, temporary-file replacement, locking, or atomic-save guarantee. The source has no edit function. Metadata-preserving edits are an accepted requirement for callers or future authorized changes, not proof of an existing edit implementation. Preserve the current serialization convention when the requested work does not change it; metadata preservation means JSON values survive, not identical whitespace bytes.
+
+These are source-inspection facts from the selected snapshot. Reconcile actual source changes before relying on them. Maintenance provenance is in [references/derivation.json](references/derivation.json); it is not needed to execute the workflow and confers no validation status.
+
+## Deliver the requested result
+
+For advice or review, explain the relevant current behavior, accepted requirement, and specific gap. For an authorized edit or implementation, make only the scoped change after its required inputs are available. Preserve existing public behavior beyond that change. This package's creation assignment permits only expert-source and report authoring; it does not authorize application edits, installation, or execution. A later task must supply its own scope.
+
+Report what was changed or proposed, how metadata and untouched notes are preserved, and any surfaced error or missing input. Separate source inspection from execution evidence. Claim tests, validation, installation, atomicity, or active enforcement only when supported by actual evidence and the task's authorization; do not run anything merely because this skill is loaded.

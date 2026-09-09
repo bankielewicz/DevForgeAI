@@ -1,0 +1,36 @@
+# Concise expert handoffs — delivery
+
+Implemented and merged into DevForgeAI main at `d29430beace67a141d4d35c2beb066981060cda4`. The task worktree is clean and its branch is fully merged. Existing unrelated shared-checkout edits were preserved; DevForge CLI was not changed by this task.
+
+## Changes
+
+Both canonical Codex packages now use a short outcome/next-action handoff with a reading order into existing specification, candidate, change, review and source records. Exact evidence remains retrievable. Receiver paths, output authority and applicable allocations must be concrete; missing prerequisites produce an explicit setup task. Managed runtime detail is conditional. Required phases, tasks, evidence coverage and acceptance rules remain unchanged.
+
+Each package changed SKILL.md, assets/handoff.md, references/manual-operation.md and references/derivation.json. The provenance refresh preserves previous recorded identities and corrects the two pre-existing SKILL hash mismatches by also recording the actual selected baseline.
+
+Canonical roots:
+- `/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator`
+- `/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert`
+
+## Verification
+
+Both skill-creator package checks, framework structure validation, MVP validation and Git whitespace checks passed. All thirty derivation destination hashes match; original source pins are preserved. Independent static review found no blockers. Its preview advisory was corrected without changing the reviewed source patch.
+
+The notes-storage presentation exercise retrieved seven exact evidence files and sixteen preserved source snapshots. Its short preview is a derived presentation example, not a new producer record or native skill test. No historical handoff or source evidence was modified.
+
+The existing exporter created a new unaccepted staging directory at `/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/staging/devforgeai`. Creator 16/16 and evaluator 31/31 exported runtime files match both reviewed source and main. Source-only evals are excluded by the existing exporter.
+
+## Delivery boundary
+
+Canonical changes are available in main; no task changes are stranded unmerged. Promoted operational SKILL.md presence at final inspection: `{"devforge-project-expert-creator": false, "devforge-evaluate-expert": false}`. No operational installation, retirement, new native campaign, qualification or receiving transfer was performed. The previously required exact-candidate local acceptance workflows and user-mediated transfers remain outstanding; old native results were not reused for these changed hashes.
+
+## Evidence
+
+- [Independent review](independent-review.md)
+- [Concise notes-storage preview](notes-storage-concise-preview.md)
+- [Package/framework checks](checks.json)
+- [Focused preservation/retrieval checks](focused-checks.json)
+- [Reviewed file identities](review-manifest.json)
+- [Provenance before/after](provenance-refresh.json)
+- [Staged identities](staged-identities.json)
+- [Integration result](integration-result.json)

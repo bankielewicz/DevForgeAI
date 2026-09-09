@@ -1,0 +1,11 @@
+{
+  "commit": "d29430beace67a141d4d35c2beb066981060cda4",
+  "main_head": "d29430beace67a141d4d35c2beb066981060cda4",
+  "branch": "impl/concise-handoffs-20260909T032242Z",
+  "branch_fully_merged": true,
+  "task_worktree_clean": true,
+  "unrelated_recorded_edits": "PRESERVED",
+  "reviewed_file_count": 8,
+  "operational_installation": "NOT_PERFORMED",
+  "native_acceptance": "NOT_RUN"
+}

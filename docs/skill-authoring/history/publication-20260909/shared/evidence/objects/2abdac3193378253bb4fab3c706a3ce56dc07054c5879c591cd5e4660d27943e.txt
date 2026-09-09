@@ -1,0 +1,756 @@
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md
+index d5843e5..afd3fa3 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md
++++ b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md
+@@ -22,7 +22,7 @@ Derive the installed skill root from this loaded SKILL.md, and resolve every hel
+ 
+ ## Manual invocation and compatibility
+ 
+-The user initiates this skill, the receiving skill and relevant commands. Preserve normal implicit discovery; a manual handoff is not automatic invocation. Use [manual operation](references/manual-operation.md) for command owners, artifact mappings, Routine/Full policy and enforced-action limits.
++The user initiates this skill, the receiving skill and relevant commands. Preserve normal implicit discovery; a manual handoff is not automatic invocation. Use [manual operation](references/manual-operation.md) for command owners, artifact mappings, Routine/Full policy and enforced-action limits. On receipt, read the actual producer handoff first, then its referenced scope/decision and affected candidate/specification. Open deeper evidence for the required check or specific question; do not preload all linked history.
+ 
+ The DevForge managed v1 workflow IDs remain `skill-builder` and `skill-validator`. This package name does not admit a new managed adapter. Retained managed references describe that older protocol only; do not apply them to this manual flow or call advance/resume/complete helpers as a fallback. Automated scheduling, receiving invocation, retry/repair loops and funded-launch qualification are deferred; existing failures remain preserved.
+ 
+@@ -109,7 +109,7 @@ Use BLOCKER, MAJOR, MINOR, or ADVISORY as defined in the result contract. Assign
+ 
+ Every repair specification names devforge-project-expert-creator as the next owner. It authorizes no automatic edits, invocation, acceptance or release. Carry existing user authorization forward without expanding it. If no target changes are justified, write a specification stating that explicitly and list only missing evaluation work.
+ 
+-Save reports outside the evaluated candidate. At completion, transfer or recovery populate [handoff.md](assets/handoff.md) using only observations already available at creation. In unmanaged operation label ordinary saved-output identities as author observations; in managed operation final identities and authoritative custody come from runtime. Exclude the handoff's own digest and circular receipt dependencies. Preserve producer/target identities and null adoption when no actual adoption exists. Keep preparation, runtime transition and receiving invocation separate; never rewrite the handoff to claim a later receipt.
++Save reports outside the evaluated candidate. At completion, transfer or recovery load [handoff.md](assets/handoff.md) and follow [concise handoff guidance](references/manual-operation.md#concise-handoff-and-retained-evidence). Keep the immediate outcome, decisive rationale, next action and material limits visible. Link exact existing report/plan/repair/manifest records with section locators and a reading order instead of reproducing their detail; preserve raw evidence and required schema bindings. Verify receiver paths, output fence and existing assignment before supplying a runnable task; otherwise mark invocation readiness blocked and name the missing setup. Reporting completion is separate from receiving readiness. Preserve producer/target identities and null adoption when no actual adoption exists. Ordinary manual identities are evaluator observations; managed custody remains runtime-owned and conditional on an actual managed assignment. No self-digest, automatic transfer or later-receipt rewrite.
+ 
+ On a later builder revision, compare its change record and new candidate identity to prior findings, rerun affected checks and required regressions, and close a finding only with matching new evidence. Preserve the original failure history. Do not fix the target inside this skill.
+ 
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md
+index 433bb1d..777ee98 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md
++++ b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md
+@@ -19,93 +19,49 @@ missing_inputs: []
+ 
+ # Prepared skill validation handoff
+ 
+-Populate at completion, transfer or recovery using only observations already available when this document is authored. A prepared handoff is substantive continuation, not a runtime receipt or receiving invocation. Never amend it to claim a later check, publication or delivery event.
++Use at completion, transfer or recovery. Keep the populated brief about one page when practical; this is a usability target, not a gate. Follow [handoff preparation](../references/manual-operation.md#concise-handoff-and-retained-evidence), replace placeholders and remove template instructions. Retain the standard envelope. Record only facts observed when authored; preparation is not receiving execution.
+ 
+-## You are here
++## Outcome and next action
+ 
+-- Skill/use case: devforge-evaluate-expert evaluating {{exact target and goal}}.
+-- Current phase / task state: {{P1-P6; complete reporting / partial / blocked}}.
+-- Candidate passing state: {{separate from reporting completion}}.
+-- Assignment / write fence: {{actual authority reference and permitted paths}}.
+-- Authorization carried forward: {{existing user scope; no inferred additional permission}}.
++- **Result:** {{target; reporting complete/partial/blocked; separate candidate disposition and requested scope: Routine, Full, local unqualified baseline, or scoped inspection}}.
++- **Decision and why:** {{supported change IDs or no justified target changes; one short evidence-based reason; detailed rationale locator below}}.
++- **Next:** {{actual owner; one bounded action; completion evidence; last completed phase/task if resuming}}.
++- **Limits/blockers:** {{material findings, missing observations and required setup with owner; explicit acceptance/qualification/receiving state; no target edits by evaluator}}.
++- **Invocation readiness:** {{ready within the recorded assignment, or BLOCKED with exact missing receiver path, output fence, authority, review/execution allocation or stale inputs}}.
+ 
+-## Inputs and completed outputs
++## Evidence and reading order
+ 
+-Reference saved complete files; never include this handoff's own digest or create circular receipt references. Runtime owns managed final identities and authoritative custody. If those identities have not yet been supplied, retain the exact path with null and a cause. Unmanaged ordinary source/write identities may be labelled as author observations.
++Fill the envelope's upstream/evidence fields with exact saved record identities using the existing artifact contract. Put each pin once in this handoff; refer to its artifact ID and section below. Existing manifests and reports retain their linked file hashes. Preserve source bytes/snapshots and raw history; a digest alone cannot reconstruct them.
+ 
+-| Direction | Artifact / revision | Path | SHA-256 | Relevant IDs | Freshness / decision state |
+-| --- | --- | --- | --- | --- | --- |
+-| input | {{candidate manifest/spec/plan}} | {{path}} | {{digest or unavailable cause}} | {{requirements}} | {{state}} |
+-| output | {{verification report}} | {{path}} | {{digest}} | {{F IDs}} | {{state}} |
+-| output | {{decision receipt or explicit unavailable}} | {{path or none}} | {{digest or none}} | {{checks}} | {{state}} |
+-| output | {{enhancement specification}} | {{path}} | {{digest}} | {{CHG IDs}} | {{state}} |
+-
+-## Observed verification and remaining work
+-
+-| Group / task | Outcome | Exact raw evidence / receipt | Cause or limit |
+-| --- | --- | --- | --- |
+-| {{intake/structure/AI/C/B/A}} | {{outcome}} | {{path and digest}} | {{limit}} |
+-
+-Observed discoveries, supported defects, and new proposals: {{separate each}}.
+-Unavailable observations: {{causes, scope effects, owners}}.
+-Target edited by validator: No.
+-External acceptance / adoption: {{actual reference or not granted / null}}.
+-
+-## Continuation
+-
+-| Order | Task | Owner | Prerequisites | Completion evidence |
+-| --- | --- | --- | --- | --- |
+-| 1 | {{apply justified changes, or resolve missing evaluation prerequisites}} | {{devforge-project-expert-creator or operator}} | {{CHG IDs and authority, or runtime facts}} | {{authored revision/change record or boundary receipt}} |
+-| 2 | Reevaluate affected findings and regressions | devforge-evaluate-expert | {{new candidate identity and fresh frozen plan}} | {{new evidence and closure records}} |
+-| 3 | Consider adoption for the observed scope | {{external acceptance owner}} | {{required evidence}} | {{actual decision reference}} |
+-
+-## Next-session prompt
+-
+-Use devforge-project-expert-creator to implement the authorized CHG items in {{enhancement specification path and digest}} against {{candidate manifest path and digest}}. Preserve {{requirement IDs}} and the existing enforcement choices. Write only within {{canonical scope}}. If identities differ, reconcile the change against the retained candidate before applying it. Return the new source manifest, change record and updated specification. Do not execute validation or activate hooks. Return the result to devforge-evaluate-expert for the listed reruns.
+-
+-When no target changes are justified, replace that prompt with the concrete operator/evaluation prerequisite task. Use an actual available skill name; do not invent a command or imply another skill has already run.
+-
+-## Custody and invalidation
+-
+-- Saved output paths and readback: {{completed outputs only}}.
+-- This handoff location: {{actual saved path; no self-digest}}.
+-- External handoff receipt: {{actual preexisting reference or null; later publication/readback NOT_RUN at creation}}. Protected runtime owns managed final-byte checks, snapshot, receipt publication/readback and transport. Do not call a receipt helper or controller as a fallback; never write a later digest back into this document.
+-- Owned processes and assignment disposition: {{actual identities; retained/handed off/released with owner record}}.
+-- Invalidating changes: {{candidate, installed copy, cases, rubric, contracts, baseline, runtime, assignment}}.
+-- Resume point: {{last completed phase and exact pending task}}.
+-
+-## Workspace preparation and native continuation
++| Read | Existing record and section locator | Purpose |
++| --- | --- | --- |
++| First | {{EVREPORT/verification results: Decision and coverage; Recovery and continuation}} | Outcome, justified next action and missing evidence |
++| Then | {{repair specification: Change decision; allowed scope; selected CHG IDs}} | Requirements, rationale, invariants and bounded changes; or evaluation prerequisites only |
++| Before dependent work | {{EVPLAN/assignment: exact scope, writes, review/execution bounds; XPKG/source manifest and XSPEC/spec sections}} | Verify current authority and the affected candidate/specification bytes |
++| When investigating | {{EVREPORT Findings and evidence locators; relevant case/attempt/source snapshot}} | Trace a specific finding, dispute or recovery question to retained observations |
+ 
+-- Selected environment and carried authorization: {{actual choice and source}}.
+-- Frozen workspace allocation references/count/paths: {{saved path and SHA-256, or non-Git reason}}.
+-- Preparation observations: {{saved setup references; actual retained paths and statuses}}.
+-- Remaining native inputs/readiness: {{model/auth/budgets/observations/boundaries still missing; no inference from creation}}.
+-- Complete experiment plan and attempt/workspace/client-state bindings: {{saved refs, or explicit pending cause}}.
+-- Additional workspaces: {{new bounded allocation or none; no silent independent-attempt reuse}}.
+-- Protected runtime admission/integration status: {{actual evidence or unavailable; no active-enforcement claim from templates}}.
++Open relevant records in that order, not every linked transcript or reference. Complete required checks/reviews remain required; selective retrieval does not narrow their coverage. Use retained storage accessible to the receiver. Identify any retention/access limit and its owner; if a required record cannot be retrieved or preserved through the assigned transfer, mark that dependent action blocked. A temporary path alone does not establish loss or authorize cleanup.
+ 
+-Prepared workspaces can be delivered with native execution NOT_RUN and dependent observations COULD_NOT_RUN. Preserve all old allocations, setup records, plans and attempts. No cleanup, acceptance or release follows from preparation.
++## Copyable next task
+ 
+-## Creation-time runtime observations
++Populate only with verified receiving-environment paths and the existing assignment. A host path and a sandbox mount alias are different locators; show the verified mapping in the referenced assignment. If setup is missing, replace the code block with the concrete operator prerequisite task and mark readiness BLOCKED; do not supply a supposedly runnable prompt with unresolved placeholders.
+ 
+-| Observation | Outcome at creation | Exact evidence or missing cause |
+-| --- | --- | --- |
+-| Handoff preparation | {{prepared / partial}} | {{saved substantive outputs}} |
+-| Protected final-byte checks | {{observed / NOT_RUN}} | {{actual evidence or null with cause}} |
+-| Runtime receipt publication/readback | {{separate actual observations / NOT_RUN}} | {{actual evidence or null with cause}} |
+-| Runtime transition admission | {{observed / NOT_OBSERVED}} | {{actual evidence or null with cause}} |
+-| Receiving skill invocation | {{observed / NOT_RUN}} | {{allocated execution evidence or null with cause}} |
+-| Rendered human delivery | {{observed / NOT_OBSERVED}} | {{actual observation or null with cause}} |
++```text
++Use $devforge-project-expert-creator, loading {{actual accessible receiver SKILL.md}}.
++Read {{this saved handoff path}} and follow its evidence reading order.
++Implement only {{authorized CHG IDs}} from the referenced repair specification.
++Verify the frozen candidate and affected specification references before writing;
++preserve their requirements, Enforced choices, unrelated behavior and old evidence.
++Canonical write fence: {{assigned paths}}. Save new records to {{assigned output directory}}.
++Use only {{existing assignment/allocation reference and relevant section}}; do not
++execute validation, install, activate hooks or initiate another receiving skill.
++Return the new candidate manifest, change record, updated specification and prepared evaluator handoff.
++```
+ 
+-These fields do not authorize new execution, expand the budget or transfer a protected lease. Changed source, installation, runtime, assignment or accepted inputs requires affected reconciliation and new evidence.
++When no target changes are justified, use the concrete operator/evaluation prerequisite task instead. The evaluator does not fix the target or authorize new execution. A subsequent user-initiated evaluation requires its own current assignment; this prepared return neither starts it nor recursively triggers Full qualification.
+ 
+-## Manual transfer and scope
++## Continuation details, when needed
+ 
+-- Detailed source/XSPEC/XPKG or EVPLAN/EVREPORT references: {{exact saved artifacts and section IDs}}
+-- Actual requested claim and Routine/Full selection: {{mode, scope, reasons and reviewer status}}
+-- Accepted baseline/current Routine/qualified anchor: {{distinct exact references or missing causes}}
+-- Immediate/cumulative impact and compatibility: {{exact records and unresolved dependencies}}
+-- Receiving invocation: {{one copyable user task with this handoff's saved path and the receiver name}}
+-- Receiving evidence at creation: {{NOT_RUN unless the receiver has actually loaded and acted on real producer artifacts}}
++Reference {{EVREPORT Recovery and continuation / Workspace preparation and native continuation}} for retained workspaces, owned processes, assignment disposition, pending readiness and invalidating input changes. Keep a consequential blocker visible above; do not duplicate the full records here.
+ 
+-The prepared handoff authorizes no automatic receiver or command. Carry existing user authority forward; retain failures and new-candidate identities. The trusted installer separately requires current manual adoption evidence. The evaluator's own handoff does not recursively trigger Full qualification.
++For an actually selected managed assignment only, reference its creation-time final-byte checks, receipt publication/readback, transition, receiving and rendered-delivery observations with their distinct outcomes. Runtime owns authoritative custody and lease transfer; ordinary manual identities are evaluator observations. Omit managed details in ordinary manual use. Never add this document's own digest, call a controller as fallback, or rewrite it to claim a later receipt. Preserve prior artifacts and use a separate later record for new events.
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json
+index fb6e078..158c51e 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json
++++ b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json
+@@ -1,9 +1,9 @@
+ {
+   "schema_version": "devforge.skill-derivation/v1",
+   "skill": "devforge-evaluate-expert",
+-  "recorded_at_utc": "2026-09-08T18:52:43.939173+00:00",
++  "recorded_at_utc": "2026-09-09T03:29:03.771472+00:00",
+   "path_base": "DevForge workspace root",
+-  "source_selection": "F01\u2013F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved.",
++  "source_selection": "F01–F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved. User approved the concise handoff enhancement; affected actual baseline identities are pinned at 2031bf2e917bb4f2a2c9be717a74641b5801c409. Shared source selections and historical evidence remain unchanged.",
+   "entries": [
+     {
+       "destination": "references/contracts/skill-authoring-contract.md",
+@@ -26,7 +26,7 @@
+           "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
+         }
+       ],
+-      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
++      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b",
+       "prior_destination_identities": [
+@@ -87,7 +87,7 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation.",
++      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+     },
+     {
+@@ -190,7 +190,7 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "7e2697f11df23f5c695327f62c4f534741968360b01b060e2ee90b420866ecbe"
+     },
+@@ -211,13 +211,13 @@
+           "source_revision": null
+         }
+       ],
+-      "transformation": "Retain SEVAL shared envelope; expand identity, static/AI/C/B/A evidence, findings, scope, comparison and continuation fields. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Retain SEVAL shared envelope; expand identity, static/AI/C/B/A evidence, findings, scope, comparison and continuation fields. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
+     },
+     {
+       "destination": "assets/handoff.md",
+-      "destination_sha256": "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5",
++      "destination_sha256": "80d10de30e8301242d42abc6078c412f3dcf1a446f1d0e31fd3c3571cbe0d23d",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+@@ -253,11 +253,19 @@
+           "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
+           "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
++        },
++        {
++          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md",
++          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
++          "sha256": "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5"
+         }
+       ],
+-      "transformation": "Retain shared handoff envelope, exact-byte custody and no self-digest; specialize continuation to builder remediation and validator retest. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Retain shared handoff envelope, exact-byte custody and no self-digest; specialize continuation to builder remediation and validator retest. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+-      "previous_destination_sha256": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea"
++      "previous_destination_sha256": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea",
++      "prior_destination_identities": [
++        "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5"
++      ]
+     },
+     {
+       "destination": "assets/run-manifest.json",
+@@ -270,7 +278,7 @@
+           "source_revision": null
+         }
+       ],
+-      "transformation": "Retain all native core fields; select Codex; add attempt/case/arm/transcript digest and observation/boundary references. Templates make no observed success claim. Add nullable environment_setup_ref to bind actual attempt preparation separately from the frozen plan. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Retain all native core fields; select Codex; add attempt/case/arm/transcript digest and observation/boundary references. Templates make no observed success claim. Add nullable environment_setup_ref to bind actual attempt preparation separately from the frozen plan. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
+     },
+@@ -291,7 +299,7 @@
+           "source_revision": null
+         }
+       ],
+-      "transformation": "Derive shared envelope and custody semantics; introduce explicit local paired-utility remediation type, findings, changes, preservation constraints and rerun closure. Not a registered DevForge CLI schema. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Derive shared envelope and custody semantics; introduce explicit local paired-utility remediation type, findings, changes, preservation constraints and rerun closure. Not a registered DevForge CLI schema. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e"
+     },
+@@ -306,13 +314,13 @@
+           "source_revision": "draft revision 3, 2026-09-07"
+         }
+       ],
+-      "transformation": "Apply the selected execution boundary and worktree assignment rules to the user-selected alternative test environment. Git command semantics are separately attributed in references/sources.md. This does not refresh shared contract revisions. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Apply the selected execution boundary and worktree assignment rules to the user-selected alternative test environment. Git command semantics are separately attributed in references/sources.md. This does not refresh shared contract revisions. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
+     },
+     {
+       "destination": "SKILL.md",
+-      "destination_sha256": "7985552fd23ac17848a335dd8a7bc0b6be6407c27bf09920aa83e9bb46ea395d",
++      "destination_sha256": "6ed2a5d7e91711a2f18a86e3131a81f23d36eafddcfa5f3e06af76cc303d1340",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+@@ -342,11 +350,20 @@
+           "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
+           "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
++        },
++        {
++          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md",
++          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
++          "sha256": "b3a4e8085d7d122110d77a2886117f2d46aff2fb633c0cad87d230f5a45f33e1"
+         }
+       ],
+-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved. The previously recorded destination hash did not match the selected baseline bytes; both identities are retained, and the added source pin identifies the actual baseline.",
+       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
+-      "previous_destination_sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39"
++      "previous_destination_sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39",
++      "prior_destination_identities": [
++        "7985552fd23ac17848a335dd8a7bc0b6be6407c27bf09920aa83e9bb46ea395d",
++        "b3a4e8085d7d122110d77a2886117f2d46aff2fb633c0cad87d230f5a45f33e1"
++      ]
+     },
+     {
+       "destination": "references/enforcement-design.md",
+@@ -382,7 +399,7 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
+       "previous_destination_sha256": "b596e439d6a1643afc3836b7457d6065aa529d285a60ba5712b5c03973b25c14"
+     },
+@@ -420,7 +437,7 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
+       "previous_destination_sha256": "0a7c4748726b738d5f39858bee4caf828a42b22aef4ba8630a00fdb1eaea06dd"
+     },
+@@ -458,7 +475,7 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
+       "previous_destination_sha256": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8"
+     },
+@@ -496,13 +513,13 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
+       "previous_destination_sha256": "526a4163d8e275c9bf00011e43fdbdd832f4a943fd90be151759dbf199544ae4"
+     },
+     {
+       "destination": "references/manual-operation.md",
+-      "destination_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
++      "destination_sha256": "a8e56317e96ef279797f2215465c10d8b079659d8663615bee068a92bf335858",
+       "sources": [
+         {
+           "path": "providers/codex/plugins/devforgeai/skills/skill-validator",
+@@ -525,12 +542,18 @@
+           "path": "framework/DevForge/docs/integration/manual-expert-adoption.md",
+           "source_revision": "4859a279784f902d5f9dabcb0664907b24b297a5",
+           "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
++        },
++        {
++          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md",
++          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
++          "sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
+         }
+       ],
+-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
++      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
+       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification.",
+       "prior_destination_identities": [
+-        "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f"
++        "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f",
++        "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
+       ]
+     },
+     {
+@@ -555,7 +578,7 @@
+           "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
+         }
+       ],
+-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
++      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred.",
+       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
+     },
+     {
+@@ -580,7 +603,7 @@
+           "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
+         }
+       ],
+-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
++      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred.",
+       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
+     },
+     {
+@@ -605,7 +628,7 @@
+           "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
+         }
+       ],
+-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
++      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred.",
+       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
+     }
+   ],
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md
+index 4f6d4b1..15b2f22 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md
++++ b/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md
+@@ -6,11 +6,29 @@ The user initiates each skill and relevant command. These packages preserve impl
+ 
+ Use the creator's assets/skill-design-spec.md as the detailed design. XSPEC wraps or references its exact capability scope, authority, source/API versions, decisions and requirement sections. XPKG records the exact canonical and intended installed package maps, source provenance and candidate file manifest. Do not maintain a second independent design. The evaluator's validation-plan.json is the detailed EVPLAN content; verification-results.md, validation-results.json and decision.json are EVREPORT content. Standard envelope records link these exact artifacts where downstream consumers require XSPEC/XPKG/EVPLAN/EVREPORT. Preserve the repair specification and both producer handoffs. Never assign a document its own complete-byte digest.
+ 
+-Creator exit: candidate + design/XSPEC + XPKG + change record + prepared evaluator handoff. Receiving prompt: `Use $devforge-evaluate-expert. Read the supplied creator handoff; verify its exact candidate/specification references, preserve its scope and perform the authorized evaluation. Save results, a bounded repair specification and the creator handoff.`
++Creator exit: candidate + design/XSPEC + XPKG + change record + prepared evaluator handoff. Evaluator exit: EVPLAN + EVREPORT/evidence + repair specification + prepared creator handoff. Sending a recommendation, writing a receiver prompt or calling a reviewer is not actual user-mediated transfer. Each receiver loads the producer's real artifacts and records exact inputs, outputs, outcome and remaining work. The creator never runs target evaluation or installation.
+ 
+-Evaluator exit: EVPLAN + EVREPORT/evidence + repair specification + prepared creator handoff. Receiving prompt: `Use $devforge-project-expert-creator. Read the supplied evaluator handoff and bounded repair specification. Recheck the frozen candidate and findings; apply only authorized corrections to the selected canonical source, preserve unrelated behavior and old evidence, and prepare the next evaluator handoff.`
++## Concise handoff and retained evidence
+ 
+-These prompts become concrete when the producer supplies its saved handoff path. Sending a recommendation, writing a receiver prompt or calling a reviewer is not actual user-mediated transfer. Each receiver must load the producer's real artifacts; record exact inputs, outputs, outcome, remaining work and next invocation. The creator never runs target evaluation or installation.
++Load [handoff.md](../assets/handoff.md) when preparing completion, transfer or recovery. Keep its human brief about one page where practical, with a result, decision/reason, next owner/action, material limits and a copyable task. This is a readability target, not a new gate. Preserve the `devforge.artifact/v1` envelope and existing required reports. Concision changes where information is read, not what evidence must exist.
++
++| Authoritative existing record | Retain there; reference from the brief |
++| --- | --- |
++| XPKG/candidate manifests and XSPEC/design | Exact files/versions, source snapshots, provenance, accepted requirements and decisions |
++| EVPLAN/validation plan and assignment | Selected scope/policy, baseline/qualified anchors, immediate/cumulative impact and compatibility, review authority, write fences, allocations and readiness |
++| EVREPORT/verification results, validation-results.json and decision | All evidence groups/outcomes, findings and concise reasoning, actual acceptance/qualification state, raw observations and their locators |
++| Repair specification | Justified CHG items, rationale, invariants, scope and affected reruns; explicit prerequisites when no target change is justified |
++| EVREPORT recovery/workspace sections and existing run records | Last completed task, process/workspace ownership and disposition, invalidation conditions, attempts, failures, custody and remaining prerequisites |
++
++Pin directly referenced records once in the handoff envelope, then use artifact IDs and section locators in the brief. Follow their existing manifests for constituent identities instead of copying every hash into prose and the receiving prompt. Keep schema-required pins in the existing machine-readable records; never weaken those bindings to eliminate repetition. Preserve original source snapshots, transcripts and failed runs, with assigned retention/location accessible to the receiving environment. Record a missing retention/access prerequisite; do not invent a durable store or delete historical evidence. No extra index, ledger or duplicate report is required.
++
++Read the handoff first, then the relevant report decision/repair sections, frozen plan/assignment and affected candidate/specification. Open underlying transcripts or broader source context for a specific finding, disagreement, changed dependency or recovery need. This reading order does not remove required review criteria, phases or tasks. Put the short decisive rationale and material missing evidence in the brief so the next owner need not discover them in an archive.
++
++Before presenting a runnable task, verify the actual receiver package path, source/evidence paths and existing assignment for the receiving environment. Distinguish stable host/store paths from sandbox-only aliases; retain any verified mapping in the assignment record. Give the copyable task the saved handoff path, authorized action, canonical write fence, report destination and applicable existing execution/review allocation. Use source/installed package identities separately. Reuse settled authority and resolve routine paths from the assignment; do not invent reviewer identity, permissions, budgets or new output fences. An unknown consequential prerequisite makes invocation readiness BLOCKED with a concrete operator task, even when evaluation reporting is complete.
++
++If repairs are justified, name devforge-project-expert-creator and the authorized CHG IDs. If none are justified, give the operator the missing evaluation prerequisite instead of an empty repair task. Preserve receiving evidence as NOT_RUN until actual receiver loading/action is observed. The user initiates receiving skills and commands; the handoff authorizes no automatic invocation or additional campaign.
++
++Managed-only custody/transition detail belongs in the referenced record when such an assignment actually applies; omit unused managed sections from a manual brief. Keep preparation, protected checks, publication/readback, transition, receiver action and human delivery as distinct observations when applicable. Runtime owns protected custody; evaluator-authored manual identities are observations, not runtime authority. A handoff never hashes itself or gains a later receipt by editing its frozen bytes.
+ 
+ ## Supported command boundaries
+ 
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
+index f051335..13e065c 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
++++ b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
+@@ -48,7 +48,7 @@ Do not modify sibling DevForge gates, shared contracts, installer policy, the ac
+ Use the conversation and supplied materials before asking questions. Establish the workflow, typical request, result, and target environment. Distinguish design-only work from authorization to create or enhance files. Once the necessary decisions and authoring scope are settled, proceed without adding a blanket approval checkpoint.
+ 
+ - For a new idea or ordinary enhancement, use [the interview guide](references/interview-guide.md) and [the selection guide](references/existing-skill-selection.md).
+-- For findings from `devforge-evaluate-expert` or another supplied validation report, read [the validator handoff guide](references/validator-handoff.md). Preserve its frozen target/specification, finding IDs, expected behavior, evidence, and prior results. The validator evaluates; this builder owns edits. Do not restart settled Q&A or execute the validator.
++- For findings from `devforge-evaluate-expert` or another supplied validation report, start with its handoff and named evidence sections, then read [the validator handoff guide](references/validator-handoff.md). Preserve its frozen target/specification, finding IDs, expected behavior, evidence, and prior results. The validator evaluates; this builder owns edits. Do not restart settled Q&A or execute the validator.
+ 
+ ## Search for an existing owner of the workflow
+ 
+@@ -100,9 +100,9 @@ Keep package resources self-contained and record derivations from selected share
+ 
+ ## Deliver useful authoring content
+ 
+-At actual authoring completion, transfer or a recovery checkpoint, populate [assets/handoff.md](assets/handoff.md). Do not create a new handoff for ordinary read-only discussion. Include the exact skill/specification references, decisions versus proposals, remaining issues, carried authority, next owner and copyable continuation task. Use [the managed authoring reference](references/managed-authoring.md) for creation-time observations and receipt boundaries.
++At actual authoring completion, transfer or a recovery checkpoint, populate [assets/handoff.md](assets/handoff.md) as a concise brief and reading order for the existing evidence. Keep the result, decision rationale, material limits, next owner and action visible; reference detailed specification/provenance/change records instead of repeating them. Follow [manual handoff guidance](references/manual-operation.md#concise-handoffs-and-retained-evidence) for exact pins, receiver path/output/allocation readiness and retention. Do not create a handoff for ordinary read-only discussion. Load [managed authoring](references/managed-authoring.md) only for an actual managed assignment or an affected recovery question; it does not govern unrelated manual steps.
+ 
+-Record creation/enhancement/reuse rationale and search limits, canonical-to-installed mapping, before/after candidate references and per-F-###/CHG-### applied, deferred or declined dispositions. Preserve requirement IDs and former bytes. Partially authored work remains deferred with its missing scope. Source changes do not resolve old evaluation results.
++Keep creation/enhancement/reuse rationale and search limits, canonical-to-installed mapping, before/after candidate references and per-F-###/CHG-### applied, deferred or declined dispositions in the specification/change record. Link their relevant sections from the handoff. Preserve requirement IDs and former bytes; partially authored work retains its missing scope. Source changes do not resolve old evaluation results.
+ 
+ The builder change record is substantive authoring evidence, not an authoritative runtime receipt. In managed operation the runtime computes final identities, preserves inspected bytes and publishes/readbacks its receipt. A containing document never includes its own complete-byte digest. Runtime observations absent at creation remain explicit; do not rewrite the handoff to claim later completion.
+ 
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md
+index 246216e..f8ff8c8 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md
++++ b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md
+@@ -8,7 +8,7 @@ status: draft
+ created_at_utc: "{{actual-UTC-time}}"
+ producer:
+   skill: devforge-project-expert-creator
+-  skill_revision: "{{actual-loaded-builder-revision-or-digest}}"
++  skill_revision: "{{actual-loaded-creator-revision-or-digest}}"
+ execution_ref: null
+ upstream: []
+ evidence: []
+@@ -17,86 +17,46 @@ decision_ref: null
+ missing_inputs: []
+ ---
+ 
+-# Prepared skill authoring handoff
++# Authoring handoff: {{target skill}}
+ 
+-Populate only at actual authoring completion, transfer or a recovery checkpoint. Use the shared envelope above; populate upstream/evidence with exact known references and use null plus missing_inputs for unavailable identity or runtime observations. This is substantive continuation content, not a runtime receipt or new authority.
++Populate at completion, transfer or recovery. Aim for a brief a person can scan; length is not an acceptance gate. Preserve the full specification, rationale, change/phase record and raw evidence in their existing files. Replace these directions with actual content.
+ 
+-## You are here
++## Result and next action
+ 
+-- Skill and use case: {{target skill, provider, requested result}}.
+-- Current task/phase state: {{actual phase from runtime, or unmanaged authoring/recovery; complete/partial/blocked content}}.
+-- Document preparation: {{prepared or partial}}.
+-- Runtime transition admission: {{actual observation/reference or NOT_OBSERVED}}.
+-- Receiving skill invocation: {{actual observation/reference or NOT_RUN}}.
+-- Session/worktree assignment and existing write fence: {{actual authority, worktree/branch/base, allowed paths; missing values and reasons}}.
+-- Existing authorization carried forward: {{user-selected scope and decision references; no expanded permission}}.
++- Result: {{what was created/reused/enhanced; complete/partial authoring; candidate identity via the evidence below}}.
++- Why: {{one decision affecting continuation; reference the detailed decision/change record}}.
++- Limits and blockers: {{validation/hook status; unresolved findings/questions, authority or readiness that affects the next action}}.
++- Next: {{one concrete task, actual owner/skill, permitted writes and expected deliverable}}.
++- Readiness: {{ready within the existing receiver assignment, or prepared with the exact missing prerequisite and its owner}}.
+ 
+-## Inputs consumed and outputs produced
++## Evidence and reading order
+ 
+-Exclude this document's own digest. Use complete saved artifact references; runtime computes final identities in managed operation. If that has not occurred, retain exact paths with null identities and reasons, rather than claiming protected checks. Ordinary unmanaged authoring observations may be identified as such. Do not create circular references through a later receipt.
++Put exact path/SHA-256 references once in upstream/evidence; use links or names below to navigate them. The candidate manifest maps source files; XSPEC/XPKG and the change record retain detailed identities, requirements, decisions, phase dispositions and provenance. Do not copy their inventories here.
+ 
+-| Direction | Artifact ID/revision | Store/path | SHA-256 or unavailable reason | Relevant sections | Decision/freshness state |
+-| --- | --- | --- | --- | --- | --- |
+-| input | {{selected specification/contracts}} | {{exact paths}} | {{identities}} | {{requirements}} | {{selection source}} |
+-| input | {{former candidate/report}} | {{retained paths}} | {{identities}} | {{F/CHG IDs}} | {{historical; unchanged}} |
+-| output | {{authored skill manifest and specification}} | {{exact paths}} | {{observed identities or unavailable}} | {{changes}} | {{new candidate; unvalidated}} |
+-| output | {{substantive change record/integration specification}} | {{exact paths}} | {{observed identities or unavailable}} | {{remaining scope}} | {{prepared}} |
++| Read when | Existing record and relevant sections/IDs | Purpose |
++| --- | --- | --- |
++| First | {{candidate manifest/XPKG and specification/XSPEC links}} | Select exact candidate and assigned requirements. |
++| Before acting | {{change/phase record and decision references}} | Preserve decisions, boundaries, pending work and honest evidence limits. |
++| For an affected question | {{input/discovery records, retained sources or prior reports; exact section/finding IDs}} | Recover rationale, alternatives, search limits and original evidence. |
+ 
+-## What changed and what remains open
++Missing required detail must be saved in the appropriate record and referenced, or named in missing_inputs; shortening the handoff cannot discard it. Required review coverage still applies.
+ 
+-- Applied/deferred/declined changes and preserved behavior: {{F/CHG mapping and reasons}}.
+-- Adopted decisions: {{actual source; preserve named Optional/Enforced groups}}.
+-- Proposals/defaults not adopted: {{separate suggestions}}.
+-- Material unanswered questions and independent work: {{question, dependency, pending owner}}.
+-- Runtime/installation/evaluation gaps: {{actual missing capability; no self-issued approval}}.
++## Copyable next-session task
+ 
+-## Observed completion evidence
++Include a task ready for the assigned receiving environment only when its skill location, input locations, writable output destination and required execution/review allowance are known. Distinguish host paths from sandbox mount aliases. Otherwise provide the concrete prerequisite task and label evaluation pending; do not leave a runnable-looking prompt with unresolved allocations.
+ 
+-Record only observations that existed when this document was authored. Leave later operations NOT_RUN/NOT_OBSERVED with their cause; never rewrite this document to assert a later receipt.
++```text
++Use {{actual available receiving skill and its resolved SKILL.md path}}.
++Read {{this saved handoff path}} and follow its reading order.
++Perform {{one authorized task and scope}} on the candidate/specification
++identified there, preserving {{essential decisions and constraints}}.
++Write {{required results and next handoff}} to {{assigned output directory}}.
++Use {{existing receiver/review allocation or its exact reference}}.
++Stop at {{completion or stated missing prerequisite}}.
++```
+ 
+-| Check | Outcome | Raw evidence / external receipt | Cause or scope limit |
+-| --- | --- | --- | --- |
+-| Substantive authoring outputs | {{saved/partial}} | {{completed paths}} | Source content only |
+-| Validation | Not performed | none | Separate allocated evaluation required |
+-| Runtime final-byte checks | {{observed or NOT_RUN}} | {{actual reference or null}} | {{creation-time limit}} |
+-| Runtime receipt publication/readback | {{observed or NOT_RUN}} | {{actual reference or null}} | {{creation-time limit}} |
+-| Native transition / receiving invocation / rendered delivery | {{separate observations or NOT_OBSERVED / NOT_RUN}} | {{actual references or null}} | A prepared document proves none of these |
++## Retention and continuation limits
+ 
+-## Continuation directory
++Retain exact referenced bytes and earlier failures. A hash cannot recover a missing source. Use the assigned artifact storage; before cleanup or relocation, preserve evidence and an explicit path mapping. Record affected identity changes in a new revision rather than rewriting prior evidence.
+ 
+-| Order | Task | Allocated owner / skill | Prerequisites | Completion evidence |
+-| --- | --- | --- | --- | --- |
+-| 1 | {{one immediate next task}} | {{actual owner role; unknown personal identity remains explicit}} | {{authority, candidate, contract, boundaries}} | {{concrete artifact/evidence expected}} |
+-| 2 | {{dependent evaluation or integration}} | {{owner}} | {{unmet dependencies}} | {{separate observations}} |
+-
+-## Copyable next-session prompt
+-
+-Goal: {{one concrete next result for the allocated owner}}.
+-Context: {{exact specification, candidate manifest and relevant sections; preserved decisions}}.
+-Output: {{named collision-safe deliverable in the assigned destination}}.
+-Boundaries: {{existing authorization, worktree/fence, forbidden changes and no implicit receiver invocation}}.
+-Prerequisites: {{missing authority/runtime/input observations before dependent work}}.
+-Completion evidence: {{what the next owner must produce under its own allocation; this does not launch it}}.
+-
+-Use actual skill names or known interfaces. For an unimplemented adapter, request implementation of that capability under its owner's assignment; never present a fictional command as callable.
+-
+-## Resume and custody
+-
+-- Task-output write/readback observations: {{actual completed outputs only, scope and observer}}.
+-- This handoff's location: {{saved path; no self-digest}}.
+-- External receipt: {{actual preexisting runtime reference or null; later publication/readback NOT_RUN at creation}}. Runtime owns managed final identities, protected snapshot and receipt publication/readback. No model-driven advance/resume/complete/check/verify or receipt-helper fallback.
+-- Worktree ownership disposition: {{actual retained/handed-off/released record; prepared text does not transfer ownership}}.
+-- External gate state: {{actual observed reference or unavailable}}.
+-- Resume point: {{last substantive result and exact pending task}}.
+-- Invalidation: {{candidate/specification/selected sources/assignment/runtime/installation changes require affected reconciliation and new evidence; preserve prior bytes and outcomes}}.
+-
+-## Manual transfer and scope
+-
+-- Detailed source/XSPEC/XPKG or EVPLAN/EVREPORT references: {{exact saved artifacts and section IDs}}
+-- Actual requested claim and Routine/Full selection: {{mode, scope, reasons and reviewer status}}
+-- Accepted baseline/current Routine/qualified anchor: {{distinct exact references or missing causes}}
+-- Immediate/cumulative impact and compatibility: {{exact records and unresolved dependencies}}
+-- Receiving invocation: {{one copyable user task with this handoff's saved path and the receiver name}}
+-- Receiving evidence at creation: {{NOT_RUN unless the receiver has actually loaded and acted on real producer artifacts}}
+-
+-The prepared handoff authorizes no automatic receiver or command. Carry existing user authority forward; retain failures and new-candidate identities. The trusted installer separately requires current manual adoption evidence. The evaluator's own handoff does not recursively trigger Full qualification.
++Prepared transfer is not receiving execution or acceptance. No target validation, installation, hook activation or automatic receiving invocation is authorized by this document. In unmanaged mode, label hashes as author observations. If an actual managed assignment applies, reference its runtime/custody record and unresolved observations here; do not reproduce it. No self-digest or circular receipt references.
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json
+index 2c95611..a648c23 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json
++++ b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json
+@@ -1,9 +1,9 @@
+ {
+   "schema_version": "devforge.skill-derivation/v1",
+   "skill": "devforge-project-expert-creator",
+-  "recorded_at_utc": "2026-09-08T18:52:43.937755+00:00",
++  "recorded_at_utc": "2026-09-09T03:29:03.763405+00:00",
+   "path_base": "DevForge workspace root",
+-  "source_selection": "F01\u2013F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved.",
++  "source_selection": "F01–F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved. User approved the concise handoff enhancement; affected actual baseline identities are pinned at 2031bf2e917bb4f2a2c9be717a74641b5801c409. Shared source selections and historical evidence remain unchanged.",
+   "entries": [
+     {
+       "destination": "references/contracts/skill-authoring-contract.md",
+@@ -26,7 +26,7 @@
+           "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
+         }
+       ],
+-      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
++      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b",
+       "prior_destination_identities": [
+@@ -87,7 +87,7 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation.",
++      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+     },
+     {
+@@ -190,13 +190,13 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "6601ab3b2364506ac6cb75eea2cc2e53d0f47e4285edd9fe5007934c6d619dd1"
+     },
+     {
+       "destination": "SKILL.md",
+-      "destination_sha256": "41873d8fad910c2bf6ec9ac4e087f96abaaa6c54811bb0eba65317fe6844a7ad",
++      "destination_sha256": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/SKILL.md",
+@@ -214,11 +214,20 @@
+           "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+           "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+           "source_revision": "draft revision 3, 2026-09-07"
++        },
++        {
++          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
++          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
++          "sha256": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"
+         }
+       ],
+-      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved. The previously recorded destination hash did not match the selected baseline bytes; both identities are retained, and the added source pin identifies the actual baseline.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+-      "previous_destination_sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8"
++      "previous_destination_sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
++      "prior_destination_identities": [
++        "41873d8fad910c2bf6ec9ac4e087f96abaaa6c54811bb0eba65317fe6844a7ad",
++        "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"
++      ]
+     },
+     {
+       "destination": "agents/openai.yaml",
+@@ -242,7 +251,7 @@
+           "source_revision": "draft revision 3, 2026-09-07"
+         }
+       ],
+-      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1"
+     },
+@@ -318,24 +327,32 @@
+           "source_revision": "draft revision 3, 2026-09-07"
+         }
+       ],
+-      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+       "previous_destination_sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+     },
+     {
+       "destination": "assets/handoff.md",
+-      "destination_sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7",
++      "destination_sha256": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4",
+       "sources": [
+         {
+           "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+           "preserved_path": "framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/shared-handoff.md",
+           "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+           "source_revision": null
++        },
++        {
++          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md",
++          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
++          "sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7"
+         }
+       ],
+-      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
+       "refresh_condition": "Explicit owner-selected source change; preserve former bytes, reconcile affected resources, evaluate separately.",
+-      "previous_destination_sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931"
++      "previous_destination_sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931",
++      "prior_destination_identities": [
++        "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7"
++      ]
+     },
+     {
+       "destination": "references/managed-authoring.md",
+@@ -377,13 +394,13 @@
+           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+         }
+       ],
+-      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
++      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+       "refresh_condition": "Explicit owner-selected source change; preserve former bytes, reconcile affected resources, evaluate separately.",
+       "previous_destination_sha256": "10d06a55b47254c9f8cc50bdca966e85e83fbc9f484596fd6e3f1c1aa7a2c14d"
+     },
+     {
+       "destination": "references/manual-operation.md",
+-      "destination_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
++      "destination_sha256": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72",
+       "sources": [
+         {
+           "path": "providers/codex/plugins/devforgeai/skills/skill-builder",
+@@ -406,12 +423,18 @@
+           "path": "framework/DevForge/docs/integration/manual-expert-adoption.md",
+           "source_revision": "4859a279784f902d5f9dabcb0664907b24b297a5",
+           "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
++        },
++        {
++          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md",
++          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
++          "sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
+         }
+       ],
+-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
++      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
+       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification.",
+       "prior_destination_identities": [
+-        "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f"
++        "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f",
++        "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
+       ]
+     }
+   ],
+diff --git a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md
+index 4f6d4b1..157911b 100644
+--- a/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md
++++ b/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md
+@@ -10,7 +10,20 @@ Creator exit: candidate + design/XSPEC + XPKG + change record + prepared evaluat
+ 
+ Evaluator exit: EVPLAN + EVREPORT/evidence + repair specification + prepared creator handoff. Receiving prompt: `Use $devforge-project-expert-creator. Read the supplied evaluator handoff and bounded repair specification. Recheck the frozen candidate and findings; apply only authorized corrections to the selected canonical source, preserve unrelated behavior and old evidence, and prepare the next evaluator handoff.`
+ 
+-These prompts become concrete when the producer supplies its saved handoff path. Sending a recommendation, writing a receiver prompt or calling a reviewer is not actual user-mediated transfer. Each receiver must load the producer's real artifacts; record exact inputs, outputs, outcome, remaining work and next invocation. The creator never runs target evaluation or installation.
++These sketches become concrete when the producer supplies its saved handoff and the receiver's actual package, input locations, output fence and applicable allocation are resolved. Follow the concise handoff guidance below. Sending a recommendation, writing a prompt or calling a reviewer is not user-mediated transfer. Each receiver must load the producer's real artifacts; record exact inputs, outputs, outcome and remaining work. The creator never runs target evaluation or installation.
++
++
++## Concise handoffs and retained evidence
++
++The handoff is the entry point to existing evidence. Keep the outcome, a short decision rationale, next owner/action, material blockers and permissions visible. Retain full requirements and reasons in the specification, changes and phase dispositions in the change record, and source/provenance inventories in the existing XSPEC/XPKG/manifests and preserved inputs. Save missing required information there before linking it; do not replace it with an unsubstantiated summary or add a parallel report bundle.
++
++Give a reading order with relevant requirement/finding/section IDs. Record exact pins once in the handoff envelope and use links or record names in the brief and receiving task. Read the selected candidate and requirements first; retrieve original sources or transcripts for an affected question instead of dumping every linked file. This routing does not reduce assigned review coverage, skip required evidence checks or make a missing observation pass.
++
++A copyable receiving task needs an actual available skill, resolvable candidate/evidence locations, an assigned writable destination and any required execution/review allowance. Resolve these for the receiving environment; a path mounted only inside the producer sandbox is not a usable host path. Carry settled authority forward. If a required binding is unknown, mark the transfer prepared with that prerequisite and its owner; provide a setup task rather than imply the evaluator is ready to run. Preparing the prompt neither invokes the receiver nor grants an allocation.
++
++Keep managed-only details in the applicable runtime record; load legacy managed guidance only for an actual managed assignment or an affected recovery question. Manual handoffs state the actual mode and significant missing evidence once. Existing phase/task classifications, required reports, qualification/adoption rules and creation-time evidence limits remain unchanged. Never add a later receipt or receiving result to the frozen producer handoff.
++
++Use the assigned durable artifact location and retain referenced exact bytes. Before an owner cleans up or relocates temporary evidence, preserve a snapshot and resolve its path mapping without altering historical bytes or claiming that a hash alone preserves content.
+ 
+ ## Supported command boundaries
+ 

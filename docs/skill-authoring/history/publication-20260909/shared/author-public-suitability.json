@@ -1,0 +1,8 @@
+{
+  "files_checked": 1970,
+  "source_files": 312,
+  "selected_evidence_entries": 1684,
+  "high_confidence_matches": [],
+  "suspect_original_paths": [],
+  "scope": "Exact allowlisted author source and evidence; excludes client credentials, raw transcripts and general ignored directories. Synthetic fixture JSONL files were separately identified by author evidence review."
+}

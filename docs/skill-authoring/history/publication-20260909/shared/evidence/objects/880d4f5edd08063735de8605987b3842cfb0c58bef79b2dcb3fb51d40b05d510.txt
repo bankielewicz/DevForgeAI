@@ -1,0 +1,26 @@
+{
+  "task": "Concise creator/evaluator handoffs with retrievable evidence",
+  "owner": "Current Codex GUI session; scoped package implementation/integration",
+  "source_repo": "/home/bryan/Projects/DevForge/framework/DevForgeAI",
+  "base": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+  "worktree": "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z",
+  "branch": "impl/concise-handoffs-20260909T032242Z",
+  "output_root": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z",
+  "owned_paths": [
+    "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator",
+    "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert"
+  ],
+  "unrelated_shared_changes": {
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/AGENTS.md": "5c52c03f942022a48c3dfacdae335a1d93676eaffe8c1b086477671cb0a8b058",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-001-devforge-brainstorm.md": "ae4ff98bb3c7f0c4d93633e28407e7c41096086a3f854b9e01cdc31decebb0ce",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-evaluation-plan.md": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-spec.md": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-specification.receipt.json": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.md": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.receipt.json": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd"
+  },
+  "scope": "Short handoffs; existing evidence retained; no Rust, installer, shared schema, classification or acceptance-rule changes; no old native allocation reused"
+}

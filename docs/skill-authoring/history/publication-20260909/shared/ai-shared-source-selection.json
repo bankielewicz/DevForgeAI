@@ -1,0 +1,150 @@
+[
+  {
+    "path": "docs/coordination/20260905-contributor-context-evaluation-plan.md",
+    "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f"
+  },
+  {
+    "path": "docs/coordination/20260905-contributor-context-spec.md",
+    "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77"
+  },
+  {
+    "path": "docs/coordination/20260905-contributor-context-specification.receipt.json",
+    "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d"
+  },
+  {
+    "path": "docs/coordination/20260905-contributor-expertise-proposal.md",
+    "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32"
+  },
+  {
+    "path": "docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+    "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/README.md",
+    "sha256": "0082a9a6ce2228f8c1f1952fe06913e0ba2ed7100516616c417418b7911fc2b9"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/dispatch.json",
+    "sha256": "a737dbffbda3614e117b831ca4859c1c75dce00d4fded00b0d5635fc40c270f6"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/inventory.json",
+    "sha256": "3747dcf579800bda0d83c1a9b242e9e40eb3c05734ebad57464b5b2a2056bc3e"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/00-devforge-coordinator.md",
+    "sha256": "8af36303d0a6e39307356a6ab16f3f14366dfdb55a0a22482b5324932d559859"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/01-devforgeai-coordinator.md",
+    "sha256": "931084efeaa74c9a81fd7480fac12db333a15426d0f0d28201ddf4d56172c1f3"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/10-expert-foundation-gate-20260908.md",
+    "sha256": "fe61c410c608203a064790fb23013a3b27504d71e1f94896500e6dd13bc5a2b4"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/11-framework-validation-20260908.md",
+    "sha256": "048f33879ccfb160d314bd8d33397054c56e520b71f7fef3fa98965bb482e783"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/12-ni11-interactive-20260908.md",
+    "sha256": "3239820fc7a40a29494ab0df5aa5d1dd082e2fe9761b7e1c968737b5af9b2ea1"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/13-skill-utilities-runtime-20260907.md",
+    "sha256": "fe9b333ab82e89afc25dcf8bebd3975b53b184d9fa6aa76fb08c8fa199f72691"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/14-skill-utilities-runtime-continuation-20260907T220803638693Z.md",
+    "sha256": "7f7d649760e212749796d13ff8bf6259c7bf11de84e14af73fbbc4eec66ebf9f"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/15-validator-runtime-review-20260905T234329495677Z.md",
+    "sha256": "b8f8b77b007f3638997e6a68954dd069e20b4fd0a247cbcece3b3138d3eaf84a"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/16-vpi01-20260908T144631697661Z-repair-cli.md",
+    "sha256": "df69dbf962f7bf780b5e413fca5757897b149c4455224bbbb95cdc84bc69f7c9"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/17-vpi01-20260908T144631697661Z-runtime-core.md",
+    "sha256": "9bad53370f9d465dd60898f2ff6ebab7d594a732d597902e5d6d73620232eaa6"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/18-vpi01-20260908T144631697661Z-runtime-schedule.md",
+    "sha256": "cbdb57af90211137eb6ba7aabaf9383d15747ab6d2332ce90fa5fd6f8587aa1c"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/19-agent-scope-lessons-20260908T151556Z.md",
+    "sha256": "d35d595a92e22994ced83a15057d08b21bcd775f4243b085ec5f520f3c5f99cf"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/20-claude-brainstorm.md",
+    "sha256": "922786ec28b569723769facc37624200851ea920270451aaf90ff1581c2571bc"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/21-claude-contribution-context.md",
+    "sha256": "2a301d3bab438177d9122c0987e36c623b6f8cdba06372711b8657e79674095c"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/22-codex-brainstorm.md",
+    "sha256": "661eb5fd61a1e09ee7d6fb9d49c99900ee94af41e0bf477cf6bfb5538cff9d8a"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/23-codex-contribution-context.md",
+    "sha256": "23156f45f01d0e9e458cafbd5b7dada6464d67642c9e9745d2c0dd3c1a26bf05"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/24-concise-handoffs-20260909T032242Z.md",
+    "sha256": "aecbd9e55fc982fc04e0576efda34f539d4f76a383c5e6e7ce44df42d2867e52"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/25-expert-foundation-20260908.md",
+    "sha256": "8616cbb576583e5cc738539ffb017e478b1307930d7cb17aebb39d27ec1b8caa"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/26-skill-builder-runtime-alignment-20260907.md",
+    "sha256": "8b534b1c4572ee597349d7d87ae582606bad09aaeada8975faf463833f4c1113"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/27-skill-validation-policy-20260908T114822309238Z.md",
+    "sha256": "0cee25a2fa78ff1c39887b1f520191bc8cf129edf5450cb87021c7a80b6c9fe8"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/28-vpi01-20260908T144631697661Z-builder.md",
+    "sha256": "b7bec7f32ccfdc393292f0580879cbac200d7f5839e62f7faa602a8a90662fdb"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/29-vpi01-20260908T144631697661Z-contracts.md",
+    "sha256": "1bc8c9561977354c458a44a8482dfd425c591153c7f9ab21fdb2501f23282bc4"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/30-vpi01-20260908T144631697661Z-repair-ai.md",
+    "sha256": "ec645456c7e27cf1f84959b374a89eca10487f21a4c7b718e4f3f7162025b830"
+  },
+  {
+    "path": "docs/coordination/github-publication-20260909/prompts/31-vpi01-20260908T144631697661Z-validator.md",
+    "sha256": "f87a82bfea4f9a83689c93a9349d122444d616e59133eb8ad9cb646e1881ee2d"
+  },
+  {
+    "path": "AGENTS.md",
+    "sha256": "5c52c03f942022a48c3dfacdae335a1d93676eaffe8c1b086477671cb0a8b058"
+  },
+  {
+    "path": "docs/mvp/execution-contract.md",
+    "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+  },
+  {
+    "path": "docs/mvp/skill-authoring-contract.md",
+    "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+  },
+  {
+    "path": "docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+    "sha256": "ae4ff98bb3c7f0c4d93633e28407e7c41096086a3f854b9e01cdc31decebb0ce"
+  },
+  {
+    "path": "docs/mvp/templates/shared/handoff.md",
+    "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+  }
+]

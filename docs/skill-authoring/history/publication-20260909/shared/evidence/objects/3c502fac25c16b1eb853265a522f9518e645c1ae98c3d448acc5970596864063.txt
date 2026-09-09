@@ -1,0 +1,7 @@
+{
+  "source_root": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage",
+  "files_sha256": {
+    "SKILL.md": "d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524",
+    "references/derivation.json": "ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f"
+  }
+}

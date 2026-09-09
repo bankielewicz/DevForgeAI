@@ -1,0 +1,75 @@
+# VPI-01 terminal partial result after the approved G8 repair
+
+Status: **PARTIAL_REPAIR_FROZEN; REQUIRED FOCUSED GATE NOT SATISFIED; G6/G7 NOT ADMITTED.** The single G8 repair opportunity is spent. G9 remains unspent. No additional repair, generation, funding or approval is requested by this closeout.
+
+The user explicitly approved predecessor-binding correction f62b4604319b403e7d1753aa3bf410b33978572752c5a6a46e4a86edd34d0faa on 2026-09-08, and that correction was executed. Earlier pending-approval labels in frozen files are historical snapshots, superseded by binding-correction-approval.json; they are not a current blocker. Accepted VPR-2 policy 8ede26450ae737a5e928c5f70a945aa995969b30 and proposal a92c3ec3042d692f9b286d104b25d31bf1124b07 remain the governing selections. Stage A is COMPLETE with its original limits and 3.785463266-second monotonic closeout deviation; it was not repeated.
+
+## Exact candidate pair and source custody
+
+| Repository | Exact final repair commit | Worktree |
+| --- | --- | --- |
+| DevForgeAI | 22e864951066c71a46873321f9bde2220aba653a | /home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-ai |
+| DevForge CLI | bdcdd5eed28c95df70b90a95f72be11c9e9137a9 | /home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-cli |
+
+Both final heads and clean status were verified after G8 ended. AI starts at G4 314e4048057e1b5431b4d838ce363d8dd0ce5080. Exact G5 patch 5822e72d705216850eeeddccef93391bfeaad89c, parent 75bcba915fd1d5f88477318d4b27db6e6961ca81, was admitted as 177340cd01dcf09ebe1b8afbff3cbf75e7c6033d; its complete binary diff matched byte for byte. Supporting funding contracts were committed at 7da4ac18998d3905af37f42692fdd6f502940b36, followed by final package contract/derivation refresh 22e864951066c71a46873321f9bde2220aba653a. Additional AI repair changed exactly the five approved paths. The CLI starts at G3 47f4f5150b6a2b4c1690fbb8fe6bbf02dc74766f and changed nine of fourteen permitted paths in bdcdd5eed28c95df70b90a95f72be11c9e9137a9.
+
+Earlier owner commits remain frozen: G1 75bcba915fd1d5f88477318d4b27db6e6961ca81, G2 9ed3559d92da9b9ef7c5d4fb1c02f84f4d2f5dbd, G3 47f4f5150b6a2b4c1690fbb8fe6bbf02dc74766f, G4 314e4048057e1b5431b4d838ce363d8dd0ce5080 and original G5 5822e72d705216850eeeddccef93391bfeaad89c. The repair pair contains their selected source ancestry/patches; no shared-main integration occurred.
+
+All eight accepted policy files are byte-identical to 8ede. The entire frozen G2 tests/test_validation_policy.py remains SHA-256 f9cd429eb00483b523539ad9ac145a920c607211a942a79c7a6f4b962e25ace2. The original validator catalog and seventeen-row supplement remain unchanged, and the G4 helper remains ab3f2238bee883fcae1ed587f006c80f81e238f303f301ec01b982dcfc64b69a. Mechanical AST comparison found no change to existing self.assert calls in the three permitted G3 test files: 28, 39 and 11 original assertion scopes. This is custody, not independent semantic review or a claim that every new test/fixture byte stayed unchanged.
+
+Root custody records: G8-source-custody.json (3d4a3adccc68bb6172b37dfc3d6ab8cad2e6090cdfa42d190102fe4aaa5f3ada), G8-policy-assertion-custody.json (ff1129095108d537743cc5d0a671bdc395b19279887897d2f17da64a4e92b176), G8-completion.json (f0b4dda35754653404da38cf0d9b51d62ffae4093bd1df0a1d586c0c35998623), and G8-final-preservation.json (d5a7243cf4b399e4b08e630e77ce59463c38c33fc4b3edf5803bb98f0befc81c). Full bytes of both outboxes were read: five AI files and ninety-four CLI files. Sixteen reported command-log hashes and the reported binary hash were checked.
+
+## Implemented portion and decisive blocker
+
+G8 added supporting funding/terminal/completion record formats, binding to the external assignment, shared exclusive grant claims and replay refusal, original-clock binding, basic grant bind/reserve/cancel behavior, and collector preparation with selected limits. These are bounded synthetic engineering results.
+
+**G8-FUNDING-COMPLETION-01 remains unresolved.** Every required future grader, meaningful parent return and continuation must have exclusive charged dispatch and actual selected bounded completion consumed at the correct review/report transition. Funding.consume currently supports dependencies before native reservation, but the complete semantic call graph is not obligatorily consumed by native_result_review and final reporting. Basic funding admission does not establish that end-to-end obligation.
+
+Concrete remaining consumers at the final CLI commit:
+
+- runtime/delivery/utility_state.py:809, _native_apply; :1443, native_result_review.
+- runtime/delivery/utility_state.py:1104, advance; :1183, complete.
+- runtime/delivery/utility_schedule.py:255, Funding.consume; :278, dependencies.
+- runtime/delivery/native_process.py:1232, launch.
+
+The smallest remaining work is to require selected reviewer/return/continuation charges and completions at each consuming transition, with discriminating cases for omitted, duplicate, late and unallocated calls and failed funded launches; then propagate funded collector deadlines through actual launch after those predicates pass. No out-of-fence dependency was established. The repair did not complete this work within its bounded window.
+
+At native_process.py:1239, every request containing funding_clock is explicitly refused before reservation checking, collector authority creation or process spawning. **Actual funded launch remains unavailable.** No native generation or new real funding was created by the positive fixture.
+
+## Actual RED/GREEN and verification limits
+
+The rebuilt baseline CLI produced assertion RED for the new funding admission tests. The same funding assertions later passed after documented fixture corrections: removing generated outputs before creating a second session, and controlling/synchronizing fixture clocks. RED/green whole test-file digests differ (01ebe3d5fa23e471d1e1dc7b2a2a76447f64753b34c6f67ad9e1a8908027d608 versus d118159034dd45dd565bfef8296f808063201a6d421e102287769f92ba2941c9); do not describe the entire new test file as byte-identical. Earlier wrong-directory/setup failures and failed test attempts remain in the raw evidence and are not counted as successful RED/GREEN.
+
+After the final rebuild, this focused command passed **233 tests**:
+
+    PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tests python3 -m unittest test_utility_schedule test_native_schedule test_utility_native_admission test_utility_native_lifecycle test_utility_state test_validation_policy.RuntimePolicyTests test_native_process test_native_interactive test_native_terminal -v
+
+Its recorded cwd was the repair CLI tests directory, with the equivalent module-search environment. Existing synthetic local Unix-socket fixtures needed scoped tool permission; they did not authenticate or call a provider. Raw final-focused.log SHA-256 a333e3cac5aadc6679b7adceb53738476c8bcf5978ea9a9f1dee414e2ecc11ce reports 233 tests, OK. Counts overlap earlier G2/G3 runs and are not summed as unique tests.
+
+Also passed: cargo fmt --check; cargo clippy --locked --all-targets -- -D warnings; cargo build --locked; cargo test --locked --all-targets (one Rust test). Final rebuilt binary: /home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-cli/target/debug/devforge, SHA-256 5efe332bd1d57bf3c3ce34a810b9285a92ed3bbbdd4da7ad480325d362168211.
+
+The 900-second collector-preparation test was authored **after** implementation. It provides verification evidence only and does not meet the requested TDD chronology for that path. This limitation is preserved alongside the substantive completion-accounting blocker. No full TDD-conformance claim is made.
+
+Earlier operator helper RED/GREEN remains preserved: the unchanged G2 discriminator failed on original helper bytes and passed once against G4. G8 did not execute the helper; its identical helper/test bytes were verified rather than relabeling the older result as a new repair-pair run. Author document/derivation checks are not independent implementation review.
+
+**Required focused gate: NOT SATISFIED.** G6 integration, complete eight-command combined verification, framework/MVP/demo checks, G7 independent implementation review, project staging and plugin export are NOT_RUN. The integration worktrees/outboxes and both selected staging destinations remain absent. There is no staged installation/binary identity or independent review disposition beyond NOT_RUN. The local repair checks are not a substitute for that combined block.
+
+## Allocation and preserved timing
+
+VPI-01 remains **9 approved / 6 charged / 3 unspent**. G1-G5 and G8 initial contexts finished. G8 is the spent single repair; G6/G7 are not admitted, and G9 stays unspent in this sequence. Seven spawn requests created six contexts; the historical invalid G1 name was rejected before context creation. No nested child, continuation, extra review round, authentication, shared-main merge or operational installation occurred.
+
+Historical ledgers remain original 24/24/0, R2-REVIEW 1/1/0 and CMP-2.A 2/2/0: 27 historical charges and **33 historical-plus-current external charges**. Provider tokens/internal requests/service time, root model usage and human active/waiting person-time remain NOT_OBSERVABLE, not zero. Subscription affordability remains NOT_ESTABLISHED.
+
+G8 original start was UTC 16:46:05.589997+00:00 / monotonic 145044338840930. Its original limits were UTC 17:16:05.589997+00:00 and monotonic 146844338840930. Author final observation was UTC 17:11:24.688546+00:00 / monotonic 146715930428534. Root captured the terminal message before long custody checks at UTC 17:12:07.399394+00:00 / monotonic 146761572102169: elapsed **1561.809397 UTC / 1717.233261239 monotonic seconds**, within both original limits. Later parent custody is separate and did not resume G8 work. G1's previous 32.111093789-second parent-capture overrun remains recorded.
+
+The tranche clock was never paused or reset: original origin UTC 2026-09-08T15:06:59.678746+00:00 / monotonic 138503142768825; six-hour limits UTC 21:06:59.678746+00:00 / monotonic 160103142768825; no new work after UTC 20:36:59.678746+00:00 / monotonic 158303142768825, preserving thirty minutes for closeout. At final-allocation-accounting-after-G8.json, elapsed was **7908.662368 UTC / 8700.423313573 monotonic seconds**. That ledger's SHA-256 is 0b7d1cd8009b6aad185ec159945e8a9f076f5e702bd769ba8af8c7a5d3178c1a. All G8 testing counted inside its node window; the three earlier operator commands outside node windows remain 1.230849657 monotonic seconds, without double-counting node tests.
+
+Previously observed unselected shared AI main drift to c2a42eb68cc441437f8d37e1c52ae85cde489a76 and changed dirty AGENTS.md bytes remain in source-preservation-0001.json. Those bytes were not adopted or rolled back. Future shared-source reconciliation remains separate from this isolated repair. No current shared-main readiness claim is made.
+
+## Remaining qualification and handoff boundary
+
+After the missing engineering predicates, integration checks/staging and independent review are complete under appropriate authority, CI-05 still requires applicable Full qualification of the exact runtime/validator candidate; CI-06 applies to changed receiving semantics. Required future inputs include a frozen assertion/evidence/observation/dependency map, a separately funded native allocation with supported isolation/authentication/transport, actual independent T04/control/native/compatibility/receiving observations, and human acceptance plus operational destination authority. The final Full observation/generation count is NOT_ESTABLISHED. Neither the engineering allowance nor historical 1,099-unit design is native dispatch authority.
+
+This is a preserved partial implementation and prepared handoff only. It grants no qualification, operational readiness, further repair or receiving-skill invocation. The substantive defect remains in the named runtime consumers; settled policy and completed Stage A are not reopened.
+
+Authoritative G8 report: /home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/repair-cli/report.json (SHA-256 b48e3d333bf366df0fb289c6c6a258a71962943a635179efbe130a8a83de432e). Prepared G8 partial handoff: /home/bryan/Projects/DevForge/tmp/validation-policy-implementation-proposal-20260908T144631697661Z/future-execution/repair-cli/handoff.json (SHA-256 19d0521fcf2257de8063e194c75297d24e7a0517d1ea520a88aed7b36b61a151).

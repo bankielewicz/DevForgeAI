@@ -1,0 +1,38 @@
+# Notes-storage handoff: concise presentation preview
+
+This is a presentation exercise using the frozen creation run. It is not a new producer record, evaluation, allocation, or receiving invocation. The [original handoff](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-handoff.md) and its exact referenced evidence remain unchanged.
+
+## Result and next action
+
+The prior run authored the notes-storage candidate and detailed design. Its scope is local notes persistence, grounded in the captured source and synthetic owner decisions. The [design](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md), sections 5 and 10, distinguishes required behavior from actual source behavior; it preserves NS-01–NS-08 and the search limits.
+
+Next, the operator prepares a separately assigned static evaluator inspection and independent review. Receiving invocation is **blocked**: its writable output location and review allocation have not been assigned. The earlier sandbox-only evaluator path is unavailable on the host. Authorship is complete; evaluation, acceptance, installation, hooks and actual transfer are not established by this handoff.
+
+## Evidence and reading order
+
+| Read when | Existing record | Relevant content |
+| --- | --- | --- |
+| First | [Candidate manifest](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json), [XPKG](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XPKG.json), and [XSPEC](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XSPEC.json) | Exact candidate/design identities and paths; the detailed design sections 1–5 define scope and requirements. |
+| Before acting | [Change and phase record](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-change-phase-record.md) | Assignment and boundaries; five Enforced phase dispositions; preserved decisions and pending evaluation. |
+| For an affected question | [Discovery](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-discovery.json) and [input inventory](/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json) | Search coverage, alternatives and source identities. Read sources using their preserved_path entries when producer mount aliases are unavailable. |
+| For prior reasoning or custody | Original handoff linked above | Complete producer explanation, exact evidence pins and creation-time limits. |
+
+The seven direct evidence files and all sixteen preserved inputs resolved and matched their recorded hashes during this exercise. Detailed requirements and evidence are retrieved through these records; the shorter presentation does not reduce review coverage.
+
+## Copyable prerequisite task
+
+```text
+Prepare the receiving environment for the existing notes-storage static review.
+Read the saved original handoff:
+/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-handoff.md
+Resolve its exact candidate/specification and supporting evidence references.
+Resolve an available devforge-evaluate-expert package and pin its actual revision;
+the producer's workspace/.agents path was a sandbox mount, not a host path.
+Record the writable output directory and the existing authorized inspection and
+independent-review assignment. Do not invent or renew an allocation.
+Preserve NS-01–NS-08, all phase/task obligations and static-only evidence limits.
+Once these bindings exist, prepare the concrete evaluator invocation for the user.
+Do not run the target, install packages, activate hooks or invoke another skill.
+```
+
+Keep the frozen candidate, original handoff and referenced source bytes. Any later relocation needs a retained snapshot and explicit path mapping; a digest alone cannot reconstruct missing content.

@@ -1,10 +1,10 @@
 # Terminal, worktree, and external execution contract
 
-Status: DRAFT MVP requirements, revision 3, 2026-09-07 UTC. This revision selects the managed brainstorm runtime interface and thin provider hook sources. The companion runtime has synthetic mechanical evidence; these shared/package sources remain an integration candidate. Native admission is NOT_VALIDATED, native hook activation and rendered receipt delivery are NOT_OBSERVED, and reviewed provider integration and combined install/export validation remain pending. This contract does not claim a worktree registry, general outbox, or full stack adapters.
+Status: DRAFT MVP requirements, revision 2, 2026-09-05 UTC. This contract adds required behavior to the design; it does not claim the existing POC has a worktree registry, general outbox, provider hooks, or full stack adapters.
 
 ## Terminal operating model
 
-The target operating model is a normal subscribed Codex or Claude Code session. Native skills guide the work. The separate DevForge executable performs supported deterministic checks. Human-operated transitions remain a valid MVP path for existing gates; the managed brainstorm mode below assigns phase transitions and mechanical delivery to the protected runtime. A background agent service or model API is not required. The current production launcher refuses native admission until its launcher/authentication and effective hook-source contracts are established.
+The user runs a normal subscribed Codex or Claude Code session. Native skills guide the work. The separate DevForge executable performs supported deterministic checks. Human-operated transitions are a valid MVP path; a background agent service or model API is not required.
 
 Each target terminal must separately demonstrate installation, discovery, activation, supporting-resource loading, and representative output. Native creator and plugin packaging helpers are authoring tools. Successful package validation or a CLI version probe does not establish runtime behavior.
 
@@ -68,40 +68,11 @@ flowchart TD
 
 This describes permitted parallel sessions; it does not automatically launch subagents. A subagent receives only the task-relevant inputs and its declared scope. Read-only review and behavioral evaluation require the actual isolation conditions requested for that task.
 
-## Managed brainstorm runtime
+## Hooks
 
-An external owner selects a devforge.brainstorm-session/v1 contract before task admission. It binds the task and assignment, immutable inputs, installed resource identities, original deadline, mutable-output baselines and retained archives, exact checkpoint destination, and separately bound external receipt destination. Mutable ledgers are outputs, not immutable inputs; preservation requires retained prior bytes. The runtime executable, selected inputs, state and receipt store must be protected from worker writes. A task contract supplies neither user authority nor permission to launch a model.
+Hooks may improve context loading, early feedback, and handoff capture. They do not own acceptance. The current Codex documentation says non-managed hooks require trust, matching command hooks may run concurrently, and unavailable MCP hook tools/errors do not necessarily block an operation. [Hook behavior and trust](https://learn.chatgpt.com/docs/hooks).
 
-The ordinary phase order is Recover → Explore → Record → Focus. Only the external owner may select a handoff-only contract, with Recover → Focus and Explore/Record marked NOT_APPLICABLE. The worker cannot switch modes or destinations to escape a collision or a failed requirement. Runtime context supplies the current phase, fresh challenge, task identity, checkpoint destination and evidence shape; [SKILL-001](specifications/skill-001-devforge-brainstorm.md#managed-phase-evidence) defines the observable content. Accepted checkpoints and inspected bytes are preserved in the protected journal. Their acceptance establishes bounded evidence checks, not hidden reasoning, faithful adoption, or semantic quality.
-
-Deterministic runtime coverage is still incomplete. General artifact-reference resolution, repeated receipt claims, raw-field permissions and disclosed-unsectioned handling remain unfinished runtime integration requirements. They require implementation and independent verification before the corresponding conformance claim. Semantic review separately judges attribution, adoption and usefulness; it cannot substitute for those missing deterministic predicates.
-
-A real blocking question produces awaiting_user evidence and preserves WAITING_USER without a new phase or receipt. UserPromptSubmit resumes the pending phase but does not prove the user answered the question or adopted an idea. Each phase allows one bounded correction. Missing, stale, replayed or out-of-order evidence, changed fixed inputs, missing retained archives, exhausted correction, unavailable authority, or deadline expiry prevents dependent completion. Runtime-generated instructions and callbacks retain runtime provenance; no new per-phase human approval is introduced.
-
-The selected completion mode is managed-session. During the qualifying synchronous Stop after Focus reaches READY, the runtime rechecks actual artifact bytes, exclusively publishes the selected receipt, reads its complete bytes back, verifies its current targets, and returns its actual locator and full SHA-256 through systemMessage. This can occur while the owned client remains alive. Every Stop occurrence inspects current bytes; duplicate effective native hook sources must be excluded during admission. The model writes useful artifacts and supplied evidence; it does not invoke delivery advance/resume/complete/check/verify or package receipt helpers as a manual fallback.
-
-Receipt publication, response transport, native turn completion and human delivery are separate observations. Managed mode records a protected task-result, a fresh delivery attempt before each verified response, and transport after the socket write. SOCKET_WRITE_COMPLETED does not establish rendering; rendered delivery remains NOT_OBSERVED without direct evidence. Re-emission rechecks and reuses the historical receipt. Later drift records current inapplicability, and a later process failure remains a failed process outcome while preserving any committed task result. Process-mode synthetic fixtures instead require READY phases and successful owned-process exit; that result cannot stand in for native managed-session completion.
-
-The saved handoff records checks already observed and creation-time NOT_RUN for later receipt, readback and delivery operations. It excludes its own complete-byte digest and is not rewritten to claim the later receipt. The runtime reports its completion separately. Unmanaged discussion and draft artifacts remain possible, but cannot claim runtime-verified completion or manufacture a receipt. Human adoption, behavioral evaluation and acceptance remain separate requirements under the [artifact contract](artifact-contract.md).
-
-## Hooks and runtime compatibility
-
-The former no-hooks implementation choice is superseded for the selected managed brainstorm mode. Each provider package supplies hooks/hooks.json with exactly one unconditional synchronous command handler for each of SessionStart, UserPromptSubmit, Stop and SessionEnd. No async handler or conditional matcher is selected. The thin command is `"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}" delivery hook --provider codex`, with `claude` substituted only for the Claude package. The protected supervisor supplies the selected executable, socket and session-contract digest. Without an active socket the hook returns `{}` without an enforcement claim; with an active socket, malformed or unavailable transport fails explicitly.
-
-Each package also supplies hooks/runtime-requirements.json with exactly these fields. The provider value is specific to that package; extra keys or alternate modes are not part of this version.
-
-| Field | Required value |
-| --- | --- |
-| schema_version | devforge.runtime-requirement/v1 |
-| runtime | devforge.delivery |
-| protocol | devforge.delivery-runtime/v1 |
-| provider | codex or claude, matching the package |
-| completion_mode | managed-session |
-| required_events | SessionStart, UserPromptSubmit, Stop, SessionEnd, in that order |
-
-The companion installer requires an explicit absolute --runtime executable for a delivery-aware project installation. It checks delivery capabilities and binds the executable's bytes before writes; it does not discover a runtime through PATH. It merges owned Codex groups into .codex/hooks.json and Claude groups into .claude/settings.local.json, preserves unrelated settings and identical preexisting groups, and rejects edits to owned groups. Plugin export retains the hook component and runtime requirement while reporting the eventual host runtime as unverified. A compatible capability response or successful install does not prove native admission, trust, activation or rendering.
-
-The target terminal's effective configuration must separately establish event coverage, trust, one managed callback per event occurrence, synchronous response handling, timeout/error behavior, actual continuation/denial, and receipt rendering. Source declarations alone cannot establish these facts. A skipped or failed hook is not a completed required check; a worker-writable hook configuration is not the protected execution boundary. External acceptance independently rechecks the exact candidate. This revision adds source declarations only; actual registration and native observation require their own recorded execution allocation.
+Any future adapter must test the installed terminal version's event/tool coverage, trust state, timeout/error behavior, and actual denial behavior. A skipped or failed hook cannot be treated as a completed required check. External acceptance independently rechecks the candidate. This design installs no hooks and does not rely on a hook configuration the worker can edit.
 
 ## GitHub CI and the subscription-only boundary
 

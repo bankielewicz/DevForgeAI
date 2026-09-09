@@ -1,0 +1,38 @@
+{
+  "record_kind": "notes-storage maintenance provenance",
+  "selected_at_utc": "2026-09-09T02:31:31.785628+00:00",
+  "provider": "codex",
+  "source_path_base": "consuming workspace selected by assignment",
+  "sources": [
+    {
+      "path": "project.md",
+      "sha256": "e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26",
+      "role": "owner-supplied synthetic accepted project authority"
+    },
+    {
+      "path": "project/docs/accepted-decisions.md",
+      "sha256": "8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7",
+      "role": "owner-supplied synthetic accepted project authority"
+    },
+    {
+      "path": "project/src/notes_store.py",
+      "sha256": "353596871080dcc99a7053ed7d6660d2681d3d7076564ff76cb3860345b402f6",
+      "role": "current behavior evidence"
+    }
+  ],
+  "destinations": [
+    {
+      "path": "SKILL.md",
+      "sha256": "d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524",
+      "transformation": "Focused self-contained instructions adapting accepted decisions and statically observed load/save behavior; no application code copied as an executable helper."
+    }
+  ],
+  "refresh_condition": "Owner-selected changes to accepted decisions, Python version, source behavior, public API, schema, or assigned mapping require affected reconciliation and a new candidate identity; preserve prior evidence.",
+  "owner": "Synthetic project owner under the user task; personal maintainer identity not supplied.",
+  "canonical_source": "project/experts/notes-storage",
+  "proposed_installation": ".agents/skills/notes-storage",
+  "installation_status": "Not performed",
+  "validation_status": "Not performed",
+  "hook_status": "Design only",
+  "self_digest": "Omitted; full package identity is held externally in XPKG."
+}

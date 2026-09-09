@@ -1,0 +1,67 @@
+{
+  "schema_version": "devforge.artifact/v1",
+  "artifact_id": "XPKG-notes-storage-01",
+  "artifact_type": "expert-package",
+  "project_id": null,
+  "revision": 1,
+  "status": "authored",
+  "created_at_utc": "2026-09-09T02:36:03.622468+00:00",
+  "producer": {
+    "skill": "devforge-project-expert-creator",
+    "skill_revision": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"
+  },
+  "execution_ref": null,
+  "upstream": [
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json",
+      "sha256": "1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d"
+    }
+  ],
+  "evidence": [],
+  "supersedes": null,
+  "decision_ref": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/docs/accepted-decisions.md",
+    "sha256": "8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7"
+  },
+  "missing_inputs": [
+    "No allocated project ID or protected execution receipt supplied; synthetic project authority is the user task and supplied documents."
+  ],
+  "record_scope": "Local source package/provenance envelope; not an installation or protected receipt.",
+  "provider": "codex",
+  "canonical_source_root": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage",
+  "source_manifest": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json",
+    "sha256": "3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063"
+  },
+  "source_files_sha256": {
+    "SKILL.md": "d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524",
+    "references/derivation.json": "ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f"
+  },
+  "source_provenance": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/references/derivation.json",
+    "sha256": "ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f"
+  },
+  "selected_inputs": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json",
+    "sha256": "1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d"
+  },
+  "specification": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md",
+    "sha256": "4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff"
+  },
+  "xspec": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XSPEC.json",
+    "sha256": "f0fdc0a277b76f410ceeb44e7359f34f960ed7b6ec2bb5a3d112ff59201d6225"
+  },
+  "before_candidate": "ABSENT at source destination inspection",
+  "proposed_installed_root": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/notes-storage",
+  "intended_installed_files": "Same two package-relative files with preserved source bytes, if independently authorized later.",
+  "installed_manifest": null,
+  "installation_status": "NOT_RUN: prohibited in this assignment",
+  "export": null,
+  "validation_status": "Not performed",
+  "hook_status": "Design only",
+  "qualified_anchor": "ABSENT",
+  "current_routinely_accepted": "ABSENT",
+  "accepted_baseline": "ABSENT"
+}
