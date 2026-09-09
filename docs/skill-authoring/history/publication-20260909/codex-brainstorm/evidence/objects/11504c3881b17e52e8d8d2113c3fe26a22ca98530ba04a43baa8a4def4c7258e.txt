@@ -1,0 +1,47 @@
+{
+  "source_base": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+  "contracts_sha256": {
+    "docs/mvp/skill-authoring-contract.md": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+    "docs/mvp/artifact-contract.md": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+    "docs/mvp/execution-contract.md": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+    "docs/mvp/specifications/skill-001-devforge-brainstorm.md": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718"
+  },
+  "templates": {
+    "assets/idea-ledger.md": {
+      "source": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "source_sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "adaptation": "Add stable section IDs",
+      "derived_sha256": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e"
+    },
+    "assets/handoff.md": {
+      "source": "docs/mvp/templates/shared/handoff.md",
+      "source_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "adaptation": "Remove the optional continuation placeholder row and add unique stable section IDs in bracket-suffix headings; preserve all required headings and tables.",
+      "derived_sha256": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9"
+    }
+  },
+  "refresh_when": "Selected specification, contract, or template changes; rebind package and repeat affected checks",
+  "runtime_dependency_on_source_checkout": false,
+  "revision_interpretation": {
+    "authority": "CODEX-REVISE-004.md",
+    "sha256": "86f4494144b13b3eddd93da08cdfaa5f018db9c40080d0a434d460b312ca1772",
+    "scope": "SESSION-002@5 bounded raw-source and selector identity classification repair; unchanged entrypoint/assets/helpers/collector/process implementation",
+    "selected_inputs_sha256": "8c91697738a9825887df8de4c1c29170e430ebc7e99cdb9a6543cb76a2e1ac50",
+    "execution_ref": {
+      "artifact_id": "SESSION-002",
+      "revision": 5,
+      "store": "authority",
+      "path": "authoring-assignments-20260905/SESSION-002.md",
+      "sha256": "8dad264b66048dad5cc14ea6a7f779c24a4f2a1c9b403309660ccf06c3e805e0",
+      "sections": []
+    }
+  },
+  "instruction_files_sha256": {
+    "SKILL.md": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+    "references/artifact-workflow.md": "8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9"
+  },
+  "helper_files_sha256": {
+    "scripts/artifact_receipt.py": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449",
+    "scripts/delivery_check.py": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872"
+  }
+}

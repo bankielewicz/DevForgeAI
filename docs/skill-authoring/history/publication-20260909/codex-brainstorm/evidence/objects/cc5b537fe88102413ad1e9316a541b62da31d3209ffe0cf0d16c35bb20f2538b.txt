@@ -1,0 +1,76 @@
+# Codex brainstorm revision-8 authoring record
+
+Owner: the same retained user-selected Codex brainstorm author under SESSION-002@8. This record covers proposal-only remediation of CODEX-MEAS-R7-001 (F-001 / CHG-001), original severity medium/P2, builder intake MAJOR. The source is UNCHANGED. Two run-side proposals are AUTHORED; reevaluation is required. No skill-validator campaign, native evaluation or acceptance is represented by this record.
+
+## Allocation and custody
+
+The actual first-work UTC timestamp remains `2026-09-07T14:30:32.044264+00:00`. CLOCK was persisted at its recorded timestamp after reading the initiating handoff and before dependent assignment preparation; the initial handoff reading is included in the original first-work clock. Technical edits stop no later than 15:10:32.044264 UTC; the unchanged hard deadline is 15:30:32.044264 UTC. The 20-minute closeout reserve was retained. Early proposal freeze/closeout began at 2026-09-07T14:43:51.834993+00:00. No restart, extension or second allocation occurred.
+
+Exactly one new run was created: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z`. All writes in this allocation are inside it. Git remains read-only: branch `author/codex-brainstorm-mvp`, HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`, common directory `/home/bryan/Projects/DevForge/framework/DevForgeAI/.git`. Both provider authority transitions in ISSUANCE were checked before dependent work; current Codex authority matches issued revision 8. INPUTS.providers.codex.current_authority is the before-transition revision-7 capture, not an instruction to replace the issued revision 8 or rewrite source derivation.
+
+- Authority: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/authority/SESSION-002-r8.md` — SHA-256 `aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383`
+- Selected inputs: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/INPUTS.json` — SHA-256 `374d5a3fccaedf27149b8ca1eca0cebced6f7fd2e44e6aaa94572e67bf6518ec`
+- Issuance: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/ISSUANCE.json` — SHA-256 `520da9e3d225595036d140718c5cc582e3b824268ef2eadc844f911ceb83cac7`
+- Candidate manifest: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json` — SHA-256 `cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2`
+- Complete byte readback: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/SOURCE-FREEZE.json` — SHA-256 `c8e9b3a3a99334485573804e7bd2d79823b9615b849ede4bb0ea91cffe3f0024`
+
+All 30 selected source files, including references/derivation.json and the existing managed-runtime.md, match their original selected bytes. The prior cache exclusion is preserved at its selected digest. Starting and final complete candidate copies exist. The 259 selected input copies include the entire selected Codex prior run, source baseline, selected controls, six shared documents, v1 runtime, relevant reviews and captured guidance. The initiating handoff is one additional separately recorded copy. No prior run/report/clock or input copy was rewritten.
+
+## Creator and builder use
+
+Captured Codex creator: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/guidance/codex-skill-creator/SKILL.md` — SHA-256 `6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66`. Selected: yes. Instruction invocation/application: read and applied in this retained Codex author session to the two preparation documents. A separate native Skill-tool invocation event is not exposed or claimed; no new native client, worker or model was launched. Application was limited to a focused evidence-based correction, preserving user scope, discovery and source, retaining conditional detail outside the source entrypoint, and producing no speculative executable helpers. Creator validation guidance does not override the issued zero-execution fence.
+
+Captured project builder: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/guidance/skill-builder/SKILL.md` — SHA-256 `feb18f7e07a2de070b320e414a8857c9bbf43fb9062c528d77acfb156ccd0a51`. The bounded-remediation intake, validator-handoff and results-contract guidance were read and applied. The root-selected alternative-format source/measurement reports were retained unchanged and mapped through the issued remediation specification and REPAIR-MAP. No SENH/SEVAL ID, native creator event, completed validator phase or CLI schema acceptance is fabricated. The standalone builder change receipt records all 16 CHG dispositions, original severities, requirement IDs, evidence and before/after identities. CHG-001 applied means these proposals were authored. CHG-002 through CHG-016 are deferred outside this Codex provider scope; this does not report the Claude author's actual progress.
+
+The settled design and existing-skill selection were reused; no duplicate search or interview was restarted. The accepted decision remains enhancement of the existing provider-specific brainstorm implementations, with no new skill or discovery-policy change. W1/P1/P4 remain Enforced. P2/P3 remain Enforced in ordinary brainstorming and NOT_APPLICABLE only under owner-selected handoff-only mode. H1 remains DESIGN_ONLY, feasibility Partial, with no confirmed native enforcement. No new workflow group, hook event research or approval choice was introduced.
+
+## Selected requirements
+
+- Working revision-8 remediation: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REMEDIATION-SPECIFICATION.md` — SHA-256 `d5b60b3ea30ea4a8e426f9c2b74ff3f94298d7b3e786286285a7d1cc45b69742`
+- Retained design: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/SKILL-DESIGN-SPECIFICATION-r7.md` — SHA-256 `6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1`
+- Same selected managed v1 bridge: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/AUTHORING-RUNTIME-BRIDGE-r7.md` — SHA-256 `ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65`
+
+The six retained provider-specific shared documents remain selected, even where newer builder-packaged guidance has different contract bytes:
+
+- `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/shared/docs/mvp/artifact-contract.md` — SHA-256 `e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1`
+- `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/shared/docs/mvp/execution-contract.md` — SHA-256 `a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8`
+- `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/shared/docs/mvp/skill-authoring-contract.md` — SHA-256 `1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e`
+- `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md` — SHA-256 `1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718`
+- `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md` — SHA-256 `46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417`
+- `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/shared/docs/mvp/templates/shared/handoff.md` — SHA-256 `abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206`
+
+## Proposal change and limits
+
+`/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json` — SHA-256 `b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b`
+
+The rubric preserves the nine prior common checks and adds required causal_provenance. It requires a manual judgment for every upstream occurrence, substantive causal-use evidence, separate relationship classification, exact immutable input/output nodes and hashes, reachable graph evidence, and the completed-ledger/handoff direction. Missing observation blocks full semantic PASS and dependent admission. All four case definitions, extra/behavior checks, decision format, scope and missing-coverage rules remain. The five runtime observation substitutions retain their meaning; the current preparation reference in producer_identity_scope changes only SESSION@7 to SESSION@8, with an explicit before/after binding.
+
+`/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/measurement-plan.proposed.json` — SHA-256 `8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415`
+
+The plan adds the causal coverage and deferred judgment-consumer requirement plus eight future control descriptions (CP-01 through CP-08). No new fixture bytes, executable checks, measured results or native case admissions were produced. Original case order remains C-candidate, B6-candidate, both B6E arms, then only separately allocated A. All B6 selected-r1/current-mismatch and B6E historical receipt/current applicability/continuation distinctions remain. A/B/C, native completion, resource consultation, runtime chronology, rendering and human acceptance stay separate. No runner or grader patch was authored.
+
+Canonical source remains `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm`. A future normal project-local generated copy belongs at the separately selected consuming project's .agents/skills/devforge-brainstorm; no new installed/exported copy or manifest was observed here. The eight prospective runtime resources remain an inventory proposal. Retained source derivation keeps revision-7 authorship; revision 8 binds only these preparation records. Installed observation, root runtime adaptation, independent evaluation and human acceptance remain outstanding.
+
+## Historical status and current execution accounting
+
+The selected root review and two full Codex narrative reviews were read with the relevant finding evidence. Their scoped static results do not establish native behavior or whole-skill validation. CODEX-MEAS-R7-001 remains open for independent reevaluation. Historical evaluate-005 C remains COULD_NOT_RUN; B6 and both B6E arms remain NOT_RUN. E005-R001's missing aggregate output and E005-R002's differing UTC/monotonic intervals remain unresolved. Retain all previous candidate/criteria/clock/result bindings, prior failures, and the Claude budget FAIL/687-second late write. No historical result is upgraded.
+
+The later v2 runtime draft is UNSELECTED. Its last selected execution failures and later unexecuted fixes remain root history. Native startup revision 4 remains untested/unreviewed in the selected root status; root native launches remain 0 in that status. This author did not inspect or change later mutable runtime work. Full metadata, native admission, effective hook origin, installed consultation, receipt rendering, required repository checks and acceptance belong to root.
+
+| Scope | Actual current state |
+| --- | --- |
+| Source | UNCHANGED; 30 selected files, zero source writes |
+| Two proposal documents | AUTHORED; reevaluation required |
+| New native workers, graders, model calls or delegated models | 0 |
+| Tests, suites, fixture executions | 0 |
+| Validators, linters, authored helper execution/import | 0 |
+| Compilation, installations, exports | 0 |
+| Hook activation | 0; hooks DESIGN_ONLY |
+| Validation | NOT_PERFORMED |
+| Current native C/B/A | NOT_RUN |
+| Root admission / human acceptance | NOT_RUN / NOT_RUN |
+| Contributor-context work | PARKED |
+
+Standard-library file reads/hashes/copies/writes and read-only JSON parsing were used for custody and document preparation only. Two custody construction errors were corrected without source/proposal rollback or a clock reset: a mistaken nonexistent SESSION-003 auxiliary path stopped the first custody attempt before writes; a missing run-local handoff copy stopped builder-receipt construction after closeout/inventory records existed but before that receipt was written. The actual issuer-selected SESSION-001 path and original initiating handoff were subsequently retained; PREPARATION-CUSTODY and HANDOFF-CUSTODY preserve these facts. These were not validation executions or observed candidate failures.
+
+At this record creation, its own later external report receipt/publication/readback is NOT_RUN. Its final digest belongs in a separate later record, never in this file. Hold for independent root review; ownership is retained until the operator changes it. No native launch, integration, promotion or next-capability work follows this handback.

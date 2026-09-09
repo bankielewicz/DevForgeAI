@@ -1,0 +1,67 @@
+# Codex brainstorm revision-8 authoring report
+
+Disposition: PROPOSAL_AUTHORING_COMPLETE — INDEPENDENT_REVIEW_REQUIRED. CHG-001 / F-001 / CODEX-MEAS-R7-001 is applied to the two run-side proposal documents. Applied means authored, not validated or closed. All 30 selected source files remain byte-for-byte unchanged, including revision-7 derivation and managed-runtime reference. No source, runner or grader patch was made.
+
+This retained author worked under SESSION-002@8 in `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z`. Current authority and both recorded issuance transitions were verified before dependent work. Worktree branch remains author/codex-brainstorm-mvp at HEAD a006b3d91f39776cf3ac4cd06b174d5fa3ed688c, common Git directory /home/bryan/Projects/DevForge/framework/DevForgeAI/.git. Git was read-only. Exactly one exclusive new run was used; prior runs and authority were not modified.
+
+## Result and scope
+
+The new rubric adds causal_provenance as a mandatory tenth common check. It requires evidence-bound manual classification of every upstream occurrence, distinguishes membership/split-merge/next-step/backlink relationships from causal consumption, resolves exact immutable input/output revisions and complete hashes, records reachable graph evidence and acyclic ordering, and preserves the completed-ledger-to-handoff direction. The future completed judgment must bind all inspected evidence and be selected after outputs/checks exist and before dependent admission. Missing review or unavailable required evidence blocks full semantic PASS.
+
+The measurement plan captures eight unexecuted control descriptions, including relationship promotion, correct/reversed ledger-handoff direction, distinct revisions of the same artifact, incomplete transitive coverage, missing judgments, changed bytes/early judgments and later repeated-reference defects. No fixture bytes or executable cases were authored. Claimed literal hash cycles retain actual identity failures; the proposal does not fabricate mutually self-consistent complete-byte hashes or claim an unobserved causal-check result.
+
+All nine prior common checks, four core case definitions, B6/B6E meanings, caps and C-before-B6-before-both-B6E order remain. A remains separately allocated. The five existing runtime observation substitutions retain their meaning; only the current preparation token in producer_identity_scope changes SESSION@7 to SESSION@8, explicitly recorded. Source provenance remains revision 7. No historical criteria, grade or deadline was reactivated.
+
+| Proposal | Complete SHA-256 |
+| --- | --- |
+| `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json` | `b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b` |
+| `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/measurement-plan.proposed.json` | `8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415` |
+
+The builder change receipt preserves original medium/P2 severity and MAJOR intake alias for CHG-001, requirement IDs W1/P3/P4 and exact before/after proposal bindings. It gives all 16 CHGs a disposition. CHG-002 through CHG-016 are deferred outside this Codex provider scope; this is not a finding about the retained Claude author's current progress. No change is declared validated.
+
+## Authoring method and custody
+
+The captured Codex skill-creator instructions were selected, read and applied in this retained author session. No separate native Skill-tool invocation event is exposed or claimed. Captured project skill-builder bounded-remediation, handoff and results guidance was read and applied; the supplied alternative-format reports are mapped through the root remediation specification without inventing a completed SEVAL/SENH or P1-P6 validator campaign. The settled existing-skill selection, classifications and prior design are retained. H1 is DESIGN_ONLY with feasibility Partial.
+
+Before dependent proposals, all 30 live source hashes and the preserved cache exclusion matched INPUTS and the selected reviewed candidate. Complete starting/final candidate copies and all 259 selected input copies are retained; the initiating handoff is one additional separately recorded copy. Complete source, proposal and supporting bytes were read back for custody. The evidence manifest binds 331 files, excluding itself and the expressly named later report/receipt records. These reads/hashes/JSON inspections are not skill or control validation.
+
+Two custody construction errors were corrected and recorded: a mistaken auxiliary SESSION-003 path stopped before copies, and a missing run-local handoff copy stopped builder-receipt construction before that receipt was written. The actual issuer-selected SESSION-001 and initiating handoff bytes were retained afterward. Source/proposals, prior records and the original clock were not rolled back or overwritten.
+
+## Status retained
+
+| Scope | Result |
+| --- | --- |
+| Candidate source | UNCHANGED; 30 files; zero source writes |
+| Run-side proposal authoring | AUTHORED; CHG-001 reevaluation required |
+| New native worker/grader/model calls and delegated models | 0 |
+| Tests/suites/fixture executions; validators/linters/authored helpers | 0 |
+| Compilation; installs/exports; hook activation | 0 |
+| Validation | NOT_PERFORMED |
+| Hooks | DESIGN_ONLY |
+| Current native C / B / A | NOT_RUN / NOT_RUN / NOT_RUN |
+| Root admission / human acceptance | NOT_RUN / NOT_RUN |
+| Contributor-context evaluation | PARKED |
+
+Historical evaluate-005 C remains COULD_NOT_RUN; B6, B6E-drift and B6E-control remain NOT_RUN. Prior failures, original receipt/criteria/clock bindings, E005-R001's missing aggregate observation and E005-R002's differing UTC/monotonic intervals remain unchanged. The Claude budget FAILs and 687-second late write remain unchanged. Selected scoped static source review found no material Codex source defect; it did not establish native behavior or full skill validation.
+
+The same v1 managed bridge and six frozen provider shared documents remain selected. Prospective v2 is UNSELECTED; its recorded failures and later unexecuted fixes remain root history. Per selected ROOT-STATUS, native startup revision 4 is untested/unreviewed, root native launches are 0, and required repository checks remain outstanding. No later mutable runtime status is inferred.
+
+## Allocation and next owner
+
+Actual first work: `2026-09-07T14:30:32.044264+00:00`. Original technical stop: `2026-09-07T15:10:32.044264+00:00`. Original hard deadline: `2026-09-07T15:30:32.044264+00:00`. The 20-minute reserve remains intact; early proposal freeze/closeout began `2026-09-07T14:43:51.834993+00:00`. This report was created at 2026-09-07T14:48:38.328042+00:00, within the original allocation. Reading, preparation, waits and closeout all count; no reset or second cycle occurred.
+
+Root must independently review these frozen proposals and the CHG-001 disposition. Runnable manual-judgment integration, grader/admission enforcement, native metadata/startup/effective hook provenance, installation and actual resource consultation, runtime ordering/rendering, required repository checks, independent validation and human acceptance remain root-owned dependencies. The unchanged historical graders do not enforce this new check. These proposals grant no execution or integration authority. Hold for independent root review; retain ownership until the operator changes it. Contributor-context and next-capability work remain parked.
+
+## Handback bindings
+
+| Record | Absolute path | Complete SHA-256 |
+| --- | --- | --- |
+| CANDIDATE-MANIFEST.json | `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json` | `cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2` |
+| PROPOSAL-INVENTORY.json | `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/PROPOSAL-INVENTORY.json` | `6925a7432f5cb8662c67e660e720c5d83bd5764498a8861c7a66b87a3bc3e56b` |
+| BUILDER-CHANGE-RECEIPT.json | `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/BUILDER-CHANGE-RECEIPT.json` | `0b82f381b07b8d4e18992b2e71bea13602ce2a290cc135d0820089b83ef5e1e0` |
+| AUTHORING-RECORD.md | `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-RECORD.md` | `cc5b537fe88102413ad1e9316a541b62da31d3209ffe0cf0d16c35bb20f2538b` |
+| EVIDENCE-MANIFEST.json | `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/EVIDENCE-MANIFEST.json` | `5b2f4fad18356f22a69587b7029d308470ba9da4200bc83de49a9b5237f3a29c` |
+| SOURCE-FREEZE.json | `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/SOURCE-FREEZE.json` | `c8e9b3a3a99334485573804e7bd2d79823b9615b849ede4bb0ea91cffe3f0024` |
+| CLOCK.json | `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CLOCK.json` | `c11a3b31df9dd8a1983fe2c6efd9e0bc8b6b5cbaee11c5dd8d7d00c974f7c45a` |
+
+This report's own later readback and external receipt publication/readback are NOT_RUN at its creation and are not rewritten afterward. Planned separate receipt: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-REPORT.receipt.json`. The report contains no self digest. The later external receipt will bind this completed report and selected supporting records after their full byte readback; terminal delivery supplies the actual receipt path and complete SHA-256.

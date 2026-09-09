@@ -1,0 +1,28 @@
+{
+  "cause": "Completed item9 has empty aggregated output; full handoff native readback and byte-helper result unavailable",
+  "native_item": "C-candidate/stdout.jsonl:20 item_9.completed",
+  "native_event_sha256": "3d980e08366ed936c4e440e2671c2dba9e3e9d4f525225ddf884666e84d1bd7e",
+  "command_contains": [
+    "handoff creation",
+    "print(p.read_text())",
+    "artifact_receipt.py for handoff",
+    "initial delivery_check.py"
+  ],
+  "observed_exit_code": 0,
+  "observed_output_bytes": 0,
+  "stderr_bytes": 0,
+  "private_runtime_jsonl_count": 0,
+  "preserved_facts": [
+    "native completion PASS",
+    "ledger full readback and byte helper PASS",
+    "receipt and response readbacks observed",
+    "final delivery helper PASS"
+  ],
+  "not_inferred": [
+    "Cause of empty item output",
+    "Readback command failed or never executed",
+    "Earlier handoff helper result from later author checks"
+  ],
+  "dependent_B_launches": "STOPPED; NOT_RUN",
+  "no_retry": true
+}

@@ -1,0 +1,220 @@
+{
+  "role": "codex-brainstorm",
+  "publication_base": "1c912649e5686701e8204a22173a02c6894df707",
+  "author_inventory_sha256": "1add71a47919ff7c97d76415f05f495e5a0ee9a9813886417fb1d7e76144b761",
+  "source_scope": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm",
+  "source_file_count": 30,
+  "files": [
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "sha256": "efb7296894d3d9873f4e2535a9c34f946816f3ee0de036b3f3ab3e8e99af98a8",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "bytes": 7683
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+      "sha256": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+      "bytes": 3324
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+      "sha256": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+      "bytes": 1686
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-001.json",
+      "sha256": "f314c0d9a94d355d58b639638b2b2468e8243e7c76f8565be271382bf258e97a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-001.json",
+      "bytes": 5295
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-002.json",
+      "sha256": "83a350fb6908e5ab5fdb3cdec94d621f7f43554e41eef2481f7f780862c6e42f",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-002.json",
+      "bytes": 6324
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-003.json",
+      "sha256": "89b74fb7d0b87a7ddc25e68a176d49a4746297c82b913eaf65c88070770326d8",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-003.json",
+      "bytes": 6011
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-004.json",
+      "sha256": "e6f94665e3b26011c9896e3bd28f2493ecb9c3e8f13267d31591c8802c5799e8",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-004.json",
+      "bytes": 6411
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/check_anchors.py",
+      "sha256": "0eafb40a442460e7c4e4736c0a6cd74ed0923fb73be8a255fec7a27a53ee9ebd",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/check_anchors.py",
+      "bytes": 4609
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+      "sha256": "9b0a44071c91502b615c5d581050899bd01526b1afe357c54cc259c7a6ffcbca",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+      "bytes": 7440
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-current.md",
+      "sha256": "7a8169f7291924f19618e7fd5392bdf3f29739c4ad5074c0e4c6937cd02ba49b",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-current.md",
+      "bytes": 2173
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-r1.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-r1.md",
+      "bytes": 2188
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "bytes": 2188
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "bytes": 1232
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-assignment.md",
+      "sha256": "c4e619e8740bfff8eb695cf5ac5ba247e0feefbeafd88f46165cd57036593d9a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-assignment.md",
+      "bytes": 1237
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-expectations.json",
+      "sha256": "85b7456fe49e3835278fd7abc2aff1a410b602041cc9acccce2cf18df1798ef4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-expectations.json",
+      "bytes": 830
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/worker-request.txt",
+      "sha256": "ccbf1e1bac0bb68ed4c54733e74da0cc0e5c6cbca8e46ccf1202da528d6af1bf",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/worker-request.txt",
+      "bytes": 714
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/proposal-context.txt",
+      "sha256": "1741f5fd122423d425b411838b082392c385be739d4af134f1c84f8371544a39",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/proposal-context.txt",
+      "bytes": 249
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/selected-input.json",
+      "sha256": "d579ad85f7593f3c54b67ec470fc6fc66a7aed787ab14cc7471e478c6a7b5e6f",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/selected-input.json",
+      "bytes": 275
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/installed-resources.json",
+      "sha256": "3a13a3bdf8e262ee89416d54d4ba7de2d73bf751576c6ab68fb7e8d508f31283",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/installed-resources.json",
+      "bytes": 2236
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/provenance.json",
+      "sha256": "85c6389ec252577def9b4072af6c05569016574ecc92f5d4a2cc963406afa233",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/provenance.json",
+      "bytes": 1479
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/reference_identity_v4.py",
+      "sha256": "5dbbc380e05a9104e571c2364a45773fa9eb34f4f7240ac35e2d0b27a6009367",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/reference_identity_v4.py",
+      "bytes": 12608
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_anchors.py",
+      "sha256": "78b3fb4f7c6c115e0892650dc7ab038b8076f4bd110782f576154768d145f43c",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_anchors.py",
+      "bytes": 2916
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_delivery_check.py",
+      "sha256": "ffa2b377cfa3e7285efc0940f1ea75c12f3378f831e8804032191d677b944c57",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_delivery_check.py",
+      "bytes": 3256
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_reference_identity_v4.py",
+      "sha256": "011d212e723c099b82458a4eab47124ac7066ae143d9c71831de781657bb185f",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_reference_identity_v4.py",
+      "bytes": 7608
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/queries.json",
+      "sha256": "95369f479d979db6c20108abbd3206f6061097c76b80b5276c51c42ced11eb6b",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/queries.json",
+      "bytes": 1702
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/artifact-workflow.md",
+      "sha256": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/artifact-workflow.md",
+      "bytes": 14451
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+      "sha256": "9eadaf3ac33f0ab84f5ae1a9c1b7d91b6dcd326e6255f4cfc266d951fdb81c77",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+      "bytes": 28598
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+      "sha256": "ec94b77a602478b6da104f56fbd422d4d7be95aff79b5fbebdddda4313f371be",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+      "bytes": 10319
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/artifact_receipt.py",
+      "sha256": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/artifact_receipt.py",
+      "bytes": 1750
+    },
+    {
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/delivery_check.py",
+      "sha256": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/delivery_check.py",
+      "bytes": 4927
+    }
+  ],
+  "observations": "All original and copied hashes match; original modes preserved. This is source custody, not native evaluation."
+}

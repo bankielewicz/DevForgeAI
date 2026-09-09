@@ -1,0 +1,58 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SESSION-002"
+artifact_type: "session-record"
+project_id: "devforgeai"
+revision: 7
+status: draft
+created_at_utc: "2026-09-07T11:47:09.096090+00:00"
+producer:
+  skill: "integration-operator"
+  skill_revision: "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+execution_ref: null
+upstream: []
+evidence:
+  - store: authority
+    path: "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/INPUTS.json"
+    sha256: "343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5"
+supersedes:
+  artifact_id: "SESSION-002"
+  revision: 6
+  store: authority
+  path: "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r6.md"
+  sha256: "ee771b42d8b7a2da0de1b62b05dbc913eb04de70c072ac4d34d26f1241b5affe"
+decision_ref: null
+missing_inputs: []
+---
+
+# Codex brainstorm: runtime integration authoring revision 7
+
+Owner is the same user-selected retained Codex author, one isolated writer. This is a new source/preparation allocation under the user's ongoing dual-provider integration instruction; it is not a replacement session, old-attempt restart, native evaluation or human acceptance. Ownership remains retained through handback.
+
+This allocation becomes effective only after current authority `/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md` equals the issued `/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md`. First record the actual first-work timestamp and hard deadline at most 60 minutes later in the new run; all reading, preparation, waiting and closeout count. Reserve the final 20 minutes for freeze/report/readback/receipt. Stop technical edits at that reserve boundary and deliver an honest partial by the original deadline. No extension, reset or second automatic cycle.
+
+## Preconditions and selected inputs
+
+Worktree `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm`; branch `author/codex-brainstorm-mvp`; HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`; common Git directory `/home/bryan/Projects/DevForge/framework/DevForgeAI/.git`. Git operations are read-only. Verify these identities, the new authority and INPUTS.json (`343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5`), then the complete selected starting inventory and absent new reference before editing. Any initial mismatch stops dependent work; later continuation uses recorded in-progress bytes without undoing authorized edits. Preserve existing operator/shared edits and caches.
+
+Read the complete AUTHORING-RUNTIME-BRIDGE.md and SKILL-DESIGN-SPECIFICATION.md in this packet, your copied complete integration review and its linked reports, the six selected shared documents, and selected creator guidance. Use INPUTS.json's copied paths instead of newer mutable shared/runtime sources. Historical notes about pending synthetic approval are superseded by the selected newer root result records; historical outcomes stay unchanged.
+
+Apply the selected project skill-builder and the available Codex skill-creator authoring guidance. Use the supplied settled design; do not reinitialize the skill or restart a generic interview. The skill-builder design/authoring boundary does not authorize execution. The announced skill-validator is in progress, not selected. New provider validation status is Not performed; hook status for this authoring is Design only.
+
+## Exact write fence
+
+Inside `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm` only: `SKILL.md`, `references/artifact-workflow.md`, `references/derivation.json`, and the new `references/managed-runtime.md`. Preserve every other selected package file, including templates, helpers, fixtures, eval definitions and trigger queries. Do not add, delete or rename other source paths. No shared contract, manifest, installed cache, active hook configuration, runtime/installer source, sibling provider, Git metadata, AGENTS.md or canonical integration write is allocated.
+
+Create exactly one exclusive directory below `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/` for this revision. Put the starting byte copies, CLOCK, authoring decisions, unexecuted measurement/control proposals, complete final copies/manifest and one named report plus external receipt there. Prior runs, criteria, reports, root custody and authority records are immutable. Copy selected old controls into this new run before adapting them. Historical clocks/receipts copied as input never supply current authority or evidence.
+
+## Required change
+
+Enhance the existing skill using the bridge: preserve useful brainstorming, routing and identity/attribution rules; describe actual runtime-provided phase evidence and real WAITING_USER behavior; remove instructions for the model to run phase/check/receipt commands as managed closeout. Put conditional runtime detail in the new reference. Preserve draft-only/unverified reporting when no active runtime exists. Do not claim native activation or installed enforcement. Derivation must bind every changed instruction and new reference to exact selected source/addendum bytes and this new execution reference without a self-digest. Keep prior derivation history and repair stale destination bindings.
+
+Draft the revised measurement plan/rubric in the new run. Change only the old model-helper observations to runtime-owned ordering; preserve full installed-resource, behavioral, reference, native-completion and delivery coverage. Keep original C-before-B6-before-B6E admission and both B6E drift/control meanings. Preserve old C COULD_NOT_RUN and all three B arms NOT_RUN. No semantic runner/grader patch or new candidate test execution is allocated.
+
+## Execution and handback limits
+
+New native worker/grader/model calls 0; tests 0; validator/linter/helper execution 0; synthetic fixture execution 0; candidate installations/exports 0; new hook activation 0. Authored scripts remain unexecuted. Normal retained-session author reasoning, read-only source inspection and custody file reads/hashes/writes are permitted. Do not delegate prohibited execution. No credential contents, private histories, global mutation, API-key setup, broad signals, external messages, commits, merges, pushes, publication, acceptance or next-capability work.
+
+Deliver a collision-free named report, final selected candidate manifest, authoring record and unexecuted proposal inventory. Report each scope truthfully: source authored/partial, creator selection/invocation/application, validation NOT_PERFORMED, native C/B/A NOT_RUN for this revision, hooks DESIGN_ONLY, human acceptance NOT_RUN. Preserve historical C/B/A/budget findings explicitly. Read back the complete report and all selected final bytes, then write a separate receipt with absolute locators and full SHA-256 values. No self-digest; creation-time NOT_RUN is not rewritten. Return report, manifest and receipt paths/digests and stop for independent root review. Contributor-context native evaluation remains parked.

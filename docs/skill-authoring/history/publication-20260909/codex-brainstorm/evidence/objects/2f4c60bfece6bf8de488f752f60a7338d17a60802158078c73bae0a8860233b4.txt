@@ -1,0 +1,115 @@
+{
+  "schema_version": "devforge.external-authoring-receipt/v1",
+  "receipt_id": "CODEX-BRAINSTORM-AUTHORING-R8-REPORT-RECEIPT",
+  "created_at_utc": "2026-09-07T14:49:46.055653+00:00",
+  "assignment": "SESSION-002@8",
+  "receipt_scope": "External to source/proposals/report; complete-byte custody only. This is not a managed runtime receipt, a skill validation result, native admission, finding closure, or human acceptance.",
+  "authority": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/authority/SESSION-002-r8.md",
+    "sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383",
+    "bytes": 6648
+  },
+  "selected_inputs": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/INPUTS.json",
+    "sha256": "374d5a3fccaedf27149b8ca1eca0cebced6f7fd2e44e6aaa94572e67bf6518ec",
+    "bytes": 232734
+  },
+  "targets": [
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-REPORT.md",
+      "sha256": "658726e7ed2a9cef0a28025da71769d6b85cd8786dc21e17d465fa9699461bfe",
+      "bytes": 10241
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json",
+      "sha256": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2",
+      "bytes": 5118
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/PROPOSAL-INVENTORY.json",
+      "sha256": "6925a7432f5cb8662c67e660e720c5d83bd5764498a8861c7a66b87a3bc3e56b",
+      "bytes": 2095
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/BUILDER-CHANGE-RECEIPT.json",
+      "sha256": "0b82f381b07b8d4e18992b2e71bea13602ce2a290cc135d0820089b83ef5e1e0",
+      "bytes": 51320
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-RECORD.md",
+      "sha256": "cc5b537fe88102413ad1e9316a541b62da31d3209ffe0cf0d16c35bb20f2538b",
+      "bytes": 14148
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/EVIDENCE-MANIFEST.json",
+      "sha256": "5b2f4fad18356f22a69587b7029d308470ba9da4200bc83de49a9b5237f3a29c",
+      "bytes": 143729
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/PREPARATION-CUSTODY.json",
+      "sha256": "d9710d464cca3147d16b9bffd1fe4d1c72f210b42bbf91f7161a307a1b1b9e23",
+      "bytes": 149234
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/HANDOFF-CUSTODY.json",
+      "sha256": "e55d393ce15409cc4aea16e5e696eeb67a7600f6573729fdd1bf79f48b50bf7a",
+      "bytes": 1026
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/SOURCE-FREEZE.json",
+      "sha256": "c8e9b3a3a99334485573804e7bd2d79823b9615b849ede4bb0ea91cffe3f0024",
+      "bytes": 26954
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CLOCK.json",
+      "sha256": "c11a3b31df9dd8a1983fe2c6efd9e0bc8b6b5cbaee11c5dd8d7d00c974f7c45a",
+      "bytes": 645
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CLOSEOUT-START.json",
+      "sha256": "a3c67a6d14c1f29e908b1453579dcb382739729fe2b70257c6388b2d8e1f51eb",
+      "bytes": 1451
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/REPORT-READBACK.json",
+      "sha256": "bb5cac8c806a2c8907e41f4b3a6dd6d7b9ec25e23f7519927deaa6a4d0e8646d",
+      "bytes": 1645
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json",
+      "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+      "bytes": 32726
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/measurement-plan.proposed.json",
+      "sha256": "8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415",
+      "bytes": 32129
+    }
+  ],
+  "evidence_manifest_entry_count": 331,
+  "complete_target_reads_before_receipt": true,
+  "source_files_unchanged": 30,
+  "source_writes": 0,
+  "preserved_cache_unchanged": true,
+  "proposal_count": 2,
+  "finding_disposition": "CHG-001 APPLIED_TO_PROPOSALS_ONLY; original CODEX-MEAS-R7-001 medium/P2 retained; reevaluation required. Other 15 CHGs deferred outside Codex scope without assertion about Claude progress.",
+  "historical_results": "Evaluate-005 C COULD_NOT_RUN and all three B arms NOT_RUN; prior failures, budget FAIL/late-write findings and clocks preserved.",
+  "validation": "NOT_PERFORMED",
+  "hooks": "DESIGN_ONLY",
+  "current_native_C_B_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "zero_execution_counts": {
+    "new_native_worker_grader_model_calls": 0,
+    "new_delegated_models": 0,
+    "tests_suites_fixture_executions": 0,
+    "validator_linter_authored_helper_execution": 0,
+    "compilation": 0,
+    "installations_exports": 0,
+    "hook_activation": 0
+  },
+  "own_later_complete_readback": "NOT_RUN at creation; separate subsequent custody record required",
+  "own_later_current_target_verification": "NOT_RUN at creation; separate subsequent custody record required",
+  "terminal_delivery": "NOT_RUN at creation",
+  "stop": "Hold for independent root review; retain ownership; no native or contributor-context work admitted."
+}

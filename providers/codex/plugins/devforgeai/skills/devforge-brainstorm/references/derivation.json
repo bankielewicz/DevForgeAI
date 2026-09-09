@@ -1,0 +1,383 @@
+{
+  "source_base": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+  "contracts_sha256": {
+    "docs/mvp/skill-authoring-contract.md": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+    "docs/mvp/artifact-contract.md": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+    "docs/mvp/execution-contract.md": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+    "docs/mvp/specifications/skill-001-devforge-brainstorm.md": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718"
+  },
+  "templates": {
+    "assets/idea-ledger.md": {
+      "source": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "source_sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "adaptation": "Add stable section IDs",
+      "derived_sha256": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e",
+      "selected_source_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "destination": "assets/idea-ledger.md"
+    },
+    "assets/handoff.md": {
+      "source": "docs/mvp/templates/shared/handoff.md",
+      "source_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "adaptation": "Remove the optional continuation placeholder row and add unique stable section IDs in bracket-suffix headings; preserve all required headings and tables.",
+      "derived_sha256": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9",
+      "selected_source_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/templates/shared/handoff.md",
+      "destination": "assets/handoff.md"
+    }
+  },
+  "refresh_when": "Selected specification, shared contract/template, runtime interface, creator guidance or admitted assignment changes, or independent evaluation demonstrates a defect; preserve old bytes and evidence, rebind all changed destinations, and obtain a separately allocated affected evaluation.",
+  "runtime_dependency_on_source_checkout": false,
+  "revision_interpretation": {
+    "authority": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/CODEX-BRAINSTORM.md",
+    "sha256": "5914114cd2eb90c790983d603e56134917c05499e65f2cd57c25474df8888e39",
+    "scope": "SESSION-002@7 source/preparation allocation: exactly four instruction/derivation paths; no validation or native execution.",
+    "selected_inputs": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/INPUTS.json",
+    "selected_inputs_sha256": "343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5",
+    "execution_ref": {
+      "artifact_id": "SESSION-002",
+      "revision": 7,
+      "store": "authority",
+      "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md",
+      "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+      "sections": []
+    }
+  },
+  "instruction_files_sha256": {
+    "SKILL.md": "efb7296894d3d9873f4e2535a9c34f946816f3ee0de036b3f3ab3e8e99af98a8",
+    "references/artifact-workflow.md": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b",
+    "references/managed-runtime.md": "ec94b77a602478b6da104f56fbd422d4d7be95aff79b5fbebdddda4313f371be"
+  },
+  "helper_files_sha256": {
+    "scripts/artifact_receipt.py": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449",
+    "scripts/delivery_check.py": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872"
+  },
+  "record_kind": "Provider source derivation; maintenance metadata, not validation or runtime evidence",
+  "authored_at_utc": "2026-09-07T13:06:38.943121+00:00",
+  "execution_ref": {
+    "artifact_id": "SESSION-002",
+    "revision": 7,
+    "store": "authority",
+    "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md",
+    "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+    "sections": []
+  },
+  "selected_authority_root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc",
+  "execution_reference_limit": "Selected session has no stable section IDs; sections remain empty. Historical authority references below are retained history, not current mutable-path bindings.",
+  "history": [
+    {
+      "prior_derivation_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/starting-candidate/references/derivation.json",
+      "prior_derivation_sha256": "11504c3881b17e52e8d8d2113c3fe26a22ca98530ba04a43baa8a4def4c7258e",
+      "interpretation": "Exact prior object retained. Prior execution reference and instruction hashes describe their historical revisions; resolve history through preserved records, never the current mutable SESSION path.",
+      "record": {
+        "source_base": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+        "contracts_sha256": {
+          "docs/mvp/skill-authoring-contract.md": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "docs/mvp/artifact-contract.md": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "docs/mvp/execution-contract.md": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+          "docs/mvp/specifications/skill-001-devforge-brainstorm.md": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718"
+        },
+        "templates": {
+          "assets/idea-ledger.md": {
+            "source": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+            "source_sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+            "adaptation": "Add stable section IDs",
+            "derived_sha256": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e"
+          },
+          "assets/handoff.md": {
+            "source": "docs/mvp/templates/shared/handoff.md",
+            "source_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+            "adaptation": "Remove the optional continuation placeholder row and add unique stable section IDs in bracket-suffix headings; preserve all required headings and tables.",
+            "derived_sha256": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9"
+          }
+        },
+        "refresh_when": "Selected specification, contract, or template changes; rebind package and repeat affected checks",
+        "runtime_dependency_on_source_checkout": false,
+        "revision_interpretation": {
+          "authority": "CODEX-REVISE-004.md",
+          "sha256": "86f4494144b13b3eddd93da08cdfaa5f018db9c40080d0a434d460b312ca1772",
+          "scope": "SESSION-002@5 bounded raw-source and selector identity classification repair; unchanged entrypoint/assets/helpers/collector/process implementation",
+          "selected_inputs_sha256": "8c91697738a9825887df8de4c1c29170e430ebc7e99cdb9a6543cb76a2e1ac50",
+          "execution_ref": {
+            "artifact_id": "SESSION-002",
+            "revision": 5,
+            "store": "authority",
+            "path": "authoring-assignments-20260905/SESSION-002.md",
+            "sha256": "8dad264b66048dad5cc14ea6a7f779c24a4f2a1c9b403309660ccf06c3e805e0",
+            "sections": []
+          }
+        },
+        "instruction_files_sha256": {
+          "SKILL.md": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+          "references/artifact-workflow.md": "8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9"
+        },
+        "helper_files_sha256": {
+          "scripts/artifact_receipt.py": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449",
+          "scripts/delivery_check.py": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872"
+        }
+      }
+    }
+  ],
+  "selected_sources": {
+    "selected/shared/docs/mvp/artifact-contract.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/selected/codex/shared/docs/mvp/artifact-contract.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    },
+    "selected/shared/docs/mvp/execution-contract.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/selected/codex/shared/docs/mvp/execution-contract.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8"
+    },
+    "selected/shared/docs/mvp/skill-authoring-contract.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/selected/codex/shared/docs/mvp/skill-authoring-contract.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/skill-authoring-contract.md",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+    },
+    "selected/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/selected/codex/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718"
+    },
+    "selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/selected/codex/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417"
+    },
+    "selected/shared/docs/mvp/templates/shared/handoff.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/selected/codex/shared/docs/mvp/templates/shared/handoff.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/templates/shared/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+    },
+    "selected/runtime/README.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/runtime/README.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/README.md",
+      "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff"
+    },
+    "selected/runtime/phase_state.py": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/runtime/phase_state.py",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/phase_state.py",
+      "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95"
+    },
+    "selected/runtime/hook_protocol.py": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/runtime/hook_protocol.py",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/hook_protocol.py",
+      "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3"
+    },
+    "selected/runtime/delivery_core.py": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/runtime/delivery_core.py",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/delivery_core.py",
+      "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d"
+    },
+    "selected/guidance/codex-skill-creator/SKILL.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/guidance/codex-skill-creator/SKILL.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/codex-skill-creator/SKILL.md",
+      "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+    },
+    "selected/guidance/skill_builder/SKILL.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/guidance/skill-builder/SKILL.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/SKILL.md",
+      "sha256": "1d4934310c2fc41abe057d45a49d09af54cf331436d042f80e99d0a5110a238d"
+    },
+    "selected/guidance/skill_builder/references/interview-guide.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/guidance/skill-builder/references/interview-guide.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/references/interview-guide.md",
+      "sha256": "fc7359f9725d71f0db4c618359db25c93c141d5a2f6c9ba1701dc816c6184f44"
+    },
+    "selected/guidance/skill_builder/references/existing-skill-selection.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/guidance/skill-builder/references/existing-skill-selection.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/references/existing-skill-selection.md",
+      "sha256": "43b546b02d41152f44695e90e69f6dc13a05a25738bde4e38a9a21efe0535a55"
+    },
+    "selected/guidance/skill_builder/assets/skill-design-specification-template.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/guidance/skill-builder/assets/skill-design-specification-template.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/assets/skill-design-specification-template.md",
+      "sha256": "c9c310037d82ccf7cab62b97d9739d1bb1e5e2637db56f16e3ddb2398492a06f"
+    },
+    "selected/guidance/AUTHORING-RUNTIME-BRIDGE.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/AUTHORING-RUNTIME-BRIDGE.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/AUTHORING-RUNTIME-BRIDGE.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65"
+    },
+    "selected/guidance/SKILL-DESIGN-SPECIFICATION.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/SKILL-DESIGN-SPECIFICATION.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/SKILL-DESIGN-SPECIFICATION.md",
+      "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1"
+    },
+    "authority/CODEX-BRAINSTORM.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/CODEX-BRAINSTORM.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/CODEX-BRAINSTORM.md",
+      "sha256": "5914114cd2eb90c790983d603e56134917c05499e65f2cd57c25474df8888e39"
+    },
+    "authority/INPUTS.json": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/INPUTS.json",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/INPUTS.json",
+      "sha256": "343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5"
+    },
+    "authority/authority/SESSION-002-r7.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/authority/SESSION-002-r7.md",
+      "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513"
+    },
+    "authority/authority/SESSION-002-r6.md": {
+      "selected_source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r6.md",
+      "preserved_copy": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/authority/SESSION-002-r6.md",
+      "sha256": "ee771b42d8b7a2da0de1b62b05dbc913eb04de70c072ac4d34d26f1241b5affe"
+    }
+  },
+  "instruction_derivations": {
+    "SKILL.md": {
+      "changes": "Preserve exact discovery frontmatter and conversational/routing/adoption rules. Add conditional managed reference and real blocking-question evidence. Replace model-owned closeout helper/receipt chain with runtime-owned completion; preserve artifact metadata and creation-time NOT_RUN; unmanaged output stays draft and delivery unverified.",
+      "source_inputs": [
+        "selected/guidance/AUTHORING-RUNTIME-BRIDGE.md",
+        "selected/guidance/SKILL-DESIGN-SPECIFICATION.md",
+        "selected/guidance/codex-skill-creator/SKILL.md",
+        "selected/guidance/skill_builder/SKILL.md",
+        "selected/guidance/skill_builder/references/interview-guide.md",
+        "selected/guidance/skill_builder/references/existing-skill-selection.md",
+        "selected/guidance/skill_builder/assets/skill-design-specification-template.md",
+        "selected/shared/docs/mvp/skill-authoring-contract.md",
+        "selected/shared/docs/mvp/artifact-contract.md",
+        "selected/shared/docs/mvp/execution-contract.md",
+        "selected/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+        "selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+        "selected/shared/docs/mvp/templates/shared/handoff.md",
+        "authority/authority/SESSION-002-r7.md",
+        "authority/INPUTS.json",
+        "selected/runtime/README.md",
+        "selected/runtime/hook_protocol.py"
+      ],
+      "destination": "SKILL.md",
+      "destination_sha256": "efb7296894d3d9873f4e2535a9c34f946816f3ee0de036b3f3ab3e8e99af98a8",
+      "previous_destination": {
+        "preserved_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/starting-candidate/SKILL.md",
+        "sha256": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828"
+      },
+      "execution_ref": {
+        "artifact_id": "SESSION-002",
+        "revision": 7,
+        "store": "authority",
+        "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md",
+        "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+        "sections": []
+      }
+    },
+    "references/artifact-workflow.md": {
+      "changes": "Preserve full source-kind, repeated-reference, row/section, envelope, attribution and table rules. Bind managed outputs to external selection and actual baseline archives. Replace model-owned receipt/check procedure with phase evidence and runtime delivery; retain truthful creation-time observations and no fallback chain.",
+      "source_inputs": [
+        "selected/guidance/AUTHORING-RUNTIME-BRIDGE.md",
+        "selected/guidance/SKILL-DESIGN-SPECIFICATION.md",
+        "selected/guidance/codex-skill-creator/SKILL.md",
+        "selected/guidance/skill_builder/SKILL.md",
+        "selected/guidance/skill_builder/references/interview-guide.md",
+        "selected/guidance/skill_builder/references/existing-skill-selection.md",
+        "selected/guidance/skill_builder/assets/skill-design-specification-template.md",
+        "selected/shared/docs/mvp/skill-authoring-contract.md",
+        "selected/shared/docs/mvp/artifact-contract.md",
+        "selected/shared/docs/mvp/execution-contract.md",
+        "selected/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+        "selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+        "selected/shared/docs/mvp/templates/shared/handoff.md",
+        "authority/authority/SESSION-002-r7.md",
+        "authority/INPUTS.json",
+        "selected/runtime/phase_state.py",
+        "selected/runtime/delivery_core.py"
+      ],
+      "destination": "references/artifact-workflow.md",
+      "destination_sha256": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b",
+      "previous_destination": {
+        "preserved_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/starting-candidate/references/artifact-workflow.md",
+        "sha256": "8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9"
+      },
+      "execution_ref": {
+        "artifact_id": "SESSION-002",
+        "revision": 7,
+        "store": "authority",
+        "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md",
+        "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+        "sections": []
+      }
+    },
+    "references/managed-runtime.md": {
+      "changes": "New conditional installed reference for selected session/checkpoint schema, exact phase content, externally selected handoff-only mode, actual WAITING_USER, one correction per phase, original deadline, protected completion/readback/verification ordering, and native transport/rendering/semantic limits.",
+      "source_inputs": [
+        "selected/guidance/AUTHORING-RUNTIME-BRIDGE.md",
+        "selected/guidance/SKILL-DESIGN-SPECIFICATION.md",
+        "selected/guidance/codex-skill-creator/SKILL.md",
+        "selected/guidance/skill_builder/SKILL.md",
+        "selected/guidance/skill_builder/references/interview-guide.md",
+        "selected/guidance/skill_builder/references/existing-skill-selection.md",
+        "selected/guidance/skill_builder/assets/skill-design-specification-template.md",
+        "selected/shared/docs/mvp/skill-authoring-contract.md",
+        "selected/shared/docs/mvp/artifact-contract.md",
+        "selected/shared/docs/mvp/execution-contract.md",
+        "selected/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+        "selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+        "selected/shared/docs/mvp/templates/shared/handoff.md",
+        "authority/authority/SESSION-002-r7.md",
+        "authority/INPUTS.json",
+        "selected/runtime/README.md",
+        "selected/runtime/phase_state.py",
+        "selected/runtime/hook_protocol.py",
+        "selected/runtime/delivery_core.py"
+      ],
+      "destination": "references/managed-runtime.md",
+      "destination_sha256": "ec94b77a602478b6da104f56fbd422d4d7be95aff79b5fbebdddda4313f371be",
+      "previous_destination": null,
+      "execution_ref": {
+        "artifact_id": "SESSION-002",
+        "revision": 7,
+        "store": "authority",
+        "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md",
+        "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+        "sections": []
+      }
+    }
+  },
+  "derivation_record_change": {
+    "destination": "references/derivation.json",
+    "transformation": "Retain the exact previous derivation object in history, repair current instruction destination digests, add new reference and exact source/addendum/authority bindings. This record has no self-digest; the external candidate manifest binds its final complete bytes.",
+    "source_inputs": [
+      "selected/shared/docs/mvp/artifact-contract.md",
+      "selected/shared/docs/mvp/execution-contract.md",
+      "selected/shared/docs/mvp/skill-authoring-contract.md",
+      "selected/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "selected/shared/docs/mvp/templates/shared/handoff.md",
+      "selected/runtime/README.md",
+      "selected/runtime/phase_state.py",
+      "selected/runtime/hook_protocol.py",
+      "selected/runtime/delivery_core.py",
+      "selected/guidance/codex-skill-creator/SKILL.md",
+      "selected/guidance/skill_builder/SKILL.md",
+      "selected/guidance/skill_builder/references/interview-guide.md",
+      "selected/guidance/skill_builder/references/existing-skill-selection.md",
+      "selected/guidance/skill_builder/assets/skill-design-specification-template.md",
+      "selected/guidance/AUTHORING-RUNTIME-BRIDGE.md",
+      "selected/guidance/SKILL-DESIGN-SPECIFICATION.md",
+      "authority/CODEX-BRAINSTORM.md",
+      "authority/INPUTS.json",
+      "authority/authority/SESSION-002-r7.md",
+      "authority/authority/SESSION-002-r6.md"
+    ],
+    "previous_destination": {
+      "preserved_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/starting-candidate/references/derivation.json",
+      "sha256": "11504c3881b17e52e8d8d2113c3fe26a22ca98530ba04a43baa8a4def4c7258e"
+    },
+    "execution_ref": {
+      "artifact_id": "SESSION-002",
+      "revision": 7,
+      "store": "authority",
+      "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-002-r7.md",
+      "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+      "sections": []
+    }
+  },
+  "status": {
+    "source": "AUTHORED_UNVALIDATED",
+    "validation": "NOT_PERFORMED",
+    "hooks": "DESIGN_ONLY",
+    "native_C": "NOT_RUN",
+    "native_B": "NOT_RUN",
+    "native_A": "NOT_RUN",
+    "human_acceptance": "NOT_RUN"
+  }
+}

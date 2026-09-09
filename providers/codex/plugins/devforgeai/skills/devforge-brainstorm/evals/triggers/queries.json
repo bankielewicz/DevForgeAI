@@ -1,0 +1,51 @@
+[
+  {
+    "id": "A-explicit",
+    "query": "$devforge-brainstorm Help me explore an app for people who share a community workshop.",
+    "should_trigger": true,
+    "category": "explicit",
+    "split": "train"
+  },
+  {
+    "id": "A-direct",
+    "query": "Help me brainstorm an app for a community workshop; members keep losing track of borrowed equipment.",
+    "should_trigger": true,
+    "category": "direct-domain",
+    "split": "train"
+  },
+  {
+    "id": "A-indirect",
+    "query": "I keep switching between tracking volunteer shifts, lending tools, and recording workshop repairs. I cannot tell which problem matters most.",
+    "should_trigger": true,
+    "category": "indirect",
+    "split": "train"
+  },
+  {
+    "id": "A-negative-story",
+    "query": "Here's STORY-014, it's accepted and ready. Implement it - hide trail condition reports older than 72 hours from the default feed.",
+    "should_trigger": false,
+    "category": "negative",
+    "split": "train"
+  },
+  {
+    "id": "A-negative-change",
+    "query": "Change our adopted offline-only decision to permit hosted storage. Prepare the change request.",
+    "should_trigger": false,
+    "category": "near-miss",
+    "split": "train"
+  },
+  {
+    "id": "A-validation-positive",
+    "query": "Our tiny choir loses sheet music and forgets rehearsal changes. I have several possible ideas and need help working out what is worth solving.",
+    "should_trigger": true,
+    "category": "indirect",
+    "split": "validation"
+  },
+  {
+    "id": "A-validation-negative",
+    "query": "Implement the accepted story to sort the lending table by due date.",
+    "should_trigger": false,
+    "category": "negative",
+    "split": "validation"
+  }
+]

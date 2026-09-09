@@ -1,0 +1,30 @@
+# Codex brainstorm r7 static source review
+
+**Outcome: PASS for the inspected R01–R10 static authoring anchors. No material author defect found.** This result does not establish native admission, installed resource loading, behavior, activation, rendered receipt delivery, or human acceptance.
+
+Candidate: `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r7-20260907T132636368009Z/inputs/codex/candidate/devforge-brainstorm`. Input manifest: `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r7-20260907T132636368009Z/INPUT-MANIFEST.json`; SHA-256 `3129fdecc77efc01c6e4e29095d96109fe5c07c9e0671a38ae4a3937240b9698`. The complete criterion evidence, selected requirements and one-based line ranges are in `AI-REVIEW.json`.
+
+The frozen package has 30 files against 29 baseline files. Only the three permitted existing paths changed, and `references/managed-runtime.md` was added; the other 26 package files are byte-identical. All 75 accessed frozen input files matched the manifest. Current instruction/asset pins match their destinations and the exact prior derivation object is retained.
+
+| Criterion | Static outcome |
+| --- | --- |
+| R01 Task identity and scope | PASS |
+| R02 Inputs, outputs and completion | PASS |
+| R03 Authority, ownership and accepted decisions | PASS |
+| R04 Workflow decisions and failure paths | PASS |
+| R05 Runtime dependencies and resource delivery | PASS |
+| R06 Instructions versus supplied data | PASS |
+| R07 Framework semantics and artifact provenance | PASS |
+| R08 Prompt organization and decision detail | PASS |
+| R09 Observable checks and honest reporting | PASS |
+| R10 Enforcement and handoff boundaries | PASS |
+
+The instructions preserve the selected provider contracts and brainstorming behavior while moving phase admission and receipt publication to the protected runtime. They specify current checkpoint evidence, real WAITING_USER, externally selected handoff-only mode, one bounded correction, the original deadline, preserved ledger revisions, truthful creation-time NOT_RUN and unverified draft delivery without an admitted runtime. Entry and reference links resolve in the frozen package; static path resolution does not establish installed consultation.
+
+The unchanged handoff template's later-digest instruction is governed by the explicit r7 runtime-owned completion rules. The bridge supersedes the old model-owned mechanics and SESSION-002@7 requires the assets/helpers/evals to stay unchanged. Their continued presence is not evidence of a required manual helper chain. Native admission and actual hook/rendering readiness remain root integration dependencies; the candidate accurately discloses them.
+
+Reviewer: `/root/r7_codex_source_review`, not an author. Exact runtime model, client version and reasoning configuration are unknown. The review received a fresh bounded task prompt and opened no author reports, earlier reviewer reports, run-side proposal conclusions, live source or memory files. The inherited developer context includes generic historical brainstorm-status hints; they were not used as evidence. The filesystem is shared, so this report makes no claim of filesystem/process/history/memory isolation or zero prior context.
+
+No candidate imports, commands, helpers, tests, installations, network operations, native clients or source edits occurred. Unchanged eval/helper implementation behavior was not evaluated. Runtime source inspection was limited to interface text and relevant excerpts, not an exhaustive runtime audit. The review used the issued r7 bridge and provider-selected contracts; newer validator contracts did not replace them. A full independent validator campaign and actual native/human observations remain outstanding.
+
+Started `2026-09-07T13:27:12.047861+00:00`; static analysis completed and early closeout began `2026-09-07T13:34:55.804782+00:00`. Original deadline `2026-09-07T13:47:12.047861+00:00`, with the final five minutes reserved. The separate receipt records output readback and hashes without a self-digest.

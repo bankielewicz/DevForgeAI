@@ -1,0 +1,118 @@
+{
+  "schema": "devforge.author-evaluation-delivery-receipt/v1",
+  "receipt_id": "EVALUATE-005-DELIVERY-001",
+  "created_at_utc": "2026-09-06T17:45:21.620776+00:00",
+  "run_root": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z",
+  "scope": "Actual completed local report/evidence byte delivery after full report readback. Raw receipt locator, not a framework artifact identity or semantic acceptance. Receipt excludes itself.",
+  "files": [
+    {
+      "path": "FINAL-REPORT.md",
+      "sha256": "dc0a7d752667ccd544719902c6904a25331bcbdd5060cd6254e763de12277cb5",
+      "bytes": 29887
+    },
+    {
+      "path": "FINAL-REPORT.sha256",
+      "sha256": "35f1d58f7ac5a58394e561cf9798c52dfa55669cc097903573634aac5062f1ac",
+      "bytes": 82
+    },
+    {
+      "path": "final-readback.json",
+      "sha256": "d8805c55bbdd18d5f669e3d521a231ce061d7200bd5469fc50341639b8834e19",
+      "bytes": 1232
+    },
+    {
+      "path": "evidence-manifest.json",
+      "sha256": "001670f9237544f1a86059634b5a8f87c1a1f185e017a25e56980d57f3554ea9",
+      "bytes": 131609
+    },
+    {
+      "path": "candidate-final-manifest.json",
+      "sha256": "76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4",
+      "bytes": 3052
+    },
+    {
+      "path": "staging-index.json",
+      "sha256": "71d6081305bcc0bc736bcb8ca6417a8f803206649b51662a89f931006cd42c95",
+      "bytes": 7393
+    },
+    {
+      "path": "measurement-plan.json",
+      "sha256": "e11472bb9f6aeaf83b197ff66da69e1170ceecad1348636e4360423465b26a48",
+      "bytes": 283699
+    },
+    {
+      "path": "C-candidate/stdout.jsonl",
+      "sha256": "3d980e08366ed936c4e440e2671c2dba9e3e9d4f525225ddf884666e84d1bd7e",
+      "bytes": 86518
+    },
+    {
+      "path": "C-candidate/execution.json",
+      "sha256": "317da3afb370367a52ffe522d9163b497f99e8ad2fc38c05f3f498e5f033b6b9",
+      "bytes": 8493
+    },
+    {
+      "path": "C-tool-observations.json",
+      "sha256": "453c4712090f15348e812337b8a2b4b5c0a7d6211f47ef5ec4bc45205f33f8a0",
+      "bytes": 3492
+    },
+    {
+      "path": "grades/C-candidate.json",
+      "sha256": "d32f5c00d9f4481b4e8c87de3d3ee4474b70e560195f8b380ebe01439d46ac82",
+      "bytes": 40007
+    },
+    {
+      "path": "grades/B6-candidate.json",
+      "sha256": "fa228504723ab74daaa283fa8b43e58eded32bd4833c7b14947818f254f2f433",
+      "bytes": 4625
+    },
+    {
+      "path": "grades/B6E-drift.json",
+      "sha256": "47e7a4404440f86a3f7a851901428e0b8a54909171f308ba264931c0cce5edc1",
+      "bytes": 5327
+    },
+    {
+      "path": "grades/B6E-control.json",
+      "sha256": "689c93bc7ab050b50397efcff678f293d9b7da3439704f2ce099af9893392638",
+      "bytes": 5329
+    },
+    {
+      "path": "phase-decisions.json",
+      "sha256": "6c090c8233f1105d8d1c3ea138dc7979cc8b63b0295a9ecd12c3406ab5709482",
+      "bytes": 2571
+    },
+    {
+      "path": "C-native-observation-gap.json",
+      "sha256": "8448f662915f3dd78899624b04e5163ed59c18000d1a7aa253bfa3c9c313443d",
+      "bytes": 972
+    },
+    {
+      "path": "grade-evidence-locator-clarification.json",
+      "sha256": "15f48baef2196c59b42a9a3d38717ef3c1278ac9164e99c30771b71665137356",
+      "bytes": 972
+    }
+  ],
+  "report_full_readback": "PASS; all315 lines observed before this receipt; final-readback.json binds unchanged report bytes",
+  "report_readonly_audit": {
+    "reviewer": "b6_review",
+    "result": "No concrete blocker found in full315-line report",
+    "observed_report_sha256": "dc0a7d752667ccd544719902c6904a25331bcbdd5060cd6254e763de12277cb5",
+    "observed_report_bytes": 29887,
+    "scope": "Bounded factual/reference/chronology review; did not independently repeat parent exhaustive manifest rehash"
+  },
+  "evidence_files_rehashed": 1085,
+  "frozen_bindings_rehashed": 1083,
+  "source_files_unchanged": 29,
+  "native_attempts": 1,
+  "maximum_concurrent_native_workers": 1,
+  "native_retries": 0,
+  "C_native_completion": "PASS",
+  "C_complete_case": "COULD_NOT_RUN",
+  "B6_B6E_drift_control": "NOT_RUN",
+  "ownership": "SESSION-002@6 retained for root review",
+  "human_usefulness_adoption": "NOT_RUN",
+  "canonical_integration": "NOT_RUN",
+  "next_skill": "NOT_RUN",
+  "elapsed_seconds_at_creation": 2905.095728,
+  "deadline_utc": "2026-09-06T17:56:56.525048+00:00",
+  "own_later_readback_hash": "NOT_RUN at receipt creation; recorded separately after actual observation"
+}
