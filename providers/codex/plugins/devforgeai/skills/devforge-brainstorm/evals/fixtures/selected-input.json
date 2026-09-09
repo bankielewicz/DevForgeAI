@@ -1,0 +1,12 @@
+{
+  "artifact_id": "IDEAS-001",
+  "revision": 1,
+  "store": "project",
+  "path": "IDEAS-001-r1.md",
+  "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+  "sections": [
+    "IDEA-001",
+    "IDEA-002"
+  ],
+  "current_path": "IDEAS-001-current.md"
+}

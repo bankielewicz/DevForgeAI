@@ -1,0 +1,2 @@
+USER U1: I coordinate a neighborhood seed swap. People keep forgetting which varieties they promised to bring. I want to explore whether a shared list would help.
+AI A1: Proposal: test a paper signup sheet at the next swap before building software.

@@ -1,0 +1,32 @@
+{
+  "record_kind": "EXTERNAL_RECEIPT_COMPLETE_READBACK",
+  "created_at_utc": "2026-09-07T14:50:27.729767+00:00",
+  "assignment": "SESSION-002@8",
+  "receipt": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-REPORT.receipt.json",
+    "sha256": "2f4c60bfece6bf8de488f752f60a7338d17a60802158078c73bae0a8860233b4",
+    "bytes": 6617
+  },
+  "complete_receipt_readback": "Complete receipt content returned in retained author session before this subsequent verification record.",
+  "all_direct_targets_read_and_match": 14,
+  "all_evidence_manifest_entries_read_and_match": 331,
+  "canonical_source_files_unchanged": 30,
+  "preserved_cache_unchanged": true,
+  "current_authority_still_selected_revision_8": true,
+  "creation_time_NOT_RUN_fields_in_report_and_receipt": "Preserved unchanged; this subsequent record supplies only later custody facts.",
+  "budget": {
+    "first_work_utc": "2026-09-07T14:30:32.044264+00:00",
+    "technical_proposal_freeze_utc": "2026-09-07T14:43:51.834993+00:00",
+    "original_hard_deadline_utc": "2026-09-07T15:30:32.044264+00:00",
+    "elapsed_seconds_at_receipt_readback": 1195.685503,
+    "within_original_allocation": true,
+    "clock_reset_or_extension": false
+  },
+  "method": "Standard-library complete file reads/hashes and read-only JSON parsing; byte custody only, not validation.",
+  "validation": "NOT_PERFORMED",
+  "hooks": "DESIGN_ONLY",
+  "native_C_B_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "stop": "Hold for independent root review; no further authoring or native work."
+}

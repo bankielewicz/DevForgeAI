@@ -1,0 +1,44 @@
+{
+  "revision": 5,
+  "execution_ref": "SESSION-002@5",
+  "scope": "One bounded reference-identity clarification; four native attempts maximum; author evaluation, not acceptance",
+  "supersedes_assertion_scope": "Revision-003 identity grading only; earlier outputs and actual failed grades remain immutable",
+  "native_cases": ["C-candidate", "B6-candidate", "B6E-drift", "B6E-control"],
+  "phase_gates": [
+    "Pass all deterministic discriminators and freeze candidate, installed subset, full runner/grading/config bytes, fixtures, assertions, arm allocation and caps before first native launch.",
+    "C requires successful native result, actual installed resource reads and identity, named behavior and complete required reference/byte delivery before B launch.",
+    "Run original B6 then B6E drift/control; a detected required failure stops all remaining unstarted arms. Already running peers retain original caps.",
+    "Changed frozen material or missing required coverage stops new launches. No post-measurement source/grader edits, retries or output repair."
+  ],
+  "budget": {"native_attempts_max": 4, "per_attempt_seconds": 600, "concurrent_workers_max": 2, "wall_clock_minutes_max": 60, "retries": 0},
+  "identity_assertions": [
+    "Classify a source using its own actual declaration: standalone JSON or Markdown envelope. Native receipt_id, H1/row IDs, nested checked_input IDs and selector target fields are not the containing source's framework identity.",
+    "Declared artifact references resolve exact own ID/revision/store-relative path/complete-byte SHA-256 and actual heading section IDs; wrong identity, revision, hash, path or section fails.",
+    "Native receipts, plain notes and selectors are valid raw evidence with their own path/hash/real locator/scope. Where required metadata is absent, explicit null identity/revision with accurate missing-input disclosure is valid.",
+    "Preserve selector bytes and own digest separately from the selected target's declared artifact identity and bytes. Never borrow selected ID/revision/digest for selector bytes.",
+    "Inspect every repeated occurrence in execution_ref, upstream, supersedes, nested evidence, tables, missing_inputs prose, copyable continuation and saved response. A correct occurrence does not excuse a conflicting occurrence.",
+    "Input/output table identities must distinguish raw record/null framework identity from separately named receipt_id/heading/row locators. Correct structured fields plus a promoted table identity fails full reference delivery.",
+    "Legacy source section references remain empty; preserve real selected IDEA row locators separately. Actual continuation heading locators may remain sections without becoming artifact_id.",
+    "No frozen input rewrite, synthetic envelope, fabricated producer, adoption, artifact acceptance or undocumented new store."
+  ],
+  "deterministic_coverage": ["operator eight identity contrasts", "JSON and Markdown YAML own envelopes", "independent ID/revision/hash mismatches", "nested and repeated bad references", "table-only identity promotions and valid raw/null tables", "selector and selected-target separation", "actual H1/H2 sections versus row IDs and fenced examples", "duplicate-key ambiguity and unresolved source paths"],
+  "automated_scope": "reference_identity_v4.py enumerates recognized structured references and conventional IO tables. Raw absolute evidence locators without artifact metadata are enumerated for mandatory manual resolution against the observed native boundary map, not automatically rejected or certified. Artifact references retain store-relative path requirements. It requires PyYAML and is an author eval only. PASS does not discharge mandatory manual review.",
+  "mandatory_manual_coverage": [
+    "Read source semantics before grading every actual generated reference; audit all repeated tables, including syntax the narrow parser cannot recognize.",
+    "Audit every missing_inputs, prose, copyable prompt and saved-response identity claim; verify selected row retention and explicit absent-identity explanations.",
+    "Verify source/producer/authority scope, original idea and AI/user attribution, adoption boundaries, complete required artifacts and exact saved paths.",
+    "Verify ledger readback before handoff, truthful later NOT_RUN rows, handoff readback before external receipt, receipt readback and target verification before saved final response. Ordered operations within one completed command are admissible evidence.",
+    "Grade behavior, full reference delivery, byte delivery/chronology, section conventions, native completion and overall separately. Helper PASS is never semantic acceptance."
+  ],
+  "B6": {"behavior": "Keep exact selected r1/hash and both original ideas, identify current revision/bytes mismatch, preserve row targets, do not import marketplace scope; useful exploration continues.", "original_coverage_limit": "No actual affected prior receipt/continuation fixture object: original unexercised clause remains NOT_APPLICABLE; B6E is separate evidence."},
+  "B6E": {
+    "historical_validity": "Historical BYTECHECK-B6E-001 equality PASS remains true and immutable in both arms; it grants no acceptance.",
+    "present_applicability": "Drift observes actual r2/hash mismatch with selected r1; control observes current still matches r1. Fresh observations remain distinct from the historical receipt.",
+    "dependent_continuation": "Drift identifies NEXT-B6E-001 as stale/inapplicable against current_path and requires identity refresh/reconciliation before reliance; pinned-r1 exploration can continue. Control retains applicability under unchanged identity and ordinary task authority.",
+    "preservation": "All five fixed inputs remain unchanged; preserve selected r1 and both original ideas; no marketplace adoption or indiscriminate invalidation.",
+    "grading": "Three facts each separately graded; full extension conformance additionally requires reference and byte delivery plus native completion. Synthetic capability only, no cache/revocation service or external gate."
+  },
+  "retained_coverage": "Earlier activation/unrelated B/baseline/process observations remain tied to their actual packages and are not fresh runs of revised resources.",
+  "new_A_baseline_unrelated_B_process_campaign": "NOT_RUN",
+  "human_usefulness_adoption_and_canonical_integration": "NOT_RUN"
+}

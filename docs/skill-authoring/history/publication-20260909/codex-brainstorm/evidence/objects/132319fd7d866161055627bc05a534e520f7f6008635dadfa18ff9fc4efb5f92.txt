@@ -1,0 +1,70 @@
+{
+  "schema_version": "devforge.static-measurement-review/v1",
+  "review_id": "codex-measurement-r8",
+  "reviewer_agent": "/root/r7_codex_measurement_review",
+  "actual_model": "unknown",
+  "continuity": "Same independent reviewer agent as the r7 measurement review; prior own finding was expressly selected. Not a fresh blind review.",
+  "input_manifest_sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+  "result": "NO_NEW_MATERIAL_FINDINGS_IN_SCOPED_STATIC_REVIEW",
+  "findings": [],
+  "prior_finding_dispositions": [
+    {
+      "id": "CODEX-MEAS-R7-001",
+      "original_severity": "medium/P2",
+      "disposition": "ADDRESSED_IN_R8_PROPOSAL",
+      "scope": "The previously absent explicit mandatory causal-provenance measurement requirement and missing-observation admission rule are now specified. This is proposal-level remediation only, not validation or runnable/native enforcement closure.",
+      "evidence": [
+        {
+          "path": "inputs/codex/run/proposals/grade-rubric.proposed.json",
+          "line_start": 22,
+          "line_end": 32,
+          "json_pointer": "/proposed_rubric/common_checks"
+        },
+        {
+          "path": "inputs/codex/run/proposals/grade-rubric.proposed.json",
+          "line_start": 50,
+          "line_end": 50,
+          "json_pointer": "/proposed_rubric/definitions/causal_provenance"
+        },
+        {
+          "path": "inputs/codex/run/proposals/grade-rubric.proposed.json",
+          "line_start": 246,
+          "line_end": 279,
+          "json_pointer": "/causal_provenance_judgment"
+        },
+        {
+          "path": "inputs/codex/run/proposals/measurement-plan.proposed.json",
+          "line_start": 245,
+          "line_end": 339,
+          "json_pointer": "/unexecuted_causal_provenance_cases"
+        }
+      ],
+      "remaining_dependency": "Root must separately select/freeze the independent reviewer, exact fixtures and observations, judgment-binding mechanism and fail-closed admission consumer before any evaluation."
+    }
+  ],
+  "preservation_results": {
+    "nine_prior_checks": "Retained in original order; causal_provenance appended as mandatory tenth.",
+    "five_runtime_substitutions": "Retained; only producer_identity_scope preparation assignment wording changes @7 to @8.",
+    "C_B6_B6E_and_A": "Case maps/order and all old coverage fields unchanged; no implicit A claim from explicit C/B instructions.",
+    "caps_and_history": "Bounds, old historical dispositions and copied control pins unchanged. Old C COULD_NOT_RUN and three B arms NOT_RUN remain.",
+    "source_and_preparation": "All 30 source pins match both proposal generations, current candidate manifest and root custody. Source provenance remains @7; new preparation is @8.",
+    "current_control_identity": "Current rubric and fixed-criterion links bind the actual new b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b bytes. Previous proposal pins bind r7; copied revision-004 pins stay historical. No current-control or criteria identity relabeling found within the two reviewed documents.",
+    "specimen_outcomes": "Eight CP descriptions all say execution NOT_RUN, fixture bytes NOT_AUTHORED and native_admission false. PASS text is normative/conditional; the decision format remains a specimen, not an observed judgment."
+  },
+  "scope_limits": [
+    "The broad baseline-copy discrepancy is reserved to root; no conclusion here certifies the complete copied run.",
+    "No source-wide review or executable enforcement evaluation was performed.",
+    "No r8 author report or other reviewer body was read."
+  ],
+  "status": {
+    "proposal_only": true,
+    "runnable_enforcement": "DEFERRED",
+    "validation": "NOT_PERFORMED",
+    "native_C_B_A": "NOT_RUN",
+    "hooks": "DESIGN_ONLY",
+    "root_admission": "NOT_RUN",
+    "human_acceptance": "NOT_RUN"
+  },
+  "receipt_publication": "NOT_RUN at creation",
+  "receipt_readback": "NOT_RUN at creation"
+}

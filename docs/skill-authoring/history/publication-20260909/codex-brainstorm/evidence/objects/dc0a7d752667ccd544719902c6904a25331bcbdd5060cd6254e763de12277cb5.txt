@@ -1,0 +1,315 @@
+---
+{
+  "schema_version": "devforge.artifact/v1",
+  "artifact_id": "SEVAL-CODEX-BRAINSTORM-001",
+  "artifact_type": "skill-evaluation-report",
+  "project_id": "devforgeai",
+  "revision": 6,
+  "status": "draft",
+  "created_at_utc": "2026-09-06T17:38:20.421881+00:00",
+  "producer": {
+    "skill": "retained-codex-author",
+    "skill_revision": "sha256:56ef98ab4032d317ab26e9b5e5a175650717351edb16ed9cde0cb6d1734d62da",
+    "scope": "Actual retained-author operator role, using evaluation-report template operator allowance; digest identifies the selected native client executable, not a creator skill or author model. No native creator activation claimed."
+  },
+  "execution_ref": {
+    "artifact_id": "SESSION-002",
+    "revision": 6,
+    "store": "authority",
+    "path": "authoring-assignments-20260905/SESSION-002.md",
+    "sha256": "ee771b42d8b7a2da0de1b62b05dbc913eb04de70c072ac4d34d26f1241b5affe",
+    "sections": []
+  },
+  "upstream": [],
+  "evidence": [
+    {
+      "path": "run-manifest.json",
+      "sha256": "2a987a9f7a50e6e8dd6b6002c1ed09f870ca8990bd57ddf69c19c952993bec15",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "candidate-final-manifest.json",
+      "sha256": "76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "staging-index.json",
+      "sha256": "71d6081305bcc0bc736bcb8ca6417a8f803206649b51662a89f931006cd42c95",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "measurement-plan.json",
+      "sha256": "e11472bb9f6aeaf83b197ff66da69e1170ceecad1348636e4360423465b26a48",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "frozen-copies.json",
+      "sha256": "f4e251c8269932e991a819c4b819edce65ad17221ac748c5971df303d633070c",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "administrative-diffs.json",
+      "sha256": "7c744d03030777b2870799c0ae66eca31cced731daac35941f1358845d569c9d",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "launch-specification.json",
+      "sha256": "57ca9ceb2a02e91270aeda4dac4d792f9a3135162ed33d598618f324101781f7",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "C-tool-observations.json",
+      "sha256": "453c4712090f15348e812337b8a2b4b5c0a7d6211f47ef5ec4bc45205f33f8a0",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "C-candidate/stdout.jsonl",
+      "sha256": "3d980e08366ed936c4e440e2671c2dba9e3e9d4f525225ddf884666e84d1bd7e",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "C-candidate/execution.json",
+      "sha256": "317da3afb370367a52ffe522d9163b497f99e8ad2fc38c05f3f498e5f033b6b9",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "grades/C-candidate.json",
+      "sha256": "d32f5c00d9f4481b4e8c87de3d3ee4474b70e560195f8b380ebe01439d46ac82",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "phase-decisions.json",
+      "sha256": "6c090c8233f1105d8d1c3ea138dc7979cc8b63b0295a9ecd12c3406ab5709482",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "C-native-observation-gap.json",
+      "sha256": "8448f662915f3dd78899624b04e5163ed59c18000d1a7aa253bfa3c9c313443d",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "C-reference-type-observations.json",
+      "sha256": "9ba42265b1943fb5df117be58794b243ff801fd658fc1d907d5230256d7122ee",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "grade-evidence-locator-clarification.json",
+      "sha256": "15f48baef2196c59b42a9a3d38717ef3c1278ac9164e99c30771b71665137356",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "deterministic-checks.json",
+      "sha256": "55c22c2bcf8e95e6ae140b4d66e4198abd2d304f2fbb88b846cdb469da08fa45",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "grading-control-results.json",
+      "sha256": "f4a4afda3bb0fb902991eedd35ca62e12415c397ef0c49b41e3a4024fce8b880",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "phase-control-results.json",
+      "sha256": "f6ca14ce97c64ecbd2f765b594330dd25a80d6773b9a67cc2fe189492125d4af",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "final-fence-check.json",
+      "sha256": "9b86a622227592b0b3a554418593db729d9f4e99d28a452f34165ec81c130ad8",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    },
+    {
+      "path": "evidence-manifest.json",
+      "sha256": "001670f9237544f1a86059634b5a8f87c1a1f185e017a25e56980d57f3554ea9",
+      "scope": "Run-relative raw evidence locator; no containing-document artifact identity inferred"
+    }
+  ],
+  "supersedes": {
+    "artifact_id": "SEVAL-CODEX-BRAINSTORM-001",
+    "revision": 5,
+    "store": "project",
+    "path": ".poc/codex/devforge-brainstorm-workspace/runs/revise-004-20260906T150043054090Z/FINAL-REPORT.md",
+    "sha256": "ac49a5a0202108cb39067dd40c57e97eb80bf682af98c86439f77d4d8796823d",
+    "sections": [
+      "STATE-001",
+      "VERIFY-001",
+      "CUSTODY-001"
+    ]
+  },
+  "decision_ref": null,
+  "missing_inputs": [
+    "Current SESSION002@6 has no stable section IDs; exact authority mapping uses sections [].",
+    "C native item9 completed with empty output; full handoff readback, handoff byte-helper result and initial delivery-check output remain unavailable despite exit0. Cause NOT_OBSERVABLE.",
+    "B6, B6E-drift and B6E-control unstarted; no fresh B6E conformance evidence.",
+    "Human usefulness/adoption, canonical integration, next skill, contributor-context evaluation and full A/baseline campaign NOT_RUN.",
+    "Report own later readback/hash and separate receipt publication NOT_RUN at creation."
+  ]
+}
+---
+
+# Codex brainstorm evaluation 005
+
+**Complete C gate: COULD_NOT_RUN.** C's named behavior, full reference review, mechanical byte delivery and native completion passed. Required chronological delivery observations are missing. Original B6 and both B6E arms remain **NOT_RUN**. All 29 source files are unchanged.
+
+## You are here [STATE-001]
+
+- Owner: **SESSION-002@6 retained for root review**. This is retained-author evaluation, not human acceptance or canonical integration.
+- Worktree: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm`; branch `author/codex-brainstorm-mvp`; HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`; common Git directory `/home/bryan/Projects/DevForge/framework/DevForgeAI/.git`.
+- Exactly one new run: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z`. Zero source edits, one candidate, one admitted native attempt, zero retries. No B phase command was issued.
+- Allocation start: `2026-09-06T16:56:56.525048+00:00`; deadline `2026-09-06T17:56:56.525048+00:00`. The first new-run file was iteration-budget.json, including all preparation/approval time. Limits: four attempts, 600 seconds each, two simultaneous, 60 minutes overall.
+- Current task state: evaluation stopped at the required C gate; evidence ready for root review and this report's subsequent readback/receipt. Human usefulness/adoption, canonical integration and next skill remain NOT_RUN. Contributor-context evaluation remains parked.
+
+## Inputs consumed and outputs produced [IO-001]
+
+Authority store root is `/home/bryan/Projects/DevForge/framework/DevForge/.poc`; project store root is the worktree above. Current SESSION-002@6 path is `authoring-assignments-20260905/SESSION-002.md`, SHA-256 `ee771b42d8b7a2da0de1b62b05dbc913eb04de70c072ac4d34d26f1241b5affe`. The identical preserved authority copy, complete handoff, root/source/runtime reviews and selected original/copied inputs were verified before new-run work.
+
+Root packet: `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-004-20260906T161054829344Z`. CODEX-EVALUATE-005.md SHA-256 `d676a3cf44b701c2f2eb6beea39cbe40b14be167d01e6fb1dcafa45e30c979ba`; INTEGRATION-REVIEW.md `057165b1d660774fca70a0589c6aec3dad8dd0d0203f9bd042affc3567edfd7a`; next-inputs/INPUTS.json `be1b8850e7ef811f1d566f4d6d2a8dbb854a696421b5a6fe8a7a9fc7df0cca61`. These are raw review/selector evidence, not invented framework artifact identities. Copies are under authority-inputs/; the current selector is EVALUATION-INPUTS.json. The older INPUTS.json is intentionally preserved for its selected shared-file map.
+
+Companion HEAD remains `6983f1de3e06f9b422546fd6944888dcd34e56a1`; installer `f9a8da5d550f261ae3baf53a0f8b707315ab1beff7120d88dc8867af4c57930e`; executable `1139a7f2a572be3b18d8a6ff6cd1dbb3ea88dbbfe4be42462b60082860c0daf1`. Six shared contracts/specification/templates and their selected copies are bound in preflight.json and the freeze. Operator-owned shared document edits and source cache remain unchanged.
+
+Package derivation retains historical SESSION-002@5 authoring provenance. Its old authority digest `8dad264b66048dad5cc14ea6a7f779c24a4f2a1c9b403309660ccf06c3e805e0` is verified through the root's preserved authority/SESSION-002.md. Current run execution uses @6. C still consumes historical SESSION-002@2 at its original digest `783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5`, as parent provenance only.
+
+| Output/evidence | SHA-256 |
+| --- | --- |
+| [run-manifest.json](run-manifest.json) | `2a987a9f7a50e6e8dd6b6002c1ed09f870ca8990bd57ddf69c19c952993bec15` |
+| [candidate-final-manifest.json](candidate-final-manifest.json) | `76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4` |
+| [staging-index.json](staging-index.json) | `71d6081305bcc0bc736bcb8ca6417a8f803206649b51662a89f931006cd42c95` |
+| [measurement-plan.json](measurement-plan.json) | `e11472bb9f6aeaf83b197ff66da69e1170ceecad1348636e4360423465b26a48` |
+| [frozen-copies.json](frozen-copies.json) | `f4e251c8269932e991a819c4b819edce65ad17221ac748c5971df303d633070c` |
+| [administrative-diffs.json](administrative-diffs.json) | `7c744d03030777b2870799c0ae66eca31cced731daac35941f1358845d569c9d` |
+| [launch-specification.json](launch-specification.json) | `57ca9ceb2a02e91270aeda4dac4d792f9a3135162ed33d598618f324101781f7` |
+| [C-tool-observations.json](C-tool-observations.json) | `453c4712090f15348e812337b8a2b4b5c0a7d6211f47ef5ec4bc45205f33f8a0` |
+| [C-candidate/stdout.jsonl](C-candidate/stdout.jsonl) | `3d980e08366ed936c4e440e2671c2dba9e3e9d4f525225ddf884666e84d1bd7e` |
+| [C-candidate/execution.json](C-candidate/execution.json) | `317da3afb370367a52ffe522d9163b497f99e8ad2fc38c05f3f498e5f033b6b9` |
+| [grades/C-candidate.json](grades/C-candidate.json) | `d32f5c00d9f4481b4e8c87de3d3ee4474b70e560195f8b380ebe01439d46ac82` |
+| [phase-decisions.json](phase-decisions.json) | `6c090c8233f1105d8d1c3ea138dc7979cc8b63b0295a9ecd12c3406ab5709482` |
+| [C-native-observation-gap.json](C-native-observation-gap.json) | `8448f662915f3dd78899624b04e5163ed59c18000d1a7aa253bfa3c9c313443d` |
+| [C-reference-type-observations.json](C-reference-type-observations.json) | `9ba42265b1943fb5df117be58794b243ff801fd658fc1d907d5230256d7122ee` |
+| [grade-evidence-locator-clarification.json](grade-evidence-locator-clarification.json) | `15f48baef2196c59b42a9a3d38717ef3c1278ac9164e99c30771b71665137356` |
+| [deterministic-checks.json](deterministic-checks.json) | `55c22c2bcf8e95e6ae140b4d66e4198abd2d304f2fbb88b846cdb469da08fa45` |
+| [grading-control-results.json](grading-control-results.json) | `f4a4afda3bb0fb902991eedd35ca62e12415c397ef0c49b41e3a4024fce8b880` |
+| [phase-control-results.json](phase-control-results.json) | `f6ca14ce97c64ecbd2f765b594330dd25a80d6773b9a67cc2fe189492125d4af` |
+| [final-fence-check.json](final-fence-check.json) | `9b86a622227592b0b3a554418593db729d9f4e99d28a452f34165ec81c130ad8` |
+| [evidence-manifest.json](evidence-manifest.json) | `001670f9237544f1a86059634b5a8f87c1a1f185e017a25e56980d57f3554ea9` |
+
+The report itself is excluded from this table and its own evidence manifest. Its later receipt is only planned at creation.
+
+## Unchanged candidate and preparation [SOURCE-001]
+
+The complete 29-file candidate manifest is byte-identical to revision 004, SHA-256 `76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4`. All files below are unchanged; the seven non-evals files form each installed target runtime. Installed per-case manifests live in staging-index.json, with actual frozen paths in measurement-plan.json.
+
+| Candidate-relative file | SHA-256 |
+| --- | --- |
+| SKILL.md | `ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828` |
+| assets/handoff.md | `8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9` |
+| assets/idea-ledger.md | `376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e` |
+| evals/assertions-revise-001.json | `f314c0d9a94d355d58b639638b2b2468e8243e7c76f8565be271382bf258e97a` |
+| evals/assertions-revise-002.json | `83a350fb6908e5ab5fdb3cdec94d621f7f43554e41eef2481f7f780862c6e42f` |
+| evals/assertions-revise-003.json | `89b74fb7d0b87a7ddc25e68a176d49a4746297c82b913eaf65c88070770326d8` |
+| evals/assertions-revise-004.json | `e6f94665e3b26011c9896e3bd28f2493ecb9c3e8f13267d31591c8802c5799e8` |
+| evals/check_anchors.py | `0eafb40a442460e7c4e4736c0a6cd74ed0923fb73be8a255fec7a27a53ee9ebd` |
+| evals/evals.json | `9b0a44071c91502b615c5d581050899bd01526b1afe357c54cc259c7a6ffcbca` |
+| evals/fixtures/IDEAS-001-current.md | `7a8169f7291924f19618e7fd5392bdf3f29739c4ad5074c0e4c6937cd02ba49b` |
+| evals/fixtures/IDEAS-001-r1.md | `50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7` |
+| evals/fixtures/IDEAS-001.md | `50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7` |
+| evals/fixtures/STORY-014.md | `8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e` |
+| evals/fixtures/b7/operator-assignment.md | `c4e619e8740bfff8eb695cf5ac5ba247e0feefbeafd88f46165cd57036593d9a` |
+| evals/fixtures/b7/operator-expectations.json | `85b7456fe49e3835278fd7abc2aff1a410b602041cc9acccce2cf18df1798ef4` |
+| evals/fixtures/b7/worker-request.txt | `ccbf1e1bac0bb68ed4c54733e74da0cc0e5c6cbca8e46ccf1202da528d6af1bf` |
+| evals/fixtures/proposal-context.txt | `1741f5fd122423d425b411838b082392c385be739d4af134f1c84f8371544a39` |
+| evals/fixtures/selected-input.json | `d579ad85f7593f3c54b67ec470fc6fc66a7aed787ab14cc7471e478c6a7b5e6f` |
+| evals/installed-resources.json | `3a13a3bdf8e262ee89416d54d4ba7de2d73bf751576c6ab68fb7e8d508f31283` |
+| evals/provenance.json | `85c6389ec252577def9b4072af6c05569016574ecc92f5d4a2cc963406afa233` |
+| evals/reference_identity_v4.py | `5dbbc380e05a9104e571c2364a45773fa9eb34f4f7240ac35e2d0b27a6009367` |
+| evals/test_anchors.py | `78b3fb4f7c6c115e0892650dc7ab038b8076f4bd110782f576154768d145f43c` |
+| evals/test_delivery_check.py | `ffa2b377cfa3e7285efc0940f1ea75c12f3378f831e8804032191d677b944c57` |
+| evals/test_reference_identity_v4.py | `011d212e723c099b82458a4eab47124ac7066ae143d9c71831de781657bb185f` |
+| evals/triggers/queries.json | `95369f479d979db6c20108abbd3206f6061097c76b80b5276c51c42ced11eb6b` |
+| references/artifact-workflow.md | `8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9` |
+| references/derivation.json | `11504c3881b17e52e8d8d2113c3fe26a22ca98530ba04a43baa8a4def4c7258e` |
+| scripts/artifact_receipt.py | `d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449` |
+| scripts/delivery_check.py | `8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872` |
+
+All four fresh installations passed. Exact original requests and complete fixture maps matched revision-004 staging-index.json: C has one historical parent input; original B6 has three inputs; each B6E arm has exactly five. Only IDEAS-001-current.md differs between B6E arms. The raw worker request and historical receipt/continuation bytes are unchanged. Reviewer expectations, control code and manifests stayed outside consumer visibility. Prompt and every fixture digest are in the frozen staging index.
+
+One deterministic replay passed all 15 tests across three test files and all eight original operator identity contrasts. The original B6E fixture semantics passed. Synthetic full-grade control PASS, omitted identity-review coverage COULD_NOT_RUN, wrong-arm rejection, and actual missing-prior-grade rejection all matched expectations. Control inputs were copied into this run; 184 original/copy bindings were rehashed. The grading-only freeze stub remains explicitly scoped to synthetic controls; real measurement uses the selected unchanged gate. No repeated full process campaign or baseline ran. Package quick validation passed; its historical creator-instruction identity is preserved, without claiming fresh creator activation.
+
+## Frozen run-side changes [FREEZE-001]
+
+Freeze time: `2026-09-06T17:15:10.632445+00:00`. Measurement plan SHA-256 `e11472bb9f6aeaf83b197ff66da69e1170ceecad1348636e4360423465b26a48`; 541 preserved original copies and 1,083 total frozen file bindings. Candidate/source/runtime inventories, selected shared/tool identities, runner/grader/configuration, assertions/rubric, exact prompts/fixtures, allowed arms, launch specification and deadline/caps were frozen before admission. Freeze checks passed at initial freeze, C phase entry, immediately before C admission, C phase exit, grading and preservation verification.
+
+Selected native_run.py, run_phase.py, frozen_gate.py, run_suite.py, process_capture.py, event_collector.py, grade_v4.py, inspectors, helper semantics and deterministic checks remain byte-identical. Run-side stage/freezer/visibility/final-preservation bookkeeping rebinds this run and authority or the unchanged 29-file inventory. The rubric changes only its explanatory current-allocation SESSION@5 to @6. New controls and the explicit manual plan implement the already required coverage. Exact old/new hashes and full administrative diffs are frozen in administrative-diffs.json; its 17 changed top-level entries are:
+
+- B-jobs.json
+- C-jobs.json
+- boundary-checks.json
+- deterministic-checks.json
+- freeze_v4.py
+- grade-rubric.json
+- grading-control-results.json
+- iteration-budget.json
+- phase-control-results.json
+- preflight.json
+- probe_visibility.py
+- stage.py
+- staging-index.json
+- starting-source-inventory.json
+- test_delivery_check.py.stderr.txt
+- test_reference_identity_v4.py.stderr.txt
+- verify_final.py
+
+New launch-specification.json, manual-review-plan.json and controls_v5.py are also preserved and hashed in the freeze. No frozen source, harness, criteria, inputs or native output was corrected after measurement. The source helper's known bool/float, CRLF and malformed-fence limitations remain unchanged. Manual review checks strict positive integer types, actual raw LF/CR bytes, all repeated reference forms and real headings outside fences; no automated FAIL was overridden.
+
+## Actual native launch and completion [NATIVE-001]
+
+The first and only native phase used the exact frozen command through tools.exec_command with `sandbox_permissions: require_escalated`, allocation-naming justification and original workdir. C-tool-observations.json preserves the request and actual result strings. A running session handle `45579` returned; later observations used that same handle and reached outer exit 0. No separate approval-decision payload was exposed; the requested escalation and successful launch are observed. No approval rejection, network/transport failure, replacement launch or fallback occurred in this allocation.
+
+The unchanged inner Bubblewrap boundary retained a read-only host, masked source/user skills, private project/client state, read-only original subscription-auth mount, PID namespace and native `--sandbox workspace-write`. Harmless actual probes passed filesystem/PID/auth/visibility checks. No credential contents were copied or logged. Native C exclusively created its private runtime; the other three runtime directories remain absent.
+
+Selected client: codex-cli 0.153.4 at `/home/bryan/.codex/packages/standalone/releases/0.153.4-x86_64-unknown-linux-musl/bin/codex`, SHA-256 `56ef98ab4032d317ab26e9b5e5a175650717351edb16ed9cde0cb6d1734d62da`. Arguments preserve `--ignore-user-config --ephemeral --skip-git-repo-check --sandbox workspace-write --json --color never`, subscription default, no model override. Exact actual model is NOT_OBSERVABLE in the captured event protocol.
+
+C admission: `2026-09-06T17:15:30.044784+00:00`, 2,486.481079 seconds remaining. Native duration: **509,999.649 ms** under its original 600-second cap. Process exit 0, one turn.completed, valid EOF, no pending items/parse errors, not timed out, no cancellation. Owned-process completion PASS: leader reaped, no registered survivors, private group absent, no termination signals requested. Scheduler peak: one worker. Captured thread ID: `01a077b7-d413-7e41-9b6c-f5ece6bc7f69`.
+
+Native-reported usage is preserved, not estimated: input_tokens 173302; cached_input_tokens 151808; cache_write_input_tokens 0; output_tokens 4476; reasoning_output_tokens 42. These are raw client counters, not billing or model-identity claims.
+
+## Complete grades and missing observation [VERIFY-001]
+
+| Arm | Admitted | Behavior | Full references | Mechanical bytes | Chronology | Native completion | Complete case |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| C-candidate | 1 | PASS | PASS | PASS | COULD_NOT_RUN | PASS | COULD_NOT_RUN |
+| B6-candidate | 0 | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
+| B6E-drift | 0 | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
+| B6E-control | 0 | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN | NOT_RUN |
+
+C installed-resource loading passed: item_1 reads installed SKILL.md; item_4 returns workflow and both templates; item_5 reads both helpers; item_8 shows the ledger byte helper PASS; item_11 returns final delivery helper PASS. Explicit path loading is C evidence; tier A activation remains NOT_RUN.
+
+C preserves rescue-dog capture versus handoff uncertainty, adds an attributed freshness hypothesis and proposes a small disposable exercise with success conditions and one user-owned continuation. Both artifacts remain draft, decisions unadopted, execution_ref null with the actual missing-session gap. All final ledger/handoff/receipt/response lines, mappings, IO tables, missing_inputs and prose references were manually inspected. Own revisions and repeated reference revisions are strict ints 1/2, not bools/floats. All output bytes use LF, no CR or Markdown code fences; cited headings are real sections and row IDs remain rows. C-reference-type-observations.json and the explicit decision file retain concrete locators. Automated references, structure and mechanical delivery passed.
+
+**C005-OBS-001 — Required handoff delivery observation unavailable.** Raw stdout.jsonl line 20, item_9.completed, contains exit_code 0 and an empty aggregated_output. Its command includes handoff creation, print of the full readback, the installed handoff byte helper and initial delivery check. The captured result supplies none of their output. The original ephemeral runtime has no JSONL session log supplying it; stderr is empty. Why the output is empty is NOT_OBSERVABLE.
+
+Item_7 had already returned the full ledger readback, and item_8 its byte scan PASS. Item_11 at stdout.jsonl line 23 reads/parses artifact envelopes, returns receipt/response readbacks, verifies their target hashes and reports final delivery PASS. Those observations do not restore item_9's missing complete handoff readback and handoff byte-helper result. The saved response line 5 claims both artifacts were read back and byte/template checks passed; that handoff-specific claim lacks the required captured result. Successful command exit alone is explicitly insufficient under the frozen rubric.
+
+Therefore chronology, completed_readbacks_receipt and saved_response_claims are COULD_NOT_RUN; complete required delivery and the full C gate are COULD_NOT_RUN. This is missing observation, not evidence that the command never ran, the helper failed, or native completion failed. Later author readback/mechanical checks do not retroactively supply the missing native observation. All manual rubric keys have explicit evidence-bound decisions; missing_required_coverage is empty, which means coverage was recorded, not that every check passed.
+
+One author citation named an absent standalone installed-manifest.json while this allocation stores per-case installed manifests in frozen staging-index.json. grade-evidence-locator-clarification.json supplies that exact actual location/hash and identifies the reporting lookup error. The original grade and decision bytes remain intact, with no grade upgrade. This author locator issue is separate from C's native observation gap.
+
+The retained author and a bounded read-only helper agree on the missing-observation classification. That helper also checked administrative/source/fixture parity. Another helper returned a model-capacity error and supplied no review; no model substitution or retry followed. Auxiliary review is not cold acceptance.
+
+Required C completeness did not pass; B6 admission was withheld, and the B6E pair consequently remained unstarted. Their explicit grades are NOT_RUN. There is no new observation of historical receipt truth, current applicability or continuation applicability for either B6E arm. No required failure was hidden behind correct behavior. No retries, source edits, parser repairs, timeout escalation, full A suite, unrelated B cases, baseline or full process campaign ran.
+
+## Preserved history and next owner [NEXT-001]
+
+All five prior evidence manifests and reports/receipts remain intact: 1,067 + 757 + 969 + 467 + 765 indexed evidence files. The root receipt's 871 packet files also rehash correctly. Historical SESSION002@5 resolves through its preserved exact authority copy; the current @6 path is not used to rewrite or invalidate old evidence. Baseline and source cache are unchanged. Native project mutations are confined to the four new docs/outbox files; all supplied inputs and installed bytes remain unchanged. final-fence-check.json is PASS.
+
+Revision-004 report `ac49a5a0202108cb39067dd40c57e97eb80bf682af98c86439f77d4d8796823d`, receipt `44c3d870cd3165882a1a3282899289656df8b6927f8f34ff4eb5aa929823e609` and manifest `76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4` remain preserved. Its C COULD_NOT_RUN/B NOT_RUN labels and unavailable native completion remain unchanged. Root's old outer-tool terminal failure is preserved as TOOL-COMPLETION.json; no old handle was retried or namespace-local PID signalled. Earlier six complete passes and B6E reference failures retain their historical candidate bindings and do not establish current B6E conformance.
+
+| Order | Task | Owner | Prerequisites | Completion evidence |
+| --- | --- | --- | --- | --- |
+| 1 | Review C005-OBS-001 and disposition the unchanged candidate/evidence | Integration root operator; SESSION-002@6 author retains ownership | This report, original item_9/item_11 bytes, frozen rubric, actual completion, grades and separate later receipt | Written root disposition distinguishing native success from incomplete delivery observation; any new measurement or semantic repair needs a new explicit allocation |
+
+Copyable continuation: Review evaluation005 under retained SESSION-002@6. Preserve all 29 source files, frozen code/input bytes and grades. Inspect C-candidate/stdout.jsonl item_9 empty completed output versus item_11, C-native-observation-gap.json and grades/C-candidate.json. Decide the observation-gap disposition without upgrading native evidence or assuming failure. B6/B6E remain NOT_RUN; no next launch, canonical integration, human adoption or next skill is allocated by this handoff.
+
+## Readback and custody [CUSTODY-001]
+
+evidence-manifest.json binds 1085 current evidence files, excluding private runtime/credential mountpoints, caches, itself and these later delivery artifacts. Source/installed/fixture inventories, actual control/configuration diffs, immutable freezes, raw native events/completion, outer tool results, per-arm grades and all missing observations are retained under the single run root. No global, Git, sibling/provider, companion, shared-policy or external-publication change was made.
+
+This report's own later readback, complete-byte hash and separate FINAL-REPORT.receipt.json publication are **NOT_RUN at creation**. It contains no self-digest. The separate later receipt must follow actual complete report readback and bind its final bytes plus evidence identities. Reading/hashing that receipt establishes delivery only. Ownership remains **SESSION-002@6 retained for root review**; human usefulness/adoption, canonical integration and the next skill are **NOT_RUN**. Stop after delivery.

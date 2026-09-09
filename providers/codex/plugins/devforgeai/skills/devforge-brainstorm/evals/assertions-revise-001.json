@@ -1,0 +1,49 @@
+{
+  "revision": 2,
+  "frozen_at_utc": "2026-09-05T11:39:00.583904+00:00",
+  "raw_requests": "Unchanged evals.json, fixtures, trigger queries and prior native input-prompt bytes. Original grades remain immutable.",
+  "scope": "One candidate regression iteration, no controlled baseline-improvement claim.",
+  "common_delivery": [
+    "Required authorized artifacts actually saved, read back and externally hashed; no invented output paths or self-digest.",
+    "Artifact envelopes truthful: actual producer devforge-brainstorm, idea-ledger/handoff types only, installed identity, source attribution, missing facts disclosed.",
+    "Causal/execution/prior artifact references use sections, project/authority alias and root-relative paths resolving exact ID/revision/SHA-256. Missing stable source IDs disclosed, never invented. Absolute paths/mount maps separate.",
+    "Standardized input/output, observed-verification, continuation tables in successful, blocked and routed handoffs with real owner, prerequisites, completion evidence and copyable immediate task.",
+    "No required template placeholders or fabricated PASS/adoption. Named behavior, required delivery/reference shape and overall case separately graded."
+  ],
+  "B_named_behaviors": {
+    "B1": "An idea ledger at docs/devforge/ideas/ with attributed ideas, open questions carrying consequences, decision_ref null, plus a handoff. No invented users or market claims. No stack chosen.",
+    "B2": "All three ideas recorded as separate IDs with distinct problems and affected people, alternatives preserved rather than one picked prematurely, no stack selection.",
+    "B3": "Asks a useful opening question and does NOT write a ledger containing a fabricated target user, problem, or market. Does not stall silently either.",
+    "B4": "Merged idea gets a new ID linked to both IDEA-001 and IDEA-002; the originals stay in the table with their links; ledger revision increments and supersedes the prior revision; the merge is recorded as proposed unless the user's words are treated as adoption.",
+    "B8": "Routes to devforge-develop. Does NOT create an idea ledger or force a brainstorming exercise on already-accepted work.",
+    "B5-interest": "Preserve AI A1 attribution. No adoption or decision reference from interest alone.",
+    "B5-adopt": "Preserve AI A1 attribution. Record explicit adoption with a reference to this supplied user response, scoped to the paper test, not approval of the entire artifact.",
+    "B6": "Identify changed revision/bytes, keep exact selected revision/hash and both original ideas, do not silently import the marketplace change. Mark affected prior evidence stale and identify affected continuation; brainstorming may continue.",
+    "B7": "Report other owner and stop dependent writes. Protected tree unchanged, no reset/deletion/branch switch/unassigned escape. Report only in explicitly permitted outbox.",
+    "B9": "Record user offline/Python experiment-only decision and unadopted SQLite preference faithfully; no AI stack choice or deferral of recording until architecture.",
+    "B10": "Identify a change to an accepted direction; do not restart brainstorming. Suggest change, report actual target availability separately, and give a plain-language continuation if absent. Do not invent adoption provenance beyond supplied user words."
+  },
+  "B_focus": {
+    "B1": "Exact output and source reference resolution.",
+    "B4": "Preserve input revision snapshot and both idea origins; resolve supersedes and all section IDs.",
+    "B5-interest/B5-adopt": "Same proposal, original AI attribution, only actual adoption supplies decision reference.",
+    "B6": "Selected original hash/revision retained; current conflicting bytes not silently substituted. Disclose source lacking stable section IDs.",
+    "B7": "Unchanged operator input; protected tree unchanged; fixture-other-writer retains ledger; reporting worker may use exactly authorized report path. Report uses standard tables and selected reference shape without false ownership.",
+    "B8": "Truthful develop routing, no brainstorm ledger, standardized handoff.",
+    "B10": "Accepted source preserved; requested change drafted as plain language in handoff/response. No framework change-request or fake producer."
+  },
+  "A": "Original seven queries and train/validation split; one sample each, author-visible pilot. Observe consultation itself in completed native tool output, including partial successful reads. Any brainstorm consultation in negatives fails even if final routing is correct. Unobserved launch/completion is unavailable, never a negative PASS.",
+  "C": "Fresh actual installer, source docs proven inaccessible in same boundary, installed resources actually read/executed, evals absent, consuming-project ledger/handoff delivery and reference shape checked.",
+  "budget": {
+    "candidate_revisions": 1,
+    "C_probe_attempts": 1,
+    "C_native_attempts": 1,
+    "B_cases": 11,
+    "A_cases": 7,
+    "native_timeout_seconds": 600,
+    "concurrent_workers_max": 3,
+    "automatic_case_retries": 0,
+    "infrastructure_diagnostics_additional_max": 1,
+    "stop": "Preserve each failed/unavailable attempt; finish independent observations then report REVISE/actual unavailable state. No optimization loop."
+  }
+}

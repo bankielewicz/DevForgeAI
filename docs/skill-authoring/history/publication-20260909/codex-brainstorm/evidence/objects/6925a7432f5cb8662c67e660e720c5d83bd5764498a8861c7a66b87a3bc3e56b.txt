@@ -1,0 +1,46 @@
+{
+  "schema_version": "devforge.authoring-proposal-inventory/v1",
+  "assignment": "SESSION-002@8",
+  "created_at_utc": "2026-09-07T14:43:51.835240+00:00",
+  "complete_proposal_count": 2,
+  "proposals": [
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json",
+      "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+      "bytes": 32726,
+      "record_kind": "UNEXECUTED_PROPOSAL",
+      "executable": false,
+      "native_admission": false
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/measurement-plan.proposed.json",
+      "sha256": "8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415",
+      "bytes": 32129,
+      "record_kind": "UNEXECUTED_PROPOSAL",
+      "executable": false,
+      "native_admission": false
+    }
+  ],
+  "before_proposals": [
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/run/proposals/grade-rubric.proposed.json",
+      "sha256": "1eba87fb7754004445ace03edf6fc132b2c2fef620b807d73f86abcb50fabb8e",
+      "bytes": 18985
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/run/proposals/measurement-plan.proposed.json",
+      "sha256": "c68565dc10917b0ffb9de22bbf75acc42bc337628f09e2722199645f078d6707",
+      "bytes": 21154
+    }
+  ],
+  "new_control_descriptions": 8,
+  "control_fixture_bytes_authored": 0,
+  "source_status": "UNCHANGED",
+  "runner_grader_edits": 0,
+  "status": "AUTHORED_REEVALUATION_REQUIRED",
+  "validation": "NOT_PERFORMED",
+  "hooks": "DESIGN_ONLY",
+  "native_C_B_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN"
+}

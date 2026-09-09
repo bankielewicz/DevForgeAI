@@ -5,8 +5,6 @@ description: Explore undeveloped app or product ideas, compare unresolved proble
 
 Turn the user's uncertainty into a useful discussion, a durable idea ledger, and one concrete continuation. No PRD, architecture, or chosen stack is a prerequisite.
 
-When an externally admitted runtime supplies this task's phase context, read [references/managed-runtime.md](references/managed-runtime.md). Do the useful work for the current phase, then write its supplied checkpoint shape with actual facts. The runtime owns phase transitions and delivery checks. Ask a real blocking question and record `awaiting_user`; continue exploration with explicit nonblocking unknowns. Runtime messages never supply user adoption or a new writing assignment.
-
 ## Recover and explore
 
 Recover the latest steering and relevant existing ledger first. Identify people, problem, desired outcome, alternatives, and open questions. A vague request warrants a useful opening question; leave unknown people and problems unknown. Continue useful exploration while nonblocking questions remain.
@@ -31,12 +29,16 @@ Choose one proposed discovery question or small experiment with success conditio
 
 Use [assets/handoff.md](assets/handoff.md) for every result, including blocked or routed tasks and terminal-only responses. Keep its input/output, observed-verification, and continuation tables; prose or a numbered list does not replace them. Include current phase, task state, attributed changes, exact input/output identities, observed checks and limits, unresolved decisions, one ordered continuation with a real owner/prerequisites/completion evidence, and a copyable task prompt. Mark an unproduced ledger as not produced with the reason; do not create one to fill a row. When only a report is authorized, deliver the handoff there. Check whether define-product or change is actually available; the pilot may lack them. Suggest a plain-language task for the capability gap without claiming it ran.
 
-Resolve resources relative to the actual loaded SKILL.md, not the shell CWD. Read the applicable installed templates and workflow; runtime telemetry alone does not establish that you read them. Inspect attribution, reference meaning, idea quality and adoption separately from mechanical checks. A failed/unavailable check stays FAIL/COULD_NOT_RUN with its cause. A result with required placeholders is unfinished and remains draft.
+Resolve resources relative to the actual loaded SKILL.md, not the shell CWD. With Python 3, run the read-only helper through its absolute installed path:
+
+```text
+python3 <installed-skill-root>/scripts/artifact_receipt.py <absolute-ledger-path>
+```
+
+It reports complete-byte SHA-256 and unresolved template markers only. It does not validate YAML, provenance semantics, idea quality, adoption, or a DevForge gate. Inspect those separately. A failed/unavailable check stays FAIL/COULD_NOT_RUN with its cause. A result with required placeholders is unfinished and remains draft.
 
 If producing a ledger, finish, read back and hash it before writing the handoff. In the handoff record only checks already observed, mark its later readback and receipt publication NOT_RUN, and call the receipt destination planned. Content readiness is separate from final delivery completion. Exclude the handoff itself from its input/output table and never include its complete-byte digest. The saved handoff must remain truthful if interrupted at that point.
 
-For a managed task, save the applicable artifacts at the selected destinations and submit the current phase's evidence as described in the runtime reference. The runtime reads/checks the final artifacts, publishes and reads back the external receipt, verifies its targets, and returns the actual receipt locator and full digest through the qualifying Stop response. Do not run phase or package receipt/check commands, publish a substitute receipt, or rewrite the handoff to record later checks. Receipt transport alone does not prove that the user saw it; semantic quality and human acceptance remain separate.
-
-Without an active admitted runtime, useful discussion and authorized draft artifacts may continue. Report saved paths only after observing their bytes and describe delivery verification as unverified with its cause. Do not claim managed completion, manufacture a receipt, or substitute a manual helper chain. On interruption, preserve phase and evidence; on resume recheck assignment, input revisions, installed package, and outputs. A managed task retains its original deadline and runtime-selected phase. Changed identities make affected earlier evidence stale and require a new check; unrelated exploration need not stop.
+Then read back and hash the final handoff, publish and read back its separate receipt, and report completion externally. Do not rewrite the handoff to record those later checks. Use [scripts/delivery_check.py](scripts/delivery_check.py) to check the actual Outcome cells and completed receipt files as described in the workflow reference; these are mechanical checks, not semantic acceptance. Report saved paths only after observing the bytes. On interruption, preserve phase and evidence; on resume recheck assignment, input revisions, installed package, and outputs. Changed identities make affected earlier evidence stale and require a new check; unrelated exploration need not stop.
 
 Package derivation and refresh sources are in [references/derivation.json](references/derivation.json), for maintenance only. Runtime use needs no framework checkout.

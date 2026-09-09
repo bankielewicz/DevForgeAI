@@ -1,0 +1,817 @@
+{
+  "schema_version": "devforge.builder-change-receipt/v1",
+  "receipt_id": "CODEX-BRAINSTORM-AUTHORING-R8-CHANGES",
+  "created_at_utc": "2026-09-07T14:45:14.445049+00:00",
+  "record_scope": "Standalone authoring receipt permitted by SESSION-002@8; not SEVAL/SENH, CLI schema acceptance, validator output, or runtime receipt.",
+  "assignment": "SESSION-002@8",
+  "owner": "Same retained user-selected Codex brainstorm author",
+  "authority": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/authority/SESSION-002-r8.md",
+    "sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383",
+    "bytes": 6648
+  },
+  "issuance": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/ISSUANCE.json",
+    "sha256": "520da9e3d225595036d140718c5cc582e3b824268ef2eadc844f911ceb83cac7",
+    "bytes": 2037
+  },
+  "input_handoff": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/CODEX-BRAINSTORM.md",
+    "sha256": "93871a0aa886bbdd29054c6d0f628b47ad174440acf0d9e0479a106af441a1c1",
+    "bytes": 2083
+  },
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/INPUTS.json",
+    "sha256": "374d5a3fccaedf27149b8ca1eca0cebced6f7fd2e44e6aaa94572e67bf6518ec",
+    "bytes": 232734
+  },
+  "input_reports": [
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/INTEGRATION-REVIEW.md",
+      "sha256": "99470268da1e0eeeaf345e181a3c00f77302437ca7549b6de1fe7bfd4e5b06ec",
+      "bytes": 6858
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/INTEGRATION-REVIEW.receipt.json",
+      "sha256": "a8d3ed7d5570f8f62cf30c175673b36cc30496ea01f65b68290ed0fe31968b37",
+      "bytes": 4751
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-source/REVIEW.md",
+      "sha256": "6cbef409ef54ec0e3d390a3470561818f8a4c42715005b1ec22f44cfa3f3f6fd",
+      "bytes": 4097
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-measurement/REVIEW.md",
+      "sha256": "351bcd21de08ae6daa4119912f014f9b4830b76e7cba34de5909084137fd8b11",
+      "bytes": 10736
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-measurement/FINDINGS.json",
+      "sha256": "d9cc23dcced981a51e8e2ac9a8847acaabbd3fe5e7701131e4e898f2ea00e67d",
+      "bytes": 6817
+    }
+  ],
+  "working_specification": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REMEDIATION-SPECIFICATION.md",
+    "sha256": "d5b60b3ea30ea4a8e426f9c2b74ff3f94298d7b3e786286285a7d1cc45b69742",
+    "bytes": 6576
+  },
+  "retained_design": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/SKILL-DESIGN-SPECIFICATION-r7.md",
+    "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+    "bytes": 10518
+  },
+  "selected_v1_bridge": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/AUTHORING-RUNTIME-BRIDGE-r7.md",
+    "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+    "bytes": 9402
+  },
+  "builder_guidance": [
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/guidance/skill-builder/SKILL.md",
+      "sha256": "feb18f7e07a2de070b320e414a8857c9bbf43fb9062c528d77acfb156ccd0a51",
+      "bytes": 10688
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/guidance/skill-builder/references/validator-handoff.md",
+      "sha256": "a38d6d993a451fbd137bcc6ad9572955695fe9b4f6b574c9da593bc45aa6543f",
+      "bytes": 7018
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/guidance/skill-builder/references/results-contract.md",
+      "sha256": "bf33f727b346d59c7e4bf94b2a62eda5ec3f599d848b8b690761bcfcad312841",
+      "bytes": 10797
+    }
+  ],
+  "intake_format_note": "Selected static alternative-format reports are retained unchanged and mapped by the root remediation specification and repair map; no completed P1-P6 skill-validator campaign or missing SENH/SEVAL identity is invented.",
+  "drift_reconciliation": "All 30 current source files and one preserved cache exclusion matched selected pins before dependent proposals. No source drift. INPUTS current_authority is the revision-7 preissuance capture; ISSUANCE and current/issued revision 8 agree. Source derivation correctly remains revision 7.",
+  "candidate_manifest": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json",
+    "sha256": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2",
+    "bytes": 5118
+  },
+  "complete_source_files_sha256": {
+    "SKILL.md": "efb7296894d3d9873f4e2535a9c34f946816f3ee0de036b3f3ab3e8e99af98a8",
+    "assets/handoff.md": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9",
+    "assets/idea-ledger.md": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e",
+    "evals/assertions-revise-001.json": "f314c0d9a94d355d58b639638b2b2468e8243e7c76f8565be271382bf258e97a",
+    "evals/assertions-revise-002.json": "83a350fb6908e5ab5fdb3cdec94d621f7f43554e41eef2481f7f780862c6e42f",
+    "evals/assertions-revise-003.json": "89b74fb7d0b87a7ddc25e68a176d49a4746297c82b913eaf65c88070770326d8",
+    "evals/assertions-revise-004.json": "e6f94665e3b26011c9896e3bd28f2493ecb9c3e8f13267d31591c8802c5799e8",
+    "evals/check_anchors.py": "0eafb40a442460e7c4e4736c0a6cd74ed0923fb73be8a255fec7a27a53ee9ebd",
+    "evals/evals.json": "9b0a44071c91502b615c5d581050899bd01526b1afe357c54cc259c7a6ffcbca",
+    "evals/fixtures/IDEAS-001-current.md": "7a8169f7291924f19618e7fd5392bdf3f29739c4ad5074c0e4c6937cd02ba49b",
+    "evals/fixtures/IDEAS-001-r1.md": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+    "evals/fixtures/IDEAS-001.md": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+    "evals/fixtures/STORY-014.md": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+    "evals/fixtures/b7/operator-assignment.md": "c4e619e8740bfff8eb695cf5ac5ba247e0feefbeafd88f46165cd57036593d9a",
+    "evals/fixtures/b7/operator-expectations.json": "85b7456fe49e3835278fd7abc2aff1a410b602041cc9acccce2cf18df1798ef4",
+    "evals/fixtures/b7/worker-request.txt": "ccbf1e1bac0bb68ed4c54733e74da0cc0e5c6cbca8e46ccf1202da528d6af1bf",
+    "evals/fixtures/proposal-context.txt": "1741f5fd122423d425b411838b082392c385be739d4af134f1c84f8371544a39",
+    "evals/fixtures/selected-input.json": "d579ad85f7593f3c54b67ec470fc6fc66a7aed787ab14cc7471e478c6a7b5e6f",
+    "evals/installed-resources.json": "3a13a3bdf8e262ee89416d54d4ba7de2d73bf751576c6ab68fb7e8d508f31283",
+    "evals/provenance.json": "85c6389ec252577def9b4072af6c05569016574ecc92f5d4a2cc963406afa233",
+    "evals/reference_identity_v4.py": "5dbbc380e05a9104e571c2364a45773fa9eb34f4f7240ac35e2d0b27a6009367",
+    "evals/test_anchors.py": "78b3fb4f7c6c115e0892650dc7ab038b8076f4bd110782f576154768d145f43c",
+    "evals/test_delivery_check.py": "ffa2b377cfa3e7285efc0940f1ea75c12f3378f831e8804032191d677b944c57",
+    "evals/test_reference_identity_v4.py": "011d212e723c099b82458a4eab47124ac7066ae143d9c71831de781657bb185f",
+    "evals/triggers/queries.json": "95369f479d979db6c20108abbd3206f6061097c76b80b5276c51c42ced11eb6b",
+    "references/artifact-workflow.md": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b",
+    "references/derivation.json": "9eadaf3ac33f0ab84f5ae1a9c1b7d91b6dcd326e6255f4cfc266d951fdb81c77",
+    "references/managed-runtime.md": "ec94b77a602478b6da104f56fbd422d4d7be95aff79b5fbebdddda4313f371be",
+    "scripts/artifact_receipt.py": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449",
+    "scripts/delivery_check.py": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872"
+  },
+  "preserved_exclusions": {
+    "scripts/__pycache__/delivery_check.cpython-312.pyc": "b31597859cc7c6aadbbf55c7cfe0fb7fc45159ed40deaedc19c6d503ef884326"
+  },
+  "proposal_inventory": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/PROPOSAL-INVENTORY.json",
+    "sha256": "6925a7432f5cb8662c67e660e720c5d83bd5764498a8861c7a66b87a3bc3e56b",
+    "bytes": 2095
+  },
+  "per_change": [
+    {
+      "finding_alias": "F-001",
+      "change_id": "CHG-001",
+      "original_finding_id": "CODEX-MEAS-R7-001",
+      "original_severity": "medium/P2",
+      "builder_severity": "MAJOR",
+      "owner": "codex",
+      "scope": "run-side proposals only",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Make causal-edge classification and acyclic immutable-revision lineage a mandatory evidence-bound manual judgment. Inspect every upstream edge, distinguish membership/next-step/backlink relationships, preserve ledger/handoff direction, require evidence locators and exact output/input revision hashes. Missing observation blocks full semantic PASS. Preserve all other checks, five runtime substitutions, cases and admission order. No candidate source, runner or grader edits.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/0"
+      },
+      "disposition": "applied",
+      "disposition_scope": "The two authorized run-side proposal documents are authored; source unchanged; no validated finding closure.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/run/proposals/grade-rubric.proposed.json",
+          "sha256": "1eba87fb7754004445ace03edf6fc132b2c2fef620b807d73f86abcb50fabb8e",
+          "bytes": 18985
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/run/proposals/measurement-plan.proposed.json",
+          "sha256": "c68565dc10917b0ffb9de22bbf75acc42bc337628f09e2722199645f078d6707",
+          "bytes": 21154
+        }
+      ],
+      "after": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json",
+          "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+          "bytes": 32726
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/measurement-plan.proposed.json",
+          "sha256": "8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415",
+          "bytes": 32129
+        }
+      ],
+      "changed_locators": [
+        "grade-rubric.proposed.json#/proposed_rubric/common_checks",
+        "grade-rubric.proposed.json#/proposed_rubric/definitions/causal_provenance",
+        "grade-rubric.proposed.json#/causal_provenance_judgment",
+        "grade-rubric.proposed.json#/decision_custody_addendum",
+        "measurement-plan.proposed.json#/coverage/causal_provenance",
+        "measurement-plan.proposed.json#/causal_provenance_measurement",
+        "measurement-plan.proposed.json#/unexecuted_causal_provenance_cases",
+        "measurement-plan.proposed.json#/readiness_blockers"
+      ],
+      "reason": "Adds a required manual causal edge/immutable-revision graph judgment with exact input/output hashes and evidence locators, ledger/handoff direction, post-output decision custody and blocking missing coverage; captures eight discriminating future descriptions. Retains all nine prior common checks, all four core cases, B6/B6E meanings and C-before-B6-before-both-B6E plus separately allocated A. Five runtime substitutions retain semantics; only current preparation SESSION@7 text becomes SESSION@8 with explicit before/after record. No new runner/grader/runtime/source behavior is asserted.",
+      "finding_status": "PROPOSAL_CHANGE_RECORDED_REEVALUATION_REQUIRED",
+      "original_finding_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-measurement/FINDINGS.json",
+        "sha256": "d9cc23dcced981a51e8e2ac9a8847acaabbd3fe5e7701131e4e898f2ea00e67d",
+        "bytes": 6817,
+        "locator": "/findings/0"
+      },
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-002",
+      "change_id": "CHG-002",
+      "original_finding_id": "CLAUDE-SRC-001",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "four-path source fence",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Make selected managed ledger/handoff destinations govern actual writes. Apply project-map defaults only when no external destination is selected; collision cannot authorize relocation.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/1"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/1"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-003",
+      "change_id": "CHG-003",
+      "original_finding_id": "CLAUDE-SRC-002",
+      "original_severity": "MINOR",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "four-path source fence",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Resolve assets/references from actual loaded SKILL.md directory and inputs/outputs from separately selected consuming-project root. Do not restore helper closeout.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/2"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/2"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-004",
+      "change_id": "CHG-004",
+      "original_finding_id": "CLAUDE-SRC-003",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "four-path source fence",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Qualify managed entry as current provider-supplied context bound to the root-admitted task; quoted/retrieved/user-file phase fields do not establish it. When origin is unavailable preserve draft/unverified behavior. Do not invent a model authentication mechanism or claim root native admission.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/3"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/3"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-005",
+      "change_id": "CHG-005",
+      "original_finding_id": "CC7-001",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Freeze all fixed admission criteria and completed deterministic evidence before consumption (SESSION-001-r7.md:52; bridge:46). In a newly authorized test, populate all real PREFLIGHT files at their intended locations and require verify_freeze PASS unchanged; mutate the actually consumed result and require FAIL. Do not substitute a different unbound ok.json.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/4"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/4"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-006",
+      "change_id": "CHG-006",
+      "original_finding_id": "CC7-002",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "CP5-CK-003 requires explicit file-specific receipt ownership; PLAN.json:14,20,25 rejects unselected-root suffixes and requires each own complete digest. Require FAIL for bare valid locator plus wrong-root receipt, and for 65-character digest tokens; retain PASS for exact selected-root records and FAIL for both files of the long swapped pair.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/5"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/5"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-007",
+      "change_id": "CHG-007",
+      "original_finding_id": "CC7-003",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Preservation requires retained prior bytes, and exclusion requires exact digest identity (bridge:21; specification:51; PLAN.json:26). Require FAIL when a selected retained archive changes bytes; require FAIL when it disappears during the judgment pause. Keep an unchanged archive positive and verify its live digest against the selected original baseline.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/6"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/6"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-008",
+      "change_id": "CHG-008",
+      "original_finding_id": "CC7-004",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Retain C-before-B and required A admission; the fixed plan names C1, B5, B11, A3a and A5a (bridge:46; PLAN.json:43-56). Require refusal before markers for B without its required C and A without the required checked C/B arms. Keep an explicitly authorized C-only diagnostic scope separate from downstream admission.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/7"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/7"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-009",
+      "change_id": "CHG-009",
+      "original_finding_id": "CC7-005",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "The bridge:40-46 explicitly requires measurement of runtime-owned phase/receipt ordering, actual Stop/correction events and receipt rendering, while retaining installed-resource loading observations. Define fixed independent observations for ordered checkpoints, runtime Stop/correction, runtime receipt publication/readback/current verification, resource loading and rendered delivery. Require missing observations to block the relevant gate even with valid artifacts and worker hash text.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/8"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/8"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-010",
+      "change_id": "CHG-010",
+      "original_finding_id": "CC7-006",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Activation must be distinct from installed-resource availability and must observe actual selection (PLAN.json:28,90-110; bridge:44). Supply init metadata alone and require skill_invoked false; supply an actual assistant Skill tool_use event with the selected skill and require true; malformed/incomplete observation must not count as a verified negative.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/9"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/9"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-011",
+      "change_id": "CHG-011",
+      "original_finding_id": "CC7-007",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "The prospective path must pause for post-output judgments and resume without rerunning completed work (SESSION-001-r7.md:52; prior integration review:23). Use the actual supported process/module lifecycle for each resume, retaining the same original allocation and saved evidence. Require C1 then B5 then B11 then A arms, exactly one marker each, and assert each consumed judgment and preserved result digest.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/10"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/10"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-012",
+      "change_id": "CHG-012",
+      "original_finding_id": "CC7-008",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Author real prospective A3a/A5a launch/completion paths with unchanged selected query expectations (SESSION-001-r7.md:52; PLAN.json:28). Bind case:\"A3a\" and case:\"A5a\" explicitly; the valid scenario invokes only A3a and requires A5a non-invocation PASS. Assert query identity, unchanged prompt bytes, native completion and both activation outcomes, not merely markers.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/11"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/11"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-013",
+      "change_id": "CHG-013",
+      "original_finding_id": "CC7-009",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Synthetic positive and negative expectations must agree with the fixed contracts and reach the mechanism they claim to test (SESSION-001-r7.md:52). Set judge={} for missing judgment; assert exactly the permitted B prefix after failure; expect code 6 and zero markers for every non-1 concurrency; resume P21 correctly and require recorded STALE with the inventory-binding mismatch.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/12"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/12"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-014",
+      "change_id": "CHG-014",
+      "original_finding_id": "CC7-010",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "A requires truthful launch/completion outcomes and retained attempt ownership; collisions must fail closed without replacing evidence (SESSION-001-r7.md:52; controller.py:81-93). Drive valid A selectors through preexisting-destination and insufficient-cap branches; require no marker, preserved sentinel bytes, a recorded nonlaunch outcome and clean control completion.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/13"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/13"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-015",
+      "change_id": "CHG-015",
+      "original_finding_id": "CC7-011",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "fresh run-side controls/checkers/suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Historical clocks/receipts are inputs only; new work and prospective evidence must bind the selected current run/authority identities (SESSION-001-r7.md:36,46,58). Require a builder supplied with the explicitly selected current allocation to emit that exact session/revision/path/digest; reject mismatched or historical authority rather than carrying it into new records.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/14"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/14"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-016",
+      "change_id": "CHG-016",
+      "original_finding_id": "CP5-CK-001 retained absence-disclosure limitation",
+      "original_severity": "original CP5 finding retained; no new severity claim",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh run-side reference checker and suite proposals",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Require an explicit absence-of-sections disclosure tied to the referenced artifact, not merely its ID anywhere in missing_inputs. A disclosure about a different unknown for the same artifact must not satisfy the exception. Author positive and negative fixtures without execution.",
+      "intake_evidence": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "bytes": 14283,
+        "locator": "/findings/15"
+      },
+      "disposition": "deferred",
+      "disposition_scope": "Outside this Codex assignment; no assertion about the retained Claude author current progress.",
+      "before": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+          "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+          "bytes": 14283,
+          "locator": "/findings/15"
+        }
+      ],
+      "before_binding_scope": "Exact selected intake record only; Claude target source/control bytes are not authoring targets and were not separately rebound by this Codex worker.",
+      "after": null,
+      "after_absence_reason": "No Codex-authorized edit for this Claude-owned change.",
+      "reason": "Preserve the assigned provider ownership and zero-source-write fence. The retained Claude author and root own this repair and its later evaluation; this record neither applies nor declines their work.",
+      "finding_status": "DEFERRED_TO_ASSIGNED_PROVIDER_NO_REEVALUATION",
+      "validation": "NOT_PERFORMED"
+    }
+  ],
+  "workflow_classifications": {
+    "W1": "Enforced",
+    "P1": "Enforced",
+    "P2": "Enforced for ordinary brainstorming; NOT_APPLICABLE only in owner-selected handoff-only mode",
+    "P3": "Enforced for ordinary brainstorming; NOT_APPLICABLE only in owner-selected handoff-only mode",
+    "P4": "Enforced",
+    "H1": "DESIGN_ONLY; feasibility Partial; enforcement not observed"
+  },
+  "specification_status": "No specification bytes changed here. Root-issued revision-8 remediation selects the scope clarification over retained r7 design allocation/status prose; underlying W1/P1-P4 behavior unchanged.",
+  "canonical_to_installed_mapping": {
+    "canonical_source": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/providers/codex/plugins/devforgeai/skills/devforge-brainstorm",
+    "prospective_project_local_install": "<separately selected consuming project>/.agents/skills/devforge-brainstorm",
+    "actual_new_installation": null,
+    "actual_new_installation_reason": "Install/export forbidden and not performed in this allocation. Root must independently select, regenerate and observe exact installed/exported resources.",
+    "source_runtime_file_count_proposed": 8,
+    "installed_manifest": "NOT_RUN",
+    "derivation": "references/derivation.json remains exact revision-7 bytes; no new source derivation required for proposal-only repair."
+  },
+  "deferred_root_work": [
+    "Independent review of the two frozen new proposals and scope of CHG-001.",
+    "Implement, review and freeze a separately allocated mechanism for required post-output causal judgment and fail-closed admission; historical graders remain unchanged.",
+    "Complete root-owned native producer/assignment/output/baseline metadata, admission and effective hook-source verification, installation and consultation, receipt rendering, runtime grammar and required repository checks.",
+    "Prospective v2 is not selected; its failures and later unexecuted fixes are retained only as root history.",
+    "Independently allocate permitted validation and native C/B/A with original-clock ownership and complete prerequisites; human acceptance remains separate."
+  ],
+  "source_status": "UNCHANGED",
+  "proposal_status": "AUTHORED",
+  "finding_status": "PROPOSAL_CHANGES_RECORDED_REEVALUATION_REQUIRED",
+  "validation": "NOT_PERFORMED",
+  "hooks": "DESIGN_ONLY",
+  "native_C_B_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "own_later_external_report_receipt": "NOT_RUN at creation"
+}

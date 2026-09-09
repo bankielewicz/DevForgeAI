@@ -1,0 +1,1040 @@
+{
+  "case": "C-candidate",
+  "graded_at_utc": "2026-09-06T17:26:41.667845+00:00",
+  "manual_checks": {
+    "named_behavior": {
+      "result": "PASS",
+      "notes": "All final ledger and handoff prose reviewed. Preserves user uncertainty between absent capture and buried handoff; adds explicitly AI-proposed freshness hypothesis. Proposes a disposable three-detail reconstruction/card exercise with success criteria, uncertainty, non-goals and one user-owned continuation. No product chosen.",
+      "evidence": [
+        "C-candidate/project/docs/devforge/ideas/IDEAS-001.md:43-90",
+        "C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md:77-101",
+        "C-candidate/stdout.jsonl:item_0,item_6,item_10,item_12"
+      ]
+    },
+    "attribution_adoption": {
+      "result": "PASS",
+      "notes": "USER-001 faithfully preserves supplied words and task authorization; all three idea rows and DEC-001 retain AI attribution/proposed state, decision_ref null, artifacts draft. Interest/experiment is not adoption; unavailable define-product/change are described as absent based on actual sibling listing. No claims of research or actual interview/test.",
+      "evidence": [
+        "C-candidate/project/docs/devforge/ideas/IDEAS-001.md:16-36,47-81",
+        "C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md:79,88-89",
+        "C-candidate/stdout.jsonl:item_3,item_7"
+      ]
+    },
+    "reference_identity_complete": {
+      "result": "PASS",
+      "notes": "Manually read every line of all four outputs, both complete envelopes, repeated evidence/upstream references, IO tables, missing_inputs, body references and final saved/terminal responses. Own IDs IDEAS-001@1 and HANDOFF-001@1 use strict integer revisions; three repeated structured revisions are int 1/2, not bool/float. Historical authority own SESSION-002@2 matches actual 783f0c... input at authority root; current runtime execution_ref null correctly disclosed. Both ledger hashes in handoff resolve d534ec... final bytes; skill input is explicitly raw null metadata with its own ddd33b... digest. No native receipt/heading is promoted to framework identity; external delivery receipt is raw byte evidence only. All complete digests, project/authority roots and relative mappings resolve. Navigation backlink is explicitly noncausal and missing runtime/session facts are stated without borrowing historical source ownership. C-reference-type-observations.json records all exact hashes, fields and LF bytes.",
+      "evidence": [
+        "C-reference-type-observations.json",
+        "C-candidate/project/docs/devforge/ideas/IDEAS-001.md:1-90",
+        "C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md:1-110",
+        "C-candidate/project/outbox/response.md:1-7",
+        "C-candidate/project/outbox/delivery-receipt.json",
+        "C-candidate/project/authority/SESSION-002.md",
+        "C-candidate/stdout.jsonl:item_3,item_7,item_11,item_12"
+      ]
+    },
+    "source_row_section_convention": {
+      "result": "PASS",
+      "notes": "All six ledger section references resolve to actual H2 headings outside code fences: FOCUS-001,USER-001,IDEAS-SECTION-001,OPEN-SECTION-001,DECISIONS-001,NEXT-001. Seven new handoff section anchors match asset. IDEA/OPEN/DEC rows remain row labels. Original parent has no stable section IDs, uses sections [] and disclosed plain title locator. Installed raw SKILL heading Record without inventing commitments exists; neither it nor its absence of framework identity is promoted. All four output files use LF with no CR or code fences; no malformed closing ambiguity.",
+      "evidence": [
+        "C-reference-type-observations.json",
+        "C-candidate/project/docs/devforge/ideas/IDEAS-001.md:43-90",
+        "C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md:59-110",
+        "C-candidate/project/authority/SESSION-002.md",
+        "C-candidate/project/.agents/skills/devforge-brainstorm/SKILL.md"
+      ]
+    },
+    "chronology": {
+      "result": "COULD_NOT_RUN",
+      "notes": "Observed ledger creation/full readback item7, installed ledger byte PASS item8, handoff write item9 with own later readback/hash/receipt NOT_RUN; no handoff self-digest or later rewrite. However item9 completed output is empty despite a command containing print(handoff.read_text()), handoff byte helper and initial delivery checker. Exit0 cannot replace their missing output. Item11 reads/parses envelopes, creates/reads/verifies receipt then writes/reads response and final delivery checker PASS, but does not recover an observed full handoff readback and handoff byte-helper result before receipt. Cause of empty output NOT_OBSERVABLE; no claim the command failed or did not execute.",
+      "evidence": [
+        "C-candidate/stdout.jsonl:15-16 item_7",
+        "C-candidate/stdout.jsonl:17-18 item_8",
+        "C-candidate/stdout.jsonl:19-20 item_9",
+        "C-candidate/stdout.jsonl:22-23 item_11",
+        "C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md:90-91,105-107"
+      ]
+    },
+    "completed_readbacks_receipt": {
+      "result": "COULD_NOT_RUN",
+      "notes": "Ledger full readback and byte scan are observed; final external receipt target digests and canonical Outcome cells are observed PASS in item11, including saved response existence. Missing item9 output prevents observing the complete handoff readback and its own byte-helper result. No private runtime JSONL/logs available under the ephemeral case runtime, stderr empty. Current author readback and mechanical checks cannot retrospectively establish native earlier observations.",
+      "evidence": [
+        "C-candidate/stdout.jsonl:item_7,item_8,item_9,item_11",
+        "C-candidate/project/outbox/delivery-receipt.json",
+        "C-candidate/stderr.txt",
+        "C-native-observation-gap.json"
+      ]
+    },
+    "saved_response_claims": {
+      "result": "COULD_NOT_RUN",
+      "notes": "Read all seven saved response lines and terminal item12. Saved file paths and receipt digest 057aca... resolve; receipt readback/hash verification and final delivery PASS are visible in item11. Response line5 claim that both artifacts were read back and byte/template checks passed lacks the handoff-specific observed result because item9 output is empty. This is insufficient evidence for that assertion, not proof of an observed byte failure; no PASS inferred from exit0.",
+      "evidence": [
+        "C-candidate/project/outbox/response.md:1-7",
+        "C-candidate/stdout.jsonl:item_9,item_11,item_12",
+        "C-native-observation-gap.json"
+      ]
+    },
+    "producer_identity_scope": {
+      "result": "PASS",
+      "notes": "Both artifacts name devforge-brainstorm and exact installed entrypoint SHA256 ddd33bca...5828. Handoff explicitly scopes this to SKILL.md bytes. Native reads installed SKILL item1, reference and both templates item4, helpers item5, with observed installed helper use item8 and item11; original C parent SESSION002@2 is evidence only, distinct from null native session and SESSION002@6 retained author allocation.",
+      "evidence": [
+        "C-candidate/project/docs/devforge/ideas/IDEAS-001.md:10-35",
+        "C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md:10-51,64-65",
+        "C-candidate/stdout.jsonl:item_1,item_3,item_4,item_5,item_8,item_11",
+        "fixture-visibility.json",
+        "boundary-checks.json"
+      ]
+    },
+    "write_fence_inputs": {
+      "result": "PASS",
+      "notes": "Actual before/after manifest differs only in four new docs/outbox files. All installed and input bytes unchanged; no symlinks in native project, no Git/external actions in complete transcript. Actual boundary masks source and user skills; all 29 source files protected by frozen phase checks.",
+      "evidence": [
+        "C-candidate/project-before.json",
+        "C-candidate/project-after.json",
+        "C-candidate/installed-before.json",
+        "staging-index.json",
+        "freeze-checks.jsonl",
+        "C-candidate/stdout.jsonl"
+      ]
+    },
+    "c_resource_loading": {
+      "result": "PASS",
+      "notes": "Native item1 loads installed entrypoint; item4 completed output contains workflow plus both complete templates; item5 reads both helpers; item8 observes byte-helper PASS for ledger and item11 final delivery-helper PASS. Fresh installed bytes match seven runtime source files and source docs are inaccessible in actual harmless boundary probes. Native completion, exit0, no timeout and owned termination PASS observed. Missing handoff-specific readback/byte result is retained separately in mandatory delivery checks and prevents full C PASS.",
+      "evidence": [
+        "C-candidate/stdout.jsonl:item_1,item_4,item_5,item_8,item_11",
+        "C-candidate/execution.json",
+        "C-outer-completion.json",
+        "fixture-visibility.json",
+        "boundary-checks.json",
+        "installed-manifest.json"
+      ]
+    }
+  },
+  "missing_required_coverage": [],
+  "rubric_sha256": "17352b8d7d86b6067d81d9afc8b4570029a677f5589de0be6f295e10048d6b26",
+  "grader_sha256": "6eb98ec5b5bde31719bc5de9d761458fd0a50c5a7e65fe1c37c8b70a6d8588a6",
+  "decision_sha256": "af14eae042f89f3579e0f7105dd29ccfcfbca03e8939e63876004a1f8c4d86ba",
+  "execution": {
+    "invocation_mode": "native",
+    "process_exit_code": 0,
+    "process_exit_success": true,
+    "timed_out": false,
+    "stdout_eof": true,
+    "final_line_unterminated": false,
+    "turn_completed_observed": true,
+    "turn_completed_count": 1,
+    "native_completion": true,
+    "native_result_success": true,
+    "completion_outcome": "PASS",
+    "protocol_errors": [],
+    "parse_errors": [],
+    "pending_item_ids": [],
+    "thread_ids": [
+      "01a077b7-d413-7e41-9b6c-f5ece6bc7f69"
+    ],
+    "last_event_ms": 509104.429,
+    "last_progress_ms": 509104.429,
+    "duration_ms": 509999.649,
+    "silence_since_last_progress_ms": 895.2199999999721,
+    "launch_error": null,
+    "artifact_delivery": "NOT_EVALUATED",
+    "cancelled": false,
+    "last_data_ms": 509104.429,
+    "last_stdout_ms": 509104.429,
+    "owned_termination": {
+      "requested": false,
+      "signals": [],
+      "scope": "Registered current-run PID/starttime identities through pidfds; private Bubblewrap PID namespace retained",
+      "leader_reaped": true,
+      "registered_identities": [
+        {
+          "pid": 1310525,
+          "state": "R",
+          "ppid": 1310520,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71084103
+        },
+        {
+          "pid": 1310526,
+          "state": "R",
+          "ppid": 1310525,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71084103
+        },
+        {
+          "pid": 1310527,
+          "state": "S",
+          "ppid": 1310526,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71084103
+        },
+        {
+          "pid": 1310794,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1310794,
+          "sid": 1310794,
+          "start_ticks": 71084220
+        },
+        {
+          "pid": 1310810,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71084221
+        },
+        {
+          "pid": 1310838,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71084240
+        },
+        {
+          "pid": 1311113,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71084654
+        },
+        {
+          "pid": 1311129,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71084720
+        },
+        {
+          "pid": 1311293,
+          "state": "R",
+          "ppid": 1310527,
+          "pgid": 1311293,
+          "sid": 1310525,
+          "start_ticks": 71085261
+        },
+        {
+          "pid": 1311328,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1311328,
+          "sid": 1311328,
+          "start_ticks": 71085268
+        },
+        {
+          "pid": 1311330,
+          "state": "S",
+          "ppid": 1311328,
+          "pgid": 1311328,
+          "sid": 1311328,
+          "start_ticks": 71085269
+        },
+        {
+          "pid": 1311332,
+          "state": "R",
+          "ppid": 1311330,
+          "pgid": 1311328,
+          "sid": 1311328,
+          "start_ticks": 71085269
+        },
+        {
+          "pid": 1311338,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1311338,
+          "sid": 1311338,
+          "start_ticks": 71085277
+        },
+        {
+          "pid": 1311343,
+          "state": "S",
+          "ppid": 1311338,
+          "pgid": 1311343,
+          "sid": 1311338,
+          "start_ticks": 71085279
+        },
+        {
+          "pid": 1311344,
+          "state": "S",
+          "ppid": 1311343,
+          "pgid": 1311344,
+          "sid": 1311344,
+          "start_ticks": 71085279
+        },
+        {
+          "pid": 1311345,
+          "state": "S",
+          "ppid": 1311344,
+          "pgid": 1311344,
+          "sid": 1311344,
+          "start_ticks": 71085281
+        },
+        {
+          "pid": 1311346,
+          "state": "R",
+          "ppid": 1311345,
+          "pgid": 1311344,
+          "sid": 1311344,
+          "start_ticks": 71085282
+        },
+        {
+          "pid": 1311409,
+          "state": "R",
+          "ppid": 1310527,
+          "pgid": 1311409,
+          "sid": 1311409,
+          "start_ticks": 71085997
+        },
+        {
+          "pid": 1311410,
+          "state": "R",
+          "ppid": 1310527,
+          "pgid": 1311410,
+          "sid": 1311410,
+          "start_ticks": 71085997
+        },
+        {
+          "pid": 1311494,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1311494,
+          "sid": 1311494,
+          "start_ticks": 71086662
+        },
+        {
+          "pid": 1311515,
+          "state": "S",
+          "ppid": 1311494,
+          "pgid": 1311515,
+          "sid": 1311494,
+          "start_ticks": 71086664
+        },
+        {
+          "pid": 1311516,
+          "state": "S",
+          "ppid": 1311515,
+          "pgid": 1311515,
+          "sid": 1311494,
+          "start_ticks": 71086664
+        },
+        {
+          "pid": 1313690,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1313690,
+          "sid": 1313690,
+          "start_ticks": 71125863
+        },
+        {
+          "pid": 1313695,
+          "state": "S",
+          "ppid": 1313690,
+          "pgid": 1313695,
+          "sid": 1313690,
+          "start_ticks": 71125866
+        },
+        {
+          "pid": 1313696,
+          "state": "S",
+          "ppid": 1313695,
+          "pgid": 1313696,
+          "sid": 1313696,
+          "start_ticks": 71125866
+        },
+        {
+          "pid": 1313699,
+          "state": "S",
+          "ppid": 1313696,
+          "pgid": 1313696,
+          "sid": 1313696,
+          "start_ticks": 71125867
+        },
+        {
+          "pid": 1313710,
+          "state": "R",
+          "ppid": 1313699,
+          "pgid": 1313696,
+          "sid": 1313696,
+          "start_ticks": 71125868
+        },
+        {
+          "pid": 1313716,
+          "state": "R",
+          "ppid": 1310527,
+          "pgid": 1313716,
+          "sid": 1313716,
+          "start_ticks": 71125873
+        },
+        {
+          "pid": 1313721,
+          "state": "S",
+          "ppid": 1313716,
+          "pgid": 1313721,
+          "sid": 1313716,
+          "start_ticks": 71125877
+        },
+        {
+          "pid": 1313722,
+          "state": "S",
+          "ppid": 1313721,
+          "pgid": 1313722,
+          "sid": 1313722,
+          "start_ticks": 71125877
+        },
+        {
+          "pid": 1313723,
+          "state": "R",
+          "ppid": 1313722,
+          "pgid": 1313722,
+          "sid": 1313722,
+          "start_ticks": 71125879
+        },
+        {
+          "pid": 1314116,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1314116,
+          "sid": 1314116,
+          "start_ticks": 71131931
+        },
+        {
+          "pid": 1314135,
+          "state": "S",
+          "ppid": 1314116,
+          "pgid": 1314135,
+          "sid": 1314116,
+          "start_ticks": 71131934
+        },
+        {
+          "pid": 1314139,
+          "state": "R",
+          "ppid": 1314135,
+          "pgid": 1314135,
+          "sid": 1314116,
+          "start_ticks": 71131934
+        },
+        {
+          "pid": 1314151,
+          "state": "S",
+          "ppid": 1314139,
+          "pgid": 1314139,
+          "sid": 1314139,
+          "start_ticks": 71131937
+        },
+        {
+          "pid": 1314168,
+          "state": "R",
+          "ppid": 1314151,
+          "pgid": 1314139,
+          "sid": 1314139,
+          "start_ticks": 71131940
+        },
+        {
+          "pid": 1314446,
+          "state": "R",
+          "ppid": 1310527,
+          "pgid": 1314446,
+          "sid": 1314446,
+          "start_ticks": 71134383
+        },
+        {
+          "pid": 1314451,
+          "state": "S",
+          "ppid": 1314446,
+          "pgid": 1314451,
+          "sid": 1314446,
+          "start_ticks": 71134385
+        },
+        {
+          "pid": 1314453,
+          "state": "S",
+          "ppid": 1314451,
+          "pgid": 1314453,
+          "sid": 1314453,
+          "start_ticks": 71134385
+        },
+        {
+          "pid": 1314469,
+          "state": "S",
+          "ppid": 1314453,
+          "pgid": 1314453,
+          "sid": 1314453,
+          "start_ticks": 71134387
+        },
+        {
+          "pid": 1314471,
+          "state": "R",
+          "ppid": 1314469,
+          "pgid": 1314453,
+          "sid": 1314453,
+          "start_ticks": 71134387
+        },
+        {
+          "pid": 1314515,
+          "state": "S",
+          "ppid": 1310527,
+          "pgid": 1310525,
+          "sid": 1310525,
+          "start_ticks": 71135013
+        }
+      ],
+      "registered_survivors": [],
+      "leader_identity_after": null,
+      "private_group_absent": true,
+      "outcome": "PASS"
+    },
+    "timeout_seconds": 600,
+    "framing_policy": "Valid final JSON object without newline parsed only at observed EOF, timestamped at last byte arrival; malformed final bytes are an anomaly",
+    "observation_clock": "monotonic_ns relative to launch"
+  },
+  "author_judgment_scope": "Explicit same-author review; not independent native acceptance",
+  "human_acceptance": "NOT_RUN",
+  "named_behavior": "PASS",
+  "reference_identity": "PASS",
+  "automated_reference_identity": "PASS",
+  "byte_delivery": "PASS",
+  "chronology": "COULD_NOT_RUN",
+  "structure": "PASS",
+  "required_delivery": "COULD_NOT_RUN",
+  "native_completion": "PASS",
+  "overall_case": "COULD_NOT_RUN",
+  "observed_outputs_sha256": {
+    "outbox/response.md": "6f8f15561387f07607e9f76bb2ffc8119a0e8b31906db173b44edd30ad05facf",
+    "outbox/delivery-receipt.json": "057acac3081bb2e4f858508ead2f2b15492b9f5694b3192b9546fee936b4a368",
+    "docs/devforge/ideas/IDEAS-001.md": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+    "docs/devforge/handoffs/HANDOFF-001.md": "e03a79e2c6e24ec8db9ce4f1172f572fc500f06f6ef7bd1323ff96c99877a5a9"
+  },
+  "reference_checks": [
+    {
+      "path": "outbox/response.md",
+      "document": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/outbox/response.md",
+      "occurrences": [],
+      "table_occurrences": [],
+      "issues": [],
+      "manual_review": "REQUIRED",
+      "manual_required": [
+        "All table identities, including unrecognized layouts and qualified native locators",
+        "Every prose, missing_inputs and saved-response identity claim and source attribution",
+        "Selected row retention versus actual heading section locators; missing-source-ID disclosure",
+        "Required artifact delivery, ownership, user adoption and native completion",
+        "Ledger/handoff readback then external receipt then final delivery chronology",
+        "Historical receipt validity, current applicability and dependent continuation separately"
+      ],
+      "scope": "Recognized structured reference identity/hash/sections and IO table identities only",
+      "pyyaml_version": "6.0.3",
+      "document_sha256": "6f8f15561387f07607e9f76bb2ffc8119a0e8b31906db173b44edd30ad05facf",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/devforge/ideas/IDEAS-001.md",
+      "document": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/docs/devforge/ideas/IDEAS-001.md",
+      "occurrences": [
+        {
+          "where": "$.evidence[1]",
+          "reference": {
+            "artifact_id": "SESSION-002",
+            "revision": 2,
+            "store": "authority",
+            "path": "SESSION-002.md",
+            "sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "sections": [],
+            "scope": "parent authoring provenance only; not this execution or ownership assignment"
+          },
+          "requires_identity_keys": false,
+          "target": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/authority/SESSION-002.md",
+          "source": {
+            "kind": "declared-artifact",
+            "identity_complete": true,
+            "artifact_id": "SESSION-002",
+            "revision": 2,
+            "sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "heading_ids": [],
+            "native_receipt_id": null
+          }
+        }
+      ],
+      "table_occurrences": [],
+      "issues": [],
+      "manual_review": "REQUIRED",
+      "manual_required": [
+        "All table identities, including unrecognized layouts and qualified native locators",
+        "Every prose, missing_inputs and saved-response identity claim and source attribution",
+        "Selected row retention versus actual heading section locators; missing-source-ID disclosure",
+        "Required artifact delivery, ownership, user adoption and native completion",
+        "Ledger/handoff readback then external receipt then final delivery chronology",
+        "Historical receipt validity, current applicability and dependent continuation separately"
+      ],
+      "scope": "Recognized structured reference identity/hash/sections and IO table identities only",
+      "pyyaml_version": "6.0.3",
+      "document_sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/devforge/handoffs/HANDOFF-001.md",
+      "document": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md",
+      "occurrences": [
+        {
+          "where": "$.upstream[0]",
+          "reference": {
+            "artifact_id": "IDEAS-001",
+            "revision": 1,
+            "store": "project",
+            "path": "docs/devforge/ideas/IDEAS-001.md",
+            "sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+            "sections": [
+              "FOCUS-001",
+              "USER-001",
+              "IDEAS-SECTION-001",
+              "OPEN-SECTION-001",
+              "DECISIONS-001",
+              "NEXT-001"
+            ]
+          },
+          "requires_identity_keys": true,
+          "target": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/docs/devforge/ideas/IDEAS-001.md",
+          "source": {
+            "kind": "declared-artifact",
+            "identity_complete": true,
+            "artifact_id": "IDEAS-001",
+            "revision": 1,
+            "sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+            "heading_ids": [
+              "DECISIONS-001",
+              "FOCUS-001",
+              "IDEAS-SECTION-001",
+              "NEXT-001",
+              "OPEN-SECTION-001",
+              "USER-001"
+            ],
+            "native_receipt_id": null
+          }
+        },
+        {
+          "where": "$.evidence[1]",
+          "reference": {
+            "artifact_id": "SESSION-002",
+            "revision": 2,
+            "store": "authority",
+            "path": "SESSION-002.md",
+            "sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "sections": [],
+            "scope": "parent authoring provenance only; not this execution or ownership assignment"
+          },
+          "requires_identity_keys": false,
+          "target": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/authority/SESSION-002.md",
+          "source": {
+            "kind": "declared-artifact",
+            "identity_complete": true,
+            "artifact_id": "SESSION-002",
+            "revision": 2,
+            "sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "heading_ids": [],
+            "native_receipt_id": null
+          }
+        }
+      ],
+      "table_occurrences": [
+        {
+          "line": 71,
+          "cells": [
+            "input",
+            "SESSION-002@2",
+            "authority: SESSION-002.md",
+            "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "none; heading Codex brainstorm author assignment",
+            "Parent provenance only"
+          ],
+          "manual_review": "REQUIRED",
+          "source": {
+            "kind": "declared-artifact",
+            "identity_complete": true,
+            "artifact_id": "SESSION-002",
+            "revision": 2,
+            "sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "heading_ids": [],
+            "native_receipt_id": null
+          },
+          "recognition": "resolved-source"
+        },
+        {
+          "line": 72,
+          "cells": [
+            "input",
+            "raw skill; artifact ID/revision null",
+            "project: .agents/skills/devforge-brainstorm/SKILL.md",
+            "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+            "none; Record without inventing commitments",
+            "Read-only installed instructions; templates/workflow also read"
+          ],
+          "manual_review": "REQUIRED",
+          "source": {
+            "kind": "raw-source",
+            "identity_complete": null,
+            "artifact_id": null,
+            "revision": null,
+            "sha256": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+            "heading_ids": [],
+            "native_receipt_id": null
+          },
+          "recognition": "resolved-source",
+          "identity_recognition": "manual-required"
+        },
+        {
+          "line": 73,
+          "cells": [
+            "output",
+            "IDEAS-001@1",
+            "project: docs/devforge/ideas/IDEAS-001.md",
+            "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+            "FOCUS-001, USER-001, IDEAS-SECTION-001, OPEN-SECTION-001, DECISIONS-001, NEXT-001",
+            "Read back; draft; no adoption"
+          ],
+          "manual_review": "REQUIRED",
+          "source": {
+            "kind": "declared-artifact",
+            "identity_complete": true,
+            "artifact_id": "IDEAS-001",
+            "revision": 1,
+            "sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+            "heading_ids": [
+              "DECISIONS-001",
+              "FOCUS-001",
+              "IDEAS-SECTION-001",
+              "NEXT-001",
+              "OPEN-SECTION-001",
+              "USER-001"
+            ],
+            "native_receipt_id": null
+          },
+          "recognition": "resolved-source"
+        }
+      ],
+      "issues": [],
+      "manual_review": "REQUIRED",
+      "manual_required": [
+        "All table identities, including unrecognized layouts and qualified native locators",
+        "Every prose, missing_inputs and saved-response identity claim and source attribution",
+        "Selected row retention versus actual heading section locators; missing-source-ID disclosure",
+        "Required artifact delivery, ownership, user adoption and native completion",
+        "Ledger/handoff readback then external receipt then final delivery chronology",
+        "Historical receipt validity, current applicability and dependent continuation separately"
+      ],
+      "scope": "Recognized structured reference identity/hash/sections and IO table identities only",
+      "pyyaml_version": "6.0.3",
+      "document_sha256": "e03a79e2c6e24ec8db9ce4f1172f572fc500f06f6ef7bd1323ff96c99877a5a9",
+      "result": "PASS"
+    }
+  ],
+  "mechanical_delivery": {
+    "case": "C-candidate",
+    "handoffs": [
+      {
+        "path": "docs/devforge/handoffs/HANDOFF-001.md",
+        "sha256": "e03a79e2c6e24ec8db9ce4f1172f572fc500f06f6ef7bd1323ff96c99877a5a9",
+        "outcome_cells": {
+          "tables": 1,
+          "rows": [
+            {
+              "line": 85,
+              "outcome": "PASS",
+              "result": "PASS"
+            },
+            {
+              "line": 86,
+              "outcome": "PASS",
+              "result": "PASS"
+            },
+            {
+              "line": 87,
+              "outcome": "PASS",
+              "result": "PASS"
+            },
+            {
+              "line": 88,
+              "outcome": "NOT_RUN",
+              "result": "PASS"
+            },
+            {
+              "line": 89,
+              "outcome": "NOT_RUN",
+              "result": "PASS"
+            },
+            {
+              "line": 90,
+              "outcome": "NOT_RUN",
+              "result": "PASS"
+            },
+            {
+              "line": 91,
+              "outcome": "NOT_RUN",
+              "result": "PASS"
+            }
+          ],
+          "result": "PASS"
+        },
+        "artifact_id": "HANDOFF-001"
+      }
+    ],
+    "receipts": [
+      {
+        "path": "outbox/delivery-receipt.json",
+        "sha256": "057acac3081bb2e4f858508ead2f2b15492b9f5694b3192b9546fee936b4a368",
+        "entries": [
+          {
+            "path": "docs/devforge/ideas/IDEAS-001.md",
+            "expected_sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+            "resolved_host_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/docs/devforge/ideas/IDEAS-001.md",
+            "result": "PASS",
+            "covers_handoff": null
+          },
+          {
+            "path": "docs/devforge/handoffs/HANDOFF-001.md",
+            "expected_sha256": "e03a79e2c6e24ec8db9ce4f1172f572fc500f06f6ef7bd1323ff96c99877a5a9",
+            "resolved_host_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-candidate/project/docs/devforge/handoffs/HANDOFF-001.md",
+            "result": "PASS",
+            "covers_handoff": "docs/devforge/handoffs/HANDOFF-001.md"
+          }
+        ],
+        "result": "PASS"
+      }
+    ],
+    "handoff_receipt_coverage": {
+      "docs/devforge/handoffs/HANDOFF-001.md": true
+    },
+    "semantic_claim_review": "NOT_EVALUATED",
+    "temporal_claim_review": "NOT_EVALUATED",
+    "scope": "Allowed Outcome cells and actual JSON receipt target/digest resolution. Uses recorded namespace mapping; no claim about adoption, prose truth or readback timing."
+  },
+  "anchor_checks": {
+    "case": "C-candidate",
+    "outputs": [
+      {
+        "path": "docs/devforge/handoffs/HANDOFF-001.md",
+        "sha256": "e03a79e2c6e24ec8db9ce4f1172f572fc500f06f6ef7bd1323ff96c99877a5a9",
+        "kind": "handoff",
+        "heading_check": {
+          "result": "PASS",
+          "headings": [
+            {
+              "line": 59,
+              "title": "You are here",
+              "id": "STATE-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 67,
+              "title": "Inputs consumed and outputs produced",
+              "id": "IO-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 77,
+              "title": "What changed and what remains open",
+              "id": "CHANGES-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 81,
+              "title": "Observed verification",
+              "id": "VERIFY-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 93,
+              "title": "Continuation directory",
+              "id": "NEXT-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 99,
+              "title": "Copyable next-session prompt",
+              "id": "PROMPT-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 103,
+              "title": "Resume and custody",
+              "id": "CUSTODY-001",
+              "conflicting_ids": []
+            }
+          ],
+          "missing_id_lines": [],
+          "duplicate_ids": [],
+          "missing_required_sections": [],
+          "scope": "Stable IDs on actual sections, uniqueness and required handoff section titles only"
+        },
+        "section_references": [
+          {
+            "field": "/upstream/0",
+            "reference": {
+              "artifact_id": "IDEAS-001",
+              "revision": 1,
+              "store": "project",
+              "path": "docs/devforge/ideas/IDEAS-001.md",
+              "sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+              "sections": [
+                "FOCUS-001",
+                "USER-001",
+                "IDEAS-SECTION-001",
+                "OPEN-SECTION-001",
+                "DECISIONS-001",
+                "NEXT-001"
+              ]
+            },
+            "result": "PASS",
+            "actual_source_section_ids": [
+              "DECISIONS-001",
+              "FOCUS-001",
+              "IDEAS-SECTION-001",
+              "NEXT-001",
+              "OPEN-SECTION-001",
+              "USER-001"
+            ],
+            "invalid_section_references": [],
+            "target_sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+            "hash_matches": true
+          },
+          {
+            "field": "/evidence/1",
+            "reference": {
+              "artifact_id": "SESSION-002",
+              "revision": 2,
+              "store": "authority",
+              "path": "SESSION-002.md",
+              "sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+              "sections": [],
+              "scope": "parent authoring provenance only; not this execution or ownership assignment"
+            },
+            "result": "PASS",
+            "actual_source_section_ids": [],
+            "invalid_section_references": [],
+            "target_sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "hash_matches": true,
+            "legacy_source_row_ids": [],
+            "row_attribution_review": "Manual author review of separate provenance notes and preserved selector; row text occurrence alone is not proof."
+          }
+        ],
+        "table_and_semantic_review": "Separate mechanical-delivery and explicit author grade; this assertion does not establish those facts."
+      },
+      {
+        "path": "docs/devforge/ideas/IDEAS-001.md",
+        "sha256": "d534eca6e91eb6d025d1ca5595bde016363dab66e177a3068aea78bfabafc6bd",
+        "kind": "idea-ledger",
+        "heading_check": {
+          "result": "PASS",
+          "headings": [
+            {
+              "line": 43,
+              "title": "Problem and current focus",
+              "id": "FOCUS-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 47,
+              "title": "Preserved user evidence",
+              "id": "USER-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 56,
+              "title": "Ideas and alternatives",
+              "id": "IDEAS-SECTION-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 66,
+              "title": "Assumptions and open questions",
+              "id": "OPEN-SECTION-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 75,
+              "title": "Decisions and parked alternatives",
+              "id": "DECISIONS-001",
+              "conflicting_ids": []
+            },
+            {
+              "line": 83,
+              "title": "Next useful step",
+              "id": "NEXT-001",
+              "conflicting_ids": []
+            }
+          ],
+          "missing_id_lines": [],
+          "duplicate_ids": [],
+          "missing_required_sections": [],
+          "scope": "Stable IDs on actual sections, uniqueness and required handoff section titles only"
+        },
+        "section_references": [
+          {
+            "field": "/evidence/1",
+            "reference": {
+              "artifact_id": "SESSION-002",
+              "revision": 2,
+              "store": "authority",
+              "path": "SESSION-002.md",
+              "sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+              "sections": [],
+              "scope": "parent authoring provenance only; not this execution or ownership assignment"
+            },
+            "result": "PASS",
+            "actual_source_section_ids": [],
+            "invalid_section_references": [],
+            "target_sha256": "783f0ce86ac7e67ad330d22422fd3e45760253a6a64dd09b87a595d9abdf5fc5",
+            "hash_matches": true,
+            "legacy_source_row_ids": [],
+            "row_attribution_review": "Manual author review of separate provenance notes and preserved selector; row text occurrence alone is not proof."
+          }
+        ],
+        "table_and_semantic_review": "Separate mechanical-delivery and explicit author grade; this assertion does not establish those facts."
+      }
+    ]
+  },
+  "template_tables": [
+    {
+      "path": "docs/devforge/handoffs/HANDOFF-001.md",
+      "result": "PASS",
+      "missing_headers": []
+    }
+  ],
+  "envelopes": [
+    {
+      "path": "docs/devforge/ideas/IDEAS-001.md",
+      "kind": "idea-ledger",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/devforge/handoffs/HANDOFF-001.md",
+      "kind": "handoff",
+      "result": "PASS"
+    }
+  ],
+  "producer_checks": [
+    {
+      "path": "docs/devforge/ideas/IDEAS-001.md",
+      "producer": {
+        "skill": "devforge-brainstorm",
+        "skill_revision": "sha256:ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828"
+      },
+      "normalized_skill_digest": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/devforge/handoffs/HANDOFF-001.md",
+      "producer": {
+        "skill": "devforge-brainstorm",
+        "skill_revision": "sha256:ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828"
+      },
+      "normalized_skill_digest": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+      "result": "PASS"
+    }
+  ],
+  "transcript_sha256": "3d980e08366ed936c4e440e2671c2dba9e3e9d4f525225ddf884666e84d1bd7e",
+  "execution_sha256": "317da3afb370367a52ffe522d9163b497f99e8ad2fc38c05f3f498e5f033b6b9"
+}

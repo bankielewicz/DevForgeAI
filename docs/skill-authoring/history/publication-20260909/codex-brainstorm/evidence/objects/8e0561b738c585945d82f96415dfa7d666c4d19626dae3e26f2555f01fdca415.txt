@@ -1,0 +1,341 @@
+{
+  "record_kind": "UNEXECUTED_MEASUREMENT_PROPOSAL",
+  "executable": false,
+  "native_admission": false,
+  "created_at_utc": "2026-09-07T14:41:03.216569+00:00",
+  "authoring_assignment": "SESSION-002@8",
+  "authority": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/authority/SESSION-002-r8.md",
+    "sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383"
+  },
+  "candidate": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json",
+    "sha256": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2"
+  },
+  "rubric_proposal": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json",
+    "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b"
+  },
+  "selected_baseline_controls": {
+    "measurement_plan": {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/controls/measurement-plan.json",
+      "sha256": "230388cbcdd7b87cd764432d00eb6bfe3b64f55f5225c2b041096e5abf0f4c4f"
+    },
+    "rubric": {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/controls/grade-rubric.json",
+      "sha256": "6674243776ab6ede0f3f46e65187ca93971ab01420df431372585de5745cb4d8"
+    },
+    "copied_controls_sha256": {
+      "inspect_anchors.py": "df64d1315e031e1de10fde2f572f978be3d6e1d1e59f0077763a2952e7ea8e30",
+      "native_run.py": "13f00db4bf9710e5c229e0e951f173b7bc219a7991c92c0bba7231e0d38d4ce2",
+      "run_suite.py": "dc8d99a372d815611ca3a6e5ed2b2ce5069264c13fab58902b1e3c21370acfad",
+      "measurement-plan.json": "230388cbcdd7b87cd764432d00eb6bfe3b64f55f5225c2b041096e5abf0f4c4f",
+      "freeze_v4.py": "ff5a0f91e2d002d7ced69e95c6ec366d5246888ee390dc0e2b67ca4cd13ab13b",
+      "iteration-budget.json": "260e2fc20df84472f60d9f3d43854878ab5bb7f25faa4acd96104a86d69df374",
+      "deterministic_v4.py": "03085733a4118bf21bf8983935347264aff0803d74722ec5a8637031c5d5c752",
+      "grade-rubric.json": "6674243776ab6ede0f3f46e65187ca93971ab01420df431372585de5745cb4d8",
+      "run_phase.py": "64aa30e6d9954d1eb5951c1f6027377ccdefba6a3723e80703b20d3563164927",
+      "probe_boundary.py": "bc6d54a4f586bd2560e38c1c790fdf001658c68fe7cef7e5a0de87f8c8327c32",
+      "inspect_outputs.py": "b3927d185e9062a6d12acddfea5abdd01231ce2be7b9201161259dbde874cff2",
+      "process_capture.py": "b3104da163ae139e15c11d822b97740480f5387fb2dc853e828dd31880615472",
+      "probe_visibility.py": "d7aad9aadc1685981697a8b2ebbe0bd28b43598c8589a378987c540222988962",
+      "grade_v4.py": "6eb98ec5b5bde31719bc5de9d761458fd0a50c5a7e65fe1c37c8b70a6d8588a6",
+      "B-jobs.json": "413fc81e933ac452eb8d3c4c85958b906b667e94d6a83019ce09c4cb1d0bff87",
+      "mechanical_delivery.py": "9e2b4d62bc1a4fcc3a0ada19aa71f8f2ddfce3cb16eb298449505ce8a5736741",
+      "event_collector.py": "bc4d37076b39fa715d4f460f7bad9f91300297dcf9b322e0a4a192776d8e8f12",
+      "C-jobs.json": "0e65db430c3ea0b3fc078229ab0209cc74deb883697bfdfc0b5a4126d98f4d97",
+      "frozen_gate.py": "9a626769d4fc7807a6a7068a672b1ca4024447f79f12a8871bd5b574c1dc95d9",
+      "staging-index.json": "6f14de0a5f008e4ad420f17a481a8afc312f254ad19c5602ec83b4226b4d117c",
+      "candidate-final-manifest.json": "76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4",
+      "stage.py": "a8762608b36cfa9e84c7a2c8766c178a936696b13be13d2b2c7ecb9777c416b3"
+    },
+    "scope": "Exact revision-004 controls and the entire selected revision-7 Codex run are retained under inputs, unchanged. Revision-7 proposals are the immediate preparation baseline. The old plan binding entries, freeze, judgments and clocks remain historical; no old command was executed or old allocation reactivated."
+  },
+  "change_boundary": "CHG-001 adds mandatory evidence-bound manual causal-provenance coverage to the retained revision-7 proposal. Preserve its five managed runtime observation substitutions, every prior semantic/reference/delivery check, all four core case definitions, admission order, original caps and separate A allocation. Preparation bindings now use SESSION-002@8; the complete 30-file candidate remains revision-7 bytes. Only these two run-side proposal documents and custody/authoring records are authored; no runner/grader/runtime/source changes or native authority.",
+  "candidate_source_files_sha256": {
+    "SKILL.md": "efb7296894d3d9873f4e2535a9c34f946816f3ee0de036b3f3ab3e8e99af98a8",
+    "assets/handoff.md": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9",
+    "assets/idea-ledger.md": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e",
+    "evals/assertions-revise-001.json": "f314c0d9a94d355d58b639638b2b2468e8243e7c76f8565be271382bf258e97a",
+    "evals/assertions-revise-002.json": "83a350fb6908e5ab5fdb3cdec94d621f7f43554e41eef2481f7f780862c6e42f",
+    "evals/assertions-revise-003.json": "89b74fb7d0b87a7ddc25e68a176d49a4746297c82b913eaf65c88070770326d8",
+    "evals/assertions-revise-004.json": "e6f94665e3b26011c9896e3bd28f2493ecb9c3e8f13267d31591c8802c5799e8",
+    "evals/check_anchors.py": "0eafb40a442460e7c4e4736c0a6cd74ed0923fb73be8a255fec7a27a53ee9ebd",
+    "evals/evals.json": "9b0a44071c91502b615c5d581050899bd01526b1afe357c54cc259c7a6ffcbca",
+    "evals/fixtures/IDEAS-001-current.md": "7a8169f7291924f19618e7fd5392bdf3f29739c4ad5074c0e4c6937cd02ba49b",
+    "evals/fixtures/IDEAS-001-r1.md": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+    "evals/fixtures/IDEAS-001.md": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+    "evals/fixtures/STORY-014.md": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+    "evals/fixtures/b7/operator-assignment.md": "c4e619e8740bfff8eb695cf5ac5ba247e0feefbeafd88f46165cd57036593d9a",
+    "evals/fixtures/b7/operator-expectations.json": "85b7456fe49e3835278fd7abc2aff1a410b602041cc9acccce2cf18df1798ef4",
+    "evals/fixtures/b7/worker-request.txt": "ccbf1e1bac0bb68ed4c54733e74da0cc0e5c6cbca8e46ccf1202da528d6af1bf",
+    "evals/fixtures/proposal-context.txt": "1741f5fd122423d425b411838b082392c385be739d4af134f1c84f8371544a39",
+    "evals/fixtures/selected-input.json": "d579ad85f7593f3c54b67ec470fc6fc66a7aed787ab14cc7471e478c6a7b5e6f",
+    "evals/installed-resources.json": "3a13a3bdf8e262ee89416d54d4ba7de2d73bf751576c6ab68fb7e8d508f31283",
+    "evals/provenance.json": "85c6389ec252577def9b4072af6c05569016574ecc92f5d4a2cc963406afa233",
+    "evals/reference_identity_v4.py": "5dbbc380e05a9104e571c2364a45773fa9eb34f4f7240ac35e2d0b27a6009367",
+    "evals/test_anchors.py": "78b3fb4f7c6c115e0892650dc7ab038b8076f4bd110782f576154768d145f43c",
+    "evals/test_delivery_check.py": "ffa2b377cfa3e7285efc0940f1ea75c12f3378f831e8804032191d677b944c57",
+    "evals/test_reference_identity_v4.py": "011d212e723c099b82458a4eab47124ac7066ae143d9c71831de781657bb185f",
+    "evals/triggers/queries.json": "95369f479d979db6c20108abbd3206f6061097c76b80b5276c51c42ced11eb6b",
+    "references/artifact-workflow.md": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b",
+    "references/derivation.json": "9eadaf3ac33f0ab84f5ae1a9c1b7d91b6dcd326e6255f4cfc266d951fdb81c77",
+    "references/managed-runtime.md": "ec94b77a602478b6da104f56fbd422d4d7be95aff79b5fbebdddda4313f371be",
+    "scripts/artifact_receipt.py": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449",
+    "scripts/delivery_check.py": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872"
+  },
+  "installed_inventory_proposal": {
+    "source_runtime_paths": [
+      "SKILL.md",
+      "assets/handoff.md",
+      "assets/idea-ledger.md",
+      "references/artifact-workflow.md",
+      "references/derivation.json",
+      "references/managed-runtime.md",
+      "scripts/artifact_receipt.py",
+      "scripts/delivery_check.py"
+    ],
+    "expected_source_runtime_count": 8,
+    "scope": "Prospective source runtime inventory only, not an observed installation/export. Includes both unchanged helpers and derivation maintenance resource plus the new managed reference. The actual installer mode and resulting manifest must be independently observed; evals and caches remain excluded. No installation occurred here."
+  },
+  "case_order": [
+    {
+      "tier": "C",
+      "cases": [
+        "C-candidate"
+      ],
+      "admission": "New authority, reviewed frozen candidate/controls, admitted native launcher/effective hooks and all preflight prerequisites first."
+    },
+    {
+      "tier": "B",
+      "cases": [
+        "B6-candidate"
+      ],
+      "admission": "Require complete new C gate PASS, including semantic judgment generated after exact outputs/checks and selected before admission."
+    },
+    {
+      "tier": "B",
+      "cases": [
+        "B6E-drift",
+        "B6E-control"
+      ],
+      "admission": "Require complete new C and B6 gates PASS; both arm meanings remain distinct. No historical grade supplies admission."
+    },
+    {
+      "tier": "A",
+      "cases": "Separately allocated fixed discovery/activation cases",
+      "admission": "Require complete applicable C/B gates and explicit A allocation/fixed criteria; A is not admitted by this authoring or by path-supplied C/B."
+    }
+  ],
+  "prospective_bounds": {
+    "max_core_attempts": 4,
+    "per_attempt_seconds": 600,
+    "max_core_concurrency": 2,
+    "minimum_closeout_reserve_before_attempt_seconds": 120,
+    "retry": false,
+    "rule": "Retain selected core caps as proposed upper bounds, subject to a new explicit allocation. All preparation, waiting and correction count toward its original clock. This authoring has zero calls and its own immutable CLOCK; neither old native deadlines nor this source allocation admits a measurement. A, extra controls and human evaluation need separately assigned budgets."
+  },
+  "coverage": {
+    "C": "Actual project-local installed package and consuming-project map. Observe native loading of SKILL.md, both workflow references and both applicable templates. Preserve helper inventory; observe runtime checks instead of model helper invocation. Prove source checkout/docs unavailable with actual boundary evidence, not changed CWD. Retain foster-carer capture-versus-handoff uncertainty, attribution and useful next task; distinguish parent SESSION@2 provenance from execution ownership.",
+    "B6": "Retain exactly selected IDEAS-001@1 rows and scope with divergent current r2/hash. Identify the mismatch and affected continuation without replacing selected bytes or adopting paid-marketplace scope. No actual historical receipt/continuation object exists in original B6; that object-level clause remains NOT_APPLICABLE there, measured in B6E.",
+    "B6E_pair": "Retain identical original prompts, receipt and continuation bytes in both arms and only the original current-ledger difference. Both preserve original receipt historical PASS about then-observed r1 equality, with no adoption. Drift: prior equality and NEXT-B6E-001/BYTECHECK-B6E-001 dependent basis are not current evidence and require reconciliation/refresh. Control: actual unchanged-r1 equality and continuation remain applicable subject to ordinary scope; creating an output alone does not make evidence stale.",
+    "A": "Keep explicit invocation, direct domain, indirect and negative/near-miss cases separate in fresh target contexts. Implicit prompts supply neither skill path nor forced selector. Observe exact native selection, successful resource consultation and completed result separately. A negative requires successful terminal completion without target consultation; timeout/error/premature EOF or incomplete result is COULD_NOT_RUN. Preserve fixed train/validation/final query separation and do not expose held-out answers to the worker.",
+    "reference_identity_complete": "Inspect every own envelope and repeated mapping, table, missing_inputs entry, prose reference and saved response against exact retained sources. Strict positive integer revisions exclude booleans/floats; raw absent metadata stays null with disclosed gap. Own artifact versus receipt_id/heading/row/selector target stays distinct. Selectors retain own path/hash separately from targets; inspect complete reference mappings and every repeated digest. Source row IDs remain separate from stable section IDs; headings must be real, populated, uniquely resolving and outside proper fences. Preserve line-ending/unsupported-parser limits; do not normalize frozen input or override an automatic failure after measurement.",
+    "artifact_tables_and_truth": "Use all shared handoff tables and canonical Outcome tokens. Preserve creation-time NOT_RUN for own later readback/hash/receipt/delivery, no self-digest, real output existence and truthful saved response claims. Check all template/envelope fields, provenance, adoption/attribution, split/merge origins, alternatives, consequential unknowns and useful owned continuation separately from core mechanics.",
+    "ownership_and_preservation": "Verify selected worktree/branch/base, source/installed/fixture manifests, externally owned task/receipt state and exact write fence. Mutable outputs use selected baselines plus actual retained archives; they are not frozen immutable inputs. Changes remain confined to assigned output/checkpoint paths; collision cannot select another root, mode or destination. Preserve all original fixture/current/prior/receipt bytes and attribution. A safe report outbox does not confer ownership of a protected ledger.",
+    "managed_phase_events": "Observe actual SessionStart/UserPromptSubmit context, qualifying Stop and correction events under effective native hooks. Bind task/phase/challenge/checkpoint size/schema/exact content, accepted snapshots, source/resources and original deadline. Require ordinary Recover/Explore/Record/Focus order; only owner-selected handoff-only skips Explore/Record as NOT_APPLICABLE. WAITING_USER must follow a real question/dependency and issue no receipt; actual user text must resolve what it resolves, without inferred adoption. One bounded correction per phase; reject replay/out-of-order/stale evidence and no deadline reset or manual helper fallback.",
+    "runtime_delivery_order": "Observe Focus READY then runtime final artifact read/check, exclusive external receipt publication, complete receipt readback, current-target verification, exact path/full digest in synchronous systemMessage. Bind complete final artifact and receipt bytes. Measure callback/transport receipt, socket write and actual rendering separately. SOCKET_WRITE_COMPLETED cannot stand in for rendered delivery. A model PASS or later author readback cannot manufacture missing native chronology.",
+    "native_and_process": "Preserve actual client/version/model observability, isolation, tools/settings/skill visibility, subscription-only arrangement, original caps, raw stdout/stderr/event capture, per-command status, protocol/pending-item state, EOF and turn completion. Task completion may occur during Stop with the client alive; later owned-client termination/exit and cleanup remain distinct required evaluation observations. Record only owned process identities/groups and actual reaping/survivors. Any terminal/transport gap remains COULD_NOT_RUN for its dependent claim; do not infer every compound command passed from outer exit 0.",
+    "post_completion": "A later failure or drift preserves the committed historical receipt. Separately observe current applicability, native completion and rendered-delivery status. Do not block unrelated turns indefinitely or rewrite a historical receipt/handoff to report later events.",
+    "semantic_decision_order": "No semantic decision until exact corresponding outputs and checks exist. Bind judgment to fixed criteria, output/checkpoint/receipt/transcript bytes and actual reviewer. Select and verify this completed decision before dependent C/B/A admission. Missing required coverage prevents full PASS; named behavior and mechanical delivery remain separately reported.",
+    "comparison_limits": "Retain old_skill/without_skill baseline labels, shared raw facts, isolated contexts and actual tool-assistance disclosures where comparison is separately allocated. No new baseline, broad B suite, full A suite, causal efficacy claim or human usefulness/acceptance judgment is produced here.",
+    "causal_provenance": "Required tenth common check causal_provenance, fully specified in the bound rubric /causal_provenance_judgment. Inspect and classify every upstream occurrence and reachable immutable-revision causal edge, separately identify membership/split-merge/next-step/backlink relationships, resolve all exact input/output revisions and hashes, show acyclic lineage and correct completed-ledger -> consumed-by-handoff direction. Use consumer -> input for the recorded graph. Require exact per-edge and graph evidence locators plus a completed post-output manual judgment selected before dependent admission. Missing evidence or unresolved closure prevents full semantic PASS; identity checks or mechanical receipts alone do not cover causality."
+  },
+  "unexecuted_control_examples": [
+    {
+      "case": "required phase absent or out of order",
+      "expected": "No later-phase admission/completion receipt; preserve cause and current phase."
+    },
+    {
+      "case": "checkpoint replay, wrong task/challenge or changed selected input/resource",
+      "expected": "Reject dependent completion; no replacement authority or fresh deadline."
+    },
+    {
+      "case": "real blocking question then non-adopting user reply",
+      "expected": "WAITING_USER with exact dependency and no receipt; resume same phase with actual answer interpretation and original clock, without invented adoption."
+    },
+    {
+      "case": "one correction then another invalid checkpoint",
+      "expected": "Only the selected bounded correction; exhaustion stops dependent completion without retry."
+    },
+    {
+      "case": "missing output or lost baseline archive",
+      "expected": "No managed completion; actual retained bytes required, hashes alone insufficient."
+    },
+    {
+      "case": "handoff-only outside-scope routing",
+      "expected": "External mode selects Recover-to-Focus; correct routing/capability gap, no manufactured ledger or owner override."
+    },
+    {
+      "case": "lost aggregate output but protected record available",
+      "expected": "Correlate original runtime-owned bytes/events at required point; preserve unobservable native/rendered fields and never retroactively repair old C."
+    },
+    {
+      "case": "receipt published, then transmission/renderer/client failure",
+      "expected": "Preserve committed receipt and exact targets; separate socket/renderer/native/process/current-applicability outcomes."
+    },
+    {
+      "case": "missing effective hook or native admission refused",
+      "expected": "No enforcement claim; native-dependent evaluation COULD_NOT_RUN if attempted, with exact cause. No unconfined or helper fallback."
+    },
+    {
+      "case": "unmanaged authorized discussion/draft",
+      "expected": "Useful draft and truthful pending delivery, no manufactured runtime receipt or managed-completion claim."
+    }
+  ],
+  "readiness_blockers": [
+    "Selected production launcher refuses native admission; root must finish and independently establish native startup/effective configuration and callback/receipt-rendering observations.",
+    "Selected grade_v4.py and mechanical_delivery.py implement historical model-published files-style receipts and fixed saved-response assumptions; those bytes remain untouched. Root must allocate, implement, review and freeze only the necessary runtime observation adaptation before using new criteria.",
+    "Source evals/installed-resources.json still records the historical helper-invocation observation; fixtures/triggers/evals/helpers are protected in this allocation. Preserve their bytes/history and select a reviewed run-side interpretation rather than silently executing conflicting expectations.",
+    "A new actual consumer task/session contract, output/checkpoint/archive/receipt selection, source-inaccessible installation and independent fixed semantic decision mechanism are not created by this proposal.",
+    "Required native, delivery/rendering or semantic observation gaps must prevent dependent admission; root result records and custody do not supply them.",
+    "CHG-001 causal_provenance manual edge/graph/evidence requirement is authored, not wired or validated. A root-selected independent post-output reviewer/record and fail-closed admission consumer remain to be implemented/reviewed/frozen in a separate allocation; the old grader does not enforce this addition."
+  ],
+  "historical_dispositions": {
+    "evaluate_005_C": "COULD_NOT_RUN; required earlier handoff byte-helper/delivery observation missing, despite final artifact/behavior and native completion support",
+    "evaluate_005_B6": "NOT_RUN",
+    "evaluate_005_B6E_drift": "NOT_RUN",
+    "evaluate_005_B6E_control": "NOT_RUN",
+    "earlier_C_B_A": "Retain each original candidate/criteria/clock binding and result, including prior failures and unexecuted suites; no grade or deadline is rewritten.",
+    "E005_R001": "Empty item_9 aggregated_output is already in raw native CLI archive before local collector; upstream cause unobserved.",
+    "E005_R002": "486.497607-second admission-to-exit UTC interval versus 509.999649-second native monotonic duration remains unresolved; do not fuse clocks or infer overrun.",
+    "revision_7_codex_source_review": "No material source defect reported in the selected scoped static review; no native/behavioral validation or acceptance inferred.",
+    "CODEX_MEAS_R7_001": "Original medium/P2 inherited coverage gap retained; CHG-001 preparation authored, independent reevaluation required; no finding closure or demonstrated native false PASS.",
+    "claude_budget_and_late_write": "Preserve all prior Claude budget FAIL and late-write findings as recorded in the selected root review. This Codex-only proposal supplies no Claude remediation or reevaluation."
+  },
+  "status": {
+    "new_native_worker_grader_model_calls": 0,
+    "tests": 0,
+    "validators_linters_helpers": 0,
+    "synthetic_fixture_execution": 0,
+    "installations_exports": 0,
+    "hook_activation": 0,
+    "validation": "NOT_PERFORMED",
+    "hooks": "DESIGN_ONLY",
+    "native_C_B_A": "NOT_RUN",
+    "human_acceptance": "NOT_RUN",
+    "contributor_context": "PARKED",
+    "root_admission": "NOT_RUN",
+    "compilation": 0
+  },
+  "previous_proposal": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/run/proposals/measurement-plan.proposed.json",
+    "sha256": "c68565dc10917b0ffb9de22bbf75acc42bc337628f09e2722199645f078d6707"
+  },
+  "remediation_specification": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REMEDIATION-SPECIFICATION.md",
+    "sha256": "d5b60b3ea30ea4a8e426f9c2b74ff3f94298d7b3e786286285a7d1cc45b69742"
+  },
+  "repair_mapping": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+    "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+    "locator": "/findings/0"
+  },
+  "current_allocation_note": "This is unexecuted revision-8 preparation. The source candidate and its derivation retain revision-7 authorship. Copied historical criteria, results, clocks and assignments remain historical. No new consumer execution allocation is selected.",
+  "causal_provenance_measurement": {
+    "finding": "CODEX-MEAS-R7-001 / F-001 / CHG-001",
+    "original_severity": "medium/P2",
+    "builder_severity": "MAJOR",
+    "fixed_criterion": {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json",
+      "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+      "locator": "/proposed_rubric/definitions/causal_provenance and /causal_provenance_judgment"
+    },
+    "retained_order": "C-candidate -> B6-candidate -> both B6E arms, then only separately allocated A; complete applicable gates remain required. Causal coverage adds a conjunct to each complete semantic gate, never an alternative path.",
+    "cases_are": "Future unexecuted discriminating control descriptions only; no fixtures, native cases, calls or decisions were generated. Separately select controls, input bytes, exact expected observations and budget before execution. These do not alter B6/B6E prompts, current/selected-ledger difference, receipt/continuation objects or case lists.",
+    "controller_dependency": "Root-owned manual-judgment integration and runner/grader enforcement are DEFERRED. The unchanged historical grader cannot be treated as enforcing the new check. New fixed control bytes must be reviewed/frozen in a separate allocation; no pre-authored PASS, best-effort waiver, unsupported v2 adoption or unassigned retry.",
+    "scope_limits": "Judgment assesses observable artifact lineage and supported content use; it cannot certify hidden reasoning, expert behavior, actual rendering or human acceptance. Each of those keeps its existing separate evidence requirements."
+  },
+  "unexecuted_causal_provenance_cases": [
+    {
+      "case_id": "CP-01",
+      "title": "Positive completed-ledger direction",
+      "proposed_input_distinction": "A completed ledger is retained before handoff creation. The handoff consumes its exact immutable identity. Any continuation/backlink is recorded as a relationship, and every other causal input is substantively supported.",
+      "expected_observation": "Causal check may PASS only with full per-edge evidence, graph order, exact input/output hashes and actual chronology. All retained checks still apply.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    },
+    {
+      "case_id": "CP-02",
+      "title": "Relationship promotion pair",
+      "proposed_input_distinction": "For each of membership, next-step, handoff backlink and split/merge relationship, use genuine retained hash-correct artifact references. Contrast a relationship-only record with promotion of that same relationship to upstream when no content was causally consumed.",
+      "expected_observation": "Require FAIL for unsupported causal promotion even when reference identity/section checks pass. The positive retains the relationship without inventing consumption. A split/merge relationship with separately observed substantive source consumption is judged on that evidence, not banned by label.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    },
+    {
+      "case_id": "CP-03",
+      "title": "Wrong paired ledger/handoff direction",
+      "proposed_input_distinction": "A ledger claims its own later paired handoff as a causal input, or the paired handoff fails to consume the completed ledger. Preserve the actual creation sequence and reference-resolution outcomes.",
+      "expected_observation": "Require nonpass for missing/reversed direction and unsupported causal use. If claimed hashes cannot resolve, retain that identity FAIL too; never construct or claim a real mutually self-consistent complete-byte hash cycle.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    },
+    {
+      "case_id": "CP-04",
+      "title": "Revision-aware lineage positive",
+      "proposed_input_distinction": "A later ledger revision uses an earlier handoff that itself consumed an earlier revision of the same ledger. All three own identities, complete hashes and causal content are retained.",
+      "expected_observation": "Assess the distinct immutable nodes and require an explicit acyclic order. Do not reject solely because artifact IDs repeat across revisions; do not collapse earlier and later ledger nodes.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    },
+    {
+      "case_id": "CP-05",
+      "title": "Reachable lineage and declared cycle",
+      "proposed_input_distinction": "Inspect an output whose upstream artifact has further upstream claims, including an unsupported cyclic lineage claim in a separately selected negative. Retain every actual resolution outcome.",
+      "expected_observation": "Enumerate the full reachable graph and exact cycle claim or acyclic order. Missing transitive inspection blocks PASS. A declared cycle or conflicting identity must remain nonpass; no assumption that top-level hash correctness proves global causality.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    },
+    {
+      "case_id": "CP-06",
+      "title": "Missing observation versus explicit empty graph",
+      "proposed_input_distinction": "Contrast a genuinely observed empty upstream/relationship inventory under the selected output mode with absent causal judgment, omitted edge records, unavailable referenced bytes, and missing required ledger-completion evidence.",
+      "expected_observation": "Only the completely observed applicable empty case can contribute PASS. Missing review is NOT_RUN; an unavailable attempted observation is COULD_NOT_RUN; both block full semantic PASS and every dependent admission even with valid artifacts and a runtime receipt.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    },
+    {
+      "case_id": "CP-07",
+      "title": "Judgment bound to different bytes or ordered too early",
+      "proposed_input_distinction": "After a completed judgment is selected, change a reviewed input/output revision or digest, or supply a judgment created before the corresponding output/check observations. Preserve the original judgment and bytes.",
+      "expected_observation": "Refuse use for full semantic PASS and dependent admission; require separately authorized evidence for the new bytes. Hash or timestamp presence alone cannot prove correct review chronology; no automatic second attempt.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    },
+    {
+      "case_id": "CP-08",
+      "title": "Repeated occurrence coverage",
+      "proposed_input_distinction": "Keep the first upstream occurrence supported while adding a later unsupported occurrence in another bound artifact or a contradictory causal claim in a table/prose passage.",
+      "expected_observation": "The complete inventory must locate and reject the unsupported occurrence. A correct first match, limited parser result or mechanical receipt cannot supply the missing semantic judgment.",
+      "criterion": "causal_provenance",
+      "execution": "NOT_RUN",
+      "fixture_bytes": "NOT_AUTHORED; descriptions only",
+      "native_admission": false
+    }
+  ]
+}
