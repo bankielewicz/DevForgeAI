@@ -1,0 +1,550 @@
+{
+  "captured_at_utc": "2026-09-09T13:54:37.806261+00:00",
+  "scope": "Source preservation and draft PR publication; no merge, native campaign, hook activation, operational installation or release",
+  "baselines": {
+    "DevForge": "4859a279784f902d5f9dabcb0664907b24b297a5",
+    "DevForgeAI": "d29430beace67a141d4d35c2beb066981060cda4"
+  },
+  "pull_requests": [
+    {
+      "repository": "DevForge",
+      "branch": "publish/devforge-cli-followups-20260909",
+      "base": "main",
+      "head": "20a89ac08d3aa8178cc98326ce99e4e3ab8febf1",
+      "url": "https://github.com/bankielewicz/DevForge/pull/1",
+      "draft": true,
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/publish-devforge-cli-followups-20260909"
+    },
+    {
+      "repository": "DevForgeAI",
+      "branch": "publish/devforgeai-shared-foundation-20260909",
+      "base": "main",
+      "head": "1c912649e5686701e8204a22173a02c6894df707",
+      "url": "https://github.com/bankielewicz/DevForgeAI/pull/1",
+      "draft": true,
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/publish-devforgeai-shared-foundation-20260909",
+      "changed_files": 125
+    },
+    {
+      "role": "devforgeai-hooks",
+      "repository": "DevForgeAI",
+      "branch": "publish/devforgeai-hooks-20260909",
+      "base": "publish/devforgeai-shared-foundation-20260909",
+      "head": "0ae0855d12c411751ec4ff4651be32d26d3160c8",
+      "url": "https://github.com/bankielewicz/DevForgeAI/pull/2",
+      "draft": true,
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/publish-devforgeai-hooks-20260909"
+    },
+    {
+      "role": "codex-brainstorm",
+      "repository": "DevForgeAI",
+      "branch": "publish/codex-brainstorm-20260909",
+      "base": "publish/devforgeai-shared-foundation-20260909",
+      "base_sha": "1c912649e5686701e8204a22173a02c6894df707",
+      "head": "0af2a253cd4601ebf8c5c982c5a4f6a9876225c4",
+      "url": "https://github.com/bankielewicz/DevForgeAI/pull/3",
+      "draft": true,
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/publish-codex-brainstorm-20260909",
+      "source_files": 30,
+      "changed_files": 95,
+      "evidence_mappings": 52,
+      "evidence_destinations": 52,
+      "whitespace_exit": 2
+    },
+    {
+      "role": "claude-brainstorm",
+      "repository": "DevForgeAI",
+      "branch": "publish/claude-brainstorm-20260909",
+      "base": "publish/devforgeai-shared-foundation-20260909",
+      "base_sha": "1c912649e5686701e8204a22173a02c6894df707",
+      "head": "ddc8298f5e81e9cfdc5b01c94d8c711fdf21f5b8",
+      "url": "https://github.com/bankielewicz/DevForgeAI/pull/4",
+      "draft": true,
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/publish-claude-brainstorm-20260909",
+      "source_files": 20,
+      "changed_files": 315,
+      "evidence_mappings": 757,
+      "evidence_destinations": 290,
+      "whitespace_exit": 2
+    },
+    {
+      "role": "codex-contribution-context",
+      "repository": "DevForgeAI",
+      "branch": "publish/codex-contribution-context-20260909",
+      "base": "publish/devforgeai-shared-foundation-20260909",
+      "base_sha": "1c912649e5686701e8204a22173a02c6894df707",
+      "head": "e8332a2468bf80b8f3bc27597750be248e652db7",
+      "url": "https://github.com/bankielewicz/DevForgeAI/pull/5",
+      "draft": true,
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/publish-codex-contribution-context-20260909",
+      "source_files": 184,
+      "changed_files": 391,
+      "evidence_mappings": 468,
+      "evidence_destinations": 194,
+      "whitespace_exit": 2
+    },
+    {
+      "role": "claude-contribution-context",
+      "repository": "DevForgeAI",
+      "branch": "publish/claude-contribution-context-20260909",
+      "base": "publish/devforgeai-shared-foundation-20260909",
+      "base_sha": "1c912649e5686701e8204a22173a02c6894df707",
+      "head": "25641dcf6a894af838cc344ec6209dacc3adfef9",
+      "url": "https://github.com/bankielewicz/DevForgeAI/pull/6",
+      "draft": true,
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/publish-claude-contribution-context-20260909",
+      "source_files": 78,
+      "changed_files": 371,
+      "evidence_mappings": 407,
+      "evidence_destinations": 284,
+      "whitespace_exit": 0
+    }
+  ],
+  "archives": [
+    {
+      "source_branch": "impl/vpi01-20260908T144631697661Z-repair-cli",
+      "sha": "bdcdd5eed28c95df70b90a95f72be11c9e9137a9",
+      "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-repair-cli"
+    },
+    {
+      "source_branch": "impl/vpi01-20260908T144631697661Z-runtime-core",
+      "sha": "9ed3559d92da9b9ef7c5d4fb1c02f84f4d2f5dbd",
+      "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-runtime-core"
+    },
+    {
+      "source_branch": "impl/vpi01-20260908T144631697661Z-runtime-schedule",
+      "sha": "47f4f5150b6a2b4c1690fbb8fe6bbf02dc74766f",
+      "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-runtime-schedule"
+    },
+    {
+      "source_branch": "proposal/skill-validation-policy-20260908T114822309238Z",
+      "sha": "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+      "remote_ref": "refs/heads/archive/20260909/proposal/skill-validation-policy-20260908T114822309238Z"
+    },
+    {
+      "source_branch": "impl/vpi01-20260908T144631697661Z-builder",
+      "sha": "5822e72d705216850eeeddccef93391bfeaad89c",
+      "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-builder"
+    },
+    {
+      "source_branch": "impl/vpi01-20260908T144631697661Z-contracts",
+      "sha": "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+      "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-contracts"
+    },
+    {
+      "source_branch": "impl/vpi01-20260908T144631697661Z-repair-ai",
+      "sha": "22e864951066c71a46873321f9bde2220aba653a",
+      "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-repair-ai"
+    },
+    {
+      "source_branch": "impl/vpi01-20260908T144631697661Z-validator",
+      "sha": "314e4048057e1b5431b4d838ce363d8dd0ce5080",
+      "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-validator"
+    }
+  ],
+  "original_preservation": {
+    "main_checkouts": {
+      "DevForge": {
+        "head": "4859a279784f902d5f9dabcb0664907b24b297a5",
+        "original_changed_files_unchanged": 5
+      },
+      "DevForgeAI": {
+        "head": "d29430beace67a141d4d35c2beb066981060cda4",
+        "original_changed_files_unchanged": 41
+      }
+    },
+    "released_sources": {
+      "codex-brainstorm": {
+        "count": 30,
+        "all_original_bytes_unchanged": true
+      },
+      "claude-brainstorm": {
+        "count": 20,
+        "all_original_bytes_unchanged": true
+      },
+      "codex-contribution-context": {
+        "count": 184,
+        "all_original_bytes_unchanged": true
+      },
+      "claude-contribution-context": {
+        "count": 78,
+        "all_original_bytes_unchanged": true
+      }
+    },
+    "author_handoffs": {
+      "codex-brainstorm": {
+        "files": 2,
+        "unchanged": true
+      },
+      "claude-brainstorm": {
+        "files": 2,
+        "unchanged": true
+      },
+      "codex-contribution-context": {
+        "files": 2,
+        "unchanged": true
+      },
+      "claude-contribution-context": {
+        "files": 2,
+        "unchanged": true
+      }
+    }
+  },
+  "original_worktree_coverage": [
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/framework/DevForge",
+      "head": "4859a279784f902d5f9dabcb0664907b24b297a5",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/expert-foundation-gate-20260908",
+      "head": "4859a279784f902d5f9dabcb0664907b24b297a5",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/framework-validation-20260908",
+      "head": "62e9329e2aa69cf3ae43f269ad3620d1fca2095f",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/ni11-interactive-20260908",
+      "head": "c7b2a62696c7f3764fdea3313182b9e896339a2a",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-20260907",
+      "head": "cd403cfee0b120ada2f9e198d3a15db5d4147252",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-continuation-20260907T220803638693Z",
+      "head": "30417d68a5c5c61505bd76e1a9593c4944869056",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+      "head": "6983f1de3e06f9b422546fd6944888dcd34e56a1",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-cli",
+      "head": "bdcdd5eed28c95df70b90a95f72be11c9e9137a9",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-repair-cli",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-core",
+      "head": "9ed3559d92da9b9ef7c5d4fb1c02f84f4d2f5dbd",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-runtime-core",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForge",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-schedule",
+      "head": "47f4f5150b6a2b4c1690fbb8fe6bbf02dc74766f",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-runtime-schedule",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/framework/DevForgeAI",
+      "head": "d29430beace67a141d4d35c2beb066981060cda4",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/agent-scope-lessons-20260908T151556Z",
+      "head": "56035f70ed48b2662192123c656b712c36684395",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm",
+      "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context",
+      "head": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm",
+      "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context",
+      "head": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z",
+      "head": "d29430beace67a141d4d35c2beb066981060cda4",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/expert-foundation-20260908",
+      "head": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907",
+      "head": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "remote_coverage": "contained in published main",
+      "ref": "refs/remotes/origin/main",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/skill-validation-policy-20260908T114822309238Z",
+      "head": "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/proposal/skill-validation-policy-20260908T114822309238Z",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-builder",
+      "head": "5822e72d705216850eeeddccef93391bfeaad89c",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-builder",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-contracts",
+      "head": "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-contracts",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-ai",
+      "head": "22e864951066c71a46873321f9bde2220aba653a",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-repair-ai",
+      "original_head_unchanged": true
+    },
+    {
+      "repository": "DevForgeAI",
+      "original_worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-validator",
+      "head": "314e4048057e1b5431b4d838ce363d8dd0ce5080",
+      "remote_coverage": "preserved exact archive tip",
+      "ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-validator",
+      "original_head_unchanged": true
+    }
+  ],
+  "retrieval": {
+    "DevForge": {
+      "baseline": "4859a279784f902d5f9dabcb0664907b24b297a5",
+      "head": "20a89ac08d3aa8178cc98326ce99e4e3ab8febf1",
+      "retrieved_changed_files": 24,
+      "clone": "/home/bryan/Projects/DevForge/tmp/github-publication-execution-20260909/retrieval/DevForge",
+      "pr": {
+        "baseRefName": "main",
+        "headRefName": "publish/devforge-cli-followups-20260909",
+        "headRefOid": "20a89ac08d3aa8178cc98326ce99e4e3ab8febf1",
+        "isDraft": true,
+        "statusCheckRollup": [
+          {
+            "__typename": "CheckRun",
+            "completedAt": "2026-09-09T13:38:05Z",
+            "conclusion": "FAILURE",
+            "detailsUrl": "https://github.com/bankielewicz/DevForge/actions/runs/34358285090/job/102488448953",
+            "name": "checks",
+            "startedAt": "2026-09-09T13:37:44Z",
+            "status": "COMPLETED",
+            "workflowName": "DevForge CLI checks"
+          }
+        ],
+        "url": "https://github.com/bankielewicz/DevForge/pull/1"
+      }
+    },
+    "DevForgeAI": {
+      "repository": "DevForgeAI",
+      "baseline": "d29430beace67a141d4d35c2beb066981060cda4",
+      "clone": "/home/bryan/Projects/DevForge/tmp/github-publication-execution-20260909/retrieval/DevForgeAI",
+      "checked_distinct_revision_paths": 1309,
+      "exact_source_files": 312,
+      "source_checks": [
+        {
+          "role": "codex-brainstorm",
+          "files": 30,
+          "exact_package_file_set": true,
+          "git_modes_match": true
+        },
+        {
+          "role": "claude-brainstorm",
+          "files": 20,
+          "exact_package_file_set": true,
+          "git_modes_match": true
+        },
+        {
+          "role": "codex-contribution-context",
+          "files": 184,
+          "exact_package_file_set": true,
+          "git_modes_match": true
+        },
+        {
+          "role": "claude-contribution-context",
+          "files": 78,
+          "exact_package_file_set": true,
+          "git_modes_match": true
+        }
+      ],
+      "archive_tips": 5,
+      "pr_checks": [
+        {
+          "branch": "publish/devforgeai-shared-foundation-20260909",
+          "head": "1c912649e5686701e8204a22173a02c6894df707",
+          "changed_files_retrieved": 125,
+          "pr": {
+            "baseRefName": "main",
+            "headRefName": "publish/devforgeai-shared-foundation-20260909",
+            "headRefOid": "1c912649e5686701e8204a22173a02c6894df707",
+            "isDraft": true,
+            "state": "OPEN",
+            "statusCheckRollup": [],
+            "url": "https://github.com/bankielewicz/DevForgeAI/pull/1"
+          }
+        },
+        {
+          "branch": "publish/devforgeai-hooks-20260909",
+          "head": "0ae0855d12c411751ec4ff4651be32d26d3160c8",
+          "changed_files_retrieved": 8,
+          "pr": {
+            "baseRefName": "publish/devforgeai-shared-foundation-20260909",
+            "headRefName": "publish/devforgeai-hooks-20260909",
+            "headRefOid": "0ae0855d12c411751ec4ff4651be32d26d3160c8",
+            "isDraft": true,
+            "state": "OPEN",
+            "statusCheckRollup": [],
+            "url": "https://github.com/bankielewicz/DevForgeAI/pull/2"
+          }
+        },
+        {
+          "branch": "publish/codex-brainstorm-20260909",
+          "head": "0af2a253cd4601ebf8c5c982c5a4f6a9876225c4",
+          "changed_files_retrieved": 95,
+          "pr": {
+            "baseRefName": "publish/devforgeai-shared-foundation-20260909",
+            "headRefName": "publish/codex-brainstorm-20260909",
+            "headRefOid": "0af2a253cd4601ebf8c5c982c5a4f6a9876225c4",
+            "isDraft": true,
+            "state": "OPEN",
+            "statusCheckRollup": [],
+            "url": "https://github.com/bankielewicz/DevForgeAI/pull/3"
+          }
+        },
+        {
+          "branch": "publish/claude-brainstorm-20260909",
+          "head": "ddc8298f5e81e9cfdc5b01c94d8c711fdf21f5b8",
+          "changed_files_retrieved": 315,
+          "pr": {
+            "baseRefName": "publish/devforgeai-shared-foundation-20260909",
+            "headRefName": "publish/claude-brainstorm-20260909",
+            "headRefOid": "ddc8298f5e81e9cfdc5b01c94d8c711fdf21f5b8",
+            "isDraft": true,
+            "state": "OPEN",
+            "statusCheckRollup": [],
+            "url": "https://github.com/bankielewicz/DevForgeAI/pull/4"
+          }
+        },
+        {
+          "branch": "publish/codex-contribution-context-20260909",
+          "head": "e8332a2468bf80b8f3bc27597750be248e652db7",
+          "changed_files_retrieved": 391,
+          "pr": {
+            "baseRefName": "publish/devforgeai-shared-foundation-20260909",
+            "headRefName": "publish/codex-contribution-context-20260909",
+            "headRefOid": "e8332a2468bf80b8f3bc27597750be248e652db7",
+            "isDraft": true,
+            "state": "OPEN",
+            "statusCheckRollup": [],
+            "url": "https://github.com/bankielewicz/DevForgeAI/pull/5"
+          }
+        },
+        {
+          "branch": "publish/claude-contribution-context-20260909",
+          "head": "25641dcf6a894af838cc344ec6209dacc3adfef9",
+          "changed_files_retrieved": 371,
+          "pr": {
+            "baseRefName": "publish/devforgeai-shared-foundation-20260909",
+            "headRefName": "publish/claude-contribution-context-20260909",
+            "headRefOid": "25641dcf6a894af838cc344ec6209dacc3adfef9",
+            "isDraft": true,
+            "state": "OPEN",
+            "statusCheckRollup": [],
+            "url": "https://github.com/bankielewicz/DevForgeAI/pull/6"
+          }
+        }
+      ],
+      "all_hashes_match": true
+    }
+  },
+  "remaining_local_only": [
+    "Workspace-root AGENTS.md and CLAUDE.md; workspace docs/research outside framework repositories",
+    "Installed .agents packages and generated exports not selected as canonical source",
+    "Ignored .poc and tmp records outside explicitly preserved evidence mappings",
+    "WSL and Windows Codex/Claude session histories, settings, authentication and client databases",
+    "Unselected historical artifacts and reflog-only/deleted history not audited by this publication selection"
+  ],
+  "private_off_machine_backup": "No destination supplied; no private state or credentials copied",
+  "scope_limits": [
+    "Hosted CLI CI failed at bubblewrap uid-map setup; Rust/Python CI steps skipped",
+    "Local CLI Rust checks and 621 Python tests passed",
+    "Fixture demo failed at manual adoption evidence requirement; gate left intact",
+    "Native qualification and operational installation remain unestablished",
+    "Frozen evidence retains whitespace and documented historical digest anomalies"
+  ]
+}
