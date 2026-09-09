@@ -1,0 +1,20 @@
+---
+artifact_id: "IDEAS-903"
+revision: 1
+upstream:
+  - artifact_id: "IDEAS-900"
+    revision: 1
+    store: "project"
+    path: "docs/devforge/ideas/IDEAS-900.md"
+    sha256: "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43"
+missing_inputs:
+  - "IDEAS-900 has no stable sections; its authoring date is unknown."
+---
+
+# Positive: a valid absence is not erased by an unrelated unknown
+
+IDEAS-900 was inspected and carries no stable sections, and this envelope says so.
+The unknown in the second clause is about the authoring date, not about the
+sections. Revision 4 let one `unknown` anywhere in the entry outrank the absence
+and demoted the whole disclosure. Expected PASS once the other reference checks
+are satisfied.

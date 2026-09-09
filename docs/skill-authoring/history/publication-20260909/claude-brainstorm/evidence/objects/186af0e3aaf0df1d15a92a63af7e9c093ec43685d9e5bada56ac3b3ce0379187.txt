@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+"""Preparation freeze, revision 2 (CR4-004).
+
+Revision 1 bound the checkers and the candidate but not the runner, not the
+grader, and not the generated grading configurations -- so the code that decided
+what to launch, and the criteria it decided against, were outside the thing that
+was supposed to pin them. A freeze that omits the orchestrator does not pin the
+orchestration.
+
+This binds every file the phase path reads or imports: the runner, the grader,
+the controller, the harness, every checker, the plan (roots, alias map, criteria,
+caps, phase order), the semantic-decision record, the gate inputs, the candidate
+package, the task prompts and fixtures. Full bytes are preserved beside the
+manifest so a later reader can diff rather than trust. The freeze does not carry
+its own digest.
+"""
+import hashlib, json, os, sys, time
+
+RUN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+W = "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm"
+SRC = os.path.join(W, "providers/claude/plugins/devforgeai/skills/devforge-brainstorm")
+DELEG = ("/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/"
+         "claude-brainstorm-revise-002-20260905T162209790414Z/next-fixtures/delegation")
+
+
+def sha(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 16), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
+def tree(root, keep=lambda p: True):
+    out = {}
+    for d, _, fs in os.walk(root):
+        if "__pycache__" in d:
+            continue
+        for f in fs:
+            if f.endswith(".pyc"):
+                continue
+            p = os.path.join(d, f)
+            if keep(p):
+                out[os.path.relpath(p, root)] = sha(p)
+    return out
+
+
+CODE = [
+    "control/run_phases.py",      # the orchestrator: unbound in revision 1
+    "control/grade.py",           # the grader: unbound in revision 1
+    "control/controller.py",
+    "control/freeze.py",
+    "control/PLAN.json",          # roots, alias map, criteria, caps, phase order
+    "control/SEMANTIC-DECISIONS.json",
+    "control/GATE-INPUTS.json",
+    "checkers/validate_references.py",
+    "checkers/check_outcome_labels.py",
+    "checkers/check_receipts.py",
+    "checkers/harness.py",
+]
+
+
+# Already-completed deterministic evidence that authorizes admission. These are
+# generated files, but by freeze time they exist and are finished, so they are
+# bound like any other fixed input. Judgments are the opposite case: they cannot
+# exist yet, so they are bound when a gate consumes them, never predicted here.
+PREFLIGHT = ("no-model-tests/results.json",
+             "no-model-tests/checks-results.json",
+             "no-model-tests/phase-results.json",
+             "no-model-tests/checks_suite.py",
+             "no-model-tests/phase_suite.py")
+
+
+def build():
+    bound = {}
+    for rel in CODE:
+        bound["code/" + rel] = sha(os.path.join(RUN, rel))
+    for n, h in tree(SRC).items():
+        bound["candidate/" + n] = h
+    for arm in ("delegated", "no-delegation"):
+        for n, h in tree(os.path.join(DELEG, arm, "project")).items():
+            bound["fixture/%s/project/%s" % (arm, n)] = h
+    bound["fixture/worker-request.txt"] = sha(os.path.join(DELEG, "worker-request.txt"))
+    for n, h in tree(os.path.join(RUN, "fixtures")).items():
+        bound["prepfixture/" + n] = h
+
+    # CP4-P004. The deterministic preflight result is consumed through
+    # GATE-INPUTS to authorize admission, so it is an admission input and has to
+    # be bound before it authorizes anything -- together with the exact suite
+    # and checker bytes that produced it. Revision 2 hashed it as it read it,
+    # which records what was consumed but pins nothing.
+    for rel in PREFLIGHT:
+        full = os.path.join(RUN, rel)
+        if os.path.isfile(full):
+            bound["preflight/" + rel] = sha(full)
+        else:
+            bound["preflight/" + rel] = None
+
+    plan = json.load(open(os.path.join(RUN, "control", "PLAN.json")))
+    return {
+        "schema_version": "devforge.evaluation-freeze/v2",
+        "run_id": os.path.basename(RUN),
+        "run_root": RUN,
+        "session": "SESSION-001@5",
+        "execution_ref": {
+            "artifact_id": "SESSION-001", "revision": 5, "store": "authority",
+            "path": "authoring-assignments-20260905/SESSION-001.md",
+            "sha256": "e0dda2d0d5722d0b842ef4eae3d844d9e76abfb13b65b5f3cef574956949c10c"},
+        "frozen_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        # The overall budget belongs in the freeze: a cap the runner reads from
+        # somewhere unbound is a cap nobody pinned. A future allocation sets
+        # these to its own window.
+        "overall_start_epoch": int(time.time()),
+        "overall_budget_s": plan["caps"].get("overall_budget_s", 5400),
+        "path_roots": {"code": RUN, "candidate": SRC, "fixture": DELEG,
+                       "prepfixture": os.path.join(RUN, "fixtures")},
+        "bound_hashes": bound,
+        "bound_count": len(bound),
+        "preserved_bytes_at": "freeze-bytes/",
+        "preserved_bytes_scope": ("The code and configuration entries only. The candidate and "
+                                  "fixture entries above are bound by digest against their own "
+                                  "immutable locators and are not copied here; calling this "
+                                  "directory full preservation of every bound entry would be "
+                                  "wrong."),
+        "binding_times": {
+            "at_freeze": ["runner, controller, grader, harness and every local import",
+                          "plan, output maps, criteria, caps, receipt forms and root mappings",
+                          "prompts, fixtures, candidate and delegation bytes",
+                          "the completed deterministic preflight result and the exact suite and "
+                          "checker bytes that produced it"],
+            "at_consumption": ["per-arm grades and the three checker outputs",
+                               "the authorized post-output judgment for each arm"],
+            "never": ["predicted outcomes", "any digest of bytes that do not exist yet"],
+            "why": "Criteria are immutable and are pinned here. Judgments are observations and "
+                   "cannot be pinned before the thing they observe exists; binding them at "
+                   "freeze time is exactly what let a prewritten PASS pass for evidence."},
+        "plan": plan,
+        "arms": [],
+        "concurrency": plan["caps"]["concurrency"],
+        "native_arms_authorized": 0,
+        "authorization_note": "This preparation authorizes zero native arms. The arms list is "
+                              "deliberately empty: a future allocation supplies it, and the "
+                              "phase path launches nothing without one.",
+        "verification_points": ["startup", "before reading bound configuration",
+                                "before phase C", "before each arm admission in every phase"],
+        "change_rule": "Any change to a bound file after this freeze must be rejected by the "
+                       "launch and phase path rather than absorbed by refreshing the freeze. "
+                       "A changed frozen file requires a new allocation.",
+        "self_digest": "absent by design; the receipt beside this file carries it",
+    }
+
+
+def main():
+    fz = build()
+    out = os.path.join(RUN, "control", "FREEZE.json")
+    json.dump(fz, open(out, "w"), indent=1)
+    # preserve full bytes of the bound code so a reviewer can diff, not just trust
+    import shutil
+    dest = os.path.join(RUN, "freeze-bytes")
+    if os.path.isdir(dest):
+        shutil.rmtree(dest)
+    for rel in CODE:
+        t = os.path.join(dest, rel)
+        os.makedirs(os.path.dirname(t), exist_ok=True)
+        shutil.copyfile(os.path.join(RUN, rel), t)
+    print("bound %d hashes (%d code files), bytes preserved at freeze-bytes/"
+          % (fz["bound_count"], len(CODE)))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,543 @@
+#!/usr/bin/env python3
+"""Reference conformance checker, revision 3 (CR3-001).
+
+What changed from revision 2, and why:
+
+The revision-2 parser read the frontmatter line by line and understood only
+one YAML shape: a block sequence whose `sections:` was itself a block list.
+Five real references wrote `sections: [a, b, c]` inline, and every one of
+those 23 claims silently vanished from the parsed representation -- so the
+checker reported PASS on a reference whose sections it had never looked at.
+A flow-style `upstream: [{...}]` disappeared entirely and was reported as
+"no references parsed", which the caller read as nothing to check.
+
+The repair is to stop hand-rolling YAML. The frontmatter is parsed with a
+real parser, so every shape the format actually permits is recovered. The
+compensating rule is that anything the parser cannot turn into the expected
+structure is an explicit failure: an unreadable reference block is a defect
+in the artifact, never an absence of references.
+
+Outcomes per reference are PASS, FAIL or UNAVAILABLE. UNAVAILABLE is a
+resolution result about one locator -- the bytes are genuinely gone and the
+artifact says so in missing_inputs -- and it is deliberately not one of the
+five Outcome-table values, nor a blanket exemption that lets an artifact
+pass without its other references resolving.
+"""
+import argparse, hashlib, json, os, re, sys
+import yaml
+
+REQUIRED = ("artifact_id", "revision", "store", "path", "sha256")
+HEX64 = re.compile(r"\b[0-9a-f]{64}\b")
+
+
+def split_frontmatter(text):
+    if not text.startswith("---"):
+        return None, text
+    end = text.find("\n---", 3)
+    if end == -1:
+        return None, text
+    return text[3:end], text[end + 4:]
+
+
+def load_envelope(path):
+    """Return (envelope_dict, body, error). error is set when the artifact
+    has a frontmatter fence we cannot parse -- which is a failure, not an
+    artifact without an envelope."""
+    text = open(path, encoding="utf-8", errors="replace").read()
+    fm, body = split_frontmatter(text)
+    if fm is None:
+        return None, text, None
+    try:
+        env = yaml.safe_load(fm)
+    except yaml.YAMLError as exc:
+        return None, body, "frontmatter is not parseable YAML: %s" % str(exc).replace("\n", " ")[:200]
+    if env is None:
+        return {}, body, None
+    if not isinstance(env, dict):
+        return None, body, "frontmatter parsed to %s, not a mapping" % type(env).__name__
+    return env, body, None
+
+
+def collect_refs(env):
+    """Pull reference entries out of the envelope in every shape the schema
+    allows. Unknown syntax raises, and the caller turns that into a failure."""
+    out, errs = [], []
+    up = env.get("upstream")
+    if up not in (None, [], ""):
+        if not isinstance(up, list):
+            errs.append("upstream is %s; expected a list of reference mappings" % type(up).__name__)
+        else:
+            for i, ent in enumerate(up):
+                if not isinstance(ent, dict):
+                    errs.append("upstream[%d] is %s; expected a mapping" % (i, type(ent).__name__))
+                else:
+                    out.append(("upstream", ent))
+    # Declared raw-file evidence keeps its native locator, and that locator is
+    # still a claim about bytes -- so it is resolved here too. An evidence entry
+    # that carries no locator at all (a URL, a citation) is not this checker's
+    # business and is passed over rather than failed.
+    ev = env.get("evidence")
+    if ev not in (None, [], ""):
+        if not isinstance(ev, list):
+            errs.append("evidence is %s; expected a list" % type(ev).__name__)
+        else:
+            for i, ent in enumerate(ev):
+                if not isinstance(ent, dict):
+                    errs.append("evidence[%d] is %s; expected a mapping"
+                                % (i, type(ent).__name__))
+                elif ent.get("path") or ent.get("store"):
+                    out.append(("evidence", ent))
+    sup = env.get("supersedes")
+    if sup not in (None, [], ""):
+        if isinstance(sup, dict):
+            out.append(("supersedes", sup))
+        elif isinstance(sup, list):
+            for i, ent in enumerate(sup):
+                if isinstance(ent, dict):
+                    out.append(("supersedes", ent))
+                else:
+                    errs.append("supersedes[%d] is %s; expected a mapping" % (i, type(ent).__name__))
+        else:
+            errs.append("supersedes is %s; expected a mapping or null" % type(sup).__name__)
+    return out, errs
+
+
+def section_present(name, body):
+    """A cited section may be a heading or a labelled record field."""
+    n = re.escape(str(name).strip())
+    pats = (r"^#+\s*(?:\d+[.)]\s*)?" + n + r"\s*$",
+            r"^\s*[-*]\s*\**" + n + r"\**\s*:",
+            r"^\s*\**" + n + r"\**\s*:")
+    return any(re.search(p, body, re.M | re.I) for p in pats)
+
+
+HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*$", re.M)
+
+
+def stable_sections(body):
+    """Section IDs the target actually offers a citer: its own headings.
+
+    `section_present` also accepts a labelled record field, because a claim
+    written against one is still checkable. Deciding whether a target *has*
+    something stable to name is the stricter question, so only real headings
+    count here -- a table row or a field label is not a section a later reader
+    can navigate to.
+    """
+    return [m.group(1).strip() for m in HEADING.finditer(body or "")]
+
+
+PLACEHOLDER_SECTIONS = {"all", "*", "everything", "whole", "entire", "whole document",
+                        "the whole document", "n/a", "none", "all sections"}
+
+
+def sections_of(ent):
+    """Recover claimed sections from inline or block lists, or a lone string.
+
+    Omitting `sections` is a legitimate no-claim. Writing "all" is not: it looks
+    like a claim and resolves to nothing, so it passes every check while telling
+    a later reader nothing about which part of the target was used. If the
+    target has no stable sections to name, the honest form is to omit the key
+    and say so in missing_inputs.
+    """
+    s = ent.get("sections")
+    if s in (None, "", []):
+        return [], None
+    if isinstance(s, str) and s.strip().lower() in PLACEHOLDER_SECTIONS:
+        return [], ("sections: %r is not a section name. Claim actual resolvable sections, or "
+                    "omit the key entirely and disclose the absence in missing_inputs -- a "
+                    "stand-in word resolves to nothing and cannot be checked" % s)
+    if isinstance(s, list):
+        bad = [x for x in s if isinstance(x, str) and x.strip().lower() in PLACEHOLDER_SECTIONS]
+        if bad:
+            return [], ("sections contains the stand-in value %r rather than a section name; "
+                        "claim actual resolvable sections or omit the key" % bad[0])
+    if isinstance(s, str):
+        return [s], None
+    if isinstance(s, list):
+        bad = [x for x in s if not isinstance(x, (str, int, float))]
+        if bad:
+            return [], "sections contains a non-scalar entry: %r" % (bad[0],)
+        return [str(x) for x in s], None
+    return [], "sections is %s; expected a list or a string" % type(s).__name__
+
+
+def sha256_file(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for blk in iter(lambda: fh.read(1 << 16), b""):
+            h.update(blk)
+    return h.hexdigest()
+
+
+def declared_unavailable(env):
+    """Artifact IDs the artifact itself says it could not resolve."""
+    ids = set()
+    for entry in env.get("missing_inputs") or []:
+        for m in re.finditer(r"\b([A-Z][A-Z0-9]*-\d+)\b", str(entry)):
+            ids.add(m.group(1))
+    return ids
+
+
+# What the section-absence carve-out actually needs said. Revision 4 asked only
+# whether the artifact ID appeared *anywhere* in missing_inputs, so a disclosure
+# about some entirely different unknown for the same artifact -- "IDEAS-002:
+# authoring date unknown" -- opened the exception for sections (CP5-CK-001).
+# And the r8 prose widened it the other way, admitting "its section list could
+# not be read" (CC8-PROP-001). Those are three different states and only one of
+# them is the exception:
+#
+#   absence   the target was inspected and has no stable sections   -> permitted
+#   unknown   the section list could not be read, or is unstated    -> refused
+#   other     a disclosure about some other unknown, same artifact  -> refused
+#
+# Unreadability establishes that nobody looked, not that there is nothing there.
+# The whole point of the carve-out is that a reader can tell "this source has no
+# sections to cite" from "nobody said", and an unknown says exactly as little as
+# silence does.
+_SECTION_WORD = r"(?:sections?|headings?|section list|section ids?)"
+_ABSENCE = re.compile(
+    r"(?:\bno\b|\bnone\b|\bwithout\b|\blacks?\b|\babsent\b|\babsence\b|"
+    r"\bdoes not (?:have|carry|contain)\b|\bhas no\b|\bcarries no\b|\bcontains no\b|"
+    r"\bunsectioned\b)", re.I)
+_UNKNOWN = re.compile(
+    r"(?:\bunknown\b|\bunreadable\b|\bcould not (?:be )?(?:read|parsed|determined|inspected)\b|"
+    r"\bcannot (?:be )?(?:read|parsed|determined|inspected)\b|\bnot (?:read|inspected|checked|"
+    r"determined)\b|\bunavailable\b|\bunclear\b|\bnot known\b|\bno access\b|"
+    r"\bpermission denied\b)", re.I)
+
+
+def section_absence_disclosures(env):
+    """Per-artifact section disclosures, classified by what they actually say.
+
+    Returns {artifact_id: {"absence": [...], "unknown": [...]}}. An entry counts
+    for an artifact only when it names that artifact and talks about that
+    artifact's sections; an entry about a different unknown for the same ID
+    contributes to neither list, which is the CP5-CK-001 repair.
+    """
+    found = {}
+    for entry in env.get("missing_inputs") or []:
+        text = str(entry)
+        ids = {m.group(1) for m in re.finditer(r"\b([A-Z][A-Z0-9]*-\d+)\b", text)}
+        if not ids or not re.search(_SECTION_WORD, text, re.I):
+            continue
+        # An unknown claim wins over an absence word in the same sentence: "no
+        # sections could be read" is an unknown, not an observed absence, and
+        # reading it the other way is the exact widening CC8-PROP-001 names.
+        kind = "unknown" if _UNKNOWN.search(text) else (
+            "absence" if _ABSENCE.search(text) else None)
+        if kind is None:
+            continue
+        for aid in ids:
+            found.setdefault(aid, {"absence": [], "unknown": []})[kind].append(text[:200])
+    return found
+
+
+ARTIFACT_REFERENCE_FIELDS = ("upstream", "supersedes")
+
+
+def check_one(field, ent, stores, artifact_label, unavailable, section_disclosures=None):
+    kind = str(ent.get("evidence_kind") or ("raw-file" if field == "evidence" else "artifact"))
+    out = {"field": field, "in_artifact": artifact_label, "evidence_kind": kind,
+           "artifact_id": ent.get("artifact_id"), "revision": ent.get("revision"),
+           "store": ent.get("store"), "path": ent.get("path"),
+           "claimed_sha256": ent.get("sha256")}
+    if kind not in ("artifact", "raw-file"):
+        out.update(outcome="FAIL", claimed_sections=[], sections_checked=0,
+                   reason="unrecognized evidence_kind %r; supported values are artifact and "
+                          "raw-file" % kind)
+        return out
+
+    # `upstream` and `supersedes` are artifact-reference fields: they assert
+    # that a particular artifact, at a particular revision, is what lives at
+    # this locator. Revision 3 let any entry's own evidence_kind decide how it
+    # was checked, so writing `evidence_kind: raw-file` inside upstream dropped
+    # the target identity and revision requirements -- the claim exempted
+    # itself. evidence_kind describes what the target is, not what the field
+    # claims about it. Raw files are legitimate inputs; they belong under
+    # `evidence`, with their native locator, where that form means something.
+    if field in ARTIFACT_REFERENCE_FIELDS and kind == "raw-file":
+        out.update(outcome="FAIL", claimed_sections=[], sections_checked=0,
+                   reason="%s is an artifact-reference field and cannot carry evidence_kind "
+                          "raw-file; an artifact reference has to name its target's own "
+                          "artifact_id and revision. If this target is a raw file, declare it "
+                          "under evidence with its native locator rather than exempting an "
+                          "artifact reference from identity" % field)
+        return out
+
+    required = REQUIRED if kind == "artifact" else ("store", "path", "sha256")
+    missing = [k for k in required if ent.get(k) in (None, "", [])]
+    if missing:
+        out.update(outcome="FAIL", claimed_sections=[], sections_checked=0,
+                   reason="reference omits required field(s): %s" % ", ".join(missing))
+        return out
+
+    claimed_sections, serr = sections_of(ent)
+    out["claimed_sections"] = claimed_sections
+    out["sections_checked"] = 0
+    if serr:
+        out.update(outcome="FAIL", reason=serr)
+        return out
+
+    store = str(ent["store"])
+    if store not in stores:
+        out.update(outcome="FAIL",
+                   reason="store %r is not one of the configured stores (%s)"
+                          % (store, ", ".join(sorted(stores))))
+        return out
+
+    root = os.path.realpath(stores[store])
+    rel = str(ent["path"])
+    if os.path.isabs(rel) or rel.startswith("~"):
+        out.update(outcome="FAIL",
+                   reason="path is absolute; a store-relative path is required so the "
+                          "reference resolves from another checkout")
+        return out
+    target = os.path.realpath(os.path.join(root, rel))
+    if target != root and not target.startswith(root + os.sep):
+        out.update(outcome="FAIL",
+                   reason="path escapes the %s store root (%s)" % (store, root))
+        return out
+    out["resolved_to"] = target
+
+    if not os.path.isfile(target):
+        if out["artifact_id"] in unavailable:
+            out.update(outcome="UNAVAILABLE",
+                       reason="stated locator has no bytes, and the artifact discloses this "
+                              "artifact_id in missing_inputs")
+        else:
+            out.update(outcome="FAIL", reason="stated locator absent: no file at %s" % target)
+        return out
+
+    actual = sha256_file(target)
+    out["actual_sha256"] = actual
+    if actual != str(ent["sha256"]):
+        out.update(outcome="FAIL",
+                   reason="digest mismatch: reference cites %s, file at that path is %s"
+                          % (ent["sha256"], actual))
+        return out
+
+    tenv, tbody, terr = load_envelope(target)
+    if terr:
+        out.update(outcome="FAIL", reason="target %s" % terr)
+        return out
+
+    # An artifact reference asserts that a specific artifact, at a specific
+    # revision, is what lives at this locator. Revision 3 only compared those
+    # fields when the target happened to carry them, so a target with no
+    # artifact_id -- or none with no revision -- passed by having nothing to
+    # disagree with. That is the same shape of defect as the section list that
+    # passed by being empty. The identity has to be there and it has to match.
+    #
+    # Raw files are legitimate inputs, but they are evidence, not artifacts, and
+    # an artifact reference is the wrong envelope for them. Saying so explicitly
+    # is cheap; letting a missing field decide it silently is how a reference
+    # stops meaning anything.
+    if out["evidence_kind"] == "raw-file":
+        out["target_artifact_id"] = (tenv or {}).get("artifact_id")
+        out["target_revision"] = (tenv or {}).get("revision")
+    else:
+        if not tenv:
+            out.update(outcome="FAIL",
+                       reason="artifact reference, but the target carries no frontmatter envelope. "
+                              "If this is a raw file rather than an artifact, declare it as "
+                              "evidence with evidence_kind: raw-file; a missing envelope is not "
+                              "an exemption an artifact reference grants itself")
+            return out
+        out["target_artifact_id"] = tenv.get("artifact_id")
+        out["target_revision"] = tenv.get("revision")
+        if tenv.get("artifact_id") in (None, ""):
+            out.update(outcome="FAIL",
+                       reason="artifact reference names %s, but the target's own envelope carries "
+                              "no artifact_id to agree or disagree with" % (ent["artifact_id"],))
+            return out
+        if str(tenv["artifact_id"]) != str(ent["artifact_id"]):
+            out.update(outcome="FAIL",
+                       reason="identity mismatch: reference names %s, target's own envelope says %s"
+                              % (ent["artifact_id"], tenv["artifact_id"]))
+            return out
+        if tenv.get("revision") in (None, ""):
+            out.update(outcome="FAIL",
+                       reason="artifact reference names revision %s, but the target's own envelope "
+                              "carries no revision" % (ent["revision"],))
+            return out
+        if str(tenv["revision"]) != str(ent["revision"]):
+            out.update(outcome="FAIL",
+                       reason="revision mismatch: reference names revision %s, target's own "
+                              "envelope says %s" % (ent["revision"], tenv["revision"]))
+            return out
+
+    # `upstream` is the causal-input field: it says this work came from that
+    # passage, and the selected contract asks for stable section IDs there.
+    # Revision 3 let the claim be dropped whenever the whole document was used
+    # -- precisely the case where the most is available to name. Reading all of
+    # a source is not a reason to say less about it than reading half of it.
+    # The honest omission is the other one: a target with no stable sections has
+    # nothing to name, and that stays permitted. `supersedes` points at a prior
+    # revision rather than a passage, so it is not asked for sections at all;
+    # anything it does claim still has to resolve, below.
+    if field == "upstream" and not claimed_sections:
+        available = stable_sections(tbody)
+        out["target_stable_sections"] = available
+        # The target was read successfully to get here: its digest matched and
+        # its envelope parsed. So `available` is an *inspected* fact about this
+        # artifact, and an empty list is observed absence rather than an unknown.
+        out["target_sections_inspected"] = True
+        said = (section_disclosures or {}).get(str(ent.get("artifact_id")), {})
+        absence_claims = said.get("absence") or []
+        unknown_claims = said.get("unknown") or []
+        disclosed = bool(absence_claims)
+        out["unsectioned_absence_disclosed"] = disclosed
+        out["section_disclosure_kind"] = ("absence" if disclosed else
+                                          "unknown" if unknown_claims else "none")
+        if absence_claims:
+            out["section_absence_disclosure"] = absence_claims[0]
+        if unknown_claims:
+            out["section_unknown_disclosure"] = unknown_claims[0]
+        if available:
+            out.update(outcome="FAIL", sections_checked=0,
+                       reason="causal upstream claims no sections, but the target carries %d "
+                              "stable section(s) (%s). Name the ones this work came from; if it "
+                              "came from all of them, name them all. Omitting the key is a "
+                              "no-claim, and it is only honest when the target has nothing "
+                              "stable to name"
+                              % (len(available), "; ".join(available[:4])))
+            return out
+        # Revision 3 recorded `unsectioned_absence_disclosed` and then ignored
+        # it, so an undisclosed omission passed exactly like a disclosed one and
+        # the exception was not an exception at all (CP5-CK-002 in the checker
+        # review, CP5-CK-001 here). The permitted form is the *disclosed* one:
+        # the point of the carve-out is that a reader can tell "this source has
+        # no sections to cite" from "nobody said". Silence cannot report itself.
+        if not disclosed and unknown_claims:
+            # The artifact says the section list could not be read. That is an
+            # honest report of an unknown and it is not the exception: the
+            # carve-out is for an inspected absence, and this artifact is on
+            # record as not having inspected. The two states must not collapse
+            # into one another in either direction (CC8-PROP-001).
+            out.update(outcome="FAIL", sections_checked=0,
+                       reason="causal upstream claims no sections for %s, but the artifact "
+                              "discloses an unknown rather than an absence (%r). Unreadable or "
+                              "unstated sections establish that nobody looked; the omission is "
+                              "permitted only for a target inspected to have none. Say which it "
+                              "is -- and if the target really has no stable sections, this one "
+                              "has been read and carries none, so disclose that"
+                              % (ent.get("artifact_id"), unknown_claims[0][:120]))
+            return out
+        if not disclosed:
+            other = ""
+            if str(ent.get("artifact_id")) in unavailable:
+                # The ID is somewhere in missing_inputs, just not about its
+                # sections. Revision 4 accepted exactly this and called the
+                # exception satisfied (CP5-CK-001).
+                other = ("; the artifact does mention this ID in missing_inputs, but about "
+                         "something other than its sections, which discloses a different "
+                         "unknown and not this absence")
+            out.update(outcome="FAIL", sections_checked=0,
+                       reason="causal upstream claims no sections and the target has none to "
+                              "name, but the artifact does not disclose that absence. Record %s "
+                              "in missing_inputs so the omission reads as an observation rather "
+                              "than as nothing having been written%s"
+                              % (ent.get("artifact_id"), other))
+            return out
+
+    absent = [s for s in claimed_sections if not section_present(s, tbody)]
+    out["sections_checked"] = len(claimed_sections)
+    if absent:
+        out.update(outcome="FAIL",
+                   reason="claimed section(s) not found in the target: %s" % "; ".join(absent))
+        return out
+
+    out.update(outcome="PASS",
+               reason="locator resolves, digest matches the file at that path, identity and "
+                      "revision agree with the target's own envelope, %d claimed section(s) present"
+                      % len(claimed_sections))
+    return out
+
+
+def evaluate(cfg):
+    stores = cfg["stores"]
+
+    refs, errors, inventory = [], [], []
+    validated, excluded = [], cfg.get("excluded_staged_fixtures", [])
+
+    for art in cfg["artifacts"]:
+        path, label = art["path"], art.get("label", art["path"])
+        if not os.path.isfile(path):
+            errors.append({"in_artifact": label, "error": "artifact not found at %s" % path})
+            continue
+        validated.append(label)
+        env, body, err = load_envelope(path)
+        text = open(path, encoding="utf-8", errors="replace").read()
+        for i, m in enumerate(HEX64.finditer(text), 1):
+            inventory.append({"artifact": label, "digest": m.group(0), "occurrence": i})
+        if err:
+            errors.append({"in_artifact": label, "error": err})
+            continue
+        if env is None:
+            errors.append({"in_artifact": label,
+                           "error": "no parseable frontmatter envelope; references cannot be checked"})
+            continue
+        entries, perrs = collect_refs(env)
+        for e in perrs:
+            errors.append({"in_artifact": label, "error": e})
+        unavail = declared_unavailable(env)
+        disclosed_sections = section_absence_disclosures(env)
+        for field, ent in entries:
+            refs.append(check_one(field, ent, stores, label, unavail, disclosed_sections))
+
+    counts = {}
+    for r in refs:
+        counts[r["outcome"]] = counts.get(r["outcome"], 0) + 1
+    result = {
+        "schema_version": "devforge.reference-conformance/v3",
+        "checker_revision": 4,
+        "reference_conformance": refs,
+        "reference_counts": counts,
+        "parsed_reference_count": len(refs),
+        "parsed_section_claim_count": sum(len(r.get("claimed_sections") or []) for r in refs),
+        "resolved_section_claim_count": sum(r.get("sections_checked", 0) for r in refs),
+        "parse_errors": errors,
+        "scope": {
+            "validated_artifacts": validated,
+            "excluded_staged_fixtures": excluded,
+            "note": "Only worker-emitted or worker-modified artifacts are validated. Staged "
+                    "fixture files and verbatim preserved copies of a prior revision carry "
+                    "references this worker did not author.",
+        },
+        "digest_occurrence_inventory": {
+            "count": len(inventory), "rows": inventory,
+            "scope": "Every 64-hex string appearing in the artifacts. An inventory only: it "
+                     "validates no locator and must never be reported as validated references.",
+        },
+        "conformance": "FAIL" if (errors or counts.get("FAIL")) else "PASS",
+        "conformance_note": "PASS requires every parsed reference to resolve and every "
+                            "reference block to parse. UNAVAILABLE is a per-reference "
+                            "resolution result, not an Outcome-cell value and not an exemption; "
+                            "it must be separately disclosed and graded per case.",
+    }
+    return result
+
+
+def run(project_root, stores, artifact_rel_paths, excluded=()):
+    """Direct call used by the deterministic self-test."""
+    return evaluate({"stores": stores,
+                     "artifacts": [{"path": os.path.join(project_root, a), "label": a}
+                                   for a in artifact_rel_paths],
+                     "excluded_staged_fixtures": list(excluded)})
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--out")
+    a = ap.parse_args()
+    result = evaluate(json.load(open(a.config)))
+    txt = json.dumps(result, indent=1)
+    if a.out:
+        open(a.out, "w").write(txt + "\n")
+    print(txt)
+    return 0 if result["conformance"] == "PASS" else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,63 @@
+{
+  "scope": "Actual frozen R9 receipt/manifest/chronology inspection; no authored execution or native evaluation",
+  "at_utc": "2026-09-07T16:53:23.007379+00:00",
+  "findings": [
+    {
+      "id": "R9-CUSTODY-001",
+      "severity": "MAJOR",
+      "scope": "authoring chronology and report accuracy; not an observed overrun",
+      "status": "CONFIRMED_REPORTING_CONTRADICTION",
+      "evidence": [
+        {
+          "path": "inputs/claude/run/report/SEVAL-R9-001.md",
+          "locator": "lines5-6",
+          "claim": "technical edits stopped at the 17:53:30Z reserve boundary"
+        },
+        {
+          "path": "inputs/claude/run/report/RECEIPT.json",
+          "locator": "/issued_at_utc",
+          "value": "2026-09-07T16:29:04.452179+00:00"
+        },
+        {
+          "path": "inputs/claude/run/HANDOFF.md",
+          "locator": "/created_at_utc",
+          "value": "2026-09-07T18:06:00+00:00"
+        },
+        {
+          "path": "CUSTODY.json",
+          "locator": "/timing_observations",
+          "claim": "user relayed 18:12Z closure; root already observed complete bytes at16:39:42Z before that claimed event"
+        },
+        {
+          "path": "inputs/claude/run/CLOCK.json",
+          "locator": "/clock_note",
+          "claim": "clock note allows prompt/authority reading before recorded first-work point, contrary to issued rule requiring first-work clock before other assignment reading"
+        }
+      ],
+      "consequence": "The reserve-boundary stop, handoff creation and relayed closeout cannot all be accepted as actual events in the supplied chronology. Do not certify budget/chronology compliance from those narratives or infer an overrun from this inconsistency. Current files were independently observed before the stated hard deadline; the actual first-work boundary and editing chronology are not independently established.",
+      "required_correction": "Preserve original files/receipts. Add an explicit correction that retracts unobserved future-event claims, distinguishes scheduled cutoff/deadline from actual observations, identifies evidence for known times and leaves unobserved times unknown. No invented replacement timestamps, private-history audit, clock reset or rewritten prior results. Future authoring records a current clock-tool result before file reading and uses actual observations only."
+    },
+    {
+      "id": "R9-CUSTODY-002",
+      "severity": "MINOR",
+      "scope": "manifest closure and coverage description",
+      "status": "CONFIRMED_SELF_ENTRY_HASH_MISMATCH",
+      "evidence": [
+        {
+          "path": "inputs/claude/run/MANIFEST.sha256",
+          "locator": "line6",
+          "expected": "06f30b00716ca2e1cbfecdece3a280117d5fbdd1fb64cce919ddfe7fdd22f9b7",
+          "actual": "768ce11a14c2ab51a61c4820197f0f9cbde9f6a3d222ba67fef99df819bef079",
+          "entry": "./MANIFEST.sha256"
+        },
+        {
+          "path": "inputs/claude/run/MANIFEST.sha256",
+          "locator": "entry ./report/SEVAL-R9-001.md",
+          "claim": "Report is included, contrary to relayed statement that manifest predates/excludes report"
+        }
+      ],
+      "consequence": "The manifest does not verify as a complete listed set. It has78 entries:77 valid nonself entries including the report and1 invalid self entry; current run has80 files, with READBACK.json and RECEIPT.json outside the manifest. The external receipt correctly binds report/manifest/readback; all73 receipt/readback targets and all40 builder before/after targets match. Actual source bytes remain independently selectable for static review, but this is not a passing author manifest.",
+      "required_correction": "Preserve this manifest. Any new manifest must explicitly exclude itself, state its exact closure boundary and bind finalized files, with later external receipt covering the manifest and any subsequent reports/readbacks. An additive corrected manifest may bind the old manifest as historical input under a distinct path, never its own current bytes."
+    }
+  ]
+}

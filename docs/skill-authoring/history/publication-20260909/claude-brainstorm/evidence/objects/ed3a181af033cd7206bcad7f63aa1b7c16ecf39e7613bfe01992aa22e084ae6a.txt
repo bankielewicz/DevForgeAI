@@ -1,0 +1,17 @@
+{
+  "created_at_utc": "2026-09-07T17:05:02.478775+00:00",
+  "root_review_status": "REVISE_METADATA_AND_EXECUTABLE_CONTROLS",
+  "fixture_validation_receipt": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-validations/demo-helper-policy-20260907T165418677676Z/selected-preserved-companion/VALIDATION-RECEIPT.json",
+    "sha256": "969f949d2745cdecb5e745a9e71abc53c1e928d2836f4082c6661a9e0cf26006"
+  },
+  "fixture_results": "30 test_poc PASS; two demos VERIFIED plus STALE/REFRESH checks PASS",
+  "fixture_selection": "Explicit preserved prior companion bytes after live utility drift; not current companion qualification",
+  "runtime_startup_r4": "Still unreviewed and untested; no readiness granted",
+  "native_C_B_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "reference_coverage_v2": "NOT_ISSUED",
+  "historical_results": "Preserved unchanged",
+  "other_three_sessions": "Held unchanged; no new hold prompts"
+}

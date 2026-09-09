@@ -1,0 +1,135 @@
+# Additive correction to the R10 run's custody records
+
+A new record in a new run. No byte of `runs/SESSION-001-r10-20260907T1919Z` is changed:
+its CLOCK, report, handoff, R9-CORRECTION, manifest, readback and receipt are preserved
+exactly as written, defects included. Nothing here closes a finding. Three corrections:
+CHG-039 (R10-CUSTODY-001, MAJOR), CHG-040 (R10-CUSTODY-002, MINOR), CHG-041
+(R10-CUSTODY-003, MINOR).
+
+## CHG-039 — the first-action failure, and what it does not license me to claim
+
+R10's `CLOCK.json` describes the clock as taken "before any packet or assignment file was
+read" while, in the same object, disclosing three preceding tool calls — one of which read
+`CLAUDE-BRAINSTORM.md`. Those two statements are not compatible. The rule requires an
+actual UTC observation as the first tool action, before any file read. **R10 did not meet
+it.** That stands as reported; it is not repaired retroactively.
+
+### What is withdrawn
+
+R10's correction went on to claim the deviation "shortens this allocation rather than
+extending it", and that the recorded start was late "by at most a few minutes". **Both
+claims are withdrawn.** Neither is supported:
+
+- The true first-work time is **unknown**. Nothing observed it. Without it there is no
+  measured interval between it and the 19:19:29Z observation, so no bound — "a few
+  minutes" or otherwise — can be placed on the deviation.
+- Starting the clock later and then adding fixed 100- and 120-minute offsets moves both
+  cutoffs *later* relative to the unrecorded earlier work. That is the opposite of a
+  shortened allocation. R10 asserted the favourable reading of its own error.
+- The true total duration and the original first-work-relative cutoffs are therefore
+  also **unknown**.
+
+### What is not asserted in their place
+
+No overrun is inferred. No replacement or backdated timestamp is invented. The observed
+19:19:29Z clock remains what it is — an actual observation, just not the first action —
+and the unknown quantities stay unknown.
+
+### This allocation
+
+R11's first tool action was `date -u`, returning `2026-09-07T22:58:31.234163791Z`, with
+no file read and no other preparation before it. The delivered outer instruction carried
+the clock-before-any-file-read requirement in its own first sentence, which is what
+R10-CUSTODY-001 asked for. `CLOCK.json` records this under
+`first_action_rule_satisfied: true`.
+
+## CHG-040 — an invalid timestamp, labelled rather than altered
+
+R10's external receipt carries:
+
+```
+"issued_at_utc": "2026-09-07T19:49:52.%f+00:00"
+```
+
+The literal `%f` was never expanded. The cause was `time.strftime("...%f...")`: `%f` is a
+`datetime` directive and `time.strftime` does not implement it, so it passed through as
+text. Re-read in this run, the field still does not parse —
+`datetime.datetime.fromisoformat` raises `Invalid isoformat string`.
+
+**That field is invalid**, and the exact fractional second of the R10 receipt issuance is
+**unknown**. The whole-second portion of the string is not independently corroborated by
+this correction and is not asserted here. The original bytes are not altered: a receipt is
+custody evidence, and editing it to look correct would destroy the thing it is evidence
+of. Byte-custody validity — R10's receipt did verify byte-for-byte — says nothing about
+whether a field inside it is meaningful.
+
+Every timestamp in the R11 run is produced by
+`datetime.datetime.now(datetime.timezone.utc).isoformat()`, and every timestamp field is
+parsed back with `fromisoformat` before closure.
+
+## CHG-041 — counts and the overbroad verification instruction
+
+### The counts
+
+R10's records described "21 modified" against 25 selected files, which is wrong, and the
+handoff carried a further stale variant. Recomputed in this run from R10's own
+`SOURCE-MAP.json`:
+
+| Quantity | Count |
+| --- | --- |
+| Selected R10 control files | 25 |
+| Modified | 13 |
+| Preserved unchanged | 12 |
+| Added | 8 |
+| **Final control tree** | **33** |
+
+13 + 12 = 25 selected; 13 + 8 = **21 changed-or-added files**. That 21 is where the wrong
+figure came from: it was reported as though 21 of the 25 selected files had been modified.
+13 were.
+
+### The overbroad instruction
+
+R10's handoff proposed that a later session "replace every NOT_RUN in this handback's
+verification table with an observed outcome" after running the no-model suites. That is
+too broad and is withdrawn. A no-model suite result can only update **that suite's** row.
+Native C, native B, native A, root admission, hook activation and human acceptance are
+independent states with their own evidence requirements, and no volume of no-model
+observation touches them. R11 executes none of them either.
+
+### Local partials versus root deferrals
+
+Reconciled against R10's detailed receipt and the R10 reviews, and kept distinct:
+
+- **Local, unfinished in R10 and addressed here**: CHG-010's physical per-reason transcript
+  fixture set, and CHG-019's unresolved fixture binding — R10 shipped
+  `NEG-false-absence-sectioned-target.md` with revision 1 and a placeholder digest, and
+  `NEG-unknown-sections.md` bound to an IDEAS-008 path with an all-zero digest. Both are
+  rebound in this run's fresh fixture copies to the selected targets.
+- **Root-deferred, and not author gaps**: the CHG-009 native observation classes
+  (`stop_and_correction`, `receipt_publication`, `rendered_delivery`) and the CHG-011
+  managed WAITING_USER callback lifecycle. The selected v1 interface exposes no collector
+  for these. They fail closed and block dependent admission.
+
+### Two root context corrections, recorded as such
+
+The initial root intake authority mismatch at `/receipt/allocation` was a run-relative
+resolver mistake, corrected by CUSTODY-SUPPLEMENT using `store=authority`; the corrected
+target hash is `0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587`. The
+omission of the five already-issued R8 reference fixtures was an initial reviewer-snapshot
+gap. Neither is a finding against the author, and neither generalises to other evidence.
+Because those five files are actively selected in `FIXTURE-SELECTION.json`, they are staged
+and bound in this run and cannot be deferred as unavailable.
+
+## Creator
+
+R10's creator action remains **AUTHOR_REPORTED_INVOKED_LOADED_NOT_INDEPENDENTLY_OBSERVED**.
+R11 changes no skill-source byte, so no new creator invocation is required or authorized,
+and none was made. The frozen creator and builder guidance was applied read-only. Reading
+guidance is not invocation and is not recorded as one.
+
+## Status
+
+Additive correction only. Validation NOT_PERFORMED; tests, native C/B/A, root admission,
+hook activation and human acceptance NOT_RUN. No R9, R10, P10 or native finding is closed.
+Original findings, source and authority pins, budget failures and the 687-second late write
+remain immutable. Codex C COULD_NOT_RUN and Codex B NOT_RUN are held unchanged.

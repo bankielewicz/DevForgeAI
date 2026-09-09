@@ -1,0 +1,8 @@
+{
+  "created_at_utc": "2026-09-07T16:42:48.604482+00:00",
+  "root_review_technical_cutoff_utc": "2026-09-07T17:07:48.604482+00:00",
+  "root_review_hard_deadline_utc": "2026-09-07T17:12:48.604482+00:00",
+  "scope": "Root R9 provider review and findings closeout only, distinct from root integration maintenance; static candidate/control review no execution; earlier intake clocks recorded independently",
+  "held_prompt_rule": "No repeated unchanged hold notices; only actionable assignment prompts if needed",
+  "no_old_clock_reset": true
+}

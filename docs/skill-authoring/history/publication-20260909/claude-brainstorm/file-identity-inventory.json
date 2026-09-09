@@ -1,0 +1,406 @@
+{
+ "schema_version": "devforge.author-file-identity-inventory/v1",
+ "prepared_at_utc": "2026-09-09T13:15:43.071598+00:00",
+ "prepared_by": "claude-brainstorm authoring session (author handoff only; no Git mutation)",
+ "dispatch_entry": {
+  "file": "prompts/20-claude-brainstorm.md",
+  "repository": "DevForgeAI",
+  "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm",
+  "branch": "author/claude-brainstorm-mvp",
+  "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+  "disposition": "Active provider draft PR",
+  "match": "exact on worktree, branch and head"
+ },
+ "repository": {
+  "common_git_dir": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.git",
+  "origin": "https://github.com/bankielewicz/DevForgeAI.git",
+  "upstream_for_branch": null,
+  "local_head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c"
+ },
+ "exclusive_source_scope": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/**",
+ "counts": {
+  "TRACKED_MODIFIED": 4,
+  "TRACKED_UNCHANGED": 4,
+  "UNTRACKED_NEW": 12,
+  "total": 20,
+  "publishable_delta": 16
+ },
+ "deletions": [],
+ "deletions_note": "git diff --diff-filter=D against HEAD reports no deletions in this worktree.",
+ "staged_changes": [],
+ "files": [
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+   "path_in_package": "SKILL.md",
+   "status": "TRACKED_MODIFIED",
+   "sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+   "bytes": 20207,
+   "head_blob_sha1": "d85f7546c25c497b5e1ab094a42cc87ad57906e1",
+   "publish_action": "update"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+   "path_in_package": "assets/handoff.md",
+   "status": "TRACKED_MODIFIED",
+   "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+   "bytes": 3342,
+   "head_blob_sha1": "e16fba843734e3c063b25482fcae414355e562bc",
+   "publish_action": "update"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+   "path_in_package": "assets/idea-ledger.md",
+   "status": "TRACKED_UNCHANGED",
+   "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+   "bytes": 1598,
+   "head_blob_sha1": "86cf5301a4f38d042da17d580dbd7319e11b28e3",
+   "publish_action": "none"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+   "path_in_package": "evals/evals.json",
+   "status": "TRACKED_MODIFIED",
+   "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+   "bytes": 23649,
+   "head_blob_sha1": "6f4d0c867a7b772cf8e93ca438bae86d26d5bf9d",
+   "publish_action": "update"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+   "path_in_package": "evals/fixtures/IDEAS-001.md",
+   "status": "TRACKED_UNCHANGED",
+   "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+   "bytes": 2188,
+   "head_blob_sha1": "9f1b65bbf6bdc2341c1ea5385aa49697d0347e72",
+   "publish_action": "none"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+   "path_in_package": "evals/fixtures/STORY-014.md",
+   "status": "TRACKED_UNCHANGED",
+   "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "bytes": 1232,
+   "head_blob_sha1": "2da10a50bef5ea334160c4f85e6ef7f7d5dbf052",
+   "publish_action": "none"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+   "path_in_package": "evals/fixtures/b10/IDEAS-005.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+   "bytes": 2209,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+   "path_in_package": "evals/fixtures/b10/SESSION-077.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+   "bytes": 783,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+   "path_in_package": "evals/fixtures/b12/IDEAS-006.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+   "bytes": 1608,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+   "path_in_package": "evals/fixtures/b12/IDEAS-007-unsectioned.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+   "bytes": 777,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+   "path_in_package": "evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+   "status": "UNTRACKED_NEW",
+   "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+   "bytes": 555,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+   "path_in_package": "evals/fixtures/b6/CHANGE-003.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+   "bytes": 1114,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+   "path_in_package": "evals/fixtures/b6/IDEAS-002.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+   "bytes": 2702,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+   "path_in_package": "evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+   "bytes": 925,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/reference-regressions.json",
+   "path_in_package": "evals/reference-regressions.json",
+   "status": "UNTRACKED_NEW",
+   "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+   "bytes": 3863,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json",
+   "path_in_package": "evals/triggers/trigger-queries.json",
+   "status": "UNTRACKED_NEW",
+   "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+   "bytes": 4493,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+   "path_in_package": "references/derivation.json",
+   "status": "UNTRACKED_NEW",
+   "sha256": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef",
+   "bytes": 37125,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+   "path_in_package": "references/managed-runtime.md",
+   "status": "UNTRACKED_NEW",
+   "sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+   "bytes": 9053,
+   "head_blob_sha1": null,
+   "publish_action": "add"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+   "path_in_package": "references/recording-rules.md",
+   "status": "TRACKED_MODIFIED",
+   "sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+   "bytes": 21702,
+   "head_blob_sha1": "b9815f34c95aa2375bde3e56cac4d4d405a279d4",
+   "publish_action": "update"
+  },
+  {
+   "path_in_repo": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py",
+   "path_in_package": "scripts/check_artifact.py",
+   "status": "TRACKED_UNCHANGED",
+   "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+   "bytes": 1874,
+   "head_blob_sha1": "513f9f2bf1e10698651ba1736bc2d8ae34896817",
+   "publish_action": "none"
+  }
+ ],
+ "release_statement": "These exact sha256 values are the bytes the author releases to the publication coordinator. Source is quiescent: the newest owned-file mtime is 2026-09-07T15:27:13Z, no .lock or .git/index.lock is present, and no edit is in progress.",
+ "execution": "NO_GIT_MUTATION_PERFORMED",
+ "required_existing_evidence": {
+  "authoring_runs_root": ".poc/claude/devforge-brainstorm-workspace/runs",
+  "git_status": "IGNORED (.gitignore:1 '.poc/'); not published by any git add in this repository",
+  "classification_rule": "A run is PUBLIC_SAFE_CANDIDATE only if it holds no transcript.jsonl, no clientstate directory and no .credentials.json. Classification is by artifact shape; the coordinator still owns the final publication decision and any sanitisation.",
+  "credential_finding": {
+   "files": 86,
+   "all_zero_bytes": true,
+   "note": "Every .credentials.json found is 0 bytes -- the isolation launcher strips API keys -- but they are credential-named client-state artifacts and are excluded on principle. Their contents were never read or copied."
+  },
+  "transcript_finding": {
+   "files": 119,
+   "note": "Raw client conversation stores from the 2026-09-05 native evaluation campaign. Excluded."
+  },
+  "runs": [
+   {
+    "run": "SESSION-001-prep-20260906T1506Z",
+    "classification": "REVIEW_REQUIRED",
+    "reason": "no transcripts or credential files, but carries client-state-shaped directories (settings.json only) from no-model scaffolding",
+    "files": 625,
+    "bytes": 3160135,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 14,
+    "credentials_files": 0
+   },
+   {
+    "run": "SESSION-001-prep2-20260906T1806Z",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 18,
+    "bytes": 149527,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0
+   },
+   {
+    "run": "SESSION-001-r10-20260907T1919Z",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 173,
+    "bytes": 1365346,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0,
+    "anchors": {
+     "MANIFEST.sha256": "7120b182d8aa500e4b15281dd9bb39846dc56024179c7f46ea8795a62f9e05f8",
+     "report/RECEIPT.json": "862e275f6a6663f76d0e694bda349f349e26783d3687dd53ec8b5dd0d0ef47fd",
+     "report/READBACK.json": "f1a08262ba085c6761baa3666efde6334934b7bf24b529c6f32ec2b1dcaf81e4"
+    }
+   },
+   {
+    "run": "SESSION-001-r11-20260907T2258Z",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 151,
+    "bytes": 1094178,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0,
+    "anchors": {
+     "MANIFEST.sha256": "f1596396845be86611e84ff660dc4ef4be1f09f03691590a8fc37d42f1be78ef",
+     "report/RECEIPT.json": "300355076eefde6aa5c21c8d06d5a5117444422d9a12352f01ca582cede53e20",
+     "report/READBACK.json": "a121d8319882c12975e968d4e5e89fe2fe683e97a9d6c5daa500d1b546e7e252"
+    }
+   },
+   {
+    "run": "SESSION-001-r7-20260907T1253Z",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 64,
+    "bytes": 440297,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0
+   },
+   {
+    "run": "SESSION-001-r8-20260907T1431Z",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 136,
+    "bytes": 905676,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0
+   },
+   {
+    "run": "SESSION-001-run-20260905T0152Z",
+    "classification": "EXCLUDE_SENSITIVE",
+    "reason": "contains raw client transcript stores and/or credential-named client-state files",
+    "files": 426,
+    "bytes": 15231886,
+    "transcript_jsonl": 33,
+    "clientstate_dirs": 0,
+    "credentials_files": 0
+   },
+   {
+    "run": "SESSION-001-run-20260905T0832Z",
+    "classification": "EXCLUDE_SENSITIVE",
+    "reason": "contains raw client transcript stores and/or credential-named client-state files",
+    "files": 750,
+    "bytes": 12688731,
+    "transcript_jsonl": 45,
+    "clientstate_dirs": 46,
+    "credentials_files": 45
+   },
+   {
+    "run": "SESSION-001-run-20260905T1500Z",
+    "classification": "EXCLUDE_SENSITIVE",
+    "reason": "contains raw client transcript stores and/or credential-named client-state files",
+    "files": 578,
+    "bytes": 10719222,
+    "transcript_jsonl": 32,
+    "clientstate_dirs": 32,
+    "credentials_files": 32
+   },
+   {
+    "run": "SESSION-001-run-20260905T1832Z",
+    "classification": "EXCLUDE_SENSITIVE",
+    "reason": "contains raw client transcript stores and/or credential-named client-state files",
+    "files": 421,
+    "bytes": 6054921,
+    "transcript_jsonl": 9,
+    "clientstate_dirs": 9,
+    "credentials_files": 9
+   },
+   {
+    "run": "b7-fixture",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 1,
+    "bytes": 2188,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0
+   },
+   {
+    "run": "b7-report",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 1,
+    "bytes": 13380,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0
+   },
+   {
+    "run": "isolation-probe",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 1,
+    "bytes": 14,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0
+   },
+   {
+    "run": "r9-source-exec-authoring-20260907T161330303011Z",
+    "classification": "PUBLIC_SAFE_CANDIDATE",
+    "reason": "authoring-only run: no transcripts, no client state, no credential files",
+    "files": 80,
+    "bytes": 595329,
+    "transcript_jsonl": 0,
+    "clientstate_dirs": 0,
+    "credentials_files": 0,
+    "anchors": {
+     "MANIFEST.sha256": "768ce11a14c2ab51a61c4820197f0f9cbde9f6a3d222ba67fef99df819bef079",
+     "report/RECEIPT.json": "9903d68ef40cfe4de9722504b3351cc897d7814abfc4d6ef9e250567d6b3fe36",
+     "report/READBACK.json": "66372e036bf1da67555bc3dd7fda4f95e7049bb03beb4557d16895100ccd973e"
+    }
+   }
+  ]
+ },
+ "cross_repository_evidence": {
+  "authority_store_root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc",
+  "repository": "DevForge (framework/DevForge/.git) -- a different repository from this assignment",
+  "git_status": "IGNORED (.gitignore:2 '/.poc/')",
+  "resolvable_authority_paths": 22,
+  "unique_authority_paths": 23,
+  "expected_difference": {
+   "path": "authoring-assignments-20260905/SESSION-001.md",
+   "recorded_in_derivation": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+   "live_now": "bfea50f8769254e820c729f43bed1c0df86a92414f3e7e59459f961b07b6eb17",
+   "verdict": "EXPECTED_NOT_DRIFT",
+   "explanation": "derivation.json records SESSION-001@10 as a historical locator. Root issued @11 on 2026-09-07, so the live assignment file legitimately advanced. The issued @10 copy at runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/authority/SESSION-001-r10-DRAFT.md still hashes to 0b5d5fec..., so the historical pin remains resolvable. The @11 authority states that historical current-authority pointers are historical locators, not a requirement that live authority stay at an earlier revision."
+  },
+  "author_position": "Not mine to publish: it lives in the other repository's ignored tree and is outside this assignment's exclusive scope. Flagged for the coordinator, not copied."
+ },
+ "project_store_references_from_derivation": {
+  "count": 9,
+  "all_resolvable": true,
+  "note": "references/derivation.json cites nine .poc paths for superseded package bytes. They resolve locally but are inside the ignored tree, so publishing derivation.json alone leaves those nine references unresolvable from a public clone. Two of the nine sit inside runs classified EXCLUDE_SENSITIVE (SESSION-001-run-20260905T1500Z and ...T1832Z starting-candidate copies); only those two specific files are needed, not their surrounding runs."
+ }
+}

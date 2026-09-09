@@ -1,0 +1,26 @@
+{
+  "status": "ALL_REQUIRED_FINAL_REVIEWS_READ_AND_SELECTED",
+  "scoped_reviews": [],
+  "root_reviews": [],
+  "must_wait_before": [],
+  "current_source_fence_expected": "CONFIRMED_ALL_20_PRESERVE",
+  "effective_starting_source": "33 files from reviewed R10 run/source; all older layers historical only",
+  "native_runtime_updates": "May arrive later as additive status with explicit custody; no provider interface change or root admission implied",
+  "completed_scoped_reviews": {
+    "review-claude-source": {
+      "review_sha256": "60443d54820920a8ff412e35c6f5d68dd8f02f7dea35efec61688ecc8fdade0d",
+      "disposition": "R01_R10_PASS_STATIC_SOURCE_ONLY",
+      "finding_count": 0,
+      "read_complete": true
+    },
+    "review-receipts-references": {
+      "review_sha256": "1b349c4c9d4ec969d79b7636a2393f5306711d2abe51d4ae3412785183fbb8a8",
+      "read_complete": true
+    },
+    "review-control-integration": {
+      "review_sha256": "46f66757dcba2e3e553ba032a901afe95a7ef36b3cf6fdd3c27cfad8cc0e1043",
+      "read_complete": true
+    }
+  },
+  "root_report_read_complete": true
+}

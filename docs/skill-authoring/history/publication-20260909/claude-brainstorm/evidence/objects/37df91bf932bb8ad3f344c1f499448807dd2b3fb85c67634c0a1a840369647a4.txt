@@ -1,0 +1,88 @@
+{
+  "schema_version": "devforge.root-review-fixture-context/v1",
+  "created_at_utc": "2026-09-07T22:24:01.406322+00:00",
+  "original_review_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/INPUT-MANIFEST.json",
+    "sha256": "d3808de6c65aff9296156b8a38b3928e8b7d0557b7718424b917dcd79774159e",
+    "bytes": 186361
+  },
+  "issued_inputs": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/INPUTS.json",
+    "sha256": "ff5bf837183cdd907fa34231889fe896f3206ed464c4f913dfb464484e09bc82",
+    "bytes": 137713
+  },
+  "files": [
+    {
+      "issued_binding": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/historical/prior-r8-proposals/fixtures/chg-016-absence-disclosure/FIXTURE-INDEX.json",
+        "sha256": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7",
+        "bytes": 1064
+      },
+      "root_copy": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/additional-selected-fixtures/chg-016-absence-disclosure/FIXTURE-INDEX.json",
+        "sha256": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7",
+        "bytes": 1064
+      }
+    },
+    {
+      "issued_binding": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/historical/prior-r8-proposals/fixtures/chg-016-absence-disclosure/NEG-disclosed-other-unknown.md",
+        "sha256": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400",
+        "bytes": 577
+      },
+      "root_copy": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/additional-selected-fixtures/chg-016-absence-disclosure/NEG-disclosed-other-unknown.md",
+        "sha256": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400",
+        "bytes": 577
+      }
+    },
+    {
+      "issued_binding": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/historical/prior-r8-proposals/fixtures/chg-016-absence-disclosure/NEG-undisclosed.md",
+        "sha256": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433",
+        "bytes": 443
+      },
+      "root_copy": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/additional-selected-fixtures/chg-016-absence-disclosure/NEG-undisclosed.md",
+        "sha256": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433",
+        "bytes": 443
+      }
+    },
+    {
+      "issued_binding": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/historical/prior-r8-proposals/fixtures/chg-016-absence-disclosure/POS-disclosed-sections.md",
+        "sha256": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319",
+        "bytes": 518
+      },
+      "root_copy": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/additional-selected-fixtures/chg-016-absence-disclosure/POS-disclosed-sections.md",
+        "sha256": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319",
+        "bytes": 518
+      }
+    },
+    {
+      "issued_binding": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/historical/prior-r8-proposals/fixtures/chg-016-absence-disclosure/TARGET-NO-SECTIONS.md",
+        "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+        "bytes": 149
+      },
+      "root_copy": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/additional-selected-fixtures/chg-016-absence-disclosure/TARGET-NO-SECTIONS.md",
+        "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+        "bytes": 149
+      }
+    }
+  ],
+  "correction_scope": "The original root snapshot omitted this issued historical subtree. The scoped reviewer correctly reported absence from its selected snapshot; that is not evidence of absence from the R10 author packet. Preserve original review and manifest bytes.",
+  "known_target": {
+    "artifact_id": "IDEAS-900",
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/additional-selected-fixtures/chg-016-absence-disclosure/TARGET-NO-SECTIONS.md",
+    "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+    "bytes": 149
+  },
+  "disposition": {
+    "CC10-RR-003": "Ownership finding retained; exact matching target was already available in issued P10 inputs, independently bound here. No execution claimed.",
+    "CC10-RR-004": "Fixture-consumption and reason-assertion finding retained. Author-unavailable dependency classification is not accepted for these five files; R11 must actively select their exact bytes and mappings."
+  },
+  "execution": "NOT_RUN"
+}

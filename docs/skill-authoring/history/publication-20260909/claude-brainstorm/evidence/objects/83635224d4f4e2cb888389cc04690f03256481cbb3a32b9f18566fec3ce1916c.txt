@@ -1,0 +1,25 @@
+{
+ "schema_version": "devforge.preparation-clock/v1",
+ "assignment": "SESSION-001@10",
+ "revision": "010",
+ "start_utc": "2026-09-07T19:19:29Z",
+ "start_basis": "First tool clock observation in this author session for the R10 allocation, recorded with `date -u` before any packet or assignment file was read for R10 content.",
+ "budget_minutes": 120,
+ "hard_deadline_utc": "2026-09-07T21:19:29Z",
+ "closeout_reserve_minutes": 20,
+ "stop_technical_work_utc": "2026-09-07T20:59:29Z",
+ "clock_reset": false,
+ "clock_extension": false,
+ "first_action_rule_deviation": {
+  "rule": "The issued authority and the remediation specification require the first author tool/action to be an actual clock observation before any assignment-file reading.",
+  "what_actually_happened": "Three tool calls preceded the clock observation: a failed read of the prompt path as given, a directory listing plus AGENTS.md read, and a find for the packet path. The prompt file CLAUDE-BRAINSTORM.md was read on the third call. The clock was observed on the fourth call.",
+  "observed_first_clock_utc": "2026-09-07T19:19:29Z",
+  "correction": "Not repaired by rewriting: the recorded start is the actual first clock observation, which is later than the true session start. The allocation is therefore measured from a start that is at most a few minutes late, and no reset or backdating was applied. This deviation is reported rather than concealed, and it repeats the R9 defect that CHG-023 records.",
+  "budget_effect": "The deviation shortens no cutoff. Reserve and hard cutoff are computed from the observed clock and are honoured as recorded."
+ },
+ "native_model_calls_authorized": 0,
+ "installations_authorized": 0,
+ "exports_authorized": 0,
+ "executions_authorized": 0,
+ "prior_allocation_note": "No SESSION-001@10 run directory or in-progress bytes existed before this start. The R9 run r9-source-exec-authoring-20260907T161330303011Z is closed, preserved and not extended or reset."
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "devforge.review-custody/v1",
+  "review": "R10 independent static control integration",
+  "created_at_utc": "2026-09-07T22:19:41Z",
+  "first_work_utc": "2026-09-07T22:06:03Z",
+  "technical_review_completed_utc": "2026-09-07T22:17:41Z",
+  "technical_stop_utc": "2026-09-07T22:20:03Z",
+  "hard_stop_utc": "2026-09-07T22:24:03Z",
+  "input_manifest": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/INPUT-MANIFEST.json",
+  "input_manifest_sha256": "d3808de6c65aff9296156b8a38b3928e8b7d0557b7718424b917dcd79774159e",
+  "selected_input_count": 39,
+  "selected_inputs_final_recheck": "MATCH",
+  "source_mutations": 0,
+  "evaluated_code_execution": "NOT_RUN",
+  "native_execution": "NOT_RUN",
+  "report_readback": "COMPLETE",
+  "evidence_line_ranges": "CHECKED_AGAINST_FROZEN_FILES",
+  "outputs": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/review-control-integration/ALLOCATION.json",
+      "bytes": 8239,
+      "sha256": "9bc5454e3e1124a129547e2dce1c81bae2c13434b2a5ab8b267e7066919c0587",
+      "readback": "COMPLETE"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/review-control-integration/REVIEW.md",
+      "bytes": 23028,
+      "sha256": "46f66757dcba2e3e553ba032a901afe95a7ef36b3cf6fdd3c27cfad8cc0e1043",
+      "readback": "COMPLETE"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/review-control-integration/FINDINGS.json",
+      "bytes": 32940,
+      "sha256": "f42d045b5669806da612a6e296a35ac737ed72f55065c14f2c166de9edeb9548",
+      "readback": "COMPLETE"
+    }
+  ],
+  "self_digest": "ABSENT_BY_DESIGN; returned externally after receipt readback",
+  "write_fence": "Only ALLOCATION.json, REVIEW.md, FINDINGS.json and RECEIPT.json in this directory"
+}

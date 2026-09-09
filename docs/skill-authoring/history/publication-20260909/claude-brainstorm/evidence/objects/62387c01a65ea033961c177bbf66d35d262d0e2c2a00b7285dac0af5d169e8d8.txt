@@ -1,0 +1,32 @@
+{
+  "skill_name": "devforge-brainstorm",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "queries": [
+    { "id": "A1a", "category": "explicit_invocation", "query": "Use the devforge-brainstorm skill on my idea for a volunteer shift-swapping tool.", "should_trigger": true, "split": "train" },
+    { "id": "A1b", "category": "explicit_invocation", "query": "Run devforge-brainstorm for me.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A2a", "category": "direct_domain", "query": "I want to brainstorm an app idea with you - something to help my sister, who fosters rescue dogs and keeps re-explaining each dog's history to everyone.", "should_trigger": true, "split": "train" },
+    { "id": "A2b", "category": "direct_domain", "query": "Can you help me brainstorm what to build? I keep going in circles on it.", "should_trigger": true, "split": "train" },
+    { "id": "A2c", "category": "direct_domain", "query": "Let's brainstorm a product idea for my two-person consultancy.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A3a", "category": "indirect", "query": "I have three ideas and I cannot decide what problem is worth solving.", "should_trigger": true, "split": "train" },
+    { "id": "A3b", "category": "indirect", "query": "I want to build something.", "should_trigger": true, "split": "train" },
+    { "id": "A3c", "category": "indirect", "query": "There's this thing that keeps annoying me at work and I think there might be a product in it, but I haven't thought it through at all.", "should_trigger": true, "split": "train" },
+    { "id": "A3d", "category": "indirect", "query": "My co-founder and I disagree about which problem we should be solving first. Can you help us think it through?", "should_trigger": true, "split": "validation" },
+    { "id": "A3e", "category": "indirect", "query": "I've got a vague idea for a tool for freelance translators. I'm not sure who it's really for or whether it matters to anyone but me.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A4a", "category": "negative_accepted_story", "query": "Here's STORY-014, it's accepted and ready. Implement it - hide trail condition reports older than 72 hours from the default feed.", "should_trigger": false, "split": "train" },
+    { "id": "A4b", "category": "negative_accepted_story", "query": "The story is signed off. Write the query builder change and its tests.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A5a", "category": "negative_adopted_decision", "query": "We decided last month to store everything in Postgres. I want to revisit that decision now that we know the write volume.", "should_trigger": false, "split": "train" },
+    { "id": "A5b", "category": "negative_adopted_decision", "query": "Change the accepted architecture rule that says all timestamps are compared in UTC.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A6a", "category": "negative_near_miss_brainstorm", "query": "Help me brainstorm better names for this variable.", "should_trigger": false, "split": "train" },
+    { "id": "A6b", "category": "negative_near_miss_brainstorm", "query": "Can you brainstorm some title options for my conference talk?", "should_trigger": false, "split": "train" },
+    { "id": "A6c", "category": "negative_near_miss_brainstorm", "query": "Brainstorm edge cases I should write tests for in this parser.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A7a", "category": "negative_ordinary_task", "query": "Fix the failing test in test_feed.py.", "should_trigger": false, "split": "train" },
+    { "id": "A7b", "category": "negative_ordinary_task", "query": "Summarize this meeting transcript into bullet points.", "should_trigger": false, "split": "validation" }
+  ]
+}

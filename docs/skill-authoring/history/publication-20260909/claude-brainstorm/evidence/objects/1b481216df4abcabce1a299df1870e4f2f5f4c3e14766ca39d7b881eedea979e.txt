@@ -1,0 +1,667 @@
+#!/usr/bin/env python3
+"""Deterministic controls for the three checkers and the inventory. No model.
+
+Each case fixes an expected outcome for a stated input, including every mutant
+the independent review used to expose the previous revision. Where a defect was
+reported, the fixture that exposed it is kept and its expectation is the correct
+one -- so a regression re-surfaces as a failing case rather than as silence.
+"""
+import hashlib, json, os, shutil, sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RUN = os.path.dirname(HERE)
+sys.path.insert(0, os.path.join(RUN, "checkers"))
+sys.path.insert(0, os.path.join(RUN, "control"))
+import validate_references as V
+import check_receipts as CR
+import grade as G
+
+WORK = os.path.join(HERE, "work-checks")
+if os.path.exists(WORK):
+    shutil.rmtree(WORK)
+os.makedirs(WORK)
+results = []
+
+
+def rec(group, cid, desc, expected, actual, extra=None):
+    row = {"group": group, "id": cid, "description": desc, "expected": expected,
+           "actual": actual, "result": "PASS" if expected == actual else "FAIL"}
+    if extra:
+        row.update(extra)
+    results.append(row)
+    return row
+
+
+def w(path, text):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    open(path, "w").write(text)
+    return path
+
+
+def dg(text):
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
+# =====================================================================
+# References
+# =====================================================================
+TARGET_FULL = """---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SOURCE-001"
+artifact_type: "idea-ledger"
+revision: 1
+---
+
+# Ledger
+
+## Ideas and alternatives
+
+row
+
+## Decisions and parked alternatives
+
+row
+"""
+TARGET_NO_ID = TARGET_FULL.replace('artifact_id: "SOURCE-001"\n', "")
+TARGET_NO_REV = TARGET_FULL.replace("revision: 1\n", "")
+TARGET_RAW = "plain notes, no envelope at all\n"
+TARGET_UNSECTIONED = """---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SOURCE-001"
+artifact_type: "idea-ledger"
+revision: 1
+---
+
+Continuous prose with no headings at all, the way an older ledger was written
+before the template existed. There is nothing here a citer could name.
+"""
+
+
+def ref_case(cid, desc, ref_block, target_text, expected, missing="[]"):
+    d = os.path.join(WORK, "ref-" + cid)
+    proj = os.path.join(d, "project")
+    w(os.path.join(proj, "target.md"), target_text)
+    w(os.path.join(proj, "OUTPUT.md"),
+      "---\nschema_version: \"devforge.artifact/v1\"\nartifact_id: \"OUT-001\"\nrevision: 1\n"
+      + ref_block + "\nmissing_inputs: " + missing + "\n---\n\n# Output\n")
+    out = V.run(proj, {"project": proj}, ["OUTPUT.md"])
+    refs = out["reference_conformance"]
+    got = refs[0]["outcome"] if refs else ("PARSE_ERROR" if out["parse_errors"] else "NO_REF")
+    reason = (refs[0]["reason"] if refs else
+              (out["parse_errors"][0]["error"] if out["parse_errors"] else ""))
+    return rec("references", cid, desc, expected, got,
+               {"reason": reason[:200],
+                "parsed_sections": out["parsed_section_claim_count"]})
+
+
+def evd(target_text, kind='"raw-file"', drop=()):
+    """An `evidence` entry -- the field where a raw file legitimately lives.
+
+    The revision-2 suite built this case with blk(), which emits `upstream`, so
+    the supposedly valid raw-evidence control was actually blessing a raw-file
+    override on an artifact-reference field (CP4-SC-004 / checker review). The
+    positive control has to construct the field it claims to be testing.
+    """
+    rows = [("store", "project"), ("path", "target.md"),
+            ("sha256", '"%s"' % dg(target_text))]
+    body = "evidence:\n  - " + "\n    ".join("%s: %s" % (k, v) for k, v in rows
+                                              if k not in drop)
+    body += "\n"
+    if kind:
+        body += "    evidence_kind: %s\n" % kind
+    return body
+
+
+def sup(target_text, kind=None, drop=()):
+    """A `supersedes` mapping -- an artifact-reference field, like upstream."""
+    rows = [("artifact_id", '"SOURCE-001"'), ("revision", "1"), ("store", "project"),
+            ("path", "target.md"), ("sha256", '"%s"' % dg(target_text))]
+    body = "supersedes:\n  " + "\n  ".join("%s: %s" % (k, v) for k, v in rows
+                                            if k not in drop) + "\n"
+    if kind:
+        body += "  evidence_kind: %s\n" % kind
+    return body
+
+
+def blk(target_text, sections=None, inline=False, drop=(), extra=""):
+    rows = [("artifact_id", '"SOURCE-001"'), ("revision", "1"), ("store", "project"),
+            ("path", "target.md"), ("sha256", '"%s"' % dg(target_text))]
+    body = "upstream:\n  - " + "\n    ".join("%s: %s" % (k, v) for k, v in rows if k not in drop)
+    body += "\n"
+    if extra:
+        body += "    " + extra + "\n"
+    if sections is not None:
+        if isinstance(sections, str):
+            body += "    sections: %s\n" % sections
+        elif inline:
+            body += "    sections: [%s]\n" % ", ".join('"%s"' % s for s in sections)
+        else:
+            body += "    sections:\n" + "".join("      - %s\n" % s for s in sections)
+    return body
+
+
+ref_case("R-valid", "actual artifact identity and revision both present and matching",
+         blk(TARGET_FULL, ["Ideas and alternatives"]), TARGET_FULL, "PASS")
+ref_case("R-missing-target-id", "target carries no artifact_id (review probe: previously PASS)",
+         blk(TARGET_NO_ID, ["Ideas and alternatives"]), TARGET_NO_ID, "FAIL")
+ref_case("R-missing-target-revision", "target carries no revision (review probe: previously PASS)",
+         blk(TARGET_NO_REV, ["Ideas and alternatives"]), TARGET_NO_REV, "FAIL")
+ref_case("R-section-correct", "claimed section resolves",
+         blk(TARGET_FULL, ["Decisions and parked alternatives"]), TARGET_FULL, "PASS")
+ref_case("R-section-wrong", "claimed section is not in the target",
+         blk(TARGET_FULL, ["No Such Section"]), TARGET_FULL, "FAIL")
+ref_case("R-section-all-string", 'sections: "all" is a stand-in, not a section (CR4-001)',
+         blk(TARGET_FULL, '"all"'), TARGET_FULL, "FAIL")
+ref_case("R-section-all-list", 'sections: ["all"] fails the same way',
+         blk(TARGET_FULL, ["all"], inline=True), TARGET_FULL, "FAIL")
+# Corrected in revision 7. The revision-4 expectation asserted that omitting
+# sections is always a legitimate no-claim, which contradicts the ruling the
+# checker now implements: for causal upstream, omission is honest only when the
+# target has nothing stable to name. TARGET_FULL has two headings, so this is
+# the case the rule exists to catch.
+ref_case("R-section-omitted",
+         "omitting sections against a sectioned causal upstream is not a no-claim (CP4-SC-001)",
+         blk(TARGET_FULL), TARGET_FULL, "FAIL")
+ref_case("R-unsectioned-disclosed",
+         "unsectioned target, omission disclosed in missing_inputs: the permitted exception",
+         blk(TARGET_UNSECTIONED), TARGET_UNSECTIONED, "PASS",
+         missing='["SOURCE-001 has no stable sections to cite"]')
+ref_case("R-unsectioned-undisclosed",
+         "unsectioned target with no disclosure: silence cannot report itself (CP5-CK-001)",
+         blk(TARGET_UNSECTIONED), TARGET_UNSECTIONED, "FAIL")
+ref_case("R-inline-supported", "inline section list is understood",
+         blk(TARGET_FULL, ["Ideas and alternatives", "Decisions and parked alternatives"],
+             inline=True), TARGET_FULL, "PASS")
+ref_case("R-multiline-supported", "block section list is understood",
+         blk(TARGET_FULL, ["Ideas and alternatives", "Decisions and parked alternatives"]),
+         TARGET_FULL, "PASS")
+# Corrected in revision 7: this case previously built an `upstream` block via
+# blk() and expected PASS, which certified the exact override CP4-SC-004
+# forbids. It now constructs `evidence`, the field a raw file belongs in.
+ref_case("R-raw-evidence-declared",
+         "explicitly declared raw file under evidence keeps its native locator",
+         evd(TARGET_RAW), TARGET_RAW, "PASS")
+ref_case("R-raw-under-upstream",
+         "raw-file override cannot exempt upstream from target identity (CP4-SC-004)",
+         blk(TARGET_RAW, drop=("artifact_id", "revision"),
+             extra='evidence_kind: "raw-file"'), TARGET_RAW, "FAIL")
+ref_case("R-raw-under-supersedes",
+         "raw-file override cannot exempt supersedes either (CP4-SC-004)",
+         sup(TARGET_RAW, kind='"raw-file"', drop=("artifact_id", "revision")),
+         TARGET_RAW, "FAIL")
+ref_case("R-raw-exemption-invalid",
+         "artifact reference to an envelope-less file cannot claim the raw-file exemption",
+         blk(TARGET_RAW), TARGET_RAW, "FAIL")
+ref_case("R-unknown-kind", "an unrecognized evidence_kind is rejected, not guessed",
+         blk(TARGET_FULL, extra='evidence_kind: "sort-of-an-artifact"'), TARGET_FULL, "FAIL")
+
+# =====================================================================
+# Receipts
+# =====================================================================
+MAPPING = {"accepted_forms": ["project_relative", "sandbox_absolute"],
+           "record_shapes": ["locator_then_digest", "digest_then_locator",
+                             "labelled_next_line"],
+           "sandbox_root": "/work/arm"}
+
+
+def rcp_case(cid, desc, files, terminal, subject, expected, mapping=None, mutate=None):
+    d = os.path.join(WORK, "rcp-" + cid)
+    proj = os.path.join(d, "project")
+    promised = []
+    for rel, text in files.items():
+        w(os.path.join(proj, rel), text)
+        promised.append({"path": os.path.join(proj, rel), "label": rel})
+    subs = {rel: dg(text) for rel, text in files.items()}
+    term = terminal
+    for rel, h in subs.items():
+        term = term.replace("{H:%s}" % rel, h).replace("{SHORT:%s}" % rel, h[:8] + "..." + h[-4:])
+        term = term.replace("{P:%s}" % rel, rel).replace("{S:%s}" % rel, "/work/arm/" + rel)
+        term = term.replace("{HOST:%s}" % rel, os.path.join(proj, rel))
+        term = term.replace("{OTHERROOT:%s}" % rel, "/some/unselected/root/" + rel)
+    tp = w(os.path.join(d, "terminal.txt"), term)
+    if mutate:
+        for rel, extra in mutate.items():
+            open(os.path.join(proj, rel), "a").write(extra)
+    out = CR.evaluate({"terminal_source": tp, "locator_mapping": mapping or MAPPING,
+                       "promised": promised})
+    row = [r for r in out["receipts"] if r["receipt_for"] == subject][0]
+    return rec("receipts", cid, desc, expected, row["outcome"],
+               {"reason": row["reason"][:200], "association": row.get("association")})
+
+
+A = "---\nartifact_id: A\n---\nbody a\n"
+Bb = "---\nartifact_id: B\n---\nbody b\n"
+
+rcp_case("T-valid-relative", "project-relative locator paired with its own digest",
+         {"a.md": A}, "Saved `{P:a.md}` — SHA-256 `{H:a.md}`\n", "a.md", "PASS")
+rcp_case("T-valid-sandbox", "sandbox-absolute locator is an accepted declared form",
+         {"a.md": A}, "Saved {S:a.md}\nSHA-256 {H:a.md}\n", "a.md", "PASS")
+rcp_case("T-swapped-a", "swapped pair: a's locator carries b's digest (review probe)",
+         {"a.md": A, "b.md": Bb},
+         "- {P:a.md} — {H:b.md}\n- {P:b.md} — {H:a.md}\n", "a.md", "FAIL")
+rcp_case("T-swapped-b", "swapped pair, other direction (review probe)",
+         {"a.md": A, "b.md": Bb},
+         "- {P:a.md} — {H:b.md}\n- {P:b.md} — {H:a.md}\n", "b.md", "FAIL")
+rcp_case("T-wrong-root-suffix",
+         "a path under an unselected root ending in the accepted suffix (review probe)",
+         {"a.md": A}, "Saved {OTHERROOT:a.md} — {H:a.md}\n", "a.md", "FAIL")
+rcp_case("T-unselected-alias", "host-absolute locator is not a declared accepted form",
+         {"a.md": A}, "Saved {HOST:a.md} — {H:a.md}\n", "a.md", "FAIL")
+rcp_case("T-wrong-digest", "locator paired with a digest that is not its own",
+         {"a.md": A}, "Saved {P:a.md} — " + "0" * 64 + "\n", "a.md", "FAIL")
+rcp_case("T-abbreviated", "abbreviated digest cannot be checked",
+         {"a.md": A}, "Saved {P:a.md} — {SHORT:a.md}\n", "a.md", "FAIL")
+rcp_case("T-omitted", "no digest delivered for this file",
+         {"a.md": A}, "Saved {P:a.md}. Done.\n", "a.md", "FAIL")
+rcp_case("T-unrelated-match-elsewhere",
+         "the right digest appears, but far from this file's locator and paired with another",
+         {"a.md": A, "b.md": Bb},
+         "Saved {P:b.md} — {H:a.md}\n\n" + ("filler\n" * 40) + "Also wrote {P:a.md}.\n",
+         "a.md", "FAIL")
+rcp_case("T-pre-mutation-digest", "digest computed before a later write to the same file",
+         {"a.md": A}, "Saved {P:a.md} — {H:a.md}\n", "a.md", "FAIL",
+         mutate={"a.md": "\none more line after the hash\n"})
+rcp_case("T-unsupported-form", "an undeclared locator form is rejected explicitly",
+         {"a.md": A}, "Saved {P:a.md} — {H:a.md}\n", "a.md", "FAIL",
+         mapping={"accepted_forms": ["opaque_id"], "association_window": 200,
+                  "sandbox_root": "/work/arm"})
+
+# =====================================================================
+# Inventory
+# =====================================================================
+STAGED_LEDGER = "---\nartifact_id: IDEAS-001\nrevision: 1\n---\nstaged ledger\n"
+STAGED_CHANGE = "---\nartifact_id: CHANGE-003\nrevision: 2\n---\nstaged change\n"
+CHANGED_LEDGER = "---\nartifact_id: IDEAS-001\nrevision: 2\n---\nrewritten by the worker\n"
+NEW_HANDOFF = "---\nartifact_id: HANDOFF-001\nrevision: 1\n---\nnew handoff\n"
+CHANGED_ARCHIVE = "---\nartifact_id: IDEAS-001\nrevision: 1\n---\nnot the bytes it claims\n"
+
+inv_rec = {
+    "attempt_dir": os.path.join(WORK, "inv"), "outcome": "PASS",
+    "staged_inputs": {
+        "docs/devforge/ideas/IDEAS-001.md": {"sha256": dg(STAGED_LEDGER)},
+        "docs/devforge/changes/CHANGE-003.md": {"sha256": dg(STAGED_CHANGE)},
+    },
+    "outputs": {
+        "CLAUDE.md": dg("x"),
+        "docs/devforge/ideas/IDEAS-001.md": dg(CHANGED_LEDGER),          # changed staged
+        "docs/devforge/changes/CHANGE-003.md": dg(STAGED_CHANGE),        # unchanged staged
+        "docs/devforge/handoffs/HANDOFF-001.md": dg(NEW_HANDOFF),        # new
+        "docs/devforge/ideas/archive/IDEAS-001.r1.md": dg(STAGED_LEDGER),  # retained identical
+        "docs/devforge/changes/archive/CHANGE-003.r1.md": dg(CHANGED_ARCHIVE),  # changed archive
+    },
+}
+inv, before, after = G.classify(inv_rec)
+expect_class = {
+    "docs/devforge/ideas/IDEAS-001.md": "changed",
+    "docs/devforge/changes/CHANGE-003.md": "unchanged_input",
+    "docs/devforge/handoffs/HANDOFF-001.md": "new",
+    "docs/devforge/ideas/archive/IDEAS-001.r1.md": "retained_copy",
+    "docs/devforge/changes/archive/CHANGE-003.r1.md": "changed_copy",
+}
+for rel, want in expect_class.items():
+    rec("inventory", "I-" + rel.split("/")[-1] + "-" + want,
+        "%s classified as %s" % (rel, want), want, inv.get(rel, {}).get("class"),
+        {"inspect": inv.get(rel, {}).get("inspect"),
+         "comparison": inv.get(rel, {}).get("comparison")})
+
+rec("inventory", "I-changed-staged-is-inspected",
+    "the modified ledger at a staged path is inspected (CR4-002 regression)",
+    True, inv["docs/devforge/ideas/IDEAS-001.md"]["inspect"])
+rec("inventory", "I-identical-staged-excluded",
+    "an unchanged staged input is excluded, with the comparison recorded",
+    False, inv["docs/devforge/changes/CHANGE-003.md"]["inspect"])
+rec("inventory", "I-retained-copy-excluded-by-digest",
+    "a retained archive is excluded only because its digest proves identity",
+    "docs/devforge/ideas/IDEAS-001.md",
+    inv["docs/devforge/ideas/archive/IDEAS-001.r1.md"].get("preserves"))
+rec("inventory", "I-changed-archive-inspected",
+    "an archive whose bytes match no input is not a preservation",
+    True, inv["docs/devforge/changes/archive/CHANGE-003.r1.md"]["inspect"])
+
+cov = G.coverage(inv, {"required_outputs": ["docs/devforge/ideas/IDEAS-001.md",
+                                            "docs/devforge/handoffs/HANDOFF-001.md",
+                                            "docs/devforge/handoffs/HANDOFF-002.md"],
+                       "optional_outputs": list(expect_class)})
+rec("inventory", "I-missing-required-output",
+    "a declared required output that never appeared fails coverage",
+    True, any(c["path"].endswith("HANDOFF-002.md") for c in cov), {"coverage": cov})
+
+cov2 = G.coverage(inv, {"required_outputs": [], "optional_outputs": []})
+rec("inventory", "I-no-declared-map-no-false-alarm",
+    "with no declared map, nothing is reported as unrecognized", 0, len(cov2))
+
+# --- revision 7: receipt ownership by record shape, not proximity (CP5-CK-003) ---
+LONG_A = "docs/devforge/ideas/very-long-directory-name/IDEAS-001.md"
+LONG_B = "docs/devforge/ideas/very-long-directory-name/IDEAS-002.md"
+rcp_case("T-swapped-long-a",
+         "long swapped pair, first file: previously FAIL and must stay FAIL",
+         {LONG_A: A, LONG_B: Bb},
+         "- {P:%s} - {H:%s}; {P:%s} - {H:%s}\n" % (LONG_A, LONG_B, LONG_B, LONG_A),
+         LONG_A, "FAIL")
+rcp_case("T-swapped-long-b",
+         "long swapped pair, second file: passed under nearest-digest ranking (CP5-CK-003)",
+         {LONG_A: A, LONG_B: Bb},
+         "- {P:%s} - {H:%s}; {P:%s} - {H:%s}\n" % (LONG_A, LONG_B, LONG_B, LONG_A),
+         LONG_B, "FAIL")
+rcp_case("T-sha256sum-order", "digest-then-locator is a declared record shape",
+         {"a.md": A}, "{H:a.md}  {P:a.md}\n", "a.md", "PASS")
+rcp_case("T-table-row", "a table row pairs the locator with its own digest",
+         {"a.md": A}, "| file | sha256 |\n| {P:a.md} | {H:a.md} |\n", "a.md", "PASS")
+rcp_case("T-adjacent-line-pairs",
+         "two ordinary line receipts do not borrow each other's digests",
+         {"a.md": A, "b.md": Bb},
+         "{P:a.md}  {H:a.md}\n{P:b.md}  {H:b.md}\n", "b.md", "PASS")
+rcp_case("T-locator-outside-record",
+         "a locator named with no digest in any declared shape is not a receipt",
+         {"a.md": A, "b.md": Bb},
+         "Wrote {P:a.md}.\nSeparately, {P:b.md} hashes to {H:b.md}.\nEarlier: {H:a.md}\n",
+         "a.md", "FAIL")
+rcp_case("T-no-declared-record-shape",
+         "a mapping declaring no record shape fails closed rather than guessing",
+         {"a.md": A}, "Saved {P:a.md} - {H:a.md}\n", "a.md", "FAIL",
+         mapping={"accepted_forms": ["project_relative"], "sandbox_root": "/work/arm"})
+rcp_case("T-unsupported-record-shape",
+         "an undeclared shape name is rejected by name, not matched loosely",
+         {"a.md": A}, "Saved {P:a.md} - {H:a.md}\n", "a.md", "FAIL",
+         mapping={"accepted_forms": ["project_relative"],
+                  "record_shapes": ["prose_paragraph"], "sandbox_root": "/work/arm"})
+
+# --- revision 7: preservation needs retained bytes (CP5-CK-002) ---
+del_rec = {
+    "attempt_dir": os.path.join(WORK, "inv-del"), "outcome": "PASS",
+    "staged_inputs": {
+        "docs/devforge/ideas/IDEAS-001.md": {"sha256": dg(STAGED_LEDGER)},
+        "docs/devforge/ideas/archive/IDEAS-001.r1.md": {"sha256": dg(STAGED_LEDGER)},
+    },
+    "outputs": {"docs/devforge/ideas/IDEAS-001.md": dg(CHANGED_LEDGER)},
+}
+inv_del, _, _ = G.classify(del_rec)
+rec("inventory", "I-removed-path-still-in-inventory",
+    "a deleted staged path stays in the inventory as removed",
+    "removed", inv_del.get("docs/devforge/ideas/archive/IDEAS-001.r1.md", {}).get("class"))
+cov3 = G.coverage(inv_del, {"required_outputs": ["docs/devforge/ideas/IDEAS-001.md"],
+                            "preserved_outputs": ["docs/devforge/ideas/archive/IDEAS-001.r1.md"]})
+rec("inventory", "I-preserved-removed-fails",
+    "selecting a removed path for preservation does not satisfy it (CP5-CK-002)",
+    True, any(c["path"].endswith("IDEAS-001.r1.md") for c in cov3), {"coverage": cov3})
+cov4 = G.coverage(inv, {"required_outputs": ["docs/devforge/ideas/IDEAS-001.md",
+                                             "docs/devforge/handoffs/HANDOFF-001.md"],
+                        "preserved_outputs": ["docs/devforge/ideas/archive/IDEAS-001.r1.md"],
+                        "optional_outputs": ["docs/devforge/changes/CHANGE-003.md",
+                                             "docs/devforge/changes/archive/CHANGE-003.r1.md"]})
+rec("inventory", "I-preserved-retained-passes",
+    "a preservation path with actual retained bytes raises no coverage problem",
+    0, len(cov4), {"coverage": cov4})
+
+# =====================================================================
+# R10 discriminating cases (CC9-RR-001, CC9-RR-002, CC9-RR-003)
+#
+# These are wired to the revised checkers through the same `ref_case` / `rcp_case`
+# helpers as every other case, so they resolve to `RUN/checkers` -- the freshly
+# authored tree -- rather than to a baseline copy. CC9-RR-003 named exactly that
+# gap: cases that describe the repaired behaviour but bind to the old code test
+# the old code while appearing to cover the repair.
+#
+# Each case stages valid prerequisite bytes -- a real target, its real digest, a
+# parseable envelope -- so the run reaches the predicate the case is named for.
+# A case that fails early because its target is missing or its digest is wrong
+# has not exercised disclosure classification or locator ownership, and would
+# report the right outcome for the wrong reason.
+# =====================================================================
+
+# A target that was read successfully and carries no stable sections: the only
+# shape for which the omission carve-out is available at all.
+TARGET_NOSECTIONS = """---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SOURCE-001"
+artifact_type: "idea-ledger"
+revision: 1
+---
+
+A short note with no headings and no labelled record fields, so there is nothing
+stable for an upstream reference to name.
+"""
+
+ref_case("R10-absence-other-artifact",
+         "section absence disclosed for a different artifact does not cover this one",
+         blk(TARGET_NOSECTIONS), TARGET_NOSECTIONS, "FAIL",
+         missing='["SOURCE-001 has no authoring date; SOURCE-902 has no stable sections."]')
+
+ref_case("R10-absence-with-unrelated-unknown",
+         "a valid section absence is not erased by an unknown about another fact",
+         blk(TARGET_NOSECTIONS), TARGET_NOSECTIONS, "PASS",
+         missing='["SOURCE-001 has no stable sections; its authoring date is unknown."]')
+
+ref_case("R10-unreadable-is-not-absence",
+         "unreadable section list is an unknown, not an inspected absence",
+         blk(TARGET_NOSECTIONS), TARGET_NOSECTIONS, "FAIL",
+         missing='["SOURCE-001: unable to read the section list, so no sections are cited."]')
+
+ref_case("R10-false-absence-sectioned-target",
+         "a well-formed absence disclosure about a target that does have headings",
+         blk(TARGET_FULL), TARGET_FULL, "FAIL",
+         missing='["SOURCE-001 has no stable sections."]')
+
+ref_case("R10-absence-disclosed-plain",
+         "the retained positive: inspected absence, disclosed for this artifact",
+         blk(TARGET_NOSECTIONS), TARGET_NOSECTIONS, "PASS",
+         missing='["SOURCE-001 has no stable sections."]')
+
+# CC9-RR-002. The selected sandbox root is /work/arm. `/other//work/arm/a.md`
+# ends in the accepted sandbox locator but lives under a root nobody selected,
+# so the occurrence must be rejected by the ownership guard before any record is
+# read at it -- not accepted because the suffix matched.
+rcp_case("R10-absolute-suffix-other-root",
+         "absolute sandbox locator appearing as the tail of an unselected root",
+         {"a.md": A}, "Saved /other/{S:a.md}\nSHA-256 {H:a.md}\n", "a.md", "FAIL")
+
+rcp_case("R10-bare-locator-no-digest",
+         "a valid bare locator with no digest anywhere is not a receipt record",
+         {"a.md": A}, "Saved {P:a.md}\n", "a.md", "FAIL")
+
+rcp_case("R10-bare-plus-wrongroot-decoy",
+         "valid locator without a digest, plus the true digest against a wrong-root locator",
+         {"a.md": A},
+         "Saved {P:a.md}\nSHA-256 of {OTHERROOT:a.md} is {H:a.md}\n", "a.md", "FAIL")
+
+# =====================================================================
+# R11: consume the physical fixtures, and assert the reason, not just the outcome
+#
+# CC10-RR-004. R10 bound the suite to the fresh checkers and constructed its
+# cases inline, which is real progress, but the physical fixture files on disk
+# were not loaded by anything and the assertions compared outcomes only. An
+# outcome can agree for the wrong reason -- CC10-RR-003 is exactly that: a case
+# that reported the expected FAIL because a length cap fired, not because the
+# association was rejected. So these cases read the selected bytes from disk and
+# assert the predicate, association or classification each one is named for.
+# =====================================================================
+
+FIXTURES = os.path.join(RUN, "fixtures")
+SEL_TARGET_SHA = "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43"
+
+
+def load_fixture(*parts):
+    """Read a selected physical fixture, or record why it could not be read.
+
+    A fixture that cannot be loaded is reported as an unresolved input, never
+    silently skipped: a case that quietly disappears looks the same in a summary
+    as a case that passed.
+    """
+    path = os.path.join(FIXTURES, *parts)
+    if not os.path.isfile(path):
+        return None, path
+    with open(path, encoding="utf-8") as fh:
+        return fh.read(), path
+
+
+def rec_reason(group, cid, desc, expected_outcome, row, expect_reason_contains, extra=None):
+    """Assert the outcome AND that the recorded reason names the intended predicate."""
+    got = row.get("outcome") if isinstance(row, dict) else row
+    reason = str((row or {}).get("reason", "")) if isinstance(row, dict) else ""
+    assoc = (row or {}).get("association") if isinstance(row, dict) else None
+    reason_ok = expect_reason_contains.lower() in (reason + " " + str(assoc)).lower()
+    payload = {"reason": reason[:220], "association": assoc,
+               "reason_names_predicate": reason_ok,
+               "expected_reason_contains": expect_reason_contains}
+    if extra:
+        payload.update(extra)
+    return rec(group, cid, desc, [expected_outcome, True], [got, reason_ok], payload)
+
+
+# ---- the five actively selected R8 flat reference cases --------------------
+R8 = ("r8-flat-reference-cases",)
+_r8_target, _r8_target_path = load_fixture(*R8, "TARGET-NO-SECTIONS.md")
+rec("references", "R11-r8-target-available",
+    "the selected IDEAS-900 target is present with its exact selected digest",
+    SEL_TARGET_SHA,
+    dg(_r8_target) if _r8_target is not None else "MISSING:%s" % _r8_target_path,
+    {"finding": "CC10-RR-003/004",
+     "note": "the five R8 inputs were omitted from the initial R10 reviewer snapshot; they are "
+             "actively selected now, so they are staged and consumed rather than deferred"})
+
+for _name, _expect, _why in (
+        ("POS-disclosed-sections.md", "PASS",
+         "disclosure is about this artifact's sections"),
+        ("NEG-disclosed-other-unknown.md", "FAIL",
+         "same artifact ID, but the disclosure is about the authoring date"),
+        ("NEG-undisclosed.md", "FAIL", "no disclosure at all")):
+    _body, _path = load_fixture(*R8, _name)
+    if _body is None:
+        rec("references", "R11-r8-%s" % _name, "selected fixture could not be loaded",
+            "LOADED", "MISSING", {"path": _path, "unresolved_input": True})
+        continue
+    _fx = os.path.join(WORK, "r8-" + _name)
+    _proj = os.path.join(_fx, "project")
+    w(os.path.join(_proj, "TARGET-NO-SECTIONS.md"), _r8_target)
+    w(os.path.join(_proj, "CASE.md"), _body)
+    _out = V.run(_proj, {"project": _proj}, ["CASE.md"])
+    _refs = _out["reference_conformance"]
+    _row = _refs[0] if _refs else {"outcome": "NO_REF", "reason": ""}
+    rec("references", "R11-r8-%s" % _name,
+        "physical R8 fixture consumed from disk: %s" % _why, _expect, _row.get("outcome"),
+        {"reason": str(_row.get("reason"))[:200], "consumed_path": _path,
+         "disclosure_kind": _row.get("section_disclosure_kind")})
+
+# ---- CC10-RR-001: the exact inline disclosure cases ------------------------
+for _cid, _missing, _expect, _kind in (
+        ("R11-unable-to-read-is-unknown",
+         '["SOURCE-001: unable to read the section list, so no sections are cited."]',
+         "FAIL", "unknown"),
+        ("R11-comma-other-artifact",
+         '["SOURCE-001 has no authoring date, while SOURCE-902 has no stable sections."]',
+         "FAIL", "none"),
+        ("R11-comma-unrelated-unknown",
+         '["SOURCE-001 has no stable sections, and its authoring date is unknown."]',
+         "PASS", "absence")):
+    _d = os.path.join(WORK, "ref-" + _cid)
+    _proj = os.path.join(_d, "project")
+    w(os.path.join(_proj, "target.md"), TARGET_NOSECTIONS)
+    w(os.path.join(_proj, "OUTPUT.md"),
+      "---\nschema_version: \"devforge.artifact/v1\"\nartifact_id: \"OUT-001\"\nrevision: 1\n"
+      + blk(TARGET_NOSECTIONS) + "\nmissing_inputs: " + _missing + "\n---\n\n# Output\n")
+    _out = V.run(_proj, {"project": _proj}, ["OUTPUT.md"])
+    _refs = _out["reference_conformance"]
+    _row = _refs[0] if _refs else {"outcome": "NO_REF"}
+    rec("references", _cid,
+        "CC10-RR-001 exact required case, classified as %s" % _kind,
+        [_expect, _kind], [_row.get("outcome"), _row.get("section_disclosure_kind")],
+        {"missing_inputs": _missing, "reason": str(_row.get("reason"))[:200]})
+
+# ---- CC10-RR-002 / CC10-RR-003: physical receipt fixtures ------------------
+# The promised file's bytes must BE the selected target, so its real digest is
+# 103bdc02... -- the digest every physical receipt fixture declares. Using the
+# suite's inline no-sections string here instead would give the staged file a
+# different digest, and every receipt case would then fail on a target mismatch
+# rather than on the ownership predicate it is named for. That substitution is
+# the CC10-RR-003 failure mode in a different place.
+_A_BODY = _r8_target if _r8_target is not None else None
+
+
+def rcp_physical(cid, fixture_parts, subject, expected, expect_reason, staged=None,
+                 mapping=None):
+    """(see below) Refuses to run at all if the selected target bytes are absent."""
+    """Run a physical terminal fixture through the real checker.
+
+    The terminal bytes come off disk exactly as authored; only the promised file
+    is staged, so the case cannot pass or fail on a difference in the response.
+    """
+    body, path = load_fixture(*fixture_parts)
+    if body is None:
+        return rec("receipts", cid, "selected fixture could not be loaded",
+                   "LOADED", "MISSING", {"path": path, "unresolved_input": True})
+    if _A_BODY is None:
+        return rec("receipts", cid, "selected target bytes unavailable",
+                   "TARGET_AVAILABLE", "MISSING",
+                   {"unresolved_input": True,
+                    "note": "the promised file cannot be staged with the selected target bytes, "
+                            "so this case would fail on a digest mismatch rather than on its "
+                            "ownership predicate; it is reported unresolved instead of run"})
+    d = os.path.join(WORK, "rcpp-" + cid)
+    proj = os.path.join(d, "project")
+    for rel, text in (staged or {"a.md": _A_BODY}).items():
+        w(os.path.join(proj, rel), text)
+    promised = [{"path": os.path.join(proj, rel), "label": rel}
+                for rel in (staged or {"a.md": _A_BODY})]
+    tp = w(os.path.join(d, "terminal.txt"), body)
+    out = CR.evaluate({"terminal_source": tp,
+                       "locator_mapping": mapping or MAPPING,
+                       "promised": promised})
+    rows = [r for r in out["receipts"] if r["receipt_for"] == subject]
+    row = rows[0] if rows else {"outcome": "NO_ROW", "reason": ""}
+    return rec_reason("receipts", cid,
+                      "physical fixture consumed from disk", expected, row, expect_reason,
+                      {"consumed_path": path})
+
+
+rcp_physical("R11-short-decoy-association",
+             ("chg-021-receipt-spans", "NEG-bare-plus-wrongroot-digest.terminal.txt"),
+             "a.md", "FAIL", "intervening",
+             mapping=dict(MAPPING, sandbox_root="/work/arm"))
+rcp_physical("R11-absolute-suffix-other-root",
+             ("chg-021-receipt-spans", "NEG-absolute-suffix-in-other-root.terminal.txt"),
+             "a.md", "FAIL", "locator",
+             mapping=dict(MAPPING, sandbox_root="/work/arm"))
+rcp_physical("R11-plus-in-root",
+             ("chg-021-receipt-spans", "r11-fresh", "NEG-plus-in-root.terminal.txt"),
+             "a.md", "FAIL", "locator",
+             mapping=dict(MAPPING, sandbox_root="/work/arm"))
+rcp_physical("R11-plus-suffix-filename",
+             ("chg-021-receipt-spans", "r11-fresh", "NEG-plus-suffix-filename.terminal.txt"),
+             "a.md", "FAIL", "locator",
+             mapping=dict(MAPPING, sandbox_root="/work/arm"))
+rcp_physical("R11-exact-root-companion",
+             ("chg-021-receipt-spans", "r11-fresh", "POS-exact-root-companion.terminal.txt"),
+             "a.md", "PASS", "receipt",
+             mapping=dict(MAPPING, sandbox_root="/work/arm"))
+rcp_physical("R11-fresh-65-hex",
+             ("chg-021-receipt-spans", "r11-fresh", "NEG-65-hex.terminal.txt"),
+             "docs/devforge/ideas/IDEAS-001.md", "FAIL", "64",
+             staged={"docs/devforge/ideas/IDEAS-001.md": _A_BODY})
+rcp_physical("R11-fresh-exact-root",
+             ("chg-021-receipt-spans", "r11-fresh", "POS-exact-root.terminal.txt"),
+             "docs/devforge/ideas/IDEAS-001.md", "PASS", "receipt",
+             staged={"docs/devforge/ideas/IDEAS-001.md": _A_BODY})
+rcp_physical("R11-fresh-wrong-root-only",
+             ("chg-021-receipt-spans", "r11-fresh", "NEG-wrong-root-only.terminal.txt"),
+             "docs/devforge/ideas/IDEAS-001.md", "FAIL", "locator",
+             staged={"docs/devforge/ideas/IDEAS-001.md": _A_BODY})
+
+out = {"schema_version": "devforge.no-model-checks/v1", "native_model_calls": 0,
+       "real_model_invocations": 0,
+       "checker_hashes": {n: hashlib.sha256(open(os.path.join(RUN, "checkers", n), "rb").read()
+                                            ).hexdigest()
+                          for n in ("validate_references.py", "check_receipts.py",
+                                    "check_outcome_labels.py")},
+       "grader_hash": hashlib.sha256(open(os.path.join(RUN, "control", "grade.py"), "rb").read()
+                                     ).hexdigest(),
+       "cases": results,
+       "summary": {"total": len(results),
+                   "passed": sum(1 for r in results if r["result"] == "PASS"),
+                   "failed": sum(1 for r in results if r["result"] == "FAIL")}}
+out["conformance"] = "PASS" if out["summary"]["failed"] == 0 else "FAIL"
+json.dump(out, open(os.path.join(HERE, "checks-results.json"), "w"), indent=2)
+for r in results:
+    print("%-11s %-32s %-5s expected=%-20s got=%-20s" % (r["group"], r["id"], r["result"],
+                                                         r["expected"], r["actual"]))
+print("\n%d/%d passed" % (out["summary"]["passed"], out["summary"]["total"]))
+sys.exit(0 if out["summary"]["failed"] == 0 else 1)

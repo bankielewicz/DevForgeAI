@@ -1,0 +1,70 @@
+{
+  "schema_version": "devforge.unexecuted-proposals/v1",
+  "assignment": "SESSION-001@7",
+  "status": "AUTHORED, NOT EXECUTED",
+  "execution_in_this_allocation": {
+    "native_model_calls": 0, "tests": 0, "suites_run": 0, "cases_run": 0,
+    "helper_or_validator_execution": 0, "synthetic_fixture_execution": 0,
+    "installations": 0, "exports": 0, "hook_activation": 0,
+    "authored_scripts_run": 0,
+    "static_checks_only": "ast.parse over each edited Python file, and json.load over each edited JSON file. Parsing is not behaviour; nothing below is demonstrated."
+  },
+  "checker_repairs": [
+    {"id": "CP5-CK-001", "file": "checkers/validate_references.py",
+     "change": "The unsectioned-upstream exception now requires the disclosure it was always described as requiring. Revision 3 recorded unsectioned_absence_disclosed and ignored it, so an undisclosed omission passed exactly like a disclosed one.",
+     "expected_discrimination": "R-unsectioned-disclosed PASS versus R-unsectioned-undisclosed FAIL",
+     "verified": false},
+    {"id": "CP5-CK-002", "file": "control/grade.py",
+     "change": "A path selected under preserved_outputs must have actual retained bytes. A deleted staged path stays in the inventory as `removed`; that surviving key previously satisfied preservation.",
+     "expected_discrimination": "I-preserved-removed-fails raises a coverage problem; I-preserved-retained-passes raises none",
+     "verified": false},
+    {"id": "CP5-CK-003", "file": "checkers/check_receipts.py",
+     "change": "Digest ownership now comes from declared receipt record shapes instead of ranking nearby digests by distance. Two records disagreeing about one locator are rejected rather than resolved.",
+     "expected_discrimination": "T-swapped-long-a and T-swapped-long-b both FAIL; T-sha256sum-order, T-table-row and T-adjacent-line-pairs PASS; T-no-declared-record-shape and T-unsupported-record-shape fail closed",
+     "residual_risk": "The 40-character glue bound between a locator and its digest is a judgement call. It admits ordinary prose (a backtick, an em dash, a `SHA-256` label, a table pipe) and excludes newlines for the same-line shapes. Whether it is right for receipt syntax nobody has written yet is exactly what running the suite would start to answer.",
+     "verified": false}
+  ],
+  "suite_corrections": [
+    {"case": "R-section-omitted",
+     "was": "PASS against a target with two headings and no disclosure",
+     "now": "FAIL",
+     "why": "The old expectation contradicted the causal-upstream ruling the checker implements. A passing test that asserts the wrong rule is worse than no test."},
+    {"case": "R-raw-evidence-declared",
+     "was": "built an upstream block through blk() and expected PASS",
+     "now": "builds an evidence block through the new evd() helper",
+     "why": "The positive control was certifying the raw-file override on an artifact-reference field that CP4-SC-004 forbids."}
+  ],
+  "controller_changes": [
+    {"id": "post-output judgments", "file": "control/run_phases.py",
+     "change": "control/SEMANTIC-DECISIONS.json is no longer read for verdicts and a freeze carrying prewritten judgments is refused (exit 7). A judgment is read from RUN/judgments/<arm>.json and must name this run, session and arm plus the digests of the completed result, the output inventory and all three checker outputs, under the frozen criteria revision.",
+     "seam": "When the judgment is absent the runner writes judgments/<arm>.REQUIRED.json stating the exact binding and returns exit 8. Re-invoking with --resume reads the completed arm back from its recorded result and does not relaunch it.",
+     "why_a_prefilled_pass_cannot_work": "The binding names digests that do not exist until the arm has run and been checked.",
+     "verified": false},
+    {"id": "sequential admission", "file": "control/run_phases.py",
+     "change": "The thread pool is gone. Arms run one at a time; a freeze declaring any concurrency other than 1 is refused (exit 6) rather than quietly run sequentially.",
+     "closes": "the concurrent-peer window, without a general scheduler rewrite",
+     "verified": false},
+    {"id": "real A execution", "file": "control/run_phases.py",
+     "change": "a_arm() launches A3a/A5a with the unchanged trigger-query selector and no installed-skill prefix; _activation() observes selection from the arm's own transcript against the selector's should_trigger. An unreadable transcript is COULD_NOT_RUN, never a negative result.",
+     "output_map": "A carries observation requirements in PLAN.json, not the C/B artifact map; reusing that map would fail an A arm for not writing a ledger it was never asked to write.",
+     "verified": false},
+    {"id": "binding times", "file": "control/freeze.py",
+     "change": "The completed deterministic preflight result and the exact suite/checker bytes that produced it are bound at freeze time; grades and judgments are bound when a gate consumes them. preserved_bytes_scope now states that freeze-bytes/ holds the code and configuration entries only.",
+     "verified": false}
+  ],
+  "fail_closed": {
+    "zero_arms_authorized": "exit 5 before any launch, stand-in or marker",
+    "no_arms_declared": "exit 5",
+    "concurrency_not_1": "exit 6",
+    "freeze_mismatch": "exit 2",
+    "unreadable_bound_configuration": "exit 4, distinct from hash drift",
+    "prewritten_judgments_in_freeze": "exit 7",
+    "judgment_pending": "exit 8"
+  },
+  "what_running_these_would_settle": [
+    "Whether the corrected suite expectations now agree with the corrected checkers, which is the single largest open risk in this handback.",
+    "Whether the record-shape glue bound admits the receipt syntaxes the existing passing cases use.",
+    "Whether the pause/resume seam completes the ordered C1-B5-B11-A3a-A5a path without a duplicate launch.",
+    "Whether every negative path still refuses at its own boundary."
+  ]
+}

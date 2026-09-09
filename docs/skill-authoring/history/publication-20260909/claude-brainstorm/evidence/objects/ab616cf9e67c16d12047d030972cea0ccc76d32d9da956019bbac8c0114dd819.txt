@@ -1,0 +1,39 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-009"
+artifact_type: "handoff"
+project_id: "devforgeai"
+revision: 1
+status: draft
+created_at_utc: "2026-09-07T16:00:00+00:00"
+producer:
+  skill: "devforge-brainstorm"
+  skill_revision: "unknown"
+execution_ref: null
+upstream:
+  - artifact_id: "IDEAS-900"
+    revision: 1
+    store: "project"
+    path: "docs/devforge/ideas/IDEAS-900.md"
+    sha256: "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43"
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs:
+  - "IDEAS-900: unable to read the section list, so no sections are cited."
+---
+
+# Skill handoff
+
+## You are here
+
+The upstream omits `sections` and discloses an unknown, not an absence.
+
+R11 rebinding (FIXTURE-SELECTION `r10-unresolved-reference-physical-cases`): the old
+IDEAS-008 reference pointed at a path with no selected target and an all-zero digest, so
+this fixture failed on a missing target before it ever reached the disclosure predicate.
+It is now bound to the selected IDEAS-900 revision 1 target, whose exact bytes are staged
+at `docs/devforge/ideas/IDEAS-900.md`, so the run reaches the classification and fails
+for the intended reason: the artifact is on record as unable to read its own section
+list, which is an unknown, not an inspected absence. The disclosure text is the exact
+inline form CC10-RR-001 requires. Expected: FAIL, with the unknown-specific reason.

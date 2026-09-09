@@ -1,0 +1,79 @@
+{
+  "schema_version": "devforge.root-integration-review-receipt/v1",
+  "at_utc": "2026-09-07T15:23:56.568037+00:00",
+  "scope": "Static source/proposal review and custody only",
+  "targets": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/INTEGRATION-REVIEW.md",
+      "sha256": "80a614a4aca8ef29a28d1cff1fc5c5008a64d2f15c3d27da2c7a3a28bf96c331",
+      "bytes": 7899
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/INPUT-MANIFEST.json",
+      "sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+      "bytes": 280615
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/CUSTODY.json",
+      "sha256": "648c9b304ea02a6171781a22f9b26feccde721aaab89d980e1a3cf0e4238aed8",
+      "bytes": 3270
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/ROOT-CLOSEOUT-CUSTODY.json",
+      "sha256": "5a57d625c72ab31bbfeefb882f9370b176f6e5adde7d96596d3c007a4ee601e6",
+      "bytes": 12788
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/CONTROL-BASELINE-RULING.md",
+      "sha256": "65e7d2f70464bb1e0ce42e9304482956d646e29802e99b2d802a355599296f86",
+      "bytes": 1517
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals/FINDINGS.json",
+      "sha256": "2c28a2d320ca1acdcbec08b3a3d52ff42634046162a9b878d921f76660264fd8",
+      "bytes": 12494
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals/RECEIPT.json",
+      "sha256": "20af58c1ae1f6164f723a13ea0c409d8dbda42c9b52e630dac2047464d0d57a9",
+      "bytes": 3655
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals/REVIEW.md",
+      "sha256": "8a6da34891f75a66920132185b7f5fc289a4550d8d91c16aeaf622675632e675",
+      "bytes": 15792
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-source/AI-REVIEW.json",
+      "sha256": "74b5fb726e1286c932a05e428091f2435cac61a77d8db332d455aa8d0c7414b0",
+      "bytes": 79860
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-source/RECEIPT.json",
+      "sha256": "3fb2138f86aec3d6578a90efad287e844432a3f40227f2aa0b78503c51a64b51",
+      "bytes": 2821
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-source/REVIEW.md",
+      "sha256": "ad81d4a6b8e5c53661bd65747342b093dec02f3e3f9c85ec684d0fc3a37594b7",
+      "bytes": 4805
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/FINDINGS.json",
+      "sha256": "132319fd7d866161055627bc05a534e520f7f6008635dadfa18ff9fc4efb5f92",
+      "bytes": 3961
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/RECEIPT.json",
+      "sha256": "a4651995ea95858ba4c2d4221d8bc0c2317622c9c36d7d6498fa4fb56d8a1b3d",
+      "bytes": 3519
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/REVIEW.md",
+      "sha256": "80d5904a9e5dce1aceef82b9770ef584052d43460fb9628364d5b9716c470258",
+      "bytes": 10469
+    }
+  ],
+  "self_digest": "omitted",
+  "native_admission": false
+}

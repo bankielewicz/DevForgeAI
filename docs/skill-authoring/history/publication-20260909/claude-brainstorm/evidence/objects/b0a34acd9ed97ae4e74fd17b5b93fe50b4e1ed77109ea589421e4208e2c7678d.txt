@@ -1,0 +1,58 @@
+# R10 root integration review
+
+**REPAIR_REQUIRED.** The fresh Claude skill-source review passes R01–R10; the returned checker, control and suite source remains partially authored. No R10 candidate, helper or suite was imported, compiled or executed by these reviews. No native evaluation, admission, hook activation or acceptance is established.
+
+Root review first work: 2026-09-07T21:59:41Z, including intake and freeze preparation. Technical cutoff: 22:24:41Z; hard cutoff: 22:29:41Z. Findings finalized at 2026-09-07T22:24:01.431470+00:00. The allocation was persisted after intake and does not claim first-action persistence. Reviewer cutoffs were earlier; their completed reports and all target bindings were independently read back.
+
+## Source and custody
+
+All four user-returned digests match. All 170 non-self manifest members match; the 173-file run excludes exactly its manifest, later READBACK and external RECEIPT from that member set. Receipt/readback and source-map targets match. The live 20-file candidate equals the returned final copy: only derivation.json changed, with the other 19 files exact. Its five current destination bindings match. The selected effective baseline is exact; its 25 files became 33 through 13 modifications, 12 preserved files and eight additions. The original R9 80-file run is unchanged against the root snapshot, including its invalid self-manifest entry; all 77 non-self members still match. Held provider sources and four current authorities were reverified.
+
+Fresh source reviewer REVIEW.md: `review-claude-source/REVIEW.md`, SHA-256 `60443d54820920a8ff412e35c6f5d68dd8f02f7dea35efec61688ecc8fdade0d`. All ten static criteria pass on the exact frozen source. This credits the current derivation correction and operative instructions without closing historical findings or substituting static review for installed or native behavior. The next provider source fence preserves all 20 files.
+
+The intake CUSTODY.json initially resolved the receipt allocation locator relative to the run. CUSTODY-SUPPLEMENT.json corrects that root resolver error using its explicit authority store; this is not an author finding. The supplement verified 895 declared bindings/checks, with repeated paths counted separately.
+
+## Control and checker disposition
+
+The scoped reports contain 14 material control/checker records: 12 high and two medium. These overlap older CHGs and are not a count of unique defects. Exact triggers, lines, requirements and bounded repairs remain in the full reports and FINDINGS.json files.
+
+| Finding | Severity | Required correction |
+| --- | --- | --- |
+| CC10-RR-001 | high | The required unable-to-read disclosure still passes as observed section absence |
+| CC10-RR-002 | high | Absolute locator matching still accepts substrings embedded with valid filename punctuation |
+| CC10-RR-003 | high | The short wrong-root digest decoy is borrowed by a valid bare locator on the previous line |
+| CC10-RR-004 | high | Fresh inline suite binding is implemented, but required fixture consumption and reason assertions remain partial |
+| R10-CI-001 | high | Emitted preflight keys still resolve to the wrong directory in both verifiers |
+| R10-CI-002 | high | Candidate, fixture and exported launch roots remain implicit historical selections |
+| R10-CI-003 | high | The fresh phase-suite scratch root omits a file now required by freeze.CODE |
+| R10-CI-004 | high | CHG-011 resumes the same failed controller instead of a fresh module lifecycle |
+| R10-CI-005 | medium | Both P21 paths still miss the required recorded inventory-mismatch classification |
+| R10-CI-006 | high | Two observation classes still accept runtime-looking assertions without authentic bytes |
+| R10-CI-007 | high | A-arm identity compares caller values with themselves rather than the fixed selected case |
+| R10-CI-008 | high | The authored A caller has no reachable launcher seam and its prospective fixtures omit the case key |
+| R10-CI-009 | high | Post-output judgments do not bind reviewer identity or all required raw evidence |
+| R10-CI-010 | medium | Generic allocation emission still lacks verified selection and run-identity rejection |
+
+The actual runner now calls admission/activation/A-arm helpers. Live preservation is recomputed before grading and on fresh resumed judgment consumption; prerequisite membership is fixed; malformed activation envelopes are distinguished; missing native dependencies remain blocked. These are real static improvements. However, an unchanged real preflight selection still resolves incorrectly, the scratch suite omits cases_r9.py before freeze construction, and its local resume reuses a failed controller. Those setup/lifecycle failures precede the advertised discriminating scenarios. The reference unreadable case, complete receipt-token ownership, short wrong-root digest association and physical fixture/reason checks still need repair. Observation bytes, selected A identity, reviewer/evidence binding and issued allocation/run identity must be verified on the actual local path. No new native collector API is selected.
+
+Root qualification of CC10-RR-003/004: the initial review snapshot omitted five issued R8 historical fixture files. P10 INPUTS already bound those files, including the 149-byte IDEAS-900 TARGET-NO-SECTIONS.md with SHA-256 103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43, which is the exact target digest in the physical receipt fixtures. FIXTURE-CONTEXT-SUPPLEMENT.json binds fresh copies and the original issued declarations. Their absence from the reviewer snapshot is not author unavailability. The core checker/consumption findings stand; R11 must actively select these supplied bytes and exact staging/promise mappings. No old manifest or reviewer record was rewritten.
+
+## Reporting findings
+
+| Finding | Severity | Disposition |
+| --- | --- | --- |
+| R10-CUSTODY-001 | MAJOR | Repeated first-action deviation and contradictory allocation accounting |
+| R10-CUSTODY-002 | MINOR | External receipt issuance timestamp contains an unexpanded format directive |
+| R10-CUSTODY-003 | MINOR | Final handoff contains stale counts and an overbroad verification instruction |
+
+The first-clock deviation is explicitly self-reported, but the claim that a later start shortens a fixed allocation is incorrect. The actual first-work time, exact total duration and any corresponding earlier cutoff remain unknown; no overrun is inferred. The external receipt has literal %f in its timestamp. The handoff has stale modified-file counts and an overbroad instruction to replace every NOT_RUN entry using no-model suites. Additive corrections must preserve original evidence and retain all unobserved native/admission/acceptance statuses. Creator INVOKED_LOADED remains an author-reported action, not independently observed in this root review.
+
+## Next bounded work and remaining root scope
+
+Prepare and independently review one R11 authoring-only packet selecting the exact R10 33-file control tree, the already supplied fixture bytes and all current source/authority pins. Preserve all 24 existing CHGs and every earlier finding; add the R10 findings and root fixture qualification. Require executable local repairs and precise per-subpart partial/deferred labels. Preserve the 20-file skill package, all three other sessions, original R9/R10 runs and the unissued v2 interface. New creator invocation is unnecessary for this narrowed control-only scope: the same frozen guidance may be read and applied without calling native clients or evaluation helpers. Root alone may issue the reviewed SESSION-001@10 to @11 transition.
+
+Root native startup work is separate. At this report cut, the R5 metadata selector is newly authored, its independent static review is ongoing, and no current FREEZE, native allocation or new native client exists. Earlier focused R5 eight-case synthetic PASS remains tied to its original evidence. Any later metadata/startup result requires a separate allocation and additive root status; it cannot alter this frozen report or confer provider admission. Root runtime policy tests/demos retain their previous source-bound results; they were not rerun here.
+
+Source review was a fresh task with only its 56 selected inputs. Control reviewers reused their contexts; the receipt reviewer used one disclosed read-only child. No process-isolation or cold-native-test claim is made. All provider reviews are complete. R11 packet preparation and separate root-native work may continue before the next prompt is delivered. After delivery, root and all delegates stop until the user replies.
+
+ROOT-CLOSEOUT-CUSTODY.json binds the 460 original frozen inputs, review target checks, provider sources, current authorities and five-file fixture context. INTEGRATION-REVIEW.receipt.json binds this report and all substantive root/scoped records; it carries no self digest.

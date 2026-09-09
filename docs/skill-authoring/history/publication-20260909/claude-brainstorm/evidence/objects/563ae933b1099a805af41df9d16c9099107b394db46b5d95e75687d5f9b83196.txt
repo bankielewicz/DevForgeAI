@@ -1,0 +1,92 @@
+{
+  "schema_version": "devforge.static-review-receipt/v1",
+  "reviewer": "/root/r9_controls_integration_review",
+  "model_id": "UNKNOWN",
+  "reasoning_setting": "UNKNOWN",
+  "disposition": "REVISE_AUTHORED_CONTROLS_AND_APPLIED_CLAIMS",
+  "status": "COMPLETED_STATIC_WITH_FINDINGS",
+  "first_work_observed_utc": "2026-09-07T16:44:23Z",
+  "hard_deadline_utc": "2026-09-07T17:04:23Z",
+  "mandatory_reserve_begins_utc": "2026-09-07T16:59:23Z",
+  "closeout_began_utc": "2026-09-07T16:49:49Z",
+  "complete_target_readback_observed_by_utc": "2026-09-07T16:56:26Z",
+  "clock_reset_or_extension": false,
+  "output_root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-control-integration",
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/INPUT-MANIFEST.json",
+    "sha256": "c8054e31b9a8f7c184b30464a8c8a4e4acee0d5bd53cba8144cc9efdbb606e7b",
+    "bytes": 125909
+  },
+  "selected_inputs": {
+    "count": 29,
+    "hashes_verified_before_reading": true,
+    "sizes_verified": true,
+    "identities_artifact": "ALL-INPUTS.json",
+    "verification_artifact": "INPUT-VERIFY.txt",
+    "note": "Exact individual absolute paths, full SHA-256 values and byte counts are in the bound identities artifact. Scope and read depth are disclosed in REVIEW.md."
+  },
+  "artifacts": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-control-integration/REVIEW.md",
+      "sha256": "710fd2e65ea18a0710d3028d89c9864db16a66c8d94d73dd35c6fe43fd757c0a",
+      "bytes": 19148,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-control-integration/FINDINGS.json",
+      "sha256": "beefe101242c5ccd4628cb1243ee99a5eab480a79472469433b6f8d06d1a1c59",
+      "bytes": 20096,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-control-integration/ALL-INPUTS.json",
+      "sha256": "86acba0f508908feb89c84ea8a5c478d6f12357b45e4ce2155a37e845983e945",
+      "bytes": 10025,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-control-integration/INPUT-SELECTION.json",
+      "sha256": "b15a24f019beeb6162404cf33609ce275dc2191da7ce4b0bd4a593a035b690da",
+      "bytes": 9627,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-control-integration/ADDITIONAL-INPUT-SELECTION.json",
+      "sha256": "76423645f654c78ddc8a5f9591250e4e231560b8c41b43b3639be77ead93de57",
+      "bytes": 401,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-control-integration/INPUT-VERIFY.txt",
+      "sha256": "45b30fc10d6b03a2e43f12cf427bd944734a87f6e845d134264b535e745140cb",
+      "bytes": 1672,
+      "complete_readback": true
+    }
+  ],
+  "findings": {
+    "total": 8,
+    "high": 5,
+    "medium": 3,
+    "stable_ids": ["R9-CI-001", "R9-CI-002", "R9-CI-003", "R9-CI-004", "R9-CI-005", "R9-CI-006", "R9-CI-007", "R9-CI-008"],
+    "original_findings_closed": false,
+    "disclosed_partial_scope_assessed_separately": true
+  },
+  "execution": {
+    "evaluated_code_imports_or_execution": 0,
+    "tests_fixtures_helpers_native_model_network": 0,
+    "subagents": 0,
+    "target_authority_or_prior_report_writes": 0,
+    "operations": "Read-only shell source/JSON/hash inspection and writes exclusively to the new review output directory."
+  },
+  "limits": {
+    "static_counterexamples": "INFERRED_FROM_SOURCE_NOT_EXECUTED",
+    "validation": "NOT_PERFORMED",
+    "native_C_B_A": "NOT_RUN",
+    "root_admission": "NOT_RUN",
+    "human_acceptance": "NOT_RUN",
+    "CP5_CC7_closure": "NOT_ESTABLISHED",
+    "runnable_or_native_readiness": "NOT_ESTABLISHED"
+  },
+  "receipt_own_readback_at_creation": "NOT_RUN",
+  "self_digest": "ABSENT; return the digest after this receipt is read back."
+}

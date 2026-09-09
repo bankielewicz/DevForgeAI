@@ -1,0 +1,287 @@
+{
+  "schema_version": "devforge.scoped-static-review-inputs/v1",
+  "root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z",
+  "files": {
+    "inputs/claude/baseline/devforge-brainstorm/SKILL.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/SKILL.md",
+      "sha256": "2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4",
+      "bytes": 15826
+    },
+    "inputs/claude/baseline/devforge-brainstorm/assets/handoff.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/assets/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342
+    },
+    "inputs/claude/baseline/devforge-brainstorm/assets/idea-ledger.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/assets/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/evals.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/evals.json",
+      "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+      "bytes": 23649
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/IDEAS-001.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "bytes": 2188
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/STORY-014.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "bytes": 1232
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+      "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+      "bytes": 2209
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+      "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+      "bytes": 783
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+      "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+      "bytes": 1608
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+      "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+      "bytes": 777
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+      "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+      "bytes": 555
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+      "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+      "bytes": 1114
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+      "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+      "bytes": 2702
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+      "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+      "bytes": 925
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/reference-regressions.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/reference-regressions.json",
+      "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+      "bytes": 3863
+    },
+    "inputs/claude/baseline/devforge-brainstorm/evals/triggers/trigger-queries.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/triggers/trigger-queries.json",
+      "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+      "bytes": 4493
+    },
+    "inputs/claude/baseline/devforge-brainstorm/references/derivation.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/derivation.json",
+      "sha256": "5f61403a7d951cdc0e9157e412920ac8731d32e0eec79b27990ec77d7a362d84",
+      "bytes": 18028
+    },
+    "inputs/claude/baseline/devforge-brainstorm/references/managed-runtime.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/managed-runtime.md",
+      "sha256": "9fac0836bbf4695563a40bfdc5e7ae2ece330a5b2d2cabbc4cf6deda7d4d77b5",
+      "bytes": 6239
+    },
+    "inputs/claude/baseline/devforge-brainstorm/references/recording-rules.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/recording-rules.md",
+      "sha256": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b",
+      "bytes": 17962
+    },
+    "inputs/claude/baseline/devforge-brainstorm/scripts/check_artifact.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/scripts/check_artifact.py",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+      "bytes": 1874
+    },
+    "inputs/claude/candidate/devforge-brainstorm/SKILL.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+      "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+      "bytes": 18826
+    },
+    "inputs/claude/candidate/devforge-brainstorm/assets/handoff.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/assets/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342
+    },
+    "inputs/claude/candidate/devforge-brainstorm/assets/idea-ledger.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/assets/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/evals.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/evals.json",
+      "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+      "bytes": 23649
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/IDEAS-001.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "bytes": 2188
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/STORY-014.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "bytes": 1232
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+      "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+      "bytes": 2209
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+      "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+      "bytes": 783
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+      "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+      "bytes": 1608
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+      "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+      "bytes": 777
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+      "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+      "bytes": 555
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+      "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+      "bytes": 1114
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+      "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+      "bytes": 2702
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+      "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+      "bytes": 925
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/reference-regressions.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/reference-regressions.json",
+      "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+      "bytes": 3863
+    },
+    "inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json",
+      "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+      "bytes": 4493
+    },
+    "inputs/claude/candidate/devforge-brainstorm/references/derivation.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+      "sha256": "ed67102585b44c2a1b90826e5b1a151a23b1bba0dd18bd293a35a0998c23441a",
+      "bytes": 25393
+    },
+    "inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+      "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+      "bytes": 7495
+    },
+    "inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+      "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+      "bytes": 18622
+    },
+    "inputs/claude/candidate/devforge-brainstorm/scripts/check_artifact.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/scripts/check_artifact.py",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+      "bytes": 1874
+    },
+    "inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+      "bytes": 9402
+    },
+    "inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md",
+      "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+      "bytes": 10518
+    },
+    "inputs/issued-r8/runtime/README.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/README.md",
+      "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff",
+      "bytes": 8904
+    },
+    "inputs/issued-r8/runtime/delivery_core.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+      "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+      "bytes": 28047
+    },
+    "inputs/issued-r8/runtime/hook_protocol.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/hook_protocol.py",
+      "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+      "bytes": 8560
+    },
+    "inputs/issued-r8/runtime/phase_state.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/phase_state.py",
+      "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+      "bytes": 59033
+    },
+    "inputs/issued-r8/selected/claude/shared/docs/mvp/artifact-contract.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "bytes": 10482
+    },
+    "inputs/issued-r8/selected/claude/shared/docs/mvp/execution-contract.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "bytes": 10720
+    },
+    "inputs/issued-r8/selected/claude/shared/docs/mvp/skill-authoring-contract.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "bytes": 19657
+    },
+    "inputs/issued-r8/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+      "bytes": 10496
+    },
+    "inputs/issued-r8/selected/claude/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598
+    },
+    "inputs/issued-r8/selected/claude/shared/docs/mvp/templates/shared/handoff.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/templates/shared/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342
+    },
+    "inputs/validator/SKILL.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/SKILL.md",
+      "sha256": "bae0c6ae9118376329d2706ffe74216d632c2d2958593a5fa2c1cb98554df698",
+      "bytes": 14103
+    },
+    "inputs/validator/assets/ai-review.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/assets/ai-review.json",
+      "sha256": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701",
+      "bytes": 2697
+    },
+    "inputs/validator/references/ai-review-rubric.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/references/ai-review-rubric.md",
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f",
+      "bytes": 19414
+    },
+    "inputs/validator/references/framework-context.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/references/framework-context.md",
+      "sha256": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+      "bytes": 5980
+    }
+  },
+  "scope": "Fresh static Claude source review; exclude all author reports, prior findings, repair map, run-side proposals, mutable live sources and other reviews. Candidate derivation itself may include author assertions; do not treat those as verified authority."
+}

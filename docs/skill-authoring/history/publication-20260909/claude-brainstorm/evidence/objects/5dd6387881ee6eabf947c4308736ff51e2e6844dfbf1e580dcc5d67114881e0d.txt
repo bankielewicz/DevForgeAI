@@ -1,0 +1,240 @@
+---
+artifact_id: SEVAL-PREP-003
+revision: 1
+status: draft
+created_at_utc: 2026-09-07T13:18:00Z
+execution_ref:
+  record: SESSION-001@7
+  sha256: 2664e1e995315ec102e10e70b3a8fc057713af7e4e7bebe98ccc619da5bc0c2e
+  path: framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md
+producer:
+  skill: claude-brainstorm-author
+  candidate_skill_revision: 2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4
+  candidate_skill_revision_scope: >
+    SHA-256 of the authored SKILL.md file's bytes in the author worktree. One file.
+    Not a package digest and not a plugin version.
+supersedes: null
+missing_inputs:
+  - "No suite was executed in this allocation, so no repair below is demonstrated."
+  - "Native admission is still refused by the production launcher; nothing here observes a real managed session."
+---
+
+# Claude brainstorm revision 007: runtime-integration source pass
+
+**Source work: complete within its fence. Control work: authored, unexecuted.
+Budget: inside the window.** The four fenced source files are written and the
+run-side repairs and controller changes are in place, but nothing was run, so
+every claim below about behaviour is a claim about text.
+
+## Clock
+
+| Moment | UTC |
+| --- | --- |
+| First work on revision 007 | 2026-09-07T12:53:29Z |
+| Technical-edit stop reserve | 2026-09-07T14:33:29Z |
+| Hard deadline | 2026-09-07T14:53:29Z |
+| Last technical edit | 2026-09-07T13:17:32Z |
+| Closeout | from 2026-09-07T13:18Z |
+
+All reading, preparation and closeout counted. No extension, reset or second
+cycle. **This is not a repair of SESSION-001@6**, whose source write at
+20:18:10Z was 687 seconds past its own deadline; that budget FAIL stands and is
+recorded again below.
+
+## Source: four files, and nothing else
+
+Starting candidate `ab997d3130809be3013ecab6392f108ab61d5925cad010e1bac76f879bf6a6ea`
+verified 19/19 against the live worktree before any write, with
+`references/managed-runtime.md` confirmed absent.
+
+| | Count |
+| --- | --- |
+| Files at start / now | 19 / 20 |
+| Unchanged | 16 |
+| Changed | 3 |
+| Added | 1 |
+| Removed | 0 |
+
+- `SKILL.md` `7d1322dc…` → `2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4`
+- `references/recording-rules.md` `bcae04bc…` → `9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b`
+- `references/derivation.json` `8e0a0f78…` → `5f61403a7d951cdc0e9157e412920ac8731d32e0eec79b27990ec77d7a362d84`
+- `references/managed-runtime.md` **new** `9fac0836bbf4695563a40bfdc5e7ae2ece330a5b2d2cabbc4cf6deda7d4d77b5`
+
+Changed-plus-added equals the write fence exactly. Assets, helper, evals,
+fixtures, trigger queries and the protected `evals/reference-regressions.json`
+are byte-identical. The `SKILL.md` description line is byte-identical to its
+starting copy, so activation and the existing trigger queries are untouched -
+which matters now that phase A uses those same selectors.
+
+### What changed in the instructions
+
+**`SKILL.md`** gained one section, *If a runtime is managing this session*: when
+context supplies a phase, task ID and challenge, a protected runtime is reading
+the saved bytes, refusing to advance on skipped or stale evidence, and owning
+completion and the receipt; the model records what it found in the shape asked
+for, at the destination named. It says plainly that delivery and receipt helpers
+are not the model's to run and that assembling a hand-run substitute is not a
+fallback, and that with no such context the outputs are drafts.
+
+The old *Before you call it done* closeout is gone: the `check_artifact.py`
+invocation, the two-roots path construction that existed only to support it, and
+the model-delivered receipt. What replaced it keeps every rule that was about
+what a reference means rather than about the helper - dependency-ordered
+hashing, no self-digest, a handoff absent from its own outputs table, reading
+each repeated reference back after the last write, placeholders meaning draft,
+the `producer.skill_revision` scope distinction, and structural conformance
+being separate from semantic quality.
+
+**`references/managed-runtime.md`** (123 lines) restates only what a session
+must do: the six-key `devforge.brainstorm-checkpoint/v1` envelope and its
+65,536-byte limit, the per-phase content fields, the `awaiting_user` form
+carrying exactly `question` and `blocking_dependency`, the ordinary
+Recover→Explore→Record→Focus path and the externally selected Recover→Focus
+handoff-only path, one bounded correction per phase, and the prohibition on
+running delivery or receipt helpers. Operator command surfaces, sandboxing and
+supervisor internals are deliberately absent. Its field shapes are bound to
+`runtime/phase_state.py` (`_checkpoint`, `_PHASES`), not paraphrased from memory.
+
+**`references/recording-rules.md`** lost the helper command from the
+`producer.skill_revision` row while keeping the digest-scope distinctions and
+the `unknown` rule, split receipt ownership between managed and unmanaged
+sessions, and gained a pointer to the new reference. Every envelope, locator,
+ownership, stale-input and could-not-run rule is unchanged, including the
+revision-6 causal-upstream wording.
+
+**`references/derivation.json`** now binds all four files to the exact selected
+addendum, specification and runtime bytes and to SESSION-001@7. It **repairs the
+stale destination binding** the source review found: the record still pointed at
+`ff88e091…`, two writes behind, and now records the full chain `ff88e091…` →
+`bcae04bc…` → `9cdf32e2…` with the revision-6 late write noted at that entry. A
+`referenced_not_modified` section records the revision-6 locator correction to
+`evals/reference-regressions.json` as provenance without touching that protected
+file. The record carries no digest of itself.
+
+## Controls: authored, none executed
+
+**Zero suites, zero cases, zero model calls, zero fixture executions.** The only
+automated observation is `ast.parse` over each edited Python file and
+`json.load` over each edited JSON file. Parsing is not behaviour. Full detail is
+in `proposals/UNEXECUTED-PROPOSALS.json`.
+
+The three confirmed checker findings are addressed in text:
+
+- **CP5-CK-001** - the unsectioned-upstream exception now requires the
+  disclosure it was always described as requiring. Recording
+  `unsectioned_absence_disclosed` and then ignoring it meant the carve-out was
+  not a carve-out.
+- **CP5-CK-002** - a path selected under `preserved_outputs` must have actual
+  retained bytes; a `removed` entry's surviving pathname no longer satisfies it.
+- **CP5-CK-003** - digest ownership comes from declared receipt record shapes
+  rather than from ranking nearby digests by distance, and two records
+  disagreeing about one locator are rejected instead of resolved. The glue
+  between locator and digest is a bounded run containing no other digest and, for
+  same-line shapes, no newline.
+
+Both contradictory suite cases are corrected: `R-section-omitted` now expects
+FAIL against a sectioned target, and `R-raw-evidence-declared` builds an
+`evidence` block through a new `evd()` helper instead of the `upstream` block it
+was actually certifying. New discriminating cases cover the disclosed and
+undisclosed unsectioned forms, raw-file under both artifact-reference fields, the
+long swapped receipt pair in both directions, sha256sum and table-row shapes,
+adjacent line receipts, a locator outside any record, an undeclared shape, an
+unsupported shape, and preservation with and without retained bytes.
+
+The controller changes: judgments are generated after output and must name this
+run, session and arm plus the digests of the result, output inventory and three
+checker outputs under the frozen criteria revision; a freeze carrying prewritten
+judgments is refused; the pause writes a `REQUIRED` binding and returns exit 8,
+and `--resume` reads a completed arm back rather than relaunching it. Admission
+is sequential and a freeze declaring any concurrency but 1 is refused. Phase A
+actually launches, sends the unchanged selector with no installed-skill prefix,
+and observes activation from its own transcript against `should_trigger`, with an
+unreadable transcript recorded as COULD_NOT_RUN. Criteria are bound at freeze
+time and judgments when consumed. Under zero authorized arms the runner refuses
+before any launch, stand-in or marker.
+
+### Two defects I introduced and caught
+
+Both were found by static inspection of my own edits, before any closeout:
+
+1. `main()` referenced a `_consumed` map that was never defined - the A gate
+   would have raised `NameError` on every run. A `consumed` dict is now
+   populated where each judgment is read.
+2. The phase-suite driver called `time.strftime` without importing `time`, and
+   defaulted `judge=None` to "no judgments at all", which would have starved
+   every pre-existing scenario. Both corrected; `None` now means the declared
+   default verdicts and an explicit `{}` means none.
+
+I found no way to check the rest without running it, and running it is not
+authorized here.
+
+## Honest limits
+
+The largest open risk is that **the corrected suite and the corrected checkers
+have never met**. Revision 6 shipped a suite that contradicted its own checkers;
+this revision corrects both sides but demonstrates neither, and the phase suite
+in particular was reshaped around a pause/resume seam that has never executed.
+Treat the whole control package as a proposal.
+
+The second is a deliberate reduction: an unmanaged session no longer computes and
+delivers a digest of its own outputs, and the runtime meant to replace that check
+is not natively admitted. The reference says the artifacts are unverified drafts,
+which is true, but it is less mechanical assurance than before. That trade is the
+addendum's and it made it explicitly; `proposals/AUTHORING-RECORD.md` records it
+so a reviewer does not have to infer it from a diff.
+
+## Creator
+
+| Stage | Disposition | Detail |
+| --- | --- | --- |
+| Package selected | PASS | SKILL.md `dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf`, 21 files, manifest author Anthropic |
+| Native invocation | PASS | `/skill-creator:skill-creator` through the Skill tool in this retained session; real result naming the selected base directory |
+| Guidance applied | PASS | Progressive disclosure, explain-the-why, do-not-overfit; see the authoring record |
+| Live eval / baseline / grading / benchmark / description optimisation | NOT_RUN | Deferred; they need the worker calls this allocation sets to zero |
+
+No dedicated invocation event ID is exposed to this session and none was
+invented. No private client history was copied.
+
+## Preserved history, unchanged
+
+Preparation 004: report `a94d430e…`, receipt `e3cc40ce…`, freeze `eabcd457…`,
+budget FAIL, 11 author-preserved copies against 39 bindings, 334 verified of 415
+indexed with 81 excluded, 569 author-excluded scratch paths, root's separate four
+unindexed cache exclusions, and the withdrawn phase-gate, B0 attribution and
+AI-row-count claims. Preparation 005 (SESSION-001@6): report `88f948f2…`,
+receipt `626794a7…`, PARTIAL, **budget FAIL with a source write 687 seconds past
+its deadline**. None of that is repaired, relabelled or rewritten here, and no
+old native output becomes a current-candidate result.
+
+## Standing gates
+
+| Gate | Scope | Outcome |
+| --- | --- | --- |
+| Native model calls | 0 made, 0 authorized | PASS |
+| Tests, suites, fixture and helper executions | 0 made, 0 authorized | PASS |
+| Installations / exports / hook activation | 0 / 0 / 0, none authorized | PASS |
+| Source pass within fence | 3 changed + 1 added, exactly the four fenced paths | PASS |
+| Preparation budget conformance | Last edit 13:17:32Z against a 14:33:29Z reserve | PASS |
+| Control repairs demonstrated | Authored only; no suite executed | NOT_RUN |
+| Provider validation | Not selected in this allocation | NOT_APPLICABLE |
+| Hooks | Design only; not installed or activated | NOT_RUN |
+| Native C/B/A for this revision | No arm authorized or launched | NOT_RUN |
+| Root native admission | Root reviews these bytes | NOT_RUN |
+| Human quality review / adoption | Owner is the human | NOT_RUN |
+
+Git was read-only throughout: HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`,
+branch `author/claude-brainstorm-mvp`, no commit, ref, merge, push or stash. No
+shared contract, manifest, installed cache, hook configuration, runtime or
+installer source, sibling provider or authority record was touched.
+
+## What a successor needs
+
+1. Run the two suites. Nothing in this handback is demonstrated.
+2. Reconcile whatever the run disagrees with - expectations first, since both
+   sides changed.
+3. Only then consider the C1 + B5 + B11 → A3a/A5a path, which remains
+   **unallocated**.
+
+Ownership stays SESSION-001@7 with this author, retained for root preparation
+review. No retry, acceptance, integration, publication or next capability
+follows this handback. Contributor-context native evaluation remains parked.

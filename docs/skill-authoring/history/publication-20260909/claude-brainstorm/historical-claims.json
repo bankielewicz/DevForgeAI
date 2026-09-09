@@ -1,0 +1,104 @@
+{
+  "record_type": "preserved historical claim annotations",
+  "role": "claude-brainstorm",
+  "claims": [
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/MANIFEST.sha256",
+      "claimed_sha256": "06f30b00716ca2e1cbfecdece3a280117d5fbdd1fb64cce919ddfe7fdd22f9b7",
+      "actual_sha256": "768ce11a14c2ab51a61c4820197f0f9cbde9f6a3d222ba67fef99df819bef079",
+      "disposition": "PRESERVED_DOCUMENTED_HISTORICAL_CLAIM",
+      "reason": "Named r9-source-exec-authoring-20260907T161330303011Z frozen-manifest member: ./MANIFEST.sha256",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/768ce11a14c2ab51a61c4820197f0f9cbde9f6a3d222ba67fef99df819bef079.txt",
+      "historical_bytes_changed": false
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r10-20260907T1919Z/inputs/baseline-candidate-devforge-brainstorm/references/recording-rules.md",
+      "claimed_sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+      "actual_sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+      "disposition": "PRESERVED_DOCUMENTED_HISTORICAL_CLAIM",
+      "reason": "Exact derivation-selected project input/history; The frozen revision-10 starting candidate copy carries the actual current bytes; this row records the digest the record previously asserted for this destination. Recorded as the current destination digest by the revision-8/9 records while the file on",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3.txt",
+      "historical_bytes_changed": false
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r10-20260907T1919Z/inputs/baseline-candidate-devforge-brainstorm/SKILL.md",
+      "claimed_sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+      "actual_sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+      "disposition": "PRESERVED_DOCUMENTED_HISTORICAL_CLAIM",
+      "reason": "Exact derivation-selected project input/history; The frozen revision-10 starting candidate copy carries the actual current bytes; this row records the digest the record previously asserted for this destination. Recorded as the current destination digest by the revision-8/9 records while the file on",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c.txt",
+      "historical_bytes_changed": false
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r10-20260907T1919Z/inputs/baseline-candidate-devforge-brainstorm/references/managed-runtime.md",
+      "claimed_sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+      "actual_sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+      "disposition": "PRESERVED_DOCUMENTED_HISTORICAL_CLAIM",
+      "reason": "Exact derivation-selected project input/history; The frozen revision-10 starting candidate copy carries the actual current bytes; this row records the digest the record previously asserted for this destination. Recorded as the current destination digest by the revision-8/9 records while the file on",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30.txt",
+      "historical_bytes_changed": false
+    }
+  ],
+  "locator_aliases": [
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+      "expected_sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+      "selected_original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/authority/SESSION-001-r10-DRAFT.md",
+      "sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+      "reason": "Live authority locator advanced; preserved issued copy resolves the recorded historical revision.",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587.txt"
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+      "expected_sha256": "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3",
+      "selected_original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r9-20260907T152356521086Z/authority/SESSION-001-r9.md",
+      "sha256": "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3",
+      "reason": "Live authority locator advanced; preserved issued copy resolves the recorded historical revision.",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3.txt"
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+      "expected_sha256": "efd5c656e781f4c1d940723dd4a06208c176a471969ec5575c2b87aa27d3953c",
+      "selected_original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r8-20260907T140859534640Z/authority/SESSION-001-r8.md",
+      "sha256": "efd5c656e781f4c1d940723dd4a06208c176a471969ec5575c2b87aa27d3953c",
+      "reason": "Live authority locator advanced; preserved issued copy resolves the recorded historical revision.",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/efd5c656e781f4c1d940723dd4a06208c176a471969ec5575c2b87aa27d3953c.txt"
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+      "expected_sha256": "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3",
+      "selected_original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r9-20260907T152356521086Z/authority/SESSION-001-r9.md",
+      "sha256": "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3",
+      "reason": "Named frozen receipt locator resolved by exact retained bytes; original current path may have advanced. Reference: /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/report/RECEIPT.json",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3.txt"
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+      "expected_sha256": "8f4ad26e13fab252d56cc078463f89b911f089fb7d767642d359a8cb3accc31b",
+      "selected_original_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r10-20260907T1919Z/inputs/baseline-candidate-devforge-brainstorm/references/derivation.json",
+      "sha256": "8f4ad26e13fab252d56cc078463f89b911f089fb7d767642d359a8cb3accc31b",
+      "reason": "Named frozen receipt locator resolved by exact retained bytes; original current path may have advanced. Reference: /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/report/RECEIPT.json",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/8f4ad26e13fab252d56cc078463f89b911f089fb7d767642d359a8cb3accc31b.txt"
+    },
+    {
+      "role": "claude-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+      "expected_sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+      "selected_original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/authority/SESSION-001-r10-DRAFT.md",
+      "sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+      "reason": "Named frozen receipt locator resolved by exact retained bytes; original current path may have advanced. Reference: /home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/review-r10/INTEGRATION-REVIEW.receipt.json",
+      "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/evidence/objects/0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587.txt"
+    }
+  ],
+  "excluded_or_unresolved": [],
+  "disposition": "Historical asserted hashes and actual retained hashes are separate facts. No frozen file was corrected, repinned or relabeled as passing."
+}

@@ -1,0 +1,42 @@
+{
+  "method": "Static JSON equality and digest-pin comparison; no evaluated code imported/executed. Root manifest supplies complete candidate custody; only the needed artifact-workflow source body was read.",
+  "root_input_manifest_sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+  "current_proposals": {
+    "grade-rubric.proposed.json": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+    "measurement-plan.proposed.json": "8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415"
+  },
+  "baseline_proposals": {
+    "grade-rubric.proposed.json": "1eba87fb7754004445ace03edf6fc132b2c2fef620b807d73f86abcb50fabb8e",
+    "measurement-plan.proposed.json": "c68565dc10917b0ffb9de22bbf75acc42bc337628f09e2722199645f078d6707"
+  },
+  "comparisons": {
+    "nine_prior_common_checks_retained_in_order": true,
+    "only_tenth_common_check_is_causal_provenance": true,
+    "prior_case_maps_unchanged": true,
+    "prior_definition_changes": {
+      "producer_identity_scope": "preparation assignment 7 to 8 only"
+    },
+    "five_runtime_substitution_names_unchanged": true,
+    "all_five_substitution_old_values_unchanged": true,
+    "runtime_substitution_new_values_retained_except_assignment": true,
+    "core_case_order_unchanged": true,
+    "prospective_bounds_unchanged": true,
+    "all_old_coverage_entries_unchanged": true,
+    "all_old_historical_dispositions_unchanged": true,
+    "copied_control_pins_unchanged": true,
+    "candidate_30_pins_unchanged_and_match_root_custody": true,
+    "plan_binds_actual_current_rubric_digest": true,
+    "causal_criterion_binds_actual_current_rubric_digest": true,
+    "both_bind_actual_current_candidate_manifest": true,
+    "both_previous_proposal_pins_match_frozen_r7_baselines": true,
+    "both_authority_pins_match_issued_r8": true,
+    "causal_cases_count": 8,
+    "all_causal_cases_explicitly_unexecuted_no_fixture_no_admission": true,
+    "both_proposals_nonexecutable_and_no_admission": true
+  },
+  "scope_exclusions": [
+    "No independent broad baseline-copy audit; root owns the baseline discrepancy.",
+    "No r8 author reports/conclusions or other reviewers read.",
+    "No source changes or source-wide semantic audit."
+  ]
+}

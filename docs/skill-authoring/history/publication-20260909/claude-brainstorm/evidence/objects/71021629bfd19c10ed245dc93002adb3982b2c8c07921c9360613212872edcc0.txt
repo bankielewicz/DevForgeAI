@@ -1,0 +1,82 @@
+# Claude brainstorm revision-9 authoring record
+
+Session SESSION-001@9, one exclusive run. First work 2026-09-07T16:13:30.301280Z; technical
+edit boundary 17:53:30Z; hard deadline 18:13:30Z. Reading, preparation and closeout all counted.
+No reset, extension or clock rewrite.
+
+## Preconditions verified before dependent work
+
+- Authority `authority/SESSION-001-r9.md` SHA-256 `9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3`, read complete.
+- `authoring-assignments-20260905/SESSION-001.md` byte-identical to it (same digest, 7476 bytes).
+- `ISSUANCE.json` records the single SESSION-001@8 to @9 transition, prior `efd5c656...` matching the authority's `supersedes`, `matches: true`.
+- Three held authorities re-verified unchanged against their current assignment files (`aa1d773e...`, `c3ed3e79...`, `251515799...`), held_status UNCHANGED.
+- `INPUTS.json` SHA-256 `60a1599272bfd8bfb8d7b98c0b4966dd6c6f8a87adf40b6137a1e13a85c4883e`.
+- Worktree, branch `author/claude-brainstorm-mvp`, HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`, common Git directory all match. Git read-only throughout; no commit, merge, push or metadata write.
+- All twenty selected candidate paths matched INPUTS.json **and** `review-r8/inputs/claude/candidate/devforge-brainstorm`. No drift, no collision, no undeclared file.
+- Selected control baseline verified: `control/PLAN.json` 132 lines, SHA-256 `002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e`. The earlier 78-line copy (`17aeea8b...`) was treated as historical only, per `review-r8/CONTROL-BASELINE-RULING.md`.
+
+## Inputs read complete
+
+REMEDIATION-SPECIFICATION.md, REPAIR-MAP.json, ROOT-STATUS.md, CONTROL-BASELINE-RULING.md,
+AUTHORING-RUNTIME-BRIDGE-r7.md, INTEGRATION-REVIEW.md, both Claude scoped narrative reviews
+(review-claude-source/REVIEW.md, review-claude-proposals/REVIEW.md), and the cited runtime spans
+in `runtime/delivery_core.py` and `runtime/phase_state.py`. The fourteen-file r7 control baseline
+was copied into `baseline/control-baseline-r7/` read-only before any fresh source was written.
+
+## Write fence
+
+Source changes are confined to the four authorized paths: `SKILL.md`,
+`references/recording-rules.md`, `references/managed-runtime.md`, `references/derivation.json`.
+The other sixteen files were re-hashed after the edits and are byte-identical to INPUTS.json. The
+`name` and `description` frontmatter lines are byte-identical to the reviewed candidate. No
+addition, deletion or rename. No shared contract, provider manifest, installed cache, hook
+configuration, runtime, installer, sibling provider, other skill, AGENTS.md, canonical tree or Git
+metadata was written. Codex source, proposals, receipts, derivation and excluded cache were not
+read for authorship and were not modified.
+
+Fresh executable source lives only under this run's `source/` and is a preparation artifact, not
+installed skill source. All prior runs, reports, criteria, custody and authority are unmodified.
+
+## Creator action
+
+The selected native Anthropic skill-creator was actually invoked in this retained Claude author
+session, not read or copied. Observable result: it loaded and returned its instructions, reporting
+base directory
+`/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/skill-creator/skills/skill-creator`.
+Status: INVOKED_LOADED.
+
+Applied from it, as authoring guidance only: progressive disclosure (keep SKILL.md's body to the
+essential behaviour and push the exact field rules into `references/`); explain why rather than
+issuing capitalised MUSTs; preserve the existing skill name and description when revising an
+existing skill; keep the prompt lean.
+
+Deliberately not used, because the fence forbids it: test-case runs, subagents, the grader,
+comparator and analyzer agents, `aggregate_benchmark`, `generate_review.py`, `run_loop.py`
+description optimisation, and `package_skill.py`. No evaluation helper, no new model delegate and
+no packaging step was invoked. An in-session creator invocation is not authorization for native
+evaluation.
+
+## Execution boundary actually observed
+
+Tests 0, suites 0, fixture execution 0, target/helper/validator/linter execution 0, imports of
+authored code 0, compilation 0, new native workers/graders/model delegates 0, installs/exports 0,
+hook activation 0. Authored code was not run, including against this run's own records. Only
+standard-library JSON and source-text inspection, `ast.parse` over authored files read as text,
+and file custody reads/hashes/writes were performed.
+
+## Honest partials
+
+- CHG-011 (CC7-007): executable resume lifecycle NOT AUTHORED. The properties are recorded in
+  `source/no-model-tests/cases_r9.py:LIFECYCLE_DEFERRED`. The lifecycle is driven by runtime-owned
+  events with no collector in the selected v1 interface; a plausible harness would be invention.
+- CHG-009 (CC7-005): the fail-closed consumer and schema checks are implemented. Three of the five
+  observations are ROOT_DEPENDENCY_DEFERRED by name and block dependent admission. No collector API
+  was fabricated and no working interface is claimed.
+- CHG-012 (CC7-008): case binding, query-byte identity and the no-launcher NOT_RUN path are
+  implemented; the A5a non-invocation and native-completion assertions depend on the deferred
+  observations.
+- The two long swapped-pair receipt negatives are retained r7 expectations and were not
+  re-authored; they are unchanged, not new work.
+
+No finding is closed. Every original finding ID, severity and expected behaviour is preserved in
+`BUILDER-CHANGE-RECEIPT.json`.

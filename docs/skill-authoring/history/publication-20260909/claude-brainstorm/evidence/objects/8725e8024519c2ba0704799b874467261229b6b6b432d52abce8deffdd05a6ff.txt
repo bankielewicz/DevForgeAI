@@ -1,0 +1,5 @@
+{
+ "schema_version": "devforge.semantic-decisions/v2",
+ "note": "Populated per arm by the adjudicator before that arm's gate. This preparation records none, because no arm ran. The phase path treats an absent decision as MISSING, which fails its gate: absence cannot default to PASS.",
+ "decisions": []
+}

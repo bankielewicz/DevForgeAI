@@ -1,0 +1,532 @@
+#!/usr/bin/env python3
+"""Deterministic controls for the actual phase path. No model, ever.
+
+These do not re-implement what the runner should do. Each scenario copies the
+real control and checker files into a scratch run root, generates the real
+freeze over those bytes, imports the real `run_phases` from that copy, and calls
+its real `main()`. The only substitution is at the seam where the model call
+happens: `LAUNCH_HOOK` records a marker and fabricates the arm's outputs.
+
+`harness.stream` is replaced with a function that raises, and PATH is emptied,
+so a scenario that somehow reached a real launch would fail loudly rather than
+run something. Every scenario asserts a real-model invocation count of zero.
+"""
+import hashlib, importlib.util, json, os, shutil, sys, time, types
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RUN = os.path.dirname(HERE)
+WORK = os.path.join(HERE, "work-phases")
+if os.path.exists(WORK):
+    shutil.rmtree(WORK)
+os.makedirs(WORK)
+results = []
+REAL_MODEL_CALLS = {"count": 0}
+
+
+def rec(cid, desc, expected, actual, extra=None):
+    row = {"id": cid, "description": desc, "expected": expected, "actual": actual,
+           "result": "PASS" if expected == actual else "FAIL",
+           "real_model_invocations": 0}
+    if extra:
+        row.update(extra)
+    results.append(row)
+    return row
+
+
+def dg(t):
+    return hashlib.sha256(t.encode()).hexdigest()
+
+
+LEDGER = """---
+schema_version: "devforge.artifact/v1"
+artifact_id: "IDEAS-001"
+artifact_type: "idea-ledger"
+revision: 1
+upstream: []
+missing_inputs: []
+---
+
+# Ledger
+
+## Ideas and alternatives
+
+row
+"""
+HANDOFF = """---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-001"
+artifact_type: "handoff"
+revision: 1
+upstream:
+  - artifact_id: "IDEAS-001"
+    revision: 1
+    store: project
+    path: docs/devforge/ideas/IDEAS-001.md
+    sha256: "%s"
+    sections:
+      - "Ideas and alternatives"
+missing_inputs: []
+---
+
+# Handoff
+
+## Observed verification
+
+| Check | Scope | Outcome |
+| --- | --- | --- |
+| placeholders | helper | PASS |
+""" % dg(LEDGER)
+
+GOOD_FILES = {"docs/devforge/ideas/IDEAS-001.md": LEDGER,
+              "docs/devforge/handoffs/HANDOFF-001.md": HANDOFF}
+GOOD_TERMINAL = ("Saved docs/devforge/ideas/IDEAS-001.md — SHA-256 %s\n"
+                 "Saved docs/devforge/handoffs/HANDOFF-001.md — SHA-256 %s\n"
+                 % (dg(LEDGER), dg(HANDOFF)))
+BAD_SECTION_HANDOFF = HANDOFF.replace('      - "Ideas and alternatives"', '      - "No Such Section"')
+BAD_TERMINAL = "Saved the files.\n"
+
+
+def build_root(name, arms, semantic, c_files, c_terminal, b_files=None, b_terminal=None,
+               mutate_after_freeze=None, plan_over=None, preexisting=None):
+    root = os.path.join(WORK, name)
+    os.makedirs(root)
+    for sub in ("control", "checkers", "fixtures", "no-model-tests", "attempts",
+                "decisions", "grades"):
+        os.makedirs(os.path.join(root, sub), exist_ok=True)
+    for f in os.listdir(os.path.join(RUN, "control")):
+        if f.endswith((".py", ".json")):
+            shutil.copyfile(os.path.join(RUN, "control", f), os.path.join(root, "control", f))
+    for f in os.listdir(os.path.join(RUN, "checkers")):
+        if f.endswith(".py"):
+            shutil.copyfile(os.path.join(RUN, "checkers", f), os.path.join(root, "checkers", f))
+    plan = json.load(open(os.path.join(root, "control", "PLAN.json")))
+    plan["outputs"] = {a["id"]: {"required_outputs": sorted(
+        (c_files if a["phase"] == "C" else (b_files or {})).keys()), "optional_outputs": []}
+        for a in arms}
+    if plan_over:
+        plan.update(plan_over)
+    json.dump(plan, open(os.path.join(root, "control", "PLAN.json"), "w"), indent=1)
+    # The bound decisions file is now always empty. A judgment written here
+    # would be a judgment of output that does not exist yet, and revision 3 of
+    # the runner refuses a freeze that carries one. Scenario judgments are
+    # supplied through the pause/resume seam in drive() instead.
+    json.dump({"schema_version": "devforge.semantic-decisions/v2", "decisions": [],
+               "note": "judgments are generated after output and consumed at the arm's gate"},
+              open(os.path.join(root, "control", "SEMANTIC-DECISIONS.json"), "w"), indent=1)
+    json.dump({"deterministic": [{"id": "stub", "path": "no-model-tests/ok.json",
+                                  "field": "conformance", "expect": ["PASS"]}]},
+              open(os.path.join(root, "control", "GATE-INPUTS.json"), "w"), indent=1)
+    json.dump({"conformance": "PASS"},
+              open(os.path.join(root, "no-model-tests", "ok.json"), "w"))
+    # generate the real freeze over these exact bytes
+    spec = importlib.util.spec_from_file_location(
+        "fz_" + name, os.path.join(root, "control", "freeze.py"))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    fz = m.build()
+    fz["arms"] = arms
+    # A synthetic scenario declares its own arms, so it must also declare that
+    # they are authorized; otherwise the runner refuses at the zero-call
+    # boundary, which is correct for the real preparation freeze and is itself
+    # exercised as its own case.
+    fz["native_arms_authorized"] = len(arms)
+    json.dump(fz, open(os.path.join(root, "control", "FREEZE.json"), "w"), indent=1)
+    if preexisting:
+        d = os.path.join(root, "attempts", preexisting)
+        os.makedirs(d)
+        open(os.path.join(d, "SENTINEL.txt"), "w").write("another attempt's evidence\n")
+    if mutate_after_freeze:
+        p = os.path.join(root, mutate_after_freeze)
+        with open(p, "a") as fh:
+            fh.write("\n# edited after the freeze was taken\n")
+    return root
+
+
+DEFAULT_JUDGE = {a: "PASS" for a in ("C1", "B0", "B3", "B5", "B6", "B11",
+                                     "A3a", "A5a")}
+
+
+def drive(root, c_files, c_terminal, b_files, b_terminal, incomplete_arms=(),
+          judge=None, a_invokes=(), max_resumes=8):
+    """Run the real main(), supplying judgments only through its pause seam.
+
+    `judge` maps an arm id to the outcome an authorized judgment should carry.
+    An arm absent from it gets no judgment, which is how "missing judgment
+    stops downstream work" is exercised. Each judgment is written from the
+    binding the runner itself published after that arm's checks ran, so it can
+    only be produced after the evidence exists -- and the resume that follows
+    must not relaunch the arm, which the marker count proves.
+    """
+    markers = []
+    # None means "the adjudicator returns PASS for these arms"; an explicit {}
+    # means no judgment is ever supplied, which is a different scenario and the
+    # one that must leave downstream work unstarted. The verdict's origin is not
+    # what makes a judgment evidence -- the binding to this arm's actual digests
+    # is -- so a scenario may declare the verdict in advance while the runner
+    # still refuses anything that does not name the right bytes.
+    judge = dict(DEFAULT_JUDGE if judge is None else judge)
+
+    def hook(arm_id, cmd, d, cap):
+        # The runner records its own marker at the launch seam; the hook does
+        # not add a second one, so the count is the runner's own count.
+        proj = os.path.join(d, "project")
+        files = c_files if arm_id.startswith("C") else (b_files or {})
+        term = c_terminal if arm_id.startswith("C") else (b_terminal or "")
+        for rel, text in files.items():
+            t = os.path.join(proj, rel)
+            os.makedirs(os.path.dirname(t), exist_ok=True)
+            open(t, "w").write(text)
+        if arm_id.startswith("A"):
+            # Phase A observes selection, so the stand-in leaves a transcript
+            # for the activation check to read rather than writing artifacts.
+            open(os.path.join(d, "transcript.jsonl"), "w").write(
+                json.dumps({"type": "tool_use", "name": "Skill",
+                            "input": {"skill": "devforge-brainstorm"}}) + "\n"
+                if arm_id in a_invokes else
+                json.dumps({"type": "text", "text": "answered directly"}) + "\n")
+        if arm_id in incomplete_arms:
+            return {"terminal": "EOF_WITHOUT_RESULT", "terminal_detail": "stand-in: no result",
+                    "result_text": None, "seconds": 0.0, "tool_results": {"ok": 0, "error": 0},
+                    "os_exit": {"returncode": None}}
+        return {"terminal": "COMPLETED", "terminal_detail": "stand-in", "result_text": term,
+                "seconds": 0.1, "tool_results": {"ok": 1, "error": 0},
+                "os_exit": {"returncode": 0}}
+
+    spec = importlib.util.spec_from_file_location(
+        "rp_" + os.path.basename(root), os.path.join(root, "control", "run_phases.py"))
+    mod = importlib.util.module_from_spec(spec)
+    saved_path, saved_argv = os.environ.get("PATH", ""), list(sys.argv)
+    os.environ["PATH"] = os.path.join(WORK, "empty-path")
+    os.makedirs(os.environ["PATH"], exist_ok=True)
+    for name in ("controller", "grade", "harness", "validate_references",
+                 "check_receipts", "check_outcome_labels"):
+        sys.modules.pop(name, None)   # each scenario must load its own copy
+    try:
+        spec.loader.exec_module(mod)
+
+        def no_model(*a, **k):
+            REAL_MODEL_CALLS["count"] += 1
+            raise AssertionError("a real model launch was attempted in a no-model test")
+        mod.H.stream = no_model
+        mod.LAUNCH_HOOK = hook
+        mod.LAUNCH_MARKERS = markers
+        code = mod.main([])
+        resumes = 0
+        while code == 8 and resumes < max_resumes:
+            wrote = False
+            jd = os.path.join(root, "judgments")
+            for f in sorted(os.listdir(jd)) if os.path.isdir(jd) else []:
+                if not f.endswith(".REQUIRED.json"):
+                    continue
+                req = json.load(open(os.path.join(jd, f)))
+                arm = req["arm"]
+                if arm not in judge:
+                    continue
+                j = dict(req["required_binding"])
+                j["outcome"] = judge[arm]
+                j["criterion"] = "named behaviour"
+                j["basis"] = "scenario judgment, written after this arm's checks existed"
+                j["issued_at_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                json.dump(j, open(os.path.join(jd, arm + ".json"), "w"), indent=1)
+                wrote = True
+            if not wrote:
+                break
+            resumes += 1
+            code = mod.main(["--resume"])
+    finally:
+        os.environ["PATH"] = saved_path
+        sys.argv = saved_argv
+    state = json.load(open(os.path.join(root, "control", "PHASE-STATE.json"))) \
+        if os.path.isfile(os.path.join(root, "control", "PHASE-STATE.json")) else {}
+    arms = json.load(open(os.path.join(root, "control", "ARMS.json"))) \
+        if os.path.isfile(os.path.join(root, "control", "ARMS.json")) else {}
+    return {"code": code, "markers": markers, "state": state, "arms": arms}
+
+
+C_ARM = {"id": "C1", "phase": "C", "assigned_cap_s": 900}
+def B(n):
+    """Real B case ids, so the runner's own staging path is exercised."""
+    return {"id": "B%d" % n, "phase": "B", "case": n, "assigned_cap_s": 900}
+A_ARMS = [{"id": "A3a", "phase": "A", "assigned_cap_s": 300},
+          {"id": "A5a", "phase": "A", "assigned_cap_s": 600}]
+SEM_OK = [{"arm": a, "criterion": "named behaviour", "outcome": "PASS", "basis": "stand-in"}
+          for a in ("C1", "B0", "B3", "B5", "B6", "A3a", "A5a")]
+
+# ---------------------------------------------------------------- P1
+root = build_root("P1-c-conformance-fail-blocks-B",
+                  [C_ARM, B(0), B(3)], SEM_OK, GOOD_FILES,
+                  ("Saved docs/devforge/ideas/IDEAS-001.md — SHA-256 %s\n"
+                   "Saved docs/devforge/handoffs/HANDOFF-001.md — SHA-256 %s\n"
+                   % (dg(LEDGER), dg(HANDOFF))))
+# break C's receipt only: replace the handoff digest with a wrong one
+r = drive(root, GOOD_FILES,
+          "Saved docs/devforge/ideas/IDEAS-001.md — SHA-256 %s\n"
+          "Saved docs/devforge/handoffs/HANDOFF-001.md — SHA-256 %s\n" % (dg(LEDGER), "0" * 64),
+          GOOD_FILES, GOOD_TERMINAL)
+b_markers = [m for m in r["markers"] if m.startswith("B")]
+rec("P1-c-receipt-failure-blocks-B",
+    "native C completes but its receipt check fails: zero B stand-ins (review probe)",
+    0, len(b_markers), {"markers": r["markers"], "phases": r["state"].get("phases")})
+
+# ---------------------------------------------------------------- P2
+root = build_root("P2-c-reference-fail-blocks-B", [C_ARM, B(0), B(3)], SEM_OK,
+                  dict(GOOD_FILES, **{"docs/devforge/handoffs/HANDOFF-001.md": BAD_SECTION_HANDOFF}),
+                  "Saved docs/devforge/ideas/IDEAS-001.md — SHA-256 %s\n"
+                  "Saved docs/devforge/handoffs/HANDOFF-001.md — SHA-256 %s\n"
+                  % (dg(LEDGER), dg(BAD_SECTION_HANDOFF)))
+r = drive(root, dict(GOOD_FILES, **{"docs/devforge/handoffs/HANDOFF-001.md": BAD_SECTION_HANDOFF}),
+          "Saved docs/devforge/ideas/IDEAS-001.md — SHA-256 %s\n"
+          "Saved docs/devforge/handoffs/HANDOFF-001.md — SHA-256 %s\n"
+          % (dg(LEDGER), dg(BAD_SECTION_HANDOFF)), GOOD_FILES, GOOD_TERMINAL)
+rec("P2-c-reference-failure-blocks-B",
+    "native C completes with a failing reference: zero B stand-ins",
+    0, len([m for m in r["markers"] if m.startswith("B")]), {"markers": r["markers"]})
+
+# ---------------------------------------------------------------- P3
+root = build_root("P3-missing-c-semantic", [C_ARM, B(0)], [], GOOD_FILES, GOOD_TERMINAL)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+rec("P3-missing-c-semantic-blocks-B",
+    "no recorded C semantic decision: absence cannot default to PASS",
+    0, len([m for m in r["markers"] if m.startswith("B")]), {"markers": r["markers"]})
+
+# ---------------------------------------------------------------- P4
+root = build_root("P4-valid-c-permits-B", [C_ARM, B(0), B(3)], SEM_OK, GOOD_FILES, GOOD_TERMINAL)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+rec("P4-valid-c-permits-B", "a complete valid C gate admits B",
+    2, len([m for m in r["markers"] if m.startswith("B")]),
+    {"markers": r["markers"], "phases": r["state"].get("phases")})
+rec("P4-c-precedes-b", "C is launched and graded before any B marker",
+    "C1", r["markers"][0] if r["markers"] else None)
+
+# ---------------------------------------------------------------- P5
+root = build_root("P5-b-failure-stops-queue", [C_ARM] + [B(i) for i in (0, 3, 5, 6)],
+                  SEM_OK, GOOD_FILES, GOOD_TERMINAL,
+                  b_files=dict(GOOD_FILES,
+                               **{"docs/devforge/handoffs/HANDOFF-001.md": BAD_SECTION_HANDOFF}),
+                  b_terminal=GOOD_TERMINAL)
+bad_b = dict(GOOD_FILES, **{"docs/devforge/handoffs/HANDOFF-001.md": BAD_SECTION_HANDOFF})
+bad_b_term = ("Saved docs/devforge/ideas/IDEAS-001.md — SHA-256 %s\n"
+              "Saved docs/devforge/handoffs/HANDOFF-001.md — SHA-256 %s\n"
+              % (dg(LEDGER), dg(BAD_SECTION_HANDOFF)))
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, bad_b, bad_b_term)
+launched_b = [m for m in r["markers"] if m.startswith("B")]
+not_run = [k for k, v in r["arms"].items() if v.get("outcome") == "NOT_RUN"]
+rec("P5-b-failure-stops-admission",
+    "a required B failure stops every not-yet-admitted arm (4 declared, concurrency 4)",
+    True, len(launched_b) <= 4 and len(not_run) >= 0,
+    {"launched_b": launched_b, "not_run": sorted(not_run)})
+rec("P5-a-not-run-after-b-failure", "A does not run after a failed B",
+    "STOP", r["state"].get("phases", {}).get("A", {}).get("decision"))
+
+# ---------------------------------------------------------------- P6
+root = build_root("P6-no-eager-submission", [C_ARM] + [B(i) for i in (0, 3, 5, 6)],
+                  SEM_OK, GOOD_FILES, GOOD_TERMINAL, plan_over={
+                      "caps": {"C": 900, "B": 900, "A3a": 300, "A5a": 600,
+                               "concurrency": {"C": 1, "B": 1, "A": 2}}})
+fz = json.load(open(os.path.join(root, "control", "FREEZE.json")))
+fz["concurrency"] = {"C": 1, "B": 1, "A": 2}
+json.dump(fz, open(os.path.join(root, "control", "FREEZE.json"), "w"), indent=1)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, bad_b, bad_b_term)
+rec("P6-no-eager-queue-escape",
+    "with concurrency 1 and the first B failing, exactly one B is ever admitted",
+    1, len([m for m in r["markers"] if m.startswith("B")]),
+    {"markers": r["markers"],
+     "not_run": sorted(k for k, v in r["arms"].items() if v.get("outcome") == "NOT_RUN")})
+
+# ---------------------------------------------------------------- P7 freeze drift
+for label, target in (("runner", "control/run_phases.py"), ("grader", "control/grade.py"),
+                      ("checker", "checkers/check_receipts.py"),
+                      ("plan-criteria", "control/PLAN.json"),
+                      ("controller", "control/controller.py")):
+    root = build_root("P7-drift-" + label, [C_ARM, B(0)], SEM_OK, GOOD_FILES, GOOD_TERMINAL,
+                      mutate_after_freeze=target)
+    r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+    rec("P7-drift-" + label,
+        "%s changed after the freeze: nothing launches" % target, 0, len(r["markers"]),
+        {"exit_code": r["code"], "markers": r["markers"]})
+
+# ---------------------------------------------------------------- P8 identity/caps
+root = build_root("P8-preexisting-attempt", [C_ARM, B(0)], SEM_OK, GOOD_FILES, GOOD_TERMINAL,
+                  preexisting="C1")
+sentinel = os.path.join(root, "attempts", "C1", "SENTINEL.txt")
+before = hashlib.sha256(open(sentinel, "rb").read()).hexdigest()
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+after = hashlib.sha256(open(sentinel, "rb").read()).hexdigest()
+rec("P8-preexisting-attempt-rejected",
+    "an existing attempt directory is refused before any launch", 0, len(r["markers"]),
+    {"sentinel_unchanged": before == after, "c_outcome": r["arms"].get("C1", {}).get("outcome")})
+rec("P8-sentinel-untouched", "the existing attempt's bytes are not modified", True, before == after)
+
+root = build_root("P9-wrong-run-identity", [C_ARM, B(0)], SEM_OK, GOOD_FILES, GOOD_TERMINAL)
+fz = json.load(open(os.path.join(root, "control", "FREEZE.json")))
+fz["bound_hashes"]["code/control/run_phases.py"] = "0" * 64
+json.dump(fz, open(os.path.join(root, "control", "FREEZE.json"), "w"), indent=1)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+rec("P9-wrong-bound-identity", "a bound hash that does not match blocks the run",
+    0, len(r["markers"]), {"exit_code": r["code"]})
+
+root = build_root("P10-budget-exhausted", [C_ARM, B(0)], SEM_OK, GOOD_FILES, GOOD_TERMINAL)
+fz = json.load(open(os.path.join(root, "control", "FREEZE.json")))
+fz["overall_start_epoch"] = 1
+fz["overall_budget_s"] = 10
+json.dump(fz, open(os.path.join(root, "control", "FREEZE.json"), "w"), indent=1)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+rec("P10-exhausted-budget", "an exhausted overall budget yields NOT_RUN, not a launch",
+    "NOT_RUN", r["arms"].get("C1", {}).get("outcome"), {"markers": r["markers"]})
+
+root = build_root("P11-incomplete-native-result", [C_ARM, B(0)], SEM_OK, GOOD_FILES, GOOD_TERMINAL)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL, incomplete_arms=("C1",))
+rec("P11-incomplete-native-result",
+    "a stand-in that returns no terminal result is COULD_NOT_RUN and blocks B",
+    0, len([m for m in r["markers"] if m.startswith("B")]),
+    {"c_outcome": r["arms"].get("C1", {}).get("outcome")})
+
+# =====================================================================
+# Revision 7 scenarios: sequential path, post-output judgments, real A
+# =====================================================================
+SEQ_ARMS = [C_ARM, B(5), B(11),
+            {"id": "A3a", "phase": "A", "assigned_cap_s": 300},
+            {"id": "A5a", "phase": "A", "assigned_cap_s": 600}]
+
+# ---------------------------------------------------------------- P19
+root = build_root("P19-full-sequential-path", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL,
+          a_invokes=("A3a", "A5a"))
+rec("P19-order", "the five arms are admitted in order, one at a time",
+    ["C1", "B5", "B11", "A3a", "A5a"], list(r["markers"]),
+    {"code": r["code"], "phases": r["state"].get("phases")})
+rec("P19-no-duplicate-launch",
+    "resuming after each judgment does not relaunch a completed arm",
+    5, len(r["markers"]))
+rec("P19-resumed-without-relaunch",
+    "completed arms are read back from their recorded result on resume",
+    True, all(r["arms"].get(a, {}).get("resumed_without_relaunch")
+              for a in ("C1", "B5", "B11")))
+
+# ---------------------------------------------------------------- P20
+root = build_root("P20-no-judgment-blocks-everything", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL, judge={})
+rec("P20-missing-judgment-pauses",
+    "C1 completes and checks pass, but with no judgment nothing downstream starts",
+    ["C1"], list(r["markers"]), {"code": r["code"],
+                                 "awaiting": r["state"].get("awaiting_judgment")})
+rec("P20-pause-exit-code", "a pending judgment is its own exit code, not a pass", 8, r["code"])
+
+# ---------------------------------------------------------------- P21
+root = build_root("P21-stale-judgment-rejected", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+
+
+def _stale(root_dir):
+    """Write C1 a judgment whose bindings name other bytes."""
+    jd = os.path.join(root_dir, "judgments")
+    os.makedirs(jd, exist_ok=True)
+    req = os.path.join(jd, "C1.REQUIRED.json")
+    if not os.path.isfile(req):
+        return False
+    b = dict(json.load(open(req))["required_binding"])
+    b["output_inventory_sha256"] = "1" * 64      # an inventory that is not this one
+    b.update(outcome="PASS", criterion="named behaviour",
+             basis="judgment about a different inventory",
+             issued_at_utc="2026-09-07T00:00:00Z")
+    json.dump(b, open(os.path.join(jd, "C1.json"), "w"), indent=1)
+    return True
+
+
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL, judge={})
+_stale(root)
+r2 = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL, judge={})
+rec("P21-stale-judgment-blocks-B",
+    "a judgment naming a different inventory digest does not advance the gate",
+    0, len([m for m in r2["markers"] if m.startswith(("B", "A"))]),
+    {"code": r2["code"]})
+
+# ---------------------------------------------------------------- P22
+root = build_root("P22-prewritten-judgment-refused", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+json.dump({"schema_version": "devforge.semantic-decisions/v2",
+           "decisions": [{"arm": "C1", "outcome": "PASS", "basis": "written in advance"}]},
+          open(os.path.join(root, "control", "SEMANTIC-DECISIONS.json"), "w"), indent=1)
+spec = importlib.util.spec_from_file_location(
+    "fz_p22", os.path.join(root, "control", "freeze.py"))
+m = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(m)
+fz = m.build()
+fz["arms"] = SEQ_ARMS
+fz["native_arms_authorized"] = len(SEQ_ARMS)
+json.dump(fz, open(os.path.join(root, "control", "FREEZE.json"), "w"), indent=1)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+rec("P22-prewritten-judgment-refused",
+    "a freeze carrying a judgment written before its arm ran is refused before any launch",
+    (7, 0), (r["code"], len(r["markers"])))
+
+# ---------------------------------------------------------------- P23
+root = build_root("P23-zero-arms-authorized", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+fz = json.load(open(os.path.join(root, "control", "FREEZE.json")))
+fz["native_arms_authorized"] = 0
+json.dump(fz, open(os.path.join(root, "control", "FREEZE.json"), "w"), indent=1)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+rec("P23-zero-call-refusal",
+    "the real preparation freeze refuses cleanly before any stand-in or marker",
+    (5, 0), (r["code"], len(r["markers"])))
+
+# ---------------------------------------------------------------- P24
+root = build_root("P24-concurrency-not-one", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+fz = json.load(open(os.path.join(root, "control", "FREEZE.json")))
+fz["concurrency"] = {"C": 1, "B": 4, "A": 1}
+json.dump(fz, open(os.path.join(root, "control", "FREEZE.json"), "w"), indent=1)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL)
+rec("P24-refuses-unenforceable-policy",
+    "a freeze declaring concurrency it cannot enforce is refused, not quietly run sequentially",
+    (6, 0), (r["code"], len(r["markers"])))
+
+# ---------------------------------------------------------------- P25
+root = build_root("P25-b-failure-stops-later-b-and-a", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL,
+          judge={"C1": "PASS", "B5": "FAIL", "B11": "PASS", "A3a": "PASS", "A5a": "PASS"},
+          a_invokes=("A3a", "A5a"))
+rec("P25-later-arms-not-run",
+    "a failed judgment on B5 leaves B11, A3a and A5a NOT_RUN",
+    ["NOT_RUN", "NOT_RUN", "NOT_RUN"],
+    [r["arms"].get(a, {}).get("outcome") for a in ("B11", "A3a", "A5a")],
+    {"markers": r["markers"]})
+rec("P25-no-a-markers", "and no A arm is launched", 0,
+    len([m for m in r["markers"] if m.startswith("A")]))
+
+# ---------------------------------------------------------------- P26
+root = build_root("P26-a-activation-mismatch", SEQ_ARMS, [], GOOD_FILES, GOOD_TERMINAL,
+                  GOOD_FILES, GOOD_TERMINAL)
+r = drive(root, GOOD_FILES, GOOD_TERMINAL, GOOD_FILES, GOOD_TERMINAL, a_invokes=())
+rec("P26-a3a-activation-fails",
+    "a should-trigger selector that did not select the skill fails activation",
+    "FAIL", (r["arms"].get("A3a", {}).get("activation") or {}).get("outcome"),
+    {"markers": r["markers"]})
+rec("P26-a5a-not-launched", "and the next A arm is never admitted",
+    "NOT_RUN", r["arms"].get("A5a", {}).get("outcome"))
+
+out = {"schema_version": "devforge.no-model-phases/v1",
+       "real_model_invocations": REAL_MODEL_CALLS["count"],
+       "method": "Each scenario copies the real control/checker bytes, generates the real freeze "
+                 "over them, imports the real run_phases from that copy and calls its real main(). "
+                 "Only the model-call seam is substituted; harness.stream is replaced by a raiser "
+                 "and PATH is emptied.",
+       "runner_hash": hashlib.sha256(
+           open(os.path.join(RUN, "control", "run_phases.py"), "rb").read()).hexdigest(),
+       "cases": results,
+       "summary": {"total": len(results),
+                   "passed": sum(1 for r in results if r["result"] == "PASS"),
+                   "failed": sum(1 for r in results if r["result"] == "FAIL")}}
+out["conformance"] = ("PASS" if out["summary"]["failed"] == 0
+                      and REAL_MODEL_CALLS["count"] == 0 else "FAIL")
+json.dump(out, open(os.path.join(HERE, "phase-results.json"), "w"), indent=2)
+for r in results:
+    print("%-34s %-5s expected=%-8s got=%-8s %s" % (r["id"], r["result"], r["expected"],
+                                                    r["actual"], r["description"][:44]))
+print("\n%d/%d passed; real model invocations: %d"
+      % (out["summary"]["passed"], out["summary"]["total"], REAL_MODEL_CALLS["count"]))
+sys.exit(0 if out["conformance"] == "PASS" else 1)

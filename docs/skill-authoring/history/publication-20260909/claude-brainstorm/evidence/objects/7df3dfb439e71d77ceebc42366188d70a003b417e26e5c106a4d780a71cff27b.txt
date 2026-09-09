@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+"""Corrected synthetic case definitions (CC7-009 / CHG-013). Authored, not run.
+
+These replace the r8 expectations that disagreed with the fixed contracts or did
+not reach the mechanism they claimed to test. They are definitions only: this
+allocation executes no case, imports nothing here, and creates no result file.
+
+The r8 proposal's *history* statements are corrected alongside the expectations,
+because a case justified by a false account of the baseline cannot be checked by
+the next reader:
+
+  - PLAN.json:27 is the semantic criterion. The r8 text cited :22 for
+    missing-judgment behaviour; :22 is inside the criteria block's opening.
+  - r7 already exercised non-zero concurrency: phase_suite.py:321-334 declares
+    A=2 in P6 and :477-485 declares B=4 in P24. The claim that the old
+    concurrency case covered only zero is withdrawn. The new expectation --
+    refusal for *every* non-1 value -- is still correct and is kept.
+  - CHG-016's reference_conformance clause is PLAN.json:23, not :18 (:18 is a
+    receipt record shape).
+  - The live-preservation rule is REMEDIATION-SPECIFICATION.md:27; the r8 text
+    cited :51, which does not exist in that document. Line 51 of
+    SKILL-DESIGN-SPECIFICATION-r7.md is the prior design's example.
+  - Activation is implemented in control/run_phases.py `_activation`, not in
+    control/grade.py.
+"""
+
+CASES = [
+    {
+        "id": "P-missing-judgment",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:27 (semantic)",
+        "setup": {"judge": {}},
+        "expect": {"gate": "STOP", "semantic_outcome": "MISSING", "markers": 0},
+        "why": "An absent judgment must be the empty object, so the gate reads a judgment that is "
+               "genuinely not there. The r8 setup supplied a judge object with a falsy verdict, "
+               "which exercises the wrong branch: that is a recorded negative judgment, not a "
+               "missing one, and both must fail for their own reasons.",
+        "executed": False,
+    },
+    {
+        "id": "P-b-prefix-after-failure",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:43-56 (phase_plan)",
+        "setup": {"fail_at": "B5", "then_admit": ["B11"]},
+        "expect": {"admitted_prefix": ["C1", "B5"], "markers_for": ["C1", "B5"]},
+        "why": "After a B failure the permitted prefix is exactly the arms admitted up to and "
+               "including the failure. Asserting a longer prefix would accept an arm admitted "
+               "after a STOP; asserting a shorter one would erase evidence that was legitimately "
+               "produced before it.",
+        "executed": False,
+    },
+    {
+        "id": "P-concurrency-non-1",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:35-41 (caps.concurrency)",
+        "setup": {"concurrency_values": [0, 2, 4]},
+        "expect": {"exit_code": 6, "markers": 0},
+        "why": "The plan fixes concurrency at 1 for every phase, so every other value is refused "
+               "with code 6 and no marker. r7 already declared A=2 (phase_suite.py:321-334) and "
+               "B=4 (:477-485); this case generalises the refusal rather than introducing the "
+               "first non-zero value.",
+        "executed": False,
+    },
+    {
+        "id": "P21-resume-stale-inventory",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:26 (inventory)",
+        "setup": {"resume_from": "P21", "mutate": "inventory_binding"},
+        "expect": {"recorded": "STALE", "reason_contains": "inventory binding mismatch",
+                   "markers": 0},
+        "why": "The r8 case resumed at the wrong point and never reached the binding comparison, "
+               "so it could report its expected value without testing the mechanism. Resuming at "
+               "P21 with a mutated inventory binding reaches the comparison and requires STALE to "
+               "be recorded, not inferred.",
+        "executed": False,
+    },
+]
+
+# CHG-011 (CC7-007): the pause/resume lifecycle.
+#
+# R9 recorded this whole change as deferred to a missing runtime collector. That
+# conflated two different things, and the R10 specification separates them:
+#
+#   local      control/run_phases.py `main(--resume)` is an ordinary local
+#              lifecycle. The runner already pauses when a judgment is missing,
+#              writes the required binding, and re-reads the recorded result
+#              instead of relaunching. Driving that from a fresh process or a
+#              fresh module import is locally implementable, and calling it
+#              deferred attributed local work to somebody else's gap.
+#   native     actual managed WAITING_USER callbacks are a different mechanism
+#              and remain unavailable in the selected v1 interface.
+#
+# So the local scenarios are specified here as callable case definitions, and
+# only the native callback lifecycle stays deferred.
+LOCAL_RESUME_CASES = [
+    {
+        "id": "P-resume-c1-then-b5",
+        "change_id": "CHG-011",
+        "criterion": "PLAN.json:43-56 (phase_plan); run_phases.main(--resume)",
+        "lifecycle": "fresh_process",
+        "setup": {"judgments_present": [], "run_until": "C1"},
+        "expect": {"exit_code": 8, "awaiting_judgment": ["C1"],
+                   "markers_for": ["C1"], "marker_count_per_arm": 1},
+        "then": {"write_judgment": "C1", "resume": True,
+                 "expect": {"relaunched": [], "resumed_without_relaunch": ["C1"],
+                            "admitted_next": "B5", "markers_for": ["C1", "B5"]}},
+        "why": "The pause is the judgment boundary, and resume must consume the recorded C1 "
+               "result rather than spend a second native call reproducing evidence the pending "
+               "judgment was written about. Exactly one marker per arm across both processes is "
+               "what distinguishes a resume from a re-run.",
+        "executed": False,
+    },
+    {
+        "id": "P-resume-preserves-allocation-and-digests",
+        "change_id": "CHG-011",
+        "criterion": "SESSION-001 clock rules; run_phases._evidence_binding",
+        "lifecycle": "fresh_module_import",
+        "setup": {"resume_from": "B5", "assert_same": ["overall_start_epoch", "overall_budget_s",
+                                                       "session", "run_id"]},
+        "expect": {"allocation_unchanged": True, "deadline_extended": False,
+                   "prior_result_digests_unchanged": True},
+        "why": "A resume continues one allocation. If the second process re-derives its own start "
+               "epoch or budget it has silently granted an extension, and the saved-evidence "
+               "digests the pending judgment names would no longer be the ones consumed.",
+        "executed": False,
+    },
+    {
+        "id": "P-resume-ordered-arms",
+        "change_id": "CHG-011",
+        "criterion": "PLAN.json:43-56",
+        "lifecycle": "fresh_process",
+        "setup": {"judgments_present": ["C1", "B5", "B11"], "resume": True},
+        "expect": {"order": ["C1", "B5", "B11", "A3a"], "markers_per_arm": 1,
+                   "no_rerun_of": ["C1", "B5", "B11"],
+                   "each_consumed_judgment_asserted": True},
+        "why": "C1 then B5 then B11 then the A arms, each consumed judgment asserted against the "
+               "arm it names, and no completed arm run twice.",
+        "executed": False,
+    },
+    {
+        "id": "P-resume-missing-judgment-stays-paused",
+        "change_id": "CHG-011",
+        "criterion": "PLAN.json:27 (semantic)",
+        "lifecycle": "fresh_process",
+        "setup": {"judgments_present": ["C1"], "resume": True, "run_until": "B5"},
+        "expect": {"exit_code": 8, "awaiting_judgment": ["B5"], "admitted_after_B5": []},
+        "why": "Resuming does not relax the judgment requirement for the next arm; absence still "
+               "leaves downstream work unstarted rather than defaulting open.",
+        "executed": False,
+    },
+]
+
+# Only the native side stays deferred, and only for what the interface actually
+# does not expose.
+LIFECYCLE_DEFERRED = {
+    "change_id": "CHG-011",
+    "original_finding_id": "CC7-007",
+    "status": "LOCAL_SCENARIOS_AUTHORED_AND_DRIVEN_UNEXECUTED_NATIVE_CALLBACKS_DEFERRED",
+    "local_scope": "LOCAL_RESUME_CASES above, driven by phase_suite.py R10-P40..R10-P45, which "
+                   "run the real main() to each pause, write the judgment from the binding the "
+                   "runner itself published, and re-enter through main(--resume) on a freshly "
+                   "loaded module. Authored and never executed by this allocation.",
+    "native_scope_deferred": [
+        "actual managed WAITING_USER callback delivery and acknowledgement",
+        "runtime-owned pause/resume provenance for those callbacks",
+    ],
+    "why_native_deferred": "The managed callback lifecycle is runtime-owned and the selected v1 "
+                           "interface exposes no collector for it; see "
+                           "admission.ROOT_DEPENDENCY_DEFERRED. This is a narrower deferral than "
+                           "R9 recorded: it no longer covers the local runner resume, which is "
+                           "locally implementable and is specified above.",
+    "correction_of_r9": "R9 recorded the whole of CHG-011 as deferred to a missing collector. That "
+                        "attributed locally authorable work to a root dependency. The finding "
+                        "stays open at its original severity either way; what changes is which "
+                        "part is honestly blocked.",
+    "executed": False,
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": "devforge.review-input-selection/v1",
+  "input_manifest_sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+  "continuity": "Same reviewer agent that authored CODEX-MEAS-R7-001, retaining its own prior review context; not a fresh or blind r8 reviewer. No r8 author report/conclusions or other reviewer payloads selected.",
+  "metadata_exposure": "Manifest parsed; selected Codex and issued-r8 path/hash metadata displayed only.",
+  "files": [
+    {
+      "path": "inputs/codex/run/proposals/grade-rubric.proposed.json",
+      "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+      "bytes": 32726,
+      "hash_verified": true,
+      "exposure": "JSON parsed for static comparison; differing values displayed below",
+      "purpose": "r8 versus frozen r7 proposal comparison"
+    },
+    {
+      "path": "inputs/codex/baseline-proposals/grade-rubric.proposed.json",
+      "sha256": "1eba87fb7754004445ace03edf6fc132b2c2fef620b807d73f86abcb50fabb8e",
+      "bytes": 18985,
+      "hash_verified": true,
+      "exposure": "JSON parsed for static comparison; differing values displayed below",
+      "purpose": "r8 versus frozen r7 proposal comparison"
+    },
+    {
+      "path": "inputs/codex/run/proposals/measurement-plan.proposed.json",
+      "sha256": "8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415",
+      "bytes": 32129,
+      "hash_verified": true,
+      "exposure": "JSON parsed for static comparison; differing values displayed below",
+      "purpose": "r8 versus frozen r7 proposal comparison"
+    },
+    {
+      "path": "inputs/codex/baseline-proposals/measurement-plan.proposed.json",
+      "sha256": "c68565dc10917b0ffb9de22bbf75acc42bc337628f09e2722199645f078d6707",
+      "bytes": 21154,
+      "hash_verified": true,
+      "exposure": "JSON parsed for static comparison; differing values displayed below",
+      "purpose": "r8 versus frozen r7 proposal comparison"
+    },
+    {
+      "path": "inputs/issued-r8/authority/SESSION-002-r8.md",
+      "sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383",
+      "bytes": 6648,
+      "hash_verified": true,
+      "exposure": "[(1, 200)]",
+      "purpose": "issued scope and exact prior causal-provenance requirement; own prior review continuity"
+    },
+    {
+      "path": "inputs/issued-r8/REMEDIATION-SPECIFICATION.md",
+      "sha256": "d5b60b3ea30ea4a8e426f9c2b74ff3f94298d7b3e786286285a7d1cc45b69742",
+      "bytes": 6576,
+      "hash_verified": true,
+      "exposure": "[(1, 160)]",
+      "purpose": "issued scope and exact prior causal-provenance requirement; own prior review continuity"
+    },
+    {
+      "path": "inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+      "bytes": 9402,
+      "hash_verified": true,
+      "exposure": "[(1, 46)]",
+      "purpose": "issued scope and exact prior causal-provenance requirement; own prior review continuity"
+    },
+    {
+      "path": "inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md",
+      "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+      "bytes": 10518,
+      "hash_verified": true,
+      "exposure": "[(1, 55)]",
+      "purpose": "issued scope and exact prior causal-provenance requirement; own prior review continuity"
+    },
+    {
+      "path": "inputs/prior-reviews/review-codex-measurement/FINDINGS.json",
+      "sha256": "d9cc23dcced981a51e8e2ac9a8847acaabbd3fe5e7701131e4e898f2ea00e67d",
+      "bytes": 6817,
+      "hash_verified": true,
+      "exposure": "[(1, 125)]",
+      "purpose": "issued scope and exact prior causal-provenance requirement; own prior review continuity"
+    },
+    {
+      "path": "inputs/codex/run/CANDIDATE-MANIFEST.json",
+      "sha256": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2",
+      "bytes": 5118,
+      "hash_verified": true,
+      "exposure": "[(1, 160)]",
+      "purpose": "source provenance/custody or selected causal and phase requirement"
+    },
+    {
+      "path": "inputs/issued-r8/selected/codex/shared/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "bytes": 10482,
+      "hash_verified": true,
+      "exposure": "[(13, 25), (75, 90)]",
+      "purpose": "source provenance/custody or selected causal and phase requirement"
+    },
+    {
+      "path": "inputs/codex/candidate/devforge-brainstorm/references/artifact-workflow.md",
+      "sha256": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b",
+      "bytes": 14451,
+      "hash_verified": true,
+      "exposure": "[(63, 87)]",
+      "purpose": "source provenance/custody or selected causal and phase requirement"
+    }
+  ],
+  "prior_review_exposure": [
+    "Own prior CODEX-MEAS-R7-001 review retained in conversation context",
+    "inputs/prior-reviews/review-codex-measurement/FINDINGS.json"
+  ],
+  "excluded_exposure": [
+    "r8 author report/conclusions",
+    "other reviewer bodies",
+    "memory",
+    "live source"
+  ],
+  "source_scope": "Only the frozen candidate references/artifact-workflow.md lines 63-87 was displayed. All 30 source pins were compared across both proposals, the current candidate manifest and root input-manifest custody without a source-wide audit.",
+  "display_note": "One authority/bridge batch was truncated in bridge lines 29-34; those lines were re-displayed separately. Both proposal JSONs were parsed in full and all changed fields displayed. The baseline proposal bytes match the prior reviewed r7 digests.",
+  "additional_exposure": [
+    {
+      "scope": "Current proposal line locators and complete JSON comparison of retained/new fields",
+      "purpose": "exact criterion and status locations; no evaluated code execution"
+    }
+  ]
+}

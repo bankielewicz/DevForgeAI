@@ -1,0 +1,18 @@
+{
+  "reviewer": "/root/r7_claude_controls_review",
+  "model_id": "UNKNOWN",
+  "reasoning_setting": "UNKNOWN",
+  "mode": "STATIC_PROPOSAL_REVIEW_ONLY",
+  "actual_first_recorded_work_utc": "2026-09-07T14:57:05.724368+00:00",
+  "deadline_utc": "2026-09-07T15:17:05.724368+00:00",
+  "closeout_reserve_starts_utc": "2026-09-07T15:12:05.724368+00:00",
+  "exclusive_write_root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals",
+  "input_manifest_sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+  "independence": "Same reviewer intentionally reused from r7; prior exact CC7 findings are permitted inputs. New author report/conclusions and other current reviews excluded.",
+  "prohibitions": [
+    "authored imports/execution",
+    "tests/helpers/native/models",
+    "network/install/hooks/agents",
+    "edits outside review-claude-proposals"
+  ]
+}

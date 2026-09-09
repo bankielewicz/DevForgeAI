@@ -1,0 +1,281 @@
+#!/usr/bin/env python3
+"""Terminal receipt checker, revision 2 (CR4-004).
+
+Revision 1 asked two independent questions -- is this file's digest anywhere in
+the response, and is some accepted path substring anywhere in the response --
+and passed when both were true. Nothing tied the two together, so it passed a
+swapped pair (a.md quoted with b.md's hash), an unrelated file elsewhere whose
+hash happened to match, and a path under a root nobody selected that merely
+ended in the accepted relative suffix.
+
+A receipt is an association, not two coincidences. So this revision:
+
+- takes the accepted locator forms from a declared mapping, fixed before
+  measurement rather than widened after seeing output;
+- matches a locator at token boundaries, so `/some/other/root/docs/x/IDEAS.md`
+  is not an occurrence of `docs/x/IDEAS.md`;
+- reads receipts as records in declared shapes, so a file's digest is the one
+  written in a record with that file's locator (revision 3, CP5-CK-003: ranking
+  candidates by distance let a preceding file's digest own the next locator once
+  the locators were long enough);
+- recomputes from current bytes, so a hash taken before a later write fails;
+- names unsupported forms instead of falling through to a substring pass.
+"""
+import argparse, hashlib, json, os, re, sys
+
+HEX64 = re.compile(r"\b[0-9a-f]{64}\b")
+ABBREV = re.compile(r"\b[0-9a-f]{4,}\s*(?:\.{2,}|…)\s*[0-9a-f]*")
+SEP = "/"
+WORDISH = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-")
+
+
+def sha256_file(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for blk in iter(lambda: fh.read(1 << 16), b""):
+            h.update(blk)
+    return h.hexdigest()
+
+
+def locator_occurrences(text, locator, form):
+    """Occurrences of `locator` as a whole path token.
+
+    A relative locator preceded by a separator is the tail of some other
+    absolute path -- possibly under a root nobody selected -- and is not an
+    occurrence of this file.
+    """
+    out = []
+    for m in re.finditer(re.escape(locator), text):
+        s, e = m.start(), m.end()
+        nxt = text[e] if e < len(text) else ""
+        if nxt in WORDISH or nxt == SEP:
+            continue
+        prev = text[s - 1] if s > 0 else ""
+        if prev in WORDISH:
+            continue
+        if form == "project_relative" and prev == SEP:
+            continue
+        out.append((s, e))
+    return out
+
+
+def accepted_locators(promise, mapping):
+    """Locator strings this delivery may legitimately use, from the declared map."""
+    got = []
+    rel = promise["label"]
+    for form in mapping["accepted_forms"]:
+        if form == "project_relative":
+            got.append((rel, form))
+        elif form == "sandbox_absolute":
+            root = mapping.get("sandbox_root")
+            if root:
+                got.append((root.rstrip(SEP) + SEP + rel, form))
+        elif form == "host_absolute":
+            got.append((promise["path"], form))
+        else:
+            got.append((None, form))
+    return got
+
+
+# The glue between a locator and its digest is real prose -- a backtick, an
+# em dash, a "SHA-256" label, a table pipe. Enumerating punctuation misses the
+# labels; allowing anything would let a distant digest drift back into range.
+# So glue is a bounded run that provably contains no other digest, and, for the
+# same-line shapes, no newline: a newline is what separates one line-oriented
+# receipt from the next, and crossing one is how the previous file's digest
+# reached the following locator in the first place.
+GLUE = r"(?:(?![0-9a-f]{{64}})[^\n]){{0,40}}"
+
+RECORD_SHAPES = {
+    "locator_then_digest": r"{loc}" + GLUE + r"(?P<digest>[0-9a-f]{{64}})",
+    "digest_then_locator": r"(?P<digest>[0-9a-f]{{64}})" + GLUE + r"{loc}",
+    "labelled_next_line":
+        r"{loc}[ \t]*\r?\n" + GLUE + r"(?P<digest>[0-9a-f]{{64}})",
+}
+
+
+def records_for(text, locator, shapes):
+    """Receipt records in this text that name `locator`.
+
+    Revision 2 asked which digest was *nearest* the locator, with no other
+    promised locator in between. Distance is not ownership: once the locators
+    were long enough, the digest written for the previous file sat closer to
+    the next locator than that file's own digest did, and the second half of a
+    swapped pair passed (CP5-CK-003). So this revision stops ranking candidates
+    and reads records instead -- a locator and a digest written together, in a
+    shape declared before measurement. A digest that is not in a record with
+    this locator is not this file's receipt, however close it happens to be.
+
+    Two records naming the same locator with different digests are not resolved
+    by preferring one. That syntax is ambiguous for this file and is rejected.
+    """
+    out = []
+    for name in shapes:
+        pat = RECORD_SHAPES.get(name)
+        if pat is None:
+            out.append({"shape": name, "unsupported": True})
+            continue
+        rx = pat.format(loc=re.escape(locator))
+        for m in re.finditer(rx, text, re.I):
+            out.append({"shape": name, "digest": m.group("digest").lower(),
+                        "span": (m.start(), m.end())})
+    return out
+
+
+def check(promise, terminal, mapping):
+    path, label = promise["path"], promise["label"]
+    out = {"receipt_for": label, "path": path,
+           "accepted_forms": list(mapping["accepted_forms"])}
+    if not os.path.isfile(path):
+        out.update(outcome="FAIL", reason="promised artifact does not exist at %s" % path)
+        return out
+    actual = sha256_file(path)
+    out["actual_final_sha256"] = actual
+
+    locs = []
+    for text_loc, form in accepted_locators(promise, mapping):
+        if text_loc is None:
+            out.update(outcome="FAIL",
+                       reason="declared locator form %r is not supported by this checker; "
+                              "unsupported receipt syntax is rejected rather than matched "
+                              "loosely" % form)
+            return out
+        for span in locator_occurrences(terminal, text_loc, form):
+            locs.append({"form": form, "locator": text_loc, "span": span})
+    out["locator_occurrences"] = [{"form": l["form"], "locator": l["locator"]} for l in locs]
+
+    if not locs:
+        m = ABBREV.search(terminal)
+        if m:
+            out["abbreviation_observed"] = m.group(0)
+        out.update(outcome="FAIL", path_delivered=False,
+                   reason="terminal response gives no accepted locator for this file; a path "
+                          "under an unselected root that merely ends in the same relative "
+                          "suffix is not this file")
+        return out
+    out["path_delivered"] = True
+
+    shapes = mapping.get("record_shapes")
+    if not shapes:
+        out.update(outcome="FAIL", association="no declared record shape",
+                   reason="the locator mapping declares no receipt record_shapes, so there is no "
+                          "fixed syntax in which this file's digest could be said to belong to "
+                          "its locator. Declare the shapes before measurement rather than "
+                          "inferring ownership from proximity")
+        return out
+    out["record_shapes"] = list(shapes)
+
+    recs, unsupported = [], []
+    for l in locs:
+        for r in records_for(terminal, l["locator"], shapes):
+            if r.get("unsupported"):
+                unsupported.append(r["shape"])
+            else:
+                recs.append(dict(r, form=l["form"], locator=l["locator"]))
+    if unsupported:
+        out.update(outcome="FAIL", association="unsupported record shape",
+                   reason="declared record shape(s) %s are not implemented by this checker; an "
+                          "unsupported receipt syntax is rejected by name rather than matched "
+                          "loosely" % ", ".join(sorted(set(unsupported))))
+        return out
+
+    out["records"] = [{"shape": r["shape"], "locator": r["locator"], "digest": r["digest"]}
+                      for r in recs]
+    seen_digests = {r["digest"] for r in recs}
+
+    if not recs:
+        out.update(outcome="FAIL", association="locator outside any record",
+                   reason="this file's locator appears in the response, but never in a declared "
+                          "receipt record shape paired with a digest. A digest written nearby is "
+                          "not a receipt for this file")
+        return out
+    if len(seen_digests) > 1:
+        out.update(outcome="FAIL", association="ambiguous",
+                   reason="this locator appears in %d receipt records carrying %d different "
+                          "digests (%s); the syntax does not say which is this file's, so it is "
+                          "rejected rather than resolved by preferring one"
+                          % (len(recs), len(seen_digests), ", ".join(sorted(seen_digests))))
+        return out
+    if seen_digests == {actual}:
+        forms = sorted({r["form"] for r in recs})
+        out.update(outcome="PASS", association=recs[0]["shape"],
+                   reason="terminal response names this file by its %s locator in a declared "
+                          "receipt record (%s) carrying all 64 characters of its own current "
+                          "digest" % ("/".join(forms), recs[0]["shape"]))
+        return out
+
+    all_found = set(HEX64.findall(terminal))
+    if actual in all_found:
+        out.update(outcome="FAIL", association="unpaired",
+                   reason="this file's digest occurs in the response but is not the digest paired "
+                          "with its own locator; an unrelated occurrence elsewhere is not a "
+                          "receipt for this file")
+        return out
+    if all_found:
+        out["mismatched_digests"] = sorted(all_found)
+        out.update(outcome="FAIL", association="wrong digest",
+                   reason="the locator for this file is paired with a digest that is not its "
+                          "own current bytes (%s); a hash taken before a later write, or a hash "
+                          "belonging to another file, both land here" % actual)
+        return out
+    m = ABBREV.search(terminal)
+    if m:
+        out["abbreviation_observed"] = m.group(0)
+        out.update(outcome="FAIL",
+                   reason="the digest for this file is abbreviated (%r); an abbreviated hash "
+                          "cannot be checked" % m.group(0))
+        return out
+    out.update(outcome="FAIL", reason="terminal response delivers no digest for this file")
+    return out
+
+
+def evaluate(cfg):
+    src = cfg["terminal_source"]
+    mapping = cfg["locator_mapping"]
+    if not os.path.isfile(src):
+        return {"schema_version": "devforge.terminal-receipt/v2", "conformance": "COULD_NOT_RUN",
+                "reason": "terminal response not found at %s" % src}
+    terminal = open(src, encoding="utf-8", errors="replace").read()
+    spans = {}
+    for p in cfg["promised"]:
+        spans[p["label"]] = [locator_occurrences(terminal, t, f)
+                             for t, f in accepted_locators(p, mapping) if t]
+    rows = []
+    for p in cfg["promised"]:
+        others = []
+        for lbl, groups in spans.items():
+            if lbl != p["label"]:
+                others.extend(groups)
+        q = dict(p)
+        q["_other_spans"] = others
+        rows.append(check(q, terminal, mapping))
+    counts = {}
+    for r in rows:
+        counts[r["outcome"]] = counts.get(r["outcome"], 0) + 1
+    return {"schema_version": "devforge.terminal-receipt/v2", "checker_revision": 2,
+            "terminal_source": src,
+            "locator_mapping": mapping,
+            "terminal_source_note": "The final assistant message only. A full hash in an earlier "
+                                    "tool result is not a delivered receipt.",
+            "association_note": "Each promised file must be named by a declared locator form and "
+                                "paired with its own current digest. Presence of both facts "
+                                "separately is not an association.",
+            "receipts": rows, "counts": counts,
+            "conformance": "FAIL" if counts.get("FAIL") else "PASS"}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--out")
+    a = ap.parse_args()
+    result = evaluate(json.load(open(a.config)))
+    txt = json.dumps(result, indent=1)
+    if a.out:
+        open(a.out, "w").write(txt + "\n")
+    print(txt)
+    return 0 if result["conformance"] == "PASS" else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

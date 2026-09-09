@@ -1,0 +1,18 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-901"
+artifact_type: "handoff"
+revision: 1
+upstream:
+  - artifact_id: "IDEAS-900"
+    revision: 1
+    store: "project"
+    path: "TARGET-NO-SECTIONS.md"
+    sha256: "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43"
+missing_inputs:
+  - "IDEAS-900 revision 1 has no recorded authoring date."
+---
+
+Negative fixture: missing_inputs mentions IDEAS-900, so an ID-match test passes it, but
+the disclosure is about the authoring date and says nothing about sections. This is the
+finding. Expected: FAIL.

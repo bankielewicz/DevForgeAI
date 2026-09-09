@@ -1,0 +1,297 @@
+{
+  "method": "Static JSON field comparison only; no evaluated code execution",
+  "changes": [
+    {
+      "pointer": "/allocation_binding_update",
+      "added": {
+        "definition": "producer_identity_scope",
+        "before": "Both new artifacts name devforge-brainstorm and the exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed SKILL.md, artifact-workflow.md, managed-runtime.md and both applicable templates under the source-inaccessible boundary. Preserve identity of bundled helper resources without requiring the model to invoke them for managed closeout. Parent SESSION@2 remains provenance; it is neither this preparation SESSION@7 nor a consumer execution/ownership assignment. A future native allocation must separately select its actual assignment and installed inputs.",
+        "after": "Both new artifacts name devforge-brainstorm and the exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed SKILL.md, artifact-workflow.md, managed-runtime.md and both applicable templates under the source-inaccessible boundary. Preserve identity of bundled helper resources without requiring the model to invoke them for managed closeout. Parent SESSION@2 remains provenance; it is neither this preparation SESSION@8 nor a consumer execution/ownership assignment. A future native allocation must separately select its actual assignment and installed inputs.",
+        "reason": "Only the current preparation revision changes from 7 to 8. All five previously selected runtime observation substitutions retain their semantics; prior proposal bytes remain frozen."
+      }
+    },
+    {
+      "pointer": "/authoring_assignment",
+      "before": "SESSION-002@7",
+      "after": "SESSION-002@8"
+    },
+    {
+      "pointer": "/authority",
+      "added": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/authority/SESSION-002-r8.md",
+        "sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383"
+      }
+    },
+    {
+      "pointer": "/base_rubric/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/controls/grade-rubric.json",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/controls/grade-rubric.json"
+    },
+    {
+      "pointer": "/bridge/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/AUTHORING-RUNTIME-BRIDGE.md",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/AUTHORING-RUNTIME-BRIDGE-r7.md"
+    },
+    {
+      "pointer": "/candidate/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/CANDIDATE-MANIFEST.json",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json"
+    },
+    {
+      "pointer": "/candidate/sha256",
+      "before": "a5c9bdc2bc6a431df72750bdb1bf1c54b70a8b2439c62ddf053010cc03aa8253",
+      "after": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2"
+    },
+    {
+      "pointer": "/causal_provenance_judgment",
+      "added": {
+        "record_kind": "PROPOSED_MANUAL_JUDGMENT_REQUIREMENTS_NOT_A_RESULT",
+        "check_key": "causal_provenance",
+        "finding": {
+          "alias": "F-001",
+          "change": "CHG-001",
+          "original_id": "CODEX-MEAS-R7-001",
+          "original_severity": "medium/P2",
+          "builder_severity": "MAJOR",
+          "preserved_requirements": [
+            "W1",
+            "P3",
+            "P4"
+          ]
+        },
+        "selected_basis": [
+          {
+            "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/shared/docs/mvp/artifact-contract.md",
+            "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+            "locator": "lines 75-79; Provenance without circular bookkeeping"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/candidate/devforge-brainstorm/references/artifact-workflow.md",
+            "sha256": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b",
+            "locator": "line 73; Envelope fields; and Observations and closeout step 1"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-measurement/FINDINGS.json",
+            "sha256": "d9cc23dcced981a51e8e2ac9a8847acaabbd3fe5e7701131e4e898f2ea00e67d",
+            "locator": "/findings/0"
+          }
+        ],
+        "applicability": "Required common check for C-candidate, B6-candidate, B6E-drift and B6E-control. A future separately allocated A output-quality judgment must retain applicable semantic coverage without changing A activation/non-invocation expectations. No case is added to the current native order or admitted here.",
+        "node_and_direction": "A node is the own declared (artifact_id, revision, complete-byte SHA-256) of an immutable artifact within its identified project. Record project_id, selected store/root-relative path, actual retained-byte locator and full digest as resolution evidence. For review, draw consumer -> causal input. Do not collapse two revisions or two different byte identities into one node; flag contradictory declarations. Rows/headings, native receipt_id and selector target identities are not the containing document identity.",
+        "inventory_and_scope": [
+          "List every reviewed output by exact own identity, path and complete-byte digest, and every upstream entry by output/input document locator plus array index or exact line range. Include duplicate occurrences; one correct occurrence does not excuse a later unsupported one.",
+          "For each reachable artifact input, read its retained exact bytes and inspect every declared upstream entry recursively to an observed terminal artifact. Record the closure and its boundary. Missing referenced bytes, unreadable or unsupported declarations, or uninspected reachable edges are coverage gaps; do not assume a leaf or ignore a difficult form.",
+          "Inspect relationship claims in envelope, tables and prose, including membership, split/merge origins, next-step links and handoff backlinks. Record a relationship classification and its evidence separately from causal upstream. A relationship may have an independently supported causal role, but the label, presence, digest or graph membership alone does not establish that role.",
+          "Preserve raw user messages, receipts and selectors in evidence with their own locators/hashes and null identity where needed; do not manufacture artifact nodes to complete the graph. A required artifact upstream reference lacking its own artifact identity remains a disclosed gap under the retained identity check.",
+          "For a true empty-upstream case, retain the complete inspected outputs and exact empty-list locators plus relationship inventory and reason no causal artifact inputs apply. An absent judgment or empty evidence array is not this observation. Preserve any externally selected handoff-only mode; it alone can remove the current-ledger obligation."
+        ],
+        "per_upstream_occurrence_required_fields": [
+          "consumer_node: exact own artifact_id, revision, project_id, store/path, retained-byte locator and full SHA-256",
+          "reference_locator: exact upstream occurrence in the bound consumer bytes",
+          "input_node: separately resolved own artifact_id, revision, project_id, store/path, retained-byte locator and full SHA-256",
+          "classification: supported_causal_input | relationship_only | unresolved, plus the relationship kind where applicable",
+          "causal_basis: specific input content used and resulting consumer content, with exact source and output locators; supporting observed read/preservation/creation events where available and explicit observation limits",
+          "decision: PASS | FAIL | NOT_RUN | COULD_NOT_RUN, cause, reviewer identity/role, and references to immutable evidence bytes"
+        ],
+        "graph_and_handoff_evidence": [
+          "Record all exact nodes, classified edges and inspected terminal/boundary nodes. Supply an explicit topological order for the resolved consumer-to-input graph, or list each edge and exact node in an observed declared cycle. Do not substitute a statement that the graph looks valid.",
+          "Bind the final handoff upstream/output-table references to the completed ledger identity/revision/digest and the preserved ledger bytes. Cite the actual ledger completion/readback before the handoff binding and the corresponding native/checkpoint observations required by chronology; a timestamp or receipt hash alone is insufficient.",
+          "Inspect that same completed ledger and its reachable causal inputs for any dependency path to that same handoff. A link to a later continuation or a handoff backlink remains a relationship without evidence of causal consumption. An earlier immutable handoff used by a later ledger revision is assessed on its exact revision and evidence; do not impose a blanket ban on all handoff inputs.",
+          "Content-addressed complete-byte references may make a purported literal cycle fail identity resolution first. Retain both the identity defect and unsupported cyclic lineage claim; do not fabricate mutually self-consistent hashes or report a causal checker observation that was never reached."
+        ],
+        "judgment_custody": [
+          "Freeze this complete rubric and selected evidence requirements before the measured outputs. A later root allocation must select an independent reviewer and actual implementation/mechanism; this proposal creates neither.",
+          "Create a separate completed causal judgment only after all corresponding outputs, retained inputs, checks and required native observations exist. Bind every output/input revision and complete digest, the full edge/relationship inventory, graph evidence, selected rubric, mechanical/native observation records and actual reviewer identity.",
+          "Record evidence observation locators/order, review-completed and judgment-created timestamps with their limits. A file hash or timestamp alone cannot prove that review occurred after output. The root must verify and select the completed exact judgment before dependent admission; changed bytes invalidate reuse of that judgment."
+        ],
+        "result_rules": {
+          "PASS": "All upstream occurrences and relevant relationships explicitly classified with evidence; all referenced exact bytes resolved; supported causal graph demonstrably acyclic; ledger/handoff direction and chronology observed; exact post-output judgment selected. This check alone never supplies a whole-case PASS.",
+          "FAIL": "Observed unsupported relationship promoted to causal upstream, wrong ledger/handoff direction, inconsistent or cyclic declared lineage, or a judgment tied to different bytes. Retain separate identity/chronology failures rather than masking them.",
+          "NOT_RUN": "Required causal review or observation was not performed; also the current status of every future case in this document.",
+          "COULD_NOT_RUN": "An attempted required observation cannot be established from available exact bytes/native evidence. Record what is unavailable and why; absence never becomes a supported edge or verified negative.",
+          "gate": "Only complete PASS for this mandatory check together with all retained required checks can contribute to full semantic PASS. Missing check keys, blank evidence, omitted graph/edge coverage and all nonpass states block dependent admission. No automatic NOT_APPLICABLE waiver for an unreviewed or empty graph."
+        },
+        "implementation_status": "Manual evidence contract authored only. Retained graders, observers, runtime and source are unchanged and do not implement or certify this new requirement. Root must separately allocate, review and freeze a mechanism that requires and binds this completed check; until then runnable control readiness is deferred."
+      }
+    },
+    {
+      "pointer": "/created_at_utc",
+      "before": "2026-09-07T13:11:35.739136+00:00",
+      "after": "2026-09-07T14:41:03.216569+00:00"
+    },
+    {
+      "pointer": "/current_allocation_note",
+      "added": "This is unexecuted revision-8 preparation. The source candidate and its derivation retain revision-7 authorship. Copied historical criteria, results, clocks and assignments remain historical. No new consumer execution allocation is selected."
+    },
+    {
+      "pointer": "/decision_custody_addendum/required_bindings",
+      "before": [
+        "case and actual reviewer identity/role",
+        "actual output path and complete-byte SHA-256 for every reviewed output",
+        "checkpoint and accepted output snapshot digests",
+        "native transcript, callback/journal and mechanical check digests",
+        "actual external receipt path/full digest and current-target verification record",
+        "selected rubric and grader/observer implementation digests",
+        "observed-at and judgment-created-at timestamps with ordering limits disclosed"
+      ],
+      "after": [
+        "case and actual reviewer identity/role",
+        "actual output path and complete-byte SHA-256 for every reviewed output",
+        "checkpoint and accepted output snapshot digests",
+        "native transcript, callback/journal and mechanical check digests",
+        "actual external receipt path/full digest and current-target verification record",
+        "selected rubric and grader/observer implementation digests",
+        "observed-at and judgment-created-at timestamps with ordering limits disclosed",
+        "For causal_provenance: every reviewed output and reachable input own artifact ID/revision/full SHA-256 with retained-byte locators, complete per-occurrence edge/relationship inventory and graph-order or cycle evidence",
+        "Actual completed manual causal judgment and its evidence/chronology, independently selected before dependent admission"
+      ]
+    },
+    {
+      "pointer": "/preserved_without_change",
+      "before": [
+        "common_checks",
+        "cases and all B6/B6E behavior_checks/extra_checks",
+        "decision_format",
+        "no_post_measurement_relaxation",
+        "missing_coverage",
+        "scope"
+      ],
+      "after": [
+        "cases and all B6/B6E behavior_checks/extra_checks",
+        "decision_format",
+        "no_post_measurement_relaxation",
+        "missing_coverage",
+        "scope",
+        "all nine prior common_checks retained in their original order; causal_provenance appended as a mandatory tenth check"
+      ]
+    },
+    {
+      "pointer": "/previous_proposal",
+      "added": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/run/proposals/grade-rubric.proposed.json",
+        "sha256": "1eba87fb7754004445ace03edf6fc132b2c2fef620b807d73f86abcb50fabb8e"
+      }
+    },
+    {
+      "pointer": "/proposed_rubric/common_checks",
+      "before": [
+        "named_behavior",
+        "attribution_adoption",
+        "reference_identity_complete",
+        "source_row_section_convention",
+        "chronology",
+        "completed_readbacks_receipt",
+        "saved_response_claims",
+        "producer_identity_scope",
+        "write_fence_inputs"
+      ],
+      "after": [
+        "named_behavior",
+        "attribution_adoption",
+        "reference_identity_complete",
+        "source_row_section_convention",
+        "chronology",
+        "completed_readbacks_receipt",
+        "saved_response_claims",
+        "producer_identity_scope",
+        "write_fence_inputs",
+        "causal_provenance"
+      ]
+    },
+    {
+      "pointer": "/proposed_rubric/definitions/causal_provenance",
+      "added": "Mandatory evidence-bound manual judgment for every generated artifact and every reachable upstream occurrence. Resolve the consumer and referenced input to their own artifact_id, positive integer revision and complete-byte SHA-256, with project/store/path and exact field locators. Explain what content was causally consumed, supported by retained source/output content and actual available observations; identity equality alone is insufficient. Classify membership, split/merge, next-step and handoff-backlink relations separately; none becomes causal solely because it is linked. Inspect the complete reachable causal graph using distinct immutable-revision nodes and record an acyclic ordering or a concrete cycle. The handoff consumes its completed ledger; that ledger must not causally depend on that same handoff. Follow causal_provenance_judgment for required evidence and empty/unavailable cases. Missing coverage, unresolved input bytes, absent judgment or unsubstantiated causal promotion prevents full semantic PASS and dependent admission."
+    },
+    {
+      "pointer": "/proposed_rubric/definitions/producer_identity_scope",
+      "before": "Both new artifacts name devforge-brainstorm and the exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed SKILL.md, artifact-workflow.md, managed-runtime.md and both applicable templates under the source-inaccessible boundary. Preserve identity of bundled helper resources without requiring the model to invoke them for managed closeout. Parent SESSION@2 remains provenance; it is neither this preparation SESSION@7 nor a consumer execution/ownership assignment. A future native allocation must separately select its actual assignment and installed inputs.",
+      "after": "Both new artifacts name devforge-brainstorm and the exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed SKILL.md, artifact-workflow.md, managed-runtime.md and both applicable templates under the source-inaccessible boundary. Preserve identity of bundled helper resources without requiring the model to invoke them for managed closeout. Parent SESSION@2 remains provenance; it is neither this preparation SESSION@8 nor a consumer execution/ownership assignment. A future native allocation must separately select its actual assignment and installed inputs."
+    },
+    {
+      "pointer": "/remediation_specification",
+      "added": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REMEDIATION-SPECIFICATION.md",
+        "sha256": "d5b60b3ea30ea4a8e426f9c2b74ff3f94298d7b3e786286285a7d1cc45b69742"
+      }
+    },
+    {
+      "pointer": "/repair_mapping",
+      "added": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "locator": "/findings/0"
+      }
+    },
+    {
+      "pointer": "/replacement_definitions",
+      "before": [
+        {
+          "definition": "chronology",
+          "old": "Use transcript item ordering: complete ledger before readback/hash; bind final ledger in handoff; handoff snapshot leaves its own later readback/hash/receipt NOT_RUN; actual final handoff readback/check precedes separate receipt; receipt readback/hash/target verification precedes saved response final claims. Corrections require repeated readback/checks of final bytes. No self-digest, self-receipt or premature saved claim.",
+          "proposed": "Observe the selected runtime journal, immutable checkpoint/output snapshots and provider events: actual Recover then Explore then persisted-ledger Record then persisted-handoff Focus, with only externally selected handoff-only Recover-to-Focus exclusions. Complete ledger before its author metadata readback/hash and handoff binding. Handoff snapshot leaves its own later readback/hash/receipt/delivery NOT_RUN. The qualifying Stop after Focus READY performs final selected-artifact read/check, exclusive external receipt publication, complete receipt readback, current-target verification, and actual path/full SHA-256 in synchronous systemMessage in that order. Correlate exact task, contract, phase, challenge, accepted snapshots and final bytes. A correction requires new accepted evidence/current checks within its bound; no self-digest, self-receipt, premature saved claim, stale/replayed checkpoint or worker-run phase/helper substitute. Separate native completion, socket transmission, rendered receipt delivery and later current applicability; later success cannot replace a missing required earlier observation.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "completed_readbacks_receipt",
+          "old": "Observe successful readbacks, installed byte/delivery helpers, canonical Outcome cells and external receipt files with exact target digests and actual receipt readback. Exit success alone is insufficient.",
+          "proposed": "Observe complete ledger metadata readback and the runtime-owned final artifact read/check, external receipt publication/readback and verification against its actual target digests. Inspect all canonical Outcome cells and every required table/prose claim separately; runtime core coverage does not establish these semantics. Require actual Stop and any correction/WAITING_USER/resume events in applicable cases, exact receipt path/full digest in systemMessage, and a separately supported rendering observation for a rendered-delivery claim. A socket write, worker PASS text, filesystem hash or process exit alone is insufficient. Installed helper invocation is superseded solely for managed closeout; helper files remain identified resources, not passing observations.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "saved_response_claims",
+          "old": "Read outbox/response.md, verify each completion/saved-file claim and actual receipt path/hash against final bytes and transcript; response is read back and consistent with handoff snapshot.",
+          "proposed": "Read the selected saved response, including outbox/response.md when the retained request requires it, and bind its exact bytes/readback. Every saved-file or completion statement must have been true at that response creation. A response saved before the qualifying Stop retains pending runtime delivery and cannot claim a future receipt. Observe the final runtime systemMessage separately and verify its actual receipt path/full hash against the published receipt and all current targets; do not require a model-authored post-Stop receipt-bearing response or let one replace runtime delivery. If a later saved response exists, verify it separately and do not imply receipt coverage unless it is actually a bound target. Preserve rendering and native-completion limits.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "producer_identity_scope",
+          "old": "Both new artifacts name devforge-brainstorm and exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed reference/templates/helpers under source-inaccessible boundary. Parent SESSION@2 provenance is not current allocation SESSION@5 or native execution ownership.",
+          "proposed": "Both new artifacts name devforge-brainstorm and the exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed SKILL.md, artifact-workflow.md, managed-runtime.md and both applicable templates under the source-inaccessible boundary. Preserve identity of bundled helper resources without requiring the model to invoke them for managed closeout. Parent SESSION@2 remains provenance; it is neither this preparation SESSION@7 nor a consumer execution/ownership assignment. A future native allocation must separately select its actual assignment and installed inputs.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "c_resource_loading",
+          "old": "Observe native reads of installed SKILL.md, artifact-workflow.md, both templates and use of both runtime helpers; source docs inaccessible under actual verified boundary, with successful native completion and required artifacts/sections.",
+          "proposed": "Observe native reads of installed SKILL.md, artifact-workflow.md, managed-runtime.md and both templates. Preserve exact installed helper/resource inventory, with the two old model-helper invocations replaced by observed protected runtime phase/delivery checks. Source docs must be inaccessible under the actually verified boundary, evals excluded from installed runtime, and actual native completion plus required artifacts/sections/delivery observed. Runtime telemetry cannot establish model resource consultation.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        }
+      ],
+      "after": [
+        {
+          "definition": "chronology",
+          "old": "Use transcript item ordering: complete ledger before readback/hash; bind final ledger in handoff; handoff snapshot leaves its own later readback/hash/receipt NOT_RUN; actual final handoff readback/check precedes separate receipt; receipt readback/hash/target verification precedes saved response final claims. Corrections require repeated readback/checks of final bytes. No self-digest, self-receipt or premature saved claim.",
+          "proposed": "Observe the selected runtime journal, immutable checkpoint/output snapshots and provider events: actual Recover then Explore then persisted-ledger Record then persisted-handoff Focus, with only externally selected handoff-only Recover-to-Focus exclusions. Complete ledger before its author metadata readback/hash and handoff binding. Handoff snapshot leaves its own later readback/hash/receipt/delivery NOT_RUN. The qualifying Stop after Focus READY performs final selected-artifact read/check, exclusive external receipt publication, complete receipt readback, current-target verification, and actual path/full SHA-256 in synchronous systemMessage in that order. Correlate exact task, contract, phase, challenge, accepted snapshots and final bytes. A correction requires new accepted evidence/current checks within its bound; no self-digest, self-receipt, premature saved claim, stale/replayed checkpoint or worker-run phase/helper substitute. Separate native completion, socket transmission, rendered receipt delivery and later current applicability; later success cannot replace a missing required earlier observation.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "completed_readbacks_receipt",
+          "old": "Observe successful readbacks, installed byte/delivery helpers, canonical Outcome cells and external receipt files with exact target digests and actual receipt readback. Exit success alone is insufficient.",
+          "proposed": "Observe complete ledger metadata readback and the runtime-owned final artifact read/check, external receipt publication/readback and verification against its actual target digests. Inspect all canonical Outcome cells and every required table/prose claim separately; runtime core coverage does not establish these semantics. Require actual Stop and any correction/WAITING_USER/resume events in applicable cases, exact receipt path/full digest in systemMessage, and a separately supported rendering observation for a rendered-delivery claim. A socket write, worker PASS text, filesystem hash or process exit alone is insufficient. Installed helper invocation is superseded solely for managed closeout; helper files remain identified resources, not passing observations.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "saved_response_claims",
+          "old": "Read outbox/response.md, verify each completion/saved-file claim and actual receipt path/hash against final bytes and transcript; response is read back and consistent with handoff snapshot.",
+          "proposed": "Read the selected saved response, including outbox/response.md when the retained request requires it, and bind its exact bytes/readback. Every saved-file or completion statement must have been true at that response creation. A response saved before the qualifying Stop retains pending runtime delivery and cannot claim a future receipt. Observe the final runtime systemMessage separately and verify its actual receipt path/full hash against the published receipt and all current targets; do not require a model-authored post-Stop receipt-bearing response or let one replace runtime delivery. If a later saved response exists, verify it separately and do not imply receipt coverage unless it is actually a bound target. Preserve rendering and native-completion limits.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "producer_identity_scope",
+          "old": "Both new artifacts name devforge-brainstorm and exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed reference/templates/helpers under source-inaccessible boundary. Parent SESSION@2 provenance is not current allocation SESSION@5 or native execution ownership.",
+          "proposed": "Both new artifacts name devforge-brainstorm and the exact observed installed SKILL.md digest; disclose entrypoint-only scope. C actually loads installed SKILL.md, artifact-workflow.md, managed-runtime.md and both applicable templates under the source-inaccessible boundary. Preserve identity of bundled helper resources without requiring the model to invoke them for managed closeout. Parent SESSION@2 remains provenance; it is neither this preparation SESSION@8 nor a consumer execution/ownership assignment. A future native allocation must separately select its actual assignment and installed inputs.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        },
+        {
+          "definition": "c_resource_loading",
+          "old": "Observe native reads of installed SKILL.md, artifact-workflow.md, both templates and use of both runtime helpers; source docs inaccessible under actual verified boundary, with successful native completion and required artifacts/sections.",
+          "proposed": "Observe native reads of installed SKILL.md, artifact-workflow.md, managed-runtime.md and both templates. Preserve exact installed helper/resource inventory, with the two old model-helper invocations replaced by observed protected runtime phase/delivery checks. Source docs must be inaccessible under the actually verified boundary, evals excluded from installed runtime, and actual native completion plus required artifacts/sections/delivery observed. Runtime telemetry cannot establish model resource consultation.",
+          "basis": "Selected runtime bridge changes managed closeout ownership/ordering and associated observation location only; all semantic, identity, attribution, table, delivery and native-completion obligations remain."
+        }
+      ]
+    },
+    {
+      "pointer": "/status/root_admission",
+      "added": "NOT_RUN"
+    }
+  ]
+}

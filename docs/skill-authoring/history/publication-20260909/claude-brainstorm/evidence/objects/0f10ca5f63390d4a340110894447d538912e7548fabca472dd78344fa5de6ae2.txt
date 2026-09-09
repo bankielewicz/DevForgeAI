@@ -1,0 +1,91 @@
+{
+ "schema_version": "devforge.candidate-manifest/v1",
+ "assignment": "SESSION-001@7",
+ "assignment_sha256": "2664e1e995315ec102e10e70b3a8fc057713af7e4e7bebe98ccc619da5bc0c2e",
+ "recorded_at_utc": "2026-09-07T13:17:54Z",
+ "source_root": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm",
+ "worktree_head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+ "branch": "author/claude-brainstorm-mvp",
+ "starting_file_count": 19,
+ "final_file_count": 20,
+ "unchanged": [
+  "assets/handoff.md",
+  "assets/idea-ledger.md",
+  "evals/evals.json",
+  "evals/fixtures/IDEAS-001.md",
+  "evals/fixtures/STORY-014.md",
+  "evals/fixtures/b10/IDEAS-005.md",
+  "evals/fixtures/b10/SESSION-077.md",
+  "evals/fixtures/b12/IDEAS-006.md",
+  "evals/fixtures/b12/IDEAS-007-unsectioned.md",
+  "evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+  "evals/fixtures/b6/CHANGE-003.md",
+  "evals/fixtures/b6/IDEAS-002.md",
+  "evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+  "evals/reference-regressions.json",
+  "evals/triggers/trigger-queries.json",
+  "scripts/check_artifact.py"
+ ],
+ "changed": [
+  "SKILL.md",
+  "references/derivation.json",
+  "references/recording-rules.md"
+ ],
+ "added": [
+  "references/managed-runtime.md"
+ ],
+ "removed": [],
+ "write_fence": [
+  "SKILL.md",
+  "references/recording-rules.md",
+  "references/derivation.json",
+  "references/managed-runtime.md"
+ ],
+ "fence_respected": true,
+ "transitions": {
+  "SKILL.md": {
+   "from": "7d1322dc4c003b5d50885966d6b43c5b584f374e3aacc8e155850688114be1bc",
+   "to": "2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4"
+  },
+  "references/derivation.json": {
+   "from": "8e0a0f78de32833cd156f5c7aa86735c592f20eaffb3ee07e2c7b0d0cad4e077",
+   "to": "5f61403a7d951cdc0e9157e412920ac8731d32e0eec79b27990ec77d7a362d84"
+  },
+  "references/recording-rules.md": {
+   "from": "bcae04bc9e6167f424b61eeaad8242eac762c22aa8b8d597b6262ef44cc3a9b7",
+   "to": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b"
+  }
+ },
+ "new_files": {
+  "references/managed-runtime.md": "9fac0836bbf4695563a40bfdc5e7ae2ece330a5b2d2cabbc4cf6deda7d4d77b5"
+ },
+ "files_sha256": {
+  "SKILL.md": "2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4",
+  "assets/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+  "assets/idea-ledger.md": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+  "evals/evals.json": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+  "evals/fixtures/IDEAS-001.md": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+  "evals/fixtures/STORY-014.md": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+  "evals/fixtures/b10/IDEAS-005.md": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+  "evals/fixtures/b10/SESSION-077.md": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+  "evals/fixtures/b12/IDEAS-006.md": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+  "evals/fixtures/b12/IDEAS-007-unsectioned.md": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+  "evals/fixtures/b12/LOGBOOK-EXPORT.txt": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+  "evals/fixtures/b6/CHANGE-003.md": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+  "evals/fixtures/b6/IDEAS-002.md": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+  "evals/fixtures/b6/preserved/CHANGE-003.r1.md": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+  "evals/reference-regressions.json": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+  "evals/triggers/trigger-queries.json": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+  "references/derivation.json": "5f61403a7d951cdc0e9157e412920ac8731d32e0eec79b27990ec77d7a362d84",
+  "references/managed-runtime.md": "9fac0836bbf4695563a40bfdc5e7ae2ece330a5b2d2cabbc4cf6deda7d4d77b5",
+  "references/recording-rules.md": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b",
+  "scripts/check_artifact.py": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a"
+ },
+ "preserved_final_copies_at": "manifests/final-candidate/",
+ "preserved_starting_copies_at": "starting/candidate/",
+ "protected_unchanged": {
+  "SKILL_md_description_line": "byte-identical to the starting copy",
+  "evals/reference-regressions.json": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+  "note": "the protected evaluation file was not modified in this allocation; its revision-6 provenance is recorded in references/derivation.json"
+ }
+}

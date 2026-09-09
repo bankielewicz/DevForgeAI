@@ -1,0 +1,115 @@
+{
+  "schema_version": "devforge.author-preparation-receipt/v1",
+  "issued_at_utc": "2026-09-06T20:55:14Z",
+  "assignment": "SESSION-001@6",
+  "assignment_sha256": "8031a38e0028a611d50abdd118b3c14912e941926eb6a697872905541e190764",
+  "revision": "005",
+  "run_root": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-prep2-20260906T1806Z",
+  "status": "PARTIAL_PREPARATION_BUDGET_FAIL",
+  "binds": {
+    "report": {
+      "path": "report/SEVAL-PREP-002-PARTIAL.md",
+      "sha256": "88f948f21cd55673e2195a460598c5ca182c855c6e8aa8a67788a5f838007be6",
+      "complete_readback": "PASS"
+    },
+    "evidence_index": {
+      "path": "report/evidence-index.sha256",
+      "sha256": "c78d77582dc1937fff2ef9e24b266af88323ff5fdf4268a3aa290e1d13c5ad59",
+      "entries": 18,
+      "readback_mismatches": 0
+    }
+  },
+  "acyclic": "The report carries no digest of itself; this receipt is absent from the index it binds.",
+  "budget": {
+    "start_utc": "2026-09-06T18:06:43Z",
+    "budget_minutes": 120,
+    "technical_stop_utc": "2026-09-06T19:46:43Z",
+    "hard_deadline_utc": "2026-09-06T20:06:43Z",
+    "outcome": "FAIL",
+    "last_run_side_write_utc": "2026-09-06T18:29:17Z",
+    "source_tree_write_utc": "2026-09-06T20:18:10Z",
+    "overrun_of_source_write_s": 687,
+    "detail": "Run-side edits finished at 18:29:17Z, inside the window. The two source-tree edits landed at 20:18:10Z, 11m27s after the hard deadline and 31m27s after the technical-stop reserve. This is a post-deadline write into the provider source package, not a late closeout artifact. Approximately 93 minutes elapsed with no work performed, across repeated connection losses in the author session; on resuming, the clock was not re-checked before the queued edits were applied. Wall-clock is what the allocation budgets. No retrospective extension is claimed. The bytes were deliberately NOT reverted: resetting in-progress bytes to restore an inside-the-window inventory is forbidden by the assignment and by the 004 review.",
+    "closeout_also_late": true
+  },
+  "completion": {
+    "findings_total": 9,
+    "finished": ["CP4-SC-005"],
+    "partial_unverified": ["CP4-SC-001", "CP4-SC-002", "CP4-SC-003", "CP4-SC-004"],
+    "not_started": ["CP4-P001", "CP4-P002", "CP4-P003", "CP4-P004"],
+    "known_inconsistency": "no-model-tests/checks_suite.py R-section-omitted still expects PASS against a fully sectioned target and now contradicts the corrected validate_references.py criterion. The raw-evidence suite case still constructs upstream. Neither was corrected.",
+    "derivation_json_updated": false,
+    "derivation_json_note": "references/derivation.json is inside the permitted fence and was required to record this revision. It was not written and still carries 8e0a0f78... from preparation 004."
+  },
+  "verification_performed": {
+    "starting_candidate_19_files": "PASS",
+    "continuation_digest": "PASS",
+    "root_receipt_digest": "PASS",
+    "four_required_reviews_digests": "PASS",
+    "cp4_sc_005_locator_resolution": "PASS",
+    "report_outcome_vocabulary": "PASS",
+    "deterministic_suites_executed": 0,
+    "cases_executed": 0,
+    "python_parse_only": ["control/grade.py", "checkers/check_receipts.py", "checkers/validate_references.py"],
+    "note": "Parsing is not behaviour. No checker repair in this run is demonstrated by any test."
+  },
+  "source_fence": {
+    "files_at_start": 19,
+    "files_now": 19,
+    "unchanged": 17,
+    "changed": 2,
+    "added": 0,
+    "removed": 0,
+    "changed_files": {
+      "references/recording-rules.md": {"from": "ff88e091474399c02849f2379a8998dc6d0fe93b8989d2982566f40c106a1a9c", "to": "bcae04bc9e6167f424b61eeaad8242eac762c22aa8b8d597b6262ef44cc3a9b7"},
+      "evals/reference-regressions.json": {"from": "a150f18ed3a43ba95ad09784c80b566843c3957973ff813b6906ea3c16eb589b", "to": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7"}
+    },
+    "skill_md_unchanged": "7d1322dc4c003b5d50885966d6b43c5b584f374e3aacc8e155850688114be1bc"
+  },
+  "freeze": {
+    "issued": false,
+    "scope": "NOT_APPLICABLE",
+    "note": "No FREEZE.json exists in this run. No binding claim is made."
+  },
+  "creator": {
+    "package_provided": "PASS",
+    "package_skill_md_sha256": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf",
+    "package_files": 21,
+    "native_invocation": "PASS",
+    "invoked_identifier": "/skill-creator:skill-creator",
+    "observed_result": "Launching skill: skill-creator:skill-creator; base directory .../next-inputs/skill-creator/skills/skill-creator",
+    "invocation_event_id": null,
+    "invocation_event_id_note": "No dedicated invocation event ID is exposed to the author session. None was invented.",
+    "second_invocation_reason": "The user's slash invocation loaded the skill but its body arrived truncated by compaction; the Skill tool call obtained the complete instructions required to apply them. Not performed to obtain a second receipt.",
+    "guidance_applied": "PARTIAL",
+    "stages_deferred": ["with-skill and baseline runs", "grading", "benchmark aggregation", "eval viewer review loop", "description optimization", "packaging"]
+  },
+  "preserved_prior_work": {
+    "prep_004_report_sha256": "a94d430e3b2da71ac0e7ad1bd0eca7ec1c52d14a6b8ee938382b2466efe0103a",
+    "prep_004_receipt_sha256": "e3cc40ceadee3569342205394c9b06f99d3c53e96fa534d1f6f0090e54a4dad3",
+    "prep_004_freeze_sha256": "eabcd457e9c5ef54eba9cc66c62bf06c9654d6f8ba9e05b97e873065e65ca6e5",
+    "prep_004_budget": "FAIL, unchanged",
+    "author_preserved_copies_vs_bindings": "11 of 39",
+    "prior_custody_qualification": "334 verified of 415 indexed; 81 excluded unread",
+    "author_excluded_scratch_paths": 569,
+    "root_unindexed_cache_exclusions": 4,
+    "withdrawals_retained": ["phase-gate enforcement at SEVAL-001.md:185 and :283", "B0 first-hand attribution", "six-AI-proposal-row count"]
+  },
+  "gates": {
+    "native_model_calls": 0,
+    "real_installations": 0,
+    "real_exports": 0,
+    "attempt_directories_created": 0,
+    "grades_produced": 0,
+    "native_C_B_A": "NOT_RUN",
+    "root_native_admission": "NOT_RUN",
+    "human_adoption": "NOT_RUN"
+  },
+  "git": {
+    "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+    "branch": "author/claude-brainstorm-mvp",
+    "operations": "read-only inspection only"
+  },
+  "ownership": "SESSION-001@6 retained with the same Claude author, for root preparation review.",
+  "next": "No automatic retry, new candidate cycle, acceptance, integration, publication or capability follows this handback."
+}

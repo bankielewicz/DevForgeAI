@@ -1,0 +1,153 @@
+# Independent R10 control integration review
+
+Conclusion: **PARTIAL_AUTHORED**. Ten material static findings remain (eight high, two medium). Native admission and all executable tests remain **NOT_RUN**. The correct zero-native/deferred refusal is retained; it does not make unfinished local callers or scenarios complete.
+
+This review inspected the frozen controller, runner, freeze, grading, admission, activation and A-arm source, the fresh phase/case suites, selected baseline, R10 specification and selected v1 runtime evidence formats. It did not execute the evaluated code. The input manifest SHA-256 is `d3808de6c65aff9296156b8a38b3928e8b7d0557b7718424b917dcd79774159e`; ALLOCATION.json lists every selected input digest and clock boundary.
+
+The current @10 allocation digest was verified against the frozen issued authority bytes. Reviewer process/model-context isolation was not established: this is a separate reviewer role using a reused agent. No concurrent R10 peer review artifacts were read and no subagents were created for this review.
+
+## Material findings
+
+### R10-CI-001 — high — Emitted preflight keys still resolve to the wrong directory in both verifiers
+
+build hashes each real PREFLIGHT_ROOT/basename file but stores its key as preflight/no-model-tests/<name>. path_roots has code, candidate, fixture and prepfixture only. Both verify and Controller.verify_freeze therefore fall back to RUN/preflight/no-model-tests/<name>, where these staged files do not exist. A non-null expected digest is compared with None. This is a static path-resolution proof; no code was executed.
+
+Trigger: Build a freeze with unchanged files at RUN/no-model-tests/results.json and the other declared real preflight locations, then verify that emitted freeze.
+
+Impact: The unchanged real-location positive and generated-evidence positive cannot verify, and the actual runner refuses before admission. Mutation negatives can fail on this preexisting mismatch instead of the intended mutation.
+
+Repair: Use one explicit preflight root/key convention in emission and both verifiers, bind the actually consumed GATE-INPUTS location, and author positives and negatives that assert the exact differing key.
+
+Frozen evidence: `inputs/claude/run/source/control/freeze.py:185-201`; `inputs/claude/run/source/control/freeze.py:218-219`; `inputs/claude/run/source/control/freeze.py:301-310`; `inputs/claude/run/source/control/controller.py:75-92`; `inputs/claude/run/source/no-model-tests/phase_suite.py:586-615`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:41-41`.
+
+### R10-CI-002 — high — Candidate, fixture and exported launch roots remain implicit historical selections
+
+The builder silently selects the hardcoded worktree SRC and September 5 DELEG tree. The runner independently hardcodes those same locations, loads evaluation/query JSON at import time, and launches against RUN/export/export-01/devforgeai. There is no required supplied exact final candidate/fixture selection and no comparison proving that export launch bytes are the candidate bytes in the freeze. PREFLIGHT_ROOT and RUN are derived from module location rather than a shared required five-binding object. Hashing whichever live tree build finds is not verification of the exact selected final tree.
+
+Trigger: Place the authored controls in a fresh run with a selected final candidate/fixture set, or change/miss the historical live locations they still name.
+
+Impact: A future emission can describe a different candidate/root than the intended selected final candidate, and the code can read mutable or unavailable historical bytes before its startup integrity check. The authored source is not a portable, selection-bound caller integration.
+
+Repair: Require an immutable selection manifest containing run root, final candidate/export identity, each selected fixture root, current allocation and preflight roots; validate all locators/digests before loading queries or other configuration; fail explicitly on unavailable selected roots and use those same bindings throughout build, verify and launch.
+
+Frozen evidence: `inputs/claude/run/source/control/freeze.py:38-42`; `inputs/claude/run/source/control/freeze.py:166-178`; `inputs/claude/run/source/control/freeze.py:203-219`; `inputs/claude/run/source/control/run_phases.py:38-58`; `inputs/claude/run/source/control/run_phases.py:106-132`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:35-35`.
+
+### R10-CI-003 — high — The fresh phase-suite scratch root omits a file now required by freeze.CODE
+
+build_root copies control and checker files. stage_preflight writes three result JSON files and copies only checks_suite.py and phase_suite.py. Neither path copies no-model-tests/cases_r9.py into the scratch root. freeze.CODE now requires that path and build unconditionally opens/hashes each CODE entry. The first m.build() therefore raises FileNotFoundError before drive or the first scenario assertion. The independent r10-freeze setup has the same omission.
+
+Trigger: Reach the first build_root call in the authored phase suite with the selected source tree present.
+
+Impact: The fresh suite is not an executable authoring completion: it stops in setup before the claimed discriminating cases. This conclusion is static and does not constitute a test result.
+
+Repair: Stage the complete selected fixed code/suite/case set into each scratch root before emission; make the scratch-root constructor account for every required entry and selected fixture without depending on live locations.
+
+Frozen evidence: `inputs/claude/run/source/control/freeze.py:67-90`; `inputs/claude/run/source/control/freeze.py:166-170`; `inputs/claude/run/source/no-model-tests/phase_suite.py:42-65`; `inputs/claude/run/source/no-model-tests/phase_suite.py:118-162`; `inputs/claude/run/source/no-model-tests/phase_suite.py:291-301`; `inputs/claude/run/source/no-model-tests/phase_suite.py:570-586`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:33-33`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:39-39`.
+
+### R10-CI-004 — high — CHG-011 resumes the same failed controller instead of a fresh module lifecycle
+
+drive imports mod once before its loop and invokes that same mod.main([--resume]) at every resume. On the first missing judgment main records the pause, then continues to the A missing-input branch and sets CTL.failed=True before returning 8. The next main call recreates only results/phase_state/consumed; it never resets or recreates CTL. run_one calls CTL.may_launch before reading prior arm evidence; may_launch sees failed=True and refuses as budget exhausted. Fresh process/module re-entry would create a fresh controller, but the scenario does not perform it.
+
+Trigger: After repairing the earlier setup/freeze blockers, run the authored C1 pause followed by drive's first resume with a newly supplied C1 judgment.
+
+Impact: The locally available C1 to B5 transition is not authored as the required fresh-module lifecycle. R10-P40..45 cannot establish the intended ordered C/B/A progression or consumed-judgment assertions. Native managed callback availability is a separate legitimate deferral.
+
+Repair: Author actual fresh-process or fresh-module re-entry per pause with all control imports isolated, reconstruct controller state from the same immutable allocation, retain prior evidence and cumulative markers, and assert each consumed judgment plus unchanged prior result digests. Keep native callback tests explicitly deferred.
+
+Frozen evidence: `inputs/claude/run/source/no-model-tests/phase_suite.py:231-271`; `inputs/claude/run/source/no-model-tests/phase_suite.py:809-843`; `inputs/claude/run/source/control/run_phases.py:44-46`; `inputs/claude/run/source/control/run_phases.py:401-408`; `inputs/claude/run/source/control/run_phases.py:463-471`; `inputs/claude/run/source/control/run_phases.py:525-543`; `inputs/claude/run/source/control/run_phases.py:576-581`; `inputs/claude/run/source/control/run_phases.py:609-640`; `inputs/claude/run/source/control/controller.py:54-61`; `inputs/claude/run/source/control/controller.py:168-169`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:53-53`.
+
+### R10-CI-005 — medium — Both P21 paths still miss the required recorded inventory-mismatch classification
+
+The new driver does call main([--resume]) and mutates only output_inventory_sha256, but reads decisions/gate-C:C1.json. Controller.gate replaces colons with hyphens and writes gate-C-C1.json. Thus recorded remains None even if STALE was written correctly. The old P21 still calls drive twice, and drive always begins main([]), so its second invocation exercises a non-resume preexisting destination rather than the stale-binding comparison. The new driver additionally shares R10-CI-004's same-controller failure.
+
+Trigger: After earlier setup and resume defects are fixed, inspect the new P21 driver's consumed gate record; also follow the retained old P21's second drive call.
+
+Impact: Neither P21 variant proves the required recorded STALE reason. The old zero-downstream-marker expectation remains able to pass for an unrelated refusal; the new explicit STALE assertion reads the wrong file.
+
+Repair: Use fresh re-entry with --resume from the correct pause and the canonical gate locator; assert semantic.recorded==STALE, the mismatched inventory field/reason, and zero additional admission markers.
+
+Frozen evidence: `inputs/claude/run/source/no-model-tests/phase_suite.py:474-479`; `inputs/claude/run/source/no-model-tests/phase_suite.py:249-271`; `inputs/claude/run/source/no-model-tests/phase_suite.py:995-1025`; `inputs/claude/run/source/control/controller.py:162-165`; `inputs/claude/run/source/control/run_phases.py:379-387`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:57-57`.
+
+### R10-CI-006 — high — Two observation classes still accept runtime-looking assertions without authentic bytes
+
+The consumer checks a source-name whitelist, digest syntax and task string, then emits OBSERVED/PASS. It does not resolve an evidence locator, hash actual bytes, validate a protected runtime event format or check whether that source can establish the named observation. Missing outcome defaults to PASS. Installed resource consultation is therefore accepted from a generic phase-state-looking dictionary. The selected runtime has mechanical correction/accepted/resume and receipt verification code, but none of those are parsed by this consumer.
+
+Trigger: Supply ordered_checkpoints and installed_resource_loading rows with source runtime.phase_state, task_id equal to the requested task and observed_bytes_sha256 equal to any 64 lowercase hexadecimal characters; omit outcome or set PASS, without any authentic referenced bytes.
+
+Impact: The per-class report falsely qualifies unobserved evidence. The three unconditional deferred classes do correctly keep the aggregate observation outcome FAIL and A admission blocked, so this finding does not claim a present native-admission bypass.
+
+Repair: Consume only selected protected event/check/receipt byte formats with locator, digest, provenance, task and explicit successful outcome validation. Record installed consultation and other unavailable collection as unavailable rather than accepting source labels. Distinguish mechanical correction/accepted/resume and verified receipt results from native callback provenance and rendering. Add separate actual-byte mismatch, missing-outcome and wrong-source-for-class negatives.
+
+Frozen evidence: `inputs/claude/run/source/control/admission.py:199-230`; `inputs/claude/run/source/control/admission.py:271-334`; `inputs/claude/run/source/control/run_phases.py:64-67`; `inputs/claude/run/source/control/run_phases.py:595-605`; `inputs/claude/run/source/no-model-tests/phase_suite.py:648-672`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:49-49`.
+
+### R10-CI-007 — high — A-arm identity compares caller values with themselves rather than the fixed selected case
+
+run_a_arm checks only that case belongs to A_CASES, then derives both hashes from its supplied selector/prompt. It never checks selector.id or should_trigger against an independently selected A3a/A5a row. activation still copies q.get(query_sha256), which the real selected rows do not contain, leaving the observation's query digest null. On A resume main accepts saved outcome PASS plus activation.outcome PASS without rebinding/reparsing that activation; prerequisites similarly trusts native/activation values and an optional state. The authored positive uses an invented q-1 row and there is no cross-case/fixed-row mutation negative.
+
+Trigger: Pass case A3a with the A5a selector, or change selected query text/should_trigger and supply that same changed text as prompt; alternatively resume an A record whose activation PASS is not bound to the current query/candidate/transcript.
+
+Impact: The identity helper can accept the wrong case or a changed expectation as unchanged, and A5a sequencing is not supported by an exact selected A3a completion/activation binding. Current admission remains blocked by independent deferrals and the unavailable launch path.
+
+Repair: Provide a verified immutable case-to-row mapping and expected should_trigger value, compare actual launch prompt bytes to that selected row, and carry its derived identity plus candidate/run/transcript/completion bindings into activation and resumed prerequisites. Add exact-row positive, cross-case, modified-row and modified-prompt negatives; retain honest NOT_RUN when no launcher exists.
+
+Frozen evidence: `inputs/claude/run/source/control/a_arm.py:87-129`; `inputs/claude/run/source/control/activation.py:104-113`; `inputs/claude/run/source/control/admission.py:134-142`; `inputs/claude/run/source/control/run_phases.py:186-198`; `inputs/claude/run/source/control/run_phases.py:492-514`; `inputs/claude/run/source/no-model-tests/phase_suite.py:688-701`; `inputs/claude/run/source/no-model-tests/phase_suite.py:730-750`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:47-47`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:55-55`.
+
+### R10-CI-008 — high — The authored A caller has no reachable launcher seam and its prospective fixtures omit the case key
+
+The caller passes launcher=None unconditionally and returns every non-launched decision. run_a_arm returns NOT_RUN for that value, so the subsequent launch and activation statements are unreachable. Merely supplying a helper launcher would also require resolving ownership of the attempt directory: the helper creates it and the separate launch path claims it again. The suite A_ARMS records lack spec[case], which the caller requires, and the A stand-in writes top-level tool_use/text events that the new parser does not recognize as usable assistant transcripts. All are local authoring/interface defects; missing native dependencies are not a requirement to run native now.
+
+Trigger: Inspect the prospective A path after a future legitimate admission dependency is available, or attempt to reach the authored FULL_ARMS A scenarios using a non-native stand-in.
+
+Impact: The source has partial nonlaunch integration and useful parsing helpers, but cannot be credited as complete actual A caller integration or as authored positive A lifecycle fixtures. Zero-native refusal remains correct.
+
+Repair: Keep the no-launcher NOT_RUN branch, but provide a reachable injectable local launch interface with one owner for exclusive destination creation and actual prompt/activation handoff. Make fixture case schemas and nested assistant/completion records match the selected interface. Until authored, label those caller/scenario subparts PARTIAL separately from native collector deferral.
+
+Frozen evidence: `inputs/claude/run/source/control/run_phases.py:181-198`; `inputs/claude/run/source/control/a_arm.py:155-176`; `inputs/claude/run/source/control/run_phases.py:106-112`; `inputs/claude/run/source/no-model-tests/phase_suite.py:215-222`; `inputs/claude/run/source/no-model-tests/phase_suite.py:286-287`; `inputs/claude/run/source/no-model-tests/phase_suite.py:822-850`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:33-33`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:51-51`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:53-53`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:55-55`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:59-59`.
+
+### R10-CI-009 — high — Post-output judgments do not bind reviewer identity or all required raw evidence
+
+_evidence_binding covers run/session/arm, criteria, arm.json, a digest of the recorded inventory and three checker result files. _judgment requires only those fields and PASS/FAIL. Reviewer identity is neither required nor authorized, and raw transcript/checkpoint/runtime receipt bytes have no binding keys. The inventory derives from rec.outputs rather than a new complete evidence inventory. Calling such a record authorized in its basis does not establish the authorization the fixed specification requires.
+
+Trigger: Copy a published REQUIRED binding into a judgment JSON and add outcome PASS, with no reviewer identity or transcript/checkpoint/runtime receipt byte bindings; or change an unbound transcript/checkpoint while those required hash fields remain unchanged.
+
+Impact: A post-output dictionary with correct advertised hashes can satisfy a C/B semantic gate without an identified authorized reviewer and without proving the reviewer judged all selected actual evidence. This is a consumption-boundary deficiency independent of the source freeze and current A deferrals.
+
+Repair: Bind a selected authorized reviewer identity and exact current output/checkpoint/receipt/transcript/check evidence inventory at judgment consumption; reject missing, unrelated, stale and unauthorized records before downstream admission. Preserve the separate mechanical and semantic decisions.
+
+Frozen evidence: `inputs/claude/run/source/control/run_phases.py:300-310`; `inputs/claude/run/source/control/run_phases.py:330-365`; `inputs/claude/run/source/control/run_phases.py:525-537`; `inputs/claude/run/source/control/run_phases.py:237-240`; `inputs/claude/run/source/control/grade.py:32-68`; `inputs/claude/run/source/no-model-tests/phase_suite.py:261-266`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:47-47`.
+
+### R10-CI-010 — medium — Generic allocation emission still lacks verified selection and run-identity rejection
+
+selected_allocation validates presence and digest length only. It does not verify authority bytes, issuance selection, hex syntax or run_id. build copies the asserted session/revision/path/digest and derives run_id from basename(RUN), disregarding the selected run_id. The later authority helper compares just four values from dictionaries that originate from that same file; no run identity is checked. Current frozen ALLOCATION.json does carry the correct @10 digest, independently verified here against the frozen issued authority, so the defect is missing generic rejection and binding rather than a claim that its present @10 digest is wrong.
+
+Trigger: Supply a stale but nonempty allocation JSON, a 64-character non-hex digest, or a mismatched selected run_id to the generic emitter.
+
+Impact: A stale or malformed future selection can be emitted and agree with itself. R10-P08/P09 test dictionary inequality rather than the actual emitter's refusal of bad selected allocation bytes.
+
+Repair: Verify the explicitly selected issued authority/issuance bytes and full allocation/run identity before emission, validate exact digest syntax, and add actual emitter missing/stale/mismatched selection negatives. Keep session digests out of generic code.
+
+Frozen evidence: `inputs/claude/run/source/control/freeze.py:130-163`; `inputs/claude/run/source/control/freeze.py:166-170`; `inputs/claude/run/source/control/freeze.py:203-219`; `inputs/claude/run/source/control/admission.py:370-394`; `inputs/claude/run/source/control/run_phases.py:595-600`; `inputs/claude/run/source/no-model-tests/phase_suite.py:619-645`; `inputs/claude/run/source/control/ALLOCATION.json:1-16`; `inputs/issued-r10/REMEDIATION-SPECIFICATION.md:61-61`.
+
+## Static credit and remaining boundaries
+
+- Actual runner imports admission, activation and a_arm helpers and calls prerequisite checks before its launch seam.
+- Live preservation is integrated in run_phases._grade; a fresh resume regrades prior arms before consuming judgments, so changed/disappeared selected preserved bytes can be rejected.
+- Required C1/B5/B11 membership is fixed in prerequisites and A5a no longer invents C/B-style semantic-judgment fields for A3a.
+- Deferred observation classes are unconditionally blocked, malformed digest/source/task negatives exist, and zero-native authorization remains a clean refusal.
+- Activation envelope helper distinguishes scalar/list and role-less input from legitimate nested assistant Skill events; full completed A caller scenarios remain incomplete.
+- Generic freeze.py no longer embeds historical session digests, and the current selected @10 digest matches frozen authority bytes.
+- P20 retains judge={} and the explicit missing-judgment pause expectation; concurrency non-1 rejection is wired before native admission.
+
+The preservation wrapper is material: `_preservation_map` uses selected preserved paths and their recorded pre-write staged hashes; `AD.preserve_check` recomputes live file hashes; a fresh `main(--resume)` regrades before judgment consumption. The suite's R10-P34..36 are direct helper fixtures, so its disappearance case does not itself exercise an actual judgment pause.
+
+The selected v1 runtime exposes protected mechanical correction/accepted/resume records (`inputs/issued-r10/runtime/phase_state.py:1040-1083`) and current receipt verification/readback (`phase_state.py:830-861`; `hook_protocol.py:84-96`). These do not establish native callback delivery, installed resource consultation or client rendering. The observation consumer currently reads none of those actual record formats.
+
+CHG-011 local fresh re-entry, CHG-013 P21, five-root bindings, evidence-authenticated observations, exact A identity, A caller integration, judgment ownership and verified allocation emission remain PARTIAL. Deferred native dependencies remain ROOT_DEPENDENCY_DEFERRED. Source authoring, static review, executed no-model validation, native observations and release acceptance are separate claims.
+
+## Method and custody
+
+All 39 selected input files were SHA-256 checked against INPUT-MANIFEST.json before report persistence. Only ALLOCATION.json, REVIEW.md, FINDINGS.json and RECEIPT.json in this review directory are owned outputs. RECEIPT.json binds the first three finalized files; its own digest is returned externally. No source changes, imports, compilation or test execution were performed.
+
+First work: 2026-09-07T22:06:03Z. Technical cutoff: 2026-09-07T22:20:03Z. Hard deadline: 2026-09-07T22:24:03Z. Technical review completed: 2026-09-07T22:17:41Z.
+
+No native outcome, CI result, production readiness or human acceptance is inferred from this static review.

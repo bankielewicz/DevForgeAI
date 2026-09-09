@@ -1,0 +1,127 @@
+# R10 Claude receipt/reference static review
+
+Disposition: **REVISE_CHECKERS_AND_COMPLETE_FIXTURE_SUITE**. Four material static findings remain. This is authored-source review, not execution, validation, native acceptance or finding closure.
+
+## Allocation, independence and input custody
+
+This reviewer is reused from R7/R8/R9; this is a new bounded allocation, not a cold session. First work was the actual UTC observation at **2026-09-07T22:05:43Z**. The unchanged allocation permits 18 minutes including final persistence, with technical stop **22:19:43Z** and hard stop **22:23:43Z**. Both are earlier than the parent cutoffs. No clock was reset or extended.
+
+The root is `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z`. `INPUT-MANIFEST.json` SHA-256 **d3808de6c65aff9296156b8a38b3928e8b7d0557b7718424b917dcd79774159e** was verified before source reading. All 39 selected files were size/hash verified before their content was used, including four later selection extensions. `INPUT-SELECTION.json` contains the exact absolute paths, sizes and digests. The final external receipt records repeated full-byte custody checks. Selection verification is byte custody; it does not imply every selected metadata file received equal semantic review.
+
+One delegated read-only supporting reviewer, `/root/r7_claude_controls_review/r10_receipt_static`, independently inspected receipt source and suite/fixture wiring after verifying the same manifest and its 14 selected inputs. Those inputs are included in this review's 39-file inventory. It performed no writes or candidate execution and returned its findings for this reviewer to assess. The parent was informed. Its participation is disclosed; this report does not claim zero delegates or a cold independent native test.
+
+Only this exclusive `review-receipts-references/` output directory was written. No source, authority, candidate, baseline or peer report was edited. No candidate/checker/helper/suite was imported, executed or compiled; no tests, native clients, network requests, memory files or validator campaign were used. Standard-library JSON/text/hash/diff custody inspection and report writing were used. A custody-inspection script initially indexed a dictionary as a list and exited before source reads; the corrected inspection succeeded. Two diagnostic fixture path guesses were absent; their selected actual paths were then read. These did not run candidate code or affect source.
+
+## Actual integration and improvements
+
+`source/no-model-tests/checks_suite.py:11-17` resolves imports from its own fresh source tree. The old R9 situation in which the selected executable suite remained bound only to historical sibling checkers is corrected for the authored inline scenarios. `ref_case:80-94` stages actual target/output text and calls the fresh validator; `rcp_case:207-229` stages actual promised files and invokes the fresh receipt evaluator. Existing relative/sandbox-root, table, sha256sum-order, adjacent-line and both long swapped-pair scenarios remain authored in the current suite. These are static integration observations only.
+
+`source/control/grade.py` is byte-identical to its selected baseline (SHA-256 **26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94**) and resolves its checker calls against the current run source tree. Lines 172-193 call references, outcome labels and receipts with actual grading records; lines 195-197 use their conformance in mechanical grading. This makes remaining checker false positives material to the caller. The unchanged harness and outcome-label checker were inspected without an additional finding in this scope. Admission, activation, freeze, controller, run_phases and phase-suite ownership belongs to the other reviewer/root. Grade's preservation checks across a pause were referred to that owner, not duplicated here.
+
+The current receipt checker preserves validated occurrence offsets and whole 64-hex guards. Its new preceding-slash guard applies to every locator form and statically corrects the exact `/other//work/arm/a.md` suffix counterexample. The current reference classifier splits semicolon/period/newline clauses and statically corrects the two exact semicolon-separated artifact/fact examples. Actual heading inspection remains present and a false absence claim against a sectioned target remains refused. None of these observations closes CC7/CP5/CC8/CC9 findings or changes historical severity/outcomes.
+
+## Material findings
+
+### CC10-RR-001 — high: The required unable-to-read disclosure still passes as observed section absence
+
+**Classification.** Inherited residual defect; the exact R9 unreadable counterexample remains. Clause splitting repairs the two semicolon-separated examples but does not establish general artifact/fact binding.
+
+**Requirement.** REMEDIATION-SPECIFICATION.md:39,63 requires actual inspected absence plus explicit matching disclosure; unable to read the section list must FAIL. The selected PLAN reference_conformance criterion is at line 23.
+
+**Prerequisites.** The new inline case at checks_suite.py:435-438 uses TARGET_NOSECTIONS, a matching real digest generated by blk(), a real staged target, and the fresh validator. Its failure cannot be dismissed as the older missing-target fixture.
+
+**Trigger.** SOURCE-001: unable to read the section list, so no sections are cited.
+
+**Static source trace.** _UNKNOWN has no unable-to-read alternative. This sentence has a section word and no unknown-regex match, while _ABSENCE matches no. It is classified as absence for SOURCE-001; the inspected target has no headings; disclosed is true; both disclosure refusal branches are skipped and check_one reaches PASS. The inline case explicitly expects FAIL, so static inspection predicts that case would expose the defect if later executed. No execution was performed.
+
+**Related binding cases.** The comma/while example remains one _CLAUSE and distributes absence to both IDs, allowing a false PASS for SOURCE-001. The comma/and example remains one clause and lets an unrelated unknown erase valid absence, causing a false FAIL. These extend the same retained artifact/fact-binding limitation, rather than claiming the exact semicolon cases remain broken.
+
+**Impact.** A disclosure of inability to inspect can qualify for the inspected-absence exception, and unrelated facts can still manufacture or erase the required disclosure. Reference conformance contributes directly to grade.py mechanical PASS.
+
+**Bounded repair.** Bind each disclosure to the referenced artifact and its section fact within the selected v1 representation; recognize the exact required inability-to-read case as unknown. Preserve the valid absence and unrelated-unknown positive. Retain the newly authored exact case and add discriminating coordinated-clause cases with valid target bytes and explicit classification assertions. No new v2 grammar is requested.
+
+**Author claim assessment.** CHG-016 and CHG-019 checker and executable_suite COMPLETE_AUTHORED_UNEXECUTED labels overstate completion of the requested predicate; source is authored and unexecuted, but the required unreadable rejection remains incorrect.
+
+Additional exact disclosure texts: ["SOURCE-001 has no authoring date, while SOURCE-902 has no stable sections.", "SOURCE-001 has no stable sections, and its authoring date is unknown."]
+
+**Locations.** inputs/claude/run/source/checkers/validate_references.py:197-213,257-268,415-428,448-491; inputs/claude/run/source/no-model-tests/checks_suite.py:425-448.
+
+**Historical links.** CP5-CK-001, CC8-PROP-001, CC9-RR-001; CHG-016, CHG-019. Historical records and severities are retained, not closed.
+
+### CC10-RR-002 — high: Absolute locator matching still accepts substrings embedded with valid filename punctuation
+
+**Classification.** Inherited boundary limitation with a new counterexample; the exact R9 preceding-slash example is statically corrected.
+
+**Requirement.** REMEDIATION-SPECIFICATION.md:43 requires validation of the complete absolute locator token, rather than an accepted substring; selected PLAN:14,20,25 fixes locator and exact-receipt ownership.
+
+**Prerequisites.** Select sandbox /work/arm, promise a.md with real current digest H_a, and use the declared locator_then_digest record shape. H_a denotes the full actual 64-hex digest, not literal text.
+
+**Trigger.** /other+/work/arm/a.md  H_a
+
+**Static source trace.** The accepted /work/arm/a.md begins after +, which is neither WORDISH nor slash, so locator_occurrences accepts its offset despite the whole token belonging to /other+. records_for then accepts that validated start and the same-line current digest; the single digest set equals actual and yields PASS. Similarly, /work/arm/a.md+backup  H_a accepts the prefix of a different filename because the following + is not rejected.
+
+**Impact.** A receipt naming a different absolute path or filename can satisfy the selected artifact receipt. The selected source-root ownership contract is still wider than intended.
+
+**Bounded repair.** Parse and compare the complete locator token using the declared receipt syntax, preserving supported Markdown wrappers and existing positives. Reject path-valid punctuation that continues or prefixes a different path. Add both prefix and suffix counterexamples using actual target bytes and assert locator rejection, not only generic FAIL.
+
+**Author claim assessment.** The changed preceding-slash guard correctly rejects /other//work/arm/a.md and is a real static improvement. It does not establish the complete-token criterion claimed by CHG-006/021.
+
+**Locations.** inputs/claude/run/source/checkers/check_receipts.py:42,53-81,159-168,256-262.
+
+**Historical links.** CC7-002, CC8-PROP-003, CC9-RR-002; CHG-006, CHG-021. Historical records and severities are retained, not closed.
+
+### CC10-RR-003 — high: The short wrong-root digest decoy is borrowed by a valid bare locator on the previous line
+
+**Classification.** Retained receipt association defect exposed by the new physical fixture; the inline substitute masks it by exceeding the glue length cap.
+
+**Requirement.** REMEDIATION-SPECIFICATION.md:39,43 requires the bare valid locator plus separate wrong-root digest decoy negative, actual target/config bytes, fixture consumption and intended-reason assertions. PLAN:20,25 requires the digest to belong to that file.
+
+**Prerequisites.** Use a real promised a.md under selected sandbox /work/arm whose current digest is H_a, and the enabled labelled_next_line shape. The frozen physical text uses digest 103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43, whose target bytes have not been supplied in the frozen inventory; the ownership trace assumes the explicitly required matching real target, not an observed execution of that unbound physical file.
+
+**Trigger.** saved /work/arm/a.md
+sha256 of /other//work/arm/a.md is H_a
+
+
+**Static source trace.** The first locator is valid; the second locator is rejected by the new slash guard. Nevertheless labelled_next_line matches from the first locator across the newline and consumes the 35-character glue sha256 of /other//work/arm/a.md is . The current digest is thereby assigned to the valid first locator and PASS follows. Checking that the record starts at a valid locator offset does not establish ownership of a digest named for a different intervening path.
+
+**Suite discrimination.** The inline case substitutes /some/unselected/root/a.md and uses SHA-256 of, making the next-line glue 41 characters, above the 40-character cap. It can FAIL solely because the substitute is longer. rcp_case records association/reason but only outcome equality is asserted. The physical short case is never consumed by checks_suite.
+
+**Impact.** An apparent successful repair can still certify a terminal response that has no actual receipt for the promised file, while its synthetic substitute reports the expected negative for the wrong reason.
+
+**Bounded repair.** Restrict the next-line label syntax or explicitly reject intervening path/locator ownership before associating a digest. Wire the exact short physical decoy with its selected real target/promise/mapping and assert the association-specific rejection. Preserve adjacent-line valid labels, table and sha256sum positives and both swapped-pair negatives.
+
+**Author claim assessment.** CHG-021 executable_suite COMPLETE_AUTHORED_UNEXECUTED is too broad: the required short decoy does not discriminate correctly and the physical fixture is unconsumed.
+
+**Locations.** inputs/claude/run/source/checkers/check_receipts.py:110,121-125,159-168,256-262; inputs/claude/run/source/fixtures/chg-021-receipt-spans/NEG-bare-plus-wrongroot-digest.terminal.txt:1-2; inputs/claude/run/source/no-model-tests/checks_suite.py:207-229,462-465.
+
+**Historical links.** CC7-002, CC8-PROP-003, CC9-RR-003; CHG-006, CHG-021. Historical records and severities are retained, not closed.
+
+### CC10-RR-004 — high: Fresh inline suite binding is implemented, but required fixture consumption and reason assertions remain partial
+
+**Classification.** Inherited incompleteness, partly disclosed. Fresh suite imports and real inline targets are actual improvements; the remaining defect is not total absence of executable suite integration.
+
+**Requirement.** REMEDIATION-SPECIFICATION.md:39,43,63 requires fresh suite consumption of all fixtures, valid prerequisite target/config bytes, intended reason/classification assertions, the retained IDEAS-900 no-heading target, replacement of the R9 zero-digest/missing-target placeholder, and the retained 65-hex negative.
+
+**Prerequisites.** The inline ref_case and rcp_case constructors really stage bytes and compute digests, and checks_suite imports the current sibling checkers. Those improvements are acknowledged. This finding concerns omitted physical cases and assertions rather than hypothetical execution results.
+
+**Trigger.** The suite never loads either physical fixture INDEX or any physical fixture file. No inline 65-hex case is authored. NEG-unknown-sections.md still carries the R9 all-zero digest and absent IDEAS-008 target; the new sectioned-target fixture carries REPLACE_WITH_ACTUAL_TARGET_DIGEST.
+
+**Static source trace.** rec at lines 26-30 compares only expected with actual outcome. ref_case stores a truncated reason, while rcp_case stores reason and association, but neither asserts them. The fresh inline no-heading SOURCE-001 target is legitimate additional coverage, yet does not consume the retained real IDEAS-900 fixture required by the specification. The frozen manifest contains no file with target SHA 103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43 and no selected TARGET-NO-SECTIONS/POS-disclosed-sections/NEG-disclosed-other-unknown fixture paths. The physical INDEX still describes retained entries without supplying their bytes.
+
+**Impact.** Required negative scenarios can be absent or fail on setup and still appear covered by prose or generic outcome checks. The short-decoy case in CC10-RR-003 demonstrates why outcome-only assertions are insufficient.
+
+**Bounded repair.** Mark the affected fixture/suite subparts PARTIAL until all required frozen targets/configurations are bound and the physical fixtures are actually consumed or their exact bytes are demonstrably staged. Replace the old zero-digest placeholder in the fresh run, add the retained 65-hex case and explicit predicate/association assertions, preserving existing positives and both long swapped-pair negatives. If the target bytes are unavailable in the issued selected set, request root selection/binding and keep the dependent case unavailable; do not invent the target or read mutable unselected locations.
+
+**Author claim assessment.** BUILDER-RECEIPT explicitly labels CHG-019 physical_fixture_set PARTIAL and discloses the new STORY-014 placeholder; this is not hidden or a claim that every physical fixture is complete. The partial_reason omits the retained R9 zero-digest placeholder, and executable_suite remains COMPLETE_AUTHORED_UNEXECUTED for CHG-019/021 despite the required omissions. CHG-021 correctly says the 65-hex text is retained, but retention is not suite consumption.
+
+**Locations.** inputs/claude/run/source/no-model-tests/checks_suite.py:11-17,26-30,80-94,207-229,333-366,414-465; inputs/claude/run/source/fixtures/chg-019-absence-disclosure/INDEX.json:5-27,60-65; inputs/claude/run/source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md:13-23; inputs/claude/run/source/fixtures/chg-019-absence-disclosure/NEG-false-absence-sectioned-target.md:5-11; inputs/claude/run/BUILDER-RECEIPT.json:272-287,312-330,350-366.
+
+**Historical links.** CC9-RR-003; CHG-006, CHG-016, CHG-019, CHG-021. Historical records and severities are retained, not closed.
+
+## Status and custody boundary
+
+Checker source, actual caller binding and inline scenario authoring exist. Required receipt ownership and section-disclosure predicates remain incorrect, and full physical fixture consumption/reason assertions remain partial. CHG-019's explicitly disclosed physical fixture PARTIAL is preserved and distinguished from the overstated executable_suite completion label. Unavailable target bindings remain root dependencies; this reviewer did not manufacture or fetch them.
+
+Validation **NOT_PERFORMED**. Tests and candidate execution **NOT_RUN**. Native C/B/A, root admission, hook activation and human acceptance **NOT_RUN**; hooks remain **DESIGN_ONLY**. Historical Codex C COULD_NOT_RUN, B-arm NOT_RUN and prior Claude budget/late-write outcomes remain unchanged. This static review provides no native finding closure, release readiness or authority issuance.
+
+`ALLOCATION.json` binds the original clock. `INPUT-SELECTION.json` inventories all 39 frozen inputs. `FINDINGS.json` carries the four structured review records. After complete report/findings readback, the external `RECEIPT.json` records the root manifest, selected-input repeat verification, and final output sizes/hashes. The receipt excludes its own digest and is itself fully read back; its digest is returned separately to the parent. Root owns broader author chronology, candidate custody and admission decisions.

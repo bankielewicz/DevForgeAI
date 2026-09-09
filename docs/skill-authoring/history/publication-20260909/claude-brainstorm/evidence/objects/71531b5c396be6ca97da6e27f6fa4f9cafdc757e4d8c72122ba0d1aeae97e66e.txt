@@ -1,0 +1,2 @@
+{"type":"system","subtype":"init","skills":["devforge-brainstorm","other-skill"]}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"I can help with that directly."}]}}

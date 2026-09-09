@@ -1,0 +1,16 @@
+{
+  "schema_version": "devforge.preparation-clock/v1",
+  "assignment": "SESSION-001@6",
+  "revision": "005",
+  "start_utc": "2026-09-06T18:06:43Z",
+  "start_basis": "first work on revision 005 in this author session: verification of CLAUDE-CREATOR-CONTINUE.md and ROOT-RECEIPT.json digests",
+  "budget_minutes": 120,
+  "hard_deadline_utc": "2026-09-06T20:06:43Z",
+  "closeout_reserve_minutes": 20,
+  "stop_technical_work_utc": "2026-09-06T19:46:43Z",
+  "clock_reset": false,
+  "prior_allocation_note": "No SESSION-001@6 run directory or in-progress bytes existed before this start; nothing was reset. Preparation 004 (SESSION-001@5) is closed and preserved, not extended.",
+  "native_model_calls_authorized": 0,
+  "installations_authorized": 0,
+  "exports_authorized": 0
+}

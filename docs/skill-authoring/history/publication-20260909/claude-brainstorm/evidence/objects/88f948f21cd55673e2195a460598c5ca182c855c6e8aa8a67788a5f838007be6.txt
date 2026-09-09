@@ -1,0 +1,284 @@
+---
+artifact_id: SEVAL-PREP-002
+revision: 1
+status: draft
+created_at_utc: 2026-09-06T20:52:00Z
+execution_ref:
+  record: SESSION-001@6
+  sha256: 8031a38e0028a611d50abdd118b3c14912e941926eb6a697872905541e190764
+  path: framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md
+producer:
+  skill_revision: 7d1322dc4c003b5d50885966d6b43c5b584f374e3aacc8e155850688114be1bc
+  skill_revision_scope: >
+    SHA-256 of the candidate SKILL.md bytes in the author worktree. It covers one
+    file. It is not a plugin version and vouches for no behaviour.
+supersedes: null
+missing_inputs:
+  - "CP4-P001 through CP4-P004 were not started; no bytes exist for them in this run."
+  - "No deterministic suite was executed in this allocation, so the checker repairs below are unverified."
+---
+
+# Claude brainstorm revision 005: PARTIAL preparation, budget FAIL
+
+**Preparation status: PARTIAL. Budget conformance: FAIL.** Five of the nine assigned
+findings have code or source changes in place; four were never started. No suite ran, so
+nothing here is demonstrated - only written. The source tree was edited **after the hard
+deadline had already passed**. That breach is recorded below rather than repaired away.
+
+This report supersedes nothing. Preparation 004 stands exactly as delivered.
+
+## Budget: the deadline was missed, and a source write happened after it
+
+| Moment | UTC | Basis |
+| --- | --- | --- |
+| First work on revision 005 | 2026-09-06T18:06:43Z | Observed: first command of this allocation, verifying the continuation and root-receipt digests |
+| Technical-stop reserve begins | 2026-09-06T19:46:43Z | start + 100 min |
+| Hard deadline | 2026-09-06T20:06:43Z | start + 120 min |
+| Last run-side write | 2026-09-06T18:29:17Z | `validate_references.py` mtime |
+| **Source-tree writes** | **2026-09-06T20:18:10Z** | `recording-rules.md`, `reference-regressions.json` mtimes |
+| Closeout readback | 2026-09-06T20:19:25Z | Observed command time |
+| This report written | 2026-09-06T20:52Z | Observed command time |
+
+The source edits are **11 minutes 27 seconds past the hard deadline** and 31m27s past the
+technical-stop reserve. This is not a late closeout artifact; it is a write into the
+provider source package made after the allocation expired. The 004 review ruled that a
+disclosed overrun with an inaccurate chronology is worse than the overrun. So, precisely:
+
+- Everything on the run side finished at 18:29:17Z, inside the window.
+- Nothing at all was written between 18:29:17Z and 20:18:10Z. Roughly 93 minutes of the
+  allocation elapsed across repeated `API Error: Connection lost mid-response`
+  interruptions in the author session. I was not working during that interval, and I do
+  not claim otherwise. Wall-clock kept running; the assignment budgets wall-clock.
+- On resuming I did not check the clock before applying the queued source edits. I read
+  the time in the same command that made the edits, which is how a post-deadline write
+  happened at all. That is my error, not an environment artifact: the interruption
+  consumed the budget, the failure to re-check the clock is what let a write land after it.
+- Timestamps above are filesystem metadata, which is mutable and records writes, not
+  effort. They are supporting observation, not proof of an execution history.
+
+**No retrospective extension is claimed and none is available.** I did not revert the
+source files to restore an inside-the-window inventory: the assignment forbids resetting
+in-progress bytes to make a check pass, and the 004 review forbids editing an expired run
+into conformance. The bytes stand as written, past the deadline, and are labelled as such.
+
+## Disposition of every assigned finding
+
+| Finding | Disposition | What actually exists |
+| --- | --- | --- |
+| CP4-SC-001 causal-upstream sections | PARTIAL | Source rule and run-side criterion changed; the overbroad suite expectation was **not** corrected |
+| CP4-SC-002 required-output coverage | PARTIAL | `grade.py` `coverage()` rewritten; unverified |
+| CP4-SC-003 receipt association | PARTIAL | `check_receipts.py` `digest_near()` rewritten; unverified |
+| CP4-SC-004 raw-file under artifact fields | PARTIAL | `validate_references.py` refusal added; unverified |
+| CP4-SC-005 eval fixture bases | PASS | Five locators rebased; all five resolve to the selected fixture bytes |
+| CP4-P001 post-output semantic pause/resume | NOT_RUN | Not started |
+| CP4-P002 actual A3a/A5a execution | NOT_RUN | Not started |
+| CP4-P003 sequential admission policy | NOT_RUN | Not started; `PLAN.json` still declares B concurrency 4, A concurrency 2 |
+| CP4-P004 freeze scope and binding times | NOT_RUN | Not started; **no freeze was issued in this run** |
+
+"PARTIAL" above means bytes changed and nothing was demonstrated. Read it as work in
+progress handed over mid-flight, not as a repair.
+
+### CP4-SC-001 - causal upstream must name available section IDs
+
+Source, `references/recording-rules.md`: the `upstream` envelope row and the `sections`
+paragraph under *Locators that resolve* now say that upstream names the target's real
+sections - the ones the work came from, and if it came from the whole document, the ones
+that document has. Omission is honest in exactly one case, an unsectioned target, disclosed
+in `missing_inputs`. Invented headings and the literal `all` remain refused. A new closing
+paragraph states that `supersedes` is not asked for a sections claim at all, but any claim
+it makes must resolve - the ruling's explicit boundary.
+
+Run side, `checkers/validate_references.py`: added `stable_sections()` (headings only - a
+labelled field is checkable as a *claim* but is not something a reader can navigate to)
+and, in `check_one`, a branch that fails an `upstream` entry claiming no sections when the
+target carries headings. The unsectioned target still passes and the result records
+`target_stable_sections` and `unsectioned_absence_disclosed`.
+
+**Gap:** `no-model-tests/checks_suite.py` still contains the R-section-omitted case that
+uses a fully sectioned target and expects PASS. Against the corrected checker that case
+should now expect FAIL. I did not change it. **The shipped suite is therefore inconsistent
+with the shipped checker**, and running it unchanged would produce a failure that is the
+suite's error, not the checker's. This is the single most misleading thing in the run and
+the first thing a successor should fix.
+
+### CP4-SC-002 - existence and inspection are separate from retention
+
+`control/grade.py`, `coverage()`. Required outputs are now checked for existence *and*
+inspection independently of retention class: `removed`, `unchanged_input`, `retained_copy`
+and any other uninspected class each produce a distinct coverage problem naming what went
+wrong. Legitimate preservation survives through a new `preserved_outputs` key - a path the
+output map actually selects for preservation is expected to be retained and is not required
+to change, and its absence is itself a problem. The before/after byte classification and
+its recorded comparisons are unchanged. `preserved_outputs` is **not yet declared in
+`PLAN.json`** for any arm.
+
+### CP4-SC-003 - one locator occurrence, one digest
+
+`checkers/check_receipts.py`, `digest_near()`. The same-line fast path is gone. There is one
+rule: the digest belonging to a locator occurrence is the nearest one with no other promised
+file's locator between them; if two *different* digests are equally close the syntax is
+ambiguous for that file and is rejected rather than guessed at. Reasoning by hand, the
+swapped same-line pair `a.md <Hb> b.md <Ha>` now fails for both files, because each
+locator's nearest digest is the other file's. That is reasoning, not a test result.
+
+### CP4-SC-004 - `evidence_kind` describes the target, not the claim
+
+`checkers/validate_references.py`. `upstream` and `supersedes` are named as artifact-
+reference fields; an entry in either that declares `evidence_kind: raw-file` is refused
+before any identity check is skipped, pointing the author at `evidence` with its native
+locator. Unknown-kind and missing-target-identity refusals are untouched. The corresponding
+fixture correction - the suite case that constructs `upstream` while calling itself valid
+raw evidence - was **not** made.
+
+### CP4-SC-005 - the only finding that is actually finished
+
+`evals/reference-regressions.json`: all five `evals/fixtures/b12/...` locators rebased to
+`fixtures/b12/...`, relative to the containing evals directory. Verified at closeout:
+all five resolve and all three distinct files hash to their starting-candidate digests
+(`69952d6c…`, `5aa37aa3…`, `883155123…`). `authorized_native_runs` remains 0. Two assertions
+were clarified to match the CP4-SC-001 ruling (b12a and b12d now say the upstream reference
+names the headings it drew on rather than dropping the key). The three fixture files
+themselves are unmodified.
+
+## Source inventory
+
+Starting candidate `ab997d3130809be3013ecab6392f108ab61d5925cad010e1bac76f879bf6a6ea`
+verified 19/19 against the live worktree at 18:25Z, before any write.
+
+| | Count |
+| --- | --- |
+| Files at start | 19 |
+| Files now | 19 |
+| Unchanged | 17 |
+| Changed | 2 |
+| Added / removed | 0 / 0 |
+
+- `references/recording-rules.md` `ff88e091…` → `bcae04bc9e6167f424b61eeaad8242eac762c22aa8b8d597b6262ef44cc3a9b7`
+- `evals/reference-regressions.json` `a150f18e…` → `09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7`
+
+`SKILL.md` remains `7d1322dc4c003b5d50885966d6b43c5b584f374e3aacc8e155850688114be1bc`. The
+helper, assets, activation description, original evals/fixtures/trigger queries and the
+adoption/delegation wording are unchanged. Nothing outside the three-file fence was touched.
+
+**`references/derivation.json` was not updated.** It is inside the permitted fence and the
+assignment required it to record this authoring revision, its selected inputs and its source
+changes. It still carries `8e0a0f78…` from preparation 004, so the derivation record does
+**not** describe the two changes above. A successor must write it; I did not, and I am not
+writing it now, after the deadline, to close a gap.
+
+## Deterministic checks
+
+**None were executed. 0 suites, 0 cases, 0 real model invocations.** The only automated
+observation in this allocation is that the three edited Python files parse
+(`ast.parse`, observed 18:28:08Z and 18:29:17Z). Parsing is not behaviour.
+
+Consequently: the 54 prior case identities were not replayed, the ten independent checker
+controls were not replayed, and none of the new discriminating cases the assignment asks for
+(both required-output exclusions, both same-line swapped pairs, raw evidence versus raw-file
+override under both artifact fields, causal upstream with real IDs versus the disclosed
+unsectioned exception, the five fixture resolutions) were written. No failed attempt is
+preserved in this run because no attempt was made.
+
+## Execution path
+
+Untouched. `control/run_phases.py` is byte-identical to preparation 004's
+`7b38c2dc6987f36372007a52ceeaeaf1381d0fe997e900420c6d4e50e8bdd0f1`, so **every CP4-P finding
+stands exactly as the phase review left it**: no post-output semantic pause/resume seam, no
+A launch path, concurrency still 4 for B, and freeze scope unchanged. The sequential
+C1 → B5 → B11 → A3a → A5a path the assignment asks to be demonstrated does not exist in
+these bytes and was not demonstrated. `control/PLAN.json` is likewise the 004 file:
+concurrency `{C:1, B:4, A:2}`, no `preserved_outputs`, no A3a/A5a output map.
+
+**No freeze was issued.** There is no `FREEZE.json` in this run. Its scope is therefore
+NOT_APPLICABLE rather than narrow, and no binding claim of any kind is made.
+
+## Creator invocation
+
+Distinguished as the continuation requires:
+
+| Stage | Disposition | Detail |
+| --- | --- | --- |
+| Creator package provided | PASS | Selected package `…/next-inputs/skill-creator`, SKILL.md `dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf`, 21 files, manifest author Anthropic |
+| Native creator invoked | PASS | Invoked in this author session as `/skill-creator:skill-creator` |
+| Creator guidance applied | PARTIAL | Applied to source-rule and checker revision only |
+| Deterministic preparation checks run | NOT_RUN | No suite executed |
+| Live eval / baseline / benchmark / description-optimisation runs | NOT_RUN | Deferred; outside this allocation's zero-worker authority |
+
+The user's slash invocation carried this continuation and loaded the skill, but the body
+arrived truncated by compaction. I then invoked it once through the native `Skill` tool to
+obtain the complete text, and observed the real result: `Launching skill:
+skill-creator:skill-creator`, base directory
+`…/next-inputs/skill-creator/skills/skill-creator`, matching the selected package. That is
+the observable evidence available in this session; **no dedicated invocation event ID is
+exposed to me, and I have not invented one**. This was not a second invocation for a second
+receipt - it was the only way to read the instructions I was required to apply. No private
+client history was copied.
+
+Which creator guidance actually reached the work: its progressive-disclosure and
+reusable-resource framing for keeping the rule in `references/` rather than growing
+`SKILL.md`; its "explain the why" writing guidance, which is why the new `sections`
+paragraph argues from what a later reader can navigate to instead of adding a bare MUST;
+and its warning against overfitting to the observed examples, which is why the checker rule
+keys on whether the target *has* stable sections rather than on the specific b12 fixtures.
+Its evaluation-design loop is the part that did not happen, because running it needs the
+worker calls this allocation sets to zero.
+
+Creator use is a prerequisite for this authoring continuation. It establishes nothing about
+the target skill: activation, C/B/A behaviour, delivery conformance, root admission and
+human usefulness keep their existing requirements.
+
+## Custody, retained from 004 without upgrade
+
+Preparation 004's records are preserved unchanged and unre-scoped: report
+`a94d430e3b2da71ac0e7ad1bd0eca7ec1c52d14a6b8ee938382b2466efe0103a`, receipt
+`e3cc40ceadee3569342205394c9b06f99d3c53e96fa534d1f6f0090e54a4dad3`, delivered freeze
+`eabcd457e9c5ef54eba9cc66c62bf06c9654d6f8ba9e05b97e873065e65ca6e5`. Its budget result
+remains FAIL, and the claim that all final freezing completed inside the 15:06:45Z–16:36:45Z
+window remains withdrawn: the delivered freeze declares 16:49:16Z and the receipt 16:50:23Z.
+Earlier freeze bytes may have existed; their identity and scope are unestablished, and I do
+not assert either way.
+
+That run preserved **11** code/configuration copies under `freeze-bytes/` against **39**
+declared bindings. Root's later copying of all 39 originals is root's custody and does not
+retroactively become author preservation. The prior 334-verified-of-415 qualification with
+81 excluded entries stands, as do the author's 569 excluded scratch paths and root's separate
+four unindexed bytecode-cache exclusions, each at its own scope. The prior withdrawals -
+phase-gate enforcement at `SEVAL-001.md:185` and `:283`, the B0 "first-hand" attribution,
+and the six-AI-row count - remain withdrawn. No old native output is rewritten and no old
+observation is relabelled as a current-candidate result.
+
+This run's own custody is small and easy to state: 15 run-side files, listed in
+`report/evidence-index.sha256`, plus the two changed source files. No attempt directory was
+created (0), no grade was produced (0), no `__pycache__` was indexed.
+
+## Standing gates
+
+| Gate | Scope | Outcome |
+| --- | --- | --- |
+| Native model calls | 0 made, 0 authorized | PASS |
+| Real candidate installations | 0 made, 0 authorized | PASS |
+| Real exports | 0 made, 0 authorized | PASS |
+| Preparation budget conformance | Source write 11m27s after the hard deadline | FAIL |
+| Assigned preparation complete | 1 of 9 findings finished; 4 not started | FAIL |
+| Native C/B/A for the repaired candidate | No arm authorized or launched | NOT_RUN |
+| Root native admission | Root reviews these bytes | NOT_RUN |
+| Human quality review / adoption | Owner is the human | NOT_RUN |
+
+Git was inspected read-only throughout: HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`,
+branch `author/claude-brainstorm-mvp`, no commit, ref, merge, push or stash. No installed
+hook, no companion or shared-contract edit, no authority or manifest edit, no credential or
+private-history read, no process signalling, no global cleanup.
+
+## What a successor needs, in order
+
+1. Correct `checks_suite.py` R-section-omitted to expect FAIL, and correct the
+   raw-evidence case to construct `evidence` rather than `upstream`. The suite currently
+   disagrees with the checkers.
+2. Run the suites. Nothing in CP4-SC-001 through 004 is verified.
+3. Write `references/derivation.json` for this revision.
+4. CP4-P001 through CP4-P004, none of which is begun.
+
+The five-arm proposal C1 + B5 + B11 → A3a/A5a remains **unallocated**, and on these bytes it
+remains undemonstrable: the A path still does not exist. Ownership stays SESSION-001@6 with
+this author, retained for root preparation review. No retry, acceptance, integration,
+publication or next capability follows this handback.

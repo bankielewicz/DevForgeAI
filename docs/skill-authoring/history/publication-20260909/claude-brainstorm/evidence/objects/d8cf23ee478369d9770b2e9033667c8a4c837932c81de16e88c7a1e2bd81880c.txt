@@ -1,0 +1,23 @@
+{
+ "schema_version": "devforge.preparation-clock/v1",
+ "assignment": "SESSION-001@11",
+ "revision": "011",
+ "first_tool_action": "UTC clock observation",
+ "first_action_rule_satisfied": true,
+ "first_action_evidence": "The first tool call of this turn was `date -u`, returning 2026-09-07T22:58:31.234163791Z. No file was read and no other preparation occurred before it. This is the rule R10 did not meet; R10-CUSTODY-001 records that failure and it is not retroactively repaired here.",
+ "start_utc": "2026-09-07T22:58:31+00:00",
+ "budget_minutes": 120,
+ "closeout_reserve_minutes": 20,
+ "stop_technical_work_utc": "2026-09-08T00:38:31+00:00",
+ "hard_deadline_utc": "2026-09-08T00:58:31+00:00",
+ "clock_reset": false,
+ "clock_extension": false,
+ "backdating": false,
+ "timestamp_serialization": "datetime.datetime.now(datetime.timezone.utc).isoformat(). R10 used time.strftime with %f, which time.strftime does not expand, so the R10 receipt carries a literal %f. Every timestamp in this run is produced by datetime isoformat and is parsed back before closure (R10-CUSTODY-002 / CHG-040).",
+ "native_model_calls_authorized": 0,
+ "installations_authorized": 0,
+ "exports_authorized": 0,
+ "executions_authorized": 0,
+ "creator_invocations_authorized": 0,
+ "prior_allocation_note": "No SESSION-001@11 run existed before this start. The R9 and R10 runs are closed, preserved and neither extended nor reset."
+}

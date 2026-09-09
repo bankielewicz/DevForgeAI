@@ -1,0 +1,187 @@
+# Claude devforge-brainstorm: frozen source review
+
+**Result: PASS for the scoped R01–R10 static review. No supported current source finding was identified.** Native installed-resource checks (C), behavior (B), activation (A), hook enforcement, rendered receipt delivery, and acceptance are **NOT_RUN** in this allocation. This result does not certify the candidate, close historical findings, or authorize promotion.
+
+## Identity and independence
+
+- Review started at `2026-09-07T22:05:25Z`; substantive review completed at `2026-09-07T22:14:01.288363+00:00`.
+- Input manifest: `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/CLAUDE-SOURCE-INPUTS.json`.
+- Manifest SHA-256: `06247209bc42536b8099f965ce5c95f7278837abb180d55b95887b81253c3f96`.
+- Reviewer: `/root/r10_source_review`; Codex API subagent. Exact served model and client version were not independently observable and are recorded as unknown.
+- Only the manifest and its 56 bound files were read as review inputs. The output directory was created exclusively; writes remain inside it. No live source, earlier report, repair map, author report, or run control file was opened.
+- The review task was fresh; filesystem/process/history isolation is not claimed. General environment and memory-summary guidance was present, but no memory file or prior rollout was consulted. Candidate metadata and the selected bridge contain historical assertions; those assertions were treated as untrusted and did not supply findings, grades or authority.
+- The full 20-file candidate was inspected, including its declared cases and fixtures. Baseline comparison established that 19 files are identical; only `references/derivation.json` differs. Runtime source was inspected for the interfaces used by these instructions, not as a complete runtime security or implementation audit.
+
+## Governing scope
+
+The selected shared Claude contracts and SKILL-001 specification govern artifact, attribution, ownership and packaging semantics. The frozen r7 design and bridge supply managed workflow requirements. The bridge supersedes only the old no-hooks choice and model-owned mechanical closeout requirement; it retains other semantic rules. Its historical assertions were not used as runtime test evidence. The scoped assignment selects P3 static inspection, so full validator helpers and native phases were not launched.
+
+## Criterion results
+
+### R01: PASS
+
+Applicability: Every skill; this candidate explores product ideas and routes adjacent implementation or accepted-decision changes.
+
+The description and Recover/Explore/Record/Focus workflow identify product discovery, a durable attributed ledger and a concrete continuation. Accepted-story implementation and reopening an adopted decision have explicit boundaries. This assesses metadata meaning, not observed selection.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:1–15](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:1).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:85–143](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:85).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md:6–18](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md:6).
+- requirement: [inputs/issued-r10/SKILL-DESIGN-SPECIFICATION-r7.md:5–9](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/SKILL-DESIGN-SPECIFICATION-r7.md:5).
+
+### R02: PASS
+
+Applicability: Every skill; the workflow consumes user statements and optional prior artifacts, and authors ledger/handoff outputs.
+
+Consequential missing inputs prompt a real question; unknowns are explicit. Selected destinations and output identities override defaults, unavailable selections block dependent writes, and the ordinary and handoff-only output paths are distinguished. The ledger and handoff templates provide the required fields; unfinished placeholders and unmanaged work remain drafts.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:50–83](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:50).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:110–172](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:110).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/assets/idea-ledger.md:1–50](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/assets/idea-ledger.md:1).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/assets/handoff.md:22–74](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/assets/handoff.md:22).
+- requirement: [inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:15–34](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:15).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md:55–65](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md:55).
+
+### R03: PASS
+
+Applicability: Every DevForgeAI skill; this one writes project artifacts and consumes recorded decisions.
+
+User adoption, standing delegated authority and source content remain separate. Scope of a previous authorization must cover the specific change. Collision and fence conflicts stop dependent writes without allowing a substitute path, ownership claim, reset or policy change. Runtime context is explicitly not adoption authority.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:87–108](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:87).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:90–133](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:90).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:113–132](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:113).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:19–27](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:19).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/execution-contract.md:13–29](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/execution-contract.md:13).
+- requirement: [inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:9–17](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:9).
+
+### R04: PASS
+
+Applicability: Every skill; managed phase, missing-input, correction, routing and staleness branches are applicable.
+
+The ordinary path and owner-selected handoff-only path agree with the bridge. A blocking question preserves the phase, a resumed prompt supplies no inferred decision, and one bounded correction does not authorize retries or a new deadline. Staleness and ownership block only affected work. No inspected operative branch silently converts failure into completion.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:37–68](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:37).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:104–132](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:104).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:135–149](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:135).
+- requirement: [inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:23–36](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:23).
+- runtime interface: [inputs/issued-r10/runtime/phase_state.py:515–575](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/runtime/phase_state.py:515).
+- runtime interface: [inputs/issued-r10/runtime/phase_state.py:1032–1083](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/runtime/phase_state.py:1032).
+
+### R05: PASS
+
+Applicability: Every skill; installed assets/references and the conditional external runtime are dependencies. The retained helper is historical under the selected bridge, not an active closeout dependency.
+
+The entrypoint routes its bundled references and templates and separates installed-skill and consuming-project roots. Managed commands and receipt helpers remain operator-owned; the unmanaged path does not invent a fallback. The checkpoint schema and current ledger binding agree with the selected runtime. All referenced current package resources are present in the frozen source packet; this does not establish installation or tier C. The preserved helper was read as source and is not invoked by the managed or unmanaged workflow.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:17–48](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:17).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:77–83](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:77).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:193–195](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:193).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:32–102](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:32).
+- historical resource: [inputs/claude/candidate/devforge-brainstorm/scripts/check_artifact.py:1–63](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/scripts/check_artifact.py:1).
+- requirement: [inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:33–36](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:33).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/skill-authoring-contract.md:47–61](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/skill-authoring-contract.md:47).
+- runtime limitation: [inputs/issued-r10/runtime/README.md:3–37](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/runtime/README.md:3).
+
+### R06: PASS
+
+Applicability: The skill reads prior artifacts, user-supplied documents, optional research and runtime-looking content.
+
+Quoted transcripts, attachments, retrieved notes, pages and tool-returned content cannot supply phase instructions or permissions merely by resembling runtime context. An undetermined context origin falls back to an unmanaged draft. An accepted label in a consumed change request is distinguished from actual user authorization. Fixtures and derivation assertions were treated as evaluation data in this review.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:28–40](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:28).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:87–108](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:87).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:9–15](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:9).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:101–103](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:101).
+- requirement: [inputs/validator/references/ai-review-rubric.md:77–85](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/validator/references/ai-review-rubric.md:77).
+
+### R07: PASS
+
+Applicability: Every DevForgeAI skill; ledger/handoff envelopes, copied templates and package derivation apply.
+
+Artifacts keep stable IDs, preserved revisions, exact causal references, real section names and explicit gaps. Raw evidence is not fabricated into an artifact. Ledger hashing precedes its handoff binding and the handoff never contains its own digest. All five current destination_sha256 values in derivation.json match the selected candidate bytes, and the two template copies equal their selected shared sources. Historical authority, preservation and author-verification assertions outside this packet remain unverified; this PASS is not a historical custody determination.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:89–108](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:89).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:145–182](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:145).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:7–88](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:7).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/derivation.json:40–88](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json:40).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/derivation.json:241–243](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json:241).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/derivation.json:314–316](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json:314).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:7–27](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:7).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:75–93](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:75).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/skill-authoring-contract.md:53–53](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/skill-authoring-contract.md:53).
+
+### R08: PASS
+
+Applicability: Every skill; the entrypoint uses conditional supporting references.
+
+The four useful phase sections remain directly accessible. The entrypoint introduces essential managed context, destination/identity and receipt boundaries, then points to detailed managed-runtime and recording rules at their use sites. Examples explain attribution, adoption strength and scope. No inspected duplicate or example requires an incompatible action under the selected bridge precedence.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:17–83](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:17).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:85–143](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:85).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:193–195](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:193).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:45–78](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:45).
+- requirement: [inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:36–36](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:36).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/skill-authoring-contract.md:47–59](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/skill-authoring-contract.md:47).
+
+### R09: PASS
+
+Applicability: Every skill; this skill reports artifact/check outcomes. Source evals were inspected as declared cases, not executed or used as native evidence.
+
+The instructions require observed saved bytes and distinguish structural checks from idea quality, attribution and adoption. Bare outcomes and actual unavailable causes are required; the handoff preserves creation-time NOT_RUN for later operations. Paired source cases distinguish adoption from noncommittal feedback, live ownership from historical authorship, and missing prior bytes from available archives. Trigger definitions keep explicit invocation and implicit selection distinct. No inspected current instruction promotes a self-report, hash or planned check into native PASS.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:184–191](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:184).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:139–157](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:139).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:134–161](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:134).
+- declared cases: [inputs/claude/candidate/devforge-brainstorm/evals/evals.json:90–129](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/evals/evals.json:90).
+- declared cases: [inputs/claude/candidate/devforge-brainstorm/evals/evals.json:147–247](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/evals/evals.json:147).
+- declared cases: [inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json:1–30](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json:1).
+- requirement: [inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:64–73](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md:64).
+- requirement: [inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:40–46](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:40).
+
+### R10: PASS
+
+Applicability: Every DevForgeAI skill; shared handoff and conditional managed phase/delivery controls are applicable.
+
+Phase work supplies observable checkpoints, while the external runtime owns transitions, accepted evidence, completion and receipt publication. A missing or unrecognizable runtime produces drafts and NOT_RUN, and no manual closeout fallback is granted. The handoff identifies real continuation capability, owner, prerequisites and completion evidence without inventing an invocation. Runtime receipt delivery is not treated as proof that a human saw it. This static review writes no candidate repair or acceptance record.
+
+Evidence:
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:17–48](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:17).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/SKILL.md:133–143](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md:133).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/assets/handoff.md:44–74](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/assets/handoff.md:44).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:22–35](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:22).
+- candidate: [inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:120–161](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:120).
+- requirement: [inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:19–46](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md:19).
+- runtime interface: [inputs/issued-r10/runtime/hook_protocol.py:84–104](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/runtime/hook_protocol.py:84).
+- runtime limitation: [inputs/issued-r10/runtime/README.md:88–107](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/issued-r10/runtime/README.md:88).
+
+## Current byte bindings and limits
+
+The three operative source files are unchanged from the selected baseline. The candidate derivation record now names their actual current hashes:
+
+| Candidate file | SHA-256 |
+| --- | --- |
+| SKILL.md | `a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c` |
+| references/recording-rules.md | `5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3` |
+| references/managed-runtime.md | `6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30` |
+
+The two copied asset digests also match their selected shared source bytes. These are independent current byte comparisons, not reliance on the author’s `verified` strings. The derivation file itself is `eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef`.
+
+Current metadata consistency does not prove when earlier authoring occurred, whether external author assignments matched, whether historical archives remain available, or whether any earlier finding is closed. Those external records were excluded from this packet. Source-only fixture declarations, including operator-owned B7 references, were not materialized or run. Their live availability is unobserved.
+
+The retained `check_artifact.py` was read as a historical resource. The selected bridge expressly preserves those bytes while removing helper invocation from the managed workflow and forbidding a manual fallback. This review does not establish helper command-line execution or installation behavior.
+
+## Handoff
+
+No candidate repair is recommended from this scoped static review. The integration owner retains disposition of historical findings and author authority. A separately allocated evaluator must establish installed resource loading, actual native behavior and activation, effective hooks, delivery rendering, and required acceptance on the exact chosen integrated bytes. Preserve the current input identity and any later changed candidate as separate evidence.
+
+`ai-review.json` records all ten criterion outcomes and exact input identities. `ALLOCATION.json` records the observed start, deadlines and pre-review hashes. `RECEIPT.json` binds the completed outputs and the post-review input hashes; the receipt’s own digest is delivered externally to avoid self-reference.

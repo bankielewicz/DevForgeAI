@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""Corrected synthetic case definitions (CC7-009 / CHG-013). Authored, not run.
+
+These replace the r8 expectations that disagreed with the fixed contracts or did
+not reach the mechanism they claimed to test. They are definitions only: this
+allocation executes no case, imports nothing here, and creates no result file.
+
+The r8 proposal's *history* statements are corrected alongside the expectations,
+because a case justified by a false account of the baseline cannot be checked by
+the next reader:
+
+  - PLAN.json:27 is the semantic criterion. The r8 text cited :22 for
+    missing-judgment behaviour; :22 is inside the criteria block's opening.
+  - r7 already exercised non-zero concurrency: phase_suite.py:321-334 declares
+    A=2 in P6 and :477-485 declares B=4 in P24. The claim that the old
+    concurrency case covered only zero is withdrawn. The new expectation --
+    refusal for *every* non-1 value -- is still correct and is kept.
+  - CHG-016's reference_conformance clause is PLAN.json:23, not :18 (:18 is a
+    receipt record shape).
+  - The live-preservation rule is REMEDIATION-SPECIFICATION.md:27; the r8 text
+    cited :51, which does not exist in that document. Line 51 of
+    SKILL-DESIGN-SPECIFICATION-r7.md is the prior design's example.
+  - Activation is implemented in control/run_phases.py `_activation`, not in
+    control/grade.py.
+"""
+
+CASES = [
+    {
+        "id": "P-missing-judgment",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:27 (semantic)",
+        "setup": {"judge": {}},
+        "expect": {"gate": "STOP", "semantic_outcome": "MISSING", "markers": 0},
+        "why": "An absent judgment must be the empty object, so the gate reads a judgment that is "
+               "genuinely not there. The r8 setup supplied a judge object with a falsy verdict, "
+               "which exercises the wrong branch: that is a recorded negative judgment, not a "
+               "missing one, and both must fail for their own reasons.",
+        "executed": False,
+    },
+    {
+        "id": "P-b-prefix-after-failure",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:43-56 (phase_plan)",
+        "setup": {"fail_at": "B5", "then_admit": ["B11"]},
+        "expect": {"admitted_prefix": ["C1", "B5"], "markers_for": ["C1", "B5"]},
+        "why": "After a B failure the permitted prefix is exactly the arms admitted up to and "
+               "including the failure. Asserting a longer prefix would accept an arm admitted "
+               "after a STOP; asserting a shorter one would erase evidence that was legitimately "
+               "produced before it.",
+        "executed": False,
+    },
+    {
+        "id": "P-concurrency-non-1",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:35-41 (caps.concurrency)",
+        "setup": {"concurrency_values": [0, 2, 4]},
+        "expect": {"exit_code": 6, "markers": 0},
+        "why": "The plan fixes concurrency at 1 for every phase, so every other value is refused "
+               "with code 6 and no marker. r7 already declared A=2 (phase_suite.py:321-334) and "
+               "B=4 (:477-485); this case generalises the refusal rather than introducing the "
+               "first non-zero value.",
+        "executed": False,
+    },
+    {
+        "id": "P21-resume-stale-inventory",
+        "change_id": "CHG-013",
+        "criterion": "PLAN.json:26 (inventory)",
+        "setup": {"resume_from": "P21", "mutate": "inventory_binding"},
+        "expect": {"recorded": "STALE", "reason_contains": "inventory binding mismatch",
+                   "markers": 0},
+        "why": "The r8 case resumed at the wrong point and never reached the binding comparison, "
+               "so it could report its expected value without testing the mechanism. Resuming at "
+               "P21 with a mutated inventory binding reaches the comparison and requires STALE to "
+               "be recorded, not inferred.",
+        "executed": False,
+    },
+]
+
+# CHG-011 (CC7-007): the prospective pause/resume lifecycle.
+#
+# Honest status: NOT AUTHORED IN THIS ALLOCATION. The corrected case shape is
+# stated here so it is not lost, but the supported process/module lifecycle it
+# has to drive belongs to the runtime interface, and writing a plausible harness
+# for it would be the invention the remediation specification forbids.
+LIFECYCLE_DEFERRED = {
+    "change_id": "CHG-011",
+    "original_finding_id": "CC7-007",
+    "status": "SPECIFICATION_RETAINED_EXECUTABLE_NOT_AUTHORED",
+    "required": [
+        "pause after each arm's outputs and checks exist, before its judgment",
+        "resume through the actual supported process/module lifecycle, not a re-run",
+        "same original allocation and deadline across every resume",
+        "order C1, then B5, then B11, then the A arms",
+        "exactly one admission marker per arm",
+        "each consumed judgment and each preserved result digest asserted, not assumed",
+    ],
+    "why_deferred": "The resume path is driven by runtime-owned lifecycle events. This allocation "
+                    "authorizes no execution and the selected v1 interface exposes no collector "
+                    "for them; see admission.ROOT_DEPENDENCY_DEFERRED. The finding stays open at "
+                    "its original severity.",
+    "executed": False,
+}

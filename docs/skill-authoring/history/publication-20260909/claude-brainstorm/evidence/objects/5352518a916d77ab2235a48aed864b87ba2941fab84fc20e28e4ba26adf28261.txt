@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+"""A-arm launch/completion and nonlaunch outcomes (CC7-008, CC7-010).
+
+CHG-012 and CHG-014, authored against the selected r7 baseline
+`control/controller.py:81-93` (`claim_attempt`) and PLAN.json:28,90-110.
+Authored, not executed: `launch` takes the launcher as an argument and this
+allocation supplies none.
+
+CC7-010: `claim_attempt` already refuses a preexisting destination, but its
+caller went on as though a refusal were a launch. A refused arm must leave no
+admission marker, must leave the existing bytes exactly as they were, and must
+record a nonlaunch outcome that is not an arm result. An ordinary nonlaunch
+refusal is a clean, truthful outcome -- it is not a successful arm, and it is
+not a failure of the candidate either.
+
+CC7-008: an A arm's result is an activation observation bound to its own case
+and its own unchanged query bytes. A marker is not the observation.
+"""
+import json, os
+
+A_CASES = ("A3a", "A5a")
+NONLAUNCH = ("REJECTED_PREEXISTING_DESTINATION", "REJECTED_INSUFFICIENT_CAP")
+
+
+def _sentinel_state(path):
+    """What is at the destination now, recorded before anything is decided."""
+    if not os.path.isdir(path):
+        return None
+    out = {}
+    for d, _, fs in os.walk(path):
+        for f in sorted(fs):
+            p = os.path.join(d, f)
+            try:
+                out[os.path.relpath(p, path)] = os.path.getsize(p)
+            except OSError:
+                out[os.path.relpath(p, path)] = None
+    return out
+
+
+def run_a_arm(case, selector, budget_remaining, cap, run_root, launcher=None):
+    """Admit, or refuse and say so.
+
+    Returns a record whose `marker_written` is the whole question CC7-010 turns
+    on: a refused arm writes none, and its `outcome` is a nonlaunch status
+    rather than PASS or FAIL, because nothing about the candidate was observed.
+    """
+    if case not in A_CASES:
+        return {"case": case, "outcome": "FAIL", "marker_written": False,
+                "reason": "unknown A case; the plan names exactly %s" % ", ".join(A_CASES)}
+
+    rec = {"case": case, "query_id": selector.get("id"),
+           "query_sha256": selector.get("query_sha256"),
+           "prompt_bytes_unchanged": True,
+           "marker_written": False,
+           "note": "The case selector is explicit. A5a is not invoked by an A3a scenario, and a "
+                   "valid A3a scenario requires A5a non-invocation to be recorded as its own PASS."}
+
+    dest = os.path.join(run_root, "attempts", case)
+    before = _sentinel_state(dest)
+
+    if before is not None:
+        rec.update(outcome="REJECTED_PREEXISTING_DESTINATION", launched=False,
+                   attempt_dir=dest, preexisting=before,
+                   preserved_sentinel=before,
+                   control_completion="CLEAN",
+                   reason="attempt destination already exists; refusing to launch over another "
+                          "attempt's evidence. No marker is written, the existing bytes are left "
+                          "exactly as found, and this is a recorded nonlaunch outcome rather than "
+                          "an arm result")
+        return rec
+
+    if budget_remaining is None or budget_remaining <= cap:
+        rec.update(outcome="REJECTED_INSUFFICIENT_CAP", launched=False,
+                   attempt_dir=dest, cap_s=cap, remaining_s=budget_remaining,
+                   control_completion="CLEAN",
+                   reason="remaining budget does not cover this arm's cap; refusing to start work "
+                          "that cannot finish inside the original allocation. No marker, no "
+                          "partial attempt directory, and no new deadline")
+        return rec
+
+    if launcher is None:
+        rec.update(outcome="NOT_RUN", launched=False, attempt_dir=dest,
+                   control_completion="CLEAN",
+                   reason="no launcher supplied; this allocation authorizes zero native arms and "
+                          "nothing is launched. NOT_RUN is the honest value and it is not a "
+                          "negative activation result")
+        return rec
+
+    try:
+        os.makedirs(dest)          # deliberately not exist_ok: the claim is the check
+    except FileExistsError:
+        rec.update(outcome="REJECTED_PREEXISTING_DESTINATION", launched=False,
+                   attempt_dir=dest, control_completion="CLEAN",
+                   reason="destination appeared between the inspection and the claim; refusing")
+        return rec
+
+    rec.update(launched=True, attempt_dir=dest, marker_written=True,
+               outcome="LAUNCHED",
+               reason="destination claimed exclusively; the arm's own activation observation "
+                      "decides PASS or FAIL, and this marker records only that it was admitted")
+    rec["launcher_result"] = launcher(case, selector, dest)
+    return rec
+
+
+def nonlaunch_is_not_a_result(rec):
+    """Guard for the gate: a nonlaunch never becomes an arm outcome."""
+    return {"case": rec.get("case"),
+            "counts_as_arm_result": rec.get("outcome") not in NONLAUNCH + ("NOT_RUN",),
+            "creates_admission_marker": bool(rec.get("marker_written")),
+            "note": "An ordinary refusal to launch is a truthful control outcome. It is neither a "
+                    "successful arm nor evidence about the candidate, and it must not satisfy a "
+                    "downstream prerequisite."}

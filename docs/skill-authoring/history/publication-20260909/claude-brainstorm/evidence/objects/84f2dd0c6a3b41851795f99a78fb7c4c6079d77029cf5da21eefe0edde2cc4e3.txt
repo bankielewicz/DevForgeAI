@@ -1,0 +1,17 @@
+{
+ "schema_version": "devforge.selected-allocation/v2",
+ "session": "SESSION-001@11",
+ "artifact_id": "SESSION-001",
+ "revision": 11,
+ "store": "authority",
+ "path": "authoring-assignments-20260905/SESSION-001.md",
+ "sha256": "bfea50f8769254e820c729f43bed1c0df86a92414f3e7e59459f961b07b6eb17",
+ "authority_file": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+ "issuance_file": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/ISSUANCE.json",
+ "issued_copy": "runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/authority/SESSION-001-r11-DRAFT.md",
+ "supersedes_sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+ "run_id": "SESSION-001-r11-20260907T2258Z",
+ "note": "selected_allocation() re-reads authority_file and issuance_file and refuses a stale, mutated, unissued or wrong-run selection before any record is emitted (R10-CI-010). No authority digest is hardcoded in emitting code; a future revision replaces this file.",
+ "native_arms_authorized": 0,
+ "executions_authorized": 0
+}

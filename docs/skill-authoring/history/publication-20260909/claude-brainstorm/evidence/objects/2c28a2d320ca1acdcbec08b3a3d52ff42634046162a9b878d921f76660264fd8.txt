@@ -1,0 +1,192 @@
+{
+  "schema_version": "devforge.static-proposal-findings/v1",
+  "reviewer": "/root/r7_claude_controls_review",
+  "reviewer_reuse": "Intentional reuse of the r7 reviewer; prior exact findings are permitted inputs. Not a cold independent repetition.",
+  "model_id": "UNKNOWN",
+  "reasoning_setting": "UNKNOWN",
+  "disposition": "REVISE_PROPOSALS",
+  "review_status": "COMPLETED_STATIC_PROPOSAL_REVIEW",
+  "material_proposal_findings": [
+    {
+      "id": "CC8-PROP-001",
+      "severity": "high",
+      "classification": "MATERIAL_PROPOSAL_DEFECT",
+      "change_id": "CHG-016",
+      "finding_alias": "F-016",
+      "prior_finding": "CP5-CK-001 retained absence-disclosure limitation",
+      "title": "The prose exception permits unreadability instead of actual absence of sections",
+      "locations": [
+        {
+          "path": "inputs/claude/run/proposals/UNEXECUTED-PROPOSALS.json",
+          "lines": "56-62"
+        },
+        {
+          "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/PLAN.json",
+          "lines": "23"
+        },
+        {
+          "path": "inputs/issued-r8/REPAIR-MAP.json",
+          "lines": "288-300"
+        },
+        {
+          "path": "inputs/claude/run/proposals/fixtures/chg-016-absence-disclosure/POS-disclosed-sections.md",
+          "lines": "12-17"
+        }
+      ],
+      "requirement": "The selected PLAN permits omission only for a target with no stable sections and a corresponding absence disclosure; REPAIR-MAP F-016 requires an explicit absence-of-sections disclosure tied to the referenced artifact.",
+      "trigger": "The artifact omits upstream.sections and says its section list could not be read, without establishing that the target actually has no stable sections.",
+      "analysis": "The new predicate allows a disclosure that sections are unavailable OR that the artifact has none. Its positive prose case expects PASS for a section list that could not be read and calls this exactly the exception. Unreadability establishes an unknown, not actual absence. This weakens or ambiguously broadens the selected contract. The physical POS fixture is narrower and correct: it cites a target with no headings and explicitly states that fact. Thus the prose predicate/case and the authored fixture do not agree.",
+      "impact": "An implementer following the positive prose case could admit a no-sections claim without the observed absence required by the fixed criterion. This review does not claim the retained r7 checker already accepts a heading-present target; its existing available-sections rejection remains present.",
+      "required_revision": "Require both inspected absence of stable target sections and an explicit disclosure of that actual absence. Change the prose positive case to match POS-disclosed-sections.md. Add a negative for unreadable/unknown sections and retain rejection when a sectioned target is paired with an absence claim.",
+      "execution": "NOT_PERFORMED"
+    },
+    {
+      "id": "CC8-PROP-002",
+      "severity": "medium",
+      "classification": "MATERIAL_PROPOSAL_DEFECT",
+      "change_id": "CHG-005",
+      "finding_alias": "F-005",
+      "prior_finding": "CC7-001",
+      "title": "The new freeze case treats an unbound file inside the root as a frozen input",
+      "locations": [
+        {
+          "path": "inputs/claude/run/proposals/UNEXECUTED-PROPOSALS.json",
+          "lines": "95-103"
+        },
+        {
+          "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/freeze.py",
+          "lines": "48-71,125-136"
+        },
+        {
+          "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/controller.py",
+          "lines": "64-79"
+        },
+        {
+          "path": "inputs/issued-r8/REMEDIATION-SPECIFICATION.md",
+          "lines": "23"
+        }
+      ],
+      "requirement": "Freeze selected fixed criteria and completed deterministic inputs before consumption; later generated judgments remain separately bound observations. Root membership alone is not membership in the selected bound set.",
+      "trigger": "F-freeze-unbound-file-mutated changes a file inside the freeze root that nothing consumes, without declaring that file in the frozen selected set.",
+      "analysis": "The case is named unbound and demands FAIL, while its explanation switches to the whole selected set. The selected implementation checks explicit bound_hashes, not all arbitrary files beneath RUN; fixed-input and generated-evidence binding times are deliberately separate. A genuinely unbound file therefore has no frozen expected bytes to mismatch. If the intended file is selected but not consumed, the case must say so and identify its bound entry.",
+      "impact": "As authored, the expected FAIL is unsupported and could force a broader freeze over unrelated or later-generated evidence. That would conflict with the required ability to create post-output judgments without changing the fixed criteria.",
+      "required_revision": "Separate three cases: unchanged selected inputs pass; mutation of any explicitly bound fixed input, including an unconsumed selected one, fails; mutation/creation of a genuinely unbound generated-evidence file does not itself invalidate the fixed-input freeze and is judged at its own evidence boundary. Preserve the consumed-result mutation negative and the real PREFLIGHT location positive.",
+      "execution": "NOT_PERFORMED"
+    },
+    {
+      "id": "CC8-PROP-003",
+      "severity": "medium",
+      "classification": "MATERIAL_PROPOSAL_DEFECT",
+      "change_id": "CHG-006",
+      "finding_alias": "F-006",
+      "prior_finding": "CC7-002",
+      "title": "The proposed wrong-root negative omits the decoy that exposes the retained span bug",
+      "locations": [
+        {
+          "path": "inputs/claude/run/proposals/UNEXECUTED-PROPOSALS.json",
+          "lines": "35-43"
+        },
+        {
+          "path": "inputs/issued-r8/REPAIR-MAP.json",
+          "lines": "98-112"
+        },
+        {
+          "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/checkers/check_receipts.py",
+          "lines": "40-59,143-155,168-174"
+        },
+        {
+          "path": "inputs/prior-reviews/review-claude-controls/FINDINGS.json",
+          "lines": "CC7-002"
+        }
+      ],
+      "requirement": "F-006 explicitly requests FAIL for a bare valid locator plus a wrong-root receipt, addressing the r7 checkers loss of the validated occurrence span.",
+      "trigger": "The authored T-wrong-root-suffix case contains only an unselected-root path paired with the true digest, with no separate valid bare locator.",
+      "analysis": "The retained r7 checker already rejects this simpler case: locator_occurrences excludes the relative suffix preceded by a slash and check() returns FAIL when locs is empty. CC7-002 instead needs a valid bare locator elsewhere to make locs nonempty, after which records_for rescans the entire response and accepts the substring in the wrong-root path. The new negative omits that prerequisite and incorrectly says the selected implementation accepts its simpler fixture today.",
+      "impact": "The proposed case can report its expected FAIL while the actual CC7-002 defect remains untouched. The general root-exact ownership predicate is useful but does not replace the missing discriminating example.",
+      "required_revision": "Retain the simple wrong-root negative and add the exact two-location case: a valid bare locator without a digest plus a separate wrong-root locator carrying that files digest. Explicitly require each accepted record to use the already validated locator occurrence span and whole digest token. Retain both long swapped-pair negatives, exact selected-root positives and the 65-hex-token negative.",
+      "execution": "NOT_PERFORMED"
+    }
+  ],
+  "change_coverage": [
+    {
+      "change_id": "CHG-005",
+      "prior_finding": "CC7-001",
+      "status": "REVISE_PROPOSAL",
+      "assessment": "Correct consumed-result/PREFLIGHT objective; new unbound-file expectation conflicts with the selected-set boundary (CC8-PROP-002)."
+    },
+    {
+      "change_id": "CHG-006",
+      "prior_finding": "CC7-002",
+      "status": "REVISE_PROPOSAL",
+      "assessment": "Root-exact record ownership and 64-character token rule are aligned; the span-decoy negative is missing (CC8-PROP-003)."
+    },
+    {
+      "change_id": "CHG-007",
+      "prior_finding": "CC7-003",
+      "status": "ALIGNED_AS_SPECIFICATION",
+      "assessment": "Requires live archive existence and exact selected original digest at judgment time; changed, vanished, removed and retained controls distinguish the preservation defects."
+    },
+    {
+      "change_id": "CHG-008",
+      "prior_finding": "CC7-004",
+      "status": "ALIGNED_AS_SPECIFICATION",
+      "assessment": "Names fixed C1/B5/B11 prerequisites before A3a/A5a and separate C-only mode; includes partial-list negatives and a full-order positive. Zero markers means no new prohibited-admission marker, not erasure of previously completed evidence."
+    },
+    {
+      "change_id": "CHG-009",
+      "prior_finding": "CC7-005",
+      "status": "ALIGNED_HIGH_LEVEL_REQUIREMENTS_IMPLEMENTATION_DEFERRED",
+      "assessment": "Names independent phase, Stop/correction/wait/resume, runtime receipt, installed consultation and rendered-delivery observations and blocks missing evidence. Concrete evidence binding/collector wiring is not implemented. The broader remediation still separately requires native completion, EOF and owned cleanup; these do not become proved by the five observation names."
+    },
+    {
+      "change_id": "CHG-010",
+      "prior_finding": "CC7-006",
+      "status": "ALIGNED_AS_SPECIFICATION",
+      "assessment": "Requires an actual assistant Skill tool_use event for this skill, with init-only and other-skill negatives plus malformed-transcript COULD_NOT_RUN. The listed target module is inaccurate; see locator notes."
+    },
+    {
+      "change_id": "CHG-011",
+      "prior_finding": "CC7-007",
+      "status": "ALIGNED_AS_SPECIFICATION",
+      "assessment": "Requires the supported resume lifecycle, original allocation, unchanged saved-result digests, consumed judgments and exactly one ordered marker per arm. It does not yet implement the lifecycle."
+    },
+    {
+      "change_id": "CHG-012",
+      "prior_finding": "CC7-008",
+      "status": "ALIGNED_AS_SPECIFICATION",
+      "assessment": "Explicit case selectors, unchanged prompts, A3a invocation and A5a non-invocation are correct. Marker presence alone is rejected as sufficient proof. Synthetic stand-ins cannot later be relabeled as native completion."
+    },
+    {
+      "change_id": "CHG-013",
+      "prior_finding": "CC7-009",
+      "status": "ALIGNED_TARGET_EXPECTATIONS_WITH_INACCURATE_HISTORY",
+      "assessment": "The now expectations address empty judgment, exact B prefix, non-1 refusal and actual STALE consumption. Several was statements and a PLAN line reference are inaccurate; they do not change the correct target expectations."
+    },
+    {
+      "change_id": "CHG-014",
+      "prior_finding": "CC7-010",
+      "status": "ALIGNED_AS_SPECIFICATION",
+      "assessment": "Covers real A collision and insufficient-cap branches with preserved sentinel, no marker, a recorded nonlaunch status and clean completion. The required a_arm caller repair is still not implemented."
+    },
+    {
+      "change_id": "CHG-015",
+      "prior_finding": "CC7-011",
+      "status": "ALIGNED_AS_SPECIFICATION",
+      "assessment": "Requires exact selected current session/revision/path/digest and rejects historical/mismatched authority."
+    },
+    {
+      "change_id": "CHG-016",
+      "prior_finding": "CP5-CK-001 retained absence-disclosure limitation",
+      "status": "REVISE_PROPOSAL_PHYSICAL_FIXTURES_ALIGNED",
+      "assessment": "Physical no-heading/explicit-absence, unrelated-unknown and no-disclosure fixtures are useful; prose permits unreadability and must be reconciled (CC8-PROP-001)."
+    }
+  ],
+  "completion_scope": {
+    "authored_specifications": "PRESENT_WITH_THREE_MATERIAL_PROPOSAL_DEFECTS",
+    "implemented_executable_control_corrections": "NOT_IMPLEMENTED_IN_REVIEWED_R8_DELIVERABLES",
+    "prior_CP5_CC7_implementation_closure": "NOT_ESTABLISHED",
+    "runnable_readiness": "NOT_ESTABLISHED",
+    "tests_validation_native": "NOT_PERFORMED",
+    "repaired_instruction_source": "NOT_REVIEWED_BY_THIS_ASSIGNMENT"
+  }
+}

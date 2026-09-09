@@ -1,0 +1,10 @@
+{
+  "created_at_utc": "2026-09-07T22:05:04.052286+00:00",
+  "first_work_at_utc": "2026-09-07T21:59:41+00:00",
+  "first_work_basis": "Root intake initial commentary and reads, includes freeze preparation and context recovery; allocation was persisted after intake and does not claim first-action persistence.",
+  "root_review_technical_cutoff_utc": "2026-09-07T22:24:41+00:00",
+  "root_review_hard_deadline_utc": "2026-09-07T22:29:41+00:00",
+  "scope": "Root R10 provider review and findings closeout only; static candidate/control review no execution",
+  "held_prompt_rule": "Only actionable assignment prompts if needed; stop root and agents after prompt delivery until user reply",
+  "no_old_clock_reset": true
+}
