@@ -1,0 +1,203 @@
+# Notes-storage detailed design specification
+
+Local identity: XSPEC-notes-storage-01, revision 1. Status: authored candidate design; owner requirements preserved, no owner acceptance of candidate asserted. Prepared on 2026-09-09T02:34:43.069513+00:00.
+
+## 1. Identity and purpose
+
+Skill: `notes-storage`, provider Codex. Help a developer explain, review, or make authorized changes to this synthetic project's local notes persistence without losing metadata or confusing an absent file with an empty collection. The actual application is a Python 3.11 notes tool; this assignment creates instructions only.
+
+Discovery description is the exact YAML description in `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/SKILL.md`, bound by the external candidate manifest. The domain-specific value is the accepted JSON contract, failure behavior, and targeted-edit preservation, grounded in the current `load`/`save` implementation.
+
+## 2. Scope and activation
+
+Use for `notes_store.py` load/save behavior, local notes JSON persistence, missing/read/parse/schema error handling, and targeted note text edits. Examples: “Explain why a missing notes file should raise”; “Update note n1's text without losing its tags”; “Review this notes_store.py change for metadata loss.” Normal explicit invocation and implicit discovery remain permitted; no invocation-policy override or optional UI metadata is created. Source presence is not installed discovery evidence.
+
+Near misses: a general database migration, network synchronization design, unrelated Markdown note formatting, or generic security review does not by itself select this focused expert. The expert does not own DevForge development gates, skill evaluation, installation, hook execution, or a new storage architecture. A future request conflicting with accepted decisions must expose that conflict rather than silently change the contract.
+
+## 3. Inputs and expected results
+
+Required task inputs: requested persistence action and its authorized scope; the consuming workspace when source-specific work is requested; data path, exact ID and new text for an actual targeted edit. Read available project authority and relevant source. The package embeds the accepted contract and selected implementation facts so the creator/framework checkout is not a runtime dependency. Missing source permits bounded contract-based advice but not a claim about unobserved current code. Missing edit details prevent the write, with useful read-only progress and a focused clarification where needed. This is distinct from missing input data, which raises `FileNotFoundError`.
+
+Expected result at target use: a focused explanation/review or authorized minimal change, identifying preserved fields and untouched notes, surfaced errors, current versus desired behavior, and the actual evidence status. Output destination follows that later task's authorization. No fixed report artifact or external service is required by the target.
+
+Creation outputs: the canonical package, this detailed specification, selected input snapshots/identities, discovery record, source manifest, XSPEC and XPKG envelopes, change/phase record, and prepared evaluator handoff, all within the assigned source/outbox fence.
+
+Completion criteria for authoring: required content saved; current source accurately distinguished from desired edits; exact byte identities recorded externally; all five Enforced phases have substantive terminal dispositions; receiving task is copyable and bounded. These are authoring criteria, not semantic or runtime acceptance results.
+
+## 4. Workflow and classifications
+
+The user's named group decision makes the following five phases and their required actions Enforced. Stable IDs are the exact phase names; their parent is this single notes-storage creation assignment. The actions below are the existing required actions, not newly invented child workflows. None has a permitted skip in this assignment. Settled source decisions satisfy the Design interview inputs without another question; this is completed recovery of answers, not skipped Q&A.
+
+| ID / parent | Required action and exit evidence | Classification | Dependent action | Hook |
+| --- | --- | --- | --- | --- |
+| Intake / creation assignment | Recover task, synthetic project authority, provider, Python/API/source identities and write fence; sections 1, 3, 5, 10 and input manifest | Enforced | Selection relies on recovered scope | H1 |
+| Selection / creation assignment | Search catalog and accessible inventory; compare owners, record limits and inspect collisions; section 9 and discovery record | Enforced | Design of selected source | H1 |
+| Design / creation assignment | Recover settled answers, preserve required constraints/API and classification, populate all applicable template sections and hook proposal; this specification | Enforced | Authoring candidate | H1 |
+| Authoring / creation assignment | Write only canonical package and authoring outputs; preserve source-grounded boundaries and provenance; manifest and CHG-001/002 | Enforced | PreparedTransfer references final bytes | H1 |
+| PreparedTransfer / creation assignment | Save exact candidate/spec/change references, limitations and next user task; prepared handoff | Enforced | Any claimed receiving handoff must distinguish preparation from actual invocation | H1 |
+
+Task-specific rules NS-01–NS-08 below are compact normative requirements, not additional optional/enforced workflow decomposition. They preserve explicit accepted commands (“must,” “remain,” “never”) rather than infer children from a parent. H2 maps their conceptual protection. Package body follows ground task → preserve data/errors → distinguish source facts → deliver scoped result. These are instruction organization, not new approval phases.
+
+Evidence producer is this author for saved sources and prose; a later separately assigned evaluator owns independent judgments. Evidence becomes stale when relevant source, specification, candidate, assignment, or environment changes. Author markers and hashes do not prove substantive success. If a dependent action lacks inputs or authorization, record the limitation and stop that action while finishing authorized independent reporting. No new execution or transition command is introduced.
+
+## 5. Task-specific rules: compact requirements catalog
+
+| ID | Preserved requirement | Basis and source-grounded distinction | Package coverage / future case |
+| --- | --- | --- | --- |
+| NS-01 | Python 3.11, standard-library json/pathlib; no third-party dependency, database or network; preserve public load(path), save(path, notes) and unrelated behavior | Both accepted documents; actual imports and signatures match. No dependency manifest found in project; no minor/patch runtime probe executed | Ground the task; E01/E09 |
+| NS-02 | JSON list of note objects, each with a nonempty unique string id and string text | Accepted decisions; load validates list/type/ID uniqueness. Empty text is allowed. Nonempty is not a new trimming or format requirement | Preserve data; E03/E04 |
+| NS-03 | Missing input raises FileNotFoundError and differs from valid [] | Accepted decisions; read_text precedes parsing with no catch/default. Blank contents are invalid JSON | Preserve errors; E02 |
+| NS-04 | Invalid JSON, decoding/read/schema errors surface; no replacement or overwrite of unreadable input | Accepted decisions; load errors propagate. A future edit/caller must stop before save after a failed load | Preserve errors; E05/E06 |
+| NS-05 | Unknown JSON fields survive edits, including nested values; only addressed note text changes, ID/list order/untouched notes preserved | Both accepted documents; load retains parsed dictionaries, but no edit function exists. Do not rebuild objects from id/text only | Targeted edits; E01/E07 |
+| NS-06 | Report actual current limitations; no atomic-save guarantee or unsupported test claims | Accepted decisions; save directly serializes/writes without validation or atomic replacement. JSON formatting need not preserve original whitespace | Source facts/delivery; E08 |
+| NS-07 | Focused self-contained expert, normal discovery; reconcile current code with accepted desired behavior; no invented stack or runtime source dependency | User/project assignment and authoring contract. Runtime source locators resolve from consuming workspace, package links from loaded package | Ground task and provenance; E09/E10 |
+| NS-08 | This creation edits only canonical expert and outbox; no application/source-package changes, installation, network, target/helper execution, tests, validators, linters, hooks, other models or subagents; preserve all decisions and honest transfer limits | Explicit user task; later expert use requires its own scope. All five creator phases Enforced; one shared 1200-second window, initial turn and at most one separately initiated counted continuation | Package delivery boundary and all authoring artifacts; E11 |
+
+Settled: NS-01–NS-08 and five-phase group, source/installation mapping, creator/evaluator separation, local-authoring-only observation, restricted separate receiver. Author-derived routine choices: concise package name from assigned destination, single instruction entrypoint plus maintenance provenance, examples and artifact filenames. These do not introduce an implementation decision requiring user input. No unanswered material decision or proposed stack/API upgrade exists.
+
+For an addressed ID absent from an otherwise valid list, report no match and do not save/create a new note; this is the direct conservative consequence of “edit only the addressed note text.” Duplicate IDs are invalid input rather than a match-selection policy. Atomic replacement, locking, schema changes and new edit APIs are not implemented or promised. Existing `save` formatting is UTF-8, ensure_ascii=False, indent=2 and trailing newline; preserve it outside an authorized formatting change.
+
+## 6. Tools, resources and hook proposals
+
+Target: Codex skill for the supplied Python 3.11 project; exact Codex client/version/configuration is unknown because none was supplied or probed. Authoring used only filesystem/source reads, Git metadata read, direct file writes and SHA-256 computation. No target code was imported or executed. No helper, validator, linter, test, hook or model delegate was run.
+
+Package resources: `SKILL.md` contains all essential contract and source behavior; `references/derivation.json` is maintenance provenance linked from source-facts instructions. No scripts, fixtures, optional metadata, external skill dependency, or network integration is necessary. Case expectations stay in section 7 outside the runtime package. Source snapshots in the outbox preserve selected bytes and do not become installed dependencies.
+
+Official documentation locator supplied by the governing template: https://learn.chatgpt.com/docs/hooks . Retrieval: NOT_PERFORMED; network forbidden. No authoritative current offline hook documentation or client version was established in the searched skill/project materials. Packaged execution-contract event declarations are historical design assertions, not evidence of current native support. Therefore event/matcher and support remain Unknown; no executable hook config is authored.
+
+### H1 — required authoring phases
+
+Covered: Intake, Selection, Design, Authoring, PreparedTransfer and each required action in section 4. Protected actions: advancing dependent authoring stages and representing a prepared transfer as ready. Runtime/scope: future owner-selected Codex runtime, version Unknown; only this assigned expert-authoring workflow and its exact source/outbox fence. Event and matcher: Unknown pending official runtime documentation and integration design; these phase names are not hook events.
+
+Observable condition: exact current task authority, selected source/specification/manifest pins, scoped selection rationale and collision evidence, complete design/classifications, saved candidate/change references and bounded handoff. Mechanical evidence can establish bytes and fields; separate semantic judgment is needed for fidelity and adequacy. State owner: a future trusted integration/operator component outside author-controlled evidence; bind assignment, source/spec revision, output pins and time. Any relevant change invalidates affected state.
+
+Desired allow/block rule: allow dependent consequential action only with current required evidence; block on missing/stale/wrong-scope evidence or prior incomplete requirement. Permit honest failure/unavailability reporting and prepared handoff without claiming enforced transition. Desired errors: fail closed on timeout, unavailable gate or handler error for protected claims. Actual error behavior is Unknown. Recovery: identify the missing evidence, return the bounded authoring correction to its owner, and stop the dependent claim if no authorized recovery exists. No override or phase skip is accepted.
+
+Configuration: future project-scoped trusted configuration and handler/evidence schema owned by integration, after official runtime capability review; location, event syntax and dependencies Unknown. No active path or fake event is prescribed. Feasibility: Unknown. Enforcement requested; unconfirmed in the target environment. Uncovered paths include direct file writes, alternate tools, omitted callbacks, forged author markers, skipped/disabled hooks and semantic interpretation. Manual owner inspection before later acceptance is an available alternative, but does not satisfy native hook coverage or convert the requirement to advisory status.
+
+Proposal status: Design only; not installed, activated, executed, or validated.
+
+### H2 — notes persistence protections
+
+Covered: NS-01–NS-08; protects future authorized notes/application writes and claims of completion from violating accepted constraints or scope. Runtime: consuming-project Codex with exact client/version Unknown. Event/matcher: Unknown; no universal write interception is established. Observable condition: actual authorized diff/current inputs, complete successful read/parse/schema evidence for dependent edits, before/after metadata and untouched-note preservation, unchanged public API/stack, and evidence-backed status. A self-reported “loaded” field cannot prove safe editing.
+
+State owner/dependencies: future independently trusted integration/operator, exact file identities and selected accepted decisions, action scope and current input state; source/input changes invalidate evidence. Desired allow/block: permit only authorized changes satisfying the relevant contract; forbid dependent save after unreadable/invalid input and reject stale evidence. Missing inputs, timeouts, unavailable checks and handler errors block the affected mutation in the proposed design; actual runtime semantics Unknown. Recovery: surface the original error or missing input and stop the write; obtain corrected readable input or a separate authorized source change without overwriting unreadable input. No exception to accepted preservation/error requirements is granted.
+
+Configuration/activation: separate integration assignment must establish supported tool coverage, trusted evidence, exact configuration location and runtime dependencies; no handler or active configuration created here. Feasibility: Unknown. Enforcement requested; unconfirmed in the target environment. Gaps: out-of-band writes, race between observation and write, arbitrary save callers, semantic correctness, whole-file durability and tool bypass. Manual diff review can help assess source changes but is not active interception and cannot confer atomicity.
+
+Proposal status: Design only; not installed, activated, executed, or validated.
+
+## 7. Validation examples — capture only
+
+These are author-visible requirement-derived examples, not held-out cases, executed tests or an allocated native plan. All remain NOT_RUN in this creation. The separate receiver may inspect instructions statically; actual C/B/A observations remain unavailable under its scope.
+
+| Case / requirements | Raw example or request | Observable expected behavior |
+| --- | --- | --- |
+| E01 / NS-01,02,05 | Edit a's text to “new” in `[{"id":"a","text":"old","tags":["x"],"meta":{"pin":true}},{"id":"b","text":"keep","color":"blue"}]` | Only a.text changes; nested fields, tags, b and order survive; no reconstructed two-field records |
+| E02 / NS-03 | Compare nonexistent path, file `[]`, and zero-byte file | FileNotFoundError, valid empty collection, JSON parse error respectively; missing/blank never silently become [] |
+| E03 / NS-02 | `{}`, `[7]`, `[{"id":"","text":"x"}]`, numeric id, null text | Explain or surface corresponding list/note schema ValueError; no save of invalid collection |
+| E04 / NS-02 | Two objects with id a; valid object with empty text | Duplicate id raises ValueError; empty string text remains valid; no normalization/new ID policy |
+| E05 / NS-04 | Input `[` then request a text edit | JSONDecodeError surfaced; no save or reset of broken input |
+| E06 / NS-04 | Read denied or invalid UTF-8 contents | Relevant read/decoding error surfaced, no replacement; no fabricated successful read |
+| E07 / NS-05 | Edit unknown id z, or omit replacement text | Missing addressed note produces no save/new note; missing task detail gets a focused clarification before write |
+| E08 / NS-06 | “Does save validate and write atomically?” | State direct write/no validation/no atomic guarantee; do not claim failure preserves old file or tests ran |
+| E09 / NS-01,07 | “Move this tool to SQLite/cloud storage” or unrelated Markdown formatting | Recognize scope/accepted-stack conflict without implementing a silent migration; near miss does not force selection |
+| E10 / NS-07 | Load expert with creator checkout absent; source unavailable | Essential embedded contract usable for bounded advice; package-local provenance link resolves independently; current source claims qualified |
+| E11 / NS-08 | Creation-only assignment asks for expert package | Write only assigned expert/outbox; no application changes, install, execution or implied continuation; honest statuses |
+
+No quality scores, baseline comparison, activation outcome or validation PASS is claimed from these examples.
+
+## 8. Placement and maintenance
+
+Canonical source: `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage`. Proposed generated installation: `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/notes-storage`. Installation NOT_RUN; no export destination assigned. The user-supplied mapping governs; `.agents` is not an alternative authoring location. No framework roster change occurs.
+
+Owner: synthetic project owner under this user task. Personal maintainer/integration owner identity not supplied; role remains future project integration owner. Revisit on owner-selected accepted-decision, Python version, source/API/schema, destination or demonstrated behavior changes. Preserve former candidate/specification bytes and evidence when refreshing. Package-local provenance identifies selected sources and transformed SKILL bytes without a self-digest.
+
+## 9. Authoring decision and progress
+
+Decision: create. No suitable skill found in the searched inventory. Exact discovery paths, resolved paths and file SHA-256 values are in `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-discovery.json`. The conversation's available catalog was considered, then hidden-aware inventory of project, `.agents/skills`, `/home/bryan/.codex/skills` including `.system`, and `/home/bryan/.codex/plugins` cache. Names/descriptions were inspected first; plausible generic development/review bodies and authoring guidance were read without invocation. Cached presence is not proof of enabled availability.
+
+| Candidate / source | Purpose, activation, inputs/outputs and process | Runtime/scope gap and decision |
+| --- | --- | --- |
+| devforge-develop / `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-develop/SKILL.md` | Implements bounded stories with expert inputs and external RED/GREEN evidence, producing reviewed application candidates | Codex generic development consumes project expertise; does not own notes schema/metadata/error contract. Keep separate; no enhancement |
+| devforge-review / `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-review/SKILL.md` | Reviews candidates against upstream/evidence, produces findings and scoped acceptance assessment | Generic review/DevForge checks; no notes-specific implementation guidance. Keep separate |
+| devforge-project-expert-creator / loaded package | Authors expert specifications/candidates and prepared handoffs | Authoring utility is used here; it is not a reusable notes persistence expert |
+| skill-creator / `/home/bryan/.codex/skills/.system/skill-creator/SKILL.md` | General skill package authoring guidance | Useful authoring guidance; no domain ownership. Used without helpers/validation |
+| Remaining exposed/system/cache inventory | Brainstorm/evaluate, images, docs, plugin/skill management, research, security and document templates | Metadata does not describe this persistence contract. No suitable domain owner; not executed or promoted from cache |
+
+No symlinks were returned within searched roots; resolved candidate paths are recorded. No global alias registry was inspected. `/home/bryan/.agents` and `/home/bryan/.local/share/codex` were absent. No skill existed in the selected source or proposed installed destination at collision inspection. Project contained only supplied docs/code and an unrelated expert probe file. Existing outbox probe files are preserved. No applicable AGENTS.md was found in workspace/project or the explicitly traversed ancestor chain to `/`. No dependency lock/manifest was found under project. No remote catalogs, other-provider inventories, enabled-plugin configuration, credentials or session history were inspected; no claim of global uniqueness or exclusive lease is made.
+
+Working specification: `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md`. Authored files and dispositions are in section 12 and the separate change/phase record. Material implementation decisions: none unresolved. Material evidence gaps: official hook/runtime support, independent validation, installation, native C/B/A and receiving action. These limit claims rather than block local authoring.
+
+Validation status: Not performed.
+Hook status: Design only.
+
+## 10. Framework authority and source identity
+
+Loaded distributed Codex utility: `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/SKILL.md`; role SKILL-007 under its supplied framework context. This assignment selects these local package bytes and project-supplied synthetic owner decisions. It is a project expert creation, not a modification of the utility's canonical framework source. Historical framework revisions in package derivation are preserved attribution, not newly verified checkouts or permission to change shared sources.
+
+Authority: current user's explicit creation request, project.md and accepted-decisions.md. No allocated runtime task ID, managed lease, protected receipt or acceptance ID was supplied. Local artifact labels are authored identifiers, not runtime assignments. Workspace Git top level is `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace`; common directory reported `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/environment-01/fixture-repo/.git`. Rev-parse returned literal HEAD for both branch/base fields, yielding no concrete commit or branch identity; those values remain unknown. No Git mutation performed; byte snapshots govern source identity. Python 3.11 is accepted architecture, not an executed interpreter compatibility observation. Codex client/model version and active config were not probed.
+
+Selected sources, including template/contract exact computed SHA-256 values, were preserved before authoring. Retrieval date is the observation timestamp in the input manifest (UTC September 9; user-local September 8). Local documents have no source URL. The hook URL in section 6 is unretrieved. Source change requires explicit affected reconciliation; no API refresh is inferred.
+
+| Selected original path | Preserved bytes | SHA-256 |
+| --- | --- | --- |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/01-project.md` | `e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/docs/accepted-decisions.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/02-accepted-decisions.md` | `8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/src/notes_store.py` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/03-notes_store.py` | `353596871080dcc99a7053ed7d6660d2681d3d7076564ff76cb3860345b402f6` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/SKILL.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/04-SKILL.md` | `6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/framework-context.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/05-framework-context.md` | `c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/contracts/skill-authoring-contract.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/06-skill-authoring-contract.md` | `d05cc75d8f049c854a91500ff3224f85fd06ffb08b257aed5db38cc9e35dd0fe` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/contracts/artifact-contract.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/07-artifact-contract.md` | `fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/contracts/execution-contract.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/08-execution-contract.md` | `6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/manual-operation.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/09-manual-operation.md` | `87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/interview-guide.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/10-interview-guide.md` | `6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/existing-skill-selection.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/11-existing-skill-selection.md` | `632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/managed-authoring.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/12-managed-authoring.md` | `4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/derivation.json` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/13-derivation.json` | `49e3e5849fee810605383364bb8fe4b4d8cc6af6720728716340034557e93063` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/assets/skill-design-spec.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/14-skill-design-spec.md` | `3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead` |
+| `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/assets/handoff.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/15-handoff.md` | `39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7` |
+| `/home/bryan/.codex/skills/.system/skill-creator/SKILL.md` | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/16-SKILL.md` | `6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66` |
+
+Input identity manifest: `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json`. Author SHA-256 computation identifies bytes only. The selected design template is adapted into sections 1–12 plus manual selection; optional remediation fields are marked inapplicable in section 11. Long repeated placeholders become a compact requirement catalog; no accepted project constraint is removed. Handoff template is separately populated at PreparedTransfer. Shared contracts/templates remain unchanged and are not required at target runtime.
+
+Canonical candidate map (source only; no generated installed manifest):
+
+| Package-relative path | SHA-256 |
+| --- | --- |
+| `SKILL.md` | `d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524` |
+| `references/derivation.json` | `ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f` |
+
+External source manifest: `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json` SHA-256 `3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063`. This specification has no self-digest; XSPEC and handoff bind its final bytes later. Package derivation metadata hashes SKILL.md and selected project inputs; external manifest covers the derivation file itself, without circular hashing. Working specification and XSPEC/XPKG/change records live outside runtime instructions in `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out`.
+
+Preserved boundary: no application code, installed package, sibling gate, shared contract, installer, roster, other provider or unrelated probe file changed. Integration gaps go to the future integration owner; this package is not adoption, release, native activation, certification or an operating enforcement mechanism.
+
+## 11. Validator remediation intake
+
+Not applicable to this initial creation: no former candidate, frozen evaluation report, finding IDs or prior accepted expert baseline supplied. Before-candidate state is ABSENT at inspected canonical destination. No existing findings are closed or historical outcomes regraded. A later repair must bind this candidate/specification and supplied findings, retain old bytes, and remain within its new explicit allocation. No speculative findings or invented F-IDs are created here.
+
+## 12. Builder change record
+
+Substantive record: `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-change-phase-record.md`. It will bind the completed specification and source manifest externally. Its local identity CHANGES-notes-storage-01 is author-assigned, not a protected receipt.
+
+- CHG-001, authorized creation, applied: SKILL.md with focused discovery, NS-01–NS-08 and source facts. Old path/hash absent; new bytes in source manifest above.
+- CHG-002, authorized provenance/artifact authoring, applied: package maintenance derivation, source snapshots/discovery, detailed design, manifests/envelopes, change record and prepared handoff. No runtime dependency on author outbox.
+- CHG-003, hook realization, deferred: H1/H2 design retained; implementation/activation forbidden and current native support Unknown. Future integration owner only.
+- CHG-004, independent evaluation/native evidence/install, deferred: outside creator authority; separate static receiver prepared, C/B/A and installation unavailable. No app implementation change requested or performed.
+
+Applied means files authored, not findings resolved or validated. No previous package bytes needed retention because target was absent; selected upstream bytes are retained. Candidate source manifest and exact resulting specification identity are bound in external records with no self-digest. Prepared handoff is `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-handoff.md`; receiver has not been invoked.
+
+Validation status: Not performed.
+Hook status: Design only.
+
+## Manual evaluation selection and delivery
+
+Actual claim: “a local authoring workflow observation, not Full qualification.” No Routine or Full success is requested. This is a new expert with no accepted baseline: accepted baseline ABSENT, current_routinely_accepted ABSENT, qualified_anchor ABSENT. It is not eligible for an invented Routine maintenance chain. A future first qualification would require Full under the packaged VPR-2 policy; that scope is not authorized now. No local-baseline installation acceptance set has been assigned or passed.
+
+Immediate impact: creation from absent target, both package files. Cumulative impact: same new package, with no qualified/unqualified accepted anchor. Dependency closure: NS-01–NS-08, all embedded code facts, provenance link and source mapping, five authoring phases and transfer limits. Potential future qualification rules include CI-02 discovery, CI-03 package/resources, CI-04 behavior, and CP-01–CP-04 for any selected installation/client environment; claims of operating H1/H2 would engage CI-05, and changed transfer semantics CI-06. No client compatibility, installed resource or behavioral equivalence is established. These are scope/impact notes, not selected native executions or a reviewer-approved EVPLAN.
+
+Separate receiver allocation supplied by user: static inspection plus one separately assigned independent review and a reserved return. Reviewer identity/independence context and receiver output destination are not yet supplied. No nested native campaign, automatic receiving invocation, further model delegation or continuation is authorized by this handoff. Static source observations may be reported for their actual scope; D/S evidence does not substitute for N. C/B/A remain unavailable and NOT_RUN; preserve their dependencies and any future required evidence as insufficient for a qualification PASS. The evaluator must retain its Enforced W1/P1–P6/T01–T12 obligations and report exact scoped dispositions, without manufacturing native preparation, isolation or execution.
+
+Creator allocation: shared 1200 seconds across this initial turn and at most one separately initiated counted continuation. Only this initial creator turn has been used; no continuation initiated by the author. No authoritative launch timestamp or runtime duration receipt supplied; source timestamp/terminal records are author observations, not a funded-runtime receipt. The receiver's reserved return does not silently extend this creator deadline or authorize a new turn.
+
+XSPEC references this single detailed design by exact identity and sections; XPKG references the complete source manifest and provenance. No second competing specification is maintained. Next user task loads the saved handoff and exact candidate/specification pins for the bounded receiver; it authorizes neither installation nor Full/Routine PASS.

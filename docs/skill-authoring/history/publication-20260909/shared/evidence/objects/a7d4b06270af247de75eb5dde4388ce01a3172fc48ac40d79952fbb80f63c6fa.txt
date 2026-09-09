@@ -1,0 +1,17 @@
+{
+  "commit": "d29430beace67a141d4d35c2beb066981060cda4",
+  "files": {
+    "delivery-report.md": "4667aff5eeaf0b81b38db7cd0f7f907969316d55989705295b467744d2720446",
+    "focused-checks.json": "e738d04f86c82fe107ca0da627c8e8272e18b77c4f0508dac63670f1dd85bf8d",
+    "provenance-refresh.json": "261d825cb48d85f8aa872c8ecd0bd75d061e6015f1a104592a133c8e97f66cf4",
+    "patch.diff": "2abdac3193378253bb4fab3c706a3ce56dc07054c5879c591cd5e4660d27943e",
+    "notes-storage-concise-preview.md": "826cb2b897af08bc34e149e3a5a9a111a06e06c64ffea5fcde7523689f6e035e",
+    "checks.json": "8089ec46bba95ca208b2208e4196b729636099835321c1e24a04fad10ad245f7",
+    "export-result.json": "391780a98ddd7e7291e2caca571272337bda1cb2ec2a07e8d1bedd9058d5ca93",
+    "integration-result.json": "bcb251bb29ef09b77602ecbc5ad41cc36695e1879c59d9cfe687e3042beeee22",
+    "review-manifest.json": "6fb438986685b3a1596c4e030e560785bc5acaef8cae6ffeb3a4bf553f45bc6d",
+    "independent-review.md": "f7328efddc57b6f0dd1a1133e3a3c3a256945a833b9a3e2276f4f0a3f92a8392",
+    "staged-identities.json": "219c6a188b4184eea680e63ac45849d69cc33d14c2e067e8a7a462ddcb443171",
+    "assignment.json": "880d4f5edd08063735de8605987b3842cfb0c58bef79b2dcb3fb51d40b05d510"
+  }
+}

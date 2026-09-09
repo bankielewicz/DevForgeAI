@@ -1,0 +1,32 @@
+{
+  "initial_probe": "Strict envelope equality failed on the documented builder-to-creator placeholder wording. The corrected check asserts that sole substitution explicitly; no package correction was needed.",
+  "checks": [
+    {
+      "skill": "devforge-project-expert-creator",
+      "artifact_envelope": "SAME_FIELDS_AND_VALUES_EXCEPT_CREATOR_PLACEHOLDER_WORDING",
+      "all_destination_hashes": "MATCH",
+      "historical_source_pins": "PRESERVED",
+      "template_words_before": 915,
+      "template_words_after": 528
+    },
+    {
+      "skill": "devforge-evaluate-expert",
+      "artifact_envelope": "SAME_FIELDS_AND_VALUES_EXCEPT_CREATOR_PLACEHOLDER_WORDING",
+      "all_destination_hashes": "MATCH",
+      "historical_source_pins": "PRESERVED",
+      "template_words_before": 1066,
+      "template_words_after": 737
+    },
+    {
+      "fixture": "notes-storage frozen producer",
+      "direct_evidence_references": 7,
+      "direct_evidence_hashes": "MATCH",
+      "producer_sandbox_receiver_alias_exists": false,
+      "current_candidate_receiver_exists": true,
+      "receiver_allocation": "NOT_ASSIGNED",
+      "native_execution": "NOT_RUN",
+      "preserved_source_snapshots_verified": 16,
+      "presentation_exercise": "notes-storage-concise-preview.md; authored example only, not a native behavior test"
+    }
+  ]
+}

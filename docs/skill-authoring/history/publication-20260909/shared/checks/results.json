@@ -1,0 +1,24 @@
+[
+  {
+    "name": "framework",
+    "command": [
+      "python3",
+      "/home/bryan/Projects/DevForge/worktrees/publish-devforge-cli-followups-20260909/scripts/validate_framework.py",
+      "--framework",
+      "/home/bryan/Projects/DevForge/worktrees/publish-devforgeai-shared-foundation-20260909"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "mvp",
+    "command": [
+      "python3",
+      "/home/bryan/Projects/DevForge/worktrees/publish-devforge-cli-followups-20260909/scripts/validate_mvp.py",
+      "--mvp",
+      "/home/bryan/Projects/DevForge/worktrees/publish-devforgeai-shared-foundation-20260909/docs/mvp",
+      "--report",
+      "/home/bryan/Projects/DevForge/worktrees/publish-devforgeai-shared-foundation-20260909/docs/skill-authoring/history/publication-20260909/shared/checks/mvp-result.json"
+    ],
+    "exit": 0
+  }
+]

@@ -1,0 +1,58 @@
+# Notes-storage change and phase record
+
+Local identity: CHANGES-notes-storage-01, revision 1. Recorded 2026-09-09T02:36:03.622468+00:00. Producer: devforge-project-expert-creator, loaded SKILL SHA-256 `6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263`. Author-assigned identifier only; not a runtime receipt.
+
+## Assignment and boundaries
+
+Current user authorized focused expert creation for the synthetic notes project. Canonical root `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage`; artifact outbox `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out`. Only these locations were authored. No target execution/import, tests, validators, linters, hooks, installed-package changes, application-source changes, network, other model calls or subagents were performed. No continuation was initiated. Existing probes and selected upstream source files were preserved.
+
+The shared creator allocation is 1200 seconds, initial turn plus at most one separately initiated counted continuation. Observed count at this record: one initial creator turn, zero continuations. No protected start/deadline/elapsed receipt supplied; no runtime timing certification claimed. No Git mutation; branch/base remain unknown because the metadata read did not return a concrete commit. User write scope is not proof of an exclusive lease.
+
+## Input and output identities
+
+| Record | Exact saved path | SHA-256 |
+| --- | --- | --- |
+| Selected inputs and preserved snapshots | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json` | `1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d` |
+| Discovery inventory | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-discovery.json` | `21a8c355129fe648a3f3a68e0301a7a833568ecfcc973c4cf77bb8ad17bb071b` |
+| Detailed specification | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md` | `4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff` |
+| Complete source manifest | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json` | `3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063` |
+| XSPEC | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XSPEC.json` | `f0fdc0a277b76f410ceeb44e7359f34f960ed7b6ec2bb5a3d112ff59201d6225` |
+| XPKG | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XPKG.json` | `c3e6d8c87ddae341b7fad4a1212320da15b0171f0fd8a6be8b5f4be945d790a1` |
+
+These are ordinary author file-byte observations. No managed final-byte verification, protected snapshot, receipt publication/readback or external acceptance occurred. This record has no self-digest. Its digest is recorded by the subsequent saved handoff.
+
+## Change dispositions
+
+| Finding | Change | Type / requirements | Disposition | Before | After and result |
+| --- | --- | --- | --- | --- | --- |
+| None supplied | CHG-001 | Authorized creation / NS-01–NS-08 | Applied | Canonical skill absent; prior digest unavailable because no prior file | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/SKILL.md`, SHA-256 `d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524`; focused contract, source facts, discovery and bounded behavior |
+| None supplied | CHG-002 | Authorized provenance and delivery / all five phases | Applied | No former artifacts at chosen new filenames | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/references/derivation.json`, SHA-256 `ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f`; plus input snapshots, discovery, spec, manifest, XSPEC/XPKG, this record and final prepared handoff |
+| None supplied | CHG-003 | Hook realization / H1, H2 | Deferred | No hook implementation selected | Design proposals in specification §6; executable/configuration work forbidden, support Unknown; future integration owner |
+| None supplied | CHG-004 | Evaluation, native evidence and installation | Deferred | No report or accepted candidate baseline supplied | Separate static receiving task prepared; creator does not evaluate or install; C/B/A unavailable, receiver not invoked |
+
+No accepted requirement was declined, weakened or superseded. Deferred realization is outside this authoring assignment and is not unfinished candidate content. No previous findings are closed by these source changes. Author-visible cases E01–E11 are captured only, with no tests/validators run.
+
+## Five Enforced phase terminal record
+
+All phase IDs and their required actions retain the user's Enforced group decision. No skip permitted. The following records substantive authoring disposition, not protected phase admission.
+
+| Phase | Terminal authoring disposition | Substantive evidence and limit |
+| --- | --- | --- |
+| Intake | COMPLETE — content recovered | Selected task, accepted documents and actual notes_store.py read; stack/API/source mapping and write fence in specification §§1,3,5,10 and retained input pins. Missing runtime/Git facts explicit |
+| Selection | COMPLETE — creation selected | Discovery manifest records catalog/project/system/cache search, resolved paths and hashes; develop/review/creator comparisons in §9; no suitable owner and no target collision found. Global uniqueness not claimed |
+| Design | COMPLETE — detailed design authored | §§1–12 and manual selection populated; existing settled answers reused without questions; NS-01–NS-08 and all five phases preserved. H1/H2 support Unknown, proposals only |
+| Authoring | COMPLETE — canonical source saved | Both source files in manifest; CHG-001/002 applied; source decisions embedded and self-contained, metadata/error rules preserved. Successful writes and hashes only |
+| PreparedTransfer | COMPLETE — prepared transfer content | Final handoff saved after this record at `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-handoff.md` with exact candidate/specification pins and copyable receiver task. That save completes this authoring record's transfer deliverable; no transition admission or actual receiving invocation claimed |
+
+The five terminal dispositions are complete for local authoring; they do not assert H1/H2 enforcement or a successful evaluation. The final handoff binds this record only after it and the referenced substantive outputs are saved. No external gate state was observed.
+
+## Preserved requirements, maintenance and scope
+
+The exact project documents remain governing. Public load/save signatures, Python 3.11/json/pathlib, list schema, nonempty unique string IDs, string text, missing-versus-empty distinction, surfaced errors/no overwrite, unknown fields/untouched-note preservation, and no atomicity/test claims are carried into the package. Current save's lack of validation and edit API is explicit. No source migration, application implementation or runtime activation was requested.
+
+Canonical-to-proposed-installed mapping remains `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage` → `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/notes-storage`; generated copy and any export require a future separately authorized integration action. Nothing in the records certifies native discovery.
+
+Next owner: user-initiated devforge-evaluate-expert, restricted to assigned static inspection, one separately assigned independent review and reserved return. Reviewer identity/output allocation remain external prerequisites; do not infer them from author labels. C/B/A NOT_RUN and unavailable by scope; no nested native campaign. No baseline/current Routine/qualified anchor exists. Claim is local authoring observation, not Full qualification or local adoption acceptance.
+
+Validation status: Not performed.
+Hook status: Design only.

@@ -1,0 +1,54 @@
+[
+  {
+    "command": [
+      "python3",
+      "/mnt/c/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+      "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator"
+    ],
+    "exit_code": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "/mnt/c/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+      "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert"
+    ],
+    "exit_code": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+      "--framework",
+      "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"skills\": 19,\n  \"scope\": \"structure only\",\n  \"behavior\": \"NOT_EVALUATED\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_mvp.py",
+      "--mvp",
+      "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z/docs/mvp"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"schema_version\": 2,\n  \"created_at_utc\": \"2026-09-09T03:29:47.515549+00:00\",\n  \"status\": \"PASS\",\n  \"errors\": [],\n  \"specifications\": 12,\n  \"skill_output_templates\": 17,\n  \"shared_templates\": 2,\n  \"authoring_templates\": 4,\n  \"scope\": \"Local links, JSON, index/source mappings, required sections, cached research digests, whitespace/fences\",\n  \"not_checked\": [\n    \"Full YAML/schema semantics\",\n    \"semantic provenance\",\n    \"Mermaid rendering\",\n    \"native skill behavior\"\n  ],\n  \"native_skill_behavior\": \"NOT_EVALUATED\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

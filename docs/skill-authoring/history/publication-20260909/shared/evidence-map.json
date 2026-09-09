@@ -1,0 +1,646 @@
+[
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+    "sha256": "89c5a6ff2b4118ab75214becc9ff2f6bacf2148ef8f2ca37a11656e302e8ea21",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/89c5a6ff2b4118ab75214becc9ff2f6bacf2148ef8f2ca37a11656e302e8ea21.txt",
+    "size": 7146
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md",
+    "sha256": "f93882af69926ad2dbc92b686d35e4d147cf15589a8e927ce88f83a3e7ff8964",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/f93882af69926ad2dbc92b686d35e4d147cf15589a8e927ce88f83a3e7ff8964.txt",
+    "size": 6513
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/AGENTS.md",
+    "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9.txt",
+    "size": 2491
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.md",
+    "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32.txt",
+    "size": 20188
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+    "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd.txt",
+    "size": 20001
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/artifact-contract.md",
+    "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1.txt",
+    "size": 10482
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/execution-contract.md",
+    "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8.txt",
+    "size": 10720
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/roster.md",
+    "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9.txt",
+    "size": 9930
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+    "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e.txt",
+    "size": 19657
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+    "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140.txt",
+    "size": 11291
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+    "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb.txt",
+    "size": 10603
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+    "sha256": "3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d.txt",
+    "size": 2680
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md",
+    "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5.txt",
+    "size": 1030
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md",
+    "sha256": "eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36.txt",
+    "size": 2343
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+    "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206.txt",
+    "size": 3342
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/shared/session-record.md",
+    "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-context-specification.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd.txt",
+    "size": 2778
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+    "sha256": "89c5a6ff2b4118ab75214becc9ff2f6bacf2148ef8f2ca37a11656e302e8ea21",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/89c5a6ff2b4118ab75214becc9ff2f6bacf2148ef8f2ca37a11656e302e8ea21.txt",
+    "size": 7146
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md",
+    "sha256": "f93882af69926ad2dbc92b686d35e4d147cf15589a8e927ce88f83a3e7ff8964",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/f93882af69926ad2dbc92b686d35e4d147cf15589a8e927ce88f83a3e7ff8964.txt",
+    "size": 6513
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/.poc/integration-reviews/claude-brainstorm-revise-002-20260905T162209790414Z/INTEGRATION-REVIEW.md",
+    "sha256": "f7ae0c4a39fd978e9e9453d3595ad84405dc1dce6b7765d9794a9193f705fc45",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/f7ae0c4a39fd978e9e9453d3595ad84405dc1dce6b7765d9794a9193f705fc45.txt",
+    "size": 13019
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/AGENTS.md",
+    "sha256": "973626369394962f4dda075847f2276725e458f5889402bacd97c5778ee2ac37",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/973626369394962f4dda075847f2276725e458f5889402bacd97c5778ee2ac37.txt",
+    "size": 1167
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/README.md",
+    "sha256": "4e48d32e23b8357cece74c71903944e4042451ecfba92d75ef1468b8cb760043",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/4e48d32e23b8357cece74c71903944e4042451ecfba92d75ef1468b8cb760043.txt",
+    "size": 4497
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/docs/POC.md",
+    "sha256": "071fa59ff6766bcaf2c3f352ba6f030beb73a81e5b5b8066ec9c2ae2f30dd197",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/071fa59ff6766bcaf2c3f352ba6f030beb73a81e5b5b8066ec9c2ae2f30dd197.txt",
+    "size": 10360
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/scripts/install_framework.py",
+    "sha256": "f9a8da5d550f261ae3baf53a0f8b707315ab1beff7120d88dc8867af4c57930e",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/f9a8da5d550f261ae3baf53a0f8b707315ab1beff7120d88dc8867af4c57930e.txt",
+    "size": 8323
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/src/main.rs",
+    "sha256": "71150be072670e26ffa4fffc59cdb436a7c2170651f42a149bd686d3de1286ac",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/71150be072670e26ffa4fffc59cdb436a7c2170651f42a149bd686d3de1286ac.txt",
+    "size": 36231
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/AGENTS.md",
+    "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9.txt",
+    "size": 2491
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/CLAUDE.md",
+    "sha256": "54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931.txt",
+    "size": 1041
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/README.md",
+    "sha256": "3b75c87a30d91a1e00fd7f28329062529d1118353171fb9f94e3767484022ebb",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/3b75c87a30d91a1e00fd7f28329062529d1118353171fb9f94e3767484022ebb.txt",
+    "size": 3886
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/POC.md",
+    "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568.txt",
+    "size": 3664
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/artifact-contract.md",
+    "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1.txt",
+    "size": 10482
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/execution-contract.md",
+    "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8.txt",
+    "size": 10720
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/roster.md",
+    "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9.txt",
+    "size": 9930
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+    "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e.txt",
+    "size": 19657
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+    "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140.txt",
+    "size": 11291
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+    "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb.txt",
+    "size": 10603
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/specifications/skill-012-devforge-change.md",
+    "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774.txt",
+    "size": 9608
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/devforge-architect/architecture-contract.md",
+    "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218.txt",
+    "size": 3130
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/devforge-plan/story.md",
+    "sha256": "a19ccd7f332c895fe6d7713ed8ae1a7e52991c71c846557d3fb29862ebff9daf",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/a19ccd7f332c895fe6d7713ed8ae1a7e52991c71c846557d3fb29862ebff9daf.txt",
+    "size": 2469
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-package.md",
+    "sha256": "c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629.txt",
+    "size": 2243
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+    "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206.txt",
+    "size": 3342
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/shared/session-record.md",
+    "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd.txt",
+    "size": 2778
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md",
+    "sha256": "8a0f94bdf1d6b6d5e4f15d3421a3116d4fed5074774a2eadca7d2ede68b74c1a",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/8a0f94bdf1d6b6d5e4f15d3421a3116d4fed5074774a2eadca7d2ede68b74c1a.txt",
+    "size": 1261
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md",
+    "sha256": "f6e951baafe35e54dfd22c5af995c80d92a21658eeb64fea92a6a64eeb9c9090",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/f6e951baafe35e54dfd22c5af995c80d92a21658eeb64fea92a6a64eeb9c9090.txt",
+    "size": 1291
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/agents/project-expert-author.md",
+    "sha256": "79e21a981b818516233948243390d362fef7a991457556545ece2829e278b194",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/79e21a981b818516233948243390d362fef7a991457556545ece2829e278b194.txt",
+    "size": 684
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+    "sha256": "31641ddbee8024ca2330c4f89622fe2c62bdda326df06c148340c16fc00d7a6e",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/31641ddbee8024ca2330c4f89622fe2c62bdda326df06c148340c16fc00d7a6e.txt",
+    "size": 6345
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md",
+    "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad.txt",
+    "size": 1945
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+    "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10.txt",
+    "size": 3517
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md",
+    "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06.txt",
+    "size": 1411
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+    "sha256": "eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0.txt",
+    "size": 1939
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-develop/SKILL.md",
+    "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad.txt",
+    "size": 1945
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+    "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10.txt",
+    "size": 3517
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-review/SKILL.md",
+    "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+    "reason": "Frozen source snapshot explicitly pinned by docs/coordination/20260905-contributor-expertise-proposal.receipt.json; retain exact selected provenance bytes.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06.txt",
+    "size": 1411
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/assignment.json",
+    "sha256": "880d4f5edd08063735de8605987b3842cfb0c58bef79b2dcb3fb51d40b05d510",
+    "reason": "Original bounded concise-handoff assignment, frozen baseline and unrelated shared-file identities.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/880d4f5edd08063735de8605987b3842cfb0c58bef79b2dcb3fb51d40b05d510.txt",
+    "size": 2659
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/checks.json",
+    "sha256": "8089ec46bba95ca208b2208e4196b729636099835321c1e24a04fad10ad245f7",
+    "reason": "Recorded package, framework, MVP and whitespace command results for the exact concise-handoff candidate; preserve historical scope.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/8089ec46bba95ca208b2208e4196b729636099835321c1e24a04fad10ad245f7.txt",
+    "size": 2154
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/delivery-report.md",
+    "sha256": "4667aff5eeaf0b81b38db7cd0f7f907969316d55989705295b467744d2720446",
+    "reason": "Integrated concise-handoff delivery outcome, evidence directory and outstanding operational/native limits.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/4667aff5eeaf0b81b38db7cd0f7f907969316d55989705295b467744d2720446.txt",
+    "size": 3200
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/export-result.json",
+    "sha256": "391780a98ddd7e7291e2caca571272337bda1cb2ec2a07e8d1bedd9058d5ca93",
+    "reason": "Recorded unaccepted export result and file inventory; exported staging bytes are reproducible from DevForgeAI commit d29430beace67a141d4d35c2beb066981060cda4 and are excluded.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/391780a98ddd7e7291e2caca571272337bda1cb2ec2a07e8d1bedd9058d5ca93.txt",
+    "size": 7916
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/focused-checks.json",
+    "sha256": "e738d04f86c82fe107ca0da627c8e8272e18b77c4f0508dac63670f1dd85bf8d",
+    "reason": "Historical envelope, derivation and notes-storage retrieval observations; includes honest initial probe limitation.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/e738d04f86c82fe107ca0da627c8e8272e18b77c4f0508dac63670f1dd85bf8d.txt",
+    "size": 1333
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/independent-review.md",
+    "sha256": "f7328efddc57b6f0dd1a1133e3a3c3a256945a833b9a3e2276f4f0a3f92a8392",
+    "reason": "Independent static review and resolved presentation advisory for the frozen eight-file patch.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/f7328efddc57b6f0dd1a1133e3a3c3a256945a833b9a3e2276f4f0a3f92a8392.txt",
+    "size": 6532
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/integration-result.json",
+    "sha256": "bcb251bb29ef09b77602ecbc5ad41cc36695e1879c59d9cfe687e3042beeee22",
+    "reason": "Recorded exact integrated commit and scoped delivery state, separate from operational installation and native acceptance.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/bcb251bb29ef09b77602ecbc5ad41cc36695e1879c59d9cfe687e3042beeee22.txt",
+    "size": 386
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/notes-storage-concise-preview.md",
+    "sha256": "826cb2b897af08bc34e149e3a5a9a111a06e06c64ffea5fcde7523689f6e035e",
+    "reason": "Derived presentation exercise; retain its named original handoff and evidence without treating it as a new producer/native record.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/826cb2b897af08bc34e149e3a5a9a111a06e06c64ffea5fcde7523689f6e035e.txt",
+    "size": 4326
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/patch.diff",
+    "sha256": "2abdac3193378253bb4fab3c706a3ce56dc07054c5879c591cd5e4660d27943e",
+    "reason": "Exact frozen patch explicitly bound by the independent review and delivery receipt; preserves reviewed bytes alongside the available baseline/final Git commits.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/2abdac3193378253bb4fab3c706a3ce56dc07054c5879c591cd5e4660d27943e.txt",
+    "size": 89008
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/provenance-refresh.json",
+    "sha256": "261d825cb48d85f8aa872c8ecd0bd75d061e6015f1a104592a133c8e97f66cf4",
+    "reason": "Before/after derivation identities and disclosed pre-existing registry mismatches.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/261d825cb48d85f8aa872c8ecd0bd75d061e6015f1a104592a133c8e97f66cf4.txt",
+    "size": 2627
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/receipt.json",
+    "sha256": "a7d4b06270af247de75eb5dde4388ce01a3172fc48ac40d79952fbb80f63c6fa",
+    "reason": "External delivery receipt binding all twelve original top-level evidence records to the integrated commit.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/a7d4b06270af247de75eb5dde4388ce01a3172fc48ac40d79952fbb80f63c6fa.txt",
+    "size": 1220
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/review-manifest.json",
+    "sha256": "6fb438986685b3a1596c4e030e560785bc5acaef8cae6ffeb3a4bf553f45bc6d",
+    "reason": "Frozen eight-file review selection; exact source bytes are retrievable from DevForgeAI commit d29430beace67a141d4d35c2beb066981060cda4.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/6fb438986685b3a1596c4e030e560785bc5acaef8cae6ffeb3a4bf553f45bc6d.txt",
+    "size": 1499
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/concise-handoffs-20260909T032242Z/staged-identities.json",
+    "sha256": "219c6a188b4184eea680e63ac45849d69cc33d14c2e067e8a7a462ddcb443171",
+    "reason": "Exact staged runtime identity inventory; match source under providers/codex/plugins/devforgeai at commit d29430beace67a141d4d35c2beb066981060cda4, without retaining duplicate staging packages.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/219c6a188b4184eea680e63ac45849d69cc33d14c2e067e8a7a462ddcb443171.txt",
+    "size": 5162
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/implementation-handoff.md",
+    "sha256": "55f46aef30139022ece76bd26f67a55334d2d8ed9a3faecefdae6a2b9890fe55",
+    "reason": "Exact source-selection handoff pinned by both promoted Codex packages; current Git package sources retain this external provenance dependency.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/55f46aef30139022ece76bd26f67a55334d2d8ed9a3faecefdae6a2b9890fe55.txt",
+    "size": 15521
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XPKG.json",
+    "sha256": "c3e6d8c87ddae341b7fad4a1212320da15b0171f0fd8a6be8b5f4be945d790a1",
+    "reason": "Exact direct producer evidence pinned by the original notes-storage handoff and needed to retrieve the concise presentation rationale.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/c3e6d8c87ddae341b7fad4a1212320da15b0171f0fd8a6be8b5f4be945d790a1.txt",
+    "size": 3712
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XSPEC.json",
+    "sha256": "f0fdc0a277b76f410ceeb44e7359f34f960ed7b6ec2bb5a3d112ff59201d6225",
+    "reason": "Exact direct producer evidence pinned by the original notes-storage handoff and needed to retrieve the concise presentation rationale.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/f0fdc0a277b76f410ceeb44e7359f34f960ed7b6ec2bb5a3d112ff59201d6225.txt",
+    "size": 2463
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json",
+    "sha256": "3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063",
+    "reason": "Exact direct producer evidence pinned by the original notes-storage handoff and needed to retrieve the concise presentation rationale.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063.txt",
+    "size": 380
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-change-phase-record.md",
+    "sha256": "6b9f87b8d1f53bb2bb87166b1e309aaaf5c8c32443dcbce49701f09b3df5daf0",
+    "reason": "Exact direct producer evidence pinned by the original notes-storage handoff and needed to retrieve the concise presentation rationale.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/6b9f87b8d1f53bb2bb87166b1e309aaaf5c8c32443dcbce49701f09b3df5daf0.txt",
+    "size": 8669
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md",
+    "sha256": "4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff",
+    "reason": "Exact direct producer evidence pinned by the original notes-storage handoff and needed to retrieve the concise presentation rationale.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff.txt",
+    "size": 38754
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-discovery.json",
+    "sha256": "21a8c355129fe648a3f3a68e0301a7a833568ecfcc973c4cf77bb8ad17bb071b",
+    "reason": "Exact direct producer evidence pinned by the original notes-storage handoff and needed to retrieve the concise presentation rationale.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/21a8c355129fe648a3f3a68e0301a7a833568ecfcc973c4cf77bb8ad17bb071b.txt",
+    "size": 39913
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-handoff.md",
+    "sha256": "837e43768aaf1dd4f7735b7b23895ff83ca370371372a70ee352c514b00985aa",
+    "reason": "Original frozen producer handoff required by the concise preview and independent retrieval review; preserves creation-time scope, budgets and custody.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/837e43768aaf1dd4f7735b7b23895ff83ca370371372a70ee352c514b00985aa.txt",
+    "size": 19004
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json",
+    "sha256": "1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d",
+    "reason": "Exact direct producer evidence pinned by the original notes-storage handoff and needed to retrieve the concise presentation rationale.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d.txt",
+    "size": 8884
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/01-project.md",
+    "sha256": "e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26.txt",
+    "size": 977
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/02-accepted-decisions.md",
+    "sha256": "8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7.txt",
+    "size": 1034
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/03-notes_store.py",
+    "sha256": "353596871080dcc99a7053ed7d6660d2681d3d7076564ff76cb3860345b402f6",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/353596871080dcc99a7053ed7d6660d2681d3d7076564ff76cb3860345b402f6.txt",
+    "size": 746
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/04-SKILL.md",
+    "sha256": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263.txt",
+    "size": 13667
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/05-framework-context.md",
+    "sha256": "c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13.txt",
+    "size": 1473
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/06-skill-authoring-contract.md",
+    "sha256": "d05cc75d8f049c854a91500ff3224f85fd06ffb08b257aed5db38cc9e35dd0fe",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/d05cc75d8f049c854a91500ff3224f85fd06ffb08b257aed5db38cc9e35dd0fe.txt",
+    "size": 24854
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/07-artifact-contract.md",
+    "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53.txt",
+    "size": 3019
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/08-execution-contract.md",
+    "sha256": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8.txt",
+    "size": 6919
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/09-manual-operation.md",
+    "sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189.txt",
+    "size": 15738
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/10-interview-guide.md",
+    "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e.txt",
+    "size": 5770
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/11-existing-skill-selection.md",
+    "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464.txt",
+    "size": 4836
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/12-managed-authoring.md",
+    "sha256": "4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e.txt",
+    "size": 5684
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/13-derivation.json",
+    "sha256": "49e3e5849fee810605383364bb8fe4b4d8cc6af6720728716340034557e93063",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/49e3e5849fee810605383364bb8fe4b4d8cc6af6720728716340034557e93063.txt",
+    "size": 34753
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/14-skill-design-spec.md",
+    "sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead.txt",
+    "size": 22266
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/15-handoff.md",
+    "sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7.txt",
+    "size": 7136
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/16-SKILL.md",
+    "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+    "reason": "Original notes-storage input snapshot; resolves the preserved_path retained in notes-storage-inputs.json when producer sandbox aliases are unavailable.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66.txt",
+    "size": 15311
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/SKILL.md",
+    "sha256": "d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524",
+    "reason": "Exact two-file notes-storage candidate required by the frozen producer manifest; this example candidate is outside the published framework source.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524.txt",
+    "size": 5202
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/references/derivation.json",
+    "sha256": "ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f",
+    "reason": "Exact two-file notes-storage candidate required by the frozen producer manifest; this example candidate is outside the published framework source.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f.txt",
+    "size": 1794
+  },
+  {
+    "original_path": "/home/bryan/Projects/DevForge/tmp/vpi01-execution-20260908T150659678746Z/repair-terminal-report.md",
+    "sha256": "a3601e55f7b9414e0cbd7c723d21aa92fc95a75ab42d7c767ec78a63ee2149af",
+    "reason": "Immediate historical source explicitly pinned by implementation-handoff.md; preserves the original partial G8 result and deferred automation rationale. Full G8 outboxes remain separate historical evidence scope.",
+    "published_path": "docs/skill-authoring/history/publication-20260909/shared/evidence/objects/a3601e55f7b9414e0cbd7c723d21aa92fc95a75ab42d7c767ec78a63ee2149af.txt",
+    "size": 12523
+  }
+]

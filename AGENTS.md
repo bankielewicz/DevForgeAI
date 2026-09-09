@@ -1,18 +1,36 @@
 # DevForgeAI POC
 
-DevForgeAI is an adaptive, spec-driven software engineering framework in development. Use the [adaptive design](docs/mvp/roster.md#adaptive-design) to describe its intended identity while preserving the current POC and draft capability status. Adaptation means selecting relevant workflows and context, creating or refreshing needed expertise, and reevaluating affected work under accepted specifications and recorded authority. Ground capability claims in observed evidence for the relevant scope and provider.
+## Identity and ownership
 
-This repository owns conversational workflows, skills, agent definitions, examples, and project expertise. Its companion repository is https://github.com/bankielewicz/DevForge and owns the Rust CLI, policy, tests, and GitHub workflows.
+DevForgeAI is an adaptive, spec-driven software engineering framework in development. Use the [adaptive design](docs/mvp/roster.md#adaptive-design) to describe its intended identity while preserving current POC and draft status. Adaptation selects relevant workflows and context, creates or refreshes needed expertise, and reevaluates affected work under accepted specifications and recorded authority. Ground capability claims in observed evidence for the relevant scope and provider.
 
-Work from the user's task and applicable skill. Capture brainstorming suggestions as proposals; preserve accepted project decisions and their source revisions. Use project-specific facts and verified library references when authoring expert skills. A provenance binding is not evidence of expert behavior.
+This repository owns conversational workflows, skills, agents, examples, and project expertise. Companion [DevForge](https://github.com/bankielewicz/DevForge) owns the Rust CLI, policy, protected runtime, tests, and GitHub workflows. Keep substantive conversational behavior in skills; protected runtime owns mechanical transitions, checks, and receipts.
 
-When working on this framework or a generated project, do not change sibling DevForge gates or policy to make a candidate pass. Report a contract defect to its owner. Framework maintenance explicitly requested by the user may change framework sources; application work may not silently change its governing framework.
+## Decisions and canonical sources
 
-Canonical framework skill sources are provider-specific: providers/claude/plugins/devforgeai/skills and providers/codex/plugins/devforgeai/skills. Work only in the provider and skill named by your assignment. Claude plugin agents are in providers/claude/plugins/devforgeai/agents; Codex subagent templates remain in providers/codex/agents. Per-skill agents/openai.yaml is optional Codex metadata, not a subagent. Installed copies and exported plugins are generated artifacts, never alternative canonical sources.
+Work from the user's task and applicable skill. Capture brainstorming suggestions as proposals; preserve human-accepted project decisions and their source revisions. Use project-specific facts and verified library references when authoring expert skills. Provenance does not prove expert behavior.
 
-For skill authoring, read docs/mvp/skill-authoring-contract.md and the relevant specification/templates. Shared contracts and installer integration have one integration owner; report ambiguities rather than changing them from a skill-only assignment. Authored eval inputs live under the skill's evals directory, while run outputs live in the assigned provider evaluation workspace. No package or file-hash check certifies native activation or behavioral quality.
+Do not change sibling DevForge gates or policy to make a candidate pass. Report contract defects to their owner. Explicit framework maintenance may change framework sources; application work cannot silently change its governing framework.
 
-The POC is Linux/WSL2 and local-only. Read docs/POC.md for commands, actual guarantees, and remaining evaluation work.
+Canonical skill sources are provider-specific: `providers/claude/plugins/devforgeai/skills` and `providers/codex/plugins/devforgeai/skills`. Edit only the assigned provider and skill. Claude plugin agents live in `providers/claude/plugins/devforgeai/agents`; Codex subagent templates remain in `providers/codex/agents`. Per-skill `agents/openai.yaml` is optional Codex metadata, not a subagent. Installed copies and exported plugins are generated, never alternative canonical sources.
+
+For skill authoring, read `docs/mvp/skill-authoring-contract.md` and applicable specifications/templates. Authored eval inputs belong in the skill's `evals` directory; run outputs belong in the assigned provider evaluation workspace.
+
+## Concurrent sessions
+
+At session start, verify repository, worktree, branch, HEAD, write scope, and existing changes. Parallel implementation sessions use separate worktrees and branches with distinct outputs. Shared contracts and installer integration have one integration owner; report ambiguity rather than expanding a skill-only assignment.
+
+Preserve others' changes. Workers must not commit, rebase, reset, or merge a shared checkout; its designated integration owner handles authorized integration. Recheck owned files and required pins before writes and handoff. Unexpected drift stops the affected action. Never silently repin frozen evidence or overwrite concurrent work.
+
+## Verification and completion
+
+Keep authoring, static checks, native activation/behavior, runtime admission, and human acceptance distinct. Package or hash checks do not certify native behavior. Consequential changes require independent review of specified bytes without reviewer edits. Documentation-only edits need content/link/diff review, not native evaluation.
+
+Rust CLI maintenance follows TDD in the companion repository under its guide. Explicit no-execution allocations override general testing instructions.
+
+Apply clocks and deadlines only when allocated; include preparation, waiting, and closeout, and never reset them or fabricate observations. Handoffs identify changes, checks, unresolved work, and the next owner. Exact paths, SHA-256 bindings, and full readback are required when the custody contract specifies them.
+
+The POC is Linux/WSL2 and local-only. Read `docs/POC.md` for commands, actual guarantees, and remaining evaluation work.
 
 ## Learned behavior: bounded delivery
 

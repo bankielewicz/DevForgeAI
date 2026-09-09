@@ -1,0 +1,27 @@
+[
+  {
+    "source_branch": "proposal/skill-validation-policy-20260908T114822309238Z",
+    "sha": "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+    "remote_ref": "refs/heads/archive/20260909/proposal/skill-validation-policy-20260908T114822309238Z"
+  },
+  {
+    "source_branch": "impl/vpi01-20260908T144631697661Z-builder",
+    "sha": "5822e72d705216850eeeddccef93391bfeaad89c",
+    "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-builder"
+  },
+  {
+    "source_branch": "impl/vpi01-20260908T144631697661Z-contracts",
+    "sha": "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+    "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-contracts"
+  },
+  {
+    "source_branch": "impl/vpi01-20260908T144631697661Z-repair-ai",
+    "sha": "22e864951066c71a46873321f9bde2220aba653a",
+    "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-repair-ai"
+  },
+  {
+    "source_branch": "impl/vpi01-20260908T144631697661Z-validator",
+    "sha": "314e4048057e1b5431b4d838ce363d8dd0ce5080",
+    "remote_ref": "refs/heads/archive/20260909/impl/vpi01-20260908T144631697661Z-validator"
+  }
+]

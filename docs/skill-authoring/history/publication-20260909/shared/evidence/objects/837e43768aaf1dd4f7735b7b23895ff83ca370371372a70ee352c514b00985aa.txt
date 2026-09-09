@@ -1,0 +1,156 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-notes-storage-01"
+artifact_type: "handoff"
+project_id: null
+revision: 1
+status: "prepared"
+created_at_utc: "2026-09-09T02:37:39.583327+00:00"
+producer: {"skill": "devforge-project-expert-creator", "skill_revision": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"}
+execution_ref: null
+upstream: [{"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json", "sha256": "1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d"}]
+evidence: [{"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md", "sha256": "4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff"}, {"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json", "sha256": "3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063"}, {"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XSPEC.json", "sha256": "f0fdc0a277b76f410ceeb44e7359f34f960ed7b6ec2bb5a3d112ff59201d6225"}, {"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XPKG.json", "sha256": "c3e6d8c87ddae341b7fad4a1212320da15b0171f0fd8a6be8b5f4be945d790a1"}, {"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-change-phase-record.md", "sha256": "6b9f87b8d1f53bb2bb87166b1e309aaaf5c8c32443dcbce49701f09b3df5daf0"}, {"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-discovery.json", "sha256": "21a8c355129fe648a3f3a68e0301a7a833568ecfcc973c4cf77bb8ad17bb071b"}, {"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json", "sha256": "1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d"}]
+supersedes: null
+decision_ref: {"path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/docs/accepted-decisions.md", "sha256": "8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7"}
+missing_inputs: ["No allocated project ID, managed assignment/lease, protected runtime receipt, concrete Git base/branch, or exact Codex client version supplied.", "Receiver output allocation and actual independent reviewer identity/context must come from its separate assignment.", "No current official hook documentation retrieval: network prohibited.", "No validation, installed identity, native C/B/A or actual receiver invocation evidence at creation."]
+---
+
+# Prepared notes-storage authoring handoff
+
+## You are here
+
+The focused Codex notes-storage expert is authored at `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage`. All five Enforced creator phases have terminal substantive authoring records in the saved change/phase record. Current state is unmanaged local authoring complete; transfer document prepared. This is the user's local authoring workflow observation, not Full qualification.
+
+Runtime transition admission: NOT_OBSERVED. Receiving skill invocation: NOT_RUN. Native activation/rendered delivery: NOT_OBSERVED. No validation, installation, hook activation or protected receipt occurred.
+
+Assignment is the current user's synthetic project expert creation request. Workspace `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace`; source fence `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage` and authoring outbox `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out` only. Installed `.agents` content and application source are read-only for this assignment. No lease, concrete branch/base or integration-owner identity is asserted. Scope persists; a prepared prompt neither transfers exclusive ownership nor expands permission.
+
+## Inputs consumed and outputs produced
+
+Selected input source and preserved-copy paths, dates and computed identities are in the input manifest below; specification §10 enumerates each, including the exact loaded creator, contracts and templates. Project docs are synthetic owner authority; code is current-behavior evidence. Snapshot identities bind the bytes used, not semantics.
+
+| Direction | Artifact / revision | Exact path | SHA-256 | Decision/freshness |
+| --- | --- | --- | --- | --- |
+| output | `notes-storage-design-spec.md` / revision 1 | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md` | `4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff` | Authored bytes; unvalidated |
+| output | `notes-storage-candidate-manifest.json` / revision 1 | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json` | `3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063` | Authored bytes; unvalidated |
+| output | `notes-storage-XSPEC.json` / revision 1 | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XSPEC.json` | `f0fdc0a277b76f410ceeb44e7359f34f960ed7b6ec2bb5a3d112ff59201d6225` | Authored bytes; unvalidated |
+| output | `notes-storage-XPKG.json` / revision 1 | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XPKG.json` | `c3e6d8c87ddae341b7fad4a1212320da15b0171f0fd8a6be8b5f4be945d790a1` | Authored bytes; unvalidated |
+| output | `notes-storage-change-phase-record.md` / revision 1 | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-change-phase-record.md` | `6b9f87b8d1f53bb2bb87166b1e309aaaf5c8c32443dcbce49701f09b3df5daf0` | Authored bytes; unvalidated |
+| output | `notes-storage-discovery.json` / revision 1 | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-discovery.json` | `21a8c355129fe648a3f3a68e0301a7a833568ecfcc973c4cf77bb8ad17bb071b` | Authored bytes; unvalidated |
+| output | `notes-storage-inputs.json` / revision 1 | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json` | `1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d` | Authored bytes; unvalidated |
+| output | Candidate SKILL.md / initial | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/SKILL.md` | `d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524` | Canonical, unvalidated |
+| output | Maintenance provenance / initial | `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/references/derivation.json` | `ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f` | Canonical, unvalidated |
+
+The source manifest above completely maps both candidate files. Before candidate: ABSENT at inspected source destination. Former report/findings: none supplied. No installed manifest, export, current Routine candidate, accepted baseline or qualified anchor exists. This handoff has no self-digest and references no later receipt digest.
+
+## What changed and what remains open
+
+CHG-001 applied: focused SKILL.md with precise ordinary/explicit discovery, Python 3.11/json/pathlib and public load/save preservation, validated-list contract, missing-versus-empty distinction, surfaced errors, metadata-preserving targeted edits and source limits. CHG-002 applied: maintenance provenance, snapshots/identities, selection/design and transfer artifacts. CHG-003 deferred: H1/H2 realization, forbidden here and runtime feasibility Unknown. CHG-004 deferred: evaluation/native evidence/install to separate authorized owners.
+
+Preserved adopted decisions: NS-01–NS-08 in specification §5 and the named Enforced Intake/Selection/Design/Authoring/PreparedTransfer group in §4. No implementation decision needed another question. New routine authoring choices are package organization, discovery prose, case labels and report names; no accepted stack/API/preservation rule changed.
+
+Current source distinction: load validates and retains parsed fields; save writes directly without validation or atomicity; no edit function exists. Future desired text-edit behavior is instructed, not claimed implemented or tested. No application files were changed. No candidate helper or test is included or executed.
+
+Search decision: no suitable expert found in the exposed and searched local inventory. Generic develop/review skills consume project expertise and do not own this schema. Plugin cache presence does not prove enabled availability. Limits and resolved paths are in discovery record/specification §9; global uniqueness is not claimed.
+
+Open evidence: official hook documentation/client version, effective runtime coverage and trusted enforcement owner; independent review and its actual context; receiver allocation; installation/native behavior. No material authoring question is pending. Preserve these gaps rather than invent evidence or relax Enforced requirements. H1/H2 remain “Design only; not installed, activated, executed, or validated.”
+
+## Observed completion evidence
+
+| Check | Outcome | Evidence / cause |
+| --- | --- | --- |
+| Substantive authoring outputs | SAVED | Successful direct writes; complete candidate/specification/change and handoff paths above |
+| Source-byte identities | COMPUTED by author | Ordinary SHA-256 reads of completed files; no semantic validation or protected custody |
+| Five creator phases | COMPLETE for substantive authoring | Change/phase record lists required work, outputs and explicit limits; no mechanical admission claim |
+| Validation | Not performed | Prohibited in creator allocation; examples E01–E11 only captured |
+| Runtime final-byte checks | NOT_RUN | No protected runtime assignment supplied; author hashes are distinct |
+| Runtime receipt publication/readback | NOT_RUN | No receipt supplied or helper invoked |
+| Native transition | NOT_OBSERVED | Prepared document is not admission |
+| Receiving invocation | NOT_RUN | Only user may initiate separate receiver |
+| Installed/native resource C | NOT_RUN, unavailable | No installation or native campaign authorized |
+| Behavioral comparison B | NOT_RUN, unavailable | No target execution or baseline arm authorized |
+| Native discovery A | NOT_RUN, unavailable | No installed runtime or native invocation authorized |
+| Rendered human delivery | NOT_OBSERVED at authoring | Later terminal rendering is not retrospectively recorded here |
+
+## Continuation directory
+
+| Order | Task / allocated owner | Prerequisites | Completion evidence |
+| --- | --- | --- | --- |
+| 1 | User-initiated devforge-evaluate-expert: bounded static inspection and one separately assigned independent review, with reserved return | Exact pins below, user receiver allocation/output fence, actual independent reviewer assignment; no nested native campaign | Saved scoped plan/results, independent review evidence with limits, bounded repair specification, prepared creator return; honest missing C/B/A |
+| 2 | User-initiated creator return only if separately assigned | Real receiver outputs and bounded findings, current authoring authority, remaining original window/turn allocation if treated as this creation's continuation | Authorized bounded source changes or honest disposition; retain old bytes/results. Do not auto-initiate or reset deadline |
+
+Integration/hook execution/installation/Full qualification are unallocated future work, not additional steps launched by this directory. The receiver's reserved return is not proof that a creator continuation has been assigned or remains within the original budget.
+
+## Copyable receiving task
+
+```text
+Use $devforge-evaluate-expert, loading:
+/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-evaluate-expert/SKILL.md
+and relevant resources relative to that package.
+
+Read the actual creator handoff:
+/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-handoff.md
+
+Frozen canonical candidate root:
+/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage
+Complete source manifest:
+/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-candidate-manifest.json
+SHA-256: 3c502fac25c16b1eb853265a522f9518e645c1ae98c3d448acc5970596864063
+Candidate SKILL.md: /home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/SKILL.md
+SHA-256: d21b1531f4347cf74b6d1fac2c1a7021b40ca2fe2b75aa0f03433866d63e1524
+Candidate references/derivation.json: /home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/experts/notes-storage/references/derivation.json
+SHA-256: ab447a0292adc7902054df2ed06c875aa4eb2e8bacf7b3e3a48c76e180957b3f
+
+Detailed governing specification:
+/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md
+SHA-256: 4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff
+XSPEC: /home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XSPEC.json
+SHA-256: f0fdc0a277b76f410ceeb44e7359f34f960ed7b6ec2bb5a3d112ff59201d6225
+XPKG: /home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-XPKG.json
+SHA-256: c3e6d8c87ddae341b7fad4a1212320da15b0171f0fd8a6be8b5f4be945d790a1
+Change/phase record: /home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-change-phase-record.md
+SHA-256: 6b9f87b8d1f53bb2bb87166b1e309aaaf5c8c32443dcbce49701f09b3df5daf0
+
+Check the exact saved references within your static inspection scope. Preserve
+NS-01–NS-08, the five Enforced creator phases, synthetic owner decisions,
+actual-source versus desired-behavior distinction, and all explicit search limits.
+The requested claim is a local authoring workflow observation, not Full
+qualification, Routine acceptance, installation or an accepted local baseline.
+
+Use only your separately assigned static inspection allocation, one separately
+assigned independent review and reserved return. Establish the actual reviewer's
+identity/context from that assignment; do not claim independence from an author
+label. If that assignment is unavailable, record independent review unavailable.
+Do not spawn a nested native campaign, run the target, install it, execute hooks,
+change application/candidate/installed package files, use network, or initiate
+another receiving skill/continuation. Keep C/B/A unavailable and NOT_RUN; no
+static or semantic observation substitutes for native evidence. Preserve your
+Enforced W1/P1–P6/T01–T12 obligations with honest scoped dispositions.
+
+Save a scoped evaluation plan and results, actual independent-review evidence
+or its missing-input disposition, a bounded repair/enhancement specification,
+and a prepared creator-return handoff in the output area allocated by your
+separate invocation. If no output allocation is supplied, record that prerequisite;
+this handoff grants no new filesystem fence. Preserve source and prior artifacts.
+Bind exact candidate/specification bytes and distinguish reporting completion,
+source findings, missing native evidence, qualification and actual transfer.
+No self-digests, automatic return or unearned PASS. The prepared return must
+name exact saved evidence and candidate/specification paths for the next user task.
+```
+
+## Resume and custody
+
+Author-observed successful writes and hashing cover the listed artifacts. The last substantive result is this prepared handoff; receiver inspection is pending. Current handoff path is `/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-handoff.md`. External receipt: null. Runtime owns any future protected publication/readback, and none is claimed here. No model-issued advance/resume/complete/check/verify or receipt-helper fallback is permitted.
+
+Worktree remains at the assigned path; no release, lease transfer or cleanup performed. External gate state is unavailable. Do not overwrite artifacts during later work; preserve this snapshot and reports and issue new identities for affected changes. Candidate/specification/source/assignment/runtime/installation drift invalidates affected continuation claims. No later invocation or receipt may be retroactively written into this creation-time record.
+
+Creator budget at handoff: one initial turn used, zero continuations initiated; shared limit 1200 seconds, at most one separately initiated counted continuation. No authoritative wall-time receipt or model-budget measurement is asserted. No continuation is initiated by this document.
+
+## Manual transfer and scope
+
+Detailed source/XSPEC/XPKG paths and hashes are above. Actual request is local authoring observation. No Routine/Full qualification selection or success is claimed; a future first qualification requires a separately authorized Full allocation. Accepted baseline, current Routine and qualified anchor are ABSENT. Immediate and cumulative impact are the same new two-file candidate; future resource/activation/behavior and compatibility dependencies are documented in specification's manual section. No independent reviewer has assessed that selection at creation.
+
+Receiving evidence at creation: NOT_RUN. The next user invocation is the copyable task above; it loads real producer artifacts only when separately initiated. A prepared task is not receiver action, local acceptance, a protected receipt or permission to install.
+
+Validation status: Not performed.
+Hook status: Design only.

@@ -1,0 +1,66 @@
+{
+  "schema_version": "devforge.artifact/v1",
+  "artifact_id": "XSPEC-notes-storage-01",
+  "artifact_type": "expert-specification",
+  "project_id": null,
+  "revision": 1,
+  "status": "authored",
+  "created_at_utc": "2026-09-09T02:36:03.622468+00:00",
+  "producer": {
+    "skill": "devforge-project-expert-creator",
+    "skill_revision": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"
+  },
+  "execution_ref": null,
+  "upstream": [
+    {
+      "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs.json",
+      "sha256": "1cef1bfa5ce8d2106f5db641fb13422b722e5e2b3799ca40f2999b8901f3827d"
+    }
+  ],
+  "evidence": [],
+  "supersedes": null,
+  "decision_ref": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/docs/accepted-decisions.md",
+    "sha256": "8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7"
+  },
+  "missing_inputs": [
+    "No allocated project ID or protected execution receipt supplied; synthetic project authority is the user task and supplied documents."
+  ],
+  "record_scope": "Local manual authoring envelope; no CLI schema acceptance or runtime binding asserted.",
+  "detailed_design": {
+    "path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-design-spec.md",
+    "sha256": "4d636628d845f84073e3380036c0dcac22bed6772c5f530f4f284a8d2cb7c8ff",
+    "sections": [
+      "1-3 capability and inputs",
+      "4 five Enforced phases",
+      "5 NS-01–NS-08",
+      "6 hooks",
+      "7 examples",
+      "9 selection",
+      "10 authority and identities",
+      "12 changes",
+      "Manual evaluation selection and delivery"
+    ]
+  },
+  "requirements": [
+    "NS-01",
+    "NS-02",
+    "NS-03",
+    "NS-04",
+    "NS-05",
+    "NS-06",
+    "NS-07",
+    "NS-08"
+  ],
+  "phase_classifications": {
+    "Intake": "Enforced",
+    "Selection": "Enforced",
+    "Design": "Enforced",
+    "Authoring": "Enforced",
+    "PreparedTransfer": "Enforced"
+  },
+  "requested_claim": "Local authoring workflow observation, not Full qualification.",
+  "coverage_selection": "Static-only receiving inspection with one separately assigned independent review and reserved return; no Routine/Full success claim.",
+  "validation_status": "Not performed",
+  "hook_status": "Design only"
+}

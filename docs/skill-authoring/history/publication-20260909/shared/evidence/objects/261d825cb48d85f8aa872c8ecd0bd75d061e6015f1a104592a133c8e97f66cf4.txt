@@ -1,0 +1,53 @@
+{
+  "base": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+  "changes": [
+    {
+      "skill": "devforge-project-expert-creator",
+      "path": "SKILL.md",
+      "previously_recorded_sha256": "41873d8fad910c2bf6ec9ac4e087f96abaaa6c54811bb0eba65317fe6844a7ad",
+      "baseline_sha256": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263",
+      "current_sha256": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423",
+      "baseline_registry_matched": false
+    },
+    {
+      "skill": "devforge-project-expert-creator",
+      "path": "assets/handoff.md",
+      "previously_recorded_sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7",
+      "baseline_sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7",
+      "current_sha256": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4",
+      "baseline_registry_matched": true
+    },
+    {
+      "skill": "devforge-project-expert-creator",
+      "path": "references/manual-operation.md",
+      "previously_recorded_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
+      "baseline_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
+      "current_sha256": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72",
+      "baseline_registry_matched": true
+    },
+    {
+      "skill": "devforge-evaluate-expert",
+      "path": "assets/handoff.md",
+      "previously_recorded_sha256": "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5",
+      "baseline_sha256": "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5",
+      "current_sha256": "80d10de30e8301242d42abc6078c412f3dcf1a446f1d0e31fd3c3571cbe0d23d",
+      "baseline_registry_matched": true
+    },
+    {
+      "skill": "devforge-evaluate-expert",
+      "path": "SKILL.md",
+      "previously_recorded_sha256": "7985552fd23ac17848a335dd8a7bc0b6be6407c27bf09920aa83e9bb46ea395d",
+      "baseline_sha256": "b3a4e8085d7d122110d77a2886117f2d46aff2fb633c0cad87d230f5a45f33e1",
+      "current_sha256": "6ed2a5d7e91711a2f18a86e3131a81f23d36eafddcfa5f3e06af76cc303d1340",
+      "baseline_registry_matched": false
+    },
+    {
+      "skill": "devforge-evaluate-expert",
+      "path": "references/manual-operation.md",
+      "previously_recorded_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
+      "baseline_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
+      "current_sha256": "a8e56317e96ef279797f2215465c10d8b079659d8663615bee068a92bf335858",
+      "baseline_registry_matched": true
+    }
+  ]
+}

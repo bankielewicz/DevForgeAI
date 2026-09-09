@@ -1,0 +1,19 @@
+"""Current project notes persistence. Accepted Python 3.11 standard library."""
+import json
+from pathlib import Path
+
+def load(path):
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(data, list):
+        raise ValueError("notes must be a list")
+    seen = set()
+    for note in data:
+        if not isinstance(note, dict) or not isinstance(note.get("id"), str) or not note["id"] or not isinstance(note.get("text"), str):
+            raise ValueError("invalid note")
+        if note["id"] in seen:
+            raise ValueError("duplicate id")
+        seen.add(note["id"])
+    return data
+
+def save(path, notes):
+    Path(path).write_text(json.dumps(notes, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -1,0 +1,59 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SESSION-002"
+artifact_type: "session-record"
+project_id: "devforgeai"
+revision: 4
+status: draft
+created_at_utc: "2026-09-05T15:30:46.438904+00:00"
+producer:
+  skill: "integration-operator"
+  skill_revision: "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+execution_ref: null
+upstream: []
+evidence: []
+supersedes:
+  artifact_id: "SESSION-002"
+  revision: 3
+  store: authority
+  path: "integration-reviews/codex-brainstorm-revise-002-20260905T151824019700Z/authority/SESSION-002.md"
+  sha256: "9b32814d649e0a311f79c699a70f448c5d1bfb9063d77de15c40f8ab6eb0f111"
+decision_ref: null
+missing_inputs: []
+---
+
+# Codex brainstorm author assignment
+
+- Owner: same user-selected native Codex author in the codex-brainstorm worktree; one author, no additional writer.
+- Assignment state: active; retained until integration operator releases or revokes it.
+- Authority: user relayed the completed revision-002 report for integration review. The operator verified the requested completion/delivery corrections, retained the exact evidence, and assigns the narrow package/convention repair and missing B6 coverage extension in CODEX-REVISE-003.md. No acceptance is implied.
+- Task: read /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-002-20260905T151824019700Z/INTEGRATION-REVIEW.md, SHA-256 1e0f53707771fc6f0e0c351f36f390c92bd3e8084e8c598f5b5501047bda56b0, and CODEX-REVISE-003.md. Correct R2-DOC-001/R3-REF-001 and exercise the separately supplied B6E drift/control pair.
+- Execution reference for new outputs: SESSION-002@4, store authority, path authoring-assignments-20260905/SESSION-002.md under /home/bryan/Projects/DevForge/framework/DevForge/.poc, with this record's actual SHA-256.
+- Mode: git-worktree.
+- Repository / Git common directory: /home/bryan/Projects/DevForge/framework/DevForgeAI / /home/bryan/Projects/DevForge/framework/DevForgeAI/.git.
+- Worktree: /home/bryan/Projects/DevForge/worktrees/codex-brainstorm.
+- Branch: author/codex-brainstorm-mvp.
+- Base commit: a006b3d91f39776cf3ac4cd06b174d5fa3ed688c.
+- Starting source: 23 source files; candidate manifest /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-002-20260905T151824019700Z/run/candidate-final-manifest.json, SHA-256 cdc902115302e478314197d330803126eaa7a176c5728cd2ce1c69b637ad4ae8; SKILL.md ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828. Expected dirty source is intentional. The authored source-manifest code excludes __pycache__; an existing excluded bytecode file is recorded in operator custody and is not assigned cleanup.
+- Identity is a human-owned conversational assignment; cryptographic identity authentication NOT_PERFORMED.
+
+## Write fence
+
+- Package maintenance is limited to providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md, references/artifact-workflow.md, references/derivation.json, and new/updated evals/** needed for this bounded task. Preserve original evals.json, trigger queries, original fixtures and older assertion/test evidence.
+- Keep SKILL.md, assets/idea-ledger.md, scripts/artifact_receipt.py and scripts/delivery_check.py unchanged. The validated collector/process implementation should be reused unchanged in a new run root; case staging/reporting may be adapted for the new cases without silently changing completion semantics.
+- Evaluation: one new collision-free run under .poc/codex/devforge-brainstorm-workspace/runs/**. Old completed author/revise-001/revise-002 runs, baseline and custody remain read-only inputs.
+- New B6E fixtures: read-only /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-002-20260905T151824019700Z/next-fixtures/b6e/MANIFEST.json, SHA-256 ce31525f75d20b1518fce6a687ca8ab867564738013a19a5b988fcd1d1a71dcd. Stage only its five per-case project files and shared raw request into native workers. All other fixture/review records are grader-only.
+- Each native arm has distinct initially empty private state inside its new run; retain established read-only subscription auth, no credentials copied/logged, no shared writable global history/memory or unconfined fallback.
+- Process actions only target verified children of this run. No broad process-name kills, host-state cleanup or restoration.
+- Protected: all shared docs, AGENTS.md/CLAUDE.md, manifests, sibling skills/providers, Git metadata and all companion/authority files. Git inspection only; operator owns commits, refs and integration.
+- Exactly two operator edits now appear outside source fence: docs/mvp/skill-authoring-contract.md and docs/mvp/templates/shared/handoff.md match the already-selected bytes. Their reconciliation is in /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-002-20260905T151824019700Z/SHARED-DOC-RECONCILIATION.json. Do not revert or modify them.
+- No external messages, publication, API-key setup, commits, merges or pushes assigned.
+
+## Context, budget and handback
+
+- Governing selection remains /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-001-20260905T125044117625Z/next-inputs/INPUTS.json, SHA-256 8c91697738a9825887df8de4c1c29170e430ebc7e99cdb9a6543cb76a2e1ac50. All six local shared copies now match. No contract revision or Claude assignment changes.
+- Companion DevForge remains 6983f1de3e06f9b422546fd6944888dcd34e56a1; use its installer with --provider codex and project-local isolated consumers. No companion policy or tooling-pin change assigned.
+- Use native skill-creator instructions for the narrow authoring task. Record actual usage; no retrospective invention of creator history.
+- One candidate iteration; deterministic anchor/reference/fixture checks first, then C1 + five affected B cases + B6E drift/control = at most8 native attempts. 600 seconds each, at most2 concurrent, no retries or timeout escalation. Declare a finite wall-clock budget no greater than90 minutes before native work.
+- No full A suite, baseline rerun, unrelated B cases or process-test campaign assigned solely for heading anchors. Preserve previous passes for their actual package/scope; report new unrun observations honestly.
+- Save a new report, exact source/install/evidence manifest and separate receipt after readback; operator preserves them externally. Owner remains retained after handback. No human quality/adoption decision yet exists.

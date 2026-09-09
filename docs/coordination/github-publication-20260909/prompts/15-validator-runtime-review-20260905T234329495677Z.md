@@ -1,0 +1,23 @@
+Task: preserve and close the historical detached validator-review work without duplicating current implementation.
+
+Work only on the publication disposition for this existing session.
+Repository: /home/bryan/Projects/DevForge/framework/DevForge
+GitHub: https://github.com/bankielewicz/DevForge
+Existing worktree: /home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z
+Observed branch: DETACHED
+Observed HEAD: 6983f1de3e06f9b422546fd6944888dcd34e56a1
+
+Authority: this is a new, bounded source-publication assignment when the user sends you this prompt. You may prepare an isolated publication checkout, preserve your assigned work, run applicable deterministic checks, commit selected files, push the explicitly named branches to the specified repository, and create/update a draft PR where there is a real pending change. Carry prior evidence and settled decisions forward. Do not merge PRs, force-push, mirror-push, delete branches/worktrees, activate hooks, install packages, release software, or launch native/model evaluation campaigns. Do not switch, reset, stash, rebase or commit another session's checkout.
+
+Read the current workspace and repository AGENTS.md and /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/github-publication-20260909/README.md. Recheck repository/common Git directory, branch, HEAD, dirty/untracked paths, origin URL and actual authenticated remote refs. The recorded HEAD is a planning snapshot: account for your own subsequent work, but stop affected writes for unexplained drift. Verify public suitability of the exact files AND newly exposed commit history. Exclude credentials, client/session stores and unsanitized private logs; never bulk-add tmp, .poc or ignored files. Use existing authentication; report a concrete missing login action if necessary.
+
+Keep source publication distinct from test success, native qualification, acceptance and installation. Save required public-safe evidence under the repository's existing documentation/evidence area, preserving original bytes and a small old-path/new-path/hash map; preserve sensitive originals in a private archive and report any unbacked remainder. Do not delete temporary originals in this task. Reuse valid exact-byte reviews/checks; run applicable repository checks for the selected delta, and report failures or unrun checks honestly. A draft PR can preserve unfinished work without claiming acceptance. Do not invent RED evidence or broaden this into a repair/qualification project.
+
+Assigned pending files: scripts/validate_framework.py and tests/test_validation.py.
+Observed comparison: the added source_files function and nine added setup/test definitions are AST-identical to current main, which also has substantial newer validation behavior. No new behavior requiring a PR was identified. Confirm this against the current remote main; do not overwrite modern files with these old full-file versions.
+
+Preserve the pending patch and relevant public-safe review evidence under docs/validation/publication-20260909/validator-runtime-review/ in a fresh documentation publication worktree if there is unique durable evidence worth retaining. A small evidence-only draft PR may use publish/validator-review-evidence-20260909; omit it if equivalent evidence is already retained. Keep private evidence out of the public repo and report its backup status. Do not commit or reset the detached checkout simply to clear its dirty status.
+
+If comparison establishes an actual missing accepted correction, isolate that minimal correction against current remote main on publish/validator-validation-followup-20260909, run the applicable tests, and open a draft PR. Do not resurrect older validation implementations or invent missing work. This detached HEAD is already reachable from main, so its committed history needs no separate preservation branch.
+
+Before push, inspect the entire PR diff against the selected remote base; it must contain only your owned change and necessary evidence. Push an explicit refspec without force, then read back the remote branch SHA. Look for an existing PR with that head/base before creating one; use gh pr create/update with a body file containing actual newlines, or an equivalent structured GitHub tool. Report the repository, base/head branch, exact pushed SHA, PR URL, changed paths, actual checks, preserved evidence and remaining local-only material. Put the publication result in the PR body or an existing durable report; do not create repeated commits merely to embed their own final SHA. Finish at the pushed draft PR or a verified already-integrated disposition; no extra approval/planning cycle for actions this message already authorizes.

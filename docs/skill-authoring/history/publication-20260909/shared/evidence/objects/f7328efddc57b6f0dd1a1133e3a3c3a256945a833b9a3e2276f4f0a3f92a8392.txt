@@ -1,0 +1,48 @@
+# Independent static review: concise creator/evaluator handoffs
+
+Result: no blocking findings in the frozen eight-file patch. The changes support a concise entry point into retained evidence while preserving the stated authoring, review, qualification and adoption boundaries. This is a bounded independent static review, not native qualification, formal local acceptance, receiving execution or installation approval.
+
+## Reviewed selection and checks
+
+- Repository/worktree: `/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z`.
+- Branch: `impl/concise-handoffs-20260909T032242Z`; HEAD/baseline: `2031bf2e917bb4f2a2c9be717a74641b5801c409`.
+- Frozen selection: `review-manifest.json`, SHA-256 `6fb438986685b3a1596c4e030e560785bc5acaef8cae6ffeb3a4bf553f45bc6d`; exact patch: `patch.diff`, SHA-256 `2abdac3193378253bb4fab3c706a3ce56dc07054c5879c591cd5e4660d27943e`. These sibling files enumerate all eight reviewed paths and exact file hashes.
+- All eight hashes matched before review and again before this report was saved. The patch equals the current diff of those files against the baseline. Git status contained only those eight modified files.
+- All 30 destination entries across both derivation records match their current files. All six new source pins match bytes retrievable from the selected Git baseline. The previously stale SKILL destination hashes remain identified as historical, with actual baseline identities added; no new stale-derivation claim was found.
+- Read workspace/repository guidance, both workflows, handoff/manual-operation resources, packaged artifact/authoring contracts, relevant selected revision-3 clauses, and retained evaluator report/repair sections. Inspected the exact source diff and semantic JSON changes.
+- Used read-only Git identity/diff/show commands, file reads, JSON parsing and SHA-256 comparisons through Python/WSL. No package helper, target skill, test suite, native CLI/model campaign, installation or source mutation was performed. Only this assigned review file was written.
+
+## Findings
+
+No blockers. The following conclusions are limited to the inspected bytes:
+
+1. Both handoffs preserve every `devforge.artifact/v1` envelope field. Creator `assets/handoff.md:34-42` and evaluator `assets/handoff.md:34-43` retain exact record pins, source bytes and required review coverage. Their manual-operation instructions route details into existing specification, manifest, change, plan and report records; missing detail must be saved or explicitly identified, rather than dropped.
+2. Receiver readiness is concrete. Creator `references/manual-operation.md:22` and `assets/handoff.md:46-55` require a real skill, usable input paths, writable destination and existing allocation. Evaluator `references/manual-operation.md:27-29` and `assets/handoff.md:47-61` explicitly block a runnable task when a consequential binding is absent and substitute an operator prerequisite. These instructions do not invent authority or execute a receiver.
+3. Creator five-phase requirements remain at `SKILL.md:24-34`; evaluator six phases and twelve tasks remain at `SKILL.md:18,29-40`. Author/evaluator separation and honest missing-observation outcomes remain. Selective retrieval does not waive complete assigned review coverage.
+4. Full/Routine selection, all original qualification assertions, and the distinct local unqualified acceptance path are unchanged. The modified manual-operation sections do not bypass their existing gates. Managed custody details are conditional on an actual managed assignment and remain separate from manual author observations and later receiving events.
+5. The retained evaluator report contains the named decision, finding, recovery and workspace sections. The repair template contains Change decision, Allowed scope and invariants, Requested changes, and retest/closure sections. The new references therefore lead to existing records, without requiring a new schema or report subsystem.
+
+## Prior handoff retention exercise
+
+The original `notes-storage-handoff.md` was reviewed as historical content only, SHA-256 `837e43768aaf1dd4f7735b7b23895ff83ca370371372a70ee352c514b00985aa`. Its seven directly referenced evidence files and sixteen preserved inputs were independently retrieved and matched their recorded hashes.
+
+Its required facts have retained destinations:
+
+| Facts from the original handoff | Existing destination |
+| --- | --- |
+| Exact two-file candidate; no former candidate or installed manifest; absent baseline/qualified anchor | Candidate manifest and XPKG |
+| NS-01–NS-08, actual-source versus desired behavior, Enforced phases and design-only hooks | Design sections 4–6 and 10–12 |
+| Search decision, alternatives, search limits and captured source provenance | Discovery, input inventory, design sections 9–10 |
+| CHG-001–004 dispositions, authoring boundary and phase outcomes | Change/phase record and design section 12 |
+| Static-only receiver scope, missing reviewer/output assignment, original 1200-second/turn limit and no automatic continuation | Change/phase record; design Manual evaluation selection and delivery |
+| Creation-time custody and historical observations | Original preserved handoff, with a specific locator when needed |
+
+The revised templates can link these facts without repeating their inventories. The supplementary concise preview correctly identifies blocked receiving readiness and requests setup; it expressly disclaims new producer/evaluation/allocation evidence. Its current rendering supports the intended short entry point. This exercise is not proof that the revised skills will produce equivalent handoffs natively.
+
+## Advisory, outside the source patch
+
+A1 — RESOLVED during review: the initial `notes-storage-concise-preview.md:25-26` copyable block omitted the original handoff path. The integration owner added its full absolute saved path and instructions to resolve exact candidate/specification/supporting evidence. Readback confirmed the correction. Current preview SHA-256: `826cb2b897af08bc34e149e3a5a9a111a06e06c64ffea5fcde7523689f6e035e`. No source-patch change was required; all eight frozen source hashes remain unchanged.
+
+## Next owner
+
+Return to the integration owner for the already authorized remaining delivery steps. Any changed source bytes need a newly identified affected review. Native behavior, actual user-mediated transfers, local acceptance and installation remain separate observations governed by the existing assignment and gates.

@@ -1,0 +1,190 @@
+{
+  "coordinators": [
+    {
+      "file": "prompts/00-devforge-coordinator.md",
+      "repository": "DevForge"
+    },
+    {
+      "file": "prompts/01-devforgeai-coordinator.md",
+      "repository": "DevForgeAI"
+    }
+  ],
+  "worktree_prompts": [
+    {
+      "file": "prompts/10-expert-foundation-gate-20260908.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/expert-foundation-gate-20260908",
+      "branch": "impl/expert-foundation-gate-20260908",
+      "head": "4859a279784f902d5f9dabcb0664907b24b297a5",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/11-framework-validation-20260908.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/framework-validation-20260908",
+      "branch": "impl/framework-validation-20260908",
+      "head": "62e9329e2aa69cf3ae43f269ad3620d1fca2095f",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/12-ni11-interactive-20260908.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/ni11-interactive-20260908",
+      "branch": "impl/ni11-interactive-20260908",
+      "head": "c7b2a62696c7f3764fdea3313182b9e896339a2a",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/13-skill-utilities-runtime-20260907.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-20260907",
+      "branch": "impl/skill-utilities-runtime-20260907",
+      "head": "cd403cfee0b120ada2f9e198d3a15db5d4147252",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/14-skill-utilities-runtime-continuation-20260907T220803638693Z.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-continuation-20260907T220803638693Z",
+      "branch": "impl/skill-utilities-runtime-continuation-20260907T220803Z",
+      "head": "30417d68a5c5c61505bd76e1a9593c4944869056",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/15-validator-runtime-review-20260905T234329495677Z.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+      "branch": "DETACHED",
+      "head": "6983f1de3e06f9b422546fd6944888dcd34e56a1",
+      "disposition": "Compare/preserve; likely no implementation PR"
+    },
+    {
+      "file": "prompts/16-vpi01-20260908T144631697661Z-repair-cli.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-cli",
+      "branch": "impl/vpi01-20260908T144631697661Z-repair-cli",
+      "head": "bdcdd5eed28c95df70b90a95f72be11c9e9137a9",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    },
+    {
+      "file": "prompts/17-vpi01-20260908T144631697661Z-runtime-core.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-core",
+      "branch": "impl/vpi01-20260908T144631697661Z-runtime-core",
+      "head": "9ed3559d92da9b9ef7c5d4fb1c02f84f4d2f5dbd",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    },
+    {
+      "file": "prompts/18-vpi01-20260908T144631697661Z-runtime-schedule.md",
+      "repository": "DevForge",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-schedule",
+      "branch": "impl/vpi01-20260908T144631697661Z-runtime-schedule",
+      "head": "47f4f5150b6a2b4c1690fbb8fe6bbf02dc74766f",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    },
+    {
+      "file": "prompts/19-agent-scope-lessons-20260908T151556Z.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/agent-scope-lessons-20260908T151556Z",
+      "branch": "docs/agent-scope-lessons-20260908T151556Z",
+      "head": "56035f70ed48b2662192123c656b712c36684395",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/20-claude-brainstorm.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm",
+      "branch": "author/claude-brainstorm-mvp",
+      "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "disposition": "Active provider draft PR"
+    },
+    {
+      "file": "prompts/21-claude-contribution-context.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context",
+      "branch": "author/claude-contribution-context-poc",
+      "head": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+      "disposition": "Active provider draft PR"
+    },
+    {
+      "file": "prompts/22-codex-brainstorm.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm",
+      "branch": "author/codex-brainstorm-mvp",
+      "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "disposition": "Active provider draft PR"
+    },
+    {
+      "file": "prompts/23-codex-contribution-context.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context",
+      "branch": "author/codex-contribution-context-poc",
+      "head": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+      "disposition": "Active provider draft PR"
+    },
+    {
+      "file": "prompts/24-concise-handoffs-20260909T032242Z.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z",
+      "branch": "impl/concise-handoffs-20260909T032242Z",
+      "head": "d29430beace67a141d4d35c2beb066981060cda4",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/25-expert-foundation-20260908.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/expert-foundation-20260908",
+      "branch": "impl/expert-foundation-20260908",
+      "head": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/26-skill-builder-runtime-alignment-20260907.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907",
+      "branch": "impl/skill-builder-runtime-alignment-20260907",
+      "head": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "disposition": "Already integrated; verify remote coverage"
+    },
+    {
+      "file": "prompts/27-skill-validation-policy-20260908T114822309238Z.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/skill-validation-policy-20260908T114822309238Z",
+      "branch": "proposal/skill-validation-policy-20260908T114822309238Z",
+      "head": "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    },
+    {
+      "file": "prompts/28-vpi01-20260908T144631697661Z-builder.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-builder",
+      "branch": "impl/vpi01-20260908T144631697661Z-builder",
+      "head": "5822e72d705216850eeeddccef93391bfeaad89c",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    },
+    {
+      "file": "prompts/29-vpi01-20260908T144631697661Z-contracts.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-contracts",
+      "branch": "impl/vpi01-20260908T144631697661Z-contracts",
+      "head": "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    },
+    {
+      "file": "prompts/30-vpi01-20260908T144631697661Z-repair-ai.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-ai",
+      "branch": "impl/vpi01-20260908T144631697661Z-repair-ai",
+      "head": "22e864951066c71a46873321f9bde2220aba653a",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    },
+    {
+      "file": "prompts/31-vpi01-20260908T144631697661Z-validator.md",
+      "repository": "DevForgeAI",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-validator",
+      "branch": "impl/vpi01-20260908T144631697661Z-validator",
+      "head": "314e4048057e1b5431b4d838ce363d8dd0ce5080",
+      "disposition": "Historical branch preservation; no automatic implementation PR"
+    }
+  ]
+}

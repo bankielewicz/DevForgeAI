@@ -1,0 +1,102 @@
+{
+  "record_kind": "author-observed selected source identities",
+  "sources": [
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/01-project.md",
+      "sha256": "e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/docs/accepted-decisions.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/02-accepted-decisions.md",
+      "sha256": "8376d38b7a67f52dd120c869e324b67c38c5eb7f214fa3872fb411bcf73a73f7",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/project/src/notes_store.py",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/03-notes_store.py",
+      "sha256": "353596871080dcc99a7053ed7d6660d2681d3d7076564ff76cb3860345b402f6",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/SKILL.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/04-SKILL.md",
+      "sha256": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/framework-context.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/05-framework-context.md",
+      "sha256": "c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/contracts/skill-authoring-contract.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/06-skill-authoring-contract.md",
+      "sha256": "d05cc75d8f049c854a91500ff3224f85fd06ffb08b257aed5db38cc9e35dd0fe",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/contracts/artifact-contract.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/07-artifact-contract.md",
+      "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/contracts/execution-contract.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/08-execution-contract.md",
+      "sha256": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/manual-operation.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/09-manual-operation.md",
+      "sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/interview-guide.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/10-interview-guide.md",
+      "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/existing-skill-selection.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/11-existing-skill-selection.md",
+      "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/managed-authoring.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/12-managed-authoring.md",
+      "sha256": "4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/references/derivation.json",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/13-derivation.json",
+      "sha256": "49e3e5849fee810605383364bb8fe4b4d8cc6af6720728716340034557e93063",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/assets/skill-design-spec.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/14-skill-design-spec.md",
+      "sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/workspace/.agents/skills/devforge-project-expert-creator/assets/handoff.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/15-handoff.md",
+      "sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    },
+    {
+      "source_path": "/home/bryan/.codex/skills/.system/skill-creator/SKILL.md",
+      "preserved_path": "/home/bryan/Projects/DevForge/tmp/devforge-expert-foundation-20260908/local-creation-duration-01/01-create/out/notes-storage-inputs/16-SKILL.md",
+      "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+      "observed_at_utc": "2026-09-09T02:31:31.785628+00:00"
+    }
+  ],
+  "identity_limit": "Byte identities only; no validation or protected custody. Historical revisions in package derivation are attributed provenance, not freshly verified upstream facts."
+}

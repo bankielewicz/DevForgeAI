@@ -1,0 +1,88 @@
+# Integration review: Claude brainstorm revision 3
+
+Disposition: REVISE. The case-11 silent adoption is repaired in the observed run. Two required terminal receipts are incomplete, the new graders silently omit checks, execution metadata is inconsistent, and source wording now excludes applicable prior delegation. These prevent accepting the author's unqualified all-pass conclusion.
+
+This is targeted independent operator review of preserved bytes, with three bounded reviewers and deterministic adversarial replays. It is not cold-session certification or human adoption. No new model was launched, no candidate or native output was edited, and no framework/companion commit or integration was performed. Review recorded at 2026-09-05T16:52:17.418912+00:00.
+
+## Identity and preservation
+
+- Author: SESSION-001@3, retained; assignment SHA-256 `4ba8dd005320f2f91b1f827bed6a5b26ce37c3fae886b8902b022aa51ec38bb9`.
+- Native run: `/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-run-20260905T1500Z`.
+- Report: `run/report/SEVAL-001.md`, SHA-256 `bace6eb4a75c6930b39be9e8a4cb8990a84f94ed652d3b083def45507e74fd15`.
+- Index: `run/report/evidence-index.sha256`, SHA-256 `11324fbe6b70c8fdd21e50affe1b545f2bbdf1012571d66dc84102bea094c317`; all 571 indexed source files verified. External receipt SHA-256 `44eee42e49fb159841716afe6daf4e05bbacb87dac7bb5f9fa4d8e2f476deae2`.
+- Candidate manifest: `run/manifests/candidate-manifest.json`, SHA-256 `3d72a087663e1f2256d45dffa9cea3bece7622dab71335b43fe987b1b0307863`; 15 source files and 14 export files verified. SKILL.md one-file digest `825dd6c55dfcb86ef254a30a6b574928c435e00e7d4788f29c2d8c34c175d6f6`.
+- `CUSTODY.json` records 479 read-back copies. Private client state/generated caches were omitted from copying. The previous 740-entry index and report/receipt remain unchanged. The six selected governing inputs match their exact selected bytes; main framework identity-doc commit c9298bd is not imported into the frozen author worktree at a006b3d.
+
+All relative evidence paths below resolve under this review directory unless explicitly identified as earlier evidence. REPORT-CORRECTIONS.json carries scoped grade corrections and the original-to-current C/B manifest identity mapping. The new external REVIEW-RECEIPT.json will bind completed operator artifacts without placing this report's own digest inside it.
+
+## Supported observations
+
+| Surface | Independently supported result | Limit |
+| --- | --- | --- |
+| B behavior | 12 PASS for named behavioral boundaries | Case0 has a minor unsupported attribution noted below; no general semantic certification |
+| B required delivery | 8 PASS, 2 FAIL, 2 NOT_APPLICABLE | Cases3/8 omit full terminal hashes; cases2/4 legitimately require no artifact |
+| B overall | 10 PASS, 2 FAIL | Supersedes the author's 12 PASS for this run |
+| C resources and delivery | PASS | Timeout configuration violated its assigned cap despite completion below that cap |
+| A positives | 10 exact selections, 10 exact loads, 9 successful terminal results | A1a completion NOT_OBSERVABLE under the assigned selection-grace rule |
+| A negatives | 9 completed without target consultation | Real old-candidate observations; an incorrectly cleared C/B gate does not erase them |
+| References | 23 PASS, 1 UNAVAILABLE across 24 locators, by independent parsing/resolution | 65 resolved claimed sections; author's own checker did not cover them all |
+| Outcome values | All 69 cells in 21 emitted artifacts use the canonical vocabulary | Includes nine rows the author's checker skipped; canonical labels alone do not establish semantic truth |
+| Structural checks | Framework 10 skills PASS; MVP 12 specifications, 17 skill outputs, 2 shared and 4 authoring templates PASS; whitespace PASS | Structure only, not native behavior/acceptance |
+
+Case11 now keeps DEC-002 adopted at the original decision reference, keeps IDEA-001's CHANGE-003@1 scope, and uses the recovered archive only to repair the selected locator. CHANGE-003@2 remains observed context, the fountain idea is captured, and the conflict is surfaced. Case8 does the same while honestly recording the unavailable older source. Adoption pair5/6 and live-ownership pair9/10 remain correct. Exactly SKILL.md, recording-rules.md and derivation.json changed against the previous 15-file candidate; templates, helper and activation description retain their pins.
+
+## Findings and disposition
+
+### CR3-001 — reference parser silently drops required checks
+
+`run/validate_references.py:99` handles only multiline section lists. Five actual references contain inline section lists, so 23 real claims disappear from the checker's parsed representation. Independent YAML parsing recovered them; every actual resolved claim passed. This is a checker-coverage defect, not evidence that those actual sections are wrong.
+
+`reference-checker-probes/results.json` preserves replay of all ten original fixtures and six new controls/mutants. P0 valid control passes. P1 nonexistent inline section, P2 missing claimed digest, P3 missing target artifact ID, and P4 an absolute path escaping the selected store all incorrectly PASS. P5 inline whole-reference syntax is silently ignored as NO_REFERENCE_PARSED despite containing a bad identity. Conditional field checks and unconfined path joining compound the parser issue. A recognized reference cannot pass by omitting mandatory fields, and unrecognized reference syntax cannot count as no references.
+
+Repair only bounded run-side grading: parse the actual YAML shapes or fail explicitly on unsupported syntax; validate required identities, revision, digest, scoped locator and every claimed section. Preserve all negative probes and never repair frozen outputs to satisfy a grader. This is not a request to expand the companion Rust implementation.
+
+### CR3-002 — numbered Outcome table escapes inspection
+
+`run/check_outcome_labels.py:21` recognizes only the unnumbered heading. Case9's `## 7. Observed verification` at TASK-REPORT-001.md:256 contains nine Outcome rows, but the checker reports no table/NOT_APPLICABLE. On copies, replacing an Outcome with `FAIL then repaired` still escapes inspection; normalizing only the heading makes it fail. Evidence is in `outcome-checker-probes/review-results.json` and PACKAGE-CONTRACT-REVIEW.md.
+
+The real nine rows are canonical. Correct the coverage claim; scan all relevant Outcome tables regardless of heading numbering, with explicit unsupported/absent scope handling and an expected artifact/table inventory. Preserve the numbered-heading invalid-label regression.
+
+### CR3-003 — incomplete terminal delivery and an incorrectly cleared phase gate
+
+Case3 terminal transcript:158 delivers only `6d7fa82c…9bc5`; case8 transcript:113 delivers only `2df6ddc4…`. Both promise terminal delivery. Their complete handoff bytes and full post-final-write hashes exist in tool output and manifests, but the chosen terminal responses do not deliver those exact hashes. BCR3-001 in B-C-ARTIFACT-REVIEW.md contains paths and evidence. Correct required delivery/overall to FAIL for both; retain behavior PASS. REPORT-CORRECTIONS.json includes newly issued full recovery receipts, without retroactively changing the original grade.
+
+The assignment required C/B acceptance before A. A ran after these two false delivery passes. Preserve its real observations while recording that the required phase gate was not satisfied. Add a deterministic terminal-receipt check and make phase transitions consume checked results instead of a model's all-pass summary. No mid-evaluation rewrite or unassigned retry may repair a failed native arm.
+
+### CR3-004 — valid prior delegation excluded by source overcorrection
+
+`candidate/SKILL.md:30,36` requires the user to ask “in this task” and says the question is only whether this task asked. The selected artifact contract and CR2-001 expressly permit applicable previously delegated authority. Existing unchanged-decision wording does not cover an authorized new change under a standing delegation. This is confirmed source nonconformance; a native failure for this circumstance has not yet been measured.
+
+Require actual applicable authorization, including a valid existing decision or delegation covering this change. Preserve its identity/scope. Accepted status, an unrelated decision reference and finding an archive remain insufficient. Keep summaries at SKILL.md:19,55 and recording-rules.md:20 consistent. The independently checked pair in `next-fixtures/delegation/` varies only the recorded standing instruction; it is prospective synthetic evidence, not a retrospective model result.
+
+### CR3-005 — run identity, cap and exclusive-attempt enforcement
+
+C was configured at 1200 seconds in run_tier_c.py:20 and its manifest, against the assigned/declared 900 seconds. It completed in harness 223.6 seconds (native duration 235.357 seconds), below 900: configuration nonconformance, no observed overrun. All 13 current C/B manifests retain the earlier 0832Z run ID; new package hashes, unique sessions and timestamps establish current observations. Correct by a new mapping, preserving old bytes.
+
+Drivers permit existing-directory reuse/deletion. Retained evidence shows exactly 32 unique sessions and one attempt per case, with no proven overwrite. That observation does not establish collision rejection. Future drivers must reject an existing destination before starting a model, bind the actual current run/arm/session identity, and enforce the lower of per-arm and remaining overall time. Preserve failure/timeout attempts and terminate only verified owned children. Add deterministic cap, identity and collision probes before models.
+
+### CR3-006 — timestamp claims and historical aggregate scope
+
+Amend AR3-003: a report's creation time may mark drafting. Its 16:05 creation timestamp preceding late A events is not, by itself, a finalization defect. The stronger supported inconsistency is the external receipt claiming issuance at 16:10 while binding runtime-context bytes recorded at 16:14:38. Both hash bindings verify; actual issuance chronology is NOT_OBSERVABLE, and deliberate backdating is not established. Record actual observed times in new receipts without rewriting history.
+
+The prior 11 PASS/1 FAIL “corrected” candidate total is an old-label recount plus a case11 override, not a complete reassessment including acknowledged reporting defects. Keep that scope explicit. Native terminal success is also not all-tools success: 91 nested tool errors were observed; no OS exit-code/complete-cleanup claim is supported by discarded stderr and unrecorded exits.
+
+## Advisory observations and enforcement boundary
+
+Case0's ledger says the user is not a foster/non-user although the raw request only says their sister fosters. Avoid presenting that inference as a sourced fact; qualify the author's “nothing invented” assessment. This does not overturn the named case0 boundary grade. Some handoff receipt prose is prematurely past-tense although its NOT_RUN verification row is honest; tighten source guidance without changing completed handoff bytes.
+
+The user is right that instructions alone did not reliably enforce these mechanical obligations. Run-side phase and completion gates can refuse progress on missing receipts, unchecked structures, incorrect caps and mismatched identities. A hook calling the current incomplete checker would still produce false confidence: validator coverage must be fixed and challenged first. These proposed checks remain author-owned evaluation machinery. Installed provider hooks, protected enforcement and companion Rust integration are not implemented or accepted by this review. Authority interpretation still requires the selected contract and independent semantic review.
+
+## You are here and ordered continuation
+
+| Order | Owner | Action | Completion check |
+| --- | --- | --- | --- |
+| 1 — You are here | Human operator | Deliver `/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/CLAUDE-REVISE-003.md` to the same isolated Claude author | Read SESSION-001@4 and verify its selected inputs, worktree, candidate and review pins |
+| 2 | Claude author | One bounded repair and evaluation: deterministic gates, C1, B8, conditional A2 | At most 11 model arms/90 minutes, one candidate freeze, full immutable handback |
+| 3 | Integration operator | Re-pin and independently review the new report and raw evidence | Confirm corrections and candidate-specific observations; human quality/adoption remains outstanding |
+
+If the old author terminal has ended, the human may use `/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/LAUNCH-CLAUDE-REVISE-003.sh --check`, then launch that script without --check and read the handoff. The check launches no model. Do not run two authors in the worktree. No next capability, integration or promotion is automatic.

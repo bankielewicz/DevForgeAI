@@ -1,0 +1,3820 @@
+{
+  "captured_at": "2026-09-09T13:39:09.112730+00:00",
+  "repository": "/home/bryan/Projects/DevForge/framework/DevForgeAI",
+  "origin": "https://github.com/bankielewicz/DevForgeAI.git",
+  "selected_refs": [
+    "d29430beace67a141d4d35c2beb066981060cda4",
+    "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+    "5822e72d705216850eeeddccef93391bfeaad89c",
+    "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+    "22e864951066c71a46873321f9bde2220aba653a",
+    "314e4048057e1b5431b4d838ce363d8dd0ce5080"
+  ],
+  "object_counts": {
+    "commit": 24,
+    "tree": 353,
+    "blob": 516
+  },
+  "screened_blob_bytes": 6387795,
+  "unresolved_matches": [],
+  "non_utf8_blobs": [],
+  "suspicious_paths": [],
+  "independent_review": {
+    "reviewer": "handoff_patch_review",
+    "result": "No detected public-suitability blocker",
+    "coverage": "24 commits and 516 unique blobs; pending41sharedfiles inspected separately",
+    "synthetic_match": {
+      "object": "89a7096f322cd30a45317231db0b0d167c389894",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_delivery_runtime.py",
+      "lines": [
+        406,
+        407
+      ]
+    },
+    "logs": "32 log blobs contain build/test observations; JSONL records file-refresh events; no raw chats/client stores identified",
+    "hooks": "Command/event interface matches CLI4859a279; publish separately without activation"
+  },
+  "screened_objects": [
+    {
+      "object": "d29430beace67a141d4d35c2beb066981060cda4",
+      "type": "commit",
+      "path": "",
+      "size": 319,
+      "sha256": "52c1b0069843d6ffc5e6840c56b24fc634e552c22524daf76fc68c818a60ec20"
+    },
+    {
+      "object": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+      "type": "commit",
+      "path": "",
+      "size": 316,
+      "sha256": "62bc534e37bf3cd2eab705d137c2c551c627c63053053a8eda974ed4c39d55de"
+    },
+    {
+      "object": "e9ee94e0605f5c9bb8c30185c9f6c6fe3cccbf7e",
+      "type": "commit",
+      "path": "",
+      "size": 317,
+      "sha256": "dd76f2bef28c32b74f11ac920685429955e8b5044d4ef9b7aed8bc85c71198fc"
+    },
+    {
+      "object": "f27280c0af4a3da26c60572f0063f1700a3d71bb",
+      "type": "commit",
+      "path": "",
+      "size": 332,
+      "sha256": "71a7af5ea4139bf20a4b11672a2ef7cdd2752cede64dbb6a7707ad986c9ad94b"
+    },
+    {
+      "object": "da8dc51a49646fd22d326658508bbc74151139d7",
+      "type": "commit",
+      "path": "",
+      "size": 320,
+      "sha256": "034376beeab6548254c5f7001a6a94c609714fc0927d35b4933544e6eff995b3"
+    },
+    {
+      "object": "22e864951066c71a46873321f9bde2220aba653a",
+      "type": "commit",
+      "path": "",
+      "size": 321,
+      "sha256": "d722cd70df2edf5da1c5494538f2a3b2946086fddd18214f25fd18b4e7ebe4f3"
+    },
+    {
+      "object": "7da4ac18998d3905af37f42692fdd6f502940b36",
+      "type": "commit",
+      "path": "",
+      "size": 331,
+      "sha256": "1e65e8184e84c647072e07defc929d2ec6dc487dbfa4bf066cdd37bedf387b6a"
+    },
+    {
+      "object": "177340cd01dcf09ebe1b8afbff3cbf75e7c6033d",
+      "type": "commit",
+      "path": "",
+      "size": 322,
+      "sha256": "02459d1cd72b81cfe362449ea09282e8c86c1df7a09a70fd831633d50ca92988"
+    },
+    {
+      "object": "314e4048057e1b5431b4d838ce363d8dd0ce5080",
+      "type": "commit",
+      "path": "",
+      "size": 323,
+      "sha256": "03fab5e61a5a214545c8eabe61c7969ace01aee9ce9468b73ab89fed462a247f"
+    },
+    {
+      "object": "5822e72d705216850eeeddccef93391bfeaad89c",
+      "type": "commit",
+      "path": "",
+      "size": 322,
+      "sha256": "aec2d3b0bbb9c93e9a44a14b4098cdb5fca30a4bf8e176e03930e0582a316082"
+    },
+    {
+      "object": "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+      "type": "commit",
+      "path": "",
+      "size": 317,
+      "sha256": "7f91154a58c6dec2f22693319c23ea18395ba86fbf23892a1dd60356219eff57"
+    },
+    {
+      "object": "c2a42eb68cc441437f8d37e1c52ae85cde489a76",
+      "type": "commit",
+      "path": "",
+      "size": 318,
+      "sha256": "b3d75114ded689eda14d99d90734356c9f282043e7310279ac243c1a5c1bf61f"
+    },
+    {
+      "object": "56035f70ed48b2662192123c656b712c36684395",
+      "type": "commit",
+      "path": "",
+      "size": 313,
+      "sha256": "2a5e96bc3b81ea9496223ccc2d91f0ab96080415bb69a00591759a2284acc306"
+    },
+    {
+      "object": "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+      "type": "commit",
+      "path": "",
+      "size": 323,
+      "sha256": "ccc95f73205a838bd7226bbac6fade4b5d5ebc24a807263c58f64446dca5004c"
+    },
+    {
+      "object": "8ede26450ae737a5e928c5f70a945aa995969b30",
+      "type": "commit",
+      "path": "",
+      "size": 324,
+      "sha256": "13bf30b02973538b0bd66b077d2dca562b90ea9496e1a071db210bb799b728c6"
+    },
+    {
+      "object": "5eaa7c081fe34e3f97cd965b7d5d0ec300775bf9",
+      "type": "commit",
+      "path": "",
+      "size": 312,
+      "sha256": "3d739b47d93e5c09ec8d8e0f7664948a85c0a48780dc4c4bd4f87bd0df09a23b"
+    },
+    {
+      "object": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+      "type": "commit",
+      "path": "",
+      "size": 315,
+      "sha256": "83045454f24fae2363cd34c7020dba3d43251f749dad31d817d2fd2d09eac459"
+    },
+    {
+      "object": "214dd797d6ec564595fc316dbc1f01916fb2bfd2",
+      "type": "commit",
+      "path": "",
+      "size": 324,
+      "sha256": "9e765860c7eac7eb3e93c1a5280ffdb6146bd1e680f039933b28c37b69051051"
+    },
+    {
+      "object": "a78b9bff83c090153952b31b84b0584ef1650f02",
+      "type": "commit",
+      "path": "",
+      "size": 307,
+      "sha256": "52011e9822ca86d8284efdf2f3a5580f3908cf3fe43d674c0666703919a1c6b9"
+    },
+    {
+      "object": "b2a389599d7dd53e0c0826d3df7d7f1dced7582d",
+      "type": "commit",
+      "path": "",
+      "size": 332,
+      "sha256": "6bb77112bfe6d6ff111eaf9b7d0f0dea327a2fb6a8de430e7bfb3aeafb9fde72"
+    },
+    {
+      "object": "6bd8cb15feb5e548324f441fa0f1030d767cb47f",
+      "type": "commit",
+      "path": "",
+      "size": 332,
+      "sha256": "92b17eeac9f4126a16b867048df255130c32b1f0f9d556e5541c6f9b2bedcac5"
+    },
+    {
+      "object": "f57912e58dbe5899cd0e57cfb5c3b400729d4206",
+      "type": "commit",
+      "path": "",
+      "size": 334,
+      "sha256": "1e62c922e107989849e40fe0513d777b29d636229123a1ee41d47076bce08733"
+    },
+    {
+      "object": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+      "type": "commit",
+      "path": "",
+      "size": 309,
+      "sha256": "ba2f178f3a99da3592ab6e679473028c3c3777c649e7d313bc76da3b094bee92"
+    },
+    {
+      "object": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "type": "commit",
+      "path": "",
+      "size": 265,
+      "sha256": "e8b4e740c5f493525fea5f931329b6593d0e5037266dcf2a95e3e6e56c5fc97e"
+    },
+    {
+      "object": "57e86f43355355852703e12369f752107c838eaf",
+      "type": "blob",
+      "path": ".gitignore",
+      "size": 75,
+      "sha256": "8b70db31c49744db6ffac6e4de42afd5fc5b27e46a8bc8c0a5559f6cac735dd5"
+    },
+    {
+      "object": "4d46f0539bce46cb1e489655857fb9f6e37d8eea",
+      "type": "blob",
+      "path": "AGENTS.md",
+      "size": 3660,
+      "sha256": "e164288ceff633e738c5dd540c1b1aeced97c7cb8295cf21d49354ba79d30d6e"
+    },
+    {
+      "object": "b4a5f39587e4525f21e5aaf7e7f55826bae2f7f5",
+      "type": "blob",
+      "path": "CLAUDE.md",
+      "size": 1041,
+      "sha256": "54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931"
+    },
+    {
+      "object": "50e624fd9e5f49f4d7206229cfd9502634cd8c2b",
+      "type": "blob",
+      "path": "README.md",
+      "size": 4937,
+      "sha256": "979ed12f0c7588a6eb26211845a335ee74694d488fdea0103de65508b9300059"
+    },
+    {
+      "object": "05ef70b1225443b764c447e38e0c2f4b190c1de9",
+      "type": "blob",
+      "path": "docs/POC.md",
+      "size": 3664,
+      "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568"
+    },
+    {
+      "object": "b119f2b27e45c9ca35e509c15ffea015158eb705",
+      "type": "blob",
+      "path": "docs/coordination/20260905T000653Z-skill-authoring-next-steps.md",
+      "size": 11657,
+      "sha256": "76cc7d154b5208038dcda6aafcd7ec1b670bc0f2a160c76afe78e9538844df2d"
+    },
+    {
+      "object": "ca48641706f116378d048484151fc713e42c5036",
+      "type": "blob",
+      "path": "docs/learned-behaviors/bounded-delivery.md",
+      "size": 12948,
+      "sha256": "d1c8940961d8a6fd4bfee9eeac5ba83538b0bc448e8c2fd7a0c77940aadde636"
+    },
+    {
+      "object": "00abe950225613707e995ec26b1a351f34aef22e",
+      "type": "blob",
+      "path": "docs/mvp/README.md",
+      "size": 6833,
+      "sha256": "e31147bd9586bd3308551eb192d0c0ae8f3db4d50e85776b94f9e22d75819e08"
+    },
+    {
+      "object": "76a4e1fa9c5c48cf2b6ddb06a3e19acfb58fdda6",
+      "type": "blob",
+      "path": "docs/mvp/artifact-contract.md",
+      "size": 11253,
+      "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5"
+    },
+    {
+      "object": "6e21a55b600708300cf7f2dc454de703d845c3b9",
+      "type": "blob",
+      "path": "docs/mvp/execution-contract.md",
+      "size": 10720,
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8"
+    },
+    {
+      "object": "47ad978ad1725431ce7e04eb8d30ef0ec744f2fa",
+      "type": "blob",
+      "path": "docs/mvp/package-index.json",
+      "size": 14185,
+      "sha256": "10ab2dae096a65e4d006e0a4f243c825f8bf4b47d1fb5c6def5a9963a364cf36"
+    },
+    {
+      "object": "86da5c675c4f7a2940b8cbf24e493f032e3a3c55",
+      "type": "blob",
+      "path": "docs/mvp/research/agentskills/adding-skills-support.json",
+      "size": 25484,
+      "sha256": "59d243b1725853a3fee2ead3eca6c0610744e784a9be39f4149c16f05ea46c0a"
+    },
+    {
+      "object": "81875789f6b367c9149a05b0da06961f41e886ad",
+      "type": "blob",
+      "path": "docs/mvp/research/agentskills/best-practices.json",
+      "size": 19223,
+      "sha256": "78a9b4843795245cd93cc8c652371eaf0c949d69954d630058a609132238f5c1"
+    },
+    {
+      "object": "9a84ef3f9f1ebdd8003b75cd12fc0ece2a97a1cd",
+      "type": "blob",
+      "path": "docs/mvp/research/agentskills/evaluating-skills.json",
+      "size": 20349,
+      "sha256": "8341ae2863dbc99a2a629614b06a5d534612104858a8136e0d5bfcb5303dee6a"
+    },
+    {
+      "object": "a0c3ac254c14052ee69d6c65afa669f7c5b4096b",
+      "type": "blob",
+      "path": "docs/mvp/research/agentskills/optimizing-descriptions.json",
+      "size": 15668,
+      "sha256": "1d9747a0d976ec6902f603a967ba9288c5858b7e1ac47965cf188878541a0f3c"
+    },
+    {
+      "object": "187c847553597cf2c105511ca4da32a72797fcf4",
+      "type": "blob",
+      "path": "docs/mvp/research/agentskills/overview.json",
+      "size": 4204,
+      "sha256": "1a4839a05e4aa1efee62862c7badcb78d7ff65a0606ed2adac9e5978fabfde0b"
+    },
+    {
+      "object": "7b57cff6f94e7bbcfa0c15eda5eefdf2985bc7ef",
+      "type": "blob",
+      "path": "docs/mvp/research/agentskills/specification.json",
+      "size": 10084,
+      "sha256": "43dbae1c0d06d75fccd1a277ca250b62465c962a06b31d83ebacd6805a8c304f"
+    },
+    {
+      "object": "62c879037dc0e9de698d4d4170bee27f487df47c",
+      "type": "blob",
+      "path": "docs/mvp/research/agentskills/using-scripts.json",
+      "size": 14964,
+      "sha256": "cfec41d8098d8548817dad2f80f58a5cbb43b3ed9a67ab419fa1440bf761d285"
+    },
+    {
+      "object": "78256cb4d106953848d3acc0adcd4f69cbf2c4f6",
+      "type": "blob",
+      "path": "docs/mvp/research/source-notes.md",
+      "size": 5629,
+      "sha256": "54f414549451c6697b1bacfb9d6efaa2b6f77b4f2da8c73d823d228dba66a0dc"
+    },
+    {
+      "object": "c1bad3d9bf3bfc797e102d1d1c494b06cc5139e3",
+      "type": "blob",
+      "path": "docs/mvp/research/sources.json",
+      "size": 9405,
+      "sha256": "747ae96827ef7b101674f30736ac8bbd8ae614201f9a5b029d56db8516b8269e"
+    },
+    {
+      "object": "1c3f9eb663c7c9fb5466735db164397b6a1d3d0b",
+      "type": "blob",
+      "path": "docs/mvp/roster.md",
+      "size": 9989,
+      "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc"
+    },
+    {
+      "object": "07ef9a1402034b17f27d4ef62fe0a18983400e0d",
+      "type": "blob",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "size": 18146,
+      "sha256": "fc172a5ed45b579bdeb3f53e0f2f55a13ca1e4d3426692c2da6f910509b54333"
+    },
+    {
+      "object": "ed3fb514a0bddfefd2bfa6f4201dab3cf8ef4d71",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "size": 10496,
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718"
+    },
+    {
+      "object": "53ce56daa2cdf878989ded8fc01f1d2813f2c025",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-002-devforge-define-product.md",
+      "size": 9364,
+      "sha256": "3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf"
+    },
+    {
+      "object": "b82d1e0851e1f910da84f0382c4c7498a01263ca",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-003-devforge-design.md",
+      "size": 9192,
+      "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb"
+    },
+    {
+      "object": "8ae7aae33a3d1edb9eb60014c222f1038b08e42c",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-004-devforge-prototype.md",
+      "size": 9466,
+      "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c"
+    },
+    {
+      "object": "1aac8044f5aa1d1142203692cec11be2be2b21cb",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-005-devforge-architect.md",
+      "size": 9902,
+      "sha256": "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b"
+    },
+    {
+      "object": "7bdacd158b9dc7988047333e329744a94158a6e8",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-006-devforge-plan.md",
+      "size": 9565,
+      "sha256": "149a66a375da1bb3447f51b657996883974fec1dac3ce92af866eba94a378e4b"
+    },
+    {
+      "object": "a9370e3b8355412524af7eccb7dcbcb817625ca2",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "size": 14122,
+      "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+    },
+    {
+      "object": "fa36072d650be462e371a477b23c01255006b8dd",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "size": 13661,
+      "sha256": "0b3dbb7fe9f5f683d2022c86390e736346189e1ea4d92730c7234d9de1ecec0d"
+    },
+    {
+      "object": "5accfcaeccce82bd64be5c39a52a0b6d13a9efc2",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-009-devforge-develop.md",
+      "size": 9698,
+      "sha256": "c3834796b64d3487bb22aa04db545f126472fac14d043052ecb82127acf8117a"
+    },
+    {
+      "object": "553240814e81bf0f170062b5e45fd80c32df4df1",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-010-devforge-review.md",
+      "size": 9485,
+      "sha256": "1637ac05ff86a16e99cbb8be06a57db27f795eedcc738a560db0f4c40fae2b94"
+    },
+    {
+      "object": "8e0ffbc4d147a660a95841d409a1f2539ef78a1a",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-011-devforge-release.md",
+      "size": 9673,
+      "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d"
+    },
+    {
+      "object": "6ff11432c590e549b44d66ca7fc37502ce09f740",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-012-devforge-change.md",
+      "size": 9608,
+      "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774"
+    },
+    {
+      "object": "4e9021206ee44c6bad709fd8a5c85b4b9b002406",
+      "type": "blob",
+      "path": "docs/mvp/templates/README.md",
+      "size": 3805,
+      "sha256": "c68b950eaa4a3af0d557fb5e6d82bb1ce4a8715153b4b8a7e54b0ad7853d39cd"
+    },
+    {
+      "object": "d50db0f0a6cf815657ba5ae7c71d3e2ff767ba2b",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-architect/architecture-contract.md",
+      "size": 3130,
+      "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218"
+    },
+    {
+      "object": "86cf5301a4f38d042da17d580dbd7319e11b28e3",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "size": 1598,
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417"
+    },
+    {
+      "object": "f2d3d042e35f52bbc1c522b68f5b625a92fdb63b",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-change/change-request.md",
+      "size": 2277,
+      "sha256": "1b6d4198065153934368079833fa853fc271aacbf7266444765cda7cde7e5b43"
+    },
+    {
+      "object": "43cf68053b85530b096b490ba92fafca7fbb06ad",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-define-product/product-brief.md",
+      "size": 2085,
+      "sha256": "5a2229a13fba07d0a279f82255a49f57a78be99db8fd8f7991c1f85a12864ddb"
+    },
+    {
+      "object": "e51769246a885049d07fba445f7ed8bb3a82c50b",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-design/design-spec.md",
+      "size": 1911,
+      "sha256": "5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661"
+    },
+    {
+      "object": "7a9d52aa80b1288469f0ec5fc8bdaa2b9c15f0a8",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-develop/development-record.md",
+      "size": 2112,
+      "sha256": "9e3004dbb4dc96a2e8768112df73589d74275f65d95b061ec5593d48a95dec7b"
+    },
+    {
+      "object": "c8bc6c1120f79861870b2e51f3c264cfed524365",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+      "size": 3312,
+      "sha256": "8fa83334587c6be1fadf2e4da051859d92e75b5f8d7c19925030954a49f8ecf4"
+    },
+    {
+      "object": "e9a47955b98f04b35037eaf7169e7e89d049f48d",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-report.md",
+      "size": 3309,
+      "sha256": "34fef963ee982728274495aacded367878ff2ffce9a56e39b05952d69f20183c"
+    },
+    {
+      "object": "73ec5ff493a2c50e43e89bb8f6cce5f6039c0aff",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-plan/epic.md",
+      "size": 1704,
+      "sha256": "48f8b069f6f57b386d0337a2ef15503dfe234a97f3d7162740b708de75dc35e3"
+    },
+    {
+      "object": "be87252d80c3827e2f145b25a72860fb848ce03a",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-plan/story.md",
+      "size": 2469,
+      "sha256": "a19ccd7f332c895fe6d7713ed8ae1a7e52991c71c846557d3fb29862ebff9daf"
+    },
+    {
+      "object": "3d24619bb48384c94ea041acc59bd80cee5aabbf",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-project-expert-creator/expert-package.md",
+      "size": 2875,
+      "sha256": "678cb91253a36a2ebf1e370d96858ed6a27206dffedc62cb90658cdcffdf890d"
+    },
+    {
+      "object": "2eed20c3fd8eb34adc05ae64eb413c0c6ab759cb",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-project-expert-creator/expert-skill.md",
+      "size": 1030,
+      "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5"
+    },
+    {
+      "object": "30fc21a23c353ccb92101b59a0eaa4434eba1026",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-project-expert-creator/expert-spec.md",
+      "size": 2975,
+      "sha256": "4b380c265c7135b9248740aa1e2fb2adb0d3ff4ec420031945bd159d89706157"
+    },
+    {
+      "object": "4bebf637f7d508655830fcb7ef148c179f084263",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-prototype/experiment-plan.md",
+      "size": 1524,
+      "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564"
+    },
+    {
+      "object": "da03c7861a39fcede5ef4b3b0fdee9ea0085a19e",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-prototype/prototype-report.md",
+      "size": 1602,
+      "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252"
+    },
+    {
+      "object": "a324c5c5fb493c8692d7d810efa623742e48a6c6",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-release/release-record.md",
+      "size": 2353,
+      "sha256": "90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb"
+    },
+    {
+      "object": "7e9a1f8af55ae20c87940873b622dc2db1f2138d",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-review/review-report.md",
+      "size": 2098,
+      "sha256": "ceabf390b193eac12ecf384c8e25cbf3c0d7b77127403a0ad95d2c5f3acffb44"
+    },
+    {
+      "object": "e16fba843734e3c063b25482fcae414355e562bc",
+      "type": "blob",
+      "path": "docs/mvp/templates/shared/handoff.md",
+      "size": 2711,
+      "sha256": "0b7056c684b619ac15fe02515d8e3c682a60ad1844393f6245fbc2dcb81a3d1f"
+    },
+    {
+      "object": "166f83599cee2b0fbd3a971eb69b4155d6a76538",
+      "type": "blob",
+      "path": "docs/mvp/templates/shared/session-record.md",
+      "size": 2778,
+      "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd"
+    },
+    {
+      "object": "9232bb98aaf8bbbe1c4f2aa40906a3691ce25262",
+      "type": "blob",
+      "path": "docs/mvp/templates/skill-authoring/evals.json",
+      "size": 227,
+      "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692"
+    },
+    {
+      "object": "0e67b2839eed0123e9e225f18842505e2afc9596",
+      "type": "blob",
+      "path": "docs/mvp/templates/skill-authoring/evaluation-report.md",
+      "size": 1805,
+      "sha256": "d4929c36980ff5237ee3e6a3363392d9fa6303ba1f3028b8b184a85fd31b0ddc"
+    },
+    {
+      "object": "0983315a25878fdfd26219436475aaa5db85ace8",
+      "type": "blob",
+      "path": "docs/mvp/templates/skill-authoring/run-manifest.json",
+      "size": 802,
+      "sha256": "9f8d7a8eed826dd4ff7e0f64988b6cded6839aca73b5ebc6c04dec543c1e414f"
+    },
+    {
+      "object": "d6cd24de18b4a97774b3043bdd61361949260f41",
+      "type": "blob",
+      "path": "docs/mvp/templates/skill-authoring/trigger-queries.json",
+      "size": 129,
+      "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4"
+    },
+    {
+      "object": "03d8218eb94e4699db6760d0b6d1d56ea57b5cb0",
+      "type": "blob",
+      "path": "docs/mvp/use-case-inventory.md",
+      "size": 6137,
+      "sha256": "fa0086e523771dfa57afeb5f2515a862a5fb38657820365448431a5e38e3b9c0"
+    },
+    {
+      "object": "fb95bf44b08193685f5bf7a2a6f7a5fdc6db96d5",
+      "type": "blob",
+      "path": "docs/mvp/validation.json",
+      "size": 6590,
+      "sha256": "978a061664ef4123a97ee387a396ef50605ce496f918777cebf3af8286803e40"
+    },
+    {
+      "object": "e9fe7a7b7870edca6d7137748b53b58eaef4cf69",
+      "type": "blob",
+      "path": "docs/mvp/validation/20260904-initial-authoring.json",
+      "size": 5202,
+      "sha256": "1cf43a5e1227bbb43879cdb0c6fa3020459ebe368ffa994f373743f66523dc94"
+    },
+    {
+      "object": "6d4bfd620a828d50e69c11babf66daee4b8d20e8",
+      "type": "blob",
+      "path": "docs/mvp/validation/20260905-refresh-first-check.json",
+      "size": 6623,
+      "sha256": "0a96ca541ae7032b97eb886379dbdc32dbdda3ac365fd980513a31ee1811f696"
+    },
+    {
+      "object": "ac3085153fa4ac70807ff5617444ad4853127a13",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-builder-mvp-2026-09-07/SKILL.md",
+      "size": 8854,
+      "sha256": "1d4934310c2fc41abe057d45a49d09af54cf331436d042f80e99d0a5110a238d"
+    },
+    {
+      "object": "d1eec41b3288bbde74a94e9c64ec9470ecd2235f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-builder-mvp-2026-09-07/agents/openai.yaml",
+      "size": 249,
+      "sha256": "09b57882760894264e118317188a7120c15d91754f5e108b416e4905dd44f75e"
+    },
+    {
+      "object": "b605ceb9c46eb13b59c1d1138105d5c760998d9f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-builder-mvp-2026-09-07/assets/skill-design-specification-template.md",
+      "size": 10327,
+      "sha256": "c9c310037d82ccf7cab62b97d9739d1bb1e5e2637db56f16e3ddb2398492a06f"
+    },
+    {
+      "object": "61d6dcca8d06314870c7124d8488a0a7a12ef396",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-builder-mvp-2026-09-07/baseline-files.json",
+      "size": 511,
+      "sha256": "0329f79e938607e80bfbb71b0517994c025476c6c7546a0d933da32ccf754d23"
+    },
+    {
+      "object": "42d5094bbca5c886ef8d06ab3f7ac02aa47a7d97",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-builder-mvp-2026-09-07/references/existing-skill-selection.md",
+      "size": 3608,
+      "sha256": "43b546b02d41152f44695e90e69f6dc13a05a25738bde4e38a9a21efe0535a55"
+    },
+    {
+      "object": "950272b38552753934bca83164a19bcdbb752e4c",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-builder-mvp-2026-09-07/references/interview-guide.md",
+      "size": 4718,
+      "sha256": "fc7359f9725d71f0db4c618359db25c93c141d5a2f6c9ba1701dc816c6184f44"
+    },
+    {
+      "object": "5f94b24a5690f90ee1761d33f8a151b0e42aa228",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/assignment.json",
+      "size": 10374,
+      "sha256": "8d1d2261cdd18b75f09c7183c2f5073d3dbe66067d655085536f6905793d859d"
+    },
+    {
+      "object": "54ab1d22023f17a1bface72dd1a2191d180c2de8",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/authoring-custody.json",
+      "size": 797,
+      "sha256": "63f3bb6a5f948bb6c8902441fa15946d4d9ec318f6c9143cf66998dd52b5d4d2"
+    },
+    {
+      "object": "3dcc4bf9ecdf950e453106258d8269600e274f72",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/docs/skill-authoring/skill-validator-design.md",
+      "size": 39128,
+      "sha256": "3195bb4125970fcd59eaaae4695af60d11de0d99eb204381548331c29c77f5d7"
+    },
+    {
+      "object": "7d9852b0c953821a1cee7c629a314df250379626",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/SKILL.md",
+      "size": 11813,
+      "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8"
+    },
+    {
+      "object": "ff5128638e872dd89b7528726522ae57b1a8b24d",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/agents/openai.yaml",
+      "size": 290,
+      "sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1"
+    },
+    {
+      "object": "db9ee1d9e1bb4f9654543de56812466c8463fea7",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/assets/handoff.md",
+      "size": 6158,
+      "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931"
+    },
+    {
+      "object": "e6f826875d5a6f01f3864677df6c74cb5f00500c",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/assets/skill-design-spec.md",
+      "size": 21394,
+      "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+    },
+    {
+      "object": "a2ad788af27d8197c34b19e150a2c9e25a0a8537",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/artifact-contract.md",
+      "size": 3019,
+      "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53"
+    },
+    {
+      "object": "9ac45a820db06d2a042801b4fe9722677cfb3542",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/execution-contract.md",
+      "size": 6695,
+      "sha256": "a48aa2a93a2e8d287c652e4e0a4fb1ceb05c4811f42036596b683b14a7d7255b"
+    },
+    {
+      "object": "3f31128e44f6487ffe26492a3681254a41285ce5",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/skill-authoring-contract.md",
+      "size": 8462,
+      "sha256": "962a27b2c538b7033d458bf12900a1fe32a1f161ba6e535f171ae93847b22fe9"
+    },
+    {
+      "object": "701af5f0c021c99785effc9c078e1e1eccc14c1a",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+      "size": 20259,
+      "sha256": "d0f737a2065553b2cc66d48f263df707b3bdbd4a96bc8030842f415a051ded35"
+    },
+    {
+      "object": "3fdfb3f16733d0f4c06ffa33d83852b90178adbf",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/existing-skill-selection.md",
+      "size": 4836,
+      "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464"
+    },
+    {
+      "object": "5a26375fedaf8e0ebe278d2eea696bf501e4e45c",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/framework-context.md",
+      "size": 6601,
+      "sha256": "cd04400b9f3cb7e31aaed5974d1edde4fb7cd495b377df3df56a28317fc1de0e"
+    },
+    {
+      "object": "19f98e47ac2d3af8326555d96271efbb0908ae3e",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/interview-guide.md",
+      "size": 5770,
+      "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e"
+    },
+    {
+      "object": "1c2b688dfde0d13af1acb4f2535cd2173f97f7b1",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/managed-authoring.md",
+      "size": 3876,
+      "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7"
+    },
+    {
+      "object": "3bf0733cebe795391ccc066ccb9483b4cd4bc05d",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/results-contract.md",
+      "size": 11541,
+      "sha256": "028a4350910fced221f950003b5eab0c1b80f5b0d2870213112ebb071a565e2b"
+    },
+    {
+      "object": "944f759218e052bd38d7eccbb368fa52fbb3e0ea",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/sources.md",
+      "size": 2243,
+      "sha256": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113"
+    },
+    {
+      "object": "3eb47897f14e311e9ed9ec56ce15e7f669d4bfb8",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-builder/references/validator-handoff.md",
+      "size": 7609,
+      "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60"
+    },
+    {
+      "object": "f2b1e2ae7c1d65f778f803ed67f53bca7844067f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+      "size": 15265,
+      "sha256": "bdc7696ab46377202729ec9ac2959026152ccdcaa8341d21e9e8e049d682d423"
+    },
+    {
+      "object": "f75110f88d70ce55ae8a19107f1019e3e5cde4da",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/agents/openai.yaml",
+      "size": 267,
+      "sha256": "3b3576c181d6565e8614036912208cd265e03f790560a8a73486abff6db829d3"
+    },
+    {
+      "object": "0cabd9b58d213fd98367416422cad96a282e69ef",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/ai-review.json",
+      "size": 2697,
+      "sha256": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701"
+    },
+    {
+      "object": "da5b121a79efe59fe62cc45627ff97ebf9de1c2e",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/case-grade.json",
+      "size": 1024,
+      "sha256": "740e78c0d1ea43ed8fe565bd0700673174d43e8d17716f36749b0c17ef58383d"
+    },
+    {
+      "object": "1a6df747205d426d532780b28342809f77d7b5b3",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/environment-setup.json",
+      "size": 1138,
+      "sha256": "a2ef3c7997e7962f8728f29704ac7574f5c19b83fcb35fc20f9d08f5c88abd1b"
+    },
+    {
+      "object": "3bf1084e7146aa7fd210b497c6b47e96ed163204",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/handoff.md",
+      "size": 4956,
+      "sha256": "ce1ac33586e1caf230eb3b6518df38f606bd176d227e1c0c01febcac6b9eeb99"
+    },
+    {
+      "object": "44457196ebf148eef2cb5027f6b95ab67b4b46f2",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/run-manifest.json",
+      "size": 2517,
+      "sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
+    },
+    {
+      "object": "fdc1f402505322d85d4a10e95b155e467d5414a4",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/skill-enhancement-spec.md",
+      "size": 5486,
+      "sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e"
+    },
+    {
+      "object": "213d1705c601848912635101a2972e941f5155a0",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/test-cases.json",
+      "size": 2285,
+      "sha256": "9dafe0dfc168a287fdc75f9cab1005a8a102185465c9a914a48e7ec306912e57"
+    },
+    {
+      "object": "99adb0a0d8f6d4e899d25c167c6735b04191db17",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-plan.json",
+      "size": 9050,
+      "sha256": "267959e0500d6639e01d668e0518b816121b539ad1d76342237a9245c4cd07a1"
+    },
+    {
+      "object": "b5ed696f84891afada63dd1b65b6d1a2d46be4ea",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/validation-results.json",
+      "size": 3814,
+      "sha256": "c3daa442028af72cf265a59609aa85aeded68e34b2b8ca8fd17acd487a9ad539"
+    },
+    {
+      "object": "3f4de835720e4a00093a4308aee0431e3f9295e4",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/verification-results.md",
+      "size": 7199,
+      "sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
+    },
+    {
+      "object": "1b8d77892dcdff89fe67d24c8c39fe0f90346c01",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/assets/workspace-allocation.json",
+      "size": 1672,
+      "sha256": "f495ccdb8406bb4f092be32d6211dc1691174dc3c5058aa319ec0b449a4011e5"
+    },
+    {
+      "object": "0504ff889b1ca5529617fde9d92c32dd0d892308",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/evals/evals.json",
+      "size": 47777,
+      "sha256": "0f5bea903bb5b1cb42576d5e1e9684c274794e17b85e616305251321d67b801c"
+    },
+    {
+      "object": "d333f84d45d47a72ffc5cd71061448e97457b639",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/ai-review-rubric.md",
+      "size": 19414,
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f"
+    },
+    {
+      "object": "86edb2b75d9e0f7f3f1c6ee8573ff6967ca96393",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/execution-contract.md",
+      "size": 4232,
+      "sha256": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3"
+    },
+    {
+      "object": "4bf12fb56fb4ca300338b8f2a9eeae30c63a38c4",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/skill-authoring-contract.md",
+      "size": 7196,
+      "sha256": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa"
+    },
+    {
+      "object": "7b19fedf75ff387986863c3c037bb7ad93a7d675",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+      "size": 19309,
+      "sha256": "63ae09f641bb4fa3c569d9c1863ef4a21a7ad378813804ce1f0508688460d8f8"
+    },
+    {
+      "object": "40dd658f9f1c46554df2949edc70129b07dc7d68",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/enforcement-design.md",
+      "size": 6959,
+      "sha256": "4447abf0cf5022e19755808059fdcc56417f07eff1a7ca5db9c130f587f466e8"
+    },
+    {
+      "object": "9cbd9305617e96523acd91c8f37c3710d0292d8c",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/framework-context.md",
+      "size": 5980,
+      "sha256": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f"
+    },
+    {
+      "object": "703d7405f6b4a39ec49af34c21ae5ed2945067bc",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+      "size": 26796,
+      "sha256": "109a416cbe94b3790b7cf3ef99fc8f8a244b5b9954839d7056198b007bc2953c"
+    },
+    {
+      "object": "263fcee2836d879ecea8fa0ceb8a143fafa9699a",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/results-contract.md",
+      "size": 11957,
+      "sha256": "d81703c6ae0f03cf00942569507ef0743dc2c78e0a6c5561767904cf6873e21f"
+    },
+    {
+      "object": "a23854d4ddb968769c89715b9c8cf0faca4b7662",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/sources.md",
+      "size": 3506,
+      "sha256": "492bfe071d72f8e918862b0f5051fd16914aae9b8a3ae76167b4db66efa118f7"
+    },
+    {
+      "object": "97e0d2e0be54eded2e6807e63de0cf6b66857606",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/structural-checks.md",
+      "size": 13052,
+      "sha256": "1d79c437bd3c20ea86913e15c1b448129c3861fa21052bbbabc8c90106bf1086"
+    },
+    {
+      "object": "74a4c0b6838e02a78c0cb963c5b96bc824f562cd",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/references/worktree-environment.md",
+      "size": 10740,
+      "sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
+    },
+    {
+      "object": "f8936cb7c07b7e68795116877329859277b01775",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/scripts/assess_evidence.py",
+      "size": 18514,
+      "sha256": "d5b31a5448b84ecee81816a2997577366fe348dd281adb1d1fc6d487c47e7066"
+    },
+    {
+      "object": "c96aa47bcfb29bd2481d6cf155c35a1fbd8c83fb",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/before/providers/codex/plugins/devforgeai/skills/skill-validator/scripts/inspect_skill.py",
+      "size": 34778,
+      "sha256": "6054d6a01776590c706612afd9b1d1688ac71923044660094c111a7708591e4d"
+    },
+    {
+      "object": "8b4d9aff6c3af5062fdd5dc5262608b3283a09e1",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/candidate-manifest.json",
+      "size": 8901,
+      "sha256": "6974a1a4eddd9acd2354a5d177cc727f3d51ac8e6fa6b3198771e3fade7996fd"
+    },
+    {
+      "object": "d13b56ae893957e607ad6b16fad9996b0dee1cb5",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/change-record.json",
+      "size": 5264,
+      "sha256": "7b253a7c8cb818eb822c5c4ac547e2098c8fc2b3ce7301f4463e2fdbb0d376e2"
+    },
+    {
+      "object": "54c499688316863be665c2dfa828305670256140",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/continuation-prompt.md",
+      "size": 783,
+      "sha256": "f814679d7e3e4279457d4a1e3351a184f008eec2fa40ae1c29c40e93fcab35bf"
+    },
+    {
+      "object": "ffe848c50e893107aa8ea323966b85556430f248",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
+      "size": 5750,
+      "sha256": "cacbc3da987b796a8ae73566668da7ef300a200c6fc66e08f2a5d7a3dd2d64bc"
+    },
+    {
+      "object": "1c07f3f0ebb46233c4fa63b1dfad553a41094680",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/installation-result-01.json",
+      "size": 6217,
+      "sha256": "55e29cbe80ae5a18564e9ee81103d4fa6ecfe162ad75c16c9d3e232b07191118"
+    },
+    {
+      "object": "cc3e104d15fd25fa193a95bf34a96caa6e9e1f7d",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/installed-before-alignment-manifest.json",
+      "size": 4996,
+      "sha256": "5f25396b5f5cf51ebb1ac6492c19e13f4cef2e2116ad24a8fd39c541aeac9627"
+    },
+    {
+      "object": "311d91f26319d07542ffc35e60e473df8afd9952",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/installed-check-results.json",
+      "size": 1433,
+      "sha256": "3839bdb0736a4765b64bc0a1d8ff093eade86b7b321d62fd5bdf0869f570576d"
+    },
+    {
+      "object": "6aa15c46192e66ac7b6b869e2590ebb87d7ccdec",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/refresh-runtime-copies-01.py",
+      "size": 4278,
+      "sha256": "3551e4a5b06c204a5939c50261e4959f02effb5f028febfe19e71f0e2cd7b53d"
+    },
+    {
+      "object": "5d225b9bb7234683b5784ea9d83936240fbf497b",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/scope.md",
+      "size": 497,
+      "sha256": "0350455878275a87561fe05297d630b3b8824a023a79e94542c14f046f031479"
+    },
+    {
+      "object": "3ec7827bfc3b9dc17a5e66f647ddb0a3f23441f6",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/skill-builder-installed-structure.json",
+      "size": 7959,
+      "sha256": "6011737c971a4bda60ec3ec17b10ae734553eb1b9c27a771677c042b08b052cd"
+    },
+    {
+      "object": "36e01b4a2b6fd61b90b49fd9d8e871a40901c95a",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/skill-builder-installed-structure.log",
+      "size": 164,
+      "sha256": "5a09b43a418eeee10b0d2c42853f3ca091d12340ef1d7e6673d976375b278842"
+    },
+    {
+      "object": "516bb6a8389a994c747a7f9cce5cdff17b0b09d9",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/skill-validator-installed-structure.json",
+      "size": 13878,
+      "sha256": "d720ad2bbdc02d061c6d6054a0ca8282d733239c3c3475f70e2215e45e30fbff"
+    },
+    {
+      "object": "5fbd30778324a8613eb250bc87b62f658ca9d05b",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/skill-validator-installed-structure.log",
+      "size": 166,
+      "sha256": "af17422b1adf1f0d0042bf89c533a70de7cfeed3f02e7b1b5c91096cee31794e"
+    },
+    {
+      "object": "4a53195a30b939a23cf574930c6417bf3f33e6d6",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/installation-observation-01/source-merge-result.json",
+      "size": 322,
+      "sha256": "dfe1c6d16959bedda435700c95039c03f84b4d6805b60c84405c69fc5227b342"
+    },
+    {
+      "object": "a7d773bfaa05a7df83175b413fbcc2ef2dcf1efc",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/prepared-handoff.md",
+      "size": 5239,
+      "sha256": "405fa86c38d3d21086d06a82539dca1ed4dcec1191c8eb46205a2881e230dde2"
+    },
+    {
+      "object": "dc21602f5c3a4cef08ca440e1e42aa85cf761076",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/docs/integration/utility-runtime-contract.md",
+      "size": 9783,
+      "sha256": "537c33f5efea5b8a49b66bbbb29dea18dca654b79b91c651c5e44eeb8f2ee56a"
+    },
+    {
+      "object": "d54de3502b947be38fc85fbf83fafd91521f38d6",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/supervisor.py",
+      "size": 47895,
+      "sha256": "08e15b7bd1968a3be506cae7fa289129988d1a145369775775fac84fc8131fd6"
+    },
+    {
+      "object": "e71d27d4bc7564014fb4288fd18de9537fbfa61f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_evidence.py",
+      "size": 9205,
+      "sha256": "f9cfcd9a34c215409baf50c093a9b14eb0e8b7c6be7de91dd62c469b57495f0f"
+    },
+    {
+      "object": "03eec4cae77694a9e460caac1e8e5624cc69191c",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
+      "size": 61131,
+      "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511"
+    },
+    {
+      "object": "29de034fba488959fad5eb7395256ea3b3ef9696",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/coverage-source-continuity.json",
+      "size": 1137,
+      "sha256": "7ea5f42401e9859982b1936b6041df9c9e73f04634030d81c98bcab06f93c55c"
+    },
+    {
+      "object": "8ceeaedbb5deb3a4ab290dcdd01c51e3c6e4e23d",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/custody.json",
+      "size": 4964,
+      "sha256": "971793faa67e887aad2d7d91a319bcb20aff81c9746157695bf078e1c29c2b94"
+    },
+    {
+      "object": "12f6d5219d88446d1d17ce369811915e2e7b3055",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/framework-checks.json",
+      "size": 1498,
+      "sha256": "7643a39c2c39ce60ce1fbe02ed24e91e6544d5b5d4d37bb27b858b71b7370754"
+    },
+    {
+      "object": "bec60efad942d744f524e508ec4a6679dd43b4d6",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/framework-frozen-baseline.log",
+      "size": 76,
+      "sha256": "a8919f646fd7a0ebced1e7fa118f9c3125c7888965f2c126f2f057beede7d763"
+    },
+    {
+      "object": "8b6a0c94c6221b53116b107479551191da975ebb",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/independent-review.md",
+      "size": 3665,
+      "sha256": "97a33fd3327f0a157d66978c69f5b62fe329a2f33ce38ae62378604ca24b54f2"
+    },
+    {
+      "object": "3c1ee9ce534842218312cfbce63fd44dc96e3ce6",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/manifest.json",
+      "size": 16749,
+      "sha256": "20a9605dc0627f53ca42d610b581d87b950daff7b62fdf228136839a0b9f7175"
+    },
+    {
+      "object": "27adbd91e49be8afce7d9252adff659f221e0aed",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-builder-ai-review.json",
+      "size": 43761,
+      "sha256": "7ed183e42881bd1f88eb813368fb0468cb6330dfdb69bd5d0c2073c3fe9af983"
+    },
+    {
+      "object": "d205cf10abc013bf51740be2262a9ecf7074b8dd",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-builder-structure.json",
+      "size": 10164,
+      "sha256": "94a08f68559f022070b36bfc6fd5797fa6303524e66b4c2d5bf4323acf1faa35"
+    },
+    {
+      "object": "802e7ca6b220c72ef6e3b604dc351d25249e7abe",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-builder-structure.log",
+      "size": 154,
+      "sha256": "45b79175693c7d2ed09b0910bf303f0fa5c4a0ea0a980beaf616f7d5f5726240"
+    },
+    {
+      "object": "0e23d0621cbf494a92f664c31f13eee3da176ced",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-enhancement-spec.md",
+      "size": 566,
+      "sha256": "d7147f6acce6f6177d88d06fbea76bb481ebad9fff4eaf6e0cc7d88e7a435217"
+    },
+    {
+      "object": "30e19fc52d88e1f217c2544bf16bdf0ab92ccf41",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-validator-ai-review.json",
+      "size": 43910,
+      "sha256": "1fe3c3ee14e01e030efff3158e0ac624f716f0e534e17e7d96f017094e802616"
+    },
+    {
+      "object": "1f000596c0d64784e6b744f2e5f8c04bf7a53f14",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-validator-structure.json",
+      "size": 19067,
+      "sha256": "fe9c5ff2a5b9bf672d72b126bb2873c5a32eed5736ced2dc72e7574e8d2c65d2"
+    },
+    {
+      "object": "87891e1dab06a19a0256447d88042c64afdd82c7",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/skill-validator-structure.log",
+      "size": 156,
+      "sha256": "7a9ec9df305344d06e3538188de203866542ad95196fbf593b93584b000c9107"
+    },
+    {
+      "object": "0b2eb4f6c7fe72f0f4ab9a456444b80d00cb78da",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/static-evaluation-01/verification-results.md",
+      "size": 3131,
+      "sha256": "3097f96a96d6b31ee1ab16cef3dc842280e1657fe0fe6cb6155c4a745f954faa"
+    },
+    {
+      "object": "e83685302a1f60ebe2e7498d1c9880da551eaa80",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/assignment.json",
+      "size": 1200,
+      "sha256": "c7230c5bb3c935c2107433e660e382f9050ad26c77f48b77c7bfee3b26ee13b2"
+    },
+    {
+      "object": "6613d9a9f66092b37a23438825ac11d6dbc6f443",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/authoring.diff",
+      "size": 73084,
+      "sha256": "fdc719421afcf41c482bea5616a4c3fe4b3fac6887b8a52dfddbd5eba19412cd"
+    },
+    {
+      "object": "93e254c23cbc78eeb0327135e071c53a68e04f56",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/change-record.json",
+      "size": 10108,
+      "sha256": "98a8d254dda63409af6d96ebe313dc68802819ce0967fd7112062670cb7fc24e"
+    },
+    {
+      "object": "5b278b3d4d6d68fa2054ea3cf27f7bb0f5570030",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/continuation-prompt.md",
+      "size": 2798,
+      "sha256": "dc9b10143746bae5d98d7b7b2f2a5688b45a1819d9ff64e200b970befba1ce16"
+    },
+    {
+      "object": "6cdea1a581d17b3e6e948f28ad215534b68aef69",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/custody-readback.json",
+      "size": 412,
+      "sha256": "42d4366e6dee90e4bf8c436608d4eb7529df29b3cccb5718e16956a8274c6968"
+    },
+    {
+      "object": "6572248379d9e81bdb56f480e75d36b03599d806",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/design-amendment.md",
+      "size": 7796,
+      "sha256": "b96b6612af232eb36bec5cbf5fc38474126e1c851682df3a1339b6a22345dcbd"
+    },
+    {
+      "object": "dace0fcb79d0727e7ee4fe6520c6bd20ccc85b02",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/design-before.md",
+      "size": 31332,
+      "sha256": "3436380f01c72c15979a9225bc6ed4c9c8125b8d20de2ea71174891810d37469"
+    },
+    {
+      "object": "9790cd2c9584aeb58f096cb26ac742afb4459579",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/handoff.md",
+      "size": 10202,
+      "sha256": "6722f68e88c4b680e9c30cb2beab24f94ec6e2eab808f25b38f9f1430085855a"
+    },
+    {
+      "object": "717d2c383af1411dd8dca11cef645a16d991efdd",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/handoff.sha256",
+      "size": 77,
+      "sha256": "04bc93e69400b527070dc38321dae2eff68aa90153918b84109fecafcf3e1058"
+    },
+    {
+      "object": "81ecc95ca0a081ff5ad7926739d2915eab8b7507",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-after-manifest.json",
+      "size": 2760,
+      "sha256": "962e414e78634efb8c6cde660a9ef9556697993e0feb43745629ef74c44fb824"
+    },
+    {
+      "object": "a99ed478fdf595b07a4bfbf8ef3dbffc2ae22b2f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before-manifest.json",
+      "size": 2654,
+      "sha256": "0d321965ae31662c575015af8e0e75c8bc1a486cbee43e5f5ae192b3e60e66d1"
+    },
+    {
+      "object": "c7b4258e2989031fef428c7789e84dff88f48ffa",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/SKILL.md",
+      "size": 14103,
+      "sha256": "bae0c6ae9118376329d2706ffe74216d632c2d2958593a5fa2c1cb98554df698"
+    },
+    {
+      "object": "bdfcad02c34531f98c4fbb6eac233a9ad9e0e27a",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/assets/environment-setup.json",
+      "size": 1183,
+      "sha256": "cde1dbd028fbccf6582f0b41dc1639db8eeac267fb020181f1f3240b3f55a128"
+    },
+    {
+      "object": "290161083442e3e4d7b2624f972b676531e8159c",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/assets/handoff.md",
+      "size": 3927,
+      "sha256": "2e984e001cd45e77472f45457e56d0817639c3bab0cd0a04fe4a6cf72afc2c7f"
+    },
+    {
+      "object": "06c6dba7dabcf9b5dcc339016855e85fe070c9da",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/assets/run-manifest.json",
+      "size": 2392,
+      "sha256": "8be8df1eee315c6beb2c293b8ccfd71845b7d08fcd2ea2b0bb682c5b16e713e9"
+    },
+    {
+      "object": "47f23872a51afc4b8f66491214e5550e4fe889fe",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/assets/validation-plan.json",
+      "size": 8581,
+      "sha256": "ab0f6cf7729be9935ef5a088db36479f0ab7c0787a0b7391913bdd8915e0f207"
+    },
+    {
+      "object": "b648f387b131442247f6ca3d2a4fe6c6905d7b0b",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/assets/verification-results.md",
+      "size": 6170,
+      "sha256": "cc095e4abe91ee2ca5666fa93ce81f4d9b2361ec20ca0545e39339fed7d6aa72"
+    },
+    {
+      "object": "0720cb7ff50690f315770cf787dc1375238d41c9",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/references/derivation.json",
+      "size": 14680,
+      "sha256": "400b9578723b84c77737b977df58a31f6f3fc4524fa1e5af423c981e0c4dabaf"
+    },
+    {
+      "object": "45fd1fd42d2e52170792513938b75b56fedcac9e",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/references/enforcement-design.md",
+      "size": 5601,
+      "sha256": "92ecd62fdd20a698067e5794029abd6f34137dd6e3a7ffc6b82df3b41893f7c3"
+    },
+    {
+      "object": "affb7feb0efd96e159a05e97e546d3fbab9c0d3f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/references/native-evaluation.md",
+      "size": 25716,
+      "sha256": "d2295fd6991e2461143b050a47329969d997381e735d7cde225d6accdac52941"
+    },
+    {
+      "object": "e4981a38d97eada48ca19df92e0dd87c44578f9d",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/references/results-contract.md",
+      "size": 10797,
+      "sha256": "bf33f727b346d59c7e4bf94b2a62eda5ec3f599d848b8b690761bcfcad312841"
+    },
+    {
+      "object": "d3f8c2624f48c3d37e207386fed65fd58bf33e2d",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/references/sources.md",
+      "size": 2810,
+      "sha256": "f019799003d70ab1440f2b6d723b3f71e9df883f1d6bd633c7c92a381a70f45f"
+    },
+    {
+      "object": "48e77244dff1734a705f2307b8fd0020f6fde5f6",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/installed-before/references/worktree-environment.md",
+      "size": 9015,
+      "sha256": "79342e7f18ad2bb7a293a028f7c7b603f98e4edf3efac11b97fe7fae5d00b602"
+    },
+    {
+      "object": "7ff4b272a1e2f0f11acab31c47a47d51e80d7e33",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/previous-evaluation-manifest.json",
+      "size": 21565,
+      "sha256": "a292ed18d339bdbf7f0fd20fb24e3d1119893ef470adb2049b6b40f63674fa79"
+    },
+    {
+      "object": "d26b04e0eca911586cd825100144ad451bbb8905",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/refresh-assignment.json",
+      "size": 1825,
+      "sha256": "bd01fbb2b06d9c56f479e1339678efb119873ab6ee64664707baa710f3f0e91f"
+    },
+    {
+      "object": "1e1d327a97362223621fcee18e0a3380b53bf63e",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/refresh-execution.jsonl",
+      "size": 3561,
+      "sha256": "4b66d02332d6d0aa0679a1781a8dd3fabe81a9c085ef2381cd044cf14365b51e"
+    },
+    {
+      "object": "cd2a88bf439fa4dc87d04892040d705404a7490b",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/refresh-installed.py",
+      "size": 3608,
+      "sha256": "1200eae24a55435e24bc358d71438e021cd0f540a1a420dce8e4c31f8ac54d59"
+    },
+    {
+      "object": "6f451b60d643e97ad5fcabbfc7849cc576b59444",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/runtime-integration-requirements.md",
+      "size": 1733,
+      "sha256": "188ceca026b091fca71f953eaa24d83f794b37bb0c33440a4cba15cadbffee01"
+    },
+    {
+      "object": "f155a760cd10f5c435e9bdcaa9ebdf90e1e6a3c4",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-after-manifest.json",
+      "size": 2850,
+      "sha256": "c96165449fbbdb2ad6d5330f6b71dc3f25b4c8c13ec3bbc6228fd1caf9e0aeca"
+    },
+    {
+      "object": "6766b7fd520049e666a758ce72f271d9ba0186d0",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-before-manifest.json",
+      "size": 2744,
+      "sha256": "c8b3f6bc6b600aff342fe5ac699385a34ea3fe856e5df4f8a5ea37ef0d438f60"
+    },
+    {
+      "object": "4572c9402eb641b5fe587dccb0137bbe5b6df6e7",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/source-before/evals/evals.json",
+      "size": 38507,
+      "sha256": "f4408778e506242de0624baa04f9c3232be50bb8194421cacc5a1f6e24d7a10a"
+    },
+    {
+      "object": "0ad583c1a0dc9d02323c7b6131857e21875402d9",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/authoring-content.json",
+      "size": 66258,
+      "sha256": "518fcf5f05fbcbc4e1364963cd3cef2061fdc475260bf21281f561cd664fa69e"
+    },
+    {
+      "object": "a891bc513e7ac6c345a2482ce9faef66a45027f0",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/authoring-record.json",
+      "size": 5650,
+      "sha256": "fd5818aa6b9f288e309a1301ec07b2da5ee451ab64d6ec9c726123369c45c32f"
+    },
+    {
+      "object": "f482266105f2a7bd2ee96550c9da8c360b497b56",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/design-amendment.md",
+      "size": 7074,
+      "sha256": "1cc84a2941f94b2899708c228f8b2ccf68022948595a6c2a06a4e007bc8ab2fe"
+    },
+    {
+      "object": "4942d33c7506dee49066c716d65ca568bc9de70b",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/design-before.md",
+      "size": 24258,
+      "sha256": "685d9623e55d061112508bc00af4b436f01fa4f9f6c5c5ac24f10b3fc8455cec"
+    },
+    {
+      "object": "4cade54b29da33ce05623b26db96b6accc25da3a",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/evals-before.json",
+      "size": 28756,
+      "sha256": "8065a574765254ba75eb3d582299eb6365c9c3ec7afedfe88c3aab8b55f5ee8e"
+    },
+    {
+      "object": "748d1cc478207797cd8bfa6898794ea69901459f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/installed-before/SKILL.md",
+      "size": 12847,
+      "sha256": "e8310693ad1b756f85a57ec96bab4b0fe2ea3d75c70f1fe5143b416e9122516c"
+    },
+    {
+      "object": "fa1dcc35396abde84b91f8f73acf7fae31947a23",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/installed-before/assets/run-manifest.json",
+      "size": 2360,
+      "sha256": "37f271e45c883dd6d21d7c164113b0e4deaa9cfd8421744d0b5e4492b1f77b43"
+    },
+    {
+      "object": "16dd82d53b3efc2229b3da33d4fc98bca6d02695",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/installed-before/assets/validation-plan.json",
+      "size": 7685,
+      "sha256": "a23728d7931f110f35f7fdf35dfd517487fc0b13330c2e2474c1cab2e78ed795"
+    },
+    {
+      "object": "20eb650d27551cb277db459248ab9f1272e0b84c",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/installed-before/references/derivation.json",
+      "size": 13297,
+      "sha256": "482e17ebf27b365baa1dc53a9229eccea611eced73f5df0106358b320de01aaa"
+    },
+    {
+      "object": "6189a51e491383e3dc5746a89e0bc3dcf7ab644f",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/installed-before/references/enforcement-design.md",
+      "size": 5458,
+      "sha256": "7aa4fe8a08ea4c9cb08f1277b0e1be442b0540025eb582ad522708eb2ce10ac1"
+    },
+    {
+      "object": "fb63759b9e25be8900ffdccf6d397a436efa3468",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/installed-before/references/native-evaluation.md",
+      "size": 24241,
+      "sha256": "f91e383d410b35fe8aa48fe1d1a01b2b0de84592e6b7ebddfcf082166b214160"
+    },
+    {
+      "object": "2551da033482169cf2a14c1131d26d2ad7691d37",
+      "type": "blob",
+      "path": "docs/skill-authoring/history/skill-validator-worktree-2026-09-07/source-before-manifest.json",
+      "size": 2533,
+      "sha256": "d15bae85be649abd3d7277266248c906e64b6720dd90097c950f0a688f011e98"
+    },
+    {
+      "object": "3646273b72c8f1d69fe6af7968a942290eee9f13",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/authoring-custody.json",
+      "size": 1301,
+      "sha256": "24b6a9cf8037dd24579f833875120c74402a4d43e709c9a784075050d1fd4706"
+    },
+    {
+      "object": "7f8b2db3826f59765a4c1c1df6e63f96937c94d4",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/before-manifest.json",
+      "size": 1685,
+      "sha256": "ec04cd73f91f1a12eeddb486019f17255609b8738c54ed1f9c29f094b60b3d4e"
+    },
+    {
+      "object": "5c76cba00677a5542912ca25ef2cde339887cc2f",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/before/skill-builder/SKILL.md",
+      "size": 10688,
+      "sha256": "feb18f7e07a2de070b320e414a8857c9bbf43fb9062c528d77acfb156ccd0a51"
+    },
+    {
+      "object": "5901cdd484fcf9e581f28e76ba454f1ce8c38014",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/before/skill-builder/assets/skill-design-spec.md",
+      "size": 20815,
+      "sha256": "7cfecd0a0930862f27b2125945981868c5267d61033d4b8847b30ffb9622a552"
+    },
+    {
+      "object": "f00bf3408211e44519603eecb1e8b40341f345b5",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/before/skill-builder/references/derivation.json",
+      "size": 17017,
+      "sha256": "34dbc1b5791c3291c3696761f8421506c4898069e53766cb44222ef85fe614cd"
+    },
+    {
+      "object": "5b5793f86e97cb1ae40176366447dff993aabda6",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/before/skill-builder/references/validator-handoff.md",
+      "size": 7018,
+      "sha256": "a38d6d993a451fbd137bcc6ad9572955695fe9b4f6b574c9da593bc45aa6543f"
+    },
+    {
+      "object": "d22995ff5dc722d18893c97f2054b3fca53e4e0b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/builder-change-record.json",
+      "size": 5923,
+      "sha256": "cea2a32e5b9b65bf1ed29235e8c9f39039a499308a23304e2d2d82b5bb016f00"
+    },
+    {
+      "object": "a9a7ffe12abb93b28c9c371ee393f8157a0dc346",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/candidate-manifest.json",
+      "size": 2043,
+      "sha256": "6bd17fcc81308e723f8e082a4055d14db75d93ae18962a41f3d80bab771ab48b"
+    },
+    {
+      "object": "aeb9e5f305cb985aa2d643cf80ac8d35c75512e5",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/candidate/skill-builder/references/derivation.json",
+      "size": 20020,
+      "sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634"
+    },
+    {
+      "object": "2aacb5a1f335222a27984152dc656a64e8a5e44d",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/input-record.json",
+      "size": 5940,
+      "sha256": "9e815ba4ead1c12ec8137453a800159108ac0af7a22f9e67d859e956ff85daca"
+    },
+    {
+      "object": "8efc502a5c192606dae31aae254bf58979ca7925",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/prepared-handoff.md",
+      "size": 8806,
+      "sha256": "3332184859213f8fc35417bcf0a2a675e33ec2c4f46a4ec75e1e49f834495fa2"
+    },
+    {
+      "object": "bbd3c338feccda8ed670d84934eaa886fad14388",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/runtime-integration-spec.md",
+      "size": 13850,
+      "sha256": "af737fc3f1c7e19270e6a23d6df784f63065cdeb4447ee4a83f308c09e8d2a68"
+    },
+    {
+      "object": "487813f0cffe91c2c6a067ad1f20613e6962cfc6",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/artifact-contract.md",
+      "size": 10482,
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    },
+    {
+      "object": "c36c3a7e2f58625ace55edecfab5559023131e5e",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/execution-contract.md",
+      "size": 17588,
+      "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+    },
+    {
+      "object": "5e1447afad329adcf922c7902966b27b712c1ca2",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/requirements.md",
+      "size": 3138,
+      "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43"
+    },
+    {
+      "object": "0c08920d76bc1624d5cf96143f87bd11a1161380",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/shared-handoff.md",
+      "size": 3342,
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+    },
+    {
+      "object": "1e00a1188196145a0bc884d89d03b56a6bf83ced",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+      "size": 25195,
+      "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef"
+    },
+    {
+      "object": "3340af65f48111ddc4a702893e79caef2e43b2b4",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-enhancement-spec-v3.md",
+      "size": 11388,
+      "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2"
+    },
+    {
+      "object": "b7971fd3ec98ba015a7ee81e3a982b86ef214f11",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-provenance-remediation-20260907/builder-change-record.json",
+      "size": 1443,
+      "sha256": "2a7f23e76f55cdc4f65fbf833fc68adb15af6ea941b7432c24517a3d99b01d80"
+    },
+    {
+      "object": "ab8d50f4234a91f78fc77c336684b293fb7466c9",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-builder-provenance-remediation-20260907/prepared-handoff.md",
+      "size": 1191,
+      "sha256": "b519b1f13f44ae176914031c96f5672e8f8956c69d153b3f92d58c08dc962fd1"
+    },
+    {
+      "object": "d82192ec376db8257653fbfcb57ac444ad4440c1",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-authoring-receipt.json",
+      "size": 10614,
+      "sha256": "e008d5387ba90e9b6d567faa0eb8f9e6b5e6167b7aa64d78f1c94a4a3dee2904"
+    },
+    {
+      "object": "62483bc5b4a5c1f4aa29d09cd02839385490ef01",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/DevForge-diff-before.patch",
+      "size": 98301,
+      "sha256": "1b44ab71d9d4ad1a7fe49af9df4a290ad0cf69c5a1ca2a3a14218a35605054ed"
+    },
+    {
+      "object": "c43e871474a3c48ad72296d89cb58bb48715d28c",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/DevForge-status-before.txt",
+      "size": 805,
+      "sha256": "314ac6896804ac66710fd4967c1ee579b395b915cde24a6a4da224c0e4922948"
+    },
+    {
+      "object": "321d49b4155976a8516861102c6cb24e5fc2d9a2",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/DevForgeAI-diff-before.patch",
+      "size": 47033,
+      "sha256": "25e48b8fabd4bfaad9569aecb4b1b0cf75f20c0dc5ca69bc971b905f0164838b"
+    },
+    {
+      "object": "fb766f500e0924a192b1826d22af11c84c614278",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/DevForgeAI-status-before.txt",
+      "size": 27580,
+      "sha256": "d1914a476ea1d285f2d7a8d2b88d0950ceb562f35f2f01cd04fcdc0bc8bc80de"
+    },
+    {
+      "object": "70c00e177afdce765ffdc14260a4b5b5e5df0e83",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/assignment-and-before.json",
+      "size": 4483,
+      "sha256": "5dbafb77efe4c4db44afd2742274bc6283746ad664ace9a8c07a9c34fad007a2"
+    },
+    {
+      "object": "53bd7338f60ae03b3c35156700ce77a441d9b120",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-installation-01.json",
+      "size": 2659,
+      "sha256": "65d293d595f04998532b4cb83a61d32c400f516eb530399ec0aecdc58d29c9d8"
+    },
+    {
+      "object": "2220f4fb4b15bbfc379dc7e9526e871523ebbdbb",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-installation-02.json",
+      "size": 2662,
+      "sha256": "83185eabc0aa6a0737f039794f65744943f8b03347fc396185fd6b34af991ab1"
+    },
+    {
+      "object": "ad2d8ad1f640ddbef15d07b9fff1b4938db2fc87",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/ai-review.json",
+      "size": 43218,
+      "sha256": "593d02578e4cdbc9c92892071a6eae0afc23b019640f3508bfd910bee1a662af"
+    },
+    {
+      "object": "5221cabd6485da90c79919f8045426ca02cdd69d",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/independent-review.md",
+      "size": 5145,
+      "sha256": "a2dece388fa9d2164806605f364d2d55b9676e7162387189a6dea97570addffe"
+    },
+    {
+      "object": "a6c6a75854083d91edf06dbb35d095f5e8d7b86f",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/manifest.json",
+      "size": 5818,
+      "sha256": "6a2a8e755939d4df4a4d9f4dc7679a8915cbc827551af674d1ba5888182d42db"
+    },
+    {
+      "object": "4066e0653378f4e18006a52507c5d5419bb32425",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/structure-before.json",
+      "size": 8732,
+      "sha256": "d3ab72a4f05bb087085e5f0cda584d1c0ff730d40fc73f8d253af1e6c94687b9"
+    },
+    {
+      "object": "7675f376ea9b5072ac6d6253e788bcf5f0908f00",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/structure-candidate.json",
+      "size": 10491,
+      "sha256": "a06fd536e3008e864129e285ac0b1af0893f14ed5dd7067aaad6cfcf04fedc1e"
+    },
+    {
+      "object": "cbdf8cbf88ca3dc8455a39d818bb0bb2a558537d",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-02/ai-review.json",
+      "size": 35425,
+      "sha256": "17a2c6df036840fbc9da706fa86a80b29b8ba91b02a36992ab6673d649696561"
+    },
+    {
+      "object": "cc5623efcb95c9bed9c8217d13c5ad1747decb21",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-02/independent-review.md",
+      "size": 10253,
+      "sha256": "a053a8b47e5f3759b2d366e320a53a79984d9a086af2b5c9409cd4a6992eb30e"
+    },
+    {
+      "object": "5d41937f4c25458828af3faf843b0657c4d9a180",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-02/manifest.json",
+      "size": 5840,
+      "sha256": "8bfb3253fa358f3ee3804ff4803f7aa4c3f49ca7cba2fa0806334de4b8263df4"
+    },
+    {
+      "object": "7ac089848336219ef2590d7876966da4e8ed3148",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-02/native-limitations.json",
+      "size": 1544,
+      "sha256": "2aff6c9ad2f746d44e7d74d41b9da8c0e423ec13f7d756e5e064becdf1f96c45"
+    },
+    {
+      "object": "a08ec4507e9e0443db32d683a7e918a62394eef9",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-02/structure-candidate.json",
+      "size": 10491,
+      "sha256": "1c16357390ec330282bb17befa4096fa06c241b784386f67ab4a7ce17b1f0659"
+    },
+    {
+      "object": "dcd658d9a95ad5c68d314f646730ddf2df18a3a4",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-02/structure-installed.json",
+      "size": 7870,
+      "sha256": "7b8b9a4ed046749fad7a5d4a36ecd029b52a5b961b4856a7ec5f256546a232ba"
+    },
+    {
+      "object": "5b362a8fb4b2bc888b7b815785fd45c9835fe96b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/continuation-handoff.md",
+      "size": 3577,
+      "sha256": "2733e4b5599edee5b07588e4d17324731e849130fc7cc942e99ab7728bec3169"
+    },
+    {
+      "object": "321ae812d44d41f1ac95adfa0271dd8c8a0a0da1",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/continuation-handoff.md.sha256",
+      "size": 90,
+      "sha256": "4ad31d126c7e445b7d1d36bf5945bfa63f01935ddebc1c4bcffa52fa8aad92be"
+    },
+    {
+      "object": "e616c2c3845dbef7b74304238fe6b1cc54882174",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/final-skill-identities.json",
+      "size": 2338,
+      "sha256": "93cfd085f15013376bfdbb6efbfdd832c310f426048a08c5b623f9f5f25c35cb"
+    },
+    {
+      "object": "b76461652e087acb2eee9c3920903a7a29929a30",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/final-status.json",
+      "size": 7683,
+      "sha256": "52b21fa677b92b269bda9c84860ce4946b9d341efd9655def5c1f4d81955f0f7"
+    },
+    {
+      "object": "6913d80ae778105dd80f1c7b15d3b6a8f2523ff9",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/final-status.json.sha256",
+      "size": 84,
+      "sha256": "57a5e13f1d2ee16a123b0fdebe5233d7c38d7eb5b241210c305c3a9e60f75869"
+    },
+    {
+      "object": "965d788f1978390d50c1891dd6294ee24af7f0cb",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/premerge-builder-observation.json",
+      "size": 4243,
+      "sha256": "c4a4fd7b32f70fc10e15f7f136f2a6c9a6be9b9b350da3983e6d9df90e2324f0"
+    },
+    {
+      "object": "bb215c573ddd9ee6cf54c5a5997d43de2b2f7aab",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/demo.log",
+      "size": 329,
+      "sha256": "795be15d046f4041992ebd5fa7382959b5fdd0177dd589f386ba6517234c133b"
+    },
+    {
+      "object": "eeffb400fc89e4c9f6fb8c8f95cff3bf9b48f793",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/.github/workflows/ci.yml",
+      "size": 1017,
+      "sha256": "9e133e3b962bd1f7b9cfa4d559c6634b496153f14c34b6ea08c1d5dbb4e494e7"
+    },
+    {
+      "object": "0adaa579b994006eb59e7de9aad8ada9435c39eb",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/.github/workflows/validate-framework.yml",
+      "size": 1472,
+      "sha256": "f24809ca95ad8e8e73d929c19b378e30be55b2bc5dd682f4b0cd3856ec649b05"
+    },
+    {
+      "object": "101686c3a28346935fdf2b5117687bc6ebcbf6af",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/.gitignore",
+      "size": 85,
+      "sha256": "0cc98f85b088a41b1ec9c3867f1de9a1b86111b0cf2ab6e0a70738a2801fb403"
+    },
+    {
+      "object": "36ee6b88f98013986f66d408ee58976357a9b0e9",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/AGENTS.md",
+      "size": 1167,
+      "sha256": "973626369394962f4dda075847f2276725e458f5889402bacd97c5778ee2ac37"
+    },
+    {
+      "object": "0cffc100b424d68d99cfb2b51e72bddaf62ba942",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/Cargo.lock",
+      "size": 10326,
+      "sha256": "4e73e7552a1fb56b45209bb339038d02526105f7f1ba5bafc576a6ee1ecb4fbf"
+    },
+    {
+      "object": "324f16596cbf19f635d618a24dd1887ffc70f216",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/Cargo.toml",
+      "size": 666,
+      "sha256": "3246d9b8d0fe6130f539ba9d907bb315af8c1fd05fe723b26de4505e3df8de33"
+    },
+    {
+      "object": "47d198506fe032ca06c7330c0322ed598b07af31",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/README.md",
+      "size": 4497,
+      "sha256": "4e48d32e23b8357cece74c71903944e4042451ecfba92d75ef1468b8cb760043"
+    },
+    {
+      "object": "ced43e2e067df81c69795cedf008ec964c4843a1",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/POC.md",
+      "size": 10360,
+      "sha256": "071fa59ff6766bcaf2c3f352ba6f030beb73a81e5b5b8066ec9c2ae2f30dd197"
+    },
+    {
+      "object": "e06d434debdfdfabd3e1a680fb7114beee9e2052",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/integration/skill-utilities-assignment.md",
+      "size": 2017,
+      "sha256": "58efe2c7fbf0eceb518114d73dd4e9bcd39724e2f74aa302f90477770583b002"
+    },
+    {
+      "object": "af0dd5dbcf383206e6f8ad48b6497880c1360eb2",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/integration/utility-runtime-contract.md",
+      "size": 3215,
+      "sha256": "d43d168a34da1a801c5914293269601e5fff8278f5ad3c6b6c4ea9d0df7cc71e"
+    },
+    {
+      "object": "e1172d7cc500a8bc352390cdf777ab553338ab90",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202000499195Z/build.log",
+      "size": 72,
+      "sha256": "ee1d3fffa2022e962e63e0dbe4d35c9c198450a20c29fc09030f635dbb38bfcd"
+    },
+    {
+      "object": "ae1212667958d0c6d515bd3445ce3c2d6c8002bf",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202000499195Z/clippy.log",
+      "size": 152,
+      "sha256": "015f1f0b43a20fcdc6b0c63863c54c8be237e3efa5d3f77c1be064ebeed80301"
+    },
+    {
+      "object": "04361eee3062c7e1783f048270d092157dc889de",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202000499195Z/fixture-demo.log",
+      "size": 279,
+      "sha256": "ae6767359a1ba1ab3ae13669968a767184b82f6cb2ea22ef96d2dd1cf0bd6ec2"
+    },
+    {
+      "object": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202000499195Z/format.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "object": "355f4b9411d866dcb13733ebcdba8fa1ae041001",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202000499195Z/framework-structure.log",
+      "size": 98,
+      "sha256": "988bfe0255ac4d88e4f1f586189fe00e56033b563f02dd7cf3bc602a416eb848"
+    },
+    {
+      "object": "24e64458b68f12247f71695073c746bca33f0a46",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202000499195Z/report.json",
+      "size": 9405,
+      "sha256": "1f2c33676f21f3b9f1fe56a950e9674cf4ab656ebdab391fdf48fadbef5f1a02"
+    },
+    {
+      "object": "8c14753d6b6c90e98430462d0a7eb077f8644543",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202000499195Z/tests.log",
+      "size": 3279,
+      "sha256": "f48bade501e4352f79cb53cd8f09d6ea92a28c63980c39e2eb43a55bd6e3dc89"
+    },
+    {
+      "object": "2ab2775714b0610534ef21f4b0216ee50d452545",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202156376559Z/clippy.log",
+      "size": 72,
+      "sha256": "02db5a66fa0c60ca8618bd08aac556eac4f3ec863e8630a0d353dba6a0f6e126"
+    },
+    {
+      "object": "0a480b3ffde13edb466f5d1bb1deda69a3a1ec7a",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202156376559Z/fixture-demo.log",
+      "size": 279,
+      "sha256": "3ee2010d718e909cbc442d0a6a9b560a8e0a5cadc6e3e976b45b0f7ac58d6da0"
+    },
+    {
+      "object": "64d67b802cdcec576b3947ce9444b9de6582f1e2",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202156376559Z/report.json",
+      "size": 9514,
+      "sha256": "2e97f0bc6a2a3c6fede530943c6ff69dbb3f883152c453347ad4eb04caf6a7ab"
+    },
+    {
+      "object": "173ab2bd0da13f05fa0e6e3c9129aaf70c5e9fde",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260904T202156376559Z/tests.log",
+      "size": 3419,
+      "sha256": "19ace13f4a4802e01af92515a61381a64f44dfe2100a32c762722fca3534424f"
+    },
+    {
+      "object": "73aba0b03a5355005f299bc7bc425386a6a465c5",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T002638753633Z/clippy.log",
+      "size": 72,
+      "sha256": "4f27ac380b22e1d975eee20ce727fa8cbc09061177f6253af0777fd4de7b7506"
+    },
+    {
+      "object": "05687bcaa092e16dd9ce7cf4a84428874804b2b0",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T002638753633Z/fixture-demo.log",
+      "size": 962,
+      "sha256": "3c60ff66afeec538bc42cd7c0125130e29879a888ac1db414802772d165f971a"
+    },
+    {
+      "object": "7c5f3238e93a82887e4d1b7cdd44e173412d2ecd",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T002638753633Z/framework-structure.log",
+      "size": 99,
+      "sha256": "72477b820e88574b50f0290081ba87b66a7013570256aceb74ba201c4a8162ec"
+    },
+    {
+      "object": "d3172d7c7a9f6cd4a4aca5c7b8cf80d56ff6d2dc",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T002638753633Z/mvp-documents.log",
+      "size": 527,
+      "sha256": "03746a2dba6ec1a6cd0aa7de1cc96e3d06885c64a56c9fcb6334a9e47a76b232"
+    },
+    {
+      "object": "cf7335941aadfb028b522cfda142af84842bd527",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T002638753633Z/report.json",
+      "size": 19885,
+      "sha256": "938789049ef8fdd03a47b1d45991f9cf197fb6aa3172d794b0641a88c541f775"
+    },
+    {
+      "object": "d24a4c856055b66c113a479be89a86739d62d065",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T002638753633Z/tests.log",
+      "size": 4067,
+      "sha256": "df84d11f42896cced8ac543b6aa80c6bb95b82118cdda79b8f79e3158d7f25b2"
+    },
+    {
+      "object": "2955a39bd33a33f81833e5854147f6f57be4b416",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003130061125Z/clippy.log",
+      "size": 152,
+      "sha256": "52b99fab181a330f1ec63cc22608b1505cb9c6048d49f44e476a8559147a6bf4"
+    },
+    {
+      "object": "b3bec5e5cc1d066524b9f65d6e4ff91f2468e0d3",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003130061125Z/fixture-demo.log",
+      "size": 279,
+      "sha256": "f454e0420903edf33f89b20e6e00ceb8685c7fb7c078d4585b941495a640f936"
+    },
+    {
+      "object": "d5ef614160c6e86bf75c4a90ccbe68cf1b4a19f2",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003130061125Z/mvp-documents.log",
+      "size": 527,
+      "sha256": "8ff1317fc297cda23609d9b158249dc4cb3e7416c167d72ed81c5c8471f8de69"
+    },
+    {
+      "object": "6f7579e73e964cb6b5f2a77724d7aa8d9a510e90",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003130061125Z/report.json",
+      "size": 19885,
+      "sha256": "01f56163ec6a865cc63b4e86915593bd92ffd9a72351041e491de38607b29e3a"
+    },
+    {
+      "object": "0c8c3e1173b8905da82b4881e0395620026d6bff",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003130061125Z/tests.log",
+      "size": 4485,
+      "sha256": "e0ee509818afa7f741194c3365bc2e064252767a7307205d2f06cbc6d2295930"
+    },
+    {
+      "object": "995a73aeb6cd12be937094dd01db55f357bc2fad",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003419610826Z/fixture-demo.log",
+      "size": 279,
+      "sha256": "19a20f75ef93820f894e1b2944b8ed61caa2a01b29e0a1d03da3d0462a935d91"
+    },
+    {
+      "object": "9ec4924327ca15fb47b1197bb51ab29437fc6001",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003419610826Z/mvp-documents.log",
+      "size": 527,
+      "sha256": "693e0923c809c1380c9cc97eb7bf2c136082d0f4a528e757b81805892ceabf41"
+    },
+    {
+      "object": "766302c241a1b7b218af5b0dc983fbc31ed710d0",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003419610826Z/report.json",
+      "size": 19892,
+      "sha256": "d350af43913c23f54bf196911d28ca185b68d082acdb4b991f902e1183ee53e4"
+    },
+    {
+      "object": "616978ebfa7dec7c8b40d3fb638b2325d14e1fe0",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/20260905T003419610826Z/tests.log",
+      "size": 4485,
+      "sha256": "aa2633b78f3c72f6ebee5a8ad578379a810a9a29d0d974b9f5af0453f65d6f5e"
+    },
+    {
+      "object": "db38c9a347aad1790f56a19537122f8f6cf80834",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/README.md",
+      "size": 2777,
+      "sha256": "788623a43d9d56c649362cd20907feb00d1415a8e47e8512adbec85a46975007"
+    },
+    {
+      "object": "70e4a10d9c60911ca71f2dcdad2a741a81f030f2",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/provider-migration-20260905T001701Z/migration.json",
+      "size": 2726,
+      "sha256": "9841b5b291bf0127e1aecd6425016d16424eabeb098313c29ce61f4687bcb595"
+    },
+    {
+      "object": "87f3d45c576ad14d1a8e283db8bb0d3726e7a325",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/docs/validation/provider-migration-20260905T001701Z/package-checks.json",
+      "size": 3200,
+      "sha256": "b3f4f2ebca4ada307b484c9123993f73cf079cd1b2a888f33c479ab4fa8bc1bd"
+    },
+    {
+      "object": "e23d91f46e86f4cf5f23f4f8480303a174167595",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/policies/notes-json.json",
+      "size": 780,
+      "sha256": "83cd4c50fd641f055566a416005b2f9122ee15eb1a0d570e059add25ab10ecfc"
+    },
+    {
+      "object": "5a6945ad816e1053c1f5994b1e2b19fac6d11947",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/policies/notes-sqlite.json",
+      "size": 767,
+      "sha256": "9e60f4a7a04e86b95a3c9267a3e3eb12024dbb4f74a994d8975afd1895119aaa"
+    },
+    {
+      "object": "779a0328bf87f28d53da27e177ecb81086538eea",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runners/unittest_runner.py",
+      "size": 1222,
+      "sha256": "8f7c036fcdd7a6d39841e301b2c19e061d31a160477131a0085274282ef5fe80"
+    },
+    {
+      "object": "d44b7aa68da1e5bf389c91e71267d22be596d896",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/README.md",
+      "size": 14056,
+      "sha256": "5f936fa672cbee4dedbcdc2242f44d7cce5dae327b40a2545ccd9365244dc5b5"
+    },
+    {
+      "object": "4a4146ecf16891703ad814688dbe54a73755f56b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/__init__.py",
+      "size": 78,
+      "sha256": "b440755188658464c99222f0d58d00e63bec4873c03dca997e11178477703520"
+    },
+    {
+      "object": "54e4f54b00689e83f05889272f37fe0bdc213a21",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/controller.py",
+      "size": 2749,
+      "sha256": "4909d86e0753a9247b1aa9156fbb45811205ad7806a7428d73afc2a01ac03573"
+    },
+    {
+      "object": "038fecca5b876a4e9c7e21449a72005869fe090d",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/delivery_core.py",
+      "size": 75162,
+      "sha256": "762303f96e432b7405c8426d32e0898112e481214e72174eb2a93a2f197c03f1"
+    },
+    {
+      "object": "9e87b1a55bb311a95e23ca0f766a9858345733f9",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/hook_protocol.py",
+      "size": 11087,
+      "sha256": "e713114dcfd932fe5f24e8f3d638eb00aad34873b043836f2a60973ec67d1101"
+    },
+    {
+      "object": "acc627048058099da2b6f435c6a4bda4e967471a",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/native_terminal.py",
+      "size": 13135,
+      "sha256": "d80bb8af9a80a58e2c050be14fc9258eff06dee98bfff3668b8a84783fd36afc"
+    },
+    {
+      "object": "3460129cb557d2d9dbe4d444af69233e1be588de",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/phase_state.py",
+      "size": 65508,
+      "sha256": "e7fc6f22bdef0401f43d0df8a409b6a2c990ddda5232271e597caae7a4776dec"
+    },
+    {
+      "object": "1910948f82d7b228755552cd3f5b343cebbca412",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/requirements.txt",
+      "size": 15,
+      "sha256": "b4603b9468ade4d639d2c6f73b89d50e1fa5d227c73ab15be0382cca478513e6"
+    },
+    {
+      "object": "80cde3346a79faf21a1faca99bfc98e46107f588",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/utility_evidence.py",
+      "size": 8998,
+      "sha256": "fc99a37a9596cd79a0701600c70a45bf04ac3698c01eda825cf19dc2a3a9098d"
+    },
+    {
+      "object": "05574859ad3ba3a79845f6789f6e3201b2ef5acd",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/utility_state.py",
+      "size": 52733,
+      "sha256": "740da26fe6b8b904fd83a50240d3b961c9b1a64c5a2ed6812ff7dd22d99b38e3"
+    },
+    {
+      "object": "2d31817e30970420dd65977123dd6a3a5410da2b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/runtime/delivery/workflow_runtime.py",
+      "size": 1910,
+      "sha256": "9d49f7e60336c5b0aa15b452bbb879bfd36f24248ac31046777f8c3a3b47a186"
+    },
+    {
+      "object": "991c6e4c9d9a665c730fd110852820e414369535",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/scripts/demo.py",
+      "size": 4157,
+      "sha256": "067edd130467d141890f3b7688893c83a47cee10353d9c173515371974ca8999"
+    },
+    {
+      "object": "f8930de7924719823be4e699d413561e409e2c01",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/scripts/install_framework.py",
+      "size": 16896,
+      "sha256": "eded6bde788fe27a9c011123aafd7b4a57f5dc3a8733f89ea0dfdcd68bf161e6"
+    },
+    {
+      "object": "8ae37bf7f99a1c38a51f604f9cb5498889102abb",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/scripts/runtime_requirements.py",
+      "size": 11065,
+      "sha256": "08d8f1761e9c89298010903979509cd45c301c089e55446030055e343e9b7ab2"
+    },
+    {
+      "object": "5c2ae1d01972105f384768e0b0dc31dc89f8bec1",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/scripts/validate_framework.py",
+      "size": 3272,
+      "sha256": "5ef17e17d78535b520a0a1e6d8166b7fbb92bb44b7a8804dfb1131b8dce392a2"
+    },
+    {
+      "object": "3dad6cf0c9f849d0ce3d7e8f374061c63e34862e",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/scripts/validate_mvp.py",
+      "size": 5395,
+      "sha256": "b74e26336ab13475c9e77524785b2c0e6f56d12bd9be8451c345a4ce17d94be9"
+    },
+    {
+      "object": "b409c114bae20ec01ca4610a119bc17a1b56c18f",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/scripts/verify_poc.py",
+      "size": 2916,
+      "sha256": "d43e27e8df66933764bc45dccbe2cda73ebea35d1bcc9f12e8a49e17dee858b9"
+    },
+    {
+      "object": "55dc71df32a473ef1ca8641bc18ea58f8b4aa380",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/src/delivery.rs",
+      "size": 32173,
+      "sha256": "4eb60ee025619652045c186e2641246e670571689d46b64dabc048d76c5f9040"
+    },
+    {
+      "object": "0ad139b5fcf82ba9d4ea9b88345fff218eb375a1",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/src/main.rs",
+      "size": 36572,
+      "sha256": "54765ef3899ee5be11f76980db45a4837ed4797878d02521ab5eecd9879e043f"
+    },
+    {
+      "object": "3d0b19558416d26e96b023e6945e39265fd74d01",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_delivery_core.py",
+      "size": 32264,
+      "sha256": "a1b63aea2b9abab0ba5a4dfe55ad51df3ec7e33496d321b3181643c4b64e4fa5"
+    },
+    {
+      "object": "93ab93e9c3e6d57fd4ca68b6f21242cbca37b20b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_delivery_references.py",
+      "size": 69865,
+      "sha256": "ab6ad21b211a59cd9dc60414605b57a271f8ba97514400e36da0da1e960551b4"
+    },
+    {
+      "object": "89a7096f322cd30a45317231db0b0d167c389894",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_delivery_runtime.py",
+      "size": 44974,
+      "sha256": "d08e8b18331dab89e162ca187367f8007bf2069ece8b1d3bb6c4c6540868da6e"
+    },
+    {
+      "object": "cde01983d5da901fca5856e8b1849aa6346563fd",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_installer.py",
+      "size": 33366,
+      "sha256": "4f811c5f7aa6a87c5af102c5b47e76c73610d99ac0791c8cf655937825c62422"
+    },
+    {
+      "object": "566076edcb40273dce2ec3fd9fa57060b3af6e34",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_managed_delivery.py",
+      "size": 45514,
+      "sha256": "383a19e787295bd5db323025a848c2dafc6ebd23190bb6638be44a7589ae9230"
+    },
+    {
+      "object": "62f5e7382c575213b0b87f445376fcd3b992b399",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_native_terminal.py",
+      "size": 27886,
+      "sha256": "f6a9ee456f6f06739e374a244adc6887d53959e3068d1cfcbbef9ea955587a17"
+    },
+    {
+      "object": "75a92aef4586e3601b78cff8417d5f9403099d3d",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_phase_references.py",
+      "size": 38442,
+      "sha256": "0d84dfb6a533e3299860abc9035ab64e9f4dfe9d69cce1b580687a621bb17872"
+    },
+    {
+      "object": "37c017644a7fac0f11bdbdfd513cc9a5ccd08714",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_phase_state.py",
+      "size": 55146,
+      "sha256": "832a91534a887c41581184c1c85122468846a72e5ffc33ac7c99fcc4a102322d"
+    },
+    {
+      "object": "ab9d616d9b3ad043c3dc648cc546a581a1b2ca10",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_poc.py",
+      "size": 11537,
+      "sha256": "de7e612b3f89f3c154dd12a477d3e2074558dbff80934358b083ec49c730f4d6"
+    },
+    {
+      "object": "af3fdbd7235dc264008b1d8b48691a88689eeb3f",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_supervisor_cancellation.py",
+      "size": 20009,
+      "sha256": "6489972e3e1f12a2c3a0980157ec73cbf8bbd1230543ef036492ad09841e2bef"
+    },
+    {
+      "object": "1bf2b059112c15ed990be32e40261227cba6c9c0",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_utility_native_admission.py",
+      "size": 9511,
+      "sha256": "4171fcaa4c7afc1f6bbf2e339dbb97db3f1273e1ee0bf1fa0508f555d5b73990"
+    },
+    {
+      "object": "d0255c5737f76672d6b55266b22c07d02c709d7b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_utility_runtime.py",
+      "size": 6176,
+      "sha256": "701ca4a8a04fbe3ca637c62e98380d6929c4d2ff85474b19f5aa2459e51c4012"
+    },
+    {
+      "object": "83e73af72848b8c6561aa778cbb1f436805138ae",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_utility_state.py",
+      "size": 18872,
+      "sha256": "08f79ff46f1d95014abfdd21ed3d44d3231cc8eb73b0372328e8f138bc40d069"
+    },
+    {
+      "object": "71be636978083158a2a6554f4b3630ce1bba975a",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source/tests/test_validation.py",
+      "size": 1332,
+      "sha256": "9f965dc1949f5a94e763f2deadd361743104651a92f5d46c6925bb085ec03f46"
+    },
+    {
+      "object": "dd60f7ffc77d1c00d9f3a4bad973ce4257ce48c8",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/independent-review.md",
+      "size": 10600,
+      "sha256": "ec6482775567e0f2edb6a8d1aa15b9de0a4f684deab50a985c369e056b700cee"
+    },
+    {
+      "object": "b9b730ad4cc9abf13515029366d03b261b2027e6",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/manifest.json",
+      "size": 10718,
+      "sha256": "80f40323103f394b2b7aafc17ebbac83413f0cd915c153791a25539a75ded876"
+    },
+    {
+      "object": "9923a27a8c116d120a8c83256be46f3e0bb0a89b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/rust-checks.log",
+      "size": 352,
+      "sha256": "5dce19c785717994cbd3243f091936baa7d2b87cb404afe4b884366240c0fc98"
+    },
+    {
+      "object": "7d058a5efa641f3e8426fe80417df1fd0fbd1d8d",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/snapshot-recovery.json",
+      "size": 488,
+      "sha256": "8a6c2e6decf2a02fe02836ed9a4a4a8a1ce7254626a5332b3750dd20439e1ed2"
+    },
+    {
+      "object": "280026f8b4c75e4e0b7659ceb814d2fa635a1f20",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/unittest.log",
+      "size": 511,
+      "sha256": "8316317266add85d365694db45075ac01b79ef2360fcce3bff45944506c65dab"
+    },
+    {
+      "object": "852ecabbafd436d197b840c4c14cb192811bda74",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-02/demo.log",
+      "size": 329,
+      "sha256": "7fcda4e63cd41fbd998d6f196c2a64a694ad331e8de638596a7a7f64a521a425"
+    },
+    {
+      "object": "f474552d4d78a295f41b4163ce401372c6618637",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-02/independent-review.md",
+      "size": 9214,
+      "sha256": "7de4e82ca53878410fa0c25239e6f0888e0c113e073e14ff666b9941a230f964"
+    },
+    {
+      "object": "ac1529b9f774de4264c25eedd50ad96b8e06b495",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-02/manifest.json",
+      "size": 10534,
+      "sha256": "9a7c8e1bbf5114cbe4e75b0d962fd57ed580416894ee667c75544f8e55aa9f2b"
+    },
+    {
+      "object": "adcf72b48367631502b8e3cf5768bb657ca0236b",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-02/rust-checks.log",
+      "size": 352,
+      "sha256": "a5755857ddf39dee059ed703b4dabe1e957f70b8c0848e020dd04e0a7dd2979a"
+    },
+    {
+      "object": "cdc85f4b696ec39669d5d8f3c8497f38ab14b674",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-02/unittest.log",
+      "size": 516,
+      "sha256": "05992ea78657591234ea698d02982d36e4de18dfa770c68d9b3fc181aa61bfbe"
+    },
+    {
+      "object": "52a5944bb598c1791900fd2eb7fe07c0071c69bf",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/validator-current-observation.json",
+      "size": 6589,
+      "sha256": "faf19f51ea5fe1f5250e85aad18ffd74f6b7016c01d1a67b3c2f11b11ece83c0"
+    },
+    {
+      "object": "fcd5b459806dffbe2f8515089e5588c0748a6f22",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-utilities-integration-20260907T145039Z/validator-owner-integration-request.md",
+      "size": 2912,
+      "sha256": "9a32adbcff9485ec5d7b30e23ea08b4ea154ef68ba1b4cd5ff82436d15711cb7"
+    },
+    {
+      "object": "f56f2316075ec3755f9f85b5ee0b68121b6ef1ae",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-validator-design.md",
+      "size": 40774,
+      "sha256": "cc996485b5016d63b90f6ee0af453de1e2ce135bdbeae316c488dc4ab5e53357"
+    },
+    {
+      "object": "4d13fb0e3ff20fcc67d5ec4e13a7e12a7db60489",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-validator-worktree-handoff.md",
+      "size": 8009,
+      "sha256": "30052f21f2cabf003df87bca1e90160e7423cda85f51d34be0ff1d31940c2d7d"
+    },
+    {
+      "object": "d2fec7e84fe0545adf73c6030193ee4e5fd94996",
+      "type": "blob",
+      "path": "docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/runtime/delivery/supervisor.py",
+      "size": 47109,
+      "sha256": "f3ccac298d1ff042df1aee4500994f2c7a646818b2d1c1bcbfbc236a60ced0fa"
+    },
+    {
+      "object": "529fa6460e512b81e5abf1ea703026d6c6c752a0",
+      "type": "blob",
+      "path": "docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForge/scripts/validate_framework.py",
+      "size": 4391,
+      "sha256": "9ec5656285f3b6cf250d3b3ff3d434e8e88201071abcf31cade26e3b1a005a81"
+    },
+    {
+      "object": "8be372e50a622b500ab9fc54f75915a43ffcd6b8",
+      "type": "blob",
+      "path": "docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/AGENTS.md",
+      "size": 2491,
+      "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9"
+    },
+    {
+      "object": "3b0b33305f5a5a678331d1a8eb7a401cc5ba7593",
+      "type": "blob",
+      "path": "docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/execution-contract.md",
+      "size": 17124,
+      "sha256": "1b4e729e1c564bb3e861d1e3558538d72734cf5310e39c125c8b5a10a1b6a396"
+    },
+    {
+      "object": "9b507483a46f18dd87810d5ba7a40547f3a96686",
+      "type": "blob",
+      "path": "docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/roster.md",
+      "size": 9930,
+      "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9"
+    },
+    {
+      "object": "d2474fc4c55ae64a7909a1a225d6cd0ba98480d5",
+      "type": "blob",
+      "path": "docs/skill-authoring/source-snapshots/2026-09-07/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "size": 19657,
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+    },
+    {
+      "object": "e960226395da1f5339bc6c54beef167a8fcdfe7d",
+      "type": "blob",
+      "path": "examples/notes-json/changes/src/store.py",
+      "size": 236,
+      "sha256": "d3af4accc4b2e35925a3dee4436d77fb5bd4ae30918949d046dd0018fe44ad2a"
+    },
+    {
+      "object": "32bc3c0868431c492b45fdf5781ed9eb830b2684",
+      "type": "blob",
+      "path": "examples/notes-json/changes/tests/test_store.py",
+      "size": 306,
+      "sha256": "fe0c936463c16a485ccfcb994de236ebe1f88e8c208aef58e6c26a5fd94d8c60"
+    },
+    {
+      "object": "1ae1caf10a5c1b8874dc8dd4c00a2ae240d29a90",
+      "type": "blob",
+      "path": "examples/notes-json/seed/.gitignore",
+      "size": 39,
+      "sha256": "72a76564df2a2370c7fc960536aacd6726982851b692dc029304feff4d466462"
+    },
+    {
+      "object": "6c0f462ad1281a9efed4798d9706ddd6eae49e7f",
+      "type": "blob",
+      "path": "examples/notes-json/seed/dependencies.json",
+      "size": 33,
+      "sha256": "0ece2de07209ce1e1912ecc172ed5cf8e8394611ba1dcb0c0f2a362066fe790c"
+    },
+    {
+      "object": "86354509b043c86b0d1b91af9c1588c941fbfcc7",
+      "type": "blob",
+      "path": "examples/notes-json/seed/docs/architecture.md",
+      "size": 548,
+      "sha256": "f3780c8c3ea8e8b640f83d74fa915d900ad05fcb4a9375211582036d164af042"
+    },
+    {
+      "object": "a02000c979cc9ad2be7f7ab48157ccbeb4d4139f",
+      "type": "blob",
+      "path": "examples/notes-json/seed/docs/epic.md",
+      "size": 206,
+      "sha256": "dc6ed14391644b7f1e458ca8a1867c30d43d64c7aeb9fcf3d803fa35c79f0247"
+    },
+    {
+      "object": "0bcf44d1a8d8e25916ee109048b6c5101971acf0",
+      "type": "blob",
+      "path": "examples/notes-json/seed/docs/expert-spec.md",
+      "size": 613,
+      "sha256": "7d3b70f2ea908a111fb1e8591d755e351be312529465a6e154c0d48c5b3d8598"
+    },
+    {
+      "object": "9b0a1950bcd5f13053d93ad72cce6356f87b70ee",
+      "type": "blob",
+      "path": "examples/notes-json/seed/docs/idea.md",
+      "size": 448,
+      "sha256": "b16cbda47ceb55648bcf06ddfd1585e1f21266bc84cb25fa1b711b7cbd93573d"
+    },
+    {
+      "object": "cc839cd90f8d918988ff65c160cf81e4f91a8037",
+      "type": "blob",
+      "path": "examples/notes-json/seed/docs/story.md",
+      "size": 439,
+      "sha256": "0639ceb375dd0cd1558932d2e8460af989021e6476a564450946905edbc5aa45"
+    },
+    {
+      "object": "58cabfe82243bca99e5ba659bb2775421b653a9d",
+      "type": "blob",
+      "path": "examples/notes-json/seed/experts/notes-json-persistence/SKILL.md",
+      "size": 1261,
+      "sha256": "8a0f94bdf1d6b6d5e4f15d3421a3116d4fed5074774a2eadca7d2ede68b74c1a"
+    },
+    {
+      "object": "616a17fb4e7447d92af0e08ad4c8440178340a3b",
+      "type": "blob",
+      "path": "examples/notes-json/seed/experts/notes-json-persistence/references/stack.md",
+      "size": 507,
+      "sha256": "a3a93da3cb2fc4cf9ecece1c5a0a7820227555f0bfa93376fe9b511499cc6fde"
+    },
+    {
+      "object": "2b03e67b0f23a0c7b1d31c2e647c72e86130f0bf",
+      "type": "blob",
+      "path": "examples/notes-json/seed/src/store.py",
+      "size": 39,
+      "sha256": "937b663eb4cf22be36dd94489068eeae61a2e1cc44458881b2fb373b39dcaf3f"
+    },
+    {
+      "object": "3490f7131e4d354380b4b607ce2b7b293b057178",
+      "type": "blob",
+      "path": "examples/notes-sqlite/changes/src/store.py",
+      "size": 353,
+      "sha256": "604776c9eb68e8112b0db67755a7bab47c33deb4f67d045621891f92e1297b0c"
+    },
+    {
+      "object": "584f50aefdaeb397d155a3e3d9952be79e58399a",
+      "type": "blob",
+      "path": "examples/notes-sqlite/seed/dependencies.json",
+      "size": 31,
+      "sha256": "e8567ab1fda4d0b679f9a8fb9b7328955e3b71bbc4b2f080004fe95191075b05"
+    },
+    {
+      "object": "c93dc1056155d5569edb384d063503649286fe0b",
+      "type": "blob",
+      "path": "examples/notes-sqlite/seed/docs/architecture.md",
+      "size": 540,
+      "sha256": "f35dde83f953a6ab2f6a025deda16fbd442cc0fdcd86055b1ada2e1f05fee4bc"
+    },
+    {
+      "object": "ff956f7489d7f7531622cc0cbac2303071387043",
+      "type": "blob",
+      "path": "examples/notes-sqlite/seed/docs/expert-spec.md",
+      "size": 612,
+      "sha256": "d85a1d9bcbf695f0bbca3877e939236847f5a505847b593a0fec25041c02087b"
+    },
+    {
+      "object": "b9e3bbc0199f571bbd23f828fec9cb83228ed87f",
+      "type": "blob",
+      "path": "examples/notes-sqlite/seed/docs/idea.md",
+      "size": 445,
+      "sha256": "4e898cada31e2f371c90a1ddc1cb827e642daf3eeac3b9af75b8d63eba90d80e"
+    },
+    {
+      "object": "aab3f784f491107dde5f5595fbc305e1327ec032",
+      "type": "blob",
+      "path": "examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md",
+      "size": 1291,
+      "sha256": "f6e951baafe35e54dfd22c5af995c80d92a21658eeb64fea92a6a64eeb9c9090"
+    },
+    {
+      "object": "9cc2df98a95487270b2a5b281e9e2dd332ef2c34",
+      "type": "blob",
+      "path": "examples/notes-sqlite/seed/experts/notes-sqlite-persistence/references/stack.md",
+      "size": 601,
+      "sha256": "a82380220eb00a07d3361a362a6fe2743039de80ec718815a106b385b538bc54"
+    },
+    {
+      "object": "4b5c672d6eb79f3fb981bf83f6809d51ba55beab",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/.claude-plugin/plugin.json",
+      "size": 307,
+      "sha256": "cbfd66a0c375a43cb9c36e70aa68075b2de7f736ee6ecfeaeae9dab77ffb02b2"
+    },
+    {
+      "object": "3ebbb42f465cf572b931e571137e6e3ea24c6d8c",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/agents/project-expert-author.md",
+      "size": 684,
+      "sha256": "79e21a981b818516233948243390d362fef7a991457556545ece2829e278b194"
+    },
+    {
+      "object": "a712a98614601737e8f0936beb2c6d8d9aee3c62",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/agents/project-reviewer.md",
+      "size": 547,
+      "sha256": "db5449975305d2d13ad6ae37b61585e9a950ea1ad1391d4a8dfedb863a349d48"
+    },
+    {
+      "object": "d85f7546c25c497b5e1ab094a42cc87ad57906e1",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "size": 6345,
+      "sha256": "31641ddbee8024ca2330c4f89622fe2c62bdda326df06c148340c16fc00d7a6e"
+    },
+    {
+      "object": "6f4d0c867a7b772cf8e93ca438bae86d26d5bf9d",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+      "size": 2944,
+      "sha256": "d8470178cc647b8f8dad0aba8ea54f3fd094630ce79866372b65e03c959a24cf"
+    },
+    {
+      "object": "9f1b65bbf6bdc2341c1ea5385aa49697d0347e72",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "size": 2188,
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7"
+    },
+    {
+      "object": "2da10a50bef5ea334160c4f85e6ef7f7d5dbf052",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "size": 1232,
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e"
+    },
+    {
+      "object": "b9815f34c95aa2375bde3e56cac4d4d405a279d4",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+      "size": 4572,
+      "sha256": "75e6b045e7265120d2c2e088734517083e19f924dbc8c85bab3407ed48ccfade"
+    },
+    {
+      "object": "513f9f2bf1e10698651ba1736bc2d8ae34896817",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py",
+      "size": 1874,
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a"
+    },
+    {
+      "object": "a52af4711955faede12a689764f72709257b0ddc",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md",
+      "size": 1945,
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad"
+    },
+    {
+      "object": "9f4e1de5508b110422d019fbc3acbfd895ade801",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "size": 3517,
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10"
+    },
+    {
+      "object": "fd0b08585f036b1dbd0fd84a3087cb4461540aaa",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md",
+      "size": 1337,
+      "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b"
+    },
+    {
+      "object": "3d3f9ee28387c01b452274bf4cd5fa9aee7ea74d",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md",
+      "size": 970,
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8"
+    },
+    {
+      "object": "3bd7a781fc6ed14bcfae915591e8481f28ba3fa6",
+      "type": "blob",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md",
+      "size": 1411,
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06"
+    },
+    {
+      "object": "112b4bf1ec2f0b8e74420cfe1b335f54b59e5b61",
+      "type": "blob",
+      "path": "providers/codex/agents/project-expert-author.toml",
+      "size": 469,
+      "sha256": "9fc10f54e0405cf345d0b6bbe42d9da1ebe13543a5eac6c40aff967a6c4689f7"
+    },
+    {
+      "object": "46c4a025612e4ae22111a1631193a8894c40bde0",
+      "type": "blob",
+      "path": "providers/codex/agents/project-reviewer.toml",
+      "size": 398,
+      "sha256": "6c42b9bd0e79ff59570f57984c5d4c0a625b622514fb116daee3e4cf65926c8c"
+    },
+    {
+      "object": "b3a220652fea139731350c7ee8991e2bf46ea07c",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/.codex-plugin/plugin.json",
+      "size": 671,
+      "sha256": "ffe4c894aebd79a34a37d5580d8f02acab817d09e277603a67de6b3a83c0875d"
+    },
+    {
+      "object": "b712ce958f5e8846f05fd0e7cad21f036a2d0cc7",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "size": 1939,
+      "sha256": "eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0"
+    },
+    {
+      "object": "afd3fa3d07aa747838af084d4aae8924bc42b0b6",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md",
+      "size": 17934,
+      "sha256": "6ed2a5d7e91711a2f18a86e3131a81f23d36eafddcfa5f3e06af76cc303d1340"
+    },
+    {
+      "object": "ecd36a3e914cb3cf5c0747c54f6ca40823e2a8a9",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/agents/openai.yaml",
+      "size": 292,
+      "sha256": "31115e044946710d26f70ea80520052460cac12c2d9aea62677945138ff6d776"
+    },
+    {
+      "object": "36badb97e59ad13fb08ba02edd2512bec132bba9",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/ai-review.json",
+      "size": 3197,
+      "sha256": "6da9a38789c33b9aec0164fd42a4fed676bdaac9a4aee64b4ad0883f973447b9"
+    },
+    {
+      "object": "c30a88301352149822b1dfb85cff914863e8073c",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/case-grade.json",
+      "size": 1053,
+      "sha256": "5213c2e19b3124b10c132e393aca2b29fe7cc0734ffbbab1dce1e627f569d032"
+    },
+    {
+      "object": "777ee98214365869fd715979208ca344c6b95361",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md",
+      "size": 5767,
+      "sha256": "80d10de30e8301242d42abc6078c412f3dcf1a446f1d0e31fd3c3571cbe0d23d"
+    },
+    {
+      "object": "c0e6549d6a4f873c4422b2e5890209498ad94fde",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/manual-review-context.json",
+      "size": 519,
+      "sha256": "0be9e7ef849825a64d73932574204b86c86542d9287fbc04ea2e3c361bb3a836"
+    },
+    {
+      "object": "6c0cae3b14ee83a2ef1282fd2a47a31a300a02c0",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/run-manifest.json",
+      "size": 3536,
+      "sha256": "ca84edf08b7fb843a89cd4d53c2885312c45f5a1edc71e795b33ec32e1264e49"
+    },
+    {
+      "object": "2b0d0fde40eecdf9f2af879079ea46d7266eae4c",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/skill-enhancement-spec.md",
+      "size": 5585,
+      "sha256": "19f4f330acd3ef7b3766215c152f9ae1f93c660f77600921cea0f028e2691336"
+    },
+    {
+      "object": "0e210bbc899822f5de531eb643cfb1a8b14abf1e",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/validation-plan.json",
+      "size": 8238,
+      "sha256": "3c1a88f6e5d11aa65a40c0976f23a81f011b22f3d2b647e2ed1d850228f6d677"
+    },
+    {
+      "object": "dc3245bf250df7124f92c46a57fdc7b7c3fa8dcf",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/validation-results.json",
+      "size": 4624,
+      "sha256": "79c94357181d4f10e8d81594780f183df7f4600179546a9f8a4ce72bd45ef3e8"
+    },
+    {
+      "object": "118ab23c45d8f76d164fbfda5e53f986c06a9517",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/verification-results.md",
+      "size": 7235,
+      "sha256": "c1965a108b253bae027751416718f53b5496e1384f8b08798f8e922b1b701ad6"
+    },
+    {
+      "object": "e16fe94203ededd564874dc5028997abaf06137f",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/evals/evals.json",
+      "size": 47867,
+      "sha256": "bf32ad6c07c9e02682778549b5f69531e646df55a5033a6c49d30b84a26cbfd4"
+    },
+    {
+      "object": "0bbc41bb9c894c81cd276b7e4780208b9ead3518",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/evals/validation-policy-cases.json",
+      "size": 10418,
+      "sha256": "fcef3e602280321f73f7593a8f2ac6dc07980f6fd2762655d347ad66838974b3"
+    },
+    {
+      "object": "8d0ac68ee3869e787566ffa2a8a78b94ccb65f9b",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/ai-review-rubric.md",
+      "size": 19413,
+      "sha256": "f5a35115c199b972f746aeb48f6e97a8ec0eea2e2e20eba5f9bde42a31c0fb58"
+    },
+    {
+      "object": "f52713819aaccef4ad117b4553bc62ca38500dcd",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/contracts/execution-contract.md",
+      "size": 6920,
+      "sha256": "4224508eb87d3dcabb6c00551d04393284334f834dcd543133eea5146857b5a8"
+    },
+    {
+      "object": "6745e220f300fa1a8811d69bc28c8470db25f880",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/contracts/skill-authoring-contract.md",
+      "size": 24857,
+      "sha256": "e22e74b8e7e0abb30b98223c6790965770da79eb11dfbf2c7f77382bdbc1b62c"
+    },
+    {
+      "object": "158c51efb20d56a43c2c9c5ce9d21575bdfd4fa5",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json",
+      "size": 55154,
+      "sha256": "edad2be36f486c44ef16d7685456050b1bc2a66ff476a35953fd05a793aa4606"
+    },
+    {
+      "object": "2ba389596467b52595b7070e2da74c850fbf05ae",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/enforcement-design.md",
+      "size": 9801,
+      "sha256": "1b3316000a4bbd8d9546694b33ec2bbc9fa1ecf66fb7a28215d09f466944a767"
+    },
+    {
+      "object": "2577731f556cd0fbe91390564b58f045aaa87943",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/framework-context.md",
+      "size": 1466,
+      "sha256": "38231aca8ab019952231da1113bddba8e1838a388b13df0ae850df6b4713784f"
+    },
+    {
+      "object": "72be2f2a92124509f196d7fcbbd0535693f750ae",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/managed-validation.md",
+      "size": 6048,
+      "sha256": "17e532a3e8a6abf5401cd30cbb901b69d1bc3ca1b57820c94d1eeed07da6dd99"
+    },
+    {
+      "object": "15b2f22340872e99287a2eac196dd6fb6e8176f0",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md",
+      "size": 19368,
+      "sha256": "a8e56317e96ef279797f2215465c10d8b079659d8663615bee068a92bf335858"
+    },
+    {
+      "object": "37327578b300fd8a566a012450297c00f0b3934d",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-records.md",
+      "size": 16614,
+      "sha256": "181392618cbea378b60f1b387254d752dbd81a4a13448675ca6c1f304e7e8fcf"
+    },
+    {
+      "object": "4c679795cb973530f958e430149b60f9c3efe668",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/native-evaluation.md",
+      "size": 27665,
+      "sha256": "0a31fbb952e83b8455bf06ef456b40d5eca42b5d2a01d6b41db0ea873ac7a4ab"
+    },
+    {
+      "object": "92ca728027fcd13ec797a4c335923fd8180ea234",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/results-contract.md",
+      "size": 12396,
+      "sha256": "14f75142bcb941231c0aed5a2bb9bffba3a2b81d795fea357630c3d583a67524"
+    },
+    {
+      "object": "3bdd7c6e962076a79377357efd3c01347cb04f34",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/sources.md",
+      "size": 4125,
+      "sha256": "2abe617323ab5baec7bcb18cc4ffa964444e6096599194beeb6815a0d6b2fe89"
+    },
+    {
+      "object": "49f68bb1c2e2dbe9f855888ff9ab5977e0e3d080",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/structural-checks.md",
+      "size": 13088,
+      "sha256": "5dd7990232e1511bac16876e933909662981f6733ab695cc734716fe0be3d91d"
+    },
+    {
+      "object": "6edce049b1f82b51d44a08115f77efc057008958",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/worktree-environment.md",
+      "size": 10749,
+      "sha256": "f105d6da4e5e77e6f97f86ff5ebdd90244966ed5faef155109d527fb152a89e6"
+    },
+    {
+      "object": "90185391376421e56d414af3274b0db18020e25a",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/assess_evidence.py",
+      "size": 59563,
+      "sha256": "0c8d23b6ee7bf3af278b2933f31e1732e2a2ace54adcb0b772e65a4d4470e6cb"
+    },
+    {
+      "object": "13e065cb5f905ada184fc6d86da51319c23844aa",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "size": 14086,
+      "sha256": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423"
+    },
+    {
+      "object": "a1c770ce33b8d8827204b215599e254233e03b4d",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/agents/openai.yaml",
+      "size": 326,
+      "sha256": "f278b26bdf70811b7e91ac62a7ba960898be542e0d334f900999bd3b2fabf0e7"
+    },
+    {
+      "object": "f8ff8c8af1887dba002f1104126033a64445cc4c",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md",
+      "size": 4068,
+      "sha256": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4"
+    },
+    {
+      "object": "09bcb3b5939a06d1686cba64bbec4732e4a62ce2",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/skill-design-spec.md",
+      "size": 22266,
+      "sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead"
+    },
+    {
+      "object": "7dcd1e18430203c6101e5496e40dcc3e548fd6c4",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/evals/evals.json",
+      "size": 4410,
+      "sha256": "2ea166e360676154b58f36fd659e47c9ca8d25315443285e339f53603cac6484"
+    },
+    {
+      "object": "11a6f5d36fd55236afeba60dfa7b86803ec1875f",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/evals/fixtures/project.md",
+      "size": 977,
+      "sha256": "e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26"
+    },
+    {
+      "object": "330d45e30f57ae70175820d06a48236152b24c19",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/contracts/execution-contract.md",
+      "size": 6919,
+      "sha256": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8"
+    },
+    {
+      "object": "474a0d0f5027b5f57f5a36ce56e8da4eab26b652",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/contracts/skill-authoring-contract.md",
+      "size": 24854,
+      "sha256": "d05cc75d8f049c854a91500ff3224f85fd06ffb08b257aed5db38cc9e35dd0fe"
+    },
+    {
+      "object": "a648c23b9fa36a223185591957842ce2efd8b1bf",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json",
+      "size": 37064,
+      "sha256": "aca7ee649acb5d31638d8650542a6405341692b63e1ce57975c94eecba7ac41b"
+    },
+    {
+      "object": "0b2aa68bce5e245c586c0827dd05dc26de8cde48",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/framework-context.md",
+      "size": 1473,
+      "sha256": "c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13"
+    },
+    {
+      "object": "8802853cee69af506de4045a4254abda05eab6a7",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/managed-authoring.md",
+      "size": 5684,
+      "sha256": "4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e"
+    },
+    {
+      "object": "157911ba06ec50f9193456d9b908e63e3971110c",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md",
+      "size": 18157,
+      "sha256": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72"
+    },
+    {
+      "object": "2b019e298ffbfefbe0ec96f8adc211c129acc6f8",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/results-contract.md",
+      "size": 11613,
+      "sha256": "a63c83b3107166b9388bde4b0f10ce611cb79ab5c10578011c56c1e266f287b3"
+    },
+    {
+      "object": "e68b552738a99be6064bc4d73428f502252254d9",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/sources.md",
+      "size": 2252,
+      "sha256": "7e44a8b04e1a5a52ea65b785613ca7960147f0d555f687465c6e90f822757bad"
+    },
+    {
+      "object": "d5843e587b2ac3cfd726a6de12fcc3036021702e",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md",
+      "size": 17315,
+      "sha256": "b3a4e8085d7d122110d77a2886117f2d46aff2fb633c0cad87d230f5a45f33e1"
+    },
+    {
+      "object": "433bb1de3cabdb1a0240510da5b1fe00d9f31011",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md",
+      "size": 7771,
+      "sha256": "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5"
+    },
+    {
+      "object": "fb6e078f14478d0bf9d060349cf0dcc0de3f1327",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json",
+      "size": 52888,
+      "sha256": "af84464985e622b5c058ea4ec607e979469fbc93a675b2c31dcbca700563faee"
+    },
+    {
+      "object": "4f6d4b19a4d0ce89313f54e565f5eef8c1ef13fc",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md",
+      "size": 15738,
+      "sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
+    },
+    {
+      "object": "f051335e0084c63eaf96eda4495f59d46484ab4a",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "size": 13667,
+      "sha256": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"
+    },
+    {
+      "object": "246216e40b5bcdb312bc90fb36d26ca15e9ae28b",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md",
+      "size": 7136,
+      "sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7"
+    },
+    {
+      "object": "2c95611ad121e50daa6d25bcd1f4f5afe0587b81",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json",
+      "size": 34753,
+      "sha256": "49e3e5849fee810605383364bb8fe4b4d8cc6af6720728716340034557e93063"
+    },
+    {
+      "object": "9cc9be9f5ea3a570d1ce0bdc317cc80ffa647b04",
+      "type": "blob",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "size": 16742,
+      "sha256": "de1f46785f89ffe0ae330c769e80e5c204b7efb9533df360dd24614746574ea7"
+    },
+    {
+      "object": "caf089636026bcc25320c489bde79692bcd07bb3",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "size": 13734,
+      "sha256": "b307179bfaadb887cd34c5e511c99335b5b5104c132034441b85418001c7c779"
+    },
+    {
+      "object": "af765a92544218165a256ba2d71b39b49927c147",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "size": 13273,
+      "sha256": "fb0a5bee5e8e0edfc414ce4dc686176de2991388454d6d52f7d82132d579352e"
+    },
+    {
+      "object": "08108ff24f667d6b07f99312189724dcb51ec7ee",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md",
+      "size": 17015,
+      "sha256": "7985552fd23ac17848a335dd8a7bc0b6be6407c27bf09920aa83e9bb46ea395d"
+    },
+    {
+      "object": "adec5b3b859cb0a3bbed72377524fabcd6fe54b3",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/contracts/skill-authoring-contract.md",
+      "size": 23453,
+      "sha256": "ce96f7400966bdcd3abc91a0cf4c0adaf93d76d32ad1261d1bc8aa0ed9e92754"
+    },
+    {
+      "object": "376637733b6b3ce6357eaaefb87de2d145d7d923",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json",
+      "size": 51802,
+      "sha256": "87f5f616219153da95828daea6d8d5e857631d4e6abed8977fa6213e33b99be5"
+    },
+    {
+      "object": "3a81e35b580f33cd73a48ad7de110d54d583d22f",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md",
+      "size": 8446,
+      "sha256": "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f"
+    },
+    {
+      "object": "6e28c629a730d5fe41d14ad1c124023315475e06",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "size": 13367,
+      "sha256": "41873d8fad910c2bf6ec9ac4e087f96abaaa6c54811bb0eba65317fe6844a7ad"
+    },
+    {
+      "object": "b24a19369dcbeb8eb758154025b8ec988a45433c",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/contracts/skill-authoring-contract.md",
+      "size": 23450,
+      "sha256": "8e838ca6e29d751dcd505a9c3f73b35c1307ca5490aedfc50afb2bbaa490e878"
+    },
+    {
+      "object": "016b634fb1449594c4113aaa28703a519eb63f54",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json",
+      "size": 33667,
+      "sha256": "ac607a0b35740de2b0f2a4682caf694955724bcb7a42bf1d02c9b02f5f0b8b8c"
+    },
+    {
+      "object": "c2c128d1da0861b0ad415cf1154fd24c471b5c24",
+      "type": "blob",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "size": 16400,
+      "sha256": "835d9f786e9f4d493904e3d34e12cf3e36f4df5e1e1e26f07b66c09a6efc88c2"
+    },
+    {
+      "object": "ef04fd4e331a243c6065c46fe7169056de5c37d9",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/ai-review.json",
+      "size": 3145,
+      "sha256": "bb7579eb639c504a6e210594ed058bf454470d9c62d87d75f608792a9d4d741b"
+    },
+    {
+      "object": "0b190c5ff10b2e403a67a0bd8e389d386cc10bea",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/contracts/skill-authoring-contract.md",
+      "size": 23260,
+      "sha256": "9505d89f95ca0552e43460321c84658df9a8bd02d5dfcea719d4f89c697d2133"
+    },
+    {
+      "object": "7ffbb01105a20e93d9a68f4c4e3a6cd3582d1075",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/derivation.json",
+      "size": 51802,
+      "sha256": "60eab9390585cea5b67d2da747617e31eb63d421050912201646b09425f21b97"
+    },
+    {
+      "object": "6b45b7308b6656ca553cb536f1d0b4aaf82c6a72",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json",
+      "size": 33667,
+      "sha256": "846f24990b74ec5ca2f6688db57b29c04c08accb48ce100e9fc72e0d55099390"
+    },
+    {
+      "object": "dfc828db17ed8854dc6ac7e08218c70ced4adfa7",
+      "type": "blob",
+      "path": "README.md",
+      "size": 3886,
+      "sha256": "3b75c87a30d91a1e00fd7f28329062529d1118353171fb9f94e3767484022ebb"
+    },
+    {
+      "object": "edd43670626fdb81d08b7ab8167f8d24d3246316",
+      "type": "blob",
+      "path": "docs/mvp/execution-contract.md",
+      "size": 47985,
+      "sha256": "75f7320a64be81425c691d4a20b1b09d3472561653b9d148e9c1bc201b1ffc67"
+    },
+    {
+      "object": "d9a1b97e67b3f0a00fd786d74c0d1987208d795a",
+      "type": "blob",
+      "path": "docs/mvp/package-index.json",
+      "size": 14120,
+      "sha256": "b4e380646555b389e463a099b87cd180d35166f49c9af38da6150bd3c2444e2d"
+    },
+    {
+      "object": "628677483009cd4c8d8b7695f66aa666d920cf98",
+      "type": "blob",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "size": 27723,
+      "sha256": "247b351091d94891a8812f39d83a978baa142c2656dd1b8c9c57f17e83475085"
+    },
+    {
+      "object": "94ecc352ef81f2f7b5bd0c9979c9d95b34a723b0",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "size": 11291,
+      "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140"
+    },
+    {
+      "object": "365974a6356ccf1cda5ba752ca3ec6f436e0faa6",
+      "type": "blob",
+      "path": "docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "size": 10603,
+      "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb"
+    },
+    {
+      "object": "2cd0b88a3472a7f0af16f8df478c7343e8806e08",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+      "size": 2680,
+      "sha256": "3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d"
+    },
+    {
+      "object": "bc3446682a7a188f16f275755b0e1aad85912f10",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-report.md",
+      "size": 2677,
+      "sha256": "b4a43032fcc865a1a348f057876a5623119b90dee4e6287bbd0fe045b105b928"
+    },
+    {
+      "object": "9c6bcf80e47967df51e7f8faf74bc1fba97223c3",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-project-expert-creator/expert-package.md",
+      "size": 2243,
+      "sha256": "c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629"
+    },
+    {
+      "object": "9f92e18994d15892c7362f519846e988093585c6",
+      "type": "blob",
+      "path": "docs/mvp/templates/devforge-project-expert-creator/expert-spec.md",
+      "size": 2343,
+      "sha256": "eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36"
+    },
+    {
+      "object": "4cc8b748c5962a5c549a2053e8b9c66cd207bba8",
+      "type": "blob",
+      "path": "docs/mvp/templates/shared/handoff.md",
+      "size": 4311,
+      "sha256": "42cb2cc5f7eb8bf77c8de8042799495bdbf4ed6c6dd60a5472fa9791c6036c67"
+    },
+    {
+      "object": "a229e740f39f40cff150b139eb9fa54ba4a5d560",
+      "type": "blob",
+      "path": "docs/mvp/templates/skill-authoring/evaluation-report.md",
+      "size": 4569,
+      "sha256": "7e4c78cca43c9495d8a16a2cf633664f88b8c7b00ad1db37793eee0e06574252"
+    },
+    {
+      "object": "9cc77fde52dbdd891c7440331637d8b03129e89e",
+      "type": "blob",
+      "path": "docs/mvp/templates/skill-authoring/run-manifest.json",
+      "size": 1918,
+      "sha256": "596743ad231737a7faa090bd7e0545ffc624115f08b2b8ac0031d2e64f4e83a1"
+    },
+    {
+      "object": "247410114ac6ca12e1724863b3dd75bb1b6d2b56",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/pilot-allocation.json",
+      "size": 11816,
+      "sha256": "c64a38dd250e7fa0d0bd358d314d8c857eb2bdae2ee4b037604d396c45d26faa"
+    },
+    {
+      "object": "f23918cdf8fb834beb753a7caf2b2d7c80d70ebb",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/pilot-allocation.md",
+      "size": 16193,
+      "sha256": "b0f357407f19cfce153b97132396286ebdaa18e3b92a6f58289afc10e6c7ffe0"
+    },
+    {
+      "object": "76b97163e746b402f2aedea6626a088e3ab4cc5e",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/pilot-packets.json",
+      "size": 6581,
+      "sha256": "d424239a0650293adeb3c1dd8c5be202cd68918bdfcb35bd161dd645e9af2b18"
+    },
+    {
+      "object": "cd27f3207bac5d8418080df6487f2612d1233600",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/policy-revision.md",
+      "size": 29387,
+      "sha256": "3ad780366d63ad977f93dafb85388028b769ea4389743923aceb80da5272f1b1"
+    },
+    {
+      "object": "f5c6987b38b66068acdda09e53facbfa8154a7c2",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/prepared-handoff.md",
+      "size": 3630,
+      "sha256": "46cf84544edc2e68f1f80c07ff8d397010f9eb32ee0bf93a590fd74766701dcf"
+    },
+    {
+      "object": "21fd224a88b5517b233cdeaaf58970a226354ffb",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/qualification-allocation-audit.md",
+      "size": 13386,
+      "sha256": "5386354850fc633043487f267e4d88bde5720a69f83c83b03c54287520db902a"
+    },
+    {
+      "object": "4ae8930fdaed8aef6cfeb9c8b0695e077811d14e",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/requirement-diff.md",
+      "size": 7158,
+      "sha256": "3cec6255ea12588bbc7879d0783932e7e11fc1d430aefb650885f130a49e1f01"
+    },
+    {
+      "object": "59782a5b31333ec0d7a9a999ad44955c9eb1fa73",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/source-inventory.json",
+      "size": 335134,
+      "sha256": "e96f49e35b4c8af9363275104d658bf5bbcb3b15ad0758872ba9dd367f282069"
+    },
+    {
+      "object": "cdbc4c0bed06a6a672517e54223636cd95b9f68e",
+      "type": "blob",
+      "path": "docs/skill-authoring/skill-validator-design.md",
+      "size": 56714,
+      "sha256": "96879134e96b91d034968c3877d066dcf76cb316302e2c5b2ab87b8e313df3e7"
+    },
+    {
+      "object": "5c91257adffda766620fc2a982c5165bccf1c614",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/SKILL.md",
+      "size": 13075,
+      "sha256": "9f34ef4ee4ff944043f5b271d9d6669c9770ef3e504f95a37361f7c4991cfc9d"
+    },
+    {
+      "object": "02ae7229bdbdcad09328a2f552ea96757fc12b31",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/assets/handoff.md",
+      "size": 9039,
+      "sha256": "99a70e6a74bc3003237bb6aa6921b64d36bf936339bb3164cfe6e36da9d1245d"
+    },
+    {
+      "object": "4d3da205bbdb8694f6335e1f4d8f89bdf01e6272",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/assets/skill-design-spec.md",
+      "size": 26319,
+      "sha256": "723c6a3e9b4fb055c34f0cfe1701329986fe6f3a15bc8cdd4524eff3621bd7ad"
+    },
+    {
+      "object": "85b26356be664c345f4a501b7f01f983167bba85",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/execution-contract.md",
+      "size": 44328,
+      "sha256": "312c9eb267d5bfb98a6ffc77bd0b5190ecf6681712874f1f9cc84dfa05960769"
+    },
+    {
+      "object": "c284181ab73ff1467173f16805641f15238a202e",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/skill-authoring-contract.md",
+      "size": 22115,
+      "sha256": "29d2c4db5b6749a1ab929bcc1178054e0121a75c71af32ec7d0e91092ef727c1"
+    },
+    {
+      "object": "ec8e8a0ad792253093eb773339ecda25e6bbdac4",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+      "size": 50654,
+      "sha256": "a528a0266151ca27a1c7f9875b9a93fd5ff3c7feb0cb3ec76ae1e3af3d486233"
+    },
+    {
+      "object": "b3ef27557809c6a3f897555e85bfa7ebff96b7f8",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/framework-context.md",
+      "size": 7847,
+      "sha256": "6850167929ed77ee418e50a7e905a35b805938daedf4e60466c1d2cb47f81dff"
+    },
+    {
+      "object": "6324eceafcc81fb54485a04ea033e489cad3fb0d",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/interview-guide.md",
+      "size": 7001,
+      "sha256": "f632d90970c6ccd349a4c99bef58c22cc6b3e17e520cf7cd4382ff139eae94b2"
+    },
+    {
+      "object": "7cd981fd514c23d52fe4368ef9b74e21ce284afc",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/managed-authoring.md",
+      "size": 7197,
+      "sha256": "bb9904393e3f873df6317c333bcac08ee703cb30c2bcb06e1755af170560b081"
+    },
+    {
+      "object": "b755038578bf384055320c93bfa10a57dc9818c0",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/results-contract.md",
+      "size": 15821,
+      "sha256": "5f4864dbb7555273b6e40abebfedc950982d7bf78ba2f5486b98023dceedd268"
+    },
+    {
+      "object": "28f08704e1183db02d16b500381ed530f503b259",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/sources.md",
+      "size": 3127,
+      "sha256": "811518a960defe747570d5fe9958f8c21739753feb2a0159285396c9119f567e"
+    },
+    {
+      "object": "51376d7935d968bb0ea98e2f4adaf72926adfe1b",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/validator-handoff.md",
+      "size": 9673,
+      "sha256": "79d064f4816289ad8c29d7c2d4ccad63388479745813ffa0317d2682b68be9e2"
+    },
+    {
+      "object": "d2312a3193c63dd3eea3ca6f30da4c25c9e46011",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+      "size": 20728,
+      "sha256": "ef24585c2375b32de645593672b923892de49cfd964e9cb65ccc9f9ddd79983f"
+    },
+    {
+      "object": "4864873ccf038619acb808c0113d619e44bcc449",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/handoff.md",
+      "size": 8223,
+      "sha256": "a472ee4c94194019bba144a5f47ad4520880211384c8b435351f899a0e0cf5f8"
+    },
+    {
+      "object": "d957cc3ca8a129891b97e013aed34c86780d8b97",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/skill-enhancement-spec.md",
+      "size": 6589,
+      "sha256": "8ed8c32430df68988ee5714d54c191dbd5aad9197223597ff134d6cc433a7649"
+    },
+    {
+      "object": "ecdc5dca92f0fc98ce844532628914e61e131009",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/verification-results.md",
+      "size": 10198,
+      "sha256": "58c68f62b1387294321d8fbb6d67d0f69cb3a9c18cd84f0ce37a803c8805cb46"
+    },
+    {
+      "object": "7fe022e86adbacee4fac14adfadcbb5f7d5859c7",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/ai-review-rubric.md",
+      "size": 20798,
+      "sha256": "62e9c9723a2d1520a72d1ff3877636ae4548950a956242285763d130b9763635"
+    },
+    {
+      "object": "233697abe22a2ade9fb0874733eb7be008789b64",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/execution-contract.md",
+      "size": 48023,
+      "sha256": "de8a55745ef8d02860d4816fba5708dc8fb74f2caf35ee89f8c4fc9d28736959"
+    },
+    {
+      "object": "8cab210c8aea51532820a1a8ac5daebc5c446444",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/skill-authoring-contract.md",
+      "size": 27776,
+      "sha256": "21bd4c478e66cb9e592895bea44691132daaf361679bff40925a26aee903b6d2"
+    },
+    {
+      "object": "707b3eeaeab57263aabd90f4fcca0d9e6d0ed7e6",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+      "size": 42536,
+      "sha256": "29cdb88f20e92a0e66b052bf44389fb7e001e0c4af1b9fa46409300ce867a283"
+    },
+    {
+      "object": "fc3687c94dd299242e0e1d3914e2f9e1a089bdc4",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/enforcement-design.md",
+      "size": 10746,
+      "sha256": "21d87573034eef8b6de1b6cc8e1af66811d88c0af161d757fdbce84e999b0145"
+    },
+    {
+      "object": "9ca5035fc2b31195641458e90a1748f534051db4",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/framework-context.md",
+      "size": 8003,
+      "sha256": "013ec785ba7e3f87d09fd3cc58cc294eb75b6b19c9ad63a49a0fb74751889626"
+    },
+    {
+      "object": "1d33648ccda66f89142907572713506867ccca51",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/managed-validation.md",
+      "size": 7835,
+      "sha256": "0f198d10642256163bea2935df54e74d7ab139b97f0b8e92300e319871121049"
+    },
+    {
+      "object": "a067dbfce6a2b4582550e9731914a9faa427dbd2",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+      "size": 30652,
+      "sha256": "f9e6d0854d87227f55f1e94ac60b26ca052363d6f9f55aff14b72abf569ed982"
+    },
+    {
+      "object": "8ca72deff94766d2f0c56a8b0be52a1d94171925",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/results-contract.md",
+      "size": 17558,
+      "sha256": "22d276c9fffef07a9f531cd6b83418c98b57667008a64fdf25e3f41c1189bf39"
+    },
+    {
+      "object": "50bcef874ba6303e7cde4acc88d1058cca7c175a",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/sources.md",
+      "size": 5556,
+      "sha256": "2eef6138a6da8d9608f49f897c61cf4e821a7927ab41405025b873e420c5da6d"
+    },
+    {
+      "object": "c79ebeb63aeb584c882de3e0025bd48cf1cdd52a",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/worktree-environment.md",
+      "size": 11336,
+      "sha256": "385b4ebed693970d6afab4fe3c08ce848d67178e06134eef318684c98ddffeef"
+    },
+    {
+      "object": "7c08728e9184c78adbf7c099af91d8671c2de166",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/scripts/assess_evidence.py",
+      "size": 59023,
+      "sha256": "ab3f2238bee883fcae1ed587f006c80f81e238f303f301ec01b982dcfc64b69a"
+    },
+    {
+      "object": "74a572dcd263e6b3d20fb9cb9325279e99eb4dee",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/execution-contract.md",
+      "size": 38801,
+      "sha256": "a810802a2c14cc6f0ddaf253725d470db116a64a864f87caff89c2cdc8b6ae35"
+    },
+    {
+      "object": "bfea92b65da8eee7880cf68493677fd76e7c094c",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+      "size": 49969,
+      "sha256": "fb903f9e4013129c4c07da2df0b1427512ff9210e83dd71d330cf8505df1737c"
+    },
+    {
+      "object": "cb2735f16e171571845cda7a1bb1b74067a24d9a",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/contracts/execution-contract.md",
+      "size": 42496,
+      "sha256": "c18897bb1f57f3a7cf05f2d7eb92a9e5bca5dfce94857c29721012906ed24c36"
+    },
+    {
+      "object": "6ccfc8c71dab84c2e79529a1bd699e713323a735",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+      "size": 41956,
+      "sha256": "4e66fffbd7569731a8d66a901af7adbd0062acacd150334aad5f44ba6c0ea55a"
+    },
+    {
+      "object": "346120a4d7fe4b881962e1963048afa6f5e2ceed",
+      "type": "blob",
+      "path": "docs/mvp/execution-contract.md",
+      "size": 42458,
+      "sha256": "5d8cfd7bcb24934931d11c6f9bb1920d190da29bd04ae221341907d73ff6a124"
+    },
+    {
+      "object": "def36539abb9878a90ab73af0f2ee5a3024f7ae2",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/contracts/skill-authoring-contract.md",
+      "size": 8627,
+      "sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b"
+    },
+    {
+      "object": "e7a5dc46279b573ef88838a2f3c3f543c0674af7",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/derivation.json",
+      "size": 29972,
+      "sha256": "509222fc268cacb169ea1fc42d22fc96a9c39988722ee5aaec7ef4a0db6f1284"
+    },
+    {
+      "object": "2e1e20f94bce3bd2f08f8ed0ddc15eacf29b3646",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/framework-context.md",
+      "size": 6713,
+      "sha256": "6601ab3b2364506ac6cb75eea2cc2e53d0f47e4285edd9fe5007934c6d619dd1"
+    },
+    {
+      "object": "7104ea3c1360fb95c67d1340baa6c09e76f47fb5",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-builder/references/managed-authoring.md",
+      "size": 5532,
+      "sha256": "10d06a55b47254c9f8cc50bdca966e85e83fbc9f484596fd6e3f1c1aa7a2c14d"
+    },
+    {
+      "object": "7bf13cdfcbcc74e4fb1fff6f18583a1a21c87c01",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/SKILL.md",
+      "size": 16445,
+      "sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39"
+    },
+    {
+      "object": "9e19ff6e2591ad58664a629f9b9966331a2878f4",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/assets/handoff.md",
+      "size": 6739,
+      "sha256": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea"
+    },
+    {
+      "object": "330fa2dc32211ae64f79b215df5d6ba956ccdb88",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/derivation.json",
+      "size": 42985,
+      "sha256": "e65eb71f63a82ad22d652f16503bb7348adcb77e7fba96ea8838fbd7f8785176"
+    },
+    {
+      "object": "79ccbee12d25485ad9c8e7188165abb01f4e3f90",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/enforcement-design.md",
+      "size": 9534,
+      "sha256": "b596e439d6a1643afc3836b7457d6065aa529d285a60ba5712b5c03973b25c14"
+    },
+    {
+      "object": "b5e7edc264dcd1cbee183a2ed778090684a120ae",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/framework-context.md",
+      "size": 6730,
+      "sha256": "7e2697f11df23f5c695327f62c4f534741968360b01b060e2ee90b420866ecbe"
+    },
+    {
+      "object": "88110f9512cf8f3b9584c8c902f0dc4e1f13ba76",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/managed-validation.md",
+      "size": 5896,
+      "sha256": "0a7c4748726b738d5f39858bee4caf828a42b22aef4ba8630a00fdb1eaea06dd"
+    },
+    {
+      "object": "f96b54a2d64f044346b9346b45c606fc1d860c24",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/native-evaluation.md",
+      "size": 27629,
+      "sha256": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8"
+    },
+    {
+      "object": "fa310859c2b07ca3d05db5a38a7026d9b3fb99f2",
+      "type": "blob",
+      "path": "providers/codex/plugins/devforgeai/skills/skill-validator/references/sources.md",
+      "size": 4116,
+      "sha256": "526a4163d8e275c9bf00011e43fdbdd832f4a943fd90be151759dbf199544ae4"
+    },
+    {
+      "object": "fd7cc37496ab80e0aaeed5deed4eedac12d0ef5d",
+      "type": "blob",
+      "path": "README.md",
+      "size": 4094,
+      "sha256": "9b32c8c2c01296050c3c06ec4dbbd0fd03050de30e42b68a100dfe9f54f29c07"
+    },
+    {
+      "object": "24e486cde6d8c3796a46fab0e3e0c74b1e6381af",
+      "type": "blob",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "size": 14362,
+      "sha256": "d2850a7a687cc3ac6c6014164483c32a3856907aaf3820362c22b19228d2b94c"
+    },
+    {
+      "object": "e1e76528851ce0aabcb782612e802b3cdf035806",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-implementation-v1-20260908/implementation-allocation.json",
+      "size": 24280,
+      "sha256": "cd31c356bd01b71cd8475fe88e0a4ce79cb89678fba74d62f69710cc81f7ffda"
+    },
+    {
+      "object": "c724091c2494167e37a05a85c5896a99ebdb67a9",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-implementation-v1-20260908/implementation-proposal.md",
+      "size": 30520,
+      "sha256": "b99e5aeff8aea7579cf276987e91e61c4a19356957aa2d354ec41c1c0b18f027"
+    },
+    {
+      "object": "51e0ba3699cb58e20ff3e97a3732ba82950e5c82",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-implementation-v1-20260908/prepared-handoff.md",
+      "size": 3372,
+      "sha256": "ca497532a7cce6f8b5f2c147fe28f2de662d6c9518e31a73f700ce89ca285899"
+    },
+    {
+      "object": "6d0fc4662e2a1058d1d8fe31b01a4f25ab267ca3",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-implementation-v1-20260908/requirement-map.json",
+      "size": 14047,
+      "sha256": "66e69c64f68a743754ad109d96893236ad62236f949af32ba2243e1a40ce8ae8"
+    },
+    {
+      "object": "1abfed3b2ef41d6d534fa1e1130ca720fd48edbd",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-implementation-v1-20260908/source-inventory.json",
+      "size": 34803,
+      "sha256": "abe1fd380962278417edc8c6e63eb63db0223ff0c7baba6a04d21c941e05bac9"
+    },
+    {
+      "object": "63ced7a7f824d1f922fbbe546812b2535807fdcc",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/pilot-allocation.json",
+      "size": 15355,
+      "sha256": "481786ad7a926c865655dbccf9242a8dd40fcdfd1a266eb795c89a428538dbe0"
+    },
+    {
+      "object": "407d03db3855a410fe3a57eb6d93a9b9d6828a87",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/pilot-allocation.md",
+      "size": 15687,
+      "sha256": "23daa2e54d127eac2c24cec2c7d3b34be6768e2ab5deb99b550901eac9051b8e"
+    },
+    {
+      "object": "feccd00cac21f8374c0ba8323d08e0bb2f73c9dd",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/pilot-packets.json",
+      "size": 9321,
+      "sha256": "02f8dc0d578f754989de646cc31a01e4df91a602ab207cef94798d9dd143bf28"
+    },
+    {
+      "object": "cc4d17b312514e6884d9c29b419e2bc7e7a34b46",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/policy-revision.md",
+      "size": 22527,
+      "sha256": "e8960e0da20e1c463b74f1fe221f4feffeef5adc246a539e330bfec809bdab35"
+    },
+    {
+      "object": "f3d36da9e9390b129ffe38da58355e1bb2285e04",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/prepared-handoff.md",
+      "size": 2741,
+      "sha256": "4b259bfa0ddcdbcc878ff64bed8162ff51d198ccb6d8970c73d29bdbece2ac5b"
+    },
+    {
+      "object": "b845ee401009a0a41ad4a0abfea532ad616f1d52",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/requirement-diff.md",
+      "size": 6470,
+      "sha256": "765633946d33f3d549fb5c91faab989a0ee9740647f564c38da7e3cfbc933aa1"
+    },
+    {
+      "object": "a3e80c4b178831c53c7732dceef1ca6aeaec3db0",
+      "type": "blob",
+      "path": "docs/skill-authoring/proposals/validation-policy-v1-20260908/source-inventory.json",
+      "size": 71261,
+      "sha256": "076822658ec371990b446cedb4a9a25f9408932b64487d549e72723fcc9e1456"
+    },
+    {
+      "object": "5e8e3615ccf5736ab006ea30d2f713f9cef3750b",
+      "type": "blob",
+      "path": "AGENTS.md",
+      "size": 1978,
+      "sha256": "df10637afc88283bddf45b42dd9db92ef246c9e06a917555a799bb3e66b3f092"
+    },
+    {
+      "object": "c82f63f3b16d82d0248009530f72b4d31e1205f6",
+      "type": "blob",
+      "path": "CLAUDE.md",
+      "size": 665,
+      "sha256": "6e32a083318924e9c820e8dacbcd748ec8f002a0e0e13a27e464817ce9884ded"
+    },
+    {
+      "object": "0817ddd19b84fb883d7ef46896f22dd30863ac72",
+      "type": "blob",
+      "path": "README.md",
+      "size": 3431,
+      "sha256": "25af894a587d930ab5f9c8ecc83e3c3abf43db8a618b0388d0b5650beba03618"
+    },
+    {
+      "object": "92594aff33fa11c6a1c6d66d508c1971e7c44d28",
+      "type": "blob",
+      "path": "docs/mvp/roster.md",
+      "size": 8289,
+      "sha256": "e47173a6374e543dd1e0d29be61330e14fbc48a28c0c23269ce209f2e51ceffb"
+    }
+  ],
+  "limitations": "Pattern screening and independent review do not prove absence of all sensitive information or qualify runtime behavior."
+}
