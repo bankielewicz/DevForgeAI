@@ -1,0 +1,13 @@
+{
+  "artifact_id": "WORKER-codex",
+  "base": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "branch": "fixture/codex",
+  "candidate": "PKG-codex@1",
+  "owner": "worker-codex",
+  "provider": "codex",
+  "revision": 1,
+  "role": "worker",
+  "source_fence": "project-experts/codex/fixture-capability/**",
+  "state": "retained-after-handback",
+  "worktree": "target-codex"
+}

@@ -1,0 +1,38 @@
+# Companion validator continuation from contributor-context review
+
+Prepared by the integration operator, 2026-09-05. This is the concrete next task identified by the review; no companion fix has been applied and no change is assigned to the Codex skill author.
+
+| Item | Selected scope |
+| --- | --- |
+| Owner | Root integration operator or a separately assigned DevForge companion maintainer |
+| Problem | Framework structural validation descends into the private top-level `.devforge-runtime` directory and fails on a native launcher symlink |
+| Companion repository / base | `/home/bryan/Projects/DevForge/framework/DevForge`, `6983f1de3e06f9b422546fd6944888dcd34e56a1` |
+| Current validator | `scripts/validate_framework.py`, SHA-256 `5ef17e17d78535b520a0a1e6d8166b7fbb92bb44b7a8804dfb1131b8dce392a2` |
+| Proposed source change | Prune the actual root-relative operational directory before descent; retain rejection if that top-level entry is itself a symlink; retain checks throughout authored source |
+| Proposed edit scope | Companion validator and a focused regression test; no skill source, author run, authority, Rust CLI behavior, private runtime, acceptance policy or peer changes |
+| Review basis | `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-contributor-context-20260905T213708193042Z/INTEGRATION-REVIEW.md`, SHA-256 `5fb47ea9dbe416e6393ccf09b7f2c5445f497608f2b10d6692d29961a63d8b87` |
+| Completion evidence | Reviewable exact patch, meaningful regression results, required companion checks, preserved historical failure, and a new structural observation with explicit input and validator identities |
+
+Use a separately identified companion maintenance context. Preserve the current author worktree and source package. The Codex author remains owner of its candidate under SESSION-003@1; this tooling task does not release or replace that ownership. A shared-tool correction must not be made inside the skill-author assignment to obtain a passing result.
+
+Verify these discriminating cases against the proposed traversal behavior:
+
+1. The preserved source-only framework tree still passes unchanged.
+2. A real root `.devforge-runtime` directory containing synthetic launcher symlinks and malformed non-source JSON is excluded before descent. Instrument traversal or an equivalent test to establish that enumeration does not enter that directory; a result-only string assertion is insufficient.
+3. A symlink used as the root `.devforge-runtime` entry is rejected.
+4. An ordinary authored-source symlink is rejected, including a symlink beneath a nested source directory also named `.devforge-runtime`.
+5. Malformed authored JSON and existing required framework structure checks still fail as before.
+
+Keep existing exclusions deliberately scoped; do not introduce a blanket exemption for every path component with that name. The pinned Rust `read_tree` supplies an existing root-relative precedent; changing Rust behavior is not needed for this correction. Preserve the original check-05 FAIL and all earlier attempts. A new observation must name the revised validator and its actual source/runtime scope; the source-only diagnostic must never be presented as the original full-worktree pass.
+
+Run the required checks in the companion AGENTS.md for any implementation. Do not point the old validator at live client state or delete that state to make a test pass. Use preserved framework inputs and newly created harmless synthetic operational state while developing the correction. Native C/B/A evaluation remains separately unallocated.
+
+Copyable continuation prompt:
+
+```text
+Handle the companion structural-validator finding from:
+/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-contributor-context-20260905T213708193042Z/INTEGRATION-REVIEW.md
+SHA-256: 5fb47ea9dbe416e6393ccf09b7f2c5445f497608f2b10d6692d29961a63d8b87
+
+Read this review and TOOLING-FOLLOWUP.md. Verify the companion base and validator hash above, and establish a bounded companion maintenance assignment before shared-source edits. Implement and verify the narrow traversal correction in its own reviewable change. Use the preserved framework-source and synthetic evidence in this archive; do not edit the Codex candidate, frozen author run, SESSION-003 controls or live provider state. Preserve the old FAIL and distinguish new structural observations from native or independent acceptance. Save the patch/check evidence and a finalized handoff with full external path/hash delivery. Stop before native evaluation or integration publication.
+```

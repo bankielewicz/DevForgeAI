@@ -1,0 +1,65 @@
+{
+  "created_at_utc": "2026-09-05T23:43:50.584440+00:00",
+  "worktree": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+  "base": "6983f1de3e06f9b422546fd6944888dcd34e56a1",
+  "head_state": "detached; no branch publication",
+  "records": [
+    {
+      "command": [
+        "git",
+        "worktree",
+        "add",
+        "--detach",
+        "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+        "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/framework/DevForge",
+      "exit_status": 0,
+      "stdout": "HEAD is now at 6983f1d Establish CLI baseline with provider installation and pinned runtime tools\n",
+      "stderr": "Preparing worktree (detached HEAD 6983f1d)\n"
+    },
+    {
+      "command": [
+        "git",
+        "apply",
+        "--check",
+        "--whitespace=error-all",
+        "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/validator-runtime-20260905T234329495677Z/maintenance/validator-runtime.patch"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "apply",
+        "--whitespace=error-all",
+        "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/validator-runtime-20260905T234329495677Z/maintenance/validator-runtime.patch"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "patched_source_sha256": {
+    "scripts/validate_framework.py": "e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25",
+    "tests/test_validation.py": "b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1"
+  },
+  "exact_patch_reconstructed": true,
+  "main_source_unchanged": true,
+  "scope": "isolated operator review copy; not a retroactive isolation claim for the original maintenance session"
+}

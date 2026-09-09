@@ -1,0 +1,15 @@
+{
+  "artifact_id": "DECISION-1",
+  "exclusions": [
+    "Git changes",
+    "peer/shared/companion edits",
+    "integration",
+    "acceptance"
+  ],
+  "kind": "user-delegation",
+  "owner": "worker-claude",
+  "revision": 1,
+  "scope": "Repair FIND-claude-1 only in project-experts/claude/fixture-capability",
+  "source": "synthetic recorded user authorization",
+  "state": "current"
+}

@@ -1,0 +1,200 @@
+{
+  "creators": {
+    "claude": {
+      "files": {
+        ".claude-plugin/plugin.json": "658debd3e0bef690d15e948f0fbebb569eb172111f5e816b226537c911d75069",
+        "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "README.md": "6692d88192f72ac3b4a56d048b43f5f9751178a6b3d1716128927748a90d0924",
+        "skills/skill-creator/LICENSE.txt": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "skills/skill-creator/SKILL.md": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf",
+        "skills/skill-creator/agents/analyzer.md": "bf68f4cac5a56c673a928c2e6d619586c5b93ea364026ab37547772cb45a663a",
+        "skills/skill-creator/agents/comparator.md": "fe1fc9787c495d864c5d6eada47396478572325fde1b33a96d78bf4b849b7a3e",
+        "skills/skill-creator/agents/grader.md": "57134da0c1a4eea33fbd74a1c9c44aa814f07d6bc64de303edb586f941e5d21a",
+        "skills/skill-creator/assets/eval_review.html": "ce477dcc74dc1c0d1d3352646a79167b5a63634e936b1019160025065974e452",
+        "skills/skill-creator/eval-viewer/generate_review.py": "fc9d1b9243fe5ab6012ebd579bd76d0035de1b79fd3b969de114defab26478fb",
+        "skills/skill-creator/eval-viewer/viewer.html": "a53213426ee1100441d701a3a0d49cda7a842f992d2c36463f4d3cc0258575fa",
+        "skills/skill-creator/references/schemas.md": "8e8876180a8989b406a4d3edddf875b04cdfd5805cc8616686d552b11ce4455f",
+        "skills/skill-creator/scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "skills/skill-creator/scripts/aggregate_benchmark.py": "123ef128ea5ccc01a4b1ac212ef5567f21e9c13d3d240609780beeb3200c49aa",
+        "skills/skill-creator/scripts/generate_report.py": "13df7118a3c50c83c4c3250a606d5f2b20b25a3d44cbc392b3d669ec75281453",
+        "skills/skill-creator/scripts/improve_description.py": "87d864570220b699fac52da309d2d6efdb060647bfebc74f768128e646accf80",
+        "skills/skill-creator/scripts/package_skill.py": "1a33059b0db1ef73375d46d513e5ea81369d2e8838c970597b0d52ddef8d1c0f",
+        "skills/skill-creator/scripts/quick_validate.py": "67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365",
+        "skills/skill-creator/scripts/run_eval.py": "43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f",
+        "skills/skill-creator/scripts/run_loop.py": "7bd6f674203168520517eec94c55f493c0d154339b061b4d7c0f0dad187d0f21",
+        "skills/skill-creator/scripts/utils.py": "3af8ae62c40c73ab712207436a0d9a981e845f25c5a7040229eb189cc8e45bb1"
+      },
+      "native_activation": "NOT_RUN",
+      "original_root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/skill-creator",
+      "root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/author-tools/claude/skill-creator"
+    },
+    "codex": {
+      "files": {
+        "SKILL.md": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+        "agents/openai.yaml": "d07d21b93fcf3d4dc8d9a3399c05fc226a49a333a96d3e1c68b451b8dd9eade6",
+        "assets/skill-creator-small.svg": "6591bf8ea9bb9435890dbdea299e0d2bd05f3aa893a335d26e4c535e93c8e7fb",
+        "assets/skill-creator.png": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162",
+        "license.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "references/openai_yaml.md": "ffac39318e408108141d40f820968e59f70434a891694f9bf1d25be8237b150c",
+        "scripts/generate_openai_yaml.py": "816df12072d74faf924d802a6599a139997e1441e90bfe4869ec304f2e5e2851",
+        "scripts/init_skill.py": "bf0656a5f9d8d8cdecf0245eaf27e1df8e0e9b6d40ccdda814eb8e3d5f6992c8",
+        "scripts/quick_validate.py": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c"
+      },
+      "native_activation": "NOT_RUN",
+      "original_root": "/home/bryan/.codex/skills/.system/skill-creator",
+      "root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/author-tools/codex/skill-creator"
+    }
+  },
+  "framework_files": {
+    "AGENTS.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/AGENTS.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/AGENTS.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "CLAUDE.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/CLAUDE.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/CLAUDE.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/coordination/20260905-contributor-context-evaluation-plan.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-evaluation-plan.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/coordination/20260905-contributor-context-spec.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-spec.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/coordination/20260905-contributor-context-specification.receipt.json": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-specification.receipt.json",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-specification.receipt.json",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/coordination/20260905-contributor-expertise-proposal.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-expertise-proposal.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/artifact-contract.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/artifact-contract.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/execution-contract.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/execution-contract.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/roster.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/roster.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/skill-authoring-contract.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/skill-authoring-contract.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/specifications/skill-008-devforge-evaluate-expert.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/devforge-project-expert-creator/expert-package.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-package.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/devforge-project-expert-creator/expert-package.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/devforge-project-expert-creator/expert-skill.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/devforge-project-expert-creator/expert-spec.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/shared/handoff.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/shared/handoff.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/shared/session-record.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/session-record.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/shared/session-record.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/skill-authoring/evaluation-report.md": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/evaluation-report.md",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/skill-authoring/evaluation-report.md",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "d4929c36980ff5237ee3e6a3363392d9fa6303ba1f3028b8b184a85fd31b0ddc",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    },
+    "docs/mvp/templates/skill-authoring/run-manifest.json": {
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/run-manifest.json",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/skill-authoring/run-manifest.json",
+      "selection": "exact operator-selected POC bytes; draft status preserved",
+      "sha256": "9f8d7a8eed826dd4ff7e0f64988b6cded6839aca73b5ebc6c04dec543c1e414f",
+      "source_base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+    }
+  },
+  "native_evaluation_calls": 0,
+  "production_architecture": "NOT_SELECTED; bootstrap scope only",
+  "record_type": "operator-selected POC authoring inputs"
+}

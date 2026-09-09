@@ -1,0 +1,51 @@
+{
+  "outcome": "PASS",
+  "handoff_hash_rows_verified": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/ASSIGNMENT.md",
+      "sha256": "0173fa20429a14601091c1ef9e6b30eca48e4ed20f5cbd4cadeb80aeed8bee7c"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/validator-runtime.patch",
+      "sha256": "5dcbf0720cb83dff2390a1285aa0e93cbe4ce63104b2d30438b5ba138e60cefc"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/PATCH-CHECK.json",
+      "sha256": "48e0c2db4ed63ad0e0735842729e5ca69e185eb3524d9e51e169abfb937af408"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/CHECKS.json",
+      "sha256": "678d5b11525a9add23de02c34035fe66e8da4804de446d41a6cca9fcfe9dd245"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/STRUCTURAL-OBSERVATIONS.json",
+      "sha256": "416458b21c4a8692146cc66e1f83d85b06fd3e53435ec053cc670565c804b40a"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/observation-revised-enumeration.json",
+      "sha256": "3c277f5cea019f82e78306753b9aa84859e4e4fbc2a14381b60eda85cd18a449"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/input-source-only.json",
+      "sha256": "0d412395ce44bec93375eb3733105c20a24158cfd2e7574ba8cf1f8b6f4195c1"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/input-source-with-runtime.json",
+      "sha256": "05bc4e69e41cf58fcba211705a5a4e8dd4453de36c0d5e001415fd18c1fc82a1"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/STATIC-REVIEW.json",
+      "sha256": "2bee0757dbd6a5ea25c6d89d0f8547b3917a8681360b000e40329085a6e98402"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/CLOSEOUT-CHECKS.json",
+      "sha256": "0d9af8fc53832d7fc4b1b0afde1e93d2fc068b05969916a19b1d89804c41ca86"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/CONTINUATION.md",
+      "sha256": "5657c9f364bceea3d2bb10b2545ca2fc520ac65a953fa3f36b7b75d8e519f652"
+    }
+  ],
+  "linked_check_records_verified": 6,
+  "before_after_test_bytes_identical": true
+}

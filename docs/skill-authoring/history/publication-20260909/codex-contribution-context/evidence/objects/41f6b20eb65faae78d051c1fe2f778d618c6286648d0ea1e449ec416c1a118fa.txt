@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/local-checks.py"
+  ],
+  "cwd": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context",
+  "exit_status": 0,
+  "stdout": "{\n  \"outcome\": \"PASS\",\n  \"scope\": \"selected/protected hashes, branch/base/status fence, package-local links, whitespace, exact template derivation, fixture path/digest/visibility integrity, CCX-08 shared bytes, query split labels\",\n  \"source_file_count\": 184,\n  \"author_only_fixture_files_excluded_from_worker_visibility\": [\n    \"fixtures/CCX-01-replacement/records/finding.json\",\n    \"fixtures/CCX-01-replacement/records/package.json\",\n    \"fixtures/CCX-01-replacement/records/receipt.json\",\n    \"fixtures/CCX-01-replacement/records/summary.json\",\n    \"fixtures/CCX-01-replacement/target/old-handoff.md\",\n    \"fixtures/CCX-01-replacement/target/project-experts/codex/fixture-capability/SKILL.md\"\n  ],\n  \"negative_mechanical_checks\": [\n    {\n      \"case\": \"escaped-fixture\",\n      \"outcome\": \"PASS\",\n      \"observed_rejection\": \"path escapes root: ../SKILL.md\"\n    },\n    {\n      \"case\": \"missing-link\",\n      \"outcome\": \"PASS\",\n      \"observed_rejection\": \"missing file: references/absent.md\"\n    },\n    {\n      \"case\": \"wrong-derivation-digest\",\n      \"outcome\": \"PASS\",\n      \"observed_rejection\": \"digest mismatch: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/assets/handoff.md\"\n    }\n  ],\n  \"native_A\": \"NOT_RUN\",\n  \"native_B\": \"NOT_RUN\",\n  \"native_C\": \"NOT_RUN\",\n  \"limitations\": \"No semantic recovery, provider discovery, native installed-resource execution, source isolation or independent acceptance is certified.\"\n}\n",
+  "stderr": "",
+  "outcome": "PASS",
+  "created_at_utc": "2026-09-05T21:11:58.920116+00:00"
+}

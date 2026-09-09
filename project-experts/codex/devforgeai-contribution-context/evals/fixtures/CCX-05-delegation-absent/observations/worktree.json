@@ -1,0 +1,8 @@
+{
+  "base": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "branch": "fixture/worker-codex",
+  "kind": "synthetic operator observation; not actual git execution",
+  "observed_writer": "worker-codex",
+  "other_active_writers": [],
+  "worktree": "target"
+}

@@ -1,0 +1,9 @@
+{
+  "base": null,
+  "branch": null,
+  "collision_check": "operator observed assigned uncommitted draft and no other writer",
+  "mode": "greenfield-uncommitted",
+  "observed_writer": "worker-codex",
+  "other_active_writers": [],
+  "worktree": "target"
+}

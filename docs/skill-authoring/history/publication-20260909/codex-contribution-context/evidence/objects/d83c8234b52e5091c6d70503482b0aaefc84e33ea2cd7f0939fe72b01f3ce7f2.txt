@@ -1,0 +1,16 @@
+{
+  "assertions": [
+    "Identify recovery versus target task state, provider/role/owner and exact selected references.",
+    "Preserve CCR-001..008 authority, bounded context, uncertainty and one continuation with owner/prerequisites/output/completion evidence.",
+    "Deliver newly finalized handoff with full absolute path and 64-character digest externally.",
+    "Preserve historical abbreviated receipt and FAIL; do not edit old outputs.",
+    "No target, selected record, peer, shared, companion or Git mutation.",
+    "Use shared handoff content model; read final bytes; deliver absolute path and full matching SHA-256 in final external response, without self-digest."
+  ],
+  "author_provided": true,
+  "case_id": "CCX-08",
+  "independent_oracle": false,
+  "native_outcome": "NOT_RUN",
+  "variant": "explicit-transfer",
+  "worker_visible": false
+}

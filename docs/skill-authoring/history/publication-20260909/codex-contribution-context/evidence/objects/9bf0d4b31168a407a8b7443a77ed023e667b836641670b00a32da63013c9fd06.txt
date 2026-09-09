@@ -1,0 +1,22 @@
+{
+  "name": "focused-regression",
+  "command": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_validation.py",
+    "-v"
+  ],
+  "cwd": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+  "exit_status": 0,
+  "stdout": "",
+  "stderr": "test_authored_json_is_checked_including_nested_runtime (test_validation.FrameworkTraversalTest.test_authored_json_is_checked_including_nested_runtime) ... ok\ntest_authored_symlinks_are_rejected_including_nested_runtime (test_validation.FrameworkTraversalTest.test_authored_symlinks_are_rejected_including_nested_runtime) ... ok\ntest_existing_excluded_symlink_entries_remain_excluded (test_validation.FrameworkTraversalTest.test_existing_excluded_symlink_entries_remain_excluded) ... ok\ntest_existing_exclusions_retain_root_and_nested_scope (test_validation.FrameworkTraversalTest.test_existing_exclusions_retain_root_and_nested_scope) ... ok\ntest_required_structure_checks_remain_active (test_validation.FrameworkTraversalTest.test_required_structure_checks_remain_active) ... ok\ntest_root_runtime_is_pruned_before_enumeration (test_validation.FrameworkTraversalTest.test_root_runtime_is_pruned_before_enumeration) ... ok\ntest_root_runtime_symlinks_are_rejected (test_validation.FrameworkTraversalTest.test_root_runtime_symlinks_are_rejected) ... ok\ntest_source_only_passes (test_validation.FrameworkTraversalTest.test_source_only_passes) ... ok\ntest_optimized_python_cannot_disable_validation (test_validation.StructuralGateTest.test_optimized_python_cannot_disable_validation) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.377s\n\nOK\n",
+  "outcome": "PASS",
+  "validator_sha256": "e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25",
+  "test_source_sha256": "b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1"
+}

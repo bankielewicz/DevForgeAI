@@ -1,0 +1,43 @@
+# Codex author runtime correction 001
+
+Scope: restore the SESSION-003@1 author terminal's execution capability. This changes only the operator-provided runtime launch method. The source assignment, specification, worktree, selected native creator, author output fence, zero model-evaluation allocation and integration owner remain as previously issued.
+
+## Cause and correction
+
+The author reported that Code Mode could not spawn /tmp/codex-code-mode-host and that both execution attempts failed before assignment verification. The installed Codex 0.153.4 package already contains bin/codex-code-mode-host beside bin/codex. The original DevForge isolate launcher relocated only the requested executable to /tmp/devforge-client while masking its original client home. This removed the expected sibling/package layout from the running client's location.
+
+The correction preserves the exact installed distribution in this external control directory: six regular files with executable modes and the internal codex -> bin/codex alias. It includes package metadata, the helper, ripgrep, bubblewrap and zsh resources. PACKAGE.json binds their original and staged locations and hashes. No credentials or private session history were copied.
+
+The unchanged pinned DevForge executable now isolates Bash, which executes the external staged bin/codex at its intact package location. The same worktree-local Codex profile is mapped by --runtime codex. No feature/configuration override, API credentials, shared CLI source/binary edit or Claude launcher change is part of this correction.
+
+The original sealed control records are historical evidence and remain unchanged. Their earlier native-not-run preparation observations do not erase the subsequently reported failed author startup. This record supersedes only their Codex launch command for this recovery.
+
+## Resume the same author assignment
+
+Exit the blocked Codex process first so there is only one author terminal using this worktree and profile. In a normal terminal, run:
+
+```bash
+bash /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/recovery-001/LAUNCH-CODEX.sh
+```
+
+The launcher verifies the original assignment/inputs and the complete staged package, enters /home/bryan/Projects/DevForge/worktrees/codex-contribution-context, and invokes codex resume --last using that worktree's existing private profile. It does not select sessions from the global profile. A read-only preflight is available by adding --check.
+
+When the resumed author opens, paste:
+
+```text
+Resume SESSION-003@1 after runtime correction 001. The original authoring scope is unchanged.
+Read /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/recovery-001/RECOVERY.md, then verify and carry out /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/CODEX-START.md (SHA-256 0a64ef392ffed122a33a213923a6f2fb54c0a451aed303df69f7d8fe6e0884af).
+First confirm the execution tool can read your assignment and verify its hashes, branch and base. Preserve the earlier blocked startup as COULD_NOT_RUN for its actual scope. Then continue the authorized stage-1 skill authoring and deterministic checks. Return the saved outputs and full SHA-256 receipts; native skill evaluation remains NOT_RUN.
+```
+
+A successful native read after restart is the remaining end-to-end confirmation. Do not downgrade the isolation boundary or change the assigned source scope if another runtime failure occurs; retain its exact cause for the operator.
+
+## Validation and custody
+
+SMOKE.json records no-model startup of Codex and its helper/bundled resources, plus private-profile/PID mapping and permitted/denied-write probes in a disposable scratch workspace. PACKAGE.json preserves the full distribution identity. Later checks and the final receipt record their actual scope; this document does not certify skill activation, model behavior or production expertise. The author candidate remains absent at correction preparation.
+
+The observed sandbox still makes an assigned project writable and external control/package files read-only. The finer source fence remains assignment-controlled and inventory-checked. The correction reuses the existing author profile for continuation; it does not claim fresh independent evaluation context.
+
+The official configuration reference was consulted, but it does not document this installed version's code_mode_host helper arrangement. The diagnosis and fix are grounded in the inspected local launcher and distribution plus component/protocol checks, not an inferred configuration switch. Reference: https://learn.chatgpt.com/docs/config-file/config-reference
+
+This recovery document's digest is delivered externally after readback, not inserted into its own bytes.

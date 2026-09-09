@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "outcome": "PASS",
+      "record": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-01.json",
+      "sha256": "a1cf21ee59f9668b55b1fd4f27fed7444f714d6f5c098fe79a3fd8e9da59c0cd"
+    },
+    {
+      "outcome": "FAIL",
+      "record": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-02.json",
+      "sha256": "4b2c75cdbcce6e5400c1be699c256742b43b41c08e2fc71f6677d2999ce25fc0"
+    },
+    {
+      "outcome": "PASS",
+      "record": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-03.json",
+      "sha256": "3ade9be399c4be165d12028d10937c9ed9b95bacd1f9b88d732dd56ef651273c"
+    },
+    {
+      "outcome": "PASS",
+      "record": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-04.json",
+      "sha256": "12818a57bf087d06e38cbbdd9bd9096900e0f1f9166275dec842afb7b5f9da40"
+    },
+    {
+      "outcome": "FAIL",
+      "record": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-05.json",
+      "sha256": "6daeca2095eb6aa8e56701f95d299022c7bf737b3dd962bf9abea2ad2db0cebb"
+    },
+    {
+      "outcome": "PASS",
+      "record": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-06.json",
+      "sha256": "41f6b20eb65faae78d051c1fe2f778d618c6286648d0ea1e449ec416c1a118fa"
+    },
+    {
+      "outcome": "PASS",
+      "record": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-07.json",
+      "sha256": "32f771b298f907a85d32820c2b2d0dae783bee0a7388590ba620838821abbf7f"
+    }
+  ],
+  "current_package_checks": "PASS",
+  "historical_failure": "check-02 failed malformed synthetic SKILL snapshots; old candidate retained in failed-structure-source and failed-structure-source-manifest.json; corrected before freeze.",
+  "initial_author_startup": "COULD_NOT_RUN; missing /tmp/codex-code-mode-host, twice before verification",
+  "native_A": "NOT_RUN",
+  "native_B": "NOT_RUN",
+  "native_C": "NOT_RUN",
+  "production_suitability": "NOT_EVALUATED",
+  "recovered_author_read": "PASS",
+  "self_review": "Author static review only, not independent acceptance.",
+  "whole_framework_cause": "Required validator traverses active .devforge-runtime and rejects runtime symlink; check-05 preserves actual stderr. Owner: companion validator/runtime integration owner. No source/policy/runtime modification or filtered pass substituted.",
+  "whole_framework_structure": "FAIL"
+}

@@ -1,0 +1,11 @@
+{
+  "artifact_id": "FIND-claude-1",
+  "candidate": "PKG-claude@1",
+  "next_action": "repair then separately allocated review",
+  "outcome": "FAIL",
+  "required_check": "final-delivery",
+  "revision": 1,
+  "run": "TRIAL-1",
+  "scope": "missing complete terminal handoff receipt",
+  "state": "open"
+}

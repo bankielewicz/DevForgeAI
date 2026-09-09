@@ -1,0 +1,35 @@
+{
+  "earlier_attempt": {
+    "outcome": "COULD_NOT_RUN",
+    "scope": "author execution startup before assignment verification",
+    "attempted_calls": 2,
+    "raw_error": "failed to spawn code-mode host /tmp/codex-code-mode-host: No such file or directory (os error 2)",
+    "writes": false,
+    "native_evaluation": "NOT_RUN"
+  },
+  "recovery": {
+    "outcome": "PASS",
+    "scope": "first successful assignment read in resumed actual author session; recovery and START digest checks",
+    "record": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/recovery-001/RECOVERY.md",
+    "sha256": "387e7ff22f39fffda9a9f4457b5c06cd03633b808deb5c426005dded0826c77b"
+  },
+  "prewrite_verification": {
+    "outcome": "PASS",
+    "scope": "all selected preserved/local framework and Codex creator bytes; protected baseline; branch/base/status; absent candidate",
+    "selected_inputs": "selected-inputs.json"
+  },
+  "creator": {
+    "mode": "user explicit skill invocation plus explicit read of exact staged instructions",
+    "path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.agents/skills/skill-creator/SKILL.md",
+    "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+    "implicit_discovery": "NOT_RUN",
+    "framework_creator_invoked": false
+  },
+  "limits": {
+    "automated_model_calls": 0,
+    "native_A": "NOT_RUN",
+    "native_B": "NOT_RUN",
+    "native_C": "NOT_RUN",
+    "production": "NOT_EVALUATED"
+  }
+}

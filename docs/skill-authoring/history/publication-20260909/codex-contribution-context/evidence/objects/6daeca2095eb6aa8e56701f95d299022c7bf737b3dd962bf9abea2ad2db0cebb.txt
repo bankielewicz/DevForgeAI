@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+    "--framework",
+    "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context"
+  ],
+  "cwd": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context",
+  "exit_status": 2,
+  "stdout": "",
+  "stderr": "BLOCKED: symlink not accepted: .devforge-runtime/codex/home/tmp/arg0/codex-arg0Kko27e/codex-execve-wrapper\n",
+  "outcome": "FAIL",
+  "created_at_utc": "2026-09-05T21:11:58.790071+00:00"
+}

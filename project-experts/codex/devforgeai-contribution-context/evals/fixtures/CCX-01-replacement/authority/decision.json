@@ -1,0 +1,6 @@
+{
+  "artifact_id": "DECISION-1",
+  "owner": "integrator",
+  "scope": "review two frozen candidates after both worker handoffs; no commit/merge/acceptance",
+  "state": "current"
+}

@@ -1,0 +1,54 @@
+{
+  "observations": [
+    {
+      "command": "pwd; sha256sum RECOVERY.md CODEX-START.md; cat RECOVERY.md CODEX-START.md (absolute selected paths)",
+      "exit_status": 0,
+      "outcome": "PASS",
+      "stdout_relevant": [
+        "387e7ff22f39fffda9a9f4457b5c06cd03633b808deb5c426005dded0826c77b RECOVERY.md",
+        "0a64ef392ffed122a33a213923a6f2fb54c0a451aed303df69f7d8fe6e0884af CODEX-START.md",
+        "Assignment successfully read in actual resumed author session"
+      ]
+    },
+    {
+      "command": "git status --short; git branch --show-current; git rev-parse HEAD",
+      "exit_status": 0,
+      "stdout_relevant": [
+        " M docs/mvp/skill-authoring-contract.md\n M docs/mvp/templates/shared/handoff.md\n?? docs/coordination/20260905-contributor-context-evaluation-plan.md\n?? docs/coordination/20260905-contributor-context-spec.md\n?? docs/coordination/20260905-contributor-context-specification.receipt.json\n?? docs/coordination/20260905-contributor-expertise-proposal.md\n?? docs/coordination/20260905-contributor-expertise-proposal.receipt.json\n",
+        "author/codex-contribution-context-poc",
+        "c9298bd34ebb73bf598deec6253068d7f8b0ed59"
+      ]
+    },
+    {
+      "command": "Python SHA-256 assertions over SESSION, INPUTS, preserved/local selected framework and staged Codex creator; candidate existence check",
+      "exit_status": 0,
+      "outcome": "PASS",
+      "stdout_relevant": "PASS: selected bytes match; candidate absent"
+    },
+    {
+      "command": "Python baseline assertions and exclusive authoring-run creation",
+      "exit_status": 0,
+      "outcome": "PASS",
+      "stdout_relevant": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z"
+    },
+    {
+      "cause": "Combined discovery command returned 2 for absent pre-candidate project-experts directory; preceding cat reads completed. Large read output was split into narrower subsequent reads. This is not a package failure.",
+      "command": "cat selected spec/evaluation plan/shared contracts/templates/native creator; rg source headings and instruction-file paths",
+      "exit_status": 2,
+      "outcome": "NOT_APPLICABLE"
+    },
+    {
+      "command": "Python XSPEC authoring then explicit corrected revision before candidate creation",
+      "exit_status": 0,
+      "outcome": "PASS",
+      "stdout_relevant": "XSPEC-003@1 preserved; XSPEC-003@2 corrected Required envelope to actual Standard envelope source heading before candidate creation."
+    },
+    {
+      "command": "python3 author-fixtures.py (initial authoring) and pre-freeze fixture review edits",
+      "exit_status": 0,
+      "outcome": "PASS",
+      "stdout_relevant": "Created exact handoff asset, derivation, 13 variants and 9 fixed-split queries; no models run."
+    }
+  ],
+  "scope": "Relevant stdout/exit observations from interactive prewrite commands; author scripts and subsequent check commands are preserved separately. This is a reconstruction of tool observations, not a copied private transcript."
+}

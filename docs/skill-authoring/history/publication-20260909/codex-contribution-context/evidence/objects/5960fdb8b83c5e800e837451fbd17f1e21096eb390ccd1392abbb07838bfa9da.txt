@@ -1,0 +1,13 @@
+{
+  "artifact_id": "WORKER-claude",
+  "base": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "branch": "fixture/claude",
+  "candidate": "PKG-claude@1",
+  "owner": "worker-claude",
+  "provider": "claude",
+  "revision": 1,
+  "role": "worker",
+  "source_fence": "project-experts/claude/fixture-capability/**",
+  "state": "retained-after-handback",
+  "worktree": "target-claude"
+}

@@ -1,0 +1,10 @@
+{
+  "artifact_id": "PKG-claude",
+  "files_sha256": {
+    "SKILL.md": "c15c1f8e2354ddfba573307dd77f826f3aaf5e177489fe0a0ade4f98dcae1657"
+  },
+  "native": "NOT_RUN",
+  "revision": 1,
+  "run": "TRIAL-claude",
+  "source": "target-claude/SKILL.md"
+}

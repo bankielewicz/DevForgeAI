@@ -1,0 +1,275 @@
+{
+  "record_type": "operator design-discussion custody receipt; not an adopted framework schema",
+  "issued_at_utc": "2026-09-05T18:47:03.452400+00:00",
+  "proposal": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.md",
+    "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32",
+    "readback_verified": true,
+    "status": "DISCUSSION_PROPOSAL"
+  },
+  "source_heads": {
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+    "/home/bryan/Projects/DevForge/framework/DevForge": "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+  },
+  "source_working_tree_status_before": {
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI": " M docs/mvp/skill-authoring-contract.md\n M docs/mvp/templates/shared/handoff.md\n",
+    "/home/bryan/Projects/DevForge/framework/DevForge": ""
+  },
+  "sources": {
+    "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md": {
+      "sha256": "89c5a6ff2b4118ab75214becc9ff2f6bacf2148ef8f2ca37a11656e302e8ea21",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md": {
+      "sha256": "f93882af69926ad2dbc92b686d35e4d147cf15589a8e927ce88f83a3e7ff8964",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-revise-002-20260905T162209790414Z/INTEGRATION-REVIEW.md": {
+      "sha256": "f7ae0c4a39fd978e9e9453d3595ad84405dc1dce6b7765d9794a9193f705fc45",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/.poc/integration-reviews/claude-brainstorm-revise-002-20260905T162209790414Z/INTEGRATION-REVIEW.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/AGENTS.md": {
+      "sha256": "973626369394962f4dda075847f2276725e458f5889402bacd97c5778ee2ac37",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/AGENTS.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/README.md": {
+      "sha256": "4e48d32e23b8357cece74c71903944e4042451ecfba92d75ef1468b8cb760043",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/README.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/docs/POC.md": {
+      "sha256": "071fa59ff6766bcaf2c3f352ba6f030beb73a81e5b5b8066ec9c2ae2f30dd197",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/docs/POC.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/scripts/install_framework.py": {
+      "sha256": "f9a8da5d550f261ae3baf53a0f8b707315ab1beff7120d88dc8867af4c57930e",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/scripts/install_framework.py",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/src/main.rs": {
+      "sha256": "71150be072670e26ffa4fffc59cdb436a7c2170651f42a149bd686d3de1286ac",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForge/src/main.rs",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/AGENTS.md": {
+      "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/AGENTS.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/CLAUDE.md": {
+      "sha256": "54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/CLAUDE.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/README.md": {
+      "sha256": "3b75c87a30d91a1e00fd7f28329062529d1118353171fb9f94e3767484022ebb",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/README.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/POC.md": {
+      "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/POC.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md": {
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/artifact-contract.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md": {
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/execution-contract.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md": {
+      "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/roster.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md": {
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md": {
+      "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md": {
+      "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-012-devforge-change.md": {
+      "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/specifications/skill-012-devforge-change.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-architect/architecture-contract.md": {
+      "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/devforge-architect/architecture-contract.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-plan/story.md": {
+      "sha256": "a19ccd7f332c895fe6d7713ed8ae1a7e52991c71c846557d3fb29862ebff9daf",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/devforge-plan/story.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-package.md": {
+      "sha256": "c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-package.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md": {
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/session-record.md": {
+      "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/docs/mvp/templates/shared/session-record.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md": {
+      "sha256": "8a0f94bdf1d6b6d5e4f15d3421a3116d4fed5074774a2eadca7d2ede68b74c1a",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md": {
+      "sha256": "f6e951baafe35e54dfd22c5af995c80d92a21658eeb64fea92a6a64eeb9c9090",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/claude/plugins/devforgeai/agents/project-expert-author.md": {
+      "sha256": "79e21a981b818516233948243390d362fef7a991457556545ece2829e278b194",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/agents/project-expert-author.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "sha256": "31641ddbee8024ca2330c4f89622fe2c62bdda326df06c148340c16fc00d7a6e",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "sha256": "eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-develop/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "readback_verified": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-expertise-20260905T184623597951Z/source/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-review/SKILL.md",
+      "readback_verified": true
+    }
+  },
+  "checks": [
+    {
+      "check": "new Markdown whitespace",
+      "git_no_index_exit_code": 1,
+      "diagnostics": "",
+      "independent_trailing_whitespace_check": "PASS",
+      "fence_balance": "PASS",
+      "note": "The initial publication check stopped on no-index exit1 despite no whitespace diagnostics. Existing proposal/source snapshot preserved; completion verified the diff-only exit and independently checked whitespace."
+    },
+    {
+      "check": "local Markdown links",
+      "count": 13,
+      "status": "PASS including the receipt written as final publication step"
+    }
+  ],
+  "local_links": [
+    {
+      "target": "../mvp/roster.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md"
+    },
+    {
+      "target": "../mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md"
+    },
+    {
+      "target": "../mvp/templates/devforge-architect/architecture-contract.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-architect/architecture-contract.md"
+    },
+    {
+      "target": "../mvp/templates/devforge-plan/story.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-plan/story.md"
+    },
+    {
+      "target": "../mvp/artifact-contract.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md"
+    },
+    {
+      "target": "../mvp/templates/shared/session-record.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/session-record.md"
+    },
+    {
+      "target": "../mvp/templates/shared/handoff.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md"
+    },
+    {
+      "target": "../mvp/execution-contract.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md"
+    },
+    {
+      "target": "../../examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md"
+    },
+    {
+      "target": "../../examples/notes-json/seed/experts/notes-json-persistence/SKILL.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md"
+    },
+    {
+      "target": "../POC.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/POC.md"
+    },
+    {
+      "target": "../mvp/skill-authoring-contract.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md"
+    },
+    {
+      "target": "20260905-contributor-expertise-proposal.receipt.json",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.receipt.json"
+    }
+  ],
+  "bounded_review": "Three read-only analyses informed the proposal; no cold-session certification claimed. Baseline fairness and distinct worker/reviewer contexts were incorporated.",
+  "operator_changes": [
+    "new proposal",
+    "new external receipt",
+    "new preserved source snapshot"
+  ],
+  "native_models_launched": 0,
+  "canonical_roster_or_contract_changes": false,
+  "active_assignments_changed": false,
+  "new_skills_authored": 0,
+  "proposal_adoption": "NOT_RECORDED"
+}

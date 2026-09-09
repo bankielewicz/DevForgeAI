@@ -1,0 +1,28 @@
+{
+  "outcome": "PASS",
+  "scope": "current frozen CCX-08 raw fixture equality only",
+  "file_sets_identical": true,
+  "identical_nonpacket_files": [
+    "authority/assignment.json",
+    "authority/decision.json",
+    "observations/worktree.json",
+    "records/finding.json",
+    "records/package.json",
+    "records/receipt.json",
+    "records/summary.json",
+    "selected/rules.md",
+    "target/old-handoff.md",
+    "target/project-experts/codex/fixture-capability/SKILL.md"
+  ],
+  "packets_equal_after_removing_only_report_authority_from_transfer": true,
+  "transfer_report_authority": {
+    "output": "outbox/HANDOFF-next.md",
+    "owner": "worker-codex",
+    "release_ownership": false,
+    "source": "synthetic evaluator report-only allocation, independent of inner assignment",
+    "write_fence": "outbox/**"
+  },
+  "requests_have_declared_different_modes": true,
+  "helper_gap_is_present_in_current_pair": false,
+  "native_behavior": "NOT_RUN"
+}

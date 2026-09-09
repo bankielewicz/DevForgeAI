@@ -1,0 +1,66 @@
+"""Author-only packaging checks. No model/native behavior or semantic grading."""
+from pathlib import Path
+import hashlib,json,re,subprocess,sys
+R=Path(__file__).resolve().parent; W=R.parents[4]; S=W/'project-experts/codex/devforgeai-contribution-context'; E=S/'evals'
+H=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def inside(root,rel):
+ p=(root/rel).resolve()
+ if not p.is_relative_to(root.resolve()): raise ValueError('path escapes root: '+rel)
+ if not p.is_file(): raise ValueError('missing file: '+rel)
+ return p
+def digest(p,expected):
+ if H(p)!=expected: raise ValueError('digest mismatch: '+str(p))
+def checks():
+ selected=json.loads((R/'selected-inputs.json').read_text())
+ for p,d in selected['files_sha256'].items():digest(Path(p),d)
+ assert subprocess.check_output(['git','branch','--show-current'],cwd=W,text=True).strip()==selected['branch']
+ assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=W,text=True).strip()==selected['base']
+ # Compare tracked/untracked state outside the candidate fence; ignored run/client areas excluded.
+ status=subprocess.check_output(['git','status','--short','--untracked-files=all'],cwd=W,text=True)
+ old=selected['initial_git_status'].splitlines()
+ extra=[line for line in status.splitlines() if line not in old]
+ assert all(line[3:].startswith('project-experts/codex/devforgeai-contribution-context/') for line in extra),extra
+ for p in S.rglob('*'):
+  assert not p.is_symlink(),p
+  if p.is_file():
+   assert '__pycache__' not in p.parts and p.suffix!='.pyc'
+   body=p.read_text()
+   assert body.endswith('\n'),p
+   assert all(line==line.rstrip() for line in body.splitlines()),p
+   if p.suffix=='.md' and not p.is_relative_to(E):
+    for link in re.findall(r'\[[^\]]*\]\(([^)]+)\)',body):
+     if '://' not in link and not link.startswith('#'):
+      target=inside(p.parent,link.split('#')[0]) if not link.startswith('../') else (p.parent/link.split('#')[0]).resolve()
+      assert target.is_relative_to(S) and target.is_file(),(p,link)
+   if p.name=='SKILL.md' and p==S/'SKILL.md': assert '{{' not in body and '[TODO:' not in body
+ d=json.loads((S/'references/derivation.json').read_text())['template']
+ source=Path('/home/bryan/Projects/DevForge/framework/DevForge/.poc')/d['preserved_locator']
+ digest(source,d['source_sha256']);digest(inside(S,d['destination']),d['destination_sha256'])
+ assert source.read_bytes()==(S/d['destination']).read_bytes();assert d['refresh_triggers']
+ ev=json.loads((E/'evals.json').read_text());cov=json.loads((E/'coverage.json').read_text())
+ assert len(ev['evals'])==13==len(cov['variants'])
+ visible_all=set()
+ for row in ev['evals']:
+  inside(E,row['request_file']);expected=inside(E,row['expected_assertions_file']);assert str(expected.relative_to(E)) not in row['files']
+  root=E/row['fixture_root'];packet=json.loads((root/'packet.json').read_text())
+  for f in row['files']:
+   p=inside(E,f);assert p.is_relative_to(root);visible_all.add(f)
+  for ref in packet['references']:
+   p=inside(root,ref['path']);digest(p,ref['sha256']);assert str(p.relative_to(E)) in row['files']
+   for section in ref['sections']:assert '\n## '+section+'\n' in p.read_text()
+  if row['mode']=='orient':assert 'report_authority' not in packet
+  else:assert packet['report_authority']['output']=='outbox/HANDOFF-next.md'
+  if row['case_id']=='CCX-06':assert not (root/packet['required_unavailable_reference']['path']).exists()
+ a=E/'fixtures/CCX-08-unchanged-resume'; b=E/'fixtures/CCX-08-explicit-transfer'
+ for p in a.rglob('*'):
+  if p.is_file() and p.name!='packet.json':assert p.read_bytes()==(b/p.relative_to(a)).read_bytes()
+ q=json.loads((E/'triggers/queries.json').read_text());assert {x['split'] for x in q}=={'train','validation'}
+ # Discriminating mechanical checks, deliberately invalid inputs; no prose grading.
+ negative=[]
+ for label,fn in [('escaped-fixture',lambda:inside(E,'../SKILL.md')),('missing-link',lambda:inside(S,'references/absent.md')),('wrong-derivation-digest',lambda:digest(S/'assets/handoff.md','0'*64))]:
+  try:fn()
+  except ValueError as e:negative.append({'case':label,'outcome':'PASS','observed_rejection':str(e)})
+  else:raise AssertionError('invalid input accepted: '+label)
+ excluded=sorted(str(p.relative_to(E)) for p in (E/'fixtures').rglob('*') if p.is_file() and str(p.relative_to(E)) not in visible_all)
+ print(json.dumps({'outcome':'PASS','scope':'selected/protected hashes, branch/base/status fence, package-local links, whitespace, exact template derivation, fixture path/digest/visibility integrity, CCX-08 shared bytes, query split labels','source_file_count':sum(p.is_file() for p in S.rglob('*')),'author_only_fixture_files_excluded_from_worker_visibility':excluded,'negative_mechanical_checks':negative,'native_A':'NOT_RUN','native_B':'NOT_RUN','native_C':'NOT_RUN','limitations':'No semantic recovery, provider discovery, native installed-resource execution, source isolation or independent acceptance is certified.'},indent=2))
+if __name__=='__main__':checks()

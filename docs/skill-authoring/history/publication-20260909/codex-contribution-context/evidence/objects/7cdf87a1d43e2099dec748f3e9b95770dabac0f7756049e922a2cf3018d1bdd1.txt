@@ -1,0 +1,138 @@
+---
+schema_version: devforge.artifact/v1
+artifact_id: HANDOFF-003
+artifact_type: handoff
+project_id: devforgeai
+revision: 1
+status: draft
+created_at_utc: '2026-09-05T21:26:28.050168+00:00'
+producer:
+  skill: skill-creator (explicit staged instructions; Codex interactive author)
+  skill_revision: 6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66
+execution_ref:
+  artifact_id: SESSION-003
+  revision: 1
+  store: authority
+  path: /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/SESSION-003.md
+  sha256: c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93
+  sections:
+  - Ownership and task
+  - Repository and write fence
+  - Stage and closeout
+upstream:
+- artifact_id: XPKG-003
+  revision: 1
+  store: project
+  path: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XPKG-003.md
+  sha256: eef2caf30e8e0a591b9c860d361bc8a4b8c12f0db6a50afb92c574464880c64c
+  sections:
+  - XP-001
+  - XP-004
+  - XP-005
+- artifact_id: XSPEC-003
+  revision: 2
+  store: project
+  path: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XSPEC-003-r2.md
+  sha256: 408c3213c6e3632234980931e30e5baa6a4f81b3bbabccec954d5e91b8b6a01d
+  sections:
+  - XS-004
+  - XS-005
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs:
+- Production architecture not selected; independent/native evaluation unallocated.
+---
+
+# Codex contribution context authoring handoff
+
+## HO-001 You are here
+
+Skill/use case: staged native skill-creator instructions applied explicitly by the Codex author to CAP-CCR-001 stage-1 bootstrap authoring. Current phase: candidate frozen for root architect/integration review. Authoring task: complete with a reported whole-framework structural-check failure; underlying native evaluation/adoption remains unstarted. Runtime provider Codex; role contributor author; integration owner root Codex/operator. Recovery of author tool execution succeeded; this does not establish candidate behavior.
+
+Assignment: /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/SESSION-003.md, SESSION-003@1, SHA-256 c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93. Worktree: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context; branch author/codex-contribution-context-poc; base c9298bd34ebb73bf598deec6253068d7f8b0ed59. Source fence: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/**. Output fence: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/** within the assigned runs root. Existing authority permits authoring and local deterministic checks; automated model calls/concurrency/retries are 0. Runtime recovery-001 changed the launch method only. Ownership remains retained.
+
+## HO-002 Inputs consumed and outputs produced
+
+All rows are finalized readback identities. The selected-input inventory expands every preserved/local framework, Codex creator and protected baseline hash. This handoff is excluded from its own digest inventory.
+
+| Direction | Artifact ID/revision | Store/path | SHA-256 | Relevant sections | Decision/freshness state |
+| --- | --- | --- | --- | --- | --- |
+| input | SESSION-003.md / selected bytes | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/SESSION-003.md | c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93 | entire selected record | bootstrap authority; no production adoption |
+| input | INPUTS.json / selected bytes | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/INPUTS.json | 0e8b3254f71f04210a1509764c36633878d8e9240ece01a6c3c5860d770b6a2f | entire selected record | bootstrap authority; no production adoption |
+| input | STAGE-1.md / selected bytes | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/STAGE-1.md | 053f5834aa1efb0af99420c71a0bf1d1e790cc459eb0fc6b43b9d8d7bf8bac02 | entire selected record | bootstrap authority; no production adoption |
+| input | RECOVERY.md / selected bytes | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/recovery-001/RECOVERY.md | 387e7ff22f39fffda9a9f4457b5c06cd03633b808deb5c426005dded0826c77b | entire selected record | bootstrap authority; no production adoption |
+| output | XSPEC-003.md | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XSPEC-003.md | 625d4870e98b25dd563661faa0f52e52c159a3c0d2e172b90f808179c682ab0b | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | XSPEC-003-r2.md | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XSPEC-003-r2.md | 408c3213c6e3632234980931e30e5baa6a4f81b3bbabccec954d5e91b8b6a01d | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | XPKG-003.md | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XPKG-003.md | eef2caf30e8e0a591b9c860d361bc8a4b8c12f0db6a50afb92c574464880c64c | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | source-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/source-manifest.json | 625d838acc84c02136e574da165bc686c3855092e66d13aef498b784acc42737 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | runtime-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/runtime-manifest.json | 4cf58093a2ef421a6aa6e10eb059cc757208a6dc21e3bc1e693d76dd7d079c21 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | eval-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/eval-manifest.json | 6b758caae5ae57a38d340575cb3a4aa448420e48223d6d3d20211af0ae969ef0 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | selected-inputs.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/selected-inputs.json | f7ece96d1277b7a2954ab3c3f440db1490fb10f0ece4e32fa965b1398b236d77 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | startup.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/startup.json | ce153b90ef280ec3293934816381e14cc1072f7ab09c1a570f003d42f9329726 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | checks-summary.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/checks-summary.json | 48e22b6ada334402b6ad863c73ff481ac54d46759ca3626343852b20855e4586 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | native-A-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/native-A-manifest.json | cfe46786553eb83741fccca22b4574a13f6f4e7301b7b4e56cc9b0da27bc8b2e | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | native-B-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/native-B-manifest.json | 1d8f0e2056c2a7a16ec3f0ffeb7d3f1e9e4d396ce715ae2a9995eb49d48f775e | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | native-C-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/native-C-manifest.json | 96a4a7d2a567a165765100e319a2df1cf01386cfeeb2124d88f894300d6decb7 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | author-fixtures.py | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/author-fixtures.py | 5a59aa325665abaf37215e762e78b88ee3f630d133abce8b7e94bb67d81c4084 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | local-checks.py | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/local-checks.py | 6f4c61c58a275353ce0295f1e9769fb280eda2fb2d54be46e34840f5c956858b | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | preflight-command-observations.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/preflight-command-observations.json | e8a7419e42cdb8ed314df6f1bfd874c8e21db02fbaac15bde864da1283473be1 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | failed-structure-source-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/failed-structure-source-manifest.json | 4f7ebfca69b3289b3f13600311f2e3c54d2a81edcc6dd38e1b05607e5ec3cd56 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | check-01.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-01.json | a1cf21ee59f9668b55b1fd4f27fed7444f714d6f5c098fe79a3fd8e9da59c0cd | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | check-02.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-02.json | 4b2c75cdbcce6e5400c1be699c256742b43b41c08e2fc71f6677d2999ce25fc0 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | check-03.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-03.json | 3ade9be399c4be165d12028d10937c9ed9b95bacd1f9b88d732dd56ef651273c | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | check-04.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-04.json | 12818a57bf087d06e38cbbdd9bd9096900e0f1f9166275dec842afb7b5f9da40 | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | check-05.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-05.json | 6daeca2095eb6aa8e56701f95d299022c7bf737b3dd962bf9abea2ad2db0cebb | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | check-06.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-06.json | 41f6b20eb65faae78d051c1fe2f778d618c6286648d0ea1e449ec416c1a118fa | complete file; named stable sections where present | finalized author record; not independent acceptance |
+| output | check-07.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/check-07.json | 32f771b298f907a85d32820c2b2d0dae783bee0a7388590ba620838821abbf7f | complete file; named stable sections where present | finalized author record; not independent acceptance |
+
+## HO-003 What changed and what remains open
+
+Added the two-mode Codex project-expert candidate: focused SKILL.md, checkpoint reference, exact shared handoff asset and linked derivation metadata. Runtime has four files. Added 13 authored variants, separate raw requests/expectations/visibility declarations, and nine fixed-split trigger queries. Source inventory has 184 files including evals; runtime export must omit evals and provenance/run sidecars. Source bytes are frozen in source-manifest.json.
+
+Preserved the earlier startup COULD_NOT_RUN: two execution calls failed before verification because /tmp/codex-code-mode-host was missing. After runtime correction 001, the first assignment read succeeded and the supplied recovery/start hashes matched. Selected input pairs, protected baseline, staged Codex creator, branch/base/status and absent candidate were verified before writes. Creator loading was explicit user invocation plus exact staged file read, not measured implicit discovery. No draft framework creator invocation or production architecture is claimed.
+
+XSPEC revision 1 used an inaccurate source heading “Required envelope”; revision 2 corrects it to “Standard envelope” before candidate creation. Both revisions remain preserved. The first structural command failed on malformed synthetic SKILL snapshots (check-02); the exact old source is retained in failed-structure-source. Corrected fixture frontmatter and dependent hashes preserve all case semantics. The subsequent full-worktree check failed on an active .devforge-runtime symlink (check-05). This validator/runtime scope interaction is assigned to integration/companion tooling ownership; no validator, policy, runtime state or protected file was modified to obtain a pass.
+
+Package-local checks pass, including actual digest/path rejection cases and exact fixture regeneration. These establish only the named mechanical properties. No native A/B/C, installation, baseline behavior, activation, semantic recovery test, independent acceptance or production adoption occurred. No peer candidate or private author history was consumed. Existing operator document modifications remain unchanged. No Git staging, refs, commits, reset, merge, push or publication was performed.
+
+## HO-004 Observed verification
+
+| Check | Outcome | Raw evidence / external receipt | Cause or scope limit |
+| --- | --- | --- | --- |
+| Earlier author tool startup | COULD_NOT_RUN | startup.json | Missing code-mode host, two attempts before verification |
+| Resumed actual author assignment read and prewrite pins | PASS | startup.json, selected-inputs.json | Actual tool read; supplied hashes, branch/base and protected inputs match |
+| Native creator quick_validate | PASS | check-01.json | Native frontmatter/naming/basic scaffold scope only |
+| First framework structural check | FAIL | check-02.json, failed-structure-source-manifest.json | Malformed synthetic snapshots; original bytes preserved |
+| Git diff whitespace | PASS | check-03.json | Tracked diff only; new source checked separately |
+| Initial package-local checks | PASS | check-04.json | Named mechanical properties only |
+| Required framework-wide recheck | FAIL | check-05.json | Validator encounters active private-runtime symlink; not changed or bypassed |
+| Corrected package/fixture/protected-state checks | PASS | check-06.json | All selected/protected bytes and Git branch/base/status fence; links, derivation, fixture digests/visibility |
+| Fixture generation reproducibility | PASS | check-07.json | Generated evals/asset/derivation byte-identical; no models |
+| Native installed resources C | NOT_RUN | native-C-manifest.json | Not allocated |
+| Native recovery comparison B | NOT_RUN | native-B-manifest.json | Not allocated |
+| Native discovery/activation A | NOT_RUN | native-A-manifest.json | Not allocated |
+| Production architecture preparation/binding | NOT_RUN | XPKG-003.md | No production ARCH/policy selected; bootstrap only |
+
+## HO-005 Continuation directory
+
+| Order | Task | Owner / skill | Prerequisites | Completion evidence |
+| --- | --- | --- | --- | --- |
+| 1 | Review this exact candidate and authoring evidence for integration disposition, including the framework-validator/runtime scope failure | Root Codex architect/integration operator | Resolve the frozen inventories, SESSION-003@1 and selected draft requirements; preserve author ownership until operator disposition | Saved scoped review and external receipt in an operator-authorized review outbox; explicit disposition and any subsequent evaluation allocation |
+
+## HO-006 Copyable next-session prompt
+
+Goal: Review the frozen Codex devforgeai-contribution-context stage-1 candidate for integration disposition.
+Context: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XPKG-003.md (XP-001 through XP-006); /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XSPEC-003-r2.md (XS-004 through XS-006); /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/source-manifest.json; /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/checks-summary.json; actual selected assignment /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/SESSION-003.md. Resolve full hashes from HO-002 and manifests.
+Output: One scoped review record and complete external receipt in your independently authorized review outbox; no review destination is invented here.
+Boundaries: Source /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context; author worktree/branch/base remain as assigned. Preserve shared inputs, peer work, companion controls, Git state and failed attempt bytes. Author still owns the worktree. Native evaluation allocation is zero; this recommendation does not authorize a model campaign.
+Verify: Read frozen source/runtime/eval identities; assess CCR-001..008 and all authored contrasts; disposition the check-05 runtime-symlink failure with its proper owner; distinguish static checks from native and independent acceptance.
+
+## HO-007 Resume and custody
+
+- Task output readback: all HO-002 output rows read before handoff preparation; candidate files read through the complete source manifest.
+- This handoff location: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/HANDOFF-003.md.
+- This handoff external receipt: computed only after final save/readback and delivered outside these bytes; do not add its digest here.
+- Worktree ownership disposition: retained under SESSION-003@1 until operator release; no cleanup assigned.
+- External gate state: no expert binding/evaluation/acceptance receipt; check-05 is the actual failed structural observation.
+- Invalidation: changed assignment/authority, selected source/contracts, candidate/runtime/eval bytes, base/branch, relevant runtime setup or findings requires affected reassessment and a distinct preserved revision.

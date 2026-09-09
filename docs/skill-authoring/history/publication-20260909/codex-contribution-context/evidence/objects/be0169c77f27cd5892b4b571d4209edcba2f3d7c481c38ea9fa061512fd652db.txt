@@ -1,0 +1,42 @@
+{
+  "recorded_at_utc": "2026-09-05T21:43:07.950203+00:00",
+  "review_root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-contributor-context-20260905T213708193042Z",
+  "scratch": "/tmp/contributor-validator-runtime-repro-v_9dkm18",
+  "source_file_count": 303,
+  "source_manifest_sha256": "bfbcbc19412c28962bf1aa1c804124939ad51ca010657de4e3d0791f8a6b563c",
+  "validator_sha256": "5ef17e17d78535b520a0a1e6d8166b7fbb92bb44b7a8804dfb1131b8dce392a2",
+  "original_check05_outcome": "FAIL",
+  "original_check05_exit_status": 2,
+  "source_only": {
+    "command": [
+      "python3",
+      "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+      "--framework",
+      "/tmp/contributor-validator-runtime-repro-v_9dkm18/framework-source"
+    ],
+    "exit_status": 0,
+    "stdout": "{\n  \"status\": \"PASS\",\n  \"skills\": 26,\n  \"scope\": \"structure only\",\n  \"behavior\": \"NOT_EVALUATED\"\n}\n",
+    "stderr": "",
+    "outcome": "PASS"
+  },
+  "synthetic_runtime": {
+    "command": [
+      "python3",
+      "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+      "--framework",
+      "/tmp/contributor-validator-runtime-repro-v_9dkm18/framework-source"
+    ],
+    "exit_status": 2,
+    "stdout": "",
+    "stderr": "BLOCKED: symlink not accepted: .devforge-runtime/codex/home/tmp/arg0/synthetic-smoke/codex-execve-wrapper\n",
+    "outcome": "FAIL"
+  },
+  "synthetic_symlink": "/tmp/contributor-validator-runtime-repro-v_9dkm18/framework-source/.devforge-runtime/codex/home/tmp/arg0/synthetic-smoke/codex-execve-wrapper",
+  "synthetic_target": "/tmp/contributor-validator-runtime-repro-v_9dkm18/benign-target",
+  "source_snapshot_unchanged": true,
+  "canonical_validator_unchanged": true,
+  "live_author_worktree_accessed": false,
+  "private_runtime_accessed": false,
+  "models_launched": 0,
+  "scope": "structural traversal reproduction only; no behavioral evaluation"
+}
