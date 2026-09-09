@@ -10,7 +10,20 @@ Creator exit: candidate + design/XSPEC + XPKG + change record + prepared evaluat
 
 Evaluator exit: EVPLAN + EVREPORT/evidence + repair specification + prepared creator handoff. Receiving prompt: `Use $devforge-project-expert-creator. Read the supplied evaluator handoff and bounded repair specification. Recheck the frozen candidate and findings; apply only authorized corrections to the selected canonical source, preserve unrelated behavior and old evidence, and prepare the next evaluator handoff.`
 
-These prompts become concrete when the producer supplies its saved handoff path. Sending a recommendation, writing a receiver prompt or calling a reviewer is not actual user-mediated transfer. Each receiver must load the producer's real artifacts; record exact inputs, outputs, outcome, remaining work and next invocation. The creator never runs target evaluation or installation.
+These sketches become concrete when the producer supplies its saved handoff and the receiver's actual package, input locations, output fence and applicable allocation are resolved. Follow the concise handoff guidance below. Sending a recommendation, writing a prompt or calling a reviewer is not user-mediated transfer. Each receiver must load the producer's real artifacts; record exact inputs, outputs, outcome and remaining work. The creator never runs target evaluation or installation.
+
+
+## Concise handoffs and retained evidence
+
+The handoff is the entry point to existing evidence. Keep the outcome, a short decision rationale, next owner/action, material blockers and permissions visible. Retain full requirements and reasons in the specification, changes and phase dispositions in the change record, and source/provenance inventories in the existing XSPEC/XPKG/manifests and preserved inputs. Save missing required information there before linking it; do not replace it with an unsubstantiated summary or add a parallel report bundle.
+
+Give a reading order with relevant requirement/finding/section IDs. Record exact pins once in the handoff envelope and use links or record names in the brief and receiving task. Read the selected candidate and requirements first; retrieve original sources or transcripts for an affected question instead of dumping every linked file. This routing does not reduce assigned review coverage, skip required evidence checks or make a missing observation pass.
+
+A copyable receiving task needs an actual available skill, resolvable candidate/evidence locations, an assigned writable destination and any required execution/review allowance. Resolve these for the receiving environment; a path mounted only inside the producer sandbox is not a usable host path. Carry settled authority forward. If a required binding is unknown, mark the transfer prepared with that prerequisite and its owner; provide a setup task rather than imply the evaluator is ready to run. Preparing the prompt neither invokes the receiver nor grants an allocation.
+
+Keep managed-only details in the applicable runtime record; load legacy managed guidance only for an actual managed assignment or an affected recovery question. Manual handoffs state the actual mode and significant missing evidence once. Existing phase/task classifications, required reports, qualification/adoption rules and creation-time evidence limits remain unchanged. Never add a later receipt or receiving result to the frozen producer handoff.
+
+Use the assigned durable artifact location and retain referenced exact bytes. Before an owner cleans up or relocates temporary evidence, preserve a snapshot and resolve its path mapping without altering historical bytes or claiming that a hash alone preserves content.
 
 ## Supported command boundaries
 

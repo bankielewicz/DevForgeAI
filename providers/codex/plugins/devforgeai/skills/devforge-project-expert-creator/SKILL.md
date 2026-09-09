@@ -48,7 +48,7 @@ Do not modify sibling DevForge gates, shared contracts, installer policy, the ac
 Use the conversation and supplied materials before asking questions. Establish the workflow, typical request, result, and target environment. Distinguish design-only work from authorization to create or enhance files. Once the necessary decisions and authoring scope are settled, proceed without adding a blanket approval checkpoint.
 
 - For a new idea or ordinary enhancement, use [the interview guide](references/interview-guide.md) and [the selection guide](references/existing-skill-selection.md).
-- For findings from `devforge-evaluate-expert` or another supplied validation report, read [the validator handoff guide](references/validator-handoff.md). Preserve its frozen target/specification, finding IDs, expected behavior, evidence, and prior results. The validator evaluates; this builder owns edits. Do not restart settled Q&A or execute the validator.
+- For findings from `devforge-evaluate-expert` or another supplied validation report, start with its handoff and named evidence sections, then read [the validator handoff guide](references/validator-handoff.md). Preserve its frozen target/specification, finding IDs, expected behavior, evidence, and prior results. The validator evaluates; this builder owns edits. Do not restart settled Q&A or execute the validator.
 
 ## Search for an existing owner of the workflow
 
@@ -100,9 +100,9 @@ Keep package resources self-contained and record derivations from selected share
 
 ## Deliver useful authoring content
 
-At actual authoring completion, transfer or a recovery checkpoint, populate [assets/handoff.md](assets/handoff.md). Do not create a new handoff for ordinary read-only discussion. Include the exact skill/specification references, decisions versus proposals, remaining issues, carried authority, next owner and copyable continuation task. Use [the managed authoring reference](references/managed-authoring.md) for creation-time observations and receipt boundaries.
+At actual authoring completion, transfer or a recovery checkpoint, populate [assets/handoff.md](assets/handoff.md) as a concise brief and reading order for the existing evidence. Keep the result, decision rationale, material limits, next owner and action visible; reference detailed specification/provenance/change records instead of repeating them. Follow [manual handoff guidance](references/manual-operation.md#concise-handoffs-and-retained-evidence) for exact pins, receiver path/output/allocation readiness and retention. Do not create a handoff for ordinary read-only discussion. Load [managed authoring](references/managed-authoring.md) only for an actual managed assignment or an affected recovery question; it does not govern unrelated manual steps.
 
-Record creation/enhancement/reuse rationale and search limits, canonical-to-installed mapping, before/after candidate references and per-F-###/CHG-### applied, deferred or declined dispositions. Preserve requirement IDs and former bytes. Partially authored work remains deferred with its missing scope. Source changes do not resolve old evaluation results.
+Keep creation/enhancement/reuse rationale and search limits, canonical-to-installed mapping, before/after candidate references and per-F-###/CHG-### applied, deferred or declined dispositions in the specification/change record. Link their relevant sections from the handoff. Preserve requirement IDs and former bytes; partially authored work retains its missing scope. Source changes do not resolve old evaluation results.
 
 The builder change record is substantive authoring evidence, not an authoritative runtime receipt. In managed operation the runtime computes final identities, preserves inspected bytes and publishes/readbacks its receipt. A containing document never includes its own complete-byte digest. Runtime observations absent at creation remain explicit; do not rewrite the handoff to claim later completion.
 

@@ -1,9 +1,9 @@
 {
   "schema_version": "devforge.skill-derivation/v1",
   "skill": "devforge-evaluate-expert",
-  "recorded_at_utc": "2026-09-08T18:52:43.939173+00:00",
+  "recorded_at_utc": "2026-09-09T03:29:03.771472+00:00",
   "path_base": "DevForge workspace root",
-  "source_selection": "F01\u2013F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved.",
+  "source_selection": "F01–F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved. User approved the concise handoff enhancement; affected actual baseline identities are pinned at 2031bf2e917bb4f2a2c9be717a74641b5801c409. Shared source selections and historical evidence remain unchanged.",
   "entries": [
     {
       "destination": "references/contracts/skill-authoring-contract.md",
@@ -26,7 +26,7 @@
           "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
         }
       ],
-      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "previous_destination_sha256": "8249704b58edb79dac5a6f29a5e6fdeea2d4f74e5b7e31e26fe745dd0b02e92b",
       "prior_destination_identities": [
@@ -87,7 +87,7 @@
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
         }
       ],
-      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation.",
+      "transformation": "Portable operational summary retaining applicable mandatory requirements; omit source-only links and unrelated application examples. Selected source remains governing. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
     },
     {
@@ -190,7 +190,7 @@
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
         }
       ],
-      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Synthesize framework identity, provider ownership, draft capability limits and the user-authorized paired utility boundary; do not amend the application roster. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "previous_destination_sha256": "7e2697f11df23f5c695327f62c4f534741968360b01b060e2ee90b420866ecbe"
     },
@@ -211,13 +211,13 @@
           "source_revision": null
         }
       ],
-      "transformation": "Retain SEVAL shared envelope; expand identity, static/AI/C/B/A evidence, findings, scope, comparison and continuation fields. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Retain SEVAL shared envelope; expand identity, static/AI/C/B/A evidence, findings, scope, comparison and continuation fields. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "previous_destination_sha256": "d5ff7a9edfa55e0373124bf98a37f298be783b1d90580eadfc65be6cd6c133aa"
     },
     {
       "destination": "assets/handoff.md",
-      "destination_sha256": "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5",
+      "destination_sha256": "80d10de30e8301242d42abc6078c412f3dcf1a446f1d0e31fd3c3571cbe0d23d",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
@@ -253,11 +253,19 @@
           "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
           "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md",
+          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+          "sha256": "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5"
         }
       ],
-      "transformation": "Retain shared handoff envelope, exact-byte custody and no self-digest; specialize continuation to builder remediation and validator retest. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. Bounded AL-01\u2013AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Retain shared handoff envelope, exact-byte custody and no self-digest; specialize continuation to builder remediation and validator retest. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. Bounded AL-01–AL-12 alignment: conditional utility operation, explicit mechanical scope and native gaps, historical source dispositions, creation-time receipt separation. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
-      "previous_destination_sha256": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea"
+      "previous_destination_sha256": "e1d796cd3c7d8907354dbe019283c5a20653ebfc46e381358f357b9cb6b51aea",
+      "prior_destination_identities": [
+        "0daa4aaa9fa17fd7637a1cd8b110d557deba406a724476a8db0d7ba929b158e5"
+      ]
     },
     {
       "destination": "assets/run-manifest.json",
@@ -270,7 +278,7 @@
           "source_revision": null
         }
       ],
-      "transformation": "Retain all native core fields; select Codex; add attempt/case/arm/transcript digest and observation/boundary references. Templates make no observed success claim. Add nullable environment_setup_ref to bind actual attempt preparation separately from the frozen plan. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Retain all native core fields; select Codex; add attempt/case/arm/transcript digest and observation/boundary references. Templates make no observed success claim. Add nullable environment_setup_ref to bind actual attempt preparation separately from the frozen plan. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "previous_destination_sha256": "b00f95960ea15652e7ce8447db09e8133b89694e98676c5ef4c315b69ee6dc0a"
     },
@@ -291,7 +299,7 @@
           "source_revision": null
         }
       ],
-      "transformation": "Derive shared envelope and custody semantics; introduce explicit local paired-utility remediation type, findings, changes, preservation constraints and rerun closure. Not a registered DevForge CLI schema. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Derive shared envelope and custody semantics; introduce explicit local paired-utility remediation type, findings, changes, preservation constraints and rerun closure. Not a registered DevForge CLI schema. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "previous_destination_sha256": "8c157dc1a696e987e2563ed12ff9c32b1cfe325fa2343b41a25863e4defbe64e"
     },
@@ -306,13 +314,13 @@
           "source_revision": "draft revision 3, 2026-09-07"
         }
       ],
-      "transformation": "Apply the selected execution boundary and worktree assignment rules to the user-selected alternative test environment. Git command semantics are separately attributed in references/sources.md. This does not refresh shared contract revisions. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Apply the selected execution boundary and worktree assignment rules to the user-selected alternative test environment. Git command semantics are separately attributed in references/sources.md. This does not refresh shared contract revisions. CHG-WA-01 separates bounded workspace preparation from complete native experiment allocation, with immutable setup/plan/run bindings; prior shared contract pins retained. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "previous_destination_sha256": "894de47b8a4bcf902bad737da57c5477da519d5c6dae96d283c8825b02f5fa7d"
     },
     {
       "destination": "SKILL.md",
-      "destination_sha256": "7985552fd23ac17848a335dd8a7bc0b6be6407c27bf09920aa83e9bb46ea395d",
+      "destination_sha256": "6ed2a5d7e91711a2f18a86e3131a81f23d36eafddcfa5f3e06af76cc303d1340",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/design-amendment.md",
@@ -342,11 +350,20 @@
           "preserved_path": "framework/DevForgeAI/docs/skill-authoring/history/skill-utilities-runtime-alignment-20260908/selected-runtime/runtime/delivery/utility_state.py",
           "sha256": "45d8a7aef0bd555754446d50436be07534ef7eae0bd0b3904da58d69ce6af511",
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
+        },
+        {
+          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md",
+          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+          "sha256": "b3a4e8085d7d122110d77a2886117f2d46aff2fb633c0cad87d230f5a45f33e1"
         }
       ],
-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved. The previously recorded destination hash did not match the selected baseline bytes; both identities are retained, and the added source pin identifies the actual baseline.",
       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
-      "previous_destination_sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39"
+      "previous_destination_sha256": "d1d80405e2dd7bf0283f13b48be088e3907686992c01a982daa0e191ec9faf39",
+      "prior_destination_identities": [
+        "7985552fd23ac17848a335dd8a7bc0b6be6407c27bf09920aa83e9bb46ea395d",
+        "b3a4e8085d7d122110d77a2886117f2d46aff2fb633c0cad87d230f5a45f33e1"
+      ]
     },
     {
       "destination": "references/enforcement-design.md",
@@ -382,7 +399,7 @@
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
         }
       ],
-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
       "previous_destination_sha256": "b596e439d6a1643afc3836b7457d6065aa529d285a60ba5712b5c03973b25c14"
     },
@@ -420,7 +437,7 @@
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
         }
       ],
-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
       "previous_destination_sha256": "0a7c4748726b738d5f39858bee4caf828a42b22aef4ba8630a00fdb1eaea06dd"
     },
@@ -458,7 +475,7 @@
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
         }
       ],
-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
       "previous_destination_sha256": "e2fbab0654555da37e8b242ec97db163ecb8166fc26a6f7da7da5033328648b8"
     },
@@ -496,13 +513,13 @@
           "source_revision": "8a9702523569e3713863a3abc8f811e17cedb926"
         }
       ],
-      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01\u2013F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Portable operational guidance for the reviewed mechanical utility interface; preserve native unavailability, author/evaluator separation, existing phases/tasks and worktree preparation option. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
       "refresh_condition": "New authorized source/interface selection; preserve former bytes and results, author bounded changes, regenerate named copies and evaluate independently.",
       "previous_destination_sha256": "526a4163d8e275c9bf00011e43fdbdd832f4a943fd90be151759dbf199544ae4"
     },
     {
       "destination": "references/manual-operation.md",
-      "destination_sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189",
+      "destination_sha256": "a8e56317e96ef279797f2215465c10d8b079659d8663615bee068a92bf335858",
       "sources": [
         {
           "path": "providers/codex/plugins/devforgeai/skills/skill-validator",
@@ -525,12 +542,18 @@
           "path": "framework/DevForge/docs/integration/manual-expert-adoption.md",
           "source_revision": "4859a279784f902d5f9dabcb0664907b24b297a5",
           "sha256": "c413f04d5786376ef4fc0dfec98fc391b21b1796f9cee48dc8a38955739023ca"
+        },
+        {
+          "path": "framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/references/manual-operation.md",
+          "source_revision": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+          "sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
         }
       ],
-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification.",
+      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification.",
       "prior_destination_identities": [
-        "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f"
+        "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f",
+        "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
       ]
     },
     {
@@ -555,7 +578,7 @@
           "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
         }
       ],
-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
+      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred.",
       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
     },
     {
@@ -580,7 +603,7 @@
           "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
         }
       ],
-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
+      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred.",
       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
     },
     {
@@ -605,7 +628,7 @@
           "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
         }
       ],
-      "transformation": "F01\u2013F08 manual operational derivative; managed/funding orchestration remains deferred.",
+      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred.",
       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification."
     }
   ],

@@ -19,93 +19,49 @@ missing_inputs: []
 
 # Prepared skill validation handoff
 
-Populate at completion, transfer or recovery using only observations already available when this document is authored. A prepared handoff is substantive continuation, not a runtime receipt or receiving invocation. Never amend it to claim a later check, publication or delivery event.
+Use at completion, transfer or recovery. Keep the populated brief about one page when practical; this is a usability target, not a gate. Follow [handoff preparation](../references/manual-operation.md#concise-handoff-and-retained-evidence), replace placeholders and remove template instructions. Retain the standard envelope. Record only facts observed when authored; preparation is not receiving execution.
 
-## You are here
+## Outcome and next action
 
-- Skill/use case: devforge-evaluate-expert evaluating {{exact target and goal}}.
-- Current phase / task state: {{P1-P6; complete reporting / partial / blocked}}.
-- Candidate passing state: {{separate from reporting completion}}.
-- Assignment / write fence: {{actual authority reference and permitted paths}}.
-- Authorization carried forward: {{existing user scope; no inferred additional permission}}.
+- **Result:** {{target; reporting complete/partial/blocked; separate candidate disposition and requested scope: Routine, Full, local unqualified baseline, or scoped inspection}}.
+- **Decision and why:** {{supported change IDs or no justified target changes; one short evidence-based reason; detailed rationale locator below}}.
+- **Next:** {{actual owner; one bounded action; completion evidence; last completed phase/task if resuming}}.
+- **Limits/blockers:** {{material findings, missing observations and required setup with owner; explicit acceptance/qualification/receiving state; no target edits by evaluator}}.
+- **Invocation readiness:** {{ready within the recorded assignment, or BLOCKED with exact missing receiver path, output fence, authority, review/execution allocation or stale inputs}}.
 
-## Inputs and completed outputs
+## Evidence and reading order
 
-Reference saved complete files; never include this handoff's own digest or create circular receipt references. Runtime owns managed final identities and authoritative custody. If those identities have not yet been supplied, retain the exact path with null and a cause. Unmanaged ordinary source/write identities may be labelled as author observations.
+Fill the envelope's upstream/evidence fields with exact saved record identities using the existing artifact contract. Put each pin once in this handoff; refer to its artifact ID and section below. Existing manifests and reports retain their linked file hashes. Preserve source bytes/snapshots and raw history; a digest alone cannot reconstruct them.
 
-| Direction | Artifact / revision | Path | SHA-256 | Relevant IDs | Freshness / decision state |
-| --- | --- | --- | --- | --- | --- |
-| input | {{candidate manifest/spec/plan}} | {{path}} | {{digest or unavailable cause}} | {{requirements}} | {{state}} |
-| output | {{verification report}} | {{path}} | {{digest}} | {{F IDs}} | {{state}} |
-| output | {{decision receipt or explicit unavailable}} | {{path or none}} | {{digest or none}} | {{checks}} | {{state}} |
-| output | {{enhancement specification}} | {{path}} | {{digest}} | {{CHG IDs}} | {{state}} |
-
-## Observed verification and remaining work
-
-| Group / task | Outcome | Exact raw evidence / receipt | Cause or limit |
-| --- | --- | --- | --- |
-| {{intake/structure/AI/C/B/A}} | {{outcome}} | {{path and digest}} | {{limit}} |
-
-Observed discoveries, supported defects, and new proposals: {{separate each}}.
-Unavailable observations: {{causes, scope effects, owners}}.
-Target edited by validator: No.
-External acceptance / adoption: {{actual reference or not granted / null}}.
-
-## Continuation
-
-| Order | Task | Owner | Prerequisites | Completion evidence |
-| --- | --- | --- | --- | --- |
-| 1 | {{apply justified changes, or resolve missing evaluation prerequisites}} | {{devforge-project-expert-creator or operator}} | {{CHG IDs and authority, or runtime facts}} | {{authored revision/change record or boundary receipt}} |
-| 2 | Reevaluate affected findings and regressions | devforge-evaluate-expert | {{new candidate identity and fresh frozen plan}} | {{new evidence and closure records}} |
-| 3 | Consider adoption for the observed scope | {{external acceptance owner}} | {{required evidence}} | {{actual decision reference}} |
-
-## Next-session prompt
-
-Use devforge-project-expert-creator to implement the authorized CHG items in {{enhancement specification path and digest}} against {{candidate manifest path and digest}}. Preserve {{requirement IDs}} and the existing enforcement choices. Write only within {{canonical scope}}. If identities differ, reconcile the change against the retained candidate before applying it. Return the new source manifest, change record and updated specification. Do not execute validation or activate hooks. Return the result to devforge-evaluate-expert for the listed reruns.
-
-When no target changes are justified, replace that prompt with the concrete operator/evaluation prerequisite task. Use an actual available skill name; do not invent a command or imply another skill has already run.
-
-## Custody and invalidation
-
-- Saved output paths and readback: {{completed outputs only}}.
-- This handoff location: {{actual saved path; no self-digest}}.
-- External handoff receipt: {{actual preexisting reference or null; later publication/readback NOT_RUN at creation}}. Protected runtime owns managed final-byte checks, snapshot, receipt publication/readback and transport. Do not call a receipt helper or controller as a fallback; never write a later digest back into this document.
-- Owned processes and assignment disposition: {{actual identities; retained/handed off/released with owner record}}.
-- Invalidating changes: {{candidate, installed copy, cases, rubric, contracts, baseline, runtime, assignment}}.
-- Resume point: {{last completed phase and exact pending task}}.
-
-## Workspace preparation and native continuation
-
-- Selected environment and carried authorization: {{actual choice and source}}.
-- Frozen workspace allocation references/count/paths: {{saved path and SHA-256, or non-Git reason}}.
-- Preparation observations: {{saved setup references; actual retained paths and statuses}}.
-- Remaining native inputs/readiness: {{model/auth/budgets/observations/boundaries still missing; no inference from creation}}.
-- Complete experiment plan and attempt/workspace/client-state bindings: {{saved refs, or explicit pending cause}}.
-- Additional workspaces: {{new bounded allocation or none; no silent independent-attempt reuse}}.
-- Protected runtime admission/integration status: {{actual evidence or unavailable; no active-enforcement claim from templates}}.
-
-Prepared workspaces can be delivered with native execution NOT_RUN and dependent observations COULD_NOT_RUN. Preserve all old allocations, setup records, plans and attempts. No cleanup, acceptance or release follows from preparation.
-
-## Creation-time runtime observations
-
-| Observation | Outcome at creation | Exact evidence or missing cause |
+| Read | Existing record and section locator | Purpose |
 | --- | --- | --- |
-| Handoff preparation | {{prepared / partial}} | {{saved substantive outputs}} |
-| Protected final-byte checks | {{observed / NOT_RUN}} | {{actual evidence or null with cause}} |
-| Runtime receipt publication/readback | {{separate actual observations / NOT_RUN}} | {{actual evidence or null with cause}} |
-| Runtime transition admission | {{observed / NOT_OBSERVED}} | {{actual evidence or null with cause}} |
-| Receiving skill invocation | {{observed / NOT_RUN}} | {{allocated execution evidence or null with cause}} |
-| Rendered human delivery | {{observed / NOT_OBSERVED}} | {{actual observation or null with cause}} |
+| First | {{EVREPORT/verification results: Decision and coverage; Recovery and continuation}} | Outcome, justified next action and missing evidence |
+| Then | {{repair specification: Change decision; allowed scope; selected CHG IDs}} | Requirements, rationale, invariants and bounded changes; or evaluation prerequisites only |
+| Before dependent work | {{EVPLAN/assignment: exact scope, writes, review/execution bounds; XPKG/source manifest and XSPEC/spec sections}} | Verify current authority and the affected candidate/specification bytes |
+| When investigating | {{EVREPORT Findings and evidence locators; relevant case/attempt/source snapshot}} | Trace a specific finding, dispute or recovery question to retained observations |
 
-These fields do not authorize new execution, expand the budget or transfer a protected lease. Changed source, installation, runtime, assignment or accepted inputs requires affected reconciliation and new evidence.
+Open relevant records in that order, not every linked transcript or reference. Complete required checks/reviews remain required; selective retrieval does not narrow their coverage. Use retained storage accessible to the receiver. Identify any retention/access limit and its owner; if a required record cannot be retrieved or preserved through the assigned transfer, mark that dependent action blocked. A temporary path alone does not establish loss or authorize cleanup.
 
-## Manual transfer and scope
+## Copyable next task
 
-- Detailed source/XSPEC/XPKG or EVPLAN/EVREPORT references: {{exact saved artifacts and section IDs}}
-- Actual requested claim and Routine/Full selection: {{mode, scope, reasons and reviewer status}}
-- Accepted baseline/current Routine/qualified anchor: {{distinct exact references or missing causes}}
-- Immediate/cumulative impact and compatibility: {{exact records and unresolved dependencies}}
-- Receiving invocation: {{one copyable user task with this handoff's saved path and the receiver name}}
-- Receiving evidence at creation: {{NOT_RUN unless the receiver has actually loaded and acted on real producer artifacts}}
+Populate only with verified receiving-environment paths and the existing assignment. A host path and a sandbox mount alias are different locators; show the verified mapping in the referenced assignment. If setup is missing, replace the code block with the concrete operator prerequisite task and mark readiness BLOCKED; do not supply a supposedly runnable prompt with unresolved placeholders.
 
-The prepared handoff authorizes no automatic receiver or command. Carry existing user authority forward; retain failures and new-candidate identities. The trusted installer separately requires current manual adoption evidence. The evaluator's own handoff does not recursively trigger Full qualification.
+```text
+Use $devforge-project-expert-creator, loading {{actual accessible receiver SKILL.md}}.
+Read {{this saved handoff path}} and follow its evidence reading order.
+Implement only {{authorized CHG IDs}} from the referenced repair specification.
+Verify the frozen candidate and affected specification references before writing;
+preserve their requirements, Enforced choices, unrelated behavior and old evidence.
+Canonical write fence: {{assigned paths}}. Save new records to {{assigned output directory}}.
+Use only {{existing assignment/allocation reference and relevant section}}; do not
+execute validation, install, activate hooks or initiate another receiving skill.
+Return the new candidate manifest, change record, updated specification and prepared evaluator handoff.
+```
+
+When no target changes are justified, use the concrete operator/evaluation prerequisite task instead. The evaluator does not fix the target or authorize new execution. A subsequent user-initiated evaluation requires its own current assignment; this prepared return neither starts it nor recursively triggers Full qualification.
+
+## Continuation details, when needed
+
+Reference {{EVREPORT Recovery and continuation / Workspace preparation and native continuation}} for retained workspaces, owned processes, assignment disposition, pending readiness and invalidating input changes. Keep a consequential blocker visible above; do not duplicate the full records here.
+
+For an actually selected managed assignment only, reference its creation-time final-byte checks, receipt publication/readback, transition, receiving and rendered-delivery observations with their distinct outcomes. Runtime owns authoritative custody and lease transfer; ordinary manual identities are evaluator observations. Omit managed details in ordinary manual use. Never add this document's own digest, call a controller as fallback, or rewrite it to claim a later receipt. Preserve prior artifacts and use a separate later record for new events.

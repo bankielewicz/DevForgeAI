@@ -8,7 +8,7 @@ status: draft
 created_at_utc: "{{actual-UTC-time}}"
 producer:
   skill: devforge-project-expert-creator
-  skill_revision: "{{actual-loaded-builder-revision-or-digest}}"
+  skill_revision: "{{actual-loaded-creator-revision-or-digest}}"
 execution_ref: null
 upstream: []
 evidence: []
@@ -17,86 +17,46 @@ decision_ref: null
 missing_inputs: []
 ---
 
-# Prepared skill authoring handoff
+# Authoring handoff: {{target skill}}
 
-Populate only at actual authoring completion, transfer or a recovery checkpoint. Use the shared envelope above; populate upstream/evidence with exact known references and use null plus missing_inputs for unavailable identity or runtime observations. This is substantive continuation content, not a runtime receipt or new authority.
+Populate at completion, transfer or recovery. Aim for a brief a person can scan; length is not an acceptance gate. Preserve the full specification, rationale, change/phase record and raw evidence in their existing files. Replace these directions with actual content.
 
-## You are here
+## Result and next action
 
-- Skill and use case: {{target skill, provider, requested result}}.
-- Current task/phase state: {{actual phase from runtime, or unmanaged authoring/recovery; complete/partial/blocked content}}.
-- Document preparation: {{prepared or partial}}.
-- Runtime transition admission: {{actual observation/reference or NOT_OBSERVED}}.
-- Receiving skill invocation: {{actual observation/reference or NOT_RUN}}.
-- Session/worktree assignment and existing write fence: {{actual authority, worktree/branch/base, allowed paths; missing values and reasons}}.
-- Existing authorization carried forward: {{user-selected scope and decision references; no expanded permission}}.
+- Result: {{what was created/reused/enhanced; complete/partial authoring; candidate identity via the evidence below}}.
+- Why: {{one decision affecting continuation; reference the detailed decision/change record}}.
+- Limits and blockers: {{validation/hook status; unresolved findings/questions, authority or readiness that affects the next action}}.
+- Next: {{one concrete task, actual owner/skill, permitted writes and expected deliverable}}.
+- Readiness: {{ready within the existing receiver assignment, or prepared with the exact missing prerequisite and its owner}}.
 
-## Inputs consumed and outputs produced
+## Evidence and reading order
 
-Exclude this document's own digest. Use complete saved artifact references; runtime computes final identities in managed operation. If that has not occurred, retain exact paths with null identities and reasons, rather than claiming protected checks. Ordinary unmanaged authoring observations may be identified as such. Do not create circular references through a later receipt.
+Put exact path/SHA-256 references once in upstream/evidence; use links or names below to navigate them. The candidate manifest maps source files; XSPEC/XPKG and the change record retain detailed identities, requirements, decisions, phase dispositions and provenance. Do not copy their inventories here.
 
-| Direction | Artifact ID/revision | Store/path | SHA-256 or unavailable reason | Relevant sections | Decision/freshness state |
-| --- | --- | --- | --- | --- | --- |
-| input | {{selected specification/contracts}} | {{exact paths}} | {{identities}} | {{requirements}} | {{selection source}} |
-| input | {{former candidate/report}} | {{retained paths}} | {{identities}} | {{F/CHG IDs}} | {{historical; unchanged}} |
-| output | {{authored skill manifest and specification}} | {{exact paths}} | {{observed identities or unavailable}} | {{changes}} | {{new candidate; unvalidated}} |
-| output | {{substantive change record/integration specification}} | {{exact paths}} | {{observed identities or unavailable}} | {{remaining scope}} | {{prepared}} |
+| Read when | Existing record and relevant sections/IDs | Purpose |
+| --- | --- | --- |
+| First | {{candidate manifest/XPKG and specification/XSPEC links}} | Select exact candidate and assigned requirements. |
+| Before acting | {{change/phase record and decision references}} | Preserve decisions, boundaries, pending work and honest evidence limits. |
+| For an affected question | {{input/discovery records, retained sources or prior reports; exact section/finding IDs}} | Recover rationale, alternatives, search limits and original evidence. |
 
-## What changed and what remains open
+Missing required detail must be saved in the appropriate record and referenced, or named in missing_inputs; shortening the handoff cannot discard it. Required review coverage still applies.
 
-- Applied/deferred/declined changes and preserved behavior: {{F/CHG mapping and reasons}}.
-- Adopted decisions: {{actual source; preserve named Optional/Enforced groups}}.
-- Proposals/defaults not adopted: {{separate suggestions}}.
-- Material unanswered questions and independent work: {{question, dependency, pending owner}}.
-- Runtime/installation/evaluation gaps: {{actual missing capability; no self-issued approval}}.
+## Copyable next-session task
 
-## Observed completion evidence
+Include a task ready for the assigned receiving environment only when its skill location, input locations, writable output destination and required execution/review allowance are known. Distinguish host paths from sandbox mount aliases. Otherwise provide the concrete prerequisite task and label evaluation pending; do not leave a runnable-looking prompt with unresolved allocations.
 
-Record only observations that existed when this document was authored. Leave later operations NOT_RUN/NOT_OBSERVED with their cause; never rewrite this document to assert a later receipt.
+```text
+Use {{actual available receiving skill and its resolved SKILL.md path}}.
+Read {{this saved handoff path}} and follow its reading order.
+Perform {{one authorized task and scope}} on the candidate/specification
+identified there, preserving {{essential decisions and constraints}}.
+Write {{required results and next handoff}} to {{assigned output directory}}.
+Use {{existing receiver/review allocation or its exact reference}}.
+Stop at {{completion or stated missing prerequisite}}.
+```
 
-| Check | Outcome | Raw evidence / external receipt | Cause or scope limit |
-| --- | --- | --- | --- |
-| Substantive authoring outputs | {{saved/partial}} | {{completed paths}} | Source content only |
-| Validation | Not performed | none | Separate allocated evaluation required |
-| Runtime final-byte checks | {{observed or NOT_RUN}} | {{actual reference or null}} | {{creation-time limit}} |
-| Runtime receipt publication/readback | {{observed or NOT_RUN}} | {{actual reference or null}} | {{creation-time limit}} |
-| Native transition / receiving invocation / rendered delivery | {{separate observations or NOT_OBSERVED / NOT_RUN}} | {{actual references or null}} | A prepared document proves none of these |
+## Retention and continuation limits
 
-## Continuation directory
+Retain exact referenced bytes and earlier failures. A hash cannot recover a missing source. Use the assigned artifact storage; before cleanup or relocation, preserve evidence and an explicit path mapping. Record affected identity changes in a new revision rather than rewriting prior evidence.
 
-| Order | Task | Allocated owner / skill | Prerequisites | Completion evidence |
-| --- | --- | --- | --- | --- |
-| 1 | {{one immediate next task}} | {{actual owner role; unknown personal identity remains explicit}} | {{authority, candidate, contract, boundaries}} | {{concrete artifact/evidence expected}} |
-| 2 | {{dependent evaluation or integration}} | {{owner}} | {{unmet dependencies}} | {{separate observations}} |
-
-## Copyable next-session prompt
-
-Goal: {{one concrete next result for the allocated owner}}.
-Context: {{exact specification, candidate manifest and relevant sections; preserved decisions}}.
-Output: {{named collision-safe deliverable in the assigned destination}}.
-Boundaries: {{existing authorization, worktree/fence, forbidden changes and no implicit receiver invocation}}.
-Prerequisites: {{missing authority/runtime/input observations before dependent work}}.
-Completion evidence: {{what the next owner must produce under its own allocation; this does not launch it}}.
-
-Use actual skill names or known interfaces. For an unimplemented adapter, request implementation of that capability under its owner's assignment; never present a fictional command as callable.
-
-## Resume and custody
-
-- Task-output write/readback observations: {{actual completed outputs only, scope and observer}}.
-- This handoff's location: {{saved path; no self-digest}}.
-- External receipt: {{actual preexisting runtime reference or null; later publication/readback NOT_RUN at creation}}. Runtime owns managed final identities, protected snapshot and receipt publication/readback. No model-driven advance/resume/complete/check/verify or receipt-helper fallback.
-- Worktree ownership disposition: {{actual retained/handed-off/released record; prepared text does not transfer ownership}}.
-- External gate state: {{actual observed reference or unavailable}}.
-- Resume point: {{last substantive result and exact pending task}}.
-- Invalidation: {{candidate/specification/selected sources/assignment/runtime/installation changes require affected reconciliation and new evidence; preserve prior bytes and outcomes}}.
-
-## Manual transfer and scope
-
-- Detailed source/XSPEC/XPKG or EVPLAN/EVREPORT references: {{exact saved artifacts and section IDs}}
-- Actual requested claim and Routine/Full selection: {{mode, scope, reasons and reviewer status}}
-- Accepted baseline/current Routine/qualified anchor: {{distinct exact references or missing causes}}
-- Immediate/cumulative impact and compatibility: {{exact records and unresolved dependencies}}
-- Receiving invocation: {{one copyable user task with this handoff's saved path and the receiver name}}
-- Receiving evidence at creation: {{NOT_RUN unless the receiver has actually loaded and acted on real producer artifacts}}
-
-The prepared handoff authorizes no automatic receiver or command. Carry existing user authority forward; retain failures and new-candidate identities. The trusted installer separately requires current manual adoption evidence. The evaluator's own handoff does not recursively trigger Full qualification.
+Prepared transfer is not receiving execution or acceptance. No target validation, installation, hook activation or automatic receiving invocation is authorized by this document. In unmanaged mode, label hashes as author observations. If an actual managed assignment applies, reference its runtime/custody record and unresolved observations here; do not reproduce it. No self-digest or circular receipt references.
