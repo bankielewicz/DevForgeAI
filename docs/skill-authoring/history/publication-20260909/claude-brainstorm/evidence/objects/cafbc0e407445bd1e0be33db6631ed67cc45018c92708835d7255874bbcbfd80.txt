@@ -1,0 +1,186 @@
+#!/usr/bin/env python3
+"""A-arm launch/completion and nonlaunch outcomes (CC7-008, CC7-010).
+
+CHG-012 and CHG-014, authored against the selected r7 baseline
+`control/controller.py:81-93` (`claim_attempt`) and PLAN.json:28,90-110.
+Authored, not executed: `launch` takes the launcher as an argument and this
+allocation supplies none.
+
+CC7-010: `claim_attempt` already refuses a preexisting destination, but its
+caller went on as though a refusal were a launch. A refused arm must leave no
+admission marker, must leave the existing bytes exactly as they were, and must
+record a nonlaunch outcome that is not an arm result. An ordinary nonlaunch
+refusal is a clean, truthful outcome -- it is not a successful arm, and it is
+not a failure of the candidate either.
+
+CC7-008: an A arm's result is an activation observation bound to its own case
+and its own unchanged query bytes. A marker is not the observation.
+"""
+import hashlib, json, os
+
+A_CASES = ("A3a", "A5a")
+NONLAUNCH = ("REJECTED_PREEXISTING_DESTINATION", "REJECTED_INSUFFICIENT_CAP")
+
+
+def _sentinel_state(path):
+    """What is at the destination now, recorded before anything is decided.
+
+    CHG-014: revision 2 recorded `os.path.getsize`. Equal sizes are not equal
+    bytes, so a size map could not tell "left exactly as found" from "rewritten
+    to the same length", which is precisely the claim the nonlaunch path has to
+    support. Digests are recorded instead, and the size is kept beside them
+    because it is cheap and it makes a truncation obvious to a reader.
+    """
+    if not os.path.isdir(path):
+        return None
+    out = {}
+    for d, _, fs in os.walk(path):
+        for f in sorted(fs):
+            p = os.path.join(d, f)
+            rel = os.path.relpath(p, path)
+            try:
+                h = hashlib.sha256()
+                with open(p, "rb") as fh:
+                    for b in iter(lambda: fh.read(1 << 16), b""):
+                        h.update(b)
+                out[rel] = {"sha256": h.hexdigest(), "bytes": os.path.getsize(p)}
+            except OSError as exc:
+                out[rel] = {"sha256": None, "bytes": None, "unreadable": str(exc)[:120]}
+    return out
+
+
+def sentinel_preserved(before, after):
+    """Did the refusal leave the existing evidence exactly as it was?
+
+    A nonlaunch claims preservation, so the claim is checked rather than
+    asserted: same key set, same digest for every key. A size-only inventory
+    could not have answered this (CC7-010).
+    """
+    if before is None and after is None:
+        return {"check": "sentinel_preservation", "outcome": "NOT_APPLICABLE",
+                "reason": "no destination existed before or after; nothing to preserve"}
+    if before is None or after is None:
+        return {"check": "sentinel_preservation", "outcome": "FAIL",
+                "reason": "destination appeared or vanished across the refusal"}
+    added = sorted(set(after) - set(before))
+    removed = sorted(set(before) - set(after))
+    changed = sorted(k for k in set(before) & set(after)
+                     if before[k].get("sha256") != after[k].get("sha256"))
+    ok = not (added or removed or changed)
+    return {"check": "sentinel_preservation",
+            "outcome": "PASS" if ok else "FAIL",
+            "added": added, "removed": removed, "changed": changed,
+            "compared": len(before),
+            "reason": ("every preexisting file is present with the byte-identical digest it had "
+                       "before the refusal" if ok else
+                       "the refusal did not leave the destination as it found it")}
+
+
+def run_a_arm(case, selector, budget_remaining, cap, run_root, launcher=None,
+               prompt=None):
+    """Admit, or refuse and say so.
+
+    Returns a record whose `marker_written` is the whole question CC7-010 turns
+    on: a refused arm writes none, and its `outcome` is a nonlaunch status
+    rather than PASS or FAIL, because nothing about the candidate was observed.
+    """
+    if case not in A_CASES:
+        return {"case": case, "outcome": "FAIL", "marker_written": False,
+                "reason": "unknown A case; the plan names exactly %s" % ", ".join(A_CASES)}
+
+    # R9-CI-005 / CHG-012. Revision 2 copied `selector["query_sha256"]` and stated
+    # `prompt_bytes_unchanged: True` beside it. The selected trigger rows carry
+    # id/query/should_trigger/split/category and no query_sha256, so the emitted
+    # identity was null while the record still claimed the bytes were unchanged
+    # -- an assertion about bytes nobody had hashed. The digest is derived here
+    # from the exact selected query bytes, and "unchanged" is decided by
+    # comparing the prompt actually handed to the launcher against them, so a
+    # launch-time mutation is caught instead of being asserted away.
+    query_text = selector.get("query")
+    if not isinstance(query_text, str):
+        return {"case": case, "outcome": "COULD_NOT_RUN", "marker_written": False,
+                "query_id": selector.get("id"),
+                "reason": "selected row carries no query text, so no query identity can be "
+                          "derived and no prompt can be compared against it"}
+    selected_sha = hashlib.sha256(query_text.encode("utf-8")).hexdigest()
+    launch_prompt = query_text if prompt is None else prompt
+    launched_sha = hashlib.sha256(launch_prompt.encode("utf-8")).hexdigest()
+
+    rec = {"case": case, "query_id": selector.get("id"),
+           "selected_query_sha256": selected_sha,
+           "launched_prompt_sha256": launched_sha,
+           "query_identity_source": "derived from the selected row's own query bytes",
+           "prompt_bytes_unchanged": launched_sha == selected_sha,
+           "marker_written": False,
+           "note": "The case selector is explicit. A5a is not invoked by an A3a scenario, and a "
+                   "valid A3a scenario requires A5a non-invocation to be recorded as its own PASS."}
+
+    if selector.get("query_sha256") and selector["query_sha256"] != selected_sha:
+        rec.update(outcome="FAIL", launched=False, control_completion="CLEAN",
+                   declared_query_sha256=selector["query_sha256"],
+                   reason="the row declares a query digest that does not equal the digest of its "
+                          "own query bytes; the declared value is not adopted")
+        return rec
+    if not rec["prompt_bytes_unchanged"]:
+        rec.update(outcome="FAIL", launched=False, control_completion="CLEAN",
+                   reason="the prompt handed to the launcher is not the selected query bytes. "
+                          "Phase A observes selection from the unchanged selector, so a "
+                          "launch-time mutation makes the observation answer a different question")
+        return rec
+
+    dest = os.path.join(run_root, "attempts", case)
+    before = _sentinel_state(dest)
+
+    if before is not None:
+        rec.update(outcome="REJECTED_PREEXISTING_DESTINATION", launched=False,
+                   attempt_dir=dest, preexisting=before,
+                   preserved_sentinel=before,
+                   sentinel_preservation=sentinel_preserved(before, _sentinel_state(dest)),
+                   control_completion="CLEAN",
+                   reason="attempt destination already exists; refusing to launch over another "
+                          "attempt's evidence. No marker is written, the existing bytes are left "
+                          "exactly as found, and this is a recorded nonlaunch outcome rather than "
+                          "an arm result")
+        return rec
+
+    if budget_remaining is None or budget_remaining <= cap:
+        rec.update(outcome="REJECTED_INSUFFICIENT_CAP", launched=False,
+                   attempt_dir=dest, cap_s=cap, remaining_s=budget_remaining,
+                   control_completion="CLEAN",
+                   reason="remaining budget does not cover this arm's cap; refusing to start work "
+                          "that cannot finish inside the original allocation. No marker, no "
+                          "partial attempt directory, and no new deadline")
+        return rec
+
+    if launcher is None:
+        rec.update(outcome="NOT_RUN", launched=False, attempt_dir=dest,
+                   control_completion="CLEAN",
+                   reason="no launcher supplied; this allocation authorizes zero native arms and "
+                          "nothing is launched. NOT_RUN is the honest value and it is not a "
+                          "negative activation result")
+        return rec
+
+    try:
+        os.makedirs(dest)          # deliberately not exist_ok: the claim is the check
+    except FileExistsError:
+        rec.update(outcome="REJECTED_PREEXISTING_DESTINATION", launched=False,
+                   attempt_dir=dest, control_completion="CLEAN",
+                   reason="destination appeared between the inspection and the claim; refusing")
+        return rec
+
+    rec.update(launched=True, attempt_dir=dest, marker_written=True,
+               outcome="LAUNCHED",
+               reason="destination claimed exclusively; the arm's own activation observation "
+                      "decides PASS or FAIL, and this marker records only that it was admitted")
+    rec["launcher_result"] = launcher(case, selector, dest)
+    return rec
+
+
+def nonlaunch_is_not_a_result(rec):
+    """Guard for the gate: a nonlaunch never becomes an arm outcome."""
+    return {"case": rec.get("case"),
+            "counts_as_arm_result": rec.get("outcome") not in NONLAUNCH + ("NOT_RUN",),
+            "creates_admission_marker": bool(rec.get("marker_written")),
+            "note": "An ordinary refusal to launch is a truthful control outcome. It is neither a "
+                    "successful arm nor evidence about the candidate, and it must not satisfy a "
+                    "downstream prerequisite."}

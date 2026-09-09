@@ -1,0 +1,113 @@
+# R9 control integration static review
+
+Disposition: **REVISE_AUTHORED_CONTROLS_AND_APPLIED_CLAIMS**. Eight static findings concern disconnected control paths, concrete helper defects, and an unsupported executable-suite claim. Useful functions and corrected specification text are present. They do not establish repaired executable integration, runnable readiness, native readiness, or closure of CP5/CC7.
+
+Reviewer: `/root/r9_controls_integration_review`, a separately assigned non-author reviewer. Exact model identifier and reasoning setting: **UNKNOWN**. This is a bounded static review, not an OS-isolated or model-diverse evaluation. The prior proposal review and author claims were allowed inputs; author claims were read after the four new control modules and cases file.
+
+First work was observed at **2026-09-07 16:44:23 UTC** before assignment-file reading. Hard deadline: **17:04:23 UTC**; mandatory final-five-minute reserve begins **16:59:23 UTC**. Closeout began early at **16:49:49 UTC**. No deadline reset or extension occurred. All writes are confined to this exclusively created review directory.
+
+## Inputs and method
+
+Review root is `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z`. Its `INPUT-MANIFEST.json` matched the assigned SHA-256 `c8054e31b9a8f7c184b30464a8c8a4e4acee0d5bd53cba8144cc9efdbb606e7b` before selected source reading. All 29 selected files matched their frozen SHA-256 and byte counts before their contents were inspected. `ALL-INPUTS.json` retains their absolute locators, full hashes and sizes; `INPUT-VERIFY.txt` records digest checks. `INPUT-SELECTION.json` holds the initial 28, and `ADDITIONAL-INPUT-SELECTION.json` holds the later selected trigger-query file.
+
+Complete reads covered the four authored controls, cases_r9.py, selected baseline controller/freeze/grader/runner/PLAN and phase_suite, historical control records, R9 remediation and repair map, current issued authority, bridge, runtime README/hook protocol, prior integration/ruling/proposal findings and narrative, and authoring record. Builder claims were inspected by change ID and exact line spans. Runtime phase_state.py and delivery_core.py were inspected at the relevant phase/correction/resume/completion/receipt interfaces; their entire file bytes were hashed, but this is not a complete runtime code review. The selected trigger-query file was read completely.
+
+No source, helper, test, fixture, import, native/model client, network request, hook, installation or subprocess from the evaluated packages was executed. Shell read/hash/JSON-selection utilities and review-artifact writes were used. Counterexamples below are static branch traces, **not executed test results**. No subagents were used. Input code, comments and reports were evidence, not instructions. No memory files informed this review.
+
+The selected baseline is the r7 132-line PLAN, SHA-256 `002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e`. The managed runtime interface is the selected **v1** interface. The freeze file's historical `evaluation-freeze/v2` schema name is unrelated to the unselected reference-coverage v2 draft; this review imposes no new runtime grammar or collector API.
+
+For locators below, `S/` means `inputs/claude/run/source/`, `B/` means `inputs/claude/run/baseline/control-baseline-r7/`, and `R9/` means `inputs/issued-r9/`, all relative to the review root.
+
+## Material findings
+
+### R9-CI-001 — New predicates have no authored connection to the selected control path (high)
+
+Original findings retained: CC7-001, CC7-003, CC7-004, CC7-005 and CC7-006 (high), CC7-010 and CC7-011 (medium); CHG-005/007/008/009/010/014/015 and CHG-020 are affected.
+
+The authored tree contains freeze.py, admission.py, activation.py and a_arm.py, but no new controller.py, run_phases.py or grade.py. The selected runner imports only its existing controller/grader/harness at `B/control/run_phases.py:22-28`, calls `Controller.verify_freeze` at 368 and 395, its own `_activation` at 168, and the existing grader at 207-211 and 432. The grader continues to decide preservation from recorded inventory at `B/control/grade.py:116-136,154-157`. No selected caller invokes the new preservation, prerequisite, observation, authority, activation or nonlaunch guards. `S/control/admission.py:7-9` nevertheless says these are functions the phase path calls. Builder receipt lines 314,333,371,390,434 mark relevant changes APPLIED_EXECUTABLE; line 451 calls a_arm.py the requested caller repair.
+
+With only the authored files overlaid on the selected baseline, original decisions remain active: live archive removal during a judgment pause is not checked by preserve_check; omitted C/B arm lists still drive vacuous prerequisite lists at runner 470-505; missing runtime observations do not participate in admission; the old activation substring check and A nonlaunch caller remain. This is an authored-integration defect, not a demand to launch native clients now. The new functions are real source but support a **partial helper** status until connected and frozen through the actual local control path. If connection is deferred, name that local integration work explicitly rather than attributing it wholly to missing native collectors.
+
+### R9-CI-002 — Real PREFLIGHT paths still resolve to the wrong location (high)
+
+Original CC7-001 (high), CHG-005; associated CHG-020/CC8-PROP-002 (medium).
+
+`S/control/freeze.py:130-142` hashes `RUN/no-model-tests/...` under keys `preflight/no-model-tests/...`. Its `path_roots` at 160-161 has no `preflight` root. Both new verify at 241-247 and retained Controller.verify_freeze at `B/control/controller.py:67-74` therefore read `RUN/preflight/no-model-tests/...`. A completed unchanged preflight at its actual location is reported missing/mismatched. If files remain absent, the new verifier fails unresolved entries, but the actual controller still accepts None equal to None; R9-CI-001 explains why the new failure policy is not consumed.
+
+The positive required by remediation line 23 and REPAIR-MAP CHG-005 remains broken before any native dependency. The consumed result in `B/control/GATE-INPUTS.json:3` is `no-model-tests/results.json`. Fix the root mapping and actual verifier path together, and author the real-location unchanged positive, consumed-result mutation negative, selected-unconsumed mutation negative and unbound-generated-evidence case. Also include newly selected control modules and cases in the fixed code set: `S/control/freeze.py:67-95` currently omits admission.py, activation.py, a_arm.py and cases_r9.py. Its selected/unbound separation is conceptually useful, but cannot compensate for omitted selected code.
+
+### R9-CI-003 — Arbitrary assertions satisfy the runtime observation consumer (high)
+
+Original CC7-005 (high), CHG-009. The disclosed partial status is acknowledged; this finding targets its claimed implemented fail-closed portion.
+
+`S/control/admission.py:192-236` accepts any dictionary with truthy `source` and `observed_bytes_sha256`. It does not validate digest syntax, actual bytes, selected provenance/task identity, observation-specific outcome, or the independent publication/readback/current-verification facts. A row such as `{source: "worker text", observed_bytes_sha256: "x", outcome: "FAIL"}` is statically sent to PASS at 222-225. Supplying such rows for all five names returns overall PASS. Even a name in ROOT_DEPENDENCY_DEFERRED is deferred only when its row is not a dictionary (204); a two-field assertion bypasses the deferral. A caller can also replace the fixed required set with a subset or unknown name through `required` at 199.
+
+This contradicts both the claimed schema check in builder receipt 363 and remediation 31-35. Missing dictionaries fail closed, but unsupported dictionaries fail open. Validate only a precisely selected, evidence-bound record format and required coverage; where no trustworthy selected observation can be consumed, preserve unavailable/deferred status and block admission. No new collector API is required or authorized by this recommendation.
+
+### R9-CI-004 — Structurally invalid transcript events become verified activation results (high)
+
+Original CC7-006 (high), CHG-010.
+
+`S/control/activation.py:88-110` counts any JSON-decodable line as an event. `_tool_uses` at 31-46 silently ignores nonobjects and malformed event shapes; only JSON decoding failures increment malformed. Therefore a transcript containing only `[]` yields one event, zero malformed events, skill_invoked false and PASS for the selected A5a negative (120-124), despite having no usable transcript event. Conversely, the function accepts a tool-use content object with neither assistant role nor assistant event type because both missing values are permitted at 36-39; that is insufficient evidence of an actual assistant turn.
+
+The helper correctly ignores normal init metadata and recognizes the ordinary nested assistant Skill tool_use shape, but structural absence must remain unusable rather than a verified negative or unqualified positive. Require the selected event envelope and classify malformed structures separately. Also wire this parser into the actual caller as R9-CI-001 requires. No native behavior was observed here.
+
+### R9-CI-005 — Claimed query identity is copied or asserted, not verified (high)
+
+Original CC7-008 (high), CHG-012. Native completion and A5a completion assertions are expressly partial; this finding concerns the separately claimed implemented selector/query portion.
+
+`S/control/a_arm.py:47-56` checks only that case is one of two strings. It copies selector.id and selector.query_sha256 and hardcodes prompt_bytes_unchanged true; it never compares selector.id to case or hashes/query-compares the bytes. The launcher receives an arbitrary mutable selector object at 101, with no post-launch prompt identity check. `S/control/activation.py:71` likewise merely copies query_sha256. The actual selected `trigger-queries.json:13,22` has id/query/should_trigger/split/category fields and **no query_sha256 field**. A normal selected row therefore produces null identity while claiming unchanged bytes. An A3a case paired with the A5a selector is not rejected.
+
+Authoring record 75-77 says case binding and query-byte identity are implemented, while builder receipt 426 uses the weaker word carries. The source supports only carrying an unchecked optional field. Bind case to the selected row and its fixed expected trigger value, derive the digest from exact selected query bytes, and compare the actual prompt handed to the launcher. This is local authoring work independent of unavailable native completion observations.
+
+### R9-CI-006 — The fresh freeze builder still emits historical authority (medium)
+
+Original CC7-011 (medium), CHG-015.
+
+`S/control/freeze.py:112,149-153` accepts no current allocation argument and emits SESSION-001@5 with revision 5 and digest `e0dda2d0d5722d0b842ef4eae3d844d9e76abfb13b65b5f3cef574956949c10c`. Current selected authority is SESSION-001@9, revision 9, SHA-256 `9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3` (`R9/authority/SESSION-001-r9.md:3-6`). The new equality helper at `S/control/admission.py:244-267` is neither called nor supplied to the builder. Merely comparing two caller-supplied dictionaries does not make the emitter bind current authority.
+
+A future invocation of this fresh authored builder would still label new records with historical identity. Parameterize and require the explicitly selected allocation when authoring the emitter; reject stale or missing identity before output. Historical baseline records themselves should remain unchanged. The present review does not claim any such bad freeze was executed or emitted in R9.
+
+### R9-CI-007 — CHG-013 remains unused case data, not a corrected executable suite (medium)
+
+Original CC7-009 (medium), CHG-013.
+
+The complete `S/no-model-tests/cases_r9.py:27-77` is a list of setup/expect dictionaries. It has no scenario constructor, driver, assertion or consumer, and the selected phase_suite never imports it. Its P21 entry says resume_from P21 and mutate inventory_binding but performs neither operation. The retained actual suite still calls drive twice without starting the second call in resume mode at `B/no-model-tests/phase_suite.py:438-440`; its driver begins `main([])` at 213. The old missing-judgment case still omits judge={} at 286-290, while P20 already supplies it at 408-415. P6 still expects a B marker under non-1 concurrency at 321-334.
+
+The four expectation descriptions and five locator/history corrections are useful specification repairs. They do not meet remediation line 9's explicit distinction between future case descriptions and implemented corrections. Builder receipt 454-470 should report specification/data-only until actual executable scenarios reach each mechanism. Required source can be authored while remaining entirely unexecuted.
+
+### R9-CI-008 — A5a requires an A3a semantic judgment absent from the fixed plan (medium)
+
+Original CC7-004 (high), CHG-008; this new helper defect is medium.
+
+`S/control/admission.py:116-120,140-150` applies one satisfied predicate to every prerequisite: mechanical PASS, judgment PASS and truthy judgment_bound_to. For A5a it adds A3a to that list. The selected plan distinguishes A's activation observation from C/B artifact grading and semantic judgments (`B/control/PLAN.json:54-56,90-110`). The actual A branch at `B/control/run_phases.py:425-431` returns after native completion and activation outcome; it does not emit a semantic judgment or C/B mechanical grade for A3a.
+
+A valid completed A3a activation record therefore cannot satisfy this new A5a prerequisite without inventing extra judgment fields. Keep checked evidence-bound C/B requirements, but require A3a's selected native-completion/activation result for sequencing A5a. Do not fabricate C/B-style semantic PASS to fit a generic predicate.
+
+## Per-change scope and disclosed deferrals
+
+| Change | Original finding and severity | Static scope supported |
+| --- | --- | --- |
+| CHG-005 | CC7-001 high | Partial freeze helper; real PREFLIGHT path and actual consumer remain defective (CI-001/002). |
+| CHG-020 | CC8-PROP-002 medium | Selected fixed versus unbound generated boundary corrected in helper prose/logic; integrated verification and required cases remain incomplete. |
+| CHG-007 | CC7-003 high | Live existence/hash helper is authored and distinguishes retained/changed/vanished for its supplied map; grader/gate integration and selected-map construction are absent (CI-001). |
+| CHG-008 | CC7-004 high | Fixed C1/B5/B11 names and separate C-only branch authored; no pre-marker call site, no adapter from consumed judgment evidence, and wrong A3a prerequisite for A5a (CI-001/008). |
+| CHG-009 | CC7-005 high | Five names and absent-row failures authored; missing collector wiring may stay deferred, but claimed schema/consumer portion accepts unsupported assertions (CI-003) and is not called (CI-001). |
+| CHG-010 | CC7-006 high | Actual tool-use parsing logic authored; structural holes and missing caller repair remain (CI-001/004). |
+| CHG-011 | CC7-007 high | Precisely labeled executable NOT_AUTHORED. No finding is raised merely for the authorized partial. Its stated runtime-only rationale needs correction, as explained below. |
+| CHG-012 | CC7-008 high | Partial A wrapper with honest no-launcher NOT_RUN; claimed query identity is not implemented (CI-005). Native completion remains unobserved/deferred. |
+| CHG-013 | CC7-009 medium | Corrected specification dictionaries and locator/history statements, not a corrected executable suite (CI-007). |
+| CHG-014 | CC7-010 medium | Separate helper returns clean nonlaunch values without creating a directory for its ordinary refusal branches; actual A caller and gate do not use it (CI-001). Sentinel inventory stores sizes, not preserved byte content or after-digests; no executable sentinel assertion was authored. |
+| CHG-015 | CC7-011 medium | Equality predicate authored; actual builder still hardcodes historical identity (CI-006). |
+
+The five runtime observations are distinct requirements; valid artifacts, worker hash prose or socket-write completion cannot satisfy them. Selected runtime README 95-107 explicitly retains rendered delivery NOT_OBSERVED. Deferring actual native callback provenance, installed consultation, rendering, native completion/EOF/cleanup is legitimate. However, the selected v1 interface already exposes protected correction/accepted/resume records (`phase_state.py:689-759,1042-1083`) and a verified receipt result (`phase_state.py:839-861,1087-1129`; `delivery_core.py:566-615`; `hook_protocol.py:84-104`). Thus a blanket claim that receipt checks or resume behavior have no selected interface is too broad: exposed mechanical results and missing native observation wiring must be distinguished.
+
+For CHG-011 specifically, the requested C1/B5/B11/A pause-resume test concerns the selected **evaluation runner**'s `main(--resume)` lifecycle, not the managed session's WAITING_USER callback lifecycle. `B/control/run_phases.py:334-335,404-418,442-460` already defines that local seam; phase_suite.py 195-235 currently reuses one imported module and controller. Authoring a corrected fresh-process/module scenario and saved-evidence assertions does not require inventing a native collector. The disclosed lack of authored lifecycle work remains a truthful partial, but its reason should identify omitted local work separately. Similarly, a future synthetic A5a negative assertion can be authored without claiming native completion.
+
+Consumed semantic evidence remains incomplete: the baseline judgment comparison binds result/inventory/check files, while the new prerequisites helper accepts only a truthy judgment_bound_to and has no adapter from the actual consumed judgment. Remediation 35's reviewer identity and exact output/checkpoint/receipt/transcript/check binding remain requirements. This review makes no claim to independently prove judgment chronology, actual native resource loading, or current root launch authority.
+
+## Limits and handback
+
+Receipt/reference checker internals and their fixtures belong to a separate scoped review; no conformance conclusion is made here for CHG-006/016/019/021. Candidate instruction quality, author delivery chronology, global manifest custody, current mutable authority issuance, root runtime correctness and human acceptance are outside this scoped assessment. Inputs were reviewed as frozen bytes only.
+
+All examples are static inferences. Original findings and severities remain preserved; none is closed or upgraded to an executed result. Current tests and validation are NOT_PERFORMED; native C/B/A, root admission, hook activation and human acceptance are NOT_RUN. Static source presence cannot close CP5/CC7 or grant runnable/native readiness. This report and FINDINGS.json receive complete readback before a separate RECEIPT.json binds their exact bytes. The receipt has no self digest.

@@ -1,0 +1,93 @@
+{
+  "schema_version": "devforge.independent-review-receipt/v1",
+  "reviewer": "/root/r7_claude_controls_review",
+  "reviewer_reuse": "Intentional reuse of r7 controls reviewer; prior exact findings allowed; not a cold independent repetition.",
+  "model_id": "UNKNOWN",
+  "reasoning_setting": "UNKNOWN",
+  "created_at_utc": "2026-09-07T15:05:33.422680+00:00",
+  "status": "COMPLETED_STATIC_PROPOSAL_REVIEW",
+  "disposition": "REVISE_PROPOSALS",
+  "material_proposal_findings": 3,
+  "covered_CHGs": [
+    "CHG-005",
+    "CHG-006",
+    "CHG-007",
+    "CHG-008",
+    "CHG-009",
+    "CHG-010",
+    "CHG-011",
+    "CHG-012",
+    "CHG-013",
+    "CHG-014",
+    "CHG-015",
+    "CHG-016"
+  ],
+  "allocation": {
+    "actual_first_recorded_work_utc": "2026-09-07T14:57:05.724368+00:00",
+    "deadline_utc": "2026-09-07T15:17:05.724368+00:00",
+    "closeout_reserve_starts_utc": "2026-09-07T15:12:05.724368+00:00",
+    "closeout_started_at_utc": "2026-09-07T15:04:31.021536+00:00",
+    "deadline_met": true,
+    "reset_or_extension": false
+  },
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/INPUT-MANIFEST.json",
+    "sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+    "bytes": 280615,
+    "complete_readback": true
+  },
+  "input_recheck": {
+    "selected_files": 58,
+    "all_manifest_sizes_and_hashes_match": true,
+    "reviewed_r7_control_files_matched": 14,
+    "earlier_historical_control_pairs_matched": 14
+  },
+  "targets": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals/ALLOCATION.json",
+      "sha256": "ae75ce98d95853c2a65aed808e7d414f4ed03cef6029f4d52fee7fa3574139fb",
+      "bytes": 958,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals/INPUT-SELECTION.json",
+      "sha256": "d15dbc5fdc055c306ed5721676c574b8b84412b1d6bb3d31c2b6ef4b79d38f76",
+      "bytes": 25388,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals/FINDINGS.json",
+      "sha256": "2c28a2d320ca1acdcbec08b3a3d52ff42634046162a9b878d921f76660264fd8",
+      "bytes": 12494,
+      "complete_readback": true
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-proposals/REVIEW.md",
+      "sha256": "8a6da34891f75a66920132185b7f5fc289a4550d8d91c16aeaf622675632e675",
+      "bytes": 15792,
+      "complete_readback": true
+    }
+  ],
+  "completion_scope": {
+    "proposal_specs": "AUTHORED_WITH_MATERIAL_DEFECTS",
+    "implemented_control_corrections": "NOT_IMPLEMENTED_IN_SELECTED_R8_DELIVERABLES",
+    "CP5_CC7_closure": "NOT_ESTABLISHED",
+    "runnable_readiness": "NOT_ESTABLISHED",
+    "instruction_source_review": "OUT_OF_SCOPE",
+    "native_C_B_A": "NOT_RUN",
+    "validation": "NOT_PERFORMED",
+    "root_admission": "NOT_RUN",
+    "human_acceptance": "NOT_RUN"
+  },
+  "actions": {
+    "authored_execution_or_imports": 0,
+    "tests_suites_fixtures_helpers": 0,
+    "native_clients_models": 0,
+    "network_install_hooks_agents": 0,
+    "source_or_authority_writes": 0,
+    "r8_author_report_read": false,
+    "other_current_reviews_read": false
+  },
+  "custody_only": true,
+  "self_digest": "omitted; returned externally after complete receipt readback"
+}

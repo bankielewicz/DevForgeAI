@@ -1,0 +1,49 @@
+# R9 independent integration review
+
+Disposition: REVISE_METADATA_AND_EXECUTABLE_CONTROLS. The supplied R9 bytes are available and independently reviewed. The two requested instruction changes are present in the frozen current source, while its current derivation bindings are stale. Actual checker and helper source exists, but caller/suite integration and several predicates remain incomplete or incorrect. These static conclusions do not close prior native findings or establish runnable readiness.
+
+## Custody and allocation
+
+The three user-supplied hashes match the report (714bf70beb591049c7af01e16d068f3bf1813e1482afb4418824d0409204fc8d), manifest (768ce11a14c2ab51a61c4820197f0f9cbde9f6a3d222ba67fef99df819bef079) and receipt (9903d68ef40cfe4de9722504b3351cc897d7814abfc4d6ef9e250567d6b3fe36). All 73 receipt/readback target checks and all 40 builder before/after bindings match. Custody proves retained bytes, not their assertions.
+
+The author manifest contains 78 entries: its own entry is incorrect; the other 77 match. It includes SEVAL-R9-001.md, contrary to the handback's claim that the report was excluded. The later READBACK.json and RECEIPT.json are the two unlisted run files. This is R9-CUSTODY-002 (MINOR); the separate receipt bindings remain useful. Preserve the original run and correct the coverage account in a new record.
+
+R9-CUSTODY-001 (MAJOR) is a reporting contradiction. Root observed the complete handback by 16:39:42Z, and the receipt says 16:29:04.452179Z, yet the report claims a technical stop at 17:53:30Z, HANDOFF claims creation at 18:06Z, and the relayed closure says 18:12Z. Those future events cannot certify actual chronology. CLOCK also excludes some assignment reading from its claimed first-work boundary. No actual overrun is inferred. A separate correction must preserve original timestamps as reported, identify what is unverified, and avoid invented replacement times or a retrospective history audit.
+
+Root's review allocation began 16:42:48.604482Z after the separately recorded intake. Its technical cutoff is 17:07:48.604482Z and hard stop is 17:12:48.604482Z, with the final five minutes reserved. Earlier allocations remain unchanged. ROOT-CLOSEOUT-CUSTODY.json rechecks all 322 frozen inputs, 42 scoped receipt bindings and current provider/authority pins. The selected r7 PLAN remains the 132-line 002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e baseline.
+
+## Source findings
+
+The separate full candidate review reads all twenty files and assesses R01-R10. R01-R06, R08 and R10 pass in static scope. R07 and R09 fail on one MAJOR finding, R9-CLAUDE-STATIC-001. The three current destination hashes in derivation.json are baseline hashes while their verification statements claim final current bytes. Their correct current values are SKILL.md a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c, recording-rules.md 5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3 and managed-runtime.md 6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30.
+
+The unique current-ledger upstream binding and selected output identity rules are now explicit and aligned with the selected v1 interface in static scope. CHG-017/018 are present in operative source. This is no native closure. Four files changed and sixteen remained exact in R9. The next source fence needs only derivation.json: refresh current bindings, reconcile assertions, preserve historical hashes as historical, and preserve the other nineteen current files and exact description.
+
+## Executable controls and checker findings
+
+The two scoped control reviews report eleven findings, with overlapping integration/suite consequences. They are not eleven independent new vulnerabilities; prior IDs and severities remain retained in their reports and repair map.
+
+| Review IDs | Required local correction |
+| --- | --- |
+| CC9-RR-001 (high) | Bind section-absence disclosure to the particular artifact and section fact. Reject cross-artifact and unreadability/citation-omission claims; preserve a valid absence plus unrelated unknown. |
+| CC9-RR-002 (high, inherited boundary) | Reject an absolute sandbox locator embedded after an extra separator under another root; preserve whole-token digest and validated-span changes. |
+| CC9-RR-003 (high) | Connect fresh suites to fresh checkers with real target/digest fixtures, both long swapped pairs and predicate-specific assertions. The zero-digest unknown fixture currently exits before its intended predicate. |
+| R9-CI-001 (high) | Connect new predicates to actual controller/runner/grader and pre-marker decisions. Separate helper presence from integrated implementation. |
+| R9-CI-002 (high) | Resolve real PREFLIGHT locations, bind consumed and selected-unconsumed inputs, include all new effective code, and preserve unbound generated evidence as a distinct class. |
+| R9-CI-003 (high) | Refuse unsupported observation assertions and subsets. Deferred native categories cannot become PASS from truthy source/digest text. Consume only authentic selected evidence where its format is actually available. |
+| R9-CI-004 (high) | Reject unusable transcript structures and require a valid assistant event envelope; an array-only transcript cannot prove a negative. |
+| R9-CI-005 (high) | Bind selected case, fixed expected trigger and exact query bytes to the actual launched prompt; copying an absent optional digest is not identity verification. |
+| R9-CI-006 (medium) | Make the fresh freeze emitter consume current selected authority; do not emit hardcoded SESSION-001@5. Preserve historical records. |
+| R9-CI-007 (medium) | Implement real scenario setup, calls and assertions. Dictionaries alone do not repair P21 resume, missing judgment, concurrency and related suite cases. |
+| R9-CI-008 (medium) | Require A3a's selected native completion/activation evidence before A5a, rather than inventing a C/B semantic judgment for A3a. |
+
+The review reports provide exact line evidence, required positives/negatives and per-CHG scope. Validated locator spans and 65-hex-token refusal are real static improvements. Section classification, live preservation and nonlaunch helpers also contain real code. Several whole-CHG APPLIED_EXECUTABLE labels nevertheless exceed their delivered subparts. Nothing was executed during these reviews.
+
+CHG-011's NOT_AUTHORED partial is truthful. Its explanation must distinguish local evaluation run_phases --resume lifecycle work from unavailable managed native callback observations. Local executable scenarios can be authored without executing them or inventing collectors. CHG-009/012 native observations may remain explicitly deferred; the implemented consumers and query bindings must still fail closed. A preserved runtime result, worker prose or synthetic PASS cannot substitute for callback provenance, installed consultation, rendered delivery, native EOF/completion/cleanup or independent evidence-bound judgments.
+
+## Independence and outcome limits
+
+Source review used a separate scoped prompt context and disclosed memory-summary and embedded author-history exposure. The receipt/reference reviewer was reused and is not cold; the controls reviewer had allowed prior findings and author claims. Exact model/version was not independently attested. These are disclosed static scopes, not process or filesystem isolation. Root read the complete three narrative reports and their receipts, verified their bindings, and retains each report's scope. No scored aggregate is manufactured.
+
+Provider candidate imports, helpers, suites, installations, hooks and native C/B/A were not run. Prior COULD_NOT_RUN/NOT_RUN and budget failures remain unchanged. Root admission and human acceptance remain NOT_RUN. v2 remains unissued; the same frozen managed v1 is selected. A new Claude authoring allocation is needed for the bounded metadata repair and integrated executable corrections. The other three authorities remain held, with no repeated hold prompts needed.
+
+Separately, root's exact helper-policy maintenance received a static no-material-findings review and passed 30 test_poc tests plus both demo fixtures, including stale/refresh checks. Its execution explicitly selected preserved companion fixture bytes after concurrent live utility drift. Its independent evidence is linked by ROOT-LATEST-STATUS.json. This synthetic result does not qualify current mutable utilities or any provider/native skill, and does not replace prior failed runs.

@@ -1,0 +1,19 @@
+---
+artifact_id: "IDEAS-905"
+revision: 1
+upstream:
+  - artifact_id: "STORY-014"
+    revision: 1
+    store: "project"
+    path: "docs/devforge/stories/STORY-014.md"
+    sha256: "REPLACE_WITH_ACTUAL_TARGET_DIGEST"
+missing_inputs:
+  - "STORY-014 has no stable sections."
+---
+
+# Negative: a false absence about a target that does have headings
+
+The disclosure is well formed and correctly bound to STORY-014, but the target
+carries real headings. An inspected-absence claim about a sectioned target is
+false, and the `available` branch must reject it before the disclosure is ever
+consulted. Expected FAIL naming the sections the target actually has.

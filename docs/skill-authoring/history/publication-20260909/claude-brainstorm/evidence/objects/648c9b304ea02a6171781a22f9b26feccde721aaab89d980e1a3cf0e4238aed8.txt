@@ -1,0 +1,72 @@
+{
+  "at_utc": "2026-09-07T14:55:46.556552+00:00",
+  "user_supplied_hashes": [
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-REPORT.md",
+      "sha256": "658726e7ed2a9cef0a28025da71769d6b85cd8786dc21e17d465fa9699461bfe",
+      "bytes": 10241
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json",
+      "sha256": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2",
+      "bytes": 5118
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-REPORT.receipt.json",
+      "sha256": "2f4c60bfece6bf8de488f752f60a7338d17a60802158078c73bae0a8860233b4",
+      "bytes": 6617
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r8-20260907T1431Z/report/SOURCE-REPAIR-R8.md",
+      "sha256": "b8b113c47c6722859ec462aa9f09643f9334e33fc01b0024b25bbfaf004f1bd7",
+      "bytes": 8960
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r8-20260907T1431Z/source-final/candidate-final-manifest.json",
+      "sha256": "c7b0759271525de1706077fc2cdfd11600e7aa2af867d45947fe7d35f611a8a2",
+      "bytes": 7136
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r8-20260907T1431Z/report/EXTERNAL-RECEIPT.json",
+      "sha256": "eacfcffcd0250f9e64a6cb0da07573c8d0d928e9ece26f66ae200b39355b08ed",
+      "bytes": 10338
+    }
+  ],
+  "providers": {
+    "codex": {
+      "source_files": 30,
+      "changed": [],
+      "preserved": 30,
+      "authority": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md",
+        "sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383",
+        "bytes": 6648
+      },
+      "source_snapshot_matches": true,
+      "exclusions": {
+        "scripts/__pycache__/delivery_check.cpython-312.pyc": "b31597859cc7c6aadbbf55c7cfe0fb7fc45159ed40deaedc19c6d503ef884326"
+      },
+      "receipt_targets": 16,
+      "evidence_entries": 331
+    },
+    "claude": {
+      "source_files": 20,
+      "changed": [
+        "SKILL.md",
+        "references/derivation.json",
+        "references/managed-runtime.md",
+        "references/recording-rules.md"
+      ],
+      "preserved": 16,
+      "authority": {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+        "sha256": "efd5c656e781f4c1d940723dd4a06208c176a471969ec5575c2b87aa27d3953c",
+        "bytes": 6804
+      },
+      "source_snapshot_matches": true,
+      "exclusions": {},
+      "receipt_targets": 13
+    }
+  },
+  "scope": "Complete-byte readback and pin checks only; author chronology and creator invocation not independently observed; no candidate imports/execution/native calls"
+}

@@ -1,0 +1,36 @@
+{
+ "schema_version": "devforge.selected-a-cases/v1",
+ "source": {
+  "store": "project",
+  "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json",
+  "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+  "row_count": 19
+ },
+ "why": "R10-CI-007. run_a_arm derived the query digest from the selector it was handed and then compared it against that same selector, so the helper could accept the wrong case, a changed query or a changed should_trigger as unchanged. The fixed expectation has to come from somewhere the caller cannot edit on the way in. These are the selected rows, taken from the candidate's own trigger file, with its digest recorded above.",
+ "cases": {
+  "A3a": {
+   "row_id": "A3a",
+   "should_trigger": true,
+   "split": "train",
+   "category": "indirect",
+   "query_sha256": "4609a1d61e03d52af1508b29d023b32c06becd64ef5c225a9087c05f7f8b1cec",
+   "query_bytes": 69
+  },
+  "A5a": {
+   "row_id": "A5a",
+   "should_trigger": false,
+   "split": "train",
+   "category": "negative_adopted_decision",
+   "query_sha256": "c48aa74ba49d79ddd848ed5de7719dc0a6cbe8a5013cd34a41526261715c0adb",
+   "query_bytes": 121
+  }
+ },
+ "rules": [
+  "The case key must match the row id: an A3a scenario handed the A5a row is a cross-case error.",
+  "query_sha256 is the digest of the selected row's query bytes. A selector whose query does not hash to it is a modified row.",
+  "should_trigger is fixed here. A selector carrying a different expectation is a modified expectation, not a new case.",
+  "The prompt actually handed to the launcher is compared against query_sha256, so a launch-time mutation is caught.",
+  "No row_id outside this file is an A case."
+ ],
+ "execution": "NOT_RUN"
+}

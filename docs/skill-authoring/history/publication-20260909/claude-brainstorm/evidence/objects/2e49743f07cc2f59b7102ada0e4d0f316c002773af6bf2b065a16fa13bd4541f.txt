@@ -1,0 +1,30 @@
+---
+artifact_id: "IDEAS-905"
+revision: 1
+upstream:
+  - artifact_id: "STORY-014"
+    revision: 3
+    store: "project"
+    path: "docs/devforge/stories/STORY-014.md"
+    sha256: "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e"
+missing_inputs:
+  - "STORY-014 has no stable sections."
+---
+
+# Negative: a false absence about a target that does have headings
+
+The disclosure is well formed and correctly bound to STORY-014, but the target
+carries real headings. An inspected-absence claim about a sectioned target is
+false, and the `available` branch must reject it before the disclosure is ever
+consulted. Expected FAIL naming the sections the target actually has.
+
+R11 repair (FIXTURE-SELECTION `r10-unresolved-reference-physical-cases`): R10 left this
+fixture with revision 1 and a `REPLACE_WITH_ACTUAL_TARGET_DIGEST` placeholder, so it
+failed on schema/hash setup and never reached the heading predicate. Both were wrong.
+The selected STORY-014 is revision 3, 1,232 bytes, SHA-256
+`8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e`, and its exact bytes
+are staged at `docs/devforge/stories/STORY-014.md`. Its real headings are "Story: expire
+trail condition reports after 72 hours", "Statement", "Acceptance criteria" and "Notes".
+The target's own incomplete ARCH-002 revision 4 internal metadata is preserved as it is:
+this fixture is about a false absence claim, not about manufacturing recursive
+completeness in the target.

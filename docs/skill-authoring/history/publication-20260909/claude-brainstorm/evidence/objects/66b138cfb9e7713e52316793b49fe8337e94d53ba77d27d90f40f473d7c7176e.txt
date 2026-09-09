@@ -1,0 +1,60 @@
+{
+ "schema_version": "devforge.fixture-index/v1",
+ "change_id": "CHG-010",
+ "finding": "R10-CI-008 / CC10-RR-004 physical subpart",
+ "why": "R10 asserted the four envelope classes as inline scenarios only, and its A-arm stand-ins wrote a top-level tool_use with no assistant envelope and no case key. These are the physical per-reason transcript files, one per distinct classification, so each reason is exercised by actual bytes rather than by a constructed dict.",
+ "consumed_by": "control/activation.py envelope() and activation(); phase_suite R11 cases",
+ "cases": [
+  {
+   "file": "POS-nested-assistant-skill-tool-use.jsonl",
+   "expect_kind": "assistant",
+   "expect_invoked": true,
+   "reason": "a legitimate nested assistant Skill tool_use naming this skill",
+   "sha256": "4c3271545fa7ab562a63380f5ff6dc0953e3eaba670dd8416e1524b39107c5d8"
+  },
+  {
+   "file": "NEG-init-metadata-only.jsonl",
+   "expect_kind": "other/assistant",
+   "expect_invoked": false,
+   "expect_outcome": "verified negative",
+   "reason": "session metadata lists the installed skill and the assistant answers directly; availability is not selection",
+   "sha256": "71531b5c396be6ca97da6e27f6fa4f9cafdc757e4d8c72122ba0d1aeae97e66e"
+  },
+  {
+   "file": "NEG-other-skill-selected.jsonl",
+   "expect_kind": "assistant",
+   "expect_invoked": false,
+   "reason": "a well-formed Skill tool_use naming a different skill is a genuine negative",
+   "sha256": "9151cdbf6655cfbff5735530ef3ed570f8549612399b7c62e68e767fc44515a5"
+  },
+  {
+   "file": "UNUSABLE-empty-list-line.jsonl",
+   "expect_kind": "malformed",
+   "expect_outcome": "COULD_NOT_RUN",
+   "reason": "decodable JSON that is not an event envelope; must not become a verified negative",
+   "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+   "file": "UNUSABLE-scalar-line.jsonl",
+   "expect_kind": "malformed",
+   "expect_outcome": "COULD_NOT_RUN",
+   "reason": "a bare scalar is not an event",
+   "sha256": "6acf4bff71c446b6b3995198f60cdf9abcd5046dba53af94fe2e468783a0b4cd"
+  },
+  {
+   "file": "UNUSABLE-tool-use-without-assistant-envelope.jsonl",
+   "expect_kind": "malformed",
+   "expect_outcome": "COULD_NOT_RUN",
+   "reason": "a tool_use outside any assistant envelope must not become a verified positive",
+   "sha256": "ba748b2f0c703d7428b96e0ce6d2eae204396ae603073c876d3aa856f6d240be"
+  },
+  {
+   "file": "UNUSABLE-truncated-json.jsonl",
+   "expect_kind": "undecodable",
+   "expect_outcome": "COULD_NOT_RUN",
+   "reason": "an incomplete line is absence of evidence, not evidence of absence",
+   "sha256": "44e379d12daa31a5e1a37d4e3569543cc56707047eed8c8ab4ede5aa5a0bf8c9"
+  }
+ ],
+ "execution": "NOT_RUN"
+}

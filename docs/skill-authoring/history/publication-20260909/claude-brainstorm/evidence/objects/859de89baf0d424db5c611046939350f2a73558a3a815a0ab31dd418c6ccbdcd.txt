@@ -1,0 +1,20 @@
+---
+artifact_id: "IDEAS-902"
+revision: 1
+upstream:
+  - artifact_id: "IDEAS-900"
+    revision: 1
+    store: "project"
+    path: "docs/devforge/ideas/IDEAS-900.md"
+    sha256: "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43"
+missing_inputs:
+  - "IDEAS-900 has no authoring date; IDEAS-901 has no stable sections."
+---
+
+# Negative: the section absence belongs to a different artifact
+
+The upstream entry for IDEAS-900 omits `sections`. The only absence disclosure in
+this envelope is about IDEAS-901's sections, and the only thing said about
+IDEAS-900 is its authoring date. Entry-wide word and ID co-occurrence read this
+as a disclosed absence for IDEAS-900, which is exactly CC9-RR-001. Expected FAIL,
+for the reason that IDEAS-900's own section absence was never disclosed.

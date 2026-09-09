@@ -1,0 +1,217 @@
+{
+  "scope": "Independent R10 executable control integration static review",
+  "first_work_utc": "2026-09-07T22:06:03Z",
+  "technical_stop_utc": "2026-09-07T22:20:03Z",
+  "hard_stop_utc": "2026-09-07T22:24:03Z",
+  "total_minutes": 18,
+  "persistence_reserve_minutes": 4,
+  "root_technical_limit_utc": "2026-09-07T22:24:41Z",
+  "root_final_limit_utc": "2026-09-07T22:27:41Z",
+  "write_fence_files": [
+    "ALLOCATION.json",
+    "REVIEW.md",
+    "FINDINGS.json",
+    "RECEIPT.json"
+  ],
+  "input_manifest_sha256": "d3808de6c65aff9296156b8a38b3928e8b7d0557b7718424b917dcd79774159e",
+  "execution": "NOT_RUN",
+  "selected_inputs": [
+    {
+      "path": "inputs/claude/run/source/control/admission.py",
+      "sha256": "d7dc9e25c72aca3da79823dd2947aaf45018afba99fca9df42b34de2d504bf72",
+      "bytes": 21591
+    },
+    {
+      "path": "inputs/claude/run/source/control/activation.py",
+      "sha256": "e825c34960bbd7303dfe359198d80d590d6d46f901f9b03017992ec80cf703b2",
+      "bytes": 8393
+    },
+    {
+      "path": "inputs/claude/run/source/control/a_arm.py",
+      "sha256": "cafbc0e407445bd1e0be33db6631ed67cc45018c92708835d7255874bbcbfd80",
+      "bytes": 9849
+    },
+    {
+      "path": "inputs/claude/run/source/control/controller.py",
+      "sha256": "0231d82ed8a48dc67b4760f55754420aa7b05de72c7cda409e2e280e17e833f6",
+      "bytes": 8414
+    },
+    {
+      "path": "inputs/claude/run/source/control/freeze.py",
+      "sha256": "7e4dc23c58f80bab87dcc1dc48ee736204a14e68aa8294cd4d6603d881ef52f7",
+      "bytes": 18869
+    },
+    {
+      "path": "inputs/claude/run/source/control/run_phases.py",
+      "sha256": "f729953056c4f1f90856056a4c2eb3f96e0f17cf1d0a064bc772b059c3b95c8c",
+      "bytes": 33389
+    },
+    {
+      "path": "inputs/claude/run/source/control/grade.py",
+      "sha256": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+      "bytes": 12240
+    },
+    {
+      "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+      "sha256": "e77deb19861460c5a4e96e7021732503f819ad77cbfb7239eee62ac5485045e5",
+      "bytes": 55913
+    },
+    {
+      "path": "inputs/claude/run/source/no-model-tests/cases_r9.py",
+      "sha256": "7df3dfb439e71d77ceebc42366188d70a003b417e26e5c106a4d780a71cff27b",
+      "bytes": 9637
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/control/admission.py",
+      "sha256": "d740ad47f16483e0d0b204695903454e2a1b1e76ced63ca664aa5a996ae2bea1",
+      "bytes": 13773
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/control/activation.py",
+      "sha256": "85bab9563b0ae66ba4f122f8e04746a08768b6d1567f5881d314c2df7dd3d90e",
+      "bytes": 5823
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/control/a_arm.py",
+      "sha256": "5352518a916d77ab2235a48aed864b87ba2941fab84fc20e28e4ba26adf28261",
+      "bytes": 5404
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/control/controller.py",
+      "sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91",
+      "bytes": 7018
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/control/freeze.py",
+      "sha256": "d6d238782105f49cb2daa53319b543f5f2a5907fff880c77a4eb66e556c14b00",
+      "bytes": 15294
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/control/run_phases.py",
+      "sha256": "5a4dc48df3a346d7b3c6632f11361cf088889bba99751f0cb18e8f3aecb9fa8e",
+      "bytes": 27400
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/control/grade.py",
+      "sha256": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+      "bytes": 12240
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/no-model-tests/phase_suite.py",
+      "sha256": "8432a149a63783f48b5cb5953b9b98852ffeb2d9aa11cb513dfded924565e489",
+      "bytes": 27855
+    },
+    {
+      "path": "inputs/claude/run/baseline/effective-controls-selected/no-model-tests/cases_r9.py",
+      "sha256": "32b46f599f0343100151a0141e2040fe2f5db80aa8869d1e756927fb0ce4834e",
+      "bytes": 5323
+    },
+    {
+      "path": "inputs/claude/run/source/control/ALLOCATION.json",
+      "sha256": "f541c8059f472ebffc4205186849c946d09892f66c13e456af8aa3120f45d85f",
+      "bytes": 1014
+    },
+    {
+      "path": "inputs/claude/run/source/control/CLOCK.json",
+      "sha256": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+      "bytes": 773
+    },
+    {
+      "path": "inputs/claude/run/source/control/PLAN.json",
+      "sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+      "bytes": 7384
+    },
+    {
+      "path": "inputs/claude/run/source/control/GATE-INPUTS.json",
+      "sha256": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+      "bytes": 137
+    },
+    {
+      "path": "inputs/claude/run/source/control/SEMANTIC-DECISIONS.json",
+      "sha256": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+      "bytes": 305
+    },
+    {
+      "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+      "sha256": "400018af548599850aed37fb824ec6eea860b77851f2c31ed3d15467905a731e",
+      "bytes": 20750
+    },
+    {
+      "path": "inputs/issued-r10/REPAIR-MAP.json",
+      "sha256": "1cafb7c78c367588bd6ef7c153acacd789e555053ece755ed4ccd90e73b8ada7",
+      "bytes": 107054
+    },
+    {
+      "path": "inputs/issued-r10/SKILL-DESIGN-SPECIFICATION-r7.md",
+      "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+      "bytes": 10518
+    },
+    {
+      "path": "inputs/issued-r10/AUTHORING-RUNTIME-BRIDGE-r7.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+      "bytes": 9402
+    },
+    {
+      "path": "inputs/issued-r10/ROOT-INTEGRATION-ANNEX.json",
+      "sha256": "b87b441ebfc23311c9a0eb135b3000886e6e99116a4e4ca1b028f664d3b30dcb",
+      "bytes": 13137
+    },
+    {
+      "path": "inputs/issued-r10/ISSUANCE.json",
+      "sha256": "9e5f710e29b2279592d1e5322b02b5c2270805bdca24a17628e59c6c9b885c9e",
+      "bytes": 4159
+    },
+    {
+      "path": "inputs/issued-r10/selected/claude/shared/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "bytes": 10482
+    },
+    {
+      "path": "inputs/issued-r10/selected/claude/shared/docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "bytes": 10720
+    },
+    {
+      "path": "inputs/issued-r10/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "bytes": 19657
+    },
+    {
+      "path": "inputs/issued-r10/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+      "bytes": 10496
+    },
+    {
+      "path": "inputs/issued-r10/review-r9/review-control-integration/REVIEW.md",
+      "sha256": "710fd2e65ea18a0710d3028d89c9864db16a66c8d94d73dd35c6fe43fd757c0a",
+      "bytes": 19148
+    },
+    {
+      "path": "inputs/issued-r10/review-r9/review-control-integration/FINDINGS.json",
+      "sha256": "beefe101242c5ccd4628cb1243ee99a5eab480a79472469433b6f8d06d1a1c59",
+      "bytes": 20096
+    },
+    {
+      "path": "inputs/issued-r10/runtime/phase_state.py",
+      "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+      "bytes": 59033
+    },
+    {
+      "path": "inputs/issued-r10/runtime/delivery_core.py",
+      "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+      "bytes": 28047
+    },
+    {
+      "path": "inputs/issued-r10/runtime/hook_protocol.py",
+      "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+      "bytes": 8560
+    },
+    {
+      "path": "inputs/issued-r10/authority/SESSION-001-r10-DRAFT.md",
+      "sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+      "bytes": 9625
+    }
+  ],
+  "technical_review_completed_utc": "2026-09-07T22:17:41Z",
+  "selected_inputs_reverified_before_report": true
+}

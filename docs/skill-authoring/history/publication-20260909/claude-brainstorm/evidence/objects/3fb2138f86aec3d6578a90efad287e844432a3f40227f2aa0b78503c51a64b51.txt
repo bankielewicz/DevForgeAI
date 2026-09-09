@@ -1,0 +1,56 @@
+{
+  "schema_version": "devforge.static-review-receipt/v1",
+  "run_id": "brainstorm-r8-claude-source-fresh-review",
+  "reviewer": "/root/r8_claude_source_fresh_review",
+  "scope": "Complete R01-R10 static Claude source review only; no native or full validation campaign.",
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/CLAUDE-SOURCE-INPUTS.json",
+    "sha256": "4d2547d022d0116d72d6e7a563423f44ece96478515c2264153725199f8dc39a"
+  },
+  "input_custody_at_closeout": {
+    "outcome": "PASS",
+    "files": 56,
+    "checks": "Full bytes, length and SHA-256 matched every scoped manifest entry."
+  },
+  "reports": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-source/AI-REVIEW.json",
+      "bytes": 79860,
+      "sha256": "74b5fb726e1286c932a05e428091f2435cac61a77d8db332d455aa8d0c7414b0",
+      "complete_byte_readback": "PASS"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-claude-source/REVIEW.md",
+      "bytes": 4805,
+      "sha256": "ad81d4a6b8e5c53661bd65747342b093dec02f3e3f9c85ec684d0fc3a37594b7",
+      "complete_byte_readback": "PASS"
+    }
+  ],
+  "complete_report_readback_at_utc": "2026-09-07T15:07:55.616321+00:00",
+  "review_outcome": "FAIL",
+  "findings": [
+    {
+      "id": "R8-CLAUDE-SOURCE-001",
+      "severity": "MAJOR"
+    },
+    {
+      "id": "R8-CLAUDE-SOURCE-002",
+      "severity": "MAJOR"
+    }
+  ],
+  "scope_completion": "COMPLETE_FOR_SCOPED_STATIC_R01_R10_REVIEW",
+  "native_admission": "COULD_NOT_RUN: declared unavailable; not attempted.",
+  "native_A_B_C": "NOT_RUN: no native observation is supplied.",
+  "independence": "Separate reviewer task prompt only; no OS/process/history/memory isolation claim. Candidate-embedded author assertions were exposed and not verified or adopted.",
+  "first_clock_observation_utc": "2026-09-07T14:56:34Z",
+  "first_work_timing_limit": "Initial manifest-read attempt preceded first clock observation and failed because python was unavailable; exact first-work timestamp was not emitted.",
+  "conservative_budget_anchor_utc": "2026-09-07T14:56:20Z",
+  "analysis_cutoff_utc": "2026-09-07T15:11:20Z",
+  "original_hard_deadline_utc": "2026-09-07T15:16:20Z",
+  "deadline_reset": false,
+  "writes": "Only exclusive review-claude-source/AI-REVIEW.json, REVIEW.md and this RECEIPT.json were created.",
+  "prohibited_actions_performed": [],
+  "receipt_self_digest": "Excluded; the final response carries the complete-byte receipt SHA-256 after its separate readback.",
+  "receipt_readback_at_creation": "NOT_RUN",
+  "final_response_delivery_at_creation": "NOT_RUN"
+}

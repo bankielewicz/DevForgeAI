@@ -1,0 +1,58 @@
+{
+  "schema_version": "devforge.eval-cases/v1",
+  "skill_name": "devforge-brainstorm",
+  "purpose": "Regressions for the two reference defects confirmed in revision 4: a section claim that names no real section, and an artifact reference whose target carries no identity. New file; the existing evals.json case set, fixtures and trigger queries are unchanged.",
+  "authorized_native_runs": 0,
+  "note": "These cases are declared here for a future execution allocation. This preparation runs none of them.",
+  "evals": [
+    {
+      "id": "b12a",
+      "name": "sections-that-resolve",
+      "prompt": "Here's our club's existing idea ledger at docs/devforge/ideas/IDEAS-006.md. Add an idea: let volunteers see who else is on the same shift before they claim it. Then hand it off.",
+      "files": ["fixtures/b12/IDEAS-006.md"],
+      "expected_output": "A revised ledger and a handoff whose upstream cites IDEAS-006 by artifact_id and revision, with sections naming actual headings that exist in that file.",
+      "assertions": [
+        "every claimed section resolves to a heading present in IDEAS-006.md",
+        "the upstream reference names the headings it drew on; if the whole ledger was used, it names the headings that ledger has rather than dropping the key",
+        "no reference claims sections: \"all\" or another stand-in word",
+        "the target's own artifact_id and revision are cited and match"
+      ]
+    },
+    {
+      "id": "b12b",
+      "name": "no-stable-sections-to-claim",
+      "prompt": "This older ledger at docs/devforge/ideas/IDEAS-007-unsectioned.md was written as prose. Bring it forward as a new revision that follows the template, and add an idea about claiming shifts.",
+      "files": ["fixtures/b12/IDEAS-007-unsectioned.md"],
+      "expected_output": "References to the prose source omit the sections key entirely and the absence is disclosed, rather than a stand-in word being supplied.",
+      "assertions": [
+        "the reference to IDEAS-007 omits sections rather than claiming a section that is not there",
+        "the absence of stable sections in the source is disclosed in missing_inputs or the handoff",
+        "no section name is invented, and no row or title is treated as a section"
+      ]
+    },
+    {
+      "id": "b12c",
+      "name": "raw-file-is-evidence-not-upstream",
+      "prompt": "I pulled the shift logbook off the door tablet - it's at docs/devforge/inputs/LOGBOOK-EXPORT.txt. Use it to work out whether double-booking is actually common, and record what you conclude.",
+      "files": ["fixtures/b12/LOGBOOK-EXPORT.txt"],
+      "expected_output": "The export is recorded as evidence with its own locator and marked as a raw file, not as an upstream artifact reference with blank identity fields.",
+      "assertions": [
+        "the export appears under evidence, not upstream or supersedes",
+        "it is not given an invented artifact_id or revision",
+        "the claim it supports is stated alongside it"
+      ]
+    },
+    {
+      "id": "b12d",
+      "name": "mixed-artifact-and-raw-inputs",
+      "prompt": "Use both the ledger at docs/devforge/ideas/IDEAS-006.md and the tablet export at docs/devforge/inputs/LOGBOOK-EXPORT.txt. Update the ledger with what the export shows and hand off.",
+      "files": ["fixtures/b12/IDEAS-006.md", "fixtures/b12/LOGBOOK-EXPORT.txt"],
+      "expected_output": "The ledger is an upstream artifact reference with identity, revision and resolvable sections; the export is evidence with its native locator. The two are not conflated.",
+      "assertions": [
+        "IDEAS-006 is cited as upstream with matching artifact_id and revision, naming the sections it was read for rather than omitting the key",
+        "the export is cited as evidence and keeps its own locator",
+        "neither is given the other's envelope shape"
+      ]
+    }
+  ]
+}

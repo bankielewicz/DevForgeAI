@@ -1,0 +1,101 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SEVAL-R11-001"
+artifact_type: "authoring-report"
+project_id: "devforgeai"
+revision: 1
+status: final
+producer:
+  skill: "devforge-brainstorm control authoring"
+  session: "SESSION-001@11"
+execution_ref:
+  record: "SESSION-001@11"
+  store: "authority"
+  path: "authoring-assignments-20260905/SESSION-001.md"
+  sha256: "bfea50f8769254e820c729f43bed1c0df86a92414f3e7e59459f961b07b6eb17"
+missing_inputs:
+  - "Authentic native runtime observations for stop_and_correction, receipt_publication and rendered_delivery: the selected v1 interface exposes no collector, so these are ROOT_DEPENDENCY_DEFERRED and block native admission."
+  - "An authentic exported package: none exists to bind and none is authorized here, so prospective launch is an explicit dependent blocker rather than a fabricated installation."
+  - "The true first-work time, total duration and original cutoffs of the R10 allocation are unknown and are not reconstructed."
+---
+
+# R11 bounded control/checker/suite authoring — report
+
+## Outcome by subpart
+
+| Subpart | State |
+| --- | --- |
+| Twenty skill-package files | PRESERVED_BYTE_EXACT (no write fence allocated) |
+| Specification authoring | COMPLETE_AUTHORED_UNEXECUTED |
+| Checker source | COMPLETE_AUTHORED_UNEXECUTED |
+| Helper source | COMPLETE_AUTHORED_UNEXECUTED |
+| Actual caller integration | COMPLETE_AUTHORED_UNEXECUTED |
+| Suite scenarios | COMPLETE_AUTHORED_UNEXECUTED |
+| Physical fixtures | COMPLETE_AUTHORED_UNEXECUTED |
+| R10-CI-009 valid-reviewer positive scenario | PARTIAL |
+| Native observation collection (CHG-009) | ROOT_DEPENDENCY_DEFERRED |
+| Managed callback lifecycle (CHG-011) | ROOT_DEPENDENCY_DEFERRED |
+| Authentic exported package | UNAVAILABLE |
+| Additive custody corrections (CHG-039/040/041) | COMPLETE |
+| Execution of anything authored here | NOT_RUN |
+
+Per-record detail is in `BUILDER-RECEIPT.json`; the reasoning is in `AUTHORING-RECORD.md`.
+
+## What changed
+
+Nothing in the package. All twenty files verified byte-exact against the frozen pins
+before and after, `references/derivation.json` included.
+
+In the new run: 12 of the 33 selected R10 control files modified, 21 preserved, 29 added,
+62 final.
+
+## The shape of the R10 findings
+
+Fourteen checker/control records, and several are the same mistake in different places: a
+case that produces its expected outcome for a reason unrelated to what it tests. A
+negative failing because its target is missing; a positive that cannot resolve its own
+preflight path; a decoy rejected by a length cap rather than by the association rule; a
+STALE assertion reading a gate file that never exists. Most of this run is making the
+expected outcome arrive by the intended route — staging real prerequisite bytes, then
+asserting the predicate, association or classification rather than the outcome alone.
+
+Two repairs are worth naming because the defect was narrower than it looked. The
+disclosure that "still passes as observed section absence" did so because `_UNKNOWN`
+matched "unreadable" and "could not read" but not **"unable to read"**, so that exact
+phrasing reached the absence branch. And the digest decoy worked *because* the wrong-root
+locator was correctly rejected — rejecting it is what left its digest unowned for the
+valid locator above to take.
+
+## What is deferred, and what is merely unfinished
+
+Distinguished deliberately. The managed WAITING_USER callback lifecycle and the three
+uncollectable observation classes are root dependencies: no collector exists in the
+selected v1 interface, they fail closed, and none was invented. An authentic exported
+package does not exist to bind and is declared UNAVAILABLE, not fabricated. Against that,
+the R10-CI-009 valid-reviewer positive scenario is **local work this allocation did not
+finish**, and it is recorded PARTIAL rather than attributed to a root gap.
+
+## Clock
+
+First tool action: `date -u`, `2026-09-07T22:58:31.234163791Z`, before any file read or
+other preparation — the rule R10 did not meet. Reserve `2026-09-08T00:38:31Z`, hard
+deadline `2026-09-08T00:58:31Z`. No reset, extension or backdating. Every timestamp in
+this run comes from `datetime.isoformat()` and is parsed back before closure, which is the
+CHG-040 requirement; R10's receipt carries a literal `%f` because `time.strftime` does not
+implement that directive.
+
+## Creator
+
+**No creator invocation was made, and none is authorized.** This allocation changes no
+skill-source byte, so the creator gate does not apply; the frozen guidance was applied
+read-only, and reading it is not invocation. R10's creator action remains
+AUTHOR_REPORTED_INVOKED_LOADED_NOT_INDEPENDENTLY_OBSERVED.
+
+## Claims not made
+
+Validation NOT_PERFORMED. Tests, native C/B/A, root admission, hook activation and human
+acceptance NOT_RUN. Hooks DESIGN_ONLY. **Zero findings closed.** A static source PASS
+closes nothing native or historical; synthetic fixture expectations are authored
+expectations, not observations; and no suite ran, so no NOT_RUN anywhere is replaced.
+Codex C COULD_NOT_RUN, Codex B NOT_RUN, prior budget failures and the 687-second late
+write are unchanged. The three held authorities received no work and no new prompt.

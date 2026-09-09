@@ -1,0 +1,62 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-R9-CLAUDE-BRAINSTORM"
+artifact_type: "handoff"
+project_id: "devforgeai"
+revision: 1
+status: draft
+created_at_utc: "2026-09-07T18:06:00+00:00"
+producer:
+  skill: "devforge-brainstorm authoring session"
+  skill_revision: "unknown"
+execution_ref: "SESSION-001@9"
+upstream: []
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs:
+  - "runtime collector interface for Stop/correction, receipt publication/readback and rendered delivery: not exposed by the selected v1 contract; deferred by name, blocking dependent native admission"
+  - "supported process/module resume lifecycle for CHG-011: runtime-owned, no collector available"
+---
+
+# Handoff: revision-9 source repair and executable control authoring
+
+## You are here
+
+- Scope: Claude brainstorm source repair (CHG-017, CHG-018) and fresh executable control/checker/suite authoring (CHG-005 through CHG-016, CHG-019 through CHG-021).
+- Task state: complete for source; partial for executable authoring, with named deferrals.
+- Assignment: SESSION-001@9, `authoring-assignments-20260905/SESSION-001.md`, SHA-256 `9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3`.
+- Baseline: selected r7 control tree, PLAN.json `002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e`.
+
+## What changed
+
+Four authorized source paths only; sixteen other files and the exact discovery description
+preserved byte-identical. Fresh executable source under this run's `source/`, never installed.
+Per-CHG before/after paths and full digests are in `BUILDER-CHANGE-RECEIPT.json`.
+
+## Observed verification
+
+| Check | Outcome | Scope |
+| --- | --- | --- |
+| Authority, issuance and held-authority identity | PASS | Digests compared before dependent writes |
+| Twenty candidate paths vs INPUTS.json and reviewed candidate | PASS | No drift |
+| Write fence: sixteen non-authorized files unchanged | PASS | Re-hashed after edits |
+| Discovery description and skill name unchanged | PASS | Byte comparison |
+| Control baseline identity (132-line PLAN) | PASS | Digest match |
+| Authored code executed | NOT_RUN | Forbidden by the fence |
+| Tests, suites, fixtures, native evaluation | NOT_RUN | Zero |
+| Provider validation | NOT_PERFORMED | No validator campaign allocated |
+| Hooks | DESIGN_ONLY | No hook authored or activated |
+| Native C / B / A | NOT_RUN | Preserved from history |
+| Root admission | NOT_RUN | Blocked by deferred observations |
+| Human acceptance | NOT_RUN | Not this author's to grant |
+
+## What remains open
+
+Every original finding stays open at its original severity. CHG-011 executable lifecycle is not
+authored. Three of the five CHG-009 observations are ROOT_DEPENDENCY_DEFERRED and block dependent
+native admission. Historical outcomes preserved unchanged: Codex C COULD_NOT_RUN, B6 and both B6E
+arms NOT_RUN, both prior Claude budget FAILs and the 687-second late write.
+
+Receipt publication, readback and delivery were NOT_RUN when this handoff was written, and that
+record stands. This handoff carries no digest of itself and does not list itself as an output.

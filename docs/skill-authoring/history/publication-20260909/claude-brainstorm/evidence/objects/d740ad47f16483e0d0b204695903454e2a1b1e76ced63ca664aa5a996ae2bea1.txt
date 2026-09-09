@@ -1,0 +1,267 @@
+#!/usr/bin/env python3
+"""Admission predicates: preservation, prerequisites, observations, authority.
+
+Fresh executable source for CC7-003, CC7-004, CC7-005 and CC7-011 (CHG-007,
+CHG-008, CHG-009, CHG-015), authored against the selected r7 control baseline
+(control/PLAN.json, SHA-256 002099d3...; control/controller.py:64-93). Nothing
+here is executed by this allocation, and nothing here launches anything: these
+are the decision functions the phase path calls, written so that an absent
+observation refuses rather than passes.
+
+The baseline's `Controller.gate` reads checker files and recorded decisions and
+is right about both. What it has no opinion about is the four questions below,
+each of which was answered somewhere else, loosely or not at all:
+
+  preserve_check   CC7-003  a retained archive must still be there, and be the
+                            bytes that were selected -- not merely a key that
+                            survived in an inventory.
+  prerequisites    CC7-004  C before B, C and B before A, checked before any
+                            marker is written rather than after.
+  observations     CC7-005  the runtime-owned observations the bridge requires,
+                            with the ones this interface cannot supply deferred
+                            by name and failing closed.
+  authority_bind   CC7-011  new evidence binds the current selected allocation,
+                            never the historical one it was derived from.
+"""
+import hashlib, json, os
+
+OUTCOMES = ("PASS", "FAIL", "NOT_RUN", "COULD_NOT_RUN", "NOT_APPLICABLE")
+
+
+def sha(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 16), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
+# --- CC7-003 / CHG-007: preservation is retained bytes ------------------------
+
+def preserve_check(selected, run_root):
+    """Every `preserved_outputs` path must hold its selected original bytes now.
+
+    `selected` maps a project-relative path to the digest that was selected for
+    it -- the original's digest, taken before the write that superseded it.
+
+    The three states that must not collapse into one another:
+
+      retained   the file is there and hashes to the selected original   PASS
+      changed    the file is there and hashes to something else          FAIL
+      vanished   the file is not there at the moment of judgment         FAIL
+
+    The inventory is built from observed bytes, so an entry can outlive the file
+    it describes -- the judgment pause is long enough for a later step to remove
+    an archive, and a surviving inventory key then reads exactly like a surviving
+    file. The digest is recomputed here, at judgment time, against the selected
+    original: an exclusion claim is only as good as the bytes behind it
+    (PLAN.json:26; bridge:21).
+    """
+    rows, ok = [], True
+    for rel, original in sorted(selected.items()):
+        path = rel if os.path.isabs(rel) else os.path.join(run_root, rel)
+        row = {"preserved_output": rel, "selected_original_sha256": original}
+        if not os.path.isfile(path):
+            row.update(state="VANISHED", outcome="FAIL",
+                       reason="selected preserved output is not present at judgment time; a "
+                              "surviving inventory key is not surviving bytes")
+            ok = False
+        else:
+            got = sha(path)
+            row["actual_sha256"] = got
+            if got != original:
+                row.update(state="CHANGED", outcome="FAIL",
+                           reason="preserved output no longer holds the bytes that were selected; "
+                                  "exclusion requires exact digest identity, and this comparison "
+                                  "is the record of it")
+                ok = False
+            else:
+                row.update(state="RETAINED", outcome="PASS",
+                           reason="live bytes recomputed at judgment time equal the selected "
+                                  "original digest")
+        rows.append(row)
+    return {"check": "preservation", "rows": rows,
+            "outcome": "PASS" if ok else "FAIL",
+            "comparison_recorded": True,
+            "note": "Required outputs are inspected regardless of retention class. Preservation "
+                    "is a statement about bytes that are still reachable, so it is decided from "
+                    "the file, never from the inventory that described it."}
+
+
+# --- CC7-004 / CHG-008: C before B, C and B before A --------------------------
+
+# The fixed plan names these arms and this order (PLAN.json:43-56; bridge:46).
+REQUIRED_C = ("C1",)
+REQUIRED_B = ("B5", "B11")
+REQUIRED_BEFORE_A = REQUIRED_C + REQUIRED_B
+A_ARMS = ("A3a", "A5a")
+
+
+def prerequisites(arm, completed, diagnostic_scope=None):
+    """May `arm` be admitted, given what has actually completed?
+
+    `completed` maps an arm ID to its recorded result: it must carry a checked
+    mechanical outcome and a bound post-output judgment. An arm that ran but was
+    never checked, or was checked but never judged, has not satisfied anything.
+
+    The refusal happens here, before a marker is written. Revision 2's ordering
+    was enforced by the sequence of calls in the runner, which is an ordering
+    only as long as nobody calls them out of order; a refusal after the fact
+    leaves an admission marker behind that says the arm was admitted.
+
+    `diagnostic_scope` is the explicitly authorized C-only mode. It permits the
+    C arm and refuses everything downstream, which is the point of it: a
+    diagnostic is a scope, not a partial admission that later counts.
+    """
+    def satisfied(name):
+        rec = (completed or {}).get(name) or {}
+        return (rec.get("mechanical") == "PASS"
+                and rec.get("judgment") == "PASS"
+                and bool(rec.get("judgment_bound_to")))
+
+    out = {"arm": arm, "requires": [], "unsatisfied": [], "marker_written": False}
+
+    if diagnostic_scope:
+        out["scope"] = "C_ONLY_DIAGNOSTIC"
+        if arm in REQUIRED_C:
+            out.update(admit=True, outcome="PASS",
+                       reason="explicitly authorized C-only diagnostic scope admits the C arm")
+            return out
+        out.update(admit=False, outcome="FAIL", requires=list(REQUIRED_C),
+                   reason="an authorized C-only diagnostic scope admits nothing downstream; its "
+                          "results are diagnostics and do not stand in for B or A admission")
+        return out
+
+    if arm in REQUIRED_C:
+        out.update(admit=True, outcome="PASS", reason="C has no prerequisite arm")
+        return out
+    if arm in REQUIRED_B:
+        need = list(REQUIRED_C) + [b for b in REQUIRED_B if b != arm and _ordered_before(b, arm)]
+    elif arm in A_ARMS:
+        need = list(REQUIRED_BEFORE_A)
+        if arm == "A5a":
+            need = need + ["A3a"]
+    else:
+        out.update(admit=False, outcome="FAIL",
+                   reason="unknown arm %r is not in the fixed plan" % (arm,))
+        return out
+
+    out["requires"] = need
+    out["unsatisfied"] = [n for n in need if not satisfied(n)]
+    if out["unsatisfied"]:
+        out.update(admit=False, outcome="FAIL",
+                   reason="refusing admission: %s has not completed with a checked result and a "
+                          "bound judgment. No admission marker is written for a refused arm"
+                          % ", ".join(out["unsatisfied"]))
+        return out
+    out.update(admit=True, outcome="PASS",
+               reason="every required prerequisite completed, was checked and carries a bound "
+                      "post-output judgment")
+    return out
+
+
+def _ordered_before(candidate, arm):
+    order = list(REQUIRED_B)
+    return order.index(candidate) < order.index(arm)
+
+
+# --- CC7-005 / CHG-009: runtime-owned observations ----------------------------
+
+# The bridge (lines 40-46) requires these as independent observations. Each is a
+# distinct thing seen, not a property inferred from a valid artifact: worker
+# text, static presence and exported final hashes are none of them.
+RUNTIME_OBSERVATIONS = {
+    "ordered_checkpoints": "runtime-recorded phase order and per-phase checkpoint acceptance",
+    "stop_and_correction": "actual Stop callback and bounded-correction events",
+    "receipt_publication": "runtime publication, readback and current-target verification of the "
+                           "receipt, with its returned locator and digest",
+    "installed_resource_loading": "observed consultation of the installed SKILL/reference/template "
+                                  "bytes",
+    "rendered_delivery": "the response actually rendered to a client; a successful socket write is "
+                         "not rendering",
+}
+
+# Observations the selected v1 interface exposes no collector for. They are
+# deferred by name and they fail closed: a deferred observation blocks the gate
+# that depends on it, exactly as a missing one does. What must never happen is
+# the third option -- inventing a collector API, or letting a worker's own text
+# stand in (REMEDIATION-SPECIFICATION.md; CC7-005).
+ROOT_DEPENDENCY_DEFERRED = ("stop_and_correction", "receipt_publication", "rendered_delivery")
+
+
+def observations(observed, required=None):
+    """Fail-closed consumer for the runtime observation record.
+
+    `observed` is whatever the runtime supplied. An entry counts only when it is
+    an object carrying a source the runtime owns and the exact bytes observed;
+    anything else is recorded as unusable rather than accepted at face value.
+    """
+    required = tuple(required or RUNTIME_OBSERVATIONS)
+    rows, blocking = [], []
+    for name in required:
+        row = {"observation": name, "requires": RUNTIME_OBSERVATIONS.get(name, "")}
+        rec = (observed or {}).get(name)
+        if name in ROOT_DEPENDENCY_DEFERRED and not isinstance(rec, dict):
+            row.update(outcome="COULD_NOT_RUN", state="ROOT_DEPENDENCY_DEFERRED",
+                       blocks_dependent_admission=True,
+                       reason="the selected v1 interface exposes no collector for this "
+                              "observation. It is deferred by name, it is not satisfied, and it "
+                              "blocks the gate that depends on it. Do not substitute worker text, "
+                              "static artifact presence or an exported final hash")
+            blocking.append(name)
+        elif not isinstance(rec, dict):
+            row.update(outcome="FAIL", state="MISSING", blocks_dependent_admission=True,
+                       reason="no observation recorded; a valid artifact is not evidence that the "
+                              "runtime did the thing that produces it")
+            blocking.append(name)
+        elif not rec.get("source") or not rec.get("observed_bytes_sha256"):
+            row.update(outcome="FAIL", state="UNUSABLE", blocks_dependent_admission=True,
+                       reason="an observation must name the runtime-owned source it came from and "
+                              "the exact bytes observed; a bare assertion is not an observation")
+            blocking.append(name)
+        else:
+            row.update(outcome="PASS", state="OBSERVED", source=rec["source"],
+                       observed_bytes_sha256=rec["observed_bytes_sha256"],
+                       blocks_dependent_admission=False)
+        rows.append(row)
+    return {"check": "runtime_observations", "rows": rows,
+            "blocking": blocking,
+            "deferred": [n for n in blocking if n in ROOT_DEPENDENCY_DEFERRED],
+            "outcome": "PASS" if not blocking else "FAIL",
+            "native_admission": "BLOCKED" if blocking else "NOT_BLOCKED_BY_THIS_CHECK",
+            "note": "This check never returns PASS on the strength of an artifact existing. "
+                    "Deferred entries are honest gaps in the interface and are reported as gaps; "
+                    "they are not a licence to skip the observations that are implementable.",
+            "not_established_here": ["native completion", "provider stream EOF",
+                                     "owned process cleanup", "process caps"]}
+
+
+# --- CC7-011 / CHG-015: new evidence binds the current allocation -------------
+
+AUTHORITY_KEYS = ("session", "revision", "path", "sha256")
+
+
+def authority_bind(selected, emitted):
+    """New records must carry the selected *current* allocation, exactly.
+
+    Historical clocks, receipts and authority records are inputs. Carrying one
+    into a new record is how a finished allocation's identity ends up asserted
+    about work it never covered (SESSION-001-r7.md:36,46,58). So the emitted
+    identity is compared field by field against the selected one, and a
+    mismatch is rejected rather than reconciled toward either side.
+    """
+    rows, bad = [], False
+    for key in AUTHORITY_KEYS:
+        want, got = selected.get(key), (emitted or {}).get(key)
+        row = {"field": key, "selected": want, "emitted": got,
+               "outcome": "PASS" if got == want and got is not None else "FAIL"}
+        if row["outcome"] == "FAIL":
+            bad = True
+            row["reason"] = ("emitted value does not equal the selected current allocation"
+                             if got is not None else "no value emitted for this field")
+        rows.append(row)
+    return {"check": "authority_binding", "rows": rows,
+            "selected": dict(selected), "emitted": dict(emitted or {}),
+            "outcome": "FAIL" if bad else "PASS",
+            "note": "A historical authority is an input, never the identity of new work. Rejection "
+                    "is the outcome; rewriting the record to match is not available here."}

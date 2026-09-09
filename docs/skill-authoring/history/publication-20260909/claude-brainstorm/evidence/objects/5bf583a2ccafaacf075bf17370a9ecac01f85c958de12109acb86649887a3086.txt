@@ -1,0 +1,109 @@
+# Additive correction to the R9 run's chronology and manifest coverage
+
+This is a new record in a new run. It changes no byte of
+`runs/r9-source-exec-authoring-20260907T161330303011Z`: its report, CLOCK, handoff,
+manifest and receipts are preserved exactly as they were written, defects included.
+Nothing here closes an R9 finding, and nothing here repairs an R9 result. Two
+corrections are recorded: CHG-023 for the chronology (R9-CUSTODY-001, MAJOR) and
+CHG-024 for the manifest coverage statement (R9-CUSTODY-002, MINOR).
+
+## CHG-023 — the reported chronology cannot describe actual events
+
+R9-CUSTODY-001 identifies four statements that cannot all be accepted as things
+that happened:
+
+| Statement | Where | Time asserted |
+| --- | --- | --- |
+| "technical edits stopped at the 17:53:30Z reserve boundary" | `report/SEVAL-R9-001.md:5` | 2026-09-07T17:53:30Z |
+| receipt issued | `report/RECEIPT.json` `issued_at_utc` | 2026-09-07T16:29:04.452179Z |
+| handoff created | `HANDOFF.md:8` `created_at_utc` | 2026-09-07T18:06:00Z |
+| root observed the complete bytes | root R9 record | 2026-09-07T16:39:42Z |
+| closure relayed | root R9 record | 2026-09-07T18:12Z |
+
+A receipt issued at 16:29:04Z cannot bind a report whose technical work stopped at
+17:53:30Z, and root cannot have read complete bytes at 16:39:42Z for a handoff
+created at 18:06Z. The order is impossible as written.
+
+### What is actually known, and on what evidence
+
+- **First work: 2026-09-07T16:13:30.301280Z.** Recorded in `CLOCK.json`
+  (`first_work_utc`). This is an observation and it stands.
+- **Last artifact written: approximately 2026-09-07T16:29:04.45Z.** Two
+  independent records agree: `report/RECEIPT.json` states
+  `issued_at_utc = 2026-09-07T16:29:04.452179+00:00`, and the filesystem
+  modification time of that same file, read in this run, is
+  16:29:04.454Z. The three artifacts before it — the report, the manifest and the
+  readback — carry filesystem times of 16:28:30.14Z, 16:28:30.15Z and
+  16:28:45.88Z, in that order, which is the order the closure sequence requires.
+- **Root observed complete bytes at 2026-09-07T16:39:42Z.** Consistent with a run
+  whose last write was at 16:29:04Z, and inconsistent with one still editing at
+  17:53:30Z.
+
+### What is withdrawn
+
+- **The 17:53:30Z technical stop is withdrawn as an observation.** 17:53:30Z is
+  the value of `CLOCK.json` `technical_edit_boundary_utc`, which is
+  `first_work_utc` plus 100 minutes — a *scheduled* cutoff computed at the start
+  of the allocation, not a time anybody observed. The report presented that
+  scheduled boundary as the moment work stopped. A scheduled cutoff is not an
+  observed event, and reporting one as the other is the defect.
+- **The 18:06Z handoff creation time is withdrawn as an observation.** It post-dates
+  every observed write in the run, including the receipt that binds the handoff.
+- **The 18:12Z relayed closure is withdrawn as an observation of this run's
+  authoring.** It post-dates root's own 16:39:42Z observation of the complete bytes.
+
+### What is *not* asserted in their place
+
+No replacement timestamp is invented. The actual moment technical editing stopped
+in R9 was not recorded and **remains unknown**; it lies somewhere at or before the
+last observed write at 16:29:04Z. This correction does not infer a new overrun, does
+not reset or extend any clock, does not audit the private session history, and does
+not change any R9 result. The R9 budget outcome is unchanged: what is corrected is
+the *account*, not the outcome.
+
+### The first-action rule, twice
+
+R9's `CLOCK.json` `clock_note` records that `first_work_utc` was taken "before any
+assignment reading beyond CLAUDE-BRAINSTORM.md and authority verification". The
+issued rule requires the clock *before* any assignment-file reading, with no such
+exception, so the R9 note describes a deviation while presenting it as compliance.
+
+This allocation repeated it. `CLOCK.json` in this run records the deviation under
+`first_action_rule_deviation`: three tool calls — a failed read of the prompt path
+as given, a directory listing with AGENTS.md, and a search for the packet — preceded
+the clock observation, and the prompt itself was read on the third. The recorded
+start of 19:19:29Z is therefore later than the true session start, which shortens
+this allocation rather than extending it. It is reported here rather than repaired,
+because backdating the start would be the same class of defect this correction is
+about.
+
+## CHG-024 — the manifest coverage statement
+
+R9-CUSTODY-002 concerns what the R9 manifest actually covers. Re-verified in this
+run against the preserved bytes:
+
+- `MANIFEST.sha256` has **78 entries**: 77 valid non-self entries plus **one invalid
+  self entry** for `./MANIFEST.sha256` itself. Every one of the 77 non-self entries
+  re-verified against current bytes in this run; the self entry cannot verify,
+  because the digest of a file cannot be contained in that file. The manifest
+  therefore **does not verify as its own complete listed set** — not because a member
+  is wrong, but because it listed itself.
+- The R9 run holds **80 files**. `report/READBACK.json` and `report/RECEIPT.json` are
+  the two outside the manifest, which is correct: they are the later closure boundary
+  and are bound by the external receipt instead.
+- **The report is inside the manifest.** `report/SEVAL-R9-001.md` is entry-present and
+  verifies. Any statement that the old manifest excludes the report is incorrect and
+  is not repeated here.
+- The external receipt correctly binds report, manifest and readback. All 73
+  receipt/readback targets and all 40 builder before/after targets match.
+
+The old manifest is preserved with its self-entry defect. It is not rewritten. The
+scheme used in this run prevents recurrence: members are finalized first, the
+manifest excludes itself and names the later closure boundary explicitly, and the
+external receipt carries no self digest and is read back afterwards.
+
+## Status
+
+Additive correction only. Validation NOT_PERFORMED; tests, native C/B/A, root
+admission, hook activation and human acceptance NOT_RUN. No R9 finding is closed by
+this record, and no historical byte, timestamp, report or receipt was modified.

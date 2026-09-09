@@ -1,0 +1,225 @@
+#!/usr/bin/env python3
+"""Per-arm grading, revision 2 (CR4-002).
+
+Revision 1 built the inspection list by dropping every path that appeared in
+`staged`, and only then compared digests. A ledger that was staged as input and
+then rewritten by the worker is a staged path, so it was dropped before its
+bytes were ever looked at -- seven modified ledgers left the inventory entirely,
+and the later digest-identity logic could not reach them. The aggregate that
+followed was arithmetic over an inventory that was missing its most interesting
+members.
+
+The fix is to classify by observed bytes rather than by pathname. Before and
+after are both known, so each path has an answer:
+
+  new              -- not present before; inspect
+  changed          -- present before, different bytes now; inspect (the ledgers)
+  unchanged_input  -- present before, identical bytes; exclude, comparison recorded
+  retained_copy    -- new path whose bytes are identical to a known input; exclude
+                      as preservation, naming which input it preserves
+  changed_copy     -- archive-shaped path whose bytes match nothing; inspect
+
+Exclusion is only ever earned by exact digest identity, and the comparison that
+earned it is written down. A declared expected output that never appeared is a
+coverage failure, not an absence.
+"""
+import json, os, subprocess, sys
+
+RUN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CH = os.path.join(RUN, "checkers")
+
+
+def classify(rec):
+    """Full before/after inventory for one arm."""
+    before = {d: i["sha256"] for d, i in (rec.get("staged_inputs") or {}).items()}
+    before_digests = {}
+    for d, h in before.items():
+        before_digests.setdefault(h, []).append(d)
+    after = {r: h for r, h in (rec.get("outputs") or {}).items() if r != "CLAUDE.md"}
+
+    inv = {}
+    for rel, h in sorted(after.items()):
+        if rel in before:
+            if before[rel] == h:
+                inv[rel] = {"class": "unchanged_input", "sha256": h,
+                            "comparison": "identical to the staged input at this path",
+                            "inspect": False}
+            else:
+                inv[rel] = {"class": "changed", "sha256": h, "was_sha256": before[rel],
+                            "comparison": "staged at this path and rewritten by the worker",
+                            "inspect": True}
+        elif h in before_digests:
+            inv[rel] = {"class": "retained_copy", "sha256": h,
+                        "preserves": before_digests[h][0],
+                        "comparison": "byte-identical to a staged input; preservation, not "
+                                      "new authorship",
+                        "inspect": False}
+        else:
+            shape = "changed_copy" if ("/archive/" in rel or ".r" in os.path.basename(rel)) else "new"
+            inv[rel] = {"class": shape, "sha256": h,
+                        "comparison": ("archive-shaped path whose bytes match no known input, so "
+                                       "it is not a preservation" if shape == "changed_copy"
+                                       else "not present before this arm"),
+                        "inspect": True}
+    removed = sorted(set(before) - set(after))
+    for rel in removed:
+        inv[rel] = {"class": "removed", "was_sha256": before[rel], "inspect": False,
+                    "comparison": "staged input no longer present after the arm"}
+    return inv, before, after
+
+
+def coverage(inv, expected):
+    """Required current outputs have to exist and have to be inspected.
+
+    Revision 2 asked only whether the path appeared in the inventory and whether
+    it was an unchanged input. A required ledger the arm deleted stayed in the
+    inventory as `removed`, was never inspected, and raised no problem; a
+    required file whose bytes duplicated an input was classed `retained_copy`
+    and excluded the same way. Both then disappeared from every checker input,
+    because those are built from the inspected entries -- so an arm could pass
+    mechanically while its required artifact was never looked at by anything.
+
+    Retention classification answers "is this new authorship". It cannot answer
+    "did the required output get produced", so that question is asked separately
+    here. Preservation stays legitimate exactly where the output map selects it:
+    a path declared under `preserved_outputs` is expected to be retained and is
+    not required to change.
+    """
+    problems = []
+    preserved = set(expected.get("preserved_outputs", []))
+    for rel in expected.get("required_outputs", []):
+        row = inv.get(rel)
+        if row is None:
+            problems.append({"path": rel, "class": None,
+                             "problem": "declared required output was never produced"})
+            continue
+        cls = row["class"]
+        if cls == "removed":
+            problems.append({"path": rel, "class": cls,
+                             "problem": "declared required output was removed by the arm; a "
+                                        "pathname surviving in the inventory is not a produced "
+                                        "output"})
+        elif cls == "unchanged_input":
+            problems.append({"path": rel, "class": cls,
+                             "problem": "declared required output is byte-identical to its staged "
+                                        "input; the arm produced no change where one was required"})
+        elif cls == "retained_copy":
+            problems.append({"path": rel, "class": cls,
+                             "problem": "declared required output is a byte-identical copy of %s; "
+                                        "preserving an input cannot satisfy a required current "
+                                        "output unless the output map selects that path under "
+                                        "preserved_outputs" % row.get("preserves")})
+        elif not row["inspect"]:
+            problems.append({"path": rel, "class": cls,
+                             "problem": "declared required output was not inspected; an output no "
+                                        "checker ever reads has not been checked"})
+    for rel in sorted(preserved):
+        row = inv.get(rel)
+        # Revision 2 asked only whether the key existed. `classify()` keeps a
+        # deleted staged path in the inventory as `removed`, so selecting that
+        # path for preservation passed while the bytes it was supposed to
+        # preserve were gone (CP5-CK-002). Preservation is a claim about bytes
+        # that are still there, so that is what gets checked.
+        if row is None:
+            problems.append({"path": rel, "class": None,
+                             "problem": "declared preserved output is absent; preservation was "
+                                        "selected for this path and nothing is there"})
+        elif row["class"] == "removed":
+            problems.append({"path": rel, "class": row["class"],
+                             "problem": "declared preserved output was removed by the arm; the "
+                                        "pathname survives in the inventory but the retained "
+                                        "bytes do not, and an inventory entry is not "
+                                        "preservation"})
+        elif not row.get("sha256"):
+            problems.append({"path": rel, "class": row["class"],
+                             "problem": "declared preserved output has no observed after-bytes "
+                                        "digest, so nothing establishes what was retained"})
+    known = (set(expected.get("required_outputs", [])) | set(expected.get("optional_outputs", []))
+             | preserved)
+    if known:
+        for rel, row in sorted(inv.items()):
+            if row["inspect"] and rel not in known:
+                problems.append({"path": rel, "class": row["class"],
+                                 "problem": "produced an output not in the declared output map; "
+                                            "unrecognized required output fails coverage"})
+    return problems
+
+def run_checker(name, cfg, cfg_path, out_path):
+    json.dump(cfg, open(cfg_path, "w"), indent=1)
+    subprocess.run([sys.executable, os.path.join(CH, name), "--config", cfg_path,
+                    "--out", out_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    return json.load(open(out_path)) if os.path.isfile(out_path) else {"conformance": "COULD_NOT_RUN"}
+
+
+def grade_arm(arm_id, rec, plan, grades_dir):
+    inv, before, after = classify(rec)
+    expected = plan.get("outputs", {}).get(arm_id, {})
+    cov = coverage(inv, expected)
+    proj = os.path.join(rec["attempt_dir"], "project")
+    inspect = [r for r, v in inv.items() if v["inspect"] and r.endswith(".md")]
+    art = [{"path": os.path.join(proj, r), "label": r} for r in sorted(inspect)]
+
+    out = {"arm": arm_id, "native": rec["outcome"], "inventory": inv,
+           "inventory_counts": {k: sum(1 for v in inv.values() if v["class"] == k)
+                                for k in sorted({v["class"] for v in inv.values()})},
+           "inspected": sorted(inspect), "coverage_problems": cov,
+           "inventory_note": "Built from observed before/after bytes and the declared output map. "
+                             "Exclusion requires exact digest identity and the comparison is "
+                             "recorded beside it."}
+
+    stores = dict(plan["stores"])
+    stores["project"] = proj
+    out["references"] = run_checker(
+        "validate_references.py",
+        {"stores": stores, "artifacts": art,
+         "excluded_staged_fixtures": sorted(r for r, v in inv.items() if not v["inspect"])},
+        os.path.join(grades_dir, "%s-ref-config.json" % arm_id),
+        os.path.join(grades_dir, "%s-references.json" % arm_id))
+
+    out["outcome_labels"] = run_checker(
+        "check_outcome_labels.py",
+        {"artifacts": [{"path": a["path"], "label": a["label"],
+                        "requires_outcome_table": "handoff" in a["label"].lower()} for a in art]},
+        os.path.join(grades_dir, "%s-label-config.json" % arm_id),
+        os.path.join(grades_dir, "%s-labels.json" % arm_id))
+
+    out["receipts"] = run_checker(
+        "check_receipts.py",
+        {"terminal_source": os.path.join(rec["attempt_dir"], "terminal-response.txt"),
+         "locator_mapping": dict(plan["locator_mapping"],
+                                 sandbox_root=rec.get("sandbox_project", "")),
+         "promised": [{"path": a["path"], "label": a["label"]} for a in art]},
+        os.path.join(grades_dir, "%s-receipt-config.json" % arm_id),
+        os.path.join(grades_dir, "%s-receipts.json" % arm_id))
+
+    mech = all(out[k].get("conformance") == "PASS"
+               for k in ("references", "outcome_labels", "receipts")) and not cov
+    out["mechanical"] = "PASS" if mech else "FAIL"
+    out["mechanical_note"] = ("Inventory coverage, references, Outcome vocabulary and terminal "
+                              "receipts. Named behaviour is a separate recorded semantic "
+                              "decision; neither implies the other.")
+    json.dump(out, open(os.path.join(grades_dir, "%s-grade.json" % arm_id), "w"), indent=1)
+    return out
+
+
+def main():
+    plan = json.load(open(os.path.join(RUN, "control", "PLAN.json")))
+    arms = json.load(open(os.path.join(RUN, "control", "ARMS.json")))
+    gd = os.path.join(RUN, "grades")
+    os.makedirs(gd, exist_ok=True)
+    summary = {}
+    for arm_id, rec in sorted(arms.items()):
+        if rec.get("outcome") not in ("PASS", "FAIL"):
+            summary[arm_id] = {"arm": arm_id, "native": rec.get("outcome"),
+                               "mechanical": "NOT_RUN", "detail": rec.get("detail")}
+            continue
+        summary[arm_id] = grade_arm(arm_id, rec, plan, gd)
+    json.dump(summary, open(os.path.join(gd, "mechanical.json"), "w"), indent=1)
+    for k, v in sorted(summary.items()):
+        print("%-10s native=%-13s mech=%-11s inv=%s cov=%d" % (
+            k, v.get("native"), v.get("mechanical"),
+            v.get("inventory_counts"), len(v.get("coverage_problems", []))))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,795 @@
+{
+  "schema_version": "devforge.independent-static-review/v1",
+  "review": "R10 control integration",
+  "conclusion": "PARTIAL_AUTHORED; material local integration and scenario defects remain",
+  "input_manifest_sha256": "d3808de6c65aff9296156b8a38b3928e8b7d0557b7718424b917dcd79774159e",
+  "selected_input_count": 39,
+  "execution": "NOT_RUN",
+  "native_execution": "NOT_RUN",
+  "isolation": {
+    "reviewer": "independent control-integration role",
+    "process_isolation": "NOT_ESTABLISHED",
+    "fresh_model_context": "NOT_ESTABLISHED; reused agent with prior review context",
+    "subagents_spawned_for_this_review": false,
+    "concurrent_r10_peer_artifacts_read": false
+  },
+  "findings": [
+    {
+      "id": "R10-CI-001",
+      "severity": "high",
+      "title": "Emitted preflight keys still resolve to the wrong directory in both verifiers",
+      "changes": [
+        "CHG-005",
+        "CHG-020"
+      ],
+      "retained_findings": [
+        "R9-CI-002",
+        "CC7-001",
+        "CC8-PROP-002"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            185,
+            201
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            218,
+            219
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            301,
+            310
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/controller.py",
+          "lines": [
+            75,
+            92
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            586,
+            615
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            41,
+            41
+          ]
+        }
+      ],
+      "trigger": "Build a freeze with unchanged files at RUN/no-model-tests/results.json and the other declared real preflight locations, then verify that emitted freeze.",
+      "analysis": "build hashes each real PREFLIGHT_ROOT/basename file but stores its key as preflight/no-model-tests/<name>. path_roots has code, candidate, fixture and prepfixture only. Both verify and Controller.verify_freeze therefore fall back to RUN/preflight/no-model-tests/<name>, where these staged files do not exist. A non-null expected digest is compared with None. This is a static path-resolution proof; no code was executed.",
+      "impact": "The unchanged real-location positive and generated-evidence positive cannot verify, and the actual runner refuses before admission. Mutation negatives can fail on this preexisting mismatch instead of the intended mutation.",
+      "narrow_repair": "Use one explicit preflight root/key convention in emission and both verifiers, bind the actually consumed GATE-INPUTS location, and author positives and negatives that assert the exact differing key.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-002",
+      "severity": "high",
+      "title": "Candidate, fixture and exported launch roots remain implicit historical selections",
+      "changes": [
+        "CHG-005",
+        "CHG-020"
+      ],
+      "retained_findings": [
+        "R9-CI-001",
+        "R9-CI-002"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            38,
+            42
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            166,
+            178
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            203,
+            219
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            38,
+            58
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            106,
+            132
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            35,
+            35
+          ]
+        }
+      ],
+      "trigger": "Place the authored controls in a fresh run with a selected final candidate/fixture set, or change/miss the historical live locations they still name.",
+      "analysis": "The builder silently selects the hardcoded worktree SRC and September 5 DELEG tree. The runner independently hardcodes those same locations, loads evaluation/query JSON at import time, and launches against RUN/export/export-01/devforgeai. There is no required supplied exact final candidate/fixture selection and no comparison proving that export launch bytes are the candidate bytes in the freeze. PREFLIGHT_ROOT and RUN are derived from module location rather than a shared required five-binding object. Hashing whichever live tree build finds is not verification of the exact selected final tree.",
+      "impact": "A future emission can describe a different candidate/root than the intended selected final candidate, and the code can read mutable or unavailable historical bytes before its startup integrity check. The authored source is not a portable, selection-bound caller integration.",
+      "narrow_repair": "Require an immutable selection manifest containing run root, final candidate/export identity, each selected fixture root, current allocation and preflight roots; validate all locators/digests before loading queries or other configuration; fail explicitly on unavailable selected roots and use those same bindings throughout build, verify and launch.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-003",
+      "severity": "high",
+      "title": "The fresh phase-suite scratch root omits a file now required by freeze.CODE",
+      "changes": [
+        "CHG-005",
+        "CHG-011",
+        "CHG-013"
+      ],
+      "retained_findings": [
+        "R9-CI-001",
+        "R9-CI-007"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            67,
+            90
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            166,
+            170
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            42,
+            65
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            118,
+            162
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            291,
+            301
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            570,
+            586
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            33,
+            33
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            39,
+            39
+          ]
+        }
+      ],
+      "trigger": "Reach the first build_root call in the authored phase suite with the selected source tree present.",
+      "analysis": "build_root copies control and checker files. stage_preflight writes three result JSON files and copies only checks_suite.py and phase_suite.py. Neither path copies no-model-tests/cases_r9.py into the scratch root. freeze.CODE now requires that path and build unconditionally opens/hashes each CODE entry. The first m.build() therefore raises FileNotFoundError before drive or the first scenario assertion. The independent r10-freeze setup has the same omission.",
+      "impact": "The fresh suite is not an executable authoring completion: it stops in setup before the claimed discriminating cases. This conclusion is static and does not constitute a test result.",
+      "narrow_repair": "Stage the complete selected fixed code/suite/case set into each scratch root before emission; make the scratch-root constructor account for every required entry and selected fixture without depending on live locations.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-004",
+      "severity": "high",
+      "title": "CHG-011 resumes the same failed controller instead of a fresh module lifecycle",
+      "changes": [
+        "CHG-011"
+      ],
+      "retained_findings": [
+        "CC7-007",
+        "R9-CI-007"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            231,
+            271
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            809,
+            843
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            44,
+            46
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            401,
+            408
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            463,
+            471
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            525,
+            543
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            576,
+            581
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            609,
+            640
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/controller.py",
+          "lines": [
+            54,
+            61
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/controller.py",
+          "lines": [
+            168,
+            169
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            53,
+            53
+          ]
+        }
+      ],
+      "trigger": "After repairing the earlier setup/freeze blockers, run the authored C1 pause followed by drive's first resume with a newly supplied C1 judgment.",
+      "analysis": "drive imports mod once before its loop and invokes that same mod.main([--resume]) at every resume. On the first missing judgment main records the pause, then continues to the A missing-input branch and sets CTL.failed=True before returning 8. The next main call recreates only results/phase_state/consumed; it never resets or recreates CTL. run_one calls CTL.may_launch before reading prior arm evidence; may_launch sees failed=True and refuses as budget exhausted. Fresh process/module re-entry would create a fresh controller, but the scenario does not perform it.",
+      "impact": "The locally available C1 to B5 transition is not authored as the required fresh-module lifecycle. R10-P40..45 cannot establish the intended ordered C/B/A progression or consumed-judgment assertions. Native managed callback availability is a separate legitimate deferral.",
+      "narrow_repair": "Author actual fresh-process or fresh-module re-entry per pause with all control imports isolated, reconstruct controller state from the same immutable allocation, retain prior evidence and cumulative markers, and assert each consumed judgment plus unchanged prior result digests. Keep native callback tests explicitly deferred.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-005",
+      "severity": "medium",
+      "title": "Both P21 paths still miss the required recorded inventory-mismatch classification",
+      "changes": [
+        "CHG-013"
+      ],
+      "retained_findings": [
+        "CC7-009",
+        "R9-CI-007"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            474,
+            479
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            249,
+            271
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            995,
+            1025
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/controller.py",
+          "lines": [
+            162,
+            165
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            379,
+            387
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            57,
+            57
+          ]
+        }
+      ],
+      "trigger": "After earlier setup and resume defects are fixed, inspect the new P21 driver's consumed gate record; also follow the retained old P21's second drive call.",
+      "analysis": "The new driver does call main([--resume]) and mutates only output_inventory_sha256, but reads decisions/gate-C:C1.json. Controller.gate replaces colons with hyphens and writes gate-C-C1.json. Thus recorded remains None even if STALE was written correctly. The old P21 still calls drive twice, and drive always begins main([]), so its second invocation exercises a non-resume preexisting destination rather than the stale-binding comparison. The new driver additionally shares R10-CI-004's same-controller failure.",
+      "impact": "Neither P21 variant proves the required recorded STALE reason. The old zero-downstream-marker expectation remains able to pass for an unrelated refusal; the new explicit STALE assertion reads the wrong file.",
+      "narrow_repair": "Use fresh re-entry with --resume from the correct pause and the canonical gate locator; assert semantic.recorded==STALE, the mismatched inventory field/reason, and zero additional admission markers.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-006",
+      "severity": "high",
+      "title": "Two observation classes still accept runtime-looking assertions without authentic bytes",
+      "changes": [
+        "CHG-009"
+      ],
+      "retained_findings": [
+        "CC7-005",
+        "R9-CI-001",
+        "R9-CI-003"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/admission.py",
+          "lines": [
+            199,
+            230
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/admission.py",
+          "lines": [
+            271,
+            334
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            64,
+            67
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            595,
+            605
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            648,
+            672
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            49,
+            49
+          ]
+        }
+      ],
+      "trigger": "Supply ordered_checkpoints and installed_resource_loading rows with source runtime.phase_state, task_id equal to the requested task and observed_bytes_sha256 equal to any 64 lowercase hexadecimal characters; omit outcome or set PASS, without any authentic referenced bytes.",
+      "analysis": "The consumer checks a source-name whitelist, digest syntax and task string, then emits OBSERVED/PASS. It does not resolve an evidence locator, hash actual bytes, validate a protected runtime event format or check whether that source can establish the named observation. Missing outcome defaults to PASS. Installed resource consultation is therefore accepted from a generic phase-state-looking dictionary. The selected runtime has mechanical correction/accepted/resume and receipt verification code, but none of those are parsed by this consumer.",
+      "impact": "The per-class report falsely qualifies unobserved evidence. The three unconditional deferred classes do correctly keep the aggregate observation outcome FAIL and A admission blocked, so this finding does not claim a present native-admission bypass.",
+      "narrow_repair": "Consume only selected protected event/check/receipt byte formats with locator, digest, provenance, task and explicit successful outcome validation. Record installed consultation and other unavailable collection as unavailable rather than accepting source labels. Distinguish mechanical correction/accepted/resume and verified receipt results from native callback provenance and rendering. Add separate actual-byte mismatch, missing-outcome and wrong-source-for-class negatives.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-007",
+      "severity": "high",
+      "title": "A-arm identity compares caller values with themselves rather than the fixed selected case",
+      "changes": [
+        "CHG-008",
+        "CHG-010",
+        "CHG-012"
+      ],
+      "retained_findings": [
+        "CC7-008",
+        "R9-CI-005",
+        "R9-CI-008"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/a_arm.py",
+          "lines": [
+            87,
+            129
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/activation.py",
+          "lines": [
+            104,
+            113
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/admission.py",
+          "lines": [
+            134,
+            142
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            186,
+            198
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            492,
+            514
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            688,
+            701
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            730,
+            750
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            47,
+            47
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            55,
+            55
+          ]
+        }
+      ],
+      "trigger": "Pass case A3a with the A5a selector, or change selected query text/should_trigger and supply that same changed text as prompt; alternatively resume an A record whose activation PASS is not bound to the current query/candidate/transcript.",
+      "analysis": "run_a_arm checks only that case belongs to A_CASES, then derives both hashes from its supplied selector/prompt. It never checks selector.id or should_trigger against an independently selected A3a/A5a row. activation still copies q.get(query_sha256), which the real selected rows do not contain, leaving the observation's query digest null. On A resume main accepts saved outcome PASS plus activation.outcome PASS without rebinding/reparsing that activation; prerequisites similarly trusts native/activation values and an optional state. The authored positive uses an invented q-1 row and there is no cross-case/fixed-row mutation negative.",
+      "impact": "The identity helper can accept the wrong case or a changed expectation as unchanged, and A5a sequencing is not supported by an exact selected A3a completion/activation binding. Current admission remains blocked by independent deferrals and the unavailable launch path.",
+      "narrow_repair": "Provide a verified immutable case-to-row mapping and expected should_trigger value, compare actual launch prompt bytes to that selected row, and carry its derived identity plus candidate/run/transcript/completion bindings into activation and resumed prerequisites. Add exact-row positive, cross-case, modified-row and modified-prompt negatives; retain honest NOT_RUN when no launcher exists.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-008",
+      "severity": "high",
+      "title": "The authored A caller has no reachable launcher seam and its prospective fixtures omit the case key",
+      "changes": [
+        "CHG-010",
+        "CHG-011",
+        "CHG-012",
+        "CHG-014"
+      ],
+      "retained_findings": [
+        "R9-CI-001",
+        "CC7-007",
+        "CC7-008",
+        "CC7-010"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            181,
+            198
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/a_arm.py",
+          "lines": [
+            155,
+            176
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            106,
+            112
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            215,
+            222
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            286,
+            287
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            822,
+            850
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            33,
+            33
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            51,
+            51
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            53,
+            53
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            55,
+            55
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            59,
+            59
+          ]
+        }
+      ],
+      "trigger": "Inspect the prospective A path after a future legitimate admission dependency is available, or attempt to reach the authored FULL_ARMS A scenarios using a non-native stand-in.",
+      "analysis": "The caller passes launcher=None unconditionally and returns every non-launched decision. run_a_arm returns NOT_RUN for that value, so the subsequent launch and activation statements are unreachable. Merely supplying a helper launcher would also require resolving ownership of the attempt directory: the helper creates it and the separate launch path claims it again. The suite A_ARMS records lack spec[case], which the caller requires, and the A stand-in writes top-level tool_use/text events that the new parser does not recognize as usable assistant transcripts. All are local authoring/interface defects; missing native dependencies are not a requirement to run native now.",
+      "impact": "The source has partial nonlaunch integration and useful parsing helpers, but cannot be credited as complete actual A caller integration or as authored positive A lifecycle fixtures. Zero-native refusal remains correct.",
+      "narrow_repair": "Keep the no-launcher NOT_RUN branch, but provide a reachable injectable local launch interface with one owner for exclusive destination creation and actual prompt/activation handoff. Make fixture case schemas and nested assistant/completion records match the selected interface. Until authored, label those caller/scenario subparts PARTIAL separately from native collector deferral.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-009",
+      "severity": "high",
+      "title": "Post-output judgments do not bind reviewer identity or all required raw evidence",
+      "changes": [
+        "CHG-008"
+      ],
+      "retained_findings": [
+        "CC7-004",
+        "R9-CI-001"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            300,
+            310
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            330,
+            365
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            525,
+            537
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            237,
+            240
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/grade.py",
+          "lines": [
+            32,
+            68
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            261,
+            266
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            47,
+            47
+          ]
+        }
+      ],
+      "trigger": "Copy a published REQUIRED binding into a judgment JSON and add outcome PASS, with no reviewer identity or transcript/checkpoint/runtime receipt byte bindings; or change an unbound transcript/checkpoint while those required hash fields remain unchanged.",
+      "analysis": "_evidence_binding covers run/session/arm, criteria, arm.json, a digest of the recorded inventory and three checker result files. _judgment requires only those fields and PASS/FAIL. Reviewer identity is neither required nor authorized, and raw transcript/checkpoint/runtime receipt bytes have no binding keys. The inventory derives from rec.outputs rather than a new complete evidence inventory. Calling such a record authorized in its basis does not establish the authorization the fixed specification requires.",
+      "impact": "A post-output dictionary with correct advertised hashes can satisfy a C/B semantic gate without an identified authorized reviewer and without proving the reviewer judged all selected actual evidence. This is a consumption-boundary deficiency independent of the source freeze and current A deferrals.",
+      "narrow_repair": "Bind a selected authorized reviewer identity and exact current output/checkpoint/receipt/transcript/check evidence inventory at judgment consumption; reject missing, unrelated, stale and unauthorized records before downstream admission. Preserve the separate mechanical and semantic decisions.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    },
+    {
+      "id": "R10-CI-010",
+      "severity": "medium",
+      "title": "Generic allocation emission still lacks verified selection and run-identity rejection",
+      "changes": [
+        "CHG-015"
+      ],
+      "retained_findings": [
+        "CC7-011",
+        "R9-CI-006"
+      ],
+      "evidence": [
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            130,
+            163
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            166,
+            170
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/freeze.py",
+          "lines": [
+            203,
+            219
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/admission.py",
+          "lines": [
+            370,
+            394
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/run_phases.py",
+          "lines": [
+            595,
+            600
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/no-model-tests/phase_suite.py",
+          "lines": [
+            619,
+            645
+          ]
+        },
+        {
+          "path": "inputs/claude/run/source/control/ALLOCATION.json",
+          "lines": [
+            1,
+            16
+          ]
+        },
+        {
+          "path": "inputs/issued-r10/REMEDIATION-SPECIFICATION.md",
+          "lines": [
+            61,
+            61
+          ]
+        }
+      ],
+      "trigger": "Supply a stale but nonempty allocation JSON, a 64-character non-hex digest, or a mismatched selected run_id to the generic emitter.",
+      "analysis": "selected_allocation validates presence and digest length only. It does not verify authority bytes, issuance selection, hex syntax or run_id. build copies the asserted session/revision/path/digest and derives run_id from basename(RUN), disregarding the selected run_id. The later authority helper compares just four values from dictionaries that originate from that same file; no run identity is checked. Current frozen ALLOCATION.json does carry the correct @10 digest, independently verified here against the frozen issued authority, so the defect is missing generic rejection and binding rather than a claim that its present @10 digest is wrong.",
+      "impact": "A stale or malformed future selection can be emitted and agree with itself. R10-P08/P09 test dictionary inequality rather than the actual emitter's refusal of bad selected allocation bytes.",
+      "narrow_repair": "Verify the explicitly selected issued authority/issuance bytes and full allocation/run identity before emission, validate exact digest syntax, and add actual emitter missing/stale/mismatched selection negatives. Keep session digests out of generic code.",
+      "status": "OPEN_STATIC",
+      "verification": "STATIC_SOURCE_TRACE_ONLY; execution NOT_RUN"
+    }
+  ],
+  "positive_static_credit": [
+    "Actual runner imports admission, activation and a_arm helpers and calls prerequisite checks before its launch seam.",
+    "Live preservation is integrated in run_phases._grade; a fresh resume regrades prior arms before consuming judgments, so changed/disappeared selected preserved bytes can be rejected.",
+    "Required C1/B5/B11 membership is fixed in prerequisites and A5a no longer invents C/B-style semantic-judgment fields for A3a.",
+    "Deferred observation classes are unconditionally blocked, malformed digest/source/task negatives exist, and zero-native authorization remains a clean refusal.",
+    "Activation envelope helper distinguishes scalar/list and role-less input from legitimate nested assistant Skill events; full completed A caller scenarios remain incomplete.",
+    "Generic freeze.py no longer embeds historical session digests, and the current selected @10 digest matches frozen authority bytes.",
+    "P20 retains judge={} and the explicit missing-judgment pause expectation; concurrency non-1 rejection is wired before native admission."
+  ],
+  "limits": [
+    "No evaluated module was imported, compiled or executed; no native arm, no-model suite, benchmark or behavior test was run.",
+    "Static reachability predictions are not observed test outcomes or runtime evidence.",
+    "This review does not grant release acceptance, root admission, runtime collector availability, publication/rendering proof or independent native semantic acceptance.",
+    "Source/checker and candidate-source reviews are separate roles; this report covers the selected control integration and authored phase/case scenarios.",
+    "Unavailable managed callback provenance, installed consultation and rendering remain separate from selected mechanical correction/accepted/resume and receipt verification functions.",
+    "No mutation to selected inputs or peer review outputs was authorized or performed."
+  ]
+}

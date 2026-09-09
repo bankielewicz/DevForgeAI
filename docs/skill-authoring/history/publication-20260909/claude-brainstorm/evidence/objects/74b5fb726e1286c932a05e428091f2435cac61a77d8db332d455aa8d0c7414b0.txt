@@ -1,0 +1,1236 @@
+{
+  "schema_version": "devforge.skill-ai-review/v1",
+  "run_id": "brainstorm-r8-claude-source-fresh-review",
+  "candidate_ref": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/CLAUDE-SOURCE-INPUTS.json",
+    "sha256": "4d2547d022d0116d72d6e7a563423f44ece96478515c2264153725199f8dc39a",
+    "kind": "frozen scoped input manifest; candidate entries under inputs/claude/candidate/devforge-brainstorm",
+    "note": "No structural-checks report was generated or used. The template locator is bound directly to the assigned exact-byte source manifest."
+  },
+  "reviewer": {
+    "identity": "/root/r8_claude_source_fresh_review; fresh static source reviewer",
+    "provider": "OpenAI",
+    "model": "unknown",
+    "runtime": "Codex agent with exec_command custody/text-reading tools; client version unknown",
+    "independence_evidence": "Parent supplied a bounded source-only task and the scoped manifest hash. This reviewer had a separate task prompt and did not inspect author reports, earlier reviews, repair requests/maps, run-side proposals, mutable sources, or memory files. No candidate was executed.",
+    "limits": [
+      "A separate prompt is not verified filesystem, process, client-history, or memory isolation; no such isolation is claimed.",
+      "Generic developer-provided project memory summary was present in the starting context; no memory files were opened and no memory-derived fact was used as review authority.",
+      "Candidate derivation.json necessarily exposed embedded author assertions, prior finding identifiers/severities, alleged verification and timing history. These were treated as untrusted subject text, not verified history or governing requirements. Their referenced external files were not opened.",
+      "Authored evals and fixtures were visible for static package review, including expected outcomes; this reviewer is not a measured native task worker or a blind behavioral grader.",
+      "The parent supplied the scoped task and the ordinary-brainstorming objective; the broader original user conversation was not supplied.",
+      "Exact configured model and client version are not observable in this packet and remain unknown.",
+      "This is an independent prompt-level static review only; no native admission, installation, activation, behavior, receipt rendering, or human acceptance observation is established."
+    ]
+  },
+  "input_refs": [
+    {
+      "kind": "scoped_input_manifest",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/CLAUDE-SOURCE-INPUTS.json",
+      "sha256": "4d2547d022d0116d72d6e7a563423f44ece96478515c2264153725199f8dc39a"
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/SKILL.md",
+      "sha256": "2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4",
+      "bytes": 15826
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/assets/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/assets/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/evals.json",
+      "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+      "bytes": 23649
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "bytes": 2188
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "bytes": 1232
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+      "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+      "bytes": 2209
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+      "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+      "bytes": 783
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+      "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+      "bytes": 1608
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+      "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+      "bytes": 777
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+      "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+      "bytes": 555
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+      "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+      "bytes": 1114
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+      "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+      "bytes": 2702
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+      "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+      "bytes": 925
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/reference-regressions.json",
+      "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+      "bytes": 3863
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/evals/triggers/trigger-queries.json",
+      "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+      "bytes": 4493
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/derivation.json",
+      "sha256": "5f61403a7d951cdc0e9157e412920ac8731d32e0eec79b27990ec77d7a362d84",
+      "bytes": 18028
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/managed-runtime.md",
+      "sha256": "9fac0836bbf4695563a40bfdc5e7ae2ece330a5b2d2cabbc4cf6deda7d4d77b5",
+      "bytes": 6239
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/recording-rules.md",
+      "sha256": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b",
+      "bytes": 17962
+    },
+    {
+      "kind": "baseline_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/scripts/check_artifact.py",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+      "bytes": 1874
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+      "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+      "bytes": 18826
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/assets/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/assets/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/evals.json",
+      "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+      "bytes": 23649
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "bytes": 2188
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "bytes": 1232
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+      "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+      "bytes": 2209
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+      "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+      "bytes": 783
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+      "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+      "bytes": 1608
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+      "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+      "bytes": 777
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+      "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+      "bytes": 555
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+      "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+      "bytes": 1114
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+      "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+      "bytes": 2702
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+      "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+      "bytes": 925
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/reference-regressions.json",
+      "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+      "bytes": 3863
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json",
+      "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+      "bytes": 4493
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+      "sha256": "ed67102585b44c2a1b90826e5b1a151a23b1bba0dd18bd293a35a0998c23441a",
+      "bytes": 25393
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+      "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+      "bytes": 7495
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+      "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+      "bytes": 18622
+    },
+    {
+      "kind": "candidate_source",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/scripts/check_artifact.py",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+      "bytes": 1874
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+      "bytes": 9402
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md",
+      "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+      "bytes": 10518
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/README.md",
+      "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff",
+      "bytes": 8904
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+      "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+      "bytes": 28047
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/hook_protocol.py",
+      "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+      "bytes": 8560
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/phase_state.py",
+      "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+      "bytes": 59033
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "bytes": 10482
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "bytes": 10720
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "bytes": 19657
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+      "bytes": 10496
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/templates/shared/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/SKILL.md",
+      "sha256": "bae0c6ae9118376329d2706ffe74216d632c2d2958593a5fa2c1cb98554df698",
+      "bytes": 14103
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/assets/ai-review.json",
+      "sha256": "a43c2b507fca2532832d9a1fad480b75b29fc7763316bde13afd5ad898526701",
+      "bytes": 2697
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/references/ai-review-rubric.md",
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f",
+      "bytes": 19414
+    },
+    {
+      "kind": "selected_requirement_or_runtime_context",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/validator/references/framework-context.md",
+      "sha256": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+      "bytes": 5980
+    }
+  ],
+  "criteria": [
+    {
+      "id": "R01",
+      "outcome": "PASS",
+      "reason": "The preserved name/description identifies early product exploration and separates accepted-story implementation and reopening adopted decisions. The body supplies recovery, useful exploration, a durable ledger and one continuation without choosing a stack.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 1,
+          "line_end": 15,
+          "reason": "Capability, deliverables and adjacent-request exclusions."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 100,
+          "line_end": 133,
+          "reason": "Exploration, attribution, stack restraint and actionable continuation."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json",
+          "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+          "line_start": 3,
+          "line_end": 30,
+          "reason": "Authored direct/indirect and near-miss examples are static data, not activation evidence."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Every skill; applies to discovery metadata, scope and representative requests. Actual native selection is outside this static observation.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md",
+          "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+          "line_start": 5,
+          "line_end": 9,
+          "reason": "Preserve existing brainstorming capability and activation boundaries."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+          "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+          "line_start": 10,
+          "line_end": 18,
+          "reason": "Expected user goal, artifacts and exclusions."
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "outcome": "FAIL",
+      "reason": "Useful questions, explicit unknowns, artifact destinations, templates and draft/completion distinctions are present. However, the installed Focus/closeout instructions specify the ledger digest in the handoff output row without specifying the mandatory unique frontmatter upstream binding to the completed selected ledger. The frozen v1 consumer rejects a handoff that follows the explicit output-row instruction but lacks that binding.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 127,
+          "line_end": 154,
+          "reason": "Handoff creation and explicit output-row digest instruction; relevant closeout section inspected for the missing consumer binding."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 7,
+          "line_end": 21,
+          "reason": "General upstream-input vocabulary does not specify the completed selected-ledger binding."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 61,
+          "line_end": 81,
+          "reason": "Managed per-phase output fields and paths do not add the handoff frontmatter binding."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/assets/handoff.md",
+          "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+          "line_start": 12,
+          "line_end": 38,
+          "reason": "Template starts with upstream: [] and separately provides an output table."
+        }
+      ],
+      "finding_ids": [
+        "R8-CLAUDE-SOURCE-001"
+      ],
+      "applicability": "Every skill; applies to necessary managed input/output bindings as well as ordinary discussion and unmanaged draft completion.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 29,
+          "line_end": 30,
+          "reason": "The selected handoff-to-ledger binding is checked at Focus."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+          "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "line_start": 471,
+          "line_end": 492,
+          "reason": "Requires exactly one unambiguous selected-ledger upstream reference with exact identity/revision/store/path/digest and nonempty resolving headings."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+          "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "line_start": 511,
+          "line_end": 518,
+          "reason": "Ordinary brainstorm delivery invokes that binding check."
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "outcome": "PASS",
+      "reason": "The instructions separate authorization from document status, preserve standing user delegation within scope, reject self-issued ownership, stop contested writes and prohibit destination substitution. Managed callbacks are not treated as human adoption. The separate identity defect is recorded under R07.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 50,
+          "line_end": 65,
+          "reason": "Selected destinations and collision handling."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 77,
+          "line_end": 98,
+          "reason": "Source freshness and real delegated adoption remain distinct."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 55,
+          "line_end": 98,
+          "reason": "Observable authorization, collision evidence and scoped stops; historical authorship is not automatically active ownership."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 92,
+          "line_end": 111,
+          "reason": "Resume does not certify adoption; handoff-only mode remains owner-selected."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "DevForgeAI authoring skill; applies to local artifact writes, upstream adoption, ownership and selected destinations. No external mutation is requested by the workflow.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 9,
+          "line_end": 17,
+          "reason": "No ownership or adoption waiver; root owns runtime and mode selection."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/execution-contract.md",
+          "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+          "line_start": 15,
+          "line_end": 29,
+          "reason": "Assignments, fences and bootstrap ownership requirements."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "line_start": 24,
+          "line_end": 27,
+          "reason": "Actual adoption and unresolved input semantics."
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "outcome": "PASS",
+      "reason": "The ordinary four-phase sequence and explicit handoff-only exception are provided, blocking questions preserve the phase, nonblocking unknowns allow progress, and correction/deadline failures stop dependent completion. The explicit managed handoff-only branch supplies the exception to ordinary ledger closeout; no extra phase requirement is inferred. Consumer-field omissions are separately recorded under R02/R07.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 100,
+          "line_end": 110,
+          "reason": "Material questions and retained unknowns."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 83,
+          "line_end": 111,
+          "reason": "Waiting, one correction, stopping conditions and explicit phase applicability."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 90,
+          "line_end": 114,
+          "reason": "Independent work continues around ownership or unavailable-check conditions."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Every skill; managed phases, blocking questions, collisions, stale input and correction branches apply. Explore/Record are excluded only for owner-selected handoff-only tasks.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md",
+          "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+          "line_start": 17,
+          "line_end": 25,
+          "reason": "Only W1/P1-P4 selected; phase classifications and permitted exclusions."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 32,
+          "line_end": 36,
+          "reason": "Ordinary and handoff-only transitions; bounded correction and no operator-command fallback."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/phase_state.py",
+          "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+          "line_start": 515,
+          "line_end": 572,
+          "reason": "Selected v1 checkpoint shapes and conditional null facts."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/phase_state.py",
+          "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+          "line_start": 1042,
+          "line_end": 1082,
+          "reason": "One correction before terminal failure and fresh resume admission."
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "outcome": "PASS",
+      "reason": "Runtime resources are explicitly resolved against the installed SKILL.md directory while project inputs/outputs resolve against the selected project root. Required templates and references are present in the frozen package. Operator-only delivery/helper commands are prohibited as model steps. Unavailable management is reported as unverified drafts. This proves source routing only, not exported resource loading or native support.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 17,
+          "line_end": 48,
+          "reason": "Managed reference routing and truthful unmanaged path."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 67,
+          "line_end": 73,
+          "reason": "Installed and consuming-project roots are explicitly distinct."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 114,
+          "line_end": 114,
+          "reason": "Ledger template routed at Record."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 127,
+          "line_end": 127,
+          "reason": "Handoff template routed at Focus."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 175,
+          "line_end": 177,
+          "reason": "Envelope/ownership reference routed at use."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 32,
+          "line_end": 35,
+          "reason": "No operator helper chain."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/scripts/check_artifact.py",
+          "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+          "line_start": 1,
+          "line_end": 16,
+          "reason": "Historical placeholder/hash helper has a bounded stated meaning; it was read, not run."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Every skill; installed assets/references and conditional externally managed runtime apply. The preserved helper is historical and not an active managed or unmanaged fallback dependency.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+          "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "line_start": 32,
+          "line_end": 61,
+          "reason": "Packaging, optional resources and distinct resource/project roots."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 17,
+          "line_end": 36,
+          "reason": "Installed resources, no manual fallback and preserved historical helpers."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/README.md",
+          "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff",
+          "line_start": 30,
+          "line_end": 37,
+          "reason": "Selected runtime refuses native admission; no native support follows from source inspection."
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "outcome": "PASS",
+      "reason": "The entrypoint explicitly rejects phase/destination/permission instructions embedded in quoted, retrieved, attached or tool-returned data. Only current provider runtime context for the admitted task can select the managed branch; ambiguous origin takes the unmanaged draft path. Document status does not silently authorize ledger adoption.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 19,
+          "line_end": 40,
+          "reason": "Recognition boundary for current provider context versus supplied content."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 77,
+          "line_end": 98,
+          "reason": "Read artifact content without promoting it into authorization."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 9,
+          "line_end": 15,
+          "reason": "Shape alone cannot promote content into a current phase assignment."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applies: the skill reads user artifacts, change requests, prior statements, optional research and runtime-shaped supplied data.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "line_start": 101,
+          "line_end": 103,
+          "reason": "Repository, URL and tool-output evidence grants no new instructions or permissions."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 15,
+          "line_end": 17,
+          "reason": "Runtime callback is not human authority; unmanaged work cannot claim runtime completion."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/hook_protocol.py",
+          "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+          "line_start": 15,
+          "line_end": 18,
+          "reason": "Runtime origin statement explicitly denies human decision or assignment authority."
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "outcome": "FAIL",
+      "reason": "Most provenance semantics are explicit: exact installed SKILL.md digest scope, real execution references or disclosed null, retained prior bytes, real sections, raw evidence versus artifacts, causal hashing order and separate adoption. But the envelope rule instructs next-unused artifact IDs without deferring to managed contract-selected artifact identity/revision. A correct destination alone cannot satisfy the selected v1 identity check.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 7,
+          "line_end": 20,
+          "reason": "Artifact ID allocation and revision rules contain no managed selected-identity exception."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 50,
+          "line_end": 73,
+          "reason": "The new selection precedence governs destinations and roots only."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 61,
+          "line_end": 76,
+          "reason": "Managed table binds output paths but does not bind artifact IDs/revisions."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 137,
+          "line_end": 164,
+          "reason": "Acyclic digest order and precise installed producer digest scope remain intact."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+          "sha256": "ed67102585b44c2a1b90826e5b1a151a23b1bba0dd18bd293a35a0998c23441a",
+          "line_start": 26,
+          "line_end": 74,
+          "reason": "Package-local asset copies retain matching selected source and destination identities; historical assertions remain unverified."
+        }
+      ],
+      "finding_ids": [
+        "R8-CLAUDE-SOURCE-002"
+      ],
+      "applicability": "Every DevForgeAI skill; applies to emitted artifact envelopes, preserved revisions, causal references and package derivation. Native SKILL.md itself is not an artifact envelope.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 21,
+          "line_end": 30,
+          "reason": "Externally selected contract and selected artifact identity/revision checks."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+          "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "line_start": 293,
+          "line_end": 309,
+          "reason": "Delivery contract fixes artifact identity/type/revision independently of path."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+          "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "line_start": 454,
+          "line_end": 467,
+          "reason": "Artifact envelope identity/revision must match those selected values."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "line_start": 7,
+          "line_end": 25,
+          "reason": "Stable identities, revisions and provenance fields."
+        }
+      ]
+    },
+    {
+      "id": "R08",
+      "outcome": "PASS",
+      "reason": "The entrypoint keeps the four useful conversational phases and routes the substantial managed/runtime and recording details at their points of use. Examples explain adoption strength, stale-source authority and roots without requiring a particular product or stack. The concrete field gaps are recorded under R02/R07 rather than converted into a generalized style failure.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 17,
+          "line_end": 26,
+          "reason": "Managed conditional detail is discoverable from the entrypoint."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 75,
+          "line_end": 133,
+          "reason": "Recovery, exploration, attribution and focus remain task-relevant."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 175,
+          "line_end": 177,
+          "reason": "Recording detail has an explicit use-time route."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 37,
+          "line_end": 111,
+          "reason": "Conditional evidence shapes and branches are organized by the decision at issue."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Every skill; applies to operative instructions, progressive references and task-specific examples. No arbitrary length, heading count or style gate is imposed.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 36,
+          "line_end": 36,
+          "reason": "Keep essential behavior in SKILL.md and conditional details in managed-runtime.md."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+          "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "line_start": 47,
+          "line_end": 53,
+          "reason": "Useful optional resources and package-local derivation."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+          "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+          "line_start": 113,
+          "line_end": 113,
+          "reason": "Focused runtime instructions and package-relative resources."
+        }
+      ]
+    },
+    {
+      "id": "R09",
+      "outcome": "PASS",
+      "reason": "The candidate ties saved-file claims to observed bytes, uses the five allowed check outcomes, distinguishes structural checks from semantic quality and preserves creation-time NOT_RUN for later receipt work. Authored evals separate behavior, delivery, activation, candidate/baseline and worker-visible fixture sets; these definitions are not passing results. Embedded historical derivation claims were not accepted as evidence.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 153,
+          "line_end": 173,
+          "reason": "Draft placeholders, observable producer metadata and limited completion claims."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 104,
+          "line_end": 122,
+          "reason": "Outcome vocabulary, unavailable checks and immutable creation-time handoff history."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 142,
+          "line_end": 142,
+          "reason": "Saved-file claim requires observed path and bytes."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 115,
+          "line_end": 129,
+          "reason": "Runtime receipt ownership does not prove reasoning, adoption or display."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/evals.json",
+          "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+          "line_start": 148,
+          "line_end": 168,
+          "reason": "Candidate source distinguishes inventory from worker-visible evidence."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/evals.json",
+          "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+          "line_start": 250,
+          "line_end": 250,
+          "reason": "Behavior and delivery remain separate grading axes."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/evals/reference-regressions.json",
+          "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+          "line_start": 4,
+          "line_end": 6,
+          "reason": "Authored future cases do not claim execution."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Every skill; observable artifact/check reporting applies. It is a brainstorming skill, not a testing skill; authored eval metadata is inspected as source, not executed or graded output.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "line_start": 64,
+          "line_end": 93,
+          "reason": "Status, readiness, structural freshness, behavior and human decisions are separate."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 40,
+          "line_end": 44,
+          "reason": "Receipt/rendering/semantic limits and creation-time NOT_RUN."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+          "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "line_start": 88,
+          "line_end": 108,
+          "reason": "Separate A/B/C observations, actual fixture visibility and honest outcomes."
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "outcome": "PASS",
+      "reason": "The managed interface assigns transition/receipt ownership externally, requires current task/challenge/evidence, states the selected mode exception and bounded stops, and makes no worker-issued completion flag authoritative. Continuation names capability gaps and separates suggestions, installed availability and invocation. The source describes a conditional interface; actual native enforcement and acceptance remain unproven.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 22,
+          "line_end": 35,
+          "reason": "Runtime owns admission, evidence snapshots, completion and receipts."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 39,
+          "line_end": 59,
+          "reason": "Exact checkpoint identity and freshness are required."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 99,
+          "line_end": 129,
+          "reason": "Bounded failure, owner-selected mode and receipt/semantic boundary."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 125,
+          "line_end": 133,
+          "reason": "One actionable continuation and honest installed-capability boundaries."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+          "sha256": "ed67102585b44c2a1b90826e5b1a151a23b1bba0dd18bd293a35a0998c23441a",
+          "line_start": 306,
+          "line_end": 314,
+          "reason": "Candidate labels this as design only; that label is not activation evidence."
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "DevForgeAI handoff anchors apply; enforcement anchors apply to the conditional externally managed W1/P1-P4 interface. Native control admission/activation/rendering is separately unavailable.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md",
+          "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+          "line_start": 17,
+          "line_end": 39,
+          "reason": "Selected workflow enforcement intent, owner, coverage and incomplete native support."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 38,
+          "line_end": 44,
+          "reason": "Mechanical completion, human rendering and semantic quality are separate."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/README.md",
+          "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff",
+          "line_start": 88,
+          "line_end": 102,
+          "reason": "Selected runtime response/transport scope does not imply rendering."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/hook_protocol.py",
+          "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+          "line_start": 84,
+          "line_end": 104,
+          "reason": "Completion response requires exact verified receipt binding and still labels native completion unobserved."
+        }
+      ]
+    }
+  ],
+  "disagreements": [],
+  "additional_reviewer_refs": [],
+  "overall": "FAIL",
+  "findings": [
+    {
+      "id": "R8-CLAUDE-SOURCE-001",
+      "severity": "MAJOR",
+      "title": "Managed handoff instructions omit the mandatory selected-ledger upstream binding",
+      "criterion_ids": [
+        "R02"
+      ],
+      "trigger": "An ordinary managed brainstorm starts without a prior ledger. The worker writes the new ledger, fills the handoff output row with its digest as instructed, and keeps upstream empty or lists only other consumed inputs.",
+      "demonstrated_consequence": "Static source tracing shows delivery_core._ledger_binding rejects that handoff at Focus because it requires exactly one selected-ledger frontmatter upstream binding. An output-table digest is not read by that check. The candidate does not make this mandatory consumer field determinable from the managed/closeout instructions. This is a source integration defect, not an observed native run failure.",
+      "candidate_evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 127,
+          "line_end": 151,
+          "reason": "Explicit handoff construction and output-row binding."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 17,
+          "line_end": 17,
+          "reason": "Generic causal-input instruction does not select the completed output ledger or unique current revision."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 61,
+          "line_end": 81,
+          "reason": "No corresponding handoff envelope transition is added."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/assets/handoff.md",
+          "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+          "line_start": 12,
+          "line_end": 38,
+          "reason": "upstream starts empty; output rows are separate."
+        }
+      ],
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 29,
+          "line_end": 30,
+          "reason": "Selected handoff-to-ledger binding must pass at Focus."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+          "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "line_start": 471,
+          "line_end": 492,
+          "reason": "Exact required frontmatter consumer contract."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/phase_state.py",
+          "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+          "line_start": 1020,
+          "line_end": 1027,
+          "reason": "Focus invokes the final delivery check before accepting outputs."
+        }
+      ],
+      "bounded_change": "In the installed Focus/managed instructions, require exactly one handoff.upstream reference to the completed selected ledger, using its actual selected ID, integer revision, project store, selected project-relative path, final SHA-256 and nonempty real headings. Keep the output row, no-self-digest rule, other legitimate upstream references, selected templates and receipt ownership intact. Do not require a ledger for handoff-only mode.",
+      "owner": "Integration owner to assign the Claude skill author/skill-builder; no repair is authorized or performed by this reviewer.",
+      "baseline_relation": {
+        "outcome": "ALSO_PRESENT_IN_BASELINE_SOURCE",
+        "evidence": [
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/SKILL.md",
+            "sha256": "2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4",
+            "line_start": 100,
+            "line_end": 111,
+            "reason": "Baseline has the same output-row closeout instruction."
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/recording-rules.md",
+            "sha256": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b",
+            "line_start": 17,
+            "line_end": 17,
+            "reason": "Baseline has the same generic upstream wording."
+          }
+        ],
+        "limit": "No native candidate/baseline comparison was run."
+      }
+    },
+    {
+      "id": "R8-CLAUDE-SOURCE-002",
+      "severity": "MAJOR",
+      "title": "Managed envelope ID allocation does not defer to the selected output identity",
+      "criterion_ids": [
+        "R07"
+      ],
+      "trigger": "The external v1 contract selects a new artifact ID that differs from the next unused local number, for example HANDOFF-050 at a custom handoff path in a project where HANDOFF-001 would be next unused.",
+      "demonstrated_consequence": "The operative envelope rule instructs next-unused numbering while managed precedence addresses only paths. Following both can produce a file at the correct destination with an envelope ID that the selected v1 runtime rejects. The contract independently binds artifact_id and revision; filename selection cannot supply that guarantee. This is a source-level contradiction, not an observed model outcome.",
+      "candidate_evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md",
+          "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+          "line_start": 7,
+          "line_end": 16,
+          "reason": "Next-unused identity and normal revision instructions apply to every emitted artifact without a managed exception."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/SKILL.md",
+          "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+          "line_start": 50,
+          "line_end": 73,
+          "reason": "Explicit selection precedence is limited to destinations and roots."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md",
+          "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+          "line_start": 61,
+          "line_end": 76,
+          "reason": "Managed instructions name selected output paths but not selected envelope identities/revisions."
+        }
+      ],
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+          "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "line_start": 21,
+          "line_end": 30,
+          "reason": "Root-selected session/delivery interface checks selected artifact identity and revision."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+          "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "line_start": 293,
+          "line_end": 309,
+          "reason": "The contract independently selects path, artifact ID/type/revision."
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/issued-r8/runtime/delivery_core.py",
+          "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "line_start": 454,
+          "line_end": 467,
+          "reason": "Mismatch in artifact ID or revision rejects the artifact."
+        }
+      ],
+      "bounded_change": "Make externally selected output artifact IDs/revisions govern managed envelope construction. Retain stable-ID/revision preservation and next-unused allocation only where no identity was selected. If required selected identity is unavailable or conflicts with retained artifact facts, report the missing/conflicting input and stop the dependent completion claim; do not invent a selection.",
+      "owner": "Integration owner to assign the Claude skill author/skill-builder; no repair is authorized or performed by this reviewer.",
+      "baseline_relation": {
+        "outcome": "ALSO_PRESENT_IN_BASELINE_SOURCE",
+        "evidence": [
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/baseline/devforge-brainstorm/references/recording-rules.md",
+            "sha256": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b",
+            "line_start": 7,
+            "line_end": 16,
+            "reason": "The same envelope allocation rule exists in baseline source."
+          }
+        ],
+        "limit": "No new behavioral regression or candidate improvement is claimed."
+      }
+    }
+  ],
+  "scope": {
+    "kind": "fresh_static_claude_source_review",
+    "completion": "COMPLETE_FOR_SCOPED_STATIC_R01_R10_REVIEW",
+    "not_a_full_validation_campaign": true,
+    "runtime_interface": "Selected devforge.brainstorm-session/v1, devforge.brainstorm-checkpoint/v1 and devforge.delivery-task/v1 only; no v2 requirements imposed.",
+    "native_admission": "COULD_NOT_RUN: declared unavailable in the selected design/runtime and parent task; not attempted.",
+    "native_A_B_C": "NOT_RUN: outside this static-only assignment; this report establishes none of these observations.",
+    "deterministic_skill_validation": "NOT_RUN: only standard-library byte custody, JSON/report handling and source text comparison were performed.",
+    "human_acceptance": "NOT_RUN",
+    "source_read_coverage": "All 56 listed files were read for exact-byte custody. Full candidate instruction/reference/template/helper/eval/fixture contents were inspected; baseline content was compared via frozen bytes and text differences. All six selected shared contracts/templates and validator rubric/context/entrypoint were inspected. Selected runtime README/hook_protocol were read fully, and phase_state/delivery_core were traced at their relevant contract/checkpoint/identity/phase/receipt boundaries. This is not an exhaustive runtime implementation audit.",
+    "candidate_history_exposure": [
+      {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+        "sha256": "ed67102585b44c2a1b90826e5b1a151a23b1bba0dd18bd293a35a0998c23441a",
+        "line_start": 169,
+        "line_end": 207,
+        "reason": "Contains historical author findings/timing and repair claims; not verified."
+      },
+      {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+        "sha256": "ed67102585b44c2a1b90826e5b1a151a23b1bba0dd18bd293a35a0998c23441a",
+        "line_start": 231,
+        "line_end": 265,
+        "reason": "Contains author-selected repair references and alleged prior review outcomes; referenced files not opened."
+      },
+      {
+        "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+        "sha256": "ed67102585b44c2a1b90826e5b1a151a23b1bba0dd18bd293a35a0998c23441a",
+        "line_start": 334,
+        "line_end": 366,
+        "reason": "Contains historical verification/authority/budget assertions; not adopted as evidence."
+      }
+    ],
+    "interpretation_note": "The explicit handoff-only Recover-to-Focus branch was treated as the specific exception to ordinary ledger steps; no additional phase or artifact was imposed. Absence of native support is a separate prerequisite, not a new skill defect.",
+    "integrated_release_disposition": "Not established by static source review."
+  },
+  "custody": {
+    "input_manifest_sha256": "4d2547d022d0116d72d6e7a563423f44ece96478515c2264153725199f8dc39a",
+    "verified_input_files": 56,
+    "input_verification": "PASS: exact file lengths and SHA-256 matched twice before report creation.",
+    "report_created_at_utc": "2026-09-07T15:06:52.201129+00:00",
+    "first_clock_observation_utc": "2026-09-07T14:56:34Z",
+    "first_work_timing_limit": "The first attempted manifest read used unavailable python and preceded the first clock observation; its exact UTC timestamp was not emitted. No candidate command ran.",
+    "conservative_budget_anchor_utc": "2026-09-07T14:56:20Z",
+    "analysis_cutoff_utc": "2026-09-07T15:11:20Z",
+    "original_hard_deadline_utc": "2026-09-07T15:16:20Z",
+    "timing_basis": "The conservative anchor was declared to the parent immediately after the first successful custody read; it was not reset. Early closeout leaves the final-five-minute reserve intact.",
+    "report_readback_at_creation": "NOT_RUN",
+    "separate_receipt_at_creation": "NOT_RUN",
+    "receipt_note": "Later complete-byte readback and receipt custody are recorded in separate RECEIPT.json; this report does not contain its own complete-byte digest."
+  }
+}

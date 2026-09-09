@@ -1,0 +1,1074 @@
+{
+ "schema_version": "devforge.r11-readback/v1",
+ "run_id": "SESSION-001-r11-20260907T2258Z",
+ "allocation": "SESSION-001@11",
+ "read_back_at_utc": "2026-09-07T23:23:27.920106+00:00",
+ "timestamp_serialization": "datetime.isoformat(); parsed back before closure (CHG-040)",
+ "method": "Every listed member was re-read from disk in full and re-hashed after all substantive artifacts were finalized. The manifest was read back as its own separate target, because it is not one of its own members.",
+ "manifest": {
+  "path": "MANIFEST.sha256",
+  "sha256": "f1596396845be86611e84ff660dc4ef4be1f09f03691590a8fc37d42f1be78ef",
+  "bytes": 18851,
+  "listed_members": 148,
+  "excludes_itself": true,
+  "result": "READ_BACK"
+ },
+ "members": [
+  {
+   "path": "AUTHORING-RECORD.md",
+   "declared": "d3117ad8a084473d6583638908dd48b9b382d02745fd216e76cebb8f6106582a",
+   "actual": "d3117ad8a084473d6583638908dd48b9b382d02745fd216e76cebb8f6106582a",
+   "bytes": 10323,
+   "result": "MATCH"
+  },
+  {
+   "path": "BUILDER-RECEIPT.json",
+   "declared": "d3be49e9f8dde5b6f69b673a75d1963d7ca58869719684fe1c3fe60ca6f65b4c",
+   "actual": "d3be49e9f8dde5b6f69b673a75d1963d7ca58869719684fe1c3fe60ca6f65b4c",
+   "bytes": 18060,
+   "result": "MATCH"
+  },
+  {
+   "path": "CLOCK.json",
+   "declared": "d8cf23ee478369d9770b2e9033667c8a4c837932c81de16e88c7a1e2bd81880c",
+   "actual": "d8cf23ee478369d9770b2e9033667c8a4c837932c81de16e88c7a1e2bd81880c",
+   "bytes": 1406,
+   "result": "MATCH"
+  },
+  {
+   "path": "EXECUTABLE-INVENTORY.txt",
+   "declared": "4491d5edeb0fb815d78e01251e39d21bdd91ce81b2a0f6d7738dbd3766d78141",
+   "actual": "4491d5edeb0fb815d78e01251e39d21bdd91ce81b2a0f6d7738dbd3766d78141",
+   "bytes": 5936,
+   "result": "MATCH"
+  },
+  {
+   "path": "HANDOFF.md",
+   "declared": "0e813c7c582e2aee0ed5feeac7e4ddedf6ada6795ccfa0a15463afe83638bc68",
+   "actual": "0e813c7c582e2aee0ed5feeac7e4ddedf6ada6795ccfa0a15463afe83638bc68",
+   "bytes": 10046,
+   "result": "MATCH"
+  },
+  {
+   "path": "R10-CORRECTION.md",
+   "declared": "5ebbc9a342063ce7711e611ab177382a03fd42a504c993729852aafe1d0b6a24",
+   "actual": "5ebbc9a342063ce7711e611ab177382a03fd42a504c993729852aafe1d0b6a24",
+   "bytes": 6912,
+   "result": "MATCH"
+  },
+  {
+   "path": "SOURCE-MAP.json",
+   "declared": "2ac5996e6301ee4619fc594a8ab43372108ecc080cc3dd91e39e41a0ec5851e7",
+   "actual": "2ac5996e6301ee4619fc594a8ab43372108ecc080cc3dd91e39e41a0ec5851e7",
+   "bytes": 27352,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/checkers/check_outcome_labels.py",
+   "declared": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+   "actual": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+   "bytes": 7674,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/checkers/check_receipts.py",
+   "declared": "4de008142ffc1847b49427b353f56b5807dcbd8d8216c294bb5063ea5c2b4507",
+   "actual": "4de008142ffc1847b49427b353f56b5807dcbd8d8216c294bb5063ea5c2b4507",
+   "bytes": 16785,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/checkers/harness.py",
+   "declared": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+   "actual": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+   "bytes": 8045,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/checkers/validate_references.py",
+   "declared": "bb03fbdc18691e78495bfef0b3ca2af633e1f8b80cc43ae93537fea0fe797367",
+   "actual": "bb03fbdc18691e78495bfef0b3ca2af633e1f8b80cc43ae93537fea0fe797367",
+   "bytes": 28633,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/ALLOCATION.json",
+   "declared": "f541c8059f472ebffc4205186849c946d09892f66c13e456af8aa3120f45d85f",
+   "actual": "f541c8059f472ebffc4205186849c946d09892f66c13e456af8aa3120f45d85f",
+   "bytes": 1014,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/CLOCK.json",
+   "declared": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+   "actual": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+   "bytes": 773,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/GATE-INPUTS.json",
+   "declared": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+   "actual": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+   "bytes": 137,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/PLAN.json",
+   "declared": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+   "actual": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+   "bytes": 7384,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/SEMANTIC-DECISIONS.json",
+   "declared": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+   "actual": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+   "bytes": 305,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/a_arm.py",
+   "declared": "cafbc0e407445bd1e0be33db6631ed67cc45018c92708835d7255874bbcbfd80",
+   "actual": "cafbc0e407445bd1e0be33db6631ed67cc45018c92708835d7255874bbcbfd80",
+   "bytes": 9849,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/activation.py",
+   "declared": "e825c34960bbd7303dfe359198d80d590d6d46f901f9b03017992ec80cf703b2",
+   "actual": "e825c34960bbd7303dfe359198d80d590d6d46f901f9b03017992ec80cf703b2",
+   "bytes": 8393,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/admission.py",
+   "declared": "d7dc9e25c72aca3da79823dd2947aaf45018afba99fca9df42b34de2d504bf72",
+   "actual": "d7dc9e25c72aca3da79823dd2947aaf45018afba99fca9df42b34de2d504bf72",
+   "bytes": 21591,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/controller.py",
+   "declared": "0231d82ed8a48dc67b4760f55754420aa7b05de72c7cda409e2e280e17e833f6",
+   "actual": "0231d82ed8a48dc67b4760f55754420aa7b05de72c7cda409e2e280e17e833f6",
+   "bytes": 8414,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/freeze.py",
+   "declared": "7e4dc23c58f80bab87dcc1dc48ee736204a14e68aa8294cd4d6603d881ef52f7",
+   "actual": "7e4dc23c58f80bab87dcc1dc48ee736204a14e68aa8294cd4d6603d881ef52f7",
+   "bytes": 18869,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/grade.py",
+   "declared": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+   "actual": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+   "bytes": 12240,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/control/run_phases.py",
+   "declared": "f729953056c4f1f90856056a4c2eb3f96e0f17cf1d0a064bc772b059c3b95c8c",
+   "actual": "f729953056c4f1f90856056a4c2eb3f96e0f17cf1d0a064bc772b059c3b95c8c",
+   "bytes": 33389,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-019-absence-disclosure/INDEX.json",
+   "declared": "93b6240d02e61246ef592a2018fb0a0a988f65a02797ee02880208c07dd7396a",
+   "actual": "93b6240d02e61246ef592a2018fb0a0a988f65a02797ee02880208c07dd7396a",
+   "bytes": 3191,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-019-absence-disclosure/NEG-false-absence-sectioned-target.md",
+   "declared": "546a17e4e2ccca76bdc6fa96e4df161eb98463e28e37078cac947b014eaf78ea",
+   "actual": "546a17e4e2ccca76bdc6fa96e4df161eb98463e28e37078cac947b014eaf78ea",
+   "bytes": 647,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-019-absence-disclosure/NEG-other-artifact-absence.md",
+   "declared": "859de89baf0d424db5c611046939350f2a73558a3a815a0ab31dd418c6ccbdcd",
+   "actual": "859de89baf0d424db5c611046939350f2a73558a3a815a0ab31dd418c6ccbdcd",
+   "bytes": 792,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md",
+   "declared": "8de2f827a551abf2da6d3aa7d24a62c13881325e687b91de3e17ea149e6268b2",
+   "actual": "8de2f827a551abf2da6d3aa7d24a62c13881325e687b91de3e17ea149e6268b2",
+   "bytes": 733,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-019-absence-disclosure/NEG-unreadable-then-cited.md",
+   "declared": "afba088224b4cd1c1513080e9e7c4eecdd82b6a8090e2b370eda3dfda5e1699d",
+   "actual": "afba088224b4cd1c1513080e9e7c4eecdd82b6a8090e2b370eda3dfda5e1699d",
+   "bytes": 677,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-019-absence-disclosure/POS-absence-with-unrelated-unknown.md",
+   "declared": "69cd70cfad9aec630175db64496088a7d8183352225f08d50598f425e95f6c17",
+   "actual": "69cd70cfad9aec630175db64496088a7d8183352225f08d50598f425e95f6c17",
+   "bytes": 735,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/INDEX.json",
+   "declared": "8abff6f073bd1252f471256f22bc90a774b3abc0211db39e6bca8bc4d2313f44",
+   "actual": "8abff6f073bd1252f471256f22bc90a774b3abc0211db39e6bca8bc4d2313f44",
+   "bytes": 2688,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt",
+   "declared": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f",
+   "actual": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f",
+   "bytes": 110,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/NEG-absolute-suffix-in-other-root.terminal.txt",
+   "declared": "a34d3a4c9a6aa907413b80a300f0bad72c9bad6b727fbcca566ba7a95bb0a773",
+   "actual": "a34d3a4c9a6aa907413b80a300f0bad72c9bad6b727fbcca566ba7a95bb0a773",
+   "bytes": 87,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/NEG-bare-locator-no-digest.terminal.txt",
+   "declared": "74a3f9f48a469cb86e9c2f8b477410e4ebdfc124f2072a4ac1c3e812076fa32d",
+   "actual": "74a3f9f48a469cb86e9c2f8b477410e4ebdfc124f2072a4ac1c3e812076fa32d",
+   "bytes": 15,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/NEG-bare-plus-wrongroot-digest.terminal.txt",
+   "declared": "6cf1122cb33da9c8b47681e69b048a5111a5c8a3dcce4d7cbe6d017741a95649",
+   "actual": "6cf1122cb33da9c8b47681e69b048a5111a5c8a3dcce4d7cbe6d017741a95649",
+   "bytes": 121,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt",
+   "declared": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae",
+   "actual": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae",
+   "bytes": 226,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt",
+   "declared": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44",
+   "actual": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44",
+   "bytes": 137,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt",
+   "declared": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59",
+   "actual": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59",
+   "bytes": 109,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/no-model-tests/cases_r9.py",
+   "declared": "7df3dfb439e71d77ceebc42366188d70a003b417e26e5c106a4d780a71cff27b",
+   "actual": "7df3dfb439e71d77ceebc42366188d70a003b417e26e5c106a4d780a71cff27b",
+   "bytes": 9637,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/no-model-tests/checks_suite.py",
+   "declared": "d2501233b54d1b85ca65327b638f779c18e4dc9d8fda671b0600162940b48ceb",
+   "actual": "d2501233b54d1b85ca65327b638f779c18e4dc9d8fda671b0600162940b48ceb",
+   "bytes": 25108,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/effective-controls-r10/no-model-tests/phase_suite.py",
+   "declared": "e77deb19861460c5a4e96e7021732503f819ad77cbfb7239eee62ac5485045e5",
+   "actual": "e77deb19861460c5a4e96e7021732503f819ad77cbfb7239eee62ac5485045e5",
+   "bytes": 55913,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/reference-fixtures-r8/FIXTURE-INDEX.json",
+   "declared": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7",
+   "actual": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7",
+   "bytes": 1064,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/reference-fixtures-r8/NEG-disclosed-other-unknown.md",
+   "declared": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400",
+   "actual": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400",
+   "bytes": 577,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/reference-fixtures-r8/NEG-undisclosed.md",
+   "declared": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433",
+   "actual": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433",
+   "bytes": 443,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/reference-fixtures-r8/POS-disclosed-sections.md",
+   "declared": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319",
+   "actual": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319",
+   "bytes": 518,
+   "result": "MATCH"
+  },
+  {
+   "path": "baseline/reference-fixtures-r8/TARGET-NO-SECTIONS.md",
+   "declared": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "actual": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "bytes": 149,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/SKILL.md",
+   "declared": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+   "actual": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+   "bytes": 20207,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/assets/handoff.md",
+   "declared": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+   "actual": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+   "bytes": 3342,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/assets/idea-ledger.md",
+   "declared": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+   "actual": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+   "bytes": 1598,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/evals.json",
+   "declared": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+   "actual": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+   "bytes": 23649,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/IDEAS-001.md",
+   "declared": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+   "actual": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+   "bytes": 2188,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/STORY-014.md",
+   "declared": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "actual": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "bytes": 1232,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b10/IDEAS-005.md",
+   "declared": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+   "actual": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+   "bytes": 2209,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b10/SESSION-077.md",
+   "declared": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+   "actual": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+   "bytes": 783,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b12/IDEAS-006.md",
+   "declared": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+   "actual": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+   "bytes": 1608,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+   "declared": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+   "actual": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+   "bytes": 777,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+   "declared": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+   "actual": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+   "bytes": 555,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b6/CHANGE-003.md",
+   "declared": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+   "actual": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+   "bytes": 1114,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b6/IDEAS-002.md",
+   "declared": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+   "actual": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+   "bytes": 2702,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+   "declared": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+   "actual": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+   "bytes": 925,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/reference-regressions.json",
+   "declared": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+   "actual": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+   "bytes": 3863,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/evals/triggers/trigger-queries.json",
+   "declared": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+   "actual": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+   "bytes": 4493,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/references/derivation.json",
+   "declared": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef",
+   "actual": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef",
+   "bytes": 37125,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/references/managed-runtime.md",
+   "declared": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+   "actual": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+   "bytes": 9053,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/references/recording-rules.md",
+   "declared": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+   "actual": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+   "bytes": 21702,
+   "result": "MATCH"
+  },
+  {
+   "path": "final-candidate/scripts/check_artifact.py",
+   "declared": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+   "actual": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+   "bytes": 1874,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/SKILL.md",
+   "declared": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+   "actual": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+   "bytes": 20207,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/assets/handoff.md",
+   "declared": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+   "actual": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+   "bytes": 3342,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/assets/idea-ledger.md",
+   "declared": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+   "actual": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+   "bytes": 1598,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/evals.json",
+   "declared": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+   "actual": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+   "bytes": 23649,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+   "declared": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+   "actual": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+   "bytes": 2188,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/STORY-014.md",
+   "declared": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "actual": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "bytes": 1232,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+   "declared": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+   "actual": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+   "bytes": 2209,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+   "declared": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+   "actual": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+   "bytes": 783,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+   "declared": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+   "actual": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+   "bytes": 1608,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+   "declared": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+   "actual": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+   "bytes": 777,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+   "declared": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+   "actual": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+   "bytes": 555,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+   "declared": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+   "actual": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+   "bytes": 1114,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+   "declared": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+   "actual": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+   "bytes": 2702,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+   "declared": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+   "actual": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+   "bytes": 925,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/reference-regressions.json",
+   "declared": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+   "actual": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+   "bytes": 3863,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/evals/triggers/trigger-queries.json",
+   "declared": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+   "actual": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+   "bytes": 4493,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/references/derivation.json",
+   "declared": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef",
+   "actual": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef",
+   "bytes": 37125,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/references/managed-runtime.md",
+   "declared": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+   "actual": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+   "bytes": 9053,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/references/recording-rules.md",
+   "declared": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+   "actual": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+   "bytes": 21702,
+   "result": "MATCH"
+  },
+  {
+   "path": "inputs/candidate-devforge-brainstorm/scripts/check_artifact.py",
+   "declared": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+   "actual": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+   "bytes": 1874,
+   "result": "MATCH"
+  },
+  {
+   "path": "report/SEVAL-R11-001.md",
+   "declared": "4d7c3de89b5e5fd6107491c9469fd359e9fdef83416e2e546ea2ce71e9e9c7ec",
+   "actual": "4d7c3de89b5e5fd6107491c9469fd359e9fdef83416e2e546ea2ce71e9e9c7ec",
+   "bytes": 5220,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/checkers/check_outcome_labels.py",
+   "declared": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+   "actual": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+   "bytes": 7674,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/checkers/check_receipts.py",
+   "declared": "dc2cf7f953ed9cc131c1558bc0af4e41b9aebd584b7f46431f08e0f90f30dcb7",
+   "actual": "dc2cf7f953ed9cc131c1558bc0af4e41b9aebd584b7f46431f08e0f90f30dcb7",
+   "bytes": 19374,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/checkers/harness.py",
+   "declared": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+   "actual": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+   "bytes": 8045,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/checkers/validate_references.py",
+   "declared": "b40b1f6371731868ad984e134886a258b4899125dc8e022b80623857eff278d4",
+   "actual": "b40b1f6371731868ad984e134886a258b4899125dc8e022b80623857eff278d4",
+   "bytes": 30874,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/A-CASES.json",
+   "declared": "2893239fb68126de92abfb8586b6e4fc4ce2acf57be9a09b3a64483e94eaeccc",
+   "actual": "2893239fb68126de92abfb8586b6e4fc4ce2acf57be9a09b3a64483e94eaeccc",
+   "bytes": 1763,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/ALLOCATION.json",
+   "declared": "84f2dd0c6a3b41851795f99a78fb7c4c6079d77029cf5da21eefe0edde2cc4e3",
+   "actual": "84f2dd0c6a3b41851795f99a78fb7c4c6079d77029cf5da21eefe0edde2cc4e3",
+   "bytes": 1152,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/AUTHORIZED-REVIEWERS.json",
+   "declared": "e7609db24a68f3e1b0854fe95b4b4f549ca9a4e36c7581fcd4dabf0c92829037",
+   "actual": "e7609db24a68f3e1b0854fe95b4b4f549ca9a4e36c7581fcd4dabf0c92829037",
+   "bytes": 669,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/CLOCK.json",
+   "declared": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+   "actual": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+   "bytes": 773,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/GATE-INPUTS.json",
+   "declared": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+   "actual": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+   "bytes": 137,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/PLAN.json",
+   "declared": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+   "actual": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+   "bytes": 7384,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/SELECTED-ROOTS.json",
+   "declared": "222bf22fc167741540040a0c2718a4d9df3d71919695340694762b102fade437",
+   "actual": "222bf22fc167741540040a0c2718a4d9df3d71919695340694762b102fade437",
+   "bytes": 3925,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/SEMANTIC-DECISIONS.json",
+   "declared": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+   "actual": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+   "bytes": 305,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/a_arm.py",
+   "declared": "d8bc7223fe43ff8de762ec3b5d0cf84c76111c92007e292826d4e7125d4a564b",
+   "actual": "d8bc7223fe43ff8de762ec3b5d0cf84c76111c92007e292826d4e7125d4a564b",
+   "bytes": 13235,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/activation.py",
+   "declared": "e825c34960bbd7303dfe359198d80d590d6d46f901f9b03017992ec80cf703b2",
+   "actual": "e825c34960bbd7303dfe359198d80d590d6d46f901f9b03017992ec80cf703b2",
+   "bytes": 8393,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/admission.py",
+   "declared": "71eb8796d37aa88dd1131de7a9492d1d7c5d2b826e35d5456f3b20e29dd31021",
+   "actual": "71eb8796d37aa88dd1131de7a9492d1d7c5d2b826e35d5456f3b20e29dd31021",
+   "bytes": 27483,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/controller.py",
+   "declared": "0231d82ed8a48dc67b4760f55754420aa7b05de72c7cda409e2e280e17e833f6",
+   "actual": "0231d82ed8a48dc67b4760f55754420aa7b05de72c7cda409e2e280e17e833f6",
+   "bytes": 8414,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/freeze.py",
+   "declared": "78b4f2806b7835548efb68f68d6059ca149b5604fc51fac080fe072cd2535f0e",
+   "actual": "78b4f2806b7835548efb68f68d6059ca149b5604fc51fac080fe072cd2535f0e",
+   "bytes": 25739,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/grade.py",
+   "declared": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+   "actual": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+   "bytes": 12240,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/control/run_phases.py",
+   "declared": "a37c801dc0b0a70bdf5de857a61a5978a1de762e550e3dc71a7e6fab372cac6b",
+   "actual": "a37c801dc0b0a70bdf5de857a61a5978a1de762e550e3dc71a7e6fab372cac6b",
+   "bytes": 39420,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/STORY-014.md",
+   "declared": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "actual": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "bytes": 1232,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/INDEX.json",
+   "declared": "66b138cfb9e7713e52316793b49fe8337e94d53ba77d27d90f40f473d7c7176e",
+   "actual": "66b138cfb9e7713e52316793b49fe8337e94d53ba77d27d90f40f473d7c7176e",
+   "bytes": 2680,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/NEG-init-metadata-only.jsonl",
+   "declared": "71531b5c396be6ca97da6e27f6fa4f9cafdc757e4d8c72122ba0d1aeae97e66e",
+   "actual": "71531b5c396be6ca97da6e27f6fa4f9cafdc757e4d8c72122ba0d1aeae97e66e",
+   "bytes": 202,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/NEG-other-skill-selected.jsonl",
+   "declared": "9151cdbf6655cfbff5735530ef3ed570f8549612399b7c62e68e767fc44515a5",
+   "actual": "9151cdbf6655cfbff5735530ef3ed570f8549612399b7c62e68e767fc44515a5",
+   "bytes": 146,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/POS-nested-assistant-skill-tool-use.jsonl",
+   "declared": "4c3271545fa7ab562a63380f5ff6dc0953e3eaba670dd8416e1524b39107c5d8",
+   "actual": "4c3271545fa7ab562a63380f5ff6dc0953e3eaba670dd8416e1524b39107c5d8",
+   "bytes": 149,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/UNUSABLE-empty-list-line.jsonl",
+   "declared": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+   "actual": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+   "bytes": 3,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/UNUSABLE-scalar-line.jsonl",
+   "declared": "6acf4bff71c446b6b3995198f60cdf9abcd5046dba53af94fe2e468783a0b4cd",
+   "actual": "6acf4bff71c446b6b3995198f60cdf9abcd5046dba53af94fe2e468783a0b4cd",
+   "bytes": 16,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/UNUSABLE-tool-use-without-assistant-envelope.jsonl",
+   "declared": "ba748b2f0c703d7428b96e0ce6d2eae204396ae603073c876d3aa856f6d240be",
+   "actual": "ba748b2f0c703d7428b96e0ce6d2eae204396ae603073c876d3aa856f6d240be",
+   "bytes": 99,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-010-activation-envelopes/UNUSABLE-truncated-json.jsonl",
+   "declared": "44e379d12daa31a5e1a37d4e3569543cc56707047eed8c8ab4ede5aa5a0bf8c9",
+   "actual": "44e379d12daa31a5e1a37d4e3569543cc56707047eed8c8ab4ede5aa5a0bf8c9",
+   "bytes": 146,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-019-absence-disclosure/INDEX.json",
+   "declared": "93b6240d02e61246ef592a2018fb0a0a988f65a02797ee02880208c07dd7396a",
+   "actual": "93b6240d02e61246ef592a2018fb0a0a988f65a02797ee02880208c07dd7396a",
+   "bytes": 3191,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-019-absence-disclosure/NEG-false-absence-sectioned-target.md",
+   "declared": "2e49743f07cc2f59b7102ada0e4d0f316c002773af6bf2b065a16fa13bd4541f",
+   "actual": "2e49743f07cc2f59b7102ada0e4d0f316c002773af6bf2b065a16fa13bd4541f",
+   "bytes": 1459,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-019-absence-disclosure/NEG-other-artifact-absence.md",
+   "declared": "859de89baf0d424db5c611046939350f2a73558a3a815a0ab31dd418c6ccbdcd",
+   "actual": "859de89baf0d424db5c611046939350f2a73558a3a815a0ab31dd418c6ccbdcd",
+   "bytes": 792,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md",
+   "declared": "ab616cf9e67c16d12047d030972cea0ccc76d32d9da956019bbac8c0114dd819",
+   "actual": "ab616cf9e67c16d12047d030972cea0ccc76d32d9da956019bbac8c0114dd819",
+   "bytes": 1427,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-019-absence-disclosure/NEG-unreadable-then-cited.md",
+   "declared": "afba088224b4cd1c1513080e9e7c4eecdd82b6a8090e2b370eda3dfda5e1699d",
+   "actual": "afba088224b4cd1c1513080e9e7c4eecdd82b6a8090e2b370eda3dfda5e1699d",
+   "bytes": 677,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-019-absence-disclosure/POS-absence-with-unrelated-unknown.md",
+   "declared": "69cd70cfad9aec630175db64496088a7d8183352225f08d50598f425e95f6c17",
+   "actual": "69cd70cfad9aec630175db64496088a7d8183352225f08d50598f425e95f6c17",
+   "bytes": 735,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/INDEX.json",
+   "declared": "45f31d897951dd10c9e3b8d4829cad1b59af698efb370b1f9e0eaed20693fd06",
+   "actual": "45f31d897951dd10c9e3b8d4829cad1b59af698efb370b1f9e0eaed20693fd06",
+   "bytes": 8308,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt",
+   "declared": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f",
+   "actual": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f",
+   "bytes": 110,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/NEG-absolute-suffix-in-other-root.terminal.txt",
+   "declared": "a34d3a4c9a6aa907413b80a300f0bad72c9bad6b727fbcca566ba7a95bb0a773",
+   "actual": "a34d3a4c9a6aa907413b80a300f0bad72c9bad6b727fbcca566ba7a95bb0a773",
+   "bytes": 87,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/NEG-bare-locator-no-digest.terminal.txt",
+   "declared": "74a3f9f48a469cb86e9c2f8b477410e4ebdfc124f2072a4ac1c3e812076fa32d",
+   "actual": "74a3f9f48a469cb86e9c2f8b477410e4ebdfc124f2072a4ac1c3e812076fa32d",
+   "bytes": 15,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/NEG-bare-plus-wrongroot-digest.terminal.txt",
+   "declared": "6cf1122cb33da9c8b47681e69b048a5111a5c8a3dcce4d7cbe6d017741a95649",
+   "actual": "6cf1122cb33da9c8b47681e69b048a5111a5c8a3dcce4d7cbe6d017741a95649",
+   "bytes": 121,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt",
+   "declared": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae",
+   "actual": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae",
+   "bytes": 226,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt",
+   "declared": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44",
+   "actual": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44",
+   "bytes": 137,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt",
+   "declared": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59",
+   "actual": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59",
+   "bytes": 109,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-65-hex.terminal.txt",
+   "declared": "c611edd15fab64fb313c135573043b5ac5ee4c7a7e259e90792a21bb97bdcb27",
+   "actual": "c611edd15fab64fb313c135573043b5ac5ee4c7a7e259e90792a21bb97bdcb27",
+   "bytes": 117,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-plus-in-root.terminal.txt",
+   "declared": "6288409e36f255d7df1188741b9206cbb4d136e8a22ecb59ec9fcdd334d0e5f5",
+   "actual": "6288409e36f255d7df1188741b9206cbb4d136e8a22ecb59ec9fcdd334d0e5f5",
+   "bytes": 88,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-plus-suffix-filename.terminal.txt",
+   "declared": "7ceacb99b575cee446d4e3f9562c011ed0db5d33505c5d93413812aa1d17337a",
+   "actual": "7ceacb99b575cee446d4e3f9562c011ed0db5d33505c5d93413812aa1d17337a",
+   "bytes": 88,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-span-decoy.terminal.txt",
+   "declared": "1368f96919387884257813418a7583a2660c9bf775db2dd2e5a253d3b538ad5c",
+   "actual": "1368f96919387884257813418a7583a2660c9bf775db2dd2e5a253d3b538ad5c",
+   "bytes": 155,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-wrong-root-only.terminal.txt",
+   "declared": "4328133785ce16fbe610aa054210a90fefb0b4b6b0c368ebd69a331e123aa229",
+   "actual": "4328133785ce16fbe610aa054210a90fefb0b4b6b0c368ebd69a331e123aa229",
+   "bytes": 138,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/r11-fresh/POS-exact-root-companion.terminal.txt",
+   "declared": "7c26b234b6035791c7f576ec32846698eebd6bd8db7cafaf26bad1c85648c39a",
+   "actual": "7c26b234b6035791c7f576ec32846698eebd6bd8db7cafaf26bad1c85648c39a",
+   "bytes": 81,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/chg-021-receipt-spans/r11-fresh/POS-exact-root.terminal.txt",
+   "declared": "83797e0756b65f3232838ddd419869b9275b57ccbfdb49a7aedfd0ed501270a1",
+   "actual": "83797e0756b65f3232838ddd419869b9275b57ccbfdb49a7aedfd0ed501270a1",
+   "bytes": 116,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/r8-flat-reference-cases/FIXTURE-INDEX.json",
+   "declared": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7",
+   "actual": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7",
+   "bytes": 1064,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/r8-flat-reference-cases/NEG-disclosed-other-unknown.md",
+   "declared": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400",
+   "actual": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400",
+   "bytes": 577,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/r8-flat-reference-cases/NEG-undisclosed.md",
+   "declared": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433",
+   "actual": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433",
+   "bytes": 443,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/r8-flat-reference-cases/POS-disclosed-sections.md",
+   "declared": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319",
+   "actual": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319",
+   "bytes": 518,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/r8-flat-reference-cases/TARGET-NO-SECTIONS.md",
+   "declared": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "actual": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "bytes": 149,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/scenario-project/TARGET-NO-SECTIONS.md",
+   "declared": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "actual": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "bytes": 149,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/scenario-project/a.md",
+   "declared": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "actual": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "bytes": 149,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/scenario-project/docs/devforge/ideas/IDEAS-001.md",
+   "declared": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "actual": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "bytes": 149,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/scenario-project/docs/devforge/ideas/IDEAS-900.md",
+   "declared": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "actual": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "bytes": 149,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/fixtures/scenario-project/docs/devforge/stories/STORY-014.md",
+   "declared": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "actual": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "bytes": 1232,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/no-model-tests/cases_r9.py",
+   "declared": "7df3dfb439e71d77ceebc42366188d70a003b417e26e5c106a4d780a71cff27b",
+   "actual": "7df3dfb439e71d77ceebc42366188d70a003b417e26e5c106a4d780a71cff27b",
+   "bytes": 9637,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/no-model-tests/checks_suite.py",
+   "declared": "1b481216df4abcabce1a299df1870e4f2f5f4c3e14766ca39d7b881eedea979e",
+   "actual": "1b481216df4abcabce1a299df1870e4f2f5f4c3e14766ca39d7b881eedea979e",
+   "bytes": 35002,
+   "result": "MATCH"
+  },
+  {
+   "path": "source/no-model-tests/phase_suite.py",
+   "declared": "f29ff80789ec888493aa867fd4cd994769e3c14adf4c2de99930e77fdc5ad268",
+   "actual": "f29ff80789ec888493aa867fd4cd994769e3c14adf4c2de99930e77fdc5ad268",
+   "bytes": 81098,
+   "result": "MATCH"
+  }
+ ],
+ "coverage": {
+  "listed": 148,
+  "matched": 148,
+  "mismatched": 0,
+  "missing": 0,
+  "complete": true,
+  "statement": "All 148 manifest members plus the manifest itself were read back."
+ },
+ "later_artifacts_not_covered_here": [
+  {
+   "path": "report/READBACK.json",
+   "why": "this document; a file cannot cover itself"
+  },
+  {
+   "path": "report/RECEIPT.json",
+   "why": "written after this readback; bound by the external receipt"
+  }
+ ],
+ "execution": "NOT_RUN",
+ "validation": "NOT_PERFORMED"
+}

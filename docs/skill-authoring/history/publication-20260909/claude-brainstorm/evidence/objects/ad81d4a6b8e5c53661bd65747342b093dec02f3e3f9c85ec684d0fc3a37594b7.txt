@@ -1,0 +1,30 @@
+Static Claude source review: FAIL for the selected scope. All R01-R10 criteria were assessed; two MAJOR source integration findings require a bounded author revision. This is not native validation or release acceptance.
+
+- R8-CLAUDE-SOURCE-001: The ordinary managed handoff instructions explicitly place the ledger digest in the output row, but do not specify the unique completed-ledger reference required in handoff frontmatter upstream. Candidate SKILL.md:127-151, recording-rules.md:17, managed-runtime.md:61-81 and assets/handoff.md:12-38 were inspected. The selected v1 bridge:29-30 and delivery_core.py:471-492 require that binding; phase_state.py:1020-1027 checks it at Focus. A correct output row cannot satisfy that check. Add the exact current ledger ID/revision/project store/path/digest/real-section binding to the installed Focus instructions, preserving handoff-only mode and receipt ownership.
+- R8-CLAUDE-SOURCE-002: recording-rules.md:7-16 allocates next-unused artifact IDs without deferring to externally selected managed output identities. SKILL.md:50-73 and managed-runtime.md:61-76 defer paths only. The selected delivery_core.py:293-309 and :454-467 independently require exact contract-selected IDs/revisions. For a selected ID differing from the next local number, a correctly located artifact can still be rejected. Make selected IDs/revisions govern managed envelopes; keep normal allocation where no identity was selected and report conflicting/missing identity as a dependent blocker.
+
+These are inspected source omissions/contradictions, not observed worker failures. Both relevant instruction gaps are also present in the frozen baseline; no native improvement/regression comparison was run. Full absolute paths, exact source SHA-256 values, line spans, requirements and bounded changes are recorded in AI-REVIEW.json.
+
+| Criterion | Static outcome |
+| --- | --- |
+| R01 Task identity and scope | PASS |
+| R02 Inputs, outputs and completion | FAIL |
+| R03 Authority and ownership | PASS |
+| R04 Workflow and failures | PASS |
+| R05 Runtime resources and paths | PASS |
+| R06 Instructions versus data | PASS |
+| R07 Framework provenance | FAIL |
+| R08 Prompt organization | PASS |
+| R09 Honest observation/reporting | PASS |
+| R10 Enforcement/handoff boundaries | PASS |
+
+The current source preserves useful questioning, explicit unknowns, user/AI attribution, adoption/delegation scope, prior revisions, stable idea lineage, installed/project root separation, selected destinations, runtime-versus-data boundaries, bounded phase evidence, waiting behavior, operator receipt ownership and unmanaged draft labels. The explicit owner-selected handoff-only exception was sufficient for R04; no extra workflow phase was imposed.
+
+Scope and independence: all 56 scoped input files matched the manifest's exact lengths and SHA-256 values. Candidate source, baseline differences, the six selected shared inputs, frozen v1 bridge/design/runtime interface and all rubric anchors were inspected. Candidate derivation text exposed author history, earlier finding labels and claimed verification; those assertions were not adopted as authority or verified history. Referenced repair/author/history files were not opened. This reviewer had a separate task prompt, not a verified isolated operating system, process, history or memory environment. Exact configured model and client version are unknown. No memory file, mutable live source, other review, network, child agent, helper, test, import of candidate code, native client, installation or hook was used. Standard-library custody, JSON/report handling and source-text reading/comparison were the only local operations.
+
+Native admission remains declared unavailable by the selected packet; A/B/C observations, semantic output quality, native rendering and human acceptance are not supplied here. No newer v2 runtime requirement was imposed. The integration owner should route the two bounded source findings to the Claude author/skill-builder; this reviewer made no candidate edits.
+
+Manifest: CLAUDE-SOURCE-INPUTS.json, SHA-256 4d2547d022d0116d72d6e7a563423f44ece96478515c2264153725199f8dc39a.
+Candidate SKILL.md: SHA-256 dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca.
+
+The first clock observation was 2026-09-07T14:56:34Z, following an initial manifest-read attempt whose python executable was unavailable. Its exact start timestamp was not emitted. The conservative budget anchor was fixed at 14:56:20Z, the source-review cutoff at 15:11:20Z and final deadline at 15:16:20Z. This review closed early. Report readback and receipt publication were NOT_RUN at document creation; later evidence belongs to the separate RECEIPT.json, without rewriting this history. No report contains its own complete-byte digest.

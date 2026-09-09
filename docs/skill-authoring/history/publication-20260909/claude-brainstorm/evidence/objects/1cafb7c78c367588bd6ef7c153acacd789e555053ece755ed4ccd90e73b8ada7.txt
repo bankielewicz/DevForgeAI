@@ -1,0 +1,2067 @@
+{
+  "schema_version": "devforge.authoring-repair-map/v2",
+  "scope": "R10 DRAFT bounded Claude authoring intake; no repair performed or authority issued",
+  "stable_id_rule": "Original CHG/F-001 through 021, original findings and severities retained. CHG-022 metadata, CHG-023 additive chronology correction, CHG-024 additive coverage correction append new actionable scope. Overlapping RR/CI reviews refer to original CHGs, not separately counted independent defects. Historical original rows and author claims stay immutable in copied inputs.",
+  "findings": [
+    {
+      "finding_alias": "F-001",
+      "change_id": "CHG-001",
+      "original_finding_id": "CODEX-MEAS-R7-001",
+      "original_severity": "medium/P2",
+      "builder_severity": "MAJOR",
+      "owner": "codex",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Make causal-edge classification and acyclic immutable-revision lineage a mandatory evidence-bound manual judgment. Inspect every upstream edge, distinguish membership/next-step/backlink relationships, preserve ledger/handoff direction, require evidence locators and exact output/input revision hashes. Missing observation blocks full semantic PASS. Preserve all other checks, five runtime substitutions, cases and admission order. No candidate source, runner or grader edits.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "PRESERVE_ONLY",
+      "allocation_r9": "NO_CODEX_WORK",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-001",
+        "change_id": "CHG-001",
+        "original_finding_id": "CODEX-MEAS-R7-001",
+        "original_severity": "medium/P2",
+        "builder_severity": "MAJOR",
+        "owner": "codex",
+        "scope": "run-side proposals only",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Make causal-edge classification and acyclic immutable-revision lineage a mandatory evidence-bound manual judgment. Inspect every upstream edge, distinguish membership/next-step/backlink relationships, preserve ledger/handoff direction, require evidence locators and exact output/input revision hashes. Missing observation blocks full semantic PASS. Preserve all other checks, five runtime substitutions, cases and admission order. No candidate source, runner or grader edits.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "ADDRESSED_PROPOSAL_ONLY_HOLD",
+        "allocation_r9": "NO_CODEX_WORK",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "proposal": "ADDRESSED_PROPOSAL_ONLY_HOLD",
+        "source": "HELD_UNCHANGED",
+        "new_allocation": "NO_CODEX_WORK"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "HELD_OR_PRESERVE_ONLY",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": []
+    },
+    {
+      "finding_alias": "F-002",
+      "change_id": "CHG-002",
+      "original_finding_id": "CLAUDE-SRC-001",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Make selected managed ledger/handoff destinations govern actual writes. Apply project-map defaults only when no external destination is selected; collision cannot authorize relocation.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "PRESERVE_ONLY",
+      "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-002",
+        "change_id": "CHG-002",
+        "original_finding_id": "CLAUDE-SRC-001",
+        "original_severity": "MAJOR",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "four-path source fence",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Make selected managed ledger/handoff destinations govern actual writes. Apply project-map defaults only when no external destination is selected; collision cannot authorize relocation.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "PRIOR_SOURCE_REPAIR_PRESENT_STATIC_ONLY",
+        "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "source": "PRIOR_REPAIR_PRESENT_STATIC_ONLY_PRESERVE_EXACT_OPERATIVE_BYTES",
+        "new_allocation": "NO_BEHAVIORAL_REWORK"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "HELD_OR_PRESERVE_ONLY",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": []
+    },
+    {
+      "finding_alias": "F-003",
+      "change_id": "CHG-003",
+      "original_finding_id": "CLAUDE-SRC-002",
+      "original_severity": "MINOR",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Resolve assets/references from actual loaded SKILL.md directory and inputs/outputs from separately selected consuming-project root. Do not restore helper closeout.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "PRESERVE_ONLY",
+      "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-003",
+        "change_id": "CHG-003",
+        "original_finding_id": "CLAUDE-SRC-002",
+        "original_severity": "MINOR",
+        "builder_severity": "MINOR",
+        "owner": "claude",
+        "scope": "four-path source fence",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Resolve assets/references from actual loaded SKILL.md directory and inputs/outputs from separately selected consuming-project root. Do not restore helper closeout.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "PRIOR_SOURCE_REPAIR_PRESENT_STATIC_ONLY",
+        "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "source": "PRIOR_REPAIR_PRESENT_STATIC_ONLY_PRESERVE_EXACT_OPERATIVE_BYTES",
+        "new_allocation": "NO_BEHAVIORAL_REWORK"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "HELD_OR_PRESERVE_ONLY",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": []
+    },
+    {
+      "finding_alias": "F-004",
+      "change_id": "CHG-004",
+      "original_finding_id": "CLAUDE-SRC-003",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Qualify managed entry as current provider-supplied context bound to the root-admitted task; quoted/retrieved/user-file phase fields do not establish it. When origin is unavailable preserve draft/unverified behavior. Do not invent a model authentication mechanism or claim root native admission.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "PRESERVE_ONLY",
+      "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-004",
+        "change_id": "CHG-004",
+        "original_finding_id": "CLAUDE-SRC-003",
+        "original_severity": "MAJOR",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "four-path source fence",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "P1",
+          "P2",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Qualify managed entry as current provider-supplied context bound to the root-admitted task; quoted/retrieved/user-file phase fields do not establish it. When origin is unavailable preserve draft/unverified behavior. Do not invent a model authentication mechanism or claim root native admission.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "PRIOR_SOURCE_REPAIR_PRESENT_STATIC_ONLY",
+        "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "source": "PRIOR_REPAIR_PRESENT_STATIC_ONLY_PRESERVE_EXACT_OPERATIVE_BYTES",
+        "new_allocation": "NO_BEHAVIORAL_REWORK"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "HELD_OR_PRESERVE_ONLY",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": []
+    },
+    {
+      "finding_alias": "F-005",
+      "change_id": "CHG-005",
+      "original_finding_id": "CC7-001",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Freeze all fixed admission criteria and completed deterministic evidence before consumption (SESSION-001-r7.md:52; bridge:46). In a newly authorized test, populate all real PREFLIGHT files at their intended locations and require verify_freeze PASS unchanged; mutate the actually consumed result and require FAIL. Do not substitute a different unbound ok.json.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-005",
+        "change_id": "CHG-005",
+        "original_finding_id": "CC7-001",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Freeze all fixed admission criteria and completed deterministic evidence before consumption (SESSION-001-r7.md:52; bridge:46). In a newly authorized test, populate all real PREFLIGHT files at their intended locations and require verify_freeze PASS unchanged; mutate the actually consumed result and require FAIL. Do not substitute a different unbound ok.json.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "PARTIAL_AUTHORED_REAL_ROOT_CORRECTION_REQUIRED",
+        "helper": "PARTIAL_AUTHORED_PREFLIGHT_ROOT_DEFECT",
+        "caller_integration": "NOT_AUTHORED",
+        "executable_suite": "NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001",
+        "R9-CI-002"
+      ]
+    },
+    {
+      "finding_alias": "F-006",
+      "change_id": "CHG-006",
+      "original_finding_id": "CC7-002",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "CP5-CK-003 requires explicit file-specific receipt ownership; PLAN.json:14,20,25 rejects unselected-root suffixes and requires each own complete digest. Require FAIL for bare valid locator plus wrong-root receipt, and for 65-character digest tokens; retain PASS for exact selected-root records and FAIL for both files of the long swapped pair.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-006",
+        "change_id": "CHG-006",
+        "original_finding_id": "CC7-002",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "CP5-CK-003 requires explicit file-specific receipt ownership; PLAN.json:14,20,25 rejects unselected-root suffixes and requires each own complete digest. Require FAIL for bare valid locator plus wrong-root receipt, and for 65-character digest tokens; retain PASS for exact selected-root records and FAIL for both files of the long swapped pair.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "AUTHORED_RESIDUAL_ABSOLUTE_LOCATOR_REQUIREMENT_ADDED",
+        "checker": "EXECUTABLE_AUTHORED_WITH_RESIDUAL_OWNERSHIP_DEFECT",
+        "caller_integration": "CHECKER_SOURCE_PRESENT_FRESH_SUITE_NOT_BOUND",
+        "executable_suite": "PARTIAL_BASELINE_CASES_RETAINED_NEW_CASES_UNWIRED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "CC9-RR-002",
+        "CC9-RR-003"
+      ]
+    },
+    {
+      "finding_alias": "F-007",
+      "change_id": "CHG-007",
+      "original_finding_id": "CC7-003",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Preservation requires retained prior bytes, and exclusion requires exact digest identity (bridge:21; specification:51; PLAN.json:26). Require FAIL when a selected retained archive changes bytes; require FAIL when it disappears during the judgment pause. Keep an unchanged archive positive and verify its live digest against the selected original baseline.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-007",
+        "change_id": "CHG-007",
+        "original_finding_id": "CC7-003",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Preservation requires retained prior bytes, and exclusion requires exact digest identity (bridge:21; specification:51; PLAN.json:26). Require FAIL when a selected retained archive changes bytes; require FAIL when it disappears during the judgment pause. Keep an unchanged archive positive and verify its live digest against the selected original baseline.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "AUTHORED",
+        "helper": "LIVE_EXISTENCE_HASH_HELPER_AUTHORED",
+        "caller_integration": "NOT_AUTHORED_SELECTED_MAP_AND_GRADER_GATE_ABSENT",
+        "executable_suite": "NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001"
+      ]
+    },
+    {
+      "finding_alias": "F-008",
+      "change_id": "CHG-008",
+      "original_finding_id": "CC7-004",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Retain C-before-B and required A admission; the fixed plan names C1, B5, B11, A3a and A5a (bridge:46; PLAN.json:43-56). Require refusal before markers for B without its required C and A without the required checked C/B arms. Keep an explicitly authorized C-only diagnostic scope separate from downstream admission.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-008",
+        "change_id": "CHG-008",
+        "original_finding_id": "CC7-004",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Retain C-before-B and required A admission; the fixed plan names C1, B5, B11, A3a and A5a (bridge:46; PLAN.json:43-56). Require refusal before markers for B without its required C and A without the required checked C/B arms. Keep an explicitly authorized C-only diagnostic scope separate from downstream admission.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "AUTHORED_A3A_SEQUENCING_CORRECTION_REQUIRED",
+        "helper": "PARTIAL_FIXED_NAMES_AND_C_ONLY_BRANCH_WRONG_A3A_JUDGMENT_PREDICATE",
+        "caller_integration": "NOT_AUTHORED_CONSUMED_EVIDENCE_ADAPTER_ABSENT",
+        "executable_suite": "NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001",
+        "R9-CI-008"
+      ]
+    },
+    {
+      "finding_alias": "F-009",
+      "change_id": "CHG-009",
+      "original_finding_id": "CC7-005",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "The bridge:40-46 explicitly requires measurement of runtime-owned phase/receipt ordering, actual Stop/correction events and receipt rendering, while retaining installed-resource loading observations. Define fixed independent observations for ordered checkpoints, runtime Stop/correction, runtime receipt publication/readback/current verification, resource loading and rendered delivery. Require missing observations to block the relevant gate even with valid artifacts and worker hash text.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-009",
+        "change_id": "CHG-009",
+        "original_finding_id": "CC7-005",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "The bridge:40-46 explicitly requires measurement of runtime-owned phase/receipt ordering, actual Stop/correction events and receipt rendering, while retaining installed-resource loading observations. Define fixed independent observations for ordered checkpoints, runtime Stop/correction, runtime receipt publication/readback/current verification, resource loading and rendered delivery. Require missing observations to block the relevant gate even with valid artifacts and worker hash text.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "FIVE_REQUIRED_CLASSES_AUTHORED_CONSUMER_CONTRACT_INCOMPLETE",
+        "helper": "PARTIAL_ABSENT_ROWS_FAIL_UNSUPPORTED_DICTIONARIES_PASS",
+        "caller_integration": "NOT_AUTHORED",
+        "executable_suite": "NOT_AUTHORED",
+        "authentic_native_observation_collection": "ROOT_DEPENDENCY_DEFERRED",
+        "selected_v1_mechanical_records": "EXPOSED_SEPARATE_FROM_UNAVAILABLE_NATIVE_PROVENANCE"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001",
+        "R9-CI-003"
+      ]
+    },
+    {
+      "finding_alias": "F-010",
+      "change_id": "CHG-010",
+      "original_finding_id": "CC7-006",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Activation must be distinct from installed-resource availability and must observe actual selection (PLAN.json:28,90-110; bridge:44). Supply init metadata alone and require skill_invoked false; supply an actual assistant Skill tool_use event with the selected skill and require true; malformed/incomplete observation must not count as a verified negative.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-010",
+        "change_id": "CHG-010",
+        "original_finding_id": "CC7-006",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Activation must be distinct from installed-resource availability and must observe actual selection (PLAN.json:28,90-110; bridge:44). Supply init metadata alone and require skill_invoked false; supply an actual assistant Skill tool_use event with the selected skill and require true; malformed/incomplete observation must not count as a verified negative.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "AUTHORED_STRUCTURAL_ENVELOPE_REQUIREMENT_INCOMPLETE",
+        "helper": "PARTIAL_TOOL_USE_PARSER_AUTHORED_STRUCTURAL_HOLES",
+        "caller_integration": "NOT_AUTHORED",
+        "executable_suite": "NOT_AUTHORED",
+        "native_activation": "NOT_OBSERVED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001",
+        "R9-CI-004"
+      ]
+    },
+    {
+      "finding_alias": "F-011",
+      "change_id": "CHG-011",
+      "original_finding_id": "CC7-007",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "The prospective path must pause for post-output judgments and resume without rerunning completed work (SESSION-001-r7.md:52; prior integration review:23). Use the actual supported process/module lifecycle for each resume, retaining the same original allocation and saved evidence. Require C1 then B5 then B11 then A arms, exactly one marker each, and assert each consumed judgment and preserved result digest.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-011",
+        "change_id": "CHG-011",
+        "original_finding_id": "CC7-007",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "The prospective path must pause for post-output judgments and resume without rerunning completed work (SESSION-001-r7.md:52; prior integration review:23). Use the actual supported process/module lifecycle for each resume, retaining the same original allocation and saved evidence. Require C1 then B5 then B11 then A arms, exactly one marker each, and assert each consumed judgment and preserved result digest.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "DESCRIBED_LOCAL_RUNNER_VERSUS_NATIVE_DEPENDENCY_RATIONALE_NEEDS_CORRECTION",
+        "helper": "NOT_AUTHORED",
+        "caller_integration": "LOCAL_EVALUATION_RUNNER_RESUME_NOT_AUTHORED",
+        "executable_suite": "FRESH_PROCESS_MODULE_LIFECYCLE_NOT_AUTHORED",
+        "native_managed_callback_lifecycle": "ROOT_DEPENDENCY_DEFERRED_SEPARATE_FROM_LOCAL_RESUME"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": []
+    },
+    {
+      "finding_alias": "F-012",
+      "change_id": "CHG-012",
+      "original_finding_id": "CC7-008",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Author real prospective A3a/A5a launch/completion paths with unchanged selected query expectations (SESSION-001-r7.md:52; PLAN.json:28). Bind case:\"A3a\" and case:\"A5a\" explicitly; the valid scenario invokes only A3a and requires A5a non-invocation PASS. Assert query identity, unchanged prompt bytes, native completion and both activation outcomes, not merely markers.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-012",
+        "change_id": "CHG-012",
+        "original_finding_id": "CC7-008",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Author real prospective A3a/A5a launch/completion paths with unchanged selected query expectations (SESSION-001-r7.md:52; PLAN.json:28). Bind case:\"A3a\" and case:\"A5a\" explicitly; the valid scenario invokes only A3a and requires A5a non-invocation PASS. Assert query identity, unchanged prompt bytes, native completion and both activation outcomes, not merely markers.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "PARTIAL_QUERY_IDENTITY_CLAIM_UNSUPPORTED",
+        "helper": "PARTIAL_A_WRAPPER_AUTHORED_QUERY_IDENTITY_UNCHECKED",
+        "caller_integration": "NOT_AUTHORED",
+        "executable_suite": "A3A_A5A_COMPLETION_ASSERTIONS_NOT_AUTHORED",
+        "native_completion_EOF_cleanup": "ROOT_DEPENDENCY_DEFERRED_NOT_OBSERVED",
+        "no_launcher_result": "NOT_RUN_BRANCH_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-005"
+      ]
+    },
+    {
+      "finding_alias": "F-013",
+      "change_id": "CHG-013",
+      "original_finding_id": "CC7-009",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Synthetic positive and negative expectations must agree with the fixed contracts and reach the mechanism they claim to test (SESSION-001-r7.md:52). Set judge={} for missing judgment; assert exactly the permitted B prefix after failure; expect code 6 and zero markers for every non-1 concurrency; resume P21 correctly and require recorded STALE with the inventory-binding mismatch.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-013",
+        "change_id": "CHG-013",
+        "original_finding_id": "CC7-009",
+        "original_severity": "medium",
+        "builder_severity": "MINOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Synthetic positive and negative expectations must agree with the fixed contracts and reach the mechanism they claim to test (SESSION-001-r7.md:52). Set judge={} for missing judgment; assert exactly the permitted B prefix after failure; expect code 6 and zero markers for every non-1 concurrency; resume P21 correctly and require recorded STALE with the inventory-binding mismatch.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "CORRECTED_DATA_AND_LOCATOR_HISTORY_AUTHORED",
+        "helper": "SETUP_EXPECT_DICTIONARIES_ONLY",
+        "caller_integration": "NO_CASE_CONSUMER",
+        "executable_suite": "NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-007"
+      ]
+    },
+    {
+      "finding_alias": "F-014",
+      "change_id": "CHG-014",
+      "original_finding_id": "CC7-010",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "A requires truthful launch/completion outcomes and retained attempt ownership; collisions must fail closed without replacing evidence (SESSION-001-r7.md:52; controller.py:81-93). Drive valid A selectors through preexisting-destination and insufficient-cap branches; require no marker, preserved sentinel bytes, a recorded nonlaunch outcome and clean control completion.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-014",
+        "change_id": "CHG-014",
+        "original_finding_id": "CC7-010",
+        "original_severity": "medium",
+        "builder_severity": "MINOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "A requires truthful launch/completion outcomes and retained attempt ownership; collisions must fail closed without replacing evidence (SESSION-001-r7.md:52; controller.py:81-93). Drive valid A selectors through preexisting-destination and insufficient-cap branches; require no marker, preserved sentinel bytes, a recorded nonlaunch outcome and clean control completion.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "AUTHORED",
+        "helper": "ORDINARY_NONLAUNCH_BRANCHES_AUTHORED_SIZE_ONLY_SENTINEL_INVENTORY",
+        "caller_integration": "NOT_AUTHORED",
+        "executable_suite": "BYTE_PRESERVATION_SENTINEL_ASSERTIONS_NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001"
+      ]
+    },
+    {
+      "finding_alias": "F-015",
+      "change_id": "CHG-015",
+      "original_finding_id": "CC7-011",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Historical clocks/receipts are inputs only; new work and prospective evidence must bind the selected current run/authority identities (SESSION-001-r7.md:36,46,58). Require a builder supplied with the explicitly selected current allocation to emit that exact session/revision/path/digest; reject mismatched or historical authority rather than carrying it into new records.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-015",
+        "change_id": "CHG-015",
+        "original_finding_id": "CC7-011",
+        "original_severity": "medium",
+        "builder_severity": "MINOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Historical clocks/receipts are inputs only; new work and prospective evidence must bind the selected current run/authority identities (SESSION-001-r7.md:36,46,58). Require a builder supplied with the explicitly selected current allocation to emit that exact session/revision/path/digest; reject mismatched or historical authority rather than carrying it into new records.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "AUTHORED",
+        "helper": "EQUALITY_PREDICATE_AUTHORED_FRESH_EMITTER_HARDCODES_HISTORICAL_AUTHORITY",
+        "caller_integration": "NOT_AUTHORED",
+        "executable_suite": "NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001",
+        "R9-CI-006"
+      ]
+    },
+    {
+      "finding_alias": "F-016",
+      "change_id": "CHG-016",
+      "original_finding_id": "CP5-CK-001 retained absence-disclosure limitation",
+      "original_severity": "original CP5 finding retained; no new severity claim",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Require an explicit absence-of-sections disclosure tied to the referenced artifact, not merely its ID anywhere in missing_inputs. A disclosure about a different unknown for the same artifact must not satisfy the exception. Author positive and negative fixtures without execution.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true,
+      "historical_r9_map_row": {
+        "finding_alias": "F-016",
+        "change_id": "CHG-016",
+        "original_finding_id": "CP5-CK-001 retained absence-disclosure limitation",
+        "original_severity": "original CP5 finding retained; no new severity claim",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Require an explicit absence-of-sections disclosure tied to the referenced artifact, not merely its ID anywhere in missing_inputs. A disclosure about a different unknown for the same artifact must not satisfy the exception. Author positive and negative fixtures without execution.",
+        "validation_status": "NOT_PERFORMED",
+        "historical_status": "REQUESTED_NOT_APPLIED",
+        "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+        "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+        "prior_r8_findings_remain_immutable": true
+      },
+      "r9_static_subpart_state": {
+        "specification": "PARTIAL_ABSENCE_REQUIREMENT_RELATION_INCOMPLETE",
+        "checker": "EXECUTABLE_AUTHORED_WITH_DISCLOSURE_BINDING_DEFECT",
+        "caller_integration": "FRESH_CHECKER_SUITE_BINDING_NOT_AUTHORED",
+        "executable_suite": "RETAINED_PHYSICAL_FIXTURES_ONLY_NEW_SCENARIOS_NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "CC9-RR-001",
+        "CC9-RR-003"
+      ]
+    },
+    {
+      "finding_alias": "F-017",
+      "change_id": "CHG-017",
+      "original_finding_id": "R8-CLAUDE-SOURCE-001",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Require unique current completed-ledger upstream frontmatter binding on ordinary managed handoff: exact artifact ID, revision, project store, selected path, digest and real section identifiers required by selected v1. Output-row digest alone is insufficient. Preserve owner-selected handoff-only mode and runtime receipt ownership.",
+      "status": "PRESERVE_ONLY",
+      "validation_status": "NOT_PERFORMED",
+      "historical_r9_map_row": {
+        "finding_alias": "F-017",
+        "change_id": "CHG-017",
+        "original_finding_id": "R8-CLAUDE-SOURCE-001",
+        "original_severity": "MAJOR",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "same four source paths",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Require unique current completed-ledger upstream frontmatter binding on ordinary managed handoff: exact artifact ID, revision, project store, selected path, digest and real section identifiers required by selected v1. Output-row digest alone is insufficient. Preserve owner-selected handoff-only mode and runtime receipt ownership.",
+        "status": "REQUESTED_NOT_APPLIED",
+        "validation_status": "NOT_PERFORMED"
+      },
+      "r9_static_subpart_state": {
+        "source": "PRIOR_REPAIR_PRESENT_STATIC_ONLY_PRESERVE_EXACT_OPERATIVE_BYTES",
+        "new_allocation": "NO_BEHAVIORAL_REWORK"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "HELD_OR_PRESERVE_ONLY",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": []
+    },
+    {
+      "finding_alias": "F-018",
+      "change_id": "CHG-018",
+      "original_finding_id": "R8-CLAUDE-SOURCE-002",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Externally selected managed output IDs/revisions govern envelope identities as well as destinations. Next-unused local allocation applies only without selected identity. Report conflict/missing selected identity as dependent blocker without substitute identity or relocation.",
+      "status": "PRESERVE_ONLY",
+      "validation_status": "NOT_PERFORMED",
+      "historical_r9_map_row": {
+        "finding_alias": "F-018",
+        "change_id": "CHG-018",
+        "original_finding_id": "R8-CLAUDE-SOURCE-002",
+        "original_severity": "MAJOR",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "same four source paths",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Externally selected managed output IDs/revisions govern envelope identities as well as destinations. Next-unused local allocation applies only without selected identity. Report conflict/missing selected identity as dependent blocker without substitute identity or relocation.",
+        "status": "REQUESTED_NOT_APPLIED",
+        "validation_status": "NOT_PERFORMED"
+      },
+      "r9_static_subpart_state": {
+        "source": "PRIOR_REPAIR_PRESENT_STATIC_ONLY_PRESERVE_EXACT_OPERATIVE_BYTES",
+        "new_allocation": "NO_BEHAVIORAL_REWORK"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "HELD_OR_PRESERVE_ONLY",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": []
+    },
+    {
+      "finding_alias": "F-019",
+      "change_id": "CHG-019",
+      "original_finding_id": "CC8-PROP-001",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Allow omitted upstream sections only when selected target is inspected to have no stable sections AND missing_inputs explicitly discloses actual absence tied to that artifact. Unreadable/unknown section list is not actual absence. Match physical POS fixture; include unreadable/unknown negative and sectioned-target false-absence negative.",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "validation_status": "NOT_PERFORMED",
+      "historical_r9_map_row": {
+        "finding_alias": "F-019",
+        "change_id": "CHG-019",
+        "original_finding_id": "CC8-PROP-001",
+        "original_severity": "high",
+        "builder_severity": "MAJOR",
+        "owner": "claude",
+        "scope": "CHG-016 corrected specification and executable checker/suite source",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Allow omitted upstream sections only when selected target is inspected to have no stable sections AND missing_inputs explicitly discloses actual absence tied to that artifact. Unreadable/unknown section list is not actual absence. Match physical POS fixture; include unreadable/unknown negative and sectioned-target false-absence negative.",
+        "status": "REQUESTED_NOT_APPLIED",
+        "validation_status": "NOT_PERFORMED"
+      },
+      "r9_static_subpart_state": {
+        "specification": "ACTUAL_ABSENCE_PROSE_CORRECTED",
+        "checker": "EXECUTABLE_AUTHORED_WITH_CLASSIFICATION_DEFECT",
+        "caller_integration": "FRESH_SUITE_NOT_AUTHORED",
+        "executable_suite": "UNKNOWN_FIXTURE_NONDISCRIMINATING_PLACEHOLDER_HEADING_CASE_DATA_ONLY"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "CC9-RR-001",
+        "CC9-RR-003"
+      ]
+    },
+    {
+      "finding_alias": "F-020",
+      "change_id": "CHG-020",
+      "original_finding_id": "CC8-PROP-002",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Separate unchanged selected fixed inputs PASS; mutation of explicitly bound input including unconsumed selected input FAIL; creation/mutation of genuinely unbound generated evidence does not alone invalidate fixed-input freeze and is judged at its own evidence boundary. Preserve consumed-result negative and real PREFLIGHT location positive.",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "validation_status": "NOT_PERFORMED",
+      "historical_r9_map_row": {
+        "finding_alias": "F-020",
+        "change_id": "CHG-020",
+        "original_finding_id": "CC8-PROP-002",
+        "original_severity": "medium",
+        "builder_severity": "MINOR",
+        "owner": "claude",
+        "scope": "CHG-005 corrected specification and executable freeze/controller/suite source",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Separate unchanged selected fixed inputs PASS; mutation of explicitly bound input including unconsumed selected input FAIL; creation/mutation of genuinely unbound generated evidence does not alone invalidate fixed-input freeze and is judged at its own evidence boundary. Preserve consumed-result negative and real PREFLIGHT location positive.",
+        "status": "REQUESTED_NOT_APPLIED",
+        "validation_status": "NOT_PERFORMED"
+      },
+      "r9_static_subpart_state": {
+        "specification": "SELECTED_FIXED_VERSUS_UNBOUND_GENERATED_BOUNDARY_AUTHORED",
+        "helper": "PARTIAL_REAL_PREFLIGHT_ROOT_INCORRECT_SELECTED_CODE_OMITTED",
+        "caller_integration": "NOT_AUTHORED",
+        "executable_suite": "NOT_AUTHORED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "R9-CI-001",
+        "R9-CI-002"
+      ]
+    },
+    {
+      "finding_alias": "F-021",
+      "change_id": "CHG-021",
+      "original_finding_id": "CC8-PROP-003",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "R10 DRAFT intake; original identities and requirements retained",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Retain simple wrong-root negative; add the exact valid bare locator without digest plus separate wrong-root locator carrying the true digest. Each accepted receipt record must use the validated locator occurrence span and whole 64-hex token. Retain both long swapped-pair negatives, exact root positives and 65-hex negative. Correct the false historical claim that the simpler wrong-root-only case passes baseline.",
+      "status": "REPAIR_REQUIRED_PARTIAL_PRIOR_AUTHORING",
+      "validation_status": "NOT_PERFORMED",
+      "historical_r9_map_row": {
+        "finding_alias": "F-021",
+        "change_id": "CHG-021",
+        "original_finding_id": "CC8-PROP-003",
+        "original_severity": "medium",
+        "builder_severity": "MINOR",
+        "owner": "claude",
+        "scope": "CHG-006 corrected specification and executable receipt checker/suite source",
+        "type": "Required repair",
+        "preserved_requirement_ids": [
+          "W1",
+          "P3",
+          "P4"
+        ],
+        "expected_behavior": "Retain simple wrong-root negative; add the exact valid bare locator without digest plus separate wrong-root locator carrying the true digest. Each accepted receipt record must use the validated locator occurrence span and whole 64-hex token. Retain both long swapped-pair negatives, exact root positives and 65-hex negative. Correct the false historical claim that the simpler wrong-root-only case passes baseline.",
+        "status": "REQUESTED_NOT_APPLIED",
+        "validation_status": "NOT_PERFORMED"
+      },
+      "r9_static_subpart_state": {
+        "specification": "RELATIVE_DECOY_AND_HISTORICAL_CORRECTION_AUTHORED",
+        "checker": "SPAN_AND_WHOLE_TOKEN_CHANGES_AUTHORED_RESIDUAL_ABSOLUTE_OWNERSHIP_DEFECT",
+        "caller_integration": "FRESH_SUITE_NOT_AUTHORED",
+        "executable_suite": "PHYSICAL_CASES_AUTHORED_TARGET_BINDING_AND_EXECUTABLE_WIRING_INCOMPLETE_LONG_PAIRS_BASELINE_ONLY"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "allocation_r10": "AUTHOR_ACTUAL_EXECUTABLE_INTEGRATION_AND_DISCRIMINATING_SUITE_WITHOUT_EXECUTION",
+      "execution_status": "NOT_RUN",
+      "native_finding_closed": false,
+      "r9_review_finding_ids": [
+        "CC9-RR-002",
+        "CC9-RR-003"
+      ]
+    },
+    {
+      "finding_alias": "F-022",
+      "change_id": "CHG-022",
+      "original_finding_id": "R9-CLAUDE-STATIC-001",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "references/derivation.json only; preserve other nineteen files",
+      "type": "Required repair",
+      "status": "REQUESTED_NOT_STARTED_DRAFT_ONLY",
+      "r9_static_subpart_state": {
+        "source_or_custody": "REVISE_REQUIRED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "execution_status": "NOT_RUN",
+      "validation_status": "NOT_PERFORMED",
+      "native_finding_closed": false
+    },
+    {
+      "finding_alias": "F-023",
+      "change_id": "CHG-023",
+      "original_finding_id": "R9-CUSTODY-001",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "new run additive chronology correction; historical files read-only",
+      "type": "Required repair",
+      "status": "REQUESTED_NOT_STARTED_DRAFT_ONLY",
+      "r9_static_subpart_state": {
+        "source_or_custody": "REVISE_REQUIRED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "execution_status": "NOT_RUN",
+      "validation_status": "NOT_PERFORMED",
+      "native_finding_closed": false
+    },
+    {
+      "finding_alias": "F-024",
+      "change_id": "CHG-024",
+      "original_finding_id": "R9-CUSTODY-002",
+      "original_severity": "MINOR",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "new run additive coverage correction and nonrecursive manifest/readback/receipt closure",
+      "type": "Required repair",
+      "status": "REQUESTED_NOT_STARTED_DRAFT_ONLY",
+      "r9_static_subpart_state": {
+        "source_or_custody": "REVISE_REQUIRED"
+      },
+      "r10_requested_subpart_state": "NOT_STARTED_DRAFT_ONLY",
+      "execution_status": "NOT_RUN",
+      "validation_status": "NOT_PERFORMED",
+      "native_finding_closed": false
+    }
+  ],
+  "r9_review_findings": [
+    {
+      "original_review_path": "review-r9/review-claude-source/AI-REVIEW.json",
+      "original_record": {
+        "id": "R9-CLAUDE-STATIC-001",
+        "title": "Current derivation entries retain baseline hashes for all three changed instruction files",
+        "severity": "MAJOR",
+        "disposition": "REVISE",
+        "criteria": [
+          "R07",
+          "R09"
+        ],
+        "trigger": "Read or verify the candidate package's current derivations for SKILL.md, references/recording-rules.md, or references/managed-runtime.md.",
+        "impact": "The mandatory derivation record identifies the previous source bytes as the current package destinations and asserts that they were verified after the last write. A consumer cannot use these entries to identify the operative revision or establish package freshness; all three changed instruction bindings disagree with the frozen candidate. This is a required provenance failure, not evidence of an observed native failure.",
+        "observations": [
+          {
+            "destination": "SKILL.md",
+            "declared_sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca",
+            "actual_sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+            "actual_bytes": 20207,
+            "declared_matches": "listed baseline SKILL.md"
+          },
+          {
+            "destination": "references/recording-rules.md",
+            "declared_sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013",
+            "actual_sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+            "actual_bytes": 21702,
+            "declared_matches": "listed baseline references/recording-rules.md"
+          },
+          {
+            "destination": "references/managed-runtime.md",
+            "declared_sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02",
+            "actual_sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+            "actual_bytes": 9053,
+            "declared_matches": "listed baseline references/managed-runtime.md"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+            "lines": {
+              "start": 80,
+              "end": 82
+            },
+            "supports": "Current recording-rules destination digest"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+            "lines": {
+              "start": 144,
+              "end": 145
+            },
+            "supports": "Claims destination digest equals package bytes after last write"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+            "lines": {
+              "start": 219,
+              "end": 220
+            },
+            "supports": "Current SKILL.md destination digest"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+            "lines": {
+              "start": 264,
+              "end": 267
+            },
+            "supports": "Current SKILL.md transformation and verified claim"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+            "lines": {
+              "start": 276,
+              "end": 277
+            },
+            "supports": "Current managed-runtime destination digest"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+            "lines": {
+              "start": 313,
+              "end": 321
+            },
+            "supports": "Current managed-runtime verified claim"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/references/derivation.json",
+            "lines": {
+              "start": 340,
+              "end": 385
+            },
+            "supports": "Appended revision-009 change descriptions contain no replacement destination hashes"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/CLAUDE-SOURCE-INPUTS.json",
+            "json_pointers": [
+              "/files/inputs~1claude~1candidate~1devforge-brainstorm~1SKILL.md",
+              "/files/inputs~1claude~1candidate~1devforge-brainstorm~1references~1recording-rules.md",
+              "/files/inputs~1claude~1candidate~1devforge-brainstorm~1references~1managed-runtime.md"
+            ],
+            "supports": "All corresponding listed files were independently read as raw bytes and matched these manifest sizes and hashes before candidate text review"
+          }
+        ],
+        "required_behavior": [
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+            "lines": {
+              "start": 53,
+              "end": 53
+            },
+            "supports": "Each package copy/derivation records exact source and destination SHA-256 and transformation"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/selected/claude/shared/docs/mvp/skill-authoring-contract.md",
+            "lines": {
+              "start": 69,
+              "end": 70
+            },
+            "supports": "Changed candidate identities invalidate affected earlier conclusions; author evidence is not acceptance"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/selected/claude/shared/docs/mvp/artifact-contract.md",
+            "lines": {
+              "start": 109,
+              "end": 111
+            },
+            "supports": "Record exact source/installed file identities; old results remain bound to old inputs"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/validator/references/ai-review-rubric.md",
+            "lines": {
+              "start": 89,
+              "end": 95
+            },
+            "supports": "R07 exact revision/provenance requirements"
+          },
+          {
+            "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/validator/references/ai-review-rubric.md",
+            "lines": {
+              "start": 109,
+              "end": 115
+            },
+            "supports": "R09 claims must tie to observed results"
+          }
+        ],
+        "bounded_change": "The source owner should refresh the three current destination_sha256 values from the final corresponding bytes, retain the old values as explicitly historical entries, and reconcile the associated verified statements. The appended change narrative is insufficient as a replacement for current exact-byte bindings.",
+        "preserve": "Preserve candidate runtime instructions, selected contracts/templates, historical records and their original outcomes. Do not add a digest of derivation.json inside itself.",
+        "verification_required": "Under a separately authorized source repair, compare every current destination hash to final frozen package bytes and preserve the resulting candidate identity for affected static and later native evaluation. No native result is closed by this metadata repair.",
+        "owner": "Assigned Claude source author under root/integration-owner authority; this review performs no repair"
+      },
+      "related_change_ids": [
+        "CHG-022"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-receipts-references/FINDINGS.json",
+      "original_record": {
+        "id": "CC9-RR-001",
+        "severity": "high",
+        "classification": "MATERIAL_EXECUTABLE_DEFECT",
+        "title": "Section absence is still classified by entry-wide word and ID co-occurrence",
+        "change_ids": [
+          "CHG-016",
+          "CHG-019"
+        ],
+        "prior_findings": [
+          {
+            "id": "CP5-CK-001 retained absence-disclosure limitation",
+            "severity": "original CP5 severity retained; not reassigned"
+          },
+          {
+            "id": "CC8-PROP-001",
+            "severity": "high"
+          }
+        ],
+        "origin": "The classifier is new in R9. Its false acceptance preserves the inherited absence-disclosure limitation; rejecting the mixed valid-positive disclosure is a new regression.",
+        "locations": [
+          {
+            "path": "inputs/claude/run/source/checkers/validate_references.py",
+            "lines": "197-206,218-231,378-395,411-441,450-454"
+          },
+          {
+            "path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md",
+            "lines": "21"
+          },
+          {
+            "path": "inputs/issued-r9/selected/claude/control-baseline-r7/control/PLAN.json",
+            "lines": "23"
+          }
+        ],
+        "requirement": "Omitted upstream sections require inspected actual absence plus explicit matching absence disclosure for that artifact. An unrelated unknown must neither establish absence nor erase an otherwise valid absence disclosure. Unreadability is not absence.",
+        "trigger": "Use the unchanged, correctly hashed IDEAS-900 no-heading target and upstream from the retained physical positive. Replace only its missing_inputs entry with: \"IDEAS-900 has no authoring date; IDEAS-901 has no stable sections.\"",
+        "static_trace": "The entry supplies both IDs, a section word and an absence word. No unknown-pattern term is present. Lines 226-231 assign the same absence classification to both IDs. For IDEAS-900, check_one finds no target headings and a nonempty absence list, bypasses all omission refusals and reaches PASS, although the sole section-absence claim belongs to IDEAS-901.",
+        "additional_discriminating_cases": [
+          {
+            "entry": "IDEAS-900 has no stable sections; its authoring date is unknown.",
+            "required": "PASS when other reference checks are satisfied",
+            "static_path": "The entry-wide _UNKNOWN search wins, absence list remains empty, and lines 411-425 return FAIL. The baseline ID-only predicate accepted this valid positive; the new parser regresses it."
+          },
+          {
+            "entry": "IDEAS-900: unable to read the section list, so no sections are cited.",
+            "required": "FAIL",
+            "static_path": "The finite unknown regex does not match unable to read; section and no match, producing absence and eventual PASS against a readable no-heading target. Omission of citations is not disclosure of actual target-section absence."
+          }
+        ],
+        "impact": "The actual checker still accepts an undisclosed or unknown section omission, and can reject a valid exception. The new metadata target_sections_inspected and section_disclosure_kind does not repair the missing relation between artifact, section fact and disclosure.",
+        "required_revision": "Bind classification to the referenced artifact and its section fact, rather than distributing one kind to every ID in an entry. Preserve valid absence plus unrelated-unknown positives; reject cross-artifact disclosures and unreadability/citation-omission negatives. Keep the selected v1 artifact contract.",
+        "claim_assessment": "BUILDER-CHANGE-RECEIPT.json:251-306 marks both CHGs APPLIED_EXECUTABLE. Executable checker code exists, but its claimed same-artifact/actual-absence behavior is incomplete. No finding closure is authorized.",
+        "evidence_method": "STATIC_SOURCE_TRACE_ONLY",
+        "executed": false
+      },
+      "related_change_ids": [
+        "CHG-016",
+        "CHG-019"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-receipts-references/FINDINGS.json",
+      "original_record": {
+        "id": "CC9-RR-002",
+        "severity": "high",
+        "classification": "INHERITED_RECEIPT_OWNERSHIP_DEFECT",
+        "title": "An absolute sandbox locator is accepted as a suffix after an extra separator in another root",
+        "change_ids": [
+          "CHG-006",
+          "CHG-021"
+        ],
+        "prior_findings": [
+          {
+            "id": "CC7-002",
+            "severity": "high"
+          },
+          {
+            "id": "CP5-CK-003",
+            "severity": "original CP5 severity retained; not reassigned"
+          }
+        ],
+        "origin": "Inherited unchanged from baseline locator_occurrences; this is a newly reported residual ownership case, not a regression introduced by the R9 span propagation.",
+        "locations": [
+          {
+            "path": "inputs/claude/run/source/checkers/check_receipts.py",
+            "lines": "53-71,82-85,149-158,208-219,246-252"
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/checkers/check_receipts.py",
+            "lines": "40-58"
+          },
+          {
+            "path": "inputs/issued-r9/selected/claude/control-baseline-r7/control/PLAN.json",
+            "lines": "8-20,25"
+          },
+          {
+            "path": "inputs/issued-r9/REPAIR-MAP.json",
+            "lines": "114-127"
+          }
+        ],
+        "requirement": "A path under an unselected root that merely ends in an accepted suffix is not the promised file. A receipt must own the selected project/sandbox locator, not a substring of another absolute path.",
+        "trigger": "With declared forms project_relative and sandbox_absolute, sandbox_root /work/arm, promised label a.md and current digest H_a, terminal text is /other//work/arm/a.md followed by two spaces and H_a, then newline. H_a denotes the exact current 64-character digest, not a literal fixture token.",
+        "static_trace": "The relative a.md occurrence is correctly rejected. The sandbox locator /work/arm/a.md is found within /other//work/arm/a.md with previous character /. Slash is not WORDISH and the previous-separator rejection at line 69 applies only to project_relative, so its start is recorded as valid. records_for then accepts that same start and the digest, and check reaches PASS. The actual full absolute path is under /other, not /work/arm. No separate bare-locator decoy is needed.",
+        "impact": "The new valid_starts boundary correctly preserves the relative-form check, but can preserve an already-invalid absolute-form occurrence. Source-root ownership remains weaker than the fixed criterion.",
+        "required_revision": "Validate the complete absolute path token against the declared sandbox locator before carrying its span. Retain the exact-root positive and add the wrong-root embedded absolute-locator negative without relaxing existing relative-span or whole-token checks.",
+        "claim_assessment": "The targeted R9 relative-decoy and 65-hex repairs are real source changes. They do not close CC7-002 or establish complete root ownership.",
+        "evidence_method": "STATIC_SOURCE_TRACE_ONLY",
+        "executed": false
+      },
+      "related_change_ids": [
+        "CHG-006",
+        "CHG-021"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-receipts-references/FINDINGS.json",
+      "original_record": {
+        "id": "CC9-RR-003",
+        "severity": "high",
+        "classification": "EXECUTABLE_SUITE_INCOMPLETE_WITH_PARTIAL_DISCLOSURE",
+        "title": "Required receipt/reference cases are not wired to the revised checkers, and the new unknown fixture exits before its target predicate",
+        "change_ids": [
+          "CHG-006",
+          "CHG-016",
+          "CHG-019",
+          "CHG-021"
+        ],
+        "prior_findings": [
+          {
+            "id": "CC7-002",
+            "severity": "high"
+          },
+          {
+            "id": "CP5-CK-001 retained absence-disclosure limitation",
+            "severity": "original CP5 severity retained; not reassigned"
+          },
+          {
+            "id": "CP5-CK-003",
+            "severity": "original CP5 severity retained; not reassigned"
+          },
+          {
+            "id": "CC8-PROP-001",
+            "severity": "high"
+          },
+          {
+            "id": "CC8-PROP-003",
+            "severity": "medium"
+          }
+        ],
+        "origin": "R9 authors checker implementations and physical/data fixture descriptions, but leaves the requested suite integration unfinished. Retention and placeholder omissions are disclosed locally; whole-CHG APPLIED_EXECUTABLE labels do not express that partial state.",
+        "locations": [
+          {
+            "path": "inputs/claude/run/source/no-model-tests/cases_r9.py",
+            "lines": "2-6,27-77,79-102"
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/no-model-tests/checks_suite.py",
+            "lines": "11-17,80-94,201-229,333-367"
+          },
+          {
+            "path": "inputs/claude/run/source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md",
+            "lines": "13-23"
+          },
+          {
+            "path": "inputs/claude/run/source/fixtures/chg-019-absence-disclosure/INDEX.json",
+            "lines": "5-21"
+          },
+          {
+            "path": "inputs/claude/run/source/fixtures/chg-021-receipt-spans/INDEX.json",
+            "lines": "4-20"
+          },
+          {
+            "path": "inputs/claude/run/source/checkers/validate_references.py",
+            "lines": "302-321,378-425"
+          },
+          {
+            "path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+            "lines": "216-248,276-306"
+          },
+          {
+            "path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md",
+            "lines": "9,13,21,25"
+          }
+        ],
+        "requirement": "R9 expressly requires actual executable checker/suite corrections with discriminating fixtures, separately labeled partial when unfinished. Execution remains forbidden; that does not prevent authoring callable cases and bindings to the fresh code.",
+        "trigger": "A later reviewer selects the authored R9 source/no-model-tests tree or the retained baseline checks_suite.py as the purported receipt/reference case suite.",
+        "static_trace": "The only fresh no-model-tests file is cases_r9.py. It contains assignment dictionaries for other control cases and a deferred lifecycle description; it has no receipt/reference calls or assertions and no fixture loader. The retained checks_suite.py resolves RUN as its baseline/control-baseline-r7 parent and imports that tree's sibling checkers. Thus its long swapped-pair negatives at 333-345 and its positives remain wired to the old checkers, not source/checkers. The R9 indexes are prose/data and provide no consumer that rebinds the suite to the new modules.",
+        "fixture_specific_gaps": [
+          "The new unknown-sections reference points at docs/devforge/ideas/IDEAS-008.md with an all-zero sha256 and no matching target fixture. With absent target bytes, check_one returns UNAVAILABLE before disclosure checks; with a real staged target and unchanged zero digest, it fails digest comparison first. A FAIL-only assertion would therefore not establish the unknown-disclosure rejection. INDEX.json:16 discloses the placeholder but supplies no executable binding/rewrite.",
+          "The heading-present false-absence case is only an INDEX.json object with expect/why fields; there is no concrete target-plus-reference execution path.",
+          "The receipt index gives only a target path-to-hash value; no frozen manifest file has that target digest, and no authored runner stages a matching target or constructs promised/mapping records. The relative positive and negative terminal bytes are useful case descriptions, not a self-contained runnable suite.",
+          "Both long swapped-pair negatives and selected sandbox-positive cases are preserved in baseline code, but no fresh runner imports them against the new checker modules."
+        ],
+        "impact": "Later execution of the retained suite can test baseline code while appearing to cover the repaired behavior; naive use of the new unknown fixture can pass its expected FAIL for the wrong reason. The requested executable discrimination is not complete.",
+        "required_revision": "Author an explicit fresh suite entrypoint/import binding to the revised checker files, retain both long swapped-pair and exact-root positives, provide real frozen target bytes/configs, and assert predicate-specific reasons or classification as well as outcomes. Keep all cases NOT_RUN until separately authorized. Label the relevant CHGs partially implemented until this integration exists.",
+        "claim_assessment": "CHG-021 and CHG-019 are marked executable_source_authored:true and APPLIED_EXECUTABLE while local notes admit retained-only cases and a placeholder. Real checker source was authored; the whole requested checker/suite/fixture correction remains partial.",
+        "evidence_method": "STATIC_SOURCE_AND_MANIFEST_INSPECTION_ONLY",
+        "executed": false
+      },
+      "related_change_ids": [
+        "CHG-006",
+        "CHG-016",
+        "CHG-019",
+        "CHG-021"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-001",
+        "severity": "high",
+        "classification": "MISSING_LOCAL_INTEGRATION_AND_UNSUPPORTED_APPLIED_CLAIMS",
+        "title": "New predicates have no authored connection to the selected control path",
+        "change_ids": [
+          "CHG-005",
+          "CHG-007",
+          "CHG-008",
+          "CHG-009",
+          "CHG-010",
+          "CHG-014",
+          "CHG-015",
+          "CHG-020"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-001",
+            "severity": "high"
+          },
+          {
+            "id": "CC7-003",
+            "severity": "high"
+          },
+          {
+            "id": "CC7-004",
+            "severity": "high"
+          },
+          {
+            "id": "CC7-005",
+            "severity": "high"
+          },
+          {
+            "id": "CC7-006",
+            "severity": "high"
+          },
+          {
+            "id": "CC7-010",
+            "severity": "medium"
+          },
+          {
+            "id": "CC7-011",
+            "severity": "medium"
+          },
+          {
+            "id": "CC8-PROP-002",
+            "severity": "medium"
+          }
+        ],
+        "trigger": "Use the delivered authored controls with the selected r7 runner/controller/grader; no new caller selects the added helpers.",
+        "evidence": [
+          {
+            "path": "INPUT-MANIFEST.json",
+            "locator": "files entries below inputs/claude/run/source/control contain a_arm.py, activation.py, admission.py and freeze.py only"
+          },
+          {
+            "path": "inputs/claude/run/source/control/admission.py",
+            "lines": "7-9",
+            "detail": "Claims the phase path calls these decision functions."
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/control/run_phases.py",
+            "lines": "22-28,156-204,368,395,432,470-505",
+            "detail": "Imports original modules, invokes its own activation and original verification/grading, derives prerequisites from declared arm lists."
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/control/grade.py",
+            "lines": "116-136,154-157",
+            "detail": "Preservation still uses recorded inventory, not the new live-byte predicate."
+          },
+          {
+            "path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+            "lines": "314,333,371,390,434,451",
+            "detail": "Applied executable claims and claimed caller repair."
+          }
+        ],
+        "impact": "The delivered source does not change the operative preservation, prerequisites, runtime observation, activation, authority or A nonlaunch decisions. Original defects remain on the actual local path even if the isolated helpers are correct.",
+        "required_revision": "Connect locally implementable predicates to the actual fresh runner/controller/grader and freeze their bytes, or accurately label the missing local integration as partial. Do not conflate it with unavailable native collectors.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-005",
+        "CHG-007",
+        "CHG-008",
+        "CHG-009",
+        "CHG-010",
+        "CHG-014",
+        "CHG-015",
+        "CHG-020"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-002",
+        "severity": "high",
+        "classification": "SOURCE_DEFECT",
+        "title": "Real PREFLIGHT paths still resolve to the wrong location",
+        "change_ids": [
+          "CHG-005",
+          "CHG-020"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-001",
+            "severity": "high"
+          },
+          {
+            "id": "CC8-PROP-002",
+            "severity": "medium"
+          }
+        ],
+        "trigger": "Populate every actual RUN/no-model-tests PREFLIGHT file before freeze and verify without mutation.",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/source/control/freeze.py",
+            "lines": "130-142,160-161,241-247",
+            "detail": "Build hashes RUN/no-model-tests under preflight/ keys but omits a preflight root; verify reads RUN/preflight/no-model-tests."
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/control/controller.py",
+            "lines": "67-77",
+            "detail": "Actual verifier has the same resolver and still accepts None equal to None."
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/control/GATE-INPUTS.json",
+            "lines": "3",
+            "detail": "Actually consumed result is no-model-tests/results.json."
+          },
+          {
+            "path": "inputs/claude/run/source/control/freeze.py",
+            "lines": "67-95",
+            "detail": "Fixed code selection also omits the newly authored admission, activation, A-arm and cases files."
+          },
+          {
+            "path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md",
+            "lines": "23",
+            "detail": "Requires unchanged actual-location positive and mutation negatives with separate generated-evidence boundary."
+          }
+        ],
+        "impact": "The explicitly required unchanged real-location positive fails by static resolution; the actual controller still lacks the unresolved-input refusal. Added controls also remain outside the declared fixed code set.",
+        "required_revision": "Map preflight keys to RUN consistently in builder and actual verifier, include selected new executable dependencies, and author discriminating actual-location and consumption-boundary scenarios without execution.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-005",
+        "CHG-020"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-003",
+        "severity": "high",
+        "classification": "SOURCE_DEFECT_IN_CLAIMED_IMPLEMENTED_PARTIAL",
+        "title": "Arbitrary assertions satisfy the runtime observation consumer",
+        "change_ids": [
+          "CHG-009"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-005",
+            "severity": "high"
+          }
+        ],
+        "trigger": "Supply each required category a dictionary with source='worker text', observed_bytes_sha256='x', outcome='FAIL'; or replace required coverage with a caller-selected subset.",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/source/control/admission.py",
+            "lines": "189,199-225,227-235",
+            "detail": "Only truthiness of two fields is checked; dictionaries bypass deferred status; outcomes and required fixed coverage are not validated."
+          },
+          {
+            "path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+            "lines": "347-363",
+            "detail": "Claims fail-closed consumer/schema checks with runtime-owned source and exact observed bytes."
+          },
+          {
+            "path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md",
+            "lines": "31-35",
+            "detail": "Missing runtime observations must block; worker text and hashes are not substitutes."
+          }
+        ],
+        "impact": "All five categories, including declared root deferrals, can become PASS without usable or successful observations. The supplied invalid values reach this branch by inspection; no probe was run.",
+        "required_revision": "Constrain coverage and consume only the selected evidence-bound record schema with actual outcomes/provenance/identity; when trustworthy selected data is unavailable, remain deferred and block. Do not invent collector APIs.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-009"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-004",
+        "severity": "high",
+        "classification": "SOURCE_DEFECT",
+        "title": "Structurally invalid transcript events become verified activation results",
+        "change_ids": [
+          "CHG-010"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-006",
+            "severity": "high"
+          }
+        ],
+        "trigger": "A transcript contains only the JSON line []; or contains tool-use content without any assistant role/event identity.",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/source/control/activation.py",
+            "lines": "31-46,88-110,120-124",
+            "detail": "Nonobjects count as decoded events but are silently ignored; missing role and type are allowed."
+          },
+          {
+            "path": "inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json",
+            "lines": "22",
+            "detail": "A5a expects false, so [] is labeled PASS by the static branch trace."
+          },
+          {
+            "path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+            "lines": "385-407",
+            "detail": "Claims actual assistant tool-use selection and unusable transcripts separated from verified negatives."
+          }
+        ],
+        "impact": "Malformed event structures produce a verified negative, and a missing assistant envelope may produce a positive. Correct init-metadata filtering does not establish structural validity.",
+        "required_revision": "Require the selected assistant event envelope for invocation and classify malformed structures as unusable instead of verified negatives; integrate the parser into the real local caller.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-010"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-005",
+        "severity": "high",
+        "classification": "SOURCE_DEFECT_IN_CLAIMED_IMPLEMENTED_PARTIAL",
+        "title": "Claimed query identity is copied or asserted rather than verified",
+        "change_ids": [
+          "CHG-012"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-008",
+            "severity": "high"
+          }
+        ],
+        "trigger": "Pass the selected A3a query row, which has no query_sha256 field; or pass an A5a selector to case A3a.",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/source/control/a_arm.py",
+            "lines": "47-56,97-102",
+            "detail": "Case whitelist only; optional digest copied, unchanged flag hardcoded, arbitrary selector forwarded."
+          },
+          {
+            "path": "inputs/claude/run/source/control/activation.py",
+            "lines": "65-74",
+            "detail": "Observation also only copies the optional query_sha256."
+          },
+          {
+            "path": "inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json",
+            "lines": "3,13,22",
+            "detail": "Exact selected row schema contains no query_sha256; A3a true and A5a false are fixed."
+          },
+          {
+            "path": "inputs/claude/run/AUTHORING-RECORD.md",
+            "lines": "75-77",
+            "detail": "Claims case binding and query-byte identity are implemented."
+          },
+          {
+            "path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+            "lines": "410-426",
+            "detail": "Partial status discloses native completion and A5a assertions, but claims selector binding/carrying."
+          }
+        ],
+        "impact": "Normal selected rows emit null query identity while claiming unchanged prompt bytes. Mismatched case/query and changed prompt content are not refused.",
+        "required_revision": "Bind each case to its selected row and expectation, compute exact selected query bytes' digest, and compare the actual prompt supplied to the launcher. Retain native completion as separately unobserved/deferred.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-012"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-006",
+        "severity": "medium",
+        "classification": "SOURCE_DEFECT_AND_UNSUPPORTED_APPLIED_CLAIM",
+        "title": "Fresh freeze builder still emits historical authority",
+        "change_ids": [
+          "CHG-015"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-011",
+            "severity": "medium"
+          }
+        ],
+        "trigger": "A future authorized caller invokes the freshly authored freeze builder for a selected current allocation.",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/source/control/freeze.py",
+            "lines": "112,149-153",
+            "detail": "No allocation parameter; hardcoded SESSION-001@5, revision 5, old e0dda2d0 digest."
+          },
+          {
+            "path": "inputs/claude/run/source/control/admission.py",
+            "lines": "244-267",
+            "detail": "Standalone equality helper has no caller in the builder."
+          },
+          {
+            "path": "inputs/issued-r9/authority/SESSION-001-r9.md",
+            "lines": "3-6",
+            "detail": "Selected current authority is SESSION-001 revision 9."
+          },
+          {
+            "path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+            "lines": "366-382",
+            "detail": "Marks CHG-015 APPLIED_EXECUTABLE based only on the equality helper."
+          }
+        ],
+        "impact": "The authored emitter still gives new prospective evidence the historical session identity. No claim is made that it was executed or emitted such a record during R9.",
+        "required_revision": "Require the explicitly selected allocation in the emitter and reject missing/mismatched identity before output; preserve historical baseline files as inputs.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-015"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-007",
+        "severity": "medium",
+        "classification": "UNSUPPORTED_EXECUTABLE_SUITE_CLAIM",
+        "title": "CHG-013 remains unused case data rather than a corrected executable suite",
+        "change_ids": [
+          "CHG-013"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-009",
+            "severity": "medium"
+          }
+        ],
+        "trigger": "Inspect the delivered suite corrections for executable scenarios that drive the selected phase path and assert recorded outcomes.",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/source/no-model-tests/cases_r9.py",
+            "lines": "27-77",
+            "detail": "Setup/expect dictionaries only; no constructor, driver, assertions or consumer."
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/no-model-tests/phase_suite.py",
+            "lines": "213,235,286-290,321-334,408-415,438-444",
+            "detail": "Actual old scenarios and driver remain; P21 calls drive anew in non-resume mode; P20 already supplies judge={}."
+          },
+          {
+            "path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+            "lines": "454-470",
+            "detail": "APPLIED_EXECUTABLE claims a P21 resume reaches the comparison."
+          },
+          {
+            "path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md",
+            "lines": "9",
+            "detail": "Explicitly distinguishes future case descriptions from implemented corrections."
+          }
+        ],
+        "impact": "Corrected expectations cannot reach the mechanisms or replace the defective scenarios; executable-suite completion is overstated.",
+        "required_revision": "Author the actual scenario setup/resume calls and evidence assertions, or report specification/data-only status. Execution must remain NOT_RUN in this authoring allocation.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-013"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/review-control-integration/FINDINGS.json",
+      "original_record": {
+        "id": "R9-CI-008",
+        "severity": "medium",
+        "classification": "SOURCE_DEFECT",
+        "title": "A5a requires an A3a semantic judgment absent from the fixed plan",
+        "change_ids": [
+          "CHG-008"
+        ],
+        "original_findings": [
+          {
+            "id": "CC7-004",
+            "severity": "high"
+          }
+        ],
+        "trigger": "C1/B5/B11 clear their evidence-bound gates and A3a completes with the expected activation result, then request A5a admission.",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/source/control/admission.py",
+            "lines": "116-120,140-150",
+            "detail": "A3a is added to A5a prerequisites and must carry mechanical PASS, judgment PASS and judgment_bound_to."
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/control/PLAN.json",
+            "lines": "54-56,90-110",
+            "detail": "A arms have their own activation observation, distinct from C/B artifact grades and judgments."
+          },
+          {
+            "path": "inputs/claude/run/baseline/control-baseline-r7/control/run_phases.py",
+            "lines": "425-431",
+            "detail": "A returns after native completion and activation outcome without a semantic judgment."
+          }
+        ],
+        "impact": "Valid A3a activation cannot satisfy the new A5a guard without inventing extra C/B-style judgment fields.",
+        "required_revision": "Retain evidence-bound C/B prerequisites but sequence A5a on A3a's selected completion and activation result.",
+        "execution": "NOT_PERFORMED",
+        "closes_original_findings": false
+      },
+      "related_change_ids": [
+        "CHG-008"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/ROOT-CUSTODY-FINDINGS.json",
+      "original_record": {
+        "id": "R9-CUSTODY-001",
+        "severity": "MAJOR",
+        "scope": "authoring chronology and report accuracy; not an observed overrun",
+        "status": "CONFIRMED_REPORTING_CONTRADICTION",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/report/SEVAL-R9-001.md",
+            "locator": "lines5-6",
+            "claim": "technical edits stopped at the 17:53:30Z reserve boundary"
+          },
+          {
+            "path": "inputs/claude/run/report/RECEIPT.json",
+            "locator": "/issued_at_utc",
+            "value": "2026-09-07T16:29:04.452179+00:00"
+          },
+          {
+            "path": "inputs/claude/run/HANDOFF.md",
+            "locator": "/created_at_utc",
+            "value": "2026-09-07T18:06:00+00:00"
+          },
+          {
+            "path": "CUSTODY.json",
+            "locator": "/timing_observations",
+            "claim": "user relayed 18:12Z closure; root already observed complete bytes at16:39:42Z before that claimed event"
+          },
+          {
+            "path": "inputs/claude/run/CLOCK.json",
+            "locator": "/clock_note",
+            "claim": "clock note allows prompt/authority reading before recorded first-work point, contrary to issued rule requiring first-work clock before other assignment reading"
+          }
+        ],
+        "consequence": "The reserve-boundary stop, handoff creation and relayed closeout cannot all be accepted as actual events in the supplied chronology. Do not certify budget/chronology compliance from those narratives or infer an overrun from this inconsistency. Current files were independently observed before the stated hard deadline; the actual first-work boundary and editing chronology are not independently established.",
+        "required_correction": "Preserve original files/receipts. Add an explicit correction that retracts unobserved future-event claims, distinguishes scheduled cutoff/deadline from actual observations, identifies evidence for known times and leaves unobserved times unknown. No invented replacement timestamps, private-history audit, clock reset or rewritten prior results. Future authoring records a current clock-tool result before file reading and uses actual observations only."
+      },
+      "related_change_ids": [
+        "CHG-023"
+      ]
+    },
+    {
+      "original_review_path": "review-r9/ROOT-CUSTODY-FINDINGS.json",
+      "original_record": {
+        "id": "R9-CUSTODY-002",
+        "severity": "MINOR",
+        "scope": "manifest closure and coverage description",
+        "status": "CONFIRMED_SELF_ENTRY_HASH_MISMATCH",
+        "evidence": [
+          {
+            "path": "inputs/claude/run/MANIFEST.sha256",
+            "locator": "line6",
+            "expected": "06f30b00716ca2e1cbfecdece3a280117d5fbdd1fb64cce919ddfe7fdd22f9b7",
+            "actual": "768ce11a14c2ab51a61c4820197f0f9cbde9f6a3d222ba67fef99df819bef079",
+            "entry": "./MANIFEST.sha256"
+          },
+          {
+            "path": "inputs/claude/run/MANIFEST.sha256",
+            "locator": "entry ./report/SEVAL-R9-001.md",
+            "claim": "Report is included, contrary to relayed statement that manifest predates/excludes report"
+          }
+        ],
+        "consequence": "The manifest does not verify as a complete listed set. It has78 entries:77 valid nonself entries including the report and1 invalid self entry; current run has80 files, with READBACK.json and RECEIPT.json outside the manifest. The external receipt correctly binds report/manifest/readback; all73 receipt/readback targets and all40 builder before/after targets match. Actual source bytes remain independently selectable for static review, but this is not a passing author manifest.",
+        "required_correction": "Preserve this manifest. Any new manifest must explicitly exclude itself, state its exact closure boundary and bind finalized files, with later external receipt covering the manifest and any subsequent reports/readbacks. An additive corrected manifest may bind the old manifest as historical input under a distinct path, never its own current bytes."
+      },
+      "related_change_ids": [
+        "CHG-024"
+      ]
+    }
+  ],
+  "current_status_rule": "Per-subpart source/specification/caller/suite states above are static intake assessments; zero current execution. Downstream repair statuses are NOT_STARTED until separately issued authoring produces exact evidence. No native/CP5/CC7 finding is closed.",
+  "execution": "NOT_RUN",
+  "validation": "NOT_PERFORMED",
+  "native_C_B_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN"
+}

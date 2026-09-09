@@ -1,0 +1,51 @@
+# R10 executable and fixture inventory — authored, never executed
+# run: SESSION-001-r10-20260907T1919Z   allocation: SESSION-001@10   execution: NOT_RUN
+
+## control modules (imported by run_phases at runtime; not imported by this allocation)
+source/control/a_arm.py                      cafbc0e407445bd1  186L
+source/control/activation.py                 e825c34960bbd730  177L
+source/control/admission.py                  d7dc9e25c72aca3d  396L
+source/control/controller.py                 0231d82ed8a48dc6  175L
+source/control/freeze.py                     7e4dc23c58f80bab  357L
+source/control/grade.py                      26748047fa06edcb  225L
+source/control/run_phases.py                 f729953056c4f1f9  645L
+
+## control configuration
+source/control/ALLOCATION.json               f541c8059f472ebf  16L
+source/control/CLOCK.json                    ea9864e474b9199b  16L
+source/control/GATE-INPUTS.json              b0776ebf0177f6bf  5L
+source/control/PLAN.json                     002099d3872587b6  132L
+source/control/SEMANTIC-DECISIONS.json       8725e8024519c2ba  5L
+
+## checkers
+source/checkers/check_outcome_labels.py      05b1a6e2f004462a  158L
+source/checkers/check_receipts.py            4de008142ffc1847  335L
+source/checkers/harness.py                   98650538633ecc19  164L
+source/checkers/validate_references.py       bb03fbdc18691e78  580L
+
+## suites and cases
+source/no-model-tests/cases_r9.py            7df3dfb439e71d77  177L
+source/no-model-tests/checks_suite.py        d2501233b54d1b85  485L
+source/no-model-tests/phase_suite.py         e77deb19861460c5  1048L
+
+## fixtures
+source/fixtures/chg-019-absence-disclosure/INDEX.json      93b6240d02e61246
+source/fixtures/chg-019-absence-disclosure/NEG-false-absence-sectioned-target.md 546a17e4e2ccca76
+source/fixtures/chg-019-absence-disclosure/NEG-other-artifact-absence.md 859de89baf0d424d
+source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md 8de2f827a551abf2
+source/fixtures/chg-019-absence-disclosure/NEG-unreadable-then-cited.md afba088224b4cd1c
+source/fixtures/chg-019-absence-disclosure/POS-absence-with-unrelated-unknown.md 69cd70cfad9aec63
+source/fixtures/chg-021-receipt-spans/INDEX.json           8abff6f073bd1252
+source/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt bfd016909dd704e5
+source/fixtures/chg-021-receipt-spans/NEG-absolute-suffix-in-other-root.terminal.txt a34d3a4c9a6aa907
+source/fixtures/chg-021-receipt-spans/NEG-bare-locator-no-digest.terminal.txt 74a3f9f48a469cb8
+source/fixtures/chg-021-receipt-spans/NEG-bare-plus-wrongroot-digest.terminal.txt 6cf1122cb33da9c8
+source/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt 1fdf81946a1f5d74
+source/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt d664a2a070a0dbc4
+source/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt 73a4bacbcca9d0e7
+
+## case counts (static, from source text; no suite was run)
+checks_suite R10 cases:  8
+phase_suite  R10 cases:  49
+cases_r9 CHG-013 cases:  4
+cases_r9 local resume:   4

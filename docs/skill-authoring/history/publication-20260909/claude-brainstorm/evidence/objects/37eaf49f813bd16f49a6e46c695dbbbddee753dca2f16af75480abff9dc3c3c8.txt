@@ -1,0 +1,592 @@
+{
+ "schema_version": "devforge.r10-builder-receipt/v1",
+ "run_id": "SESSION-001-r10-20260907T1919Z",
+ "allocation": "SESSION-001@10",
+ "allocation_sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+ "scope": "Bounded metadata correction inside references/derivation.json plus executable control/checker/caller/suite authoring in one new run. Nothing authored here was executed.",
+ "per_change": [
+  {
+   "change_id": "CHG-001",
+   "original_finding_id": "CODEX-MEAS-R7-001",
+   "severity": "medium/P2",
+   "owner": "codex",
+   "status": "PRESERVE_ONLY",
+   "subparts": {
+    "all": "NO_CLAUDE_WORK_ALLOCATED"
+   },
+   "note": "Codex-owned. No work, no prompt, no run allocated."
+  },
+  {
+   "change_id": "CHG-002",
+   "original_finding_id": "CLAUDE-SRC-001",
+   "severity": "MAJOR",
+   "owner": "claude",
+   "status": "PRESERVE_ONLY",
+   "subparts": {
+    "source": "PRESERVED_BYTE_EXACT"
+   },
+   "note": "Prior source behaviour preserved; SKILL.md is outside this allocation's write fence."
+  },
+  {
+   "change_id": "CHG-003",
+   "original_finding_id": "CLAUDE-SRC-002",
+   "severity": "MINOR",
+   "owner": "claude",
+   "status": "PRESERVE_ONLY",
+   "subparts": {
+    "source": "PRESERVED_BYTE_EXACT"
+   }
+  },
+  {
+   "change_id": "CHG-004",
+   "original_finding_id": "CLAUDE-SRC-003",
+   "severity": "MAJOR",
+   "owner": "claude",
+   "status": "PRESERVE_ONLY",
+   "subparts": {
+    "source": "PRESERVED_BYTE_EXACT"
+   }
+  },
+  {
+   "change_id": "CHG-005",
+   "original_finding_id": "CC7-001",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper_checker_source": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/freeze.py PREFLIGHT_ROOT and per-entry resolution",
+    "source/control/controller.py verify_freeze unresolved-binding refusal",
+    "source/no-model-tests/phase_suite.py R10-P01..R10-P05 with stage_preflight()"
+   ],
+   "note": "The real-location positive now stages every declared preflight input before asserting; None == None can no longer satisfy a missing admission input."
+  },
+  {
+   "change_id": "CHG-006",
+   "original_finding_id": "CC7-002",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/checkers/check_receipts.py locator_occurrences ownership guard",
+    "source/no-model-tests/checks_suite.py R10-absolute-suffix-other-root"
+   ],
+   "note": "CC9-RR-002: the separator guard now applies to every accepted form, so an absolute locator sitting at the tail of an unselected root is no longer an occurrence."
+  },
+  {
+   "change_id": "CHG-007",
+   "original_finding_id": "CC7-003",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/run_phases.py _grade -> AD.preserve_check via _preservation_map",
+    "phase_suite R10-P34 retained / R10-P35 changed / R10-P36 vanished"
+   ],
+   "note": "Preservation now decides the arm's mechanical outcome and is recomputed from live bytes at judgment time, not from a surviving inventory key."
+  },
+  {
+   "change_id": "CHG-008",
+   "original_finding_id": "CC7-004",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/admission.py satisfied() A-arm branch (R9-CI-008)",
+    "source/control/run_phases.py run_one prerequisite refusal before launch",
+    "phase_suite R10-P14..R10-P20"
+   ],
+   "note": "A5a consumes A3a's completion and activation result. No C/B-style semantic judgment is invented for an arm the fixed plan never asks one of."
+  },
+  {
+   "change_id": "CHG-009",
+   "original_finding_id": "CC7-005",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED_WITH_DECLARED_ROOT_DEPENDENCY",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "authentic_native_observation_collection": "ROOT_DEPENDENCY_DEFERRED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/admission.py observations(): deferred-first, provenance allowlist, 64-hex syntax, task identity, successful-outcome and coverage checks",
+    "source/control/run_phases.py A gate consumes AD.observations",
+    "phase_suite R10-P10..R10-P13"
+   ],
+   "note": "stop_and_correction, receipt_publication and rendered_delivery stay deferred by name and block admission. A dictionary supplied for a deferred class is ignored, not accepted. No collector API was invented and no synthetic PASS exists."
+  },
+  {
+   "change_id": "CHG-010",
+   "original_finding_id": "CC7-006",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "reason_specific_fixture_files": "PARTIAL",
+    "native_activation": "NOT_OBSERVED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/activation.py envelope() classifier",
+    "source/control/run_phases.py _activation now delegates to activation.activation",
+    "phase_suite R10-P21..R10-P24"
+   ],
+   "partial_reason": "The four envelope classes are asserted as in-suite scenarios rather than as separate on-disk transcript fixture files. The discrimination is authored; the physical per-reason fixture set is not."
+  },
+  {
+   "change_id": "CHG-011",
+   "original_finding_id": "CC7-007",
+   "severity": "high",
+   "owner": "claude",
+   "status": "LOCAL_AUTHORED_UNEXECUTED_NATIVE_DEFERRED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "local_resume_case_definitions": "COMPLETE_AUTHORED_UNEXECUTED",
+    "local_resume_executable_driver": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "native_managed_callback_lifecycle": "ROOT_DEPENDENCY_DEFERRED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/no-model-tests/cases_r9.py LOCAL_RESUME_CASES (4 scenarios)",
+    "source/no-model-tests/phase_suite.py R10-P40 arm order, R10-P41 one marker per arm, R10-P42 same allocation across resumes, R10-P43 completed arms read not relaunched, R10-P44 each consumed judgment binds actual evidence, R10-P45 pause holds without the next judgment"
+   ],
+   "r9_correction": "R9 recorded the whole of CHG-011 as deferred to a missing collector. That attribution is withdrawn for the local runner resume.",
+   "note": "The local lifecycle is driven through the real main() and main(--resume) on a freshly loaded module, which is the supported fresh-module lifecycle. Only the managed WAITING_USER callbacks remain deferred."
+  },
+  {
+   "change_id": "CHG-012",
+   "original_finding_id": "CC7-008",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED_WITH_DECLARED_ROOT_DEPENDENCY",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "native_completion_EOF_cleanup": "ROOT_DEPENDENCY_DEFERRED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/a_arm.py derives selected_query_sha256 from the row's own query bytes and compares the launched prompt",
+    "source/control/run_phases.py a_arm() routes through AA.run_a_arm with prompt=",
+    "phase_suite R10-P25..R10-P29"
+   ],
+   "note": "Query identity is derived and compared, not copied. A declared digest that disagrees with its own query bytes is refused rather than adopted. A missing launcher returns NOT_RUN."
+  },
+  {
+   "change_id": "CHG-013",
+   "original_finding_id": "CC7-009",
+   "severity": "medium",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "corrected_case_data": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_case_consumer": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/no-model-tests/cases_r9.py CASES retained with corrected locators",
+    "source/no-model-tests/phase_suite.py R10-P46 missing judgment, R10-P47 permitted B prefix after failure, R10-P48 concurrency 0/2/4 each refused with code 6 and no marker, R10-P49 P21 resume with a mutated inventory binding recorded STALE"
+   ],
+   "note": "Each scenario reads its expectations from cases_r9.CASES itself rather than a second copy, so the corrected data and the driven outcome cannot drift apart. R10-P49 mutates exactly one field of an otherwise correct judgment so the STALE result comes from the comparison rather than an earlier malformed-judgment branch."
+  },
+  {
+   "change_id": "CHG-014",
+   "original_finding_id": "CC7-010",
+   "severity": "medium",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/a_arm.py _sentinel_state now digests, sentinel_preserved() compares",
+    "phase_suite R10-P30..R10-P33"
+   ],
+   "note": "A size-only inventory is replaced by per-file digests, so 'left exactly as found' is checked rather than asserted. A refusal remains a nonlaunch, never an arm PASS."
+  },
+  {
+   "change_id": "CHG-015",
+   "original_finding_id": "CC7-011",
+   "severity": "medium",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/freeze.py selected_allocation() + control/ALLOCATION.json",
+    "source/control/run_phases.py A gate consumes AD.authority_bind",
+    "phase_suite R10-P06..R10-P09 including a literal scan for baked-in digests"
+   ],
+   "note": "No SESSION-001@5, @9 or @10 digest is baked into the emitter. R10-P07 asserts their absence from the module text, so a future regression re-surfaces as a failing case."
+  },
+  {
+   "change_id": "CHG-016",
+   "original_finding_id": "CP5-CK-001",
+   "severity": "retained; no new severity claim",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/checkers/validate_references.py clause-scoped section_absence_disclosures",
+    "checks_suite R10-absence-* cases bound to the fresh checker"
+   ]
+  },
+  {
+   "change_id": "CHG-017",
+   "original_finding_id": "R8-CLAUDE-SOURCE-001",
+   "severity": "MAJOR",
+   "owner": "claude",
+   "status": "PRESERVE_ONLY",
+   "subparts": {
+    "source": "PRESERVED_BYTE_EXACT"
+   },
+   "note": "Open at MAJOR. Instruction bytes are outside this allocation's write fence."
+  },
+  {
+   "change_id": "CHG-018",
+   "original_finding_id": "R8-CLAUDE-SOURCE-002",
+   "severity": "MAJOR",
+   "owner": "claude",
+   "status": "PRESERVE_ONLY",
+   "subparts": {
+    "source": "PRESERVED_BYTE_EXACT"
+   },
+   "note": "Open at MAJOR."
+  },
+  {
+   "change_id": "CHG-019",
+   "original_finding_id": "CC8-PROP-001",
+   "severity": "high",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "physical_fixture_set": "PARTIAL",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "clause-scoped disclosure binding in validate_references.py",
+    "checks_suite R10-absence-other-artifact / -with-unrelated-unknown / -unreadable-is-not-absence / -false-absence-sectioned-target / -disclosed-plain",
+    "source/fixtures/chg-019-absence-disclosure/ four new envelopes + INDEX rows"
+   ],
+   "partial_reason": "NEG-false-absence-sectioned-target.md carries a placeholder target digest and is recorded in INDEX.json as an explicit unresolved binding. It is not usable until the real STORY-014 digest is staged, and it is not counted as a runnable case. The equivalent discrimination IS covered executably by the checks_suite case, which stages real bytes."
+  },
+  {
+   "change_id": "CHG-020",
+   "original_finding_id": "CC8-PROP-002",
+   "severity": "medium",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "phase_suite R10-P03 consumed-result mutation, R10-P04 selected-but-unconsumed mutation, R10-P05 unbound generated evidence classified as not a violation"
+   ]
+  },
+  {
+   "change_id": "CHG-021",
+   "original_finding_id": "CC8-PROP-003",
+   "severity": "medium",
+   "owner": "claude",
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+    "executable_suite": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "checks_suite R10-bare-locator-no-digest, R10-bare-plus-wrongroot-decoy, R10-absolute-suffix-other-root",
+    "source/fixtures/chg-021-receipt-spans/ three new terminal fixtures + INDEX rows"
+   ],
+   "note": "The long swapped pair, exact-root positives and 65-hex negative are retained unchanged."
+  },
+  {
+   "change_id": "CHG-022",
+   "original_finding_id": "R9-CLAUDE-STATIC-001",
+   "severity": "MAJOR",
+   "owner": "claude",
+   "status": "APPLIED_TO_LIVE_PACKAGE",
+   "subparts": {
+    "source_or_custody": "COMPLETE"
+   },
+   "evidence": [
+    "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json: three destination digests refreshed from computed bytes, verification statements reconciled, superseded values retained as history"
+   ],
+   "note": "Metadata correction only. It closes no finding: R9-CLAUDE-STATIC-001 stays MAJOR until independent observation closes it. The other nineteen package files are byte-exact."
+  },
+  {
+   "change_id": "CHG-023",
+   "original_finding_id": "R9-CUSTODY-001",
+   "severity": "MAJOR",
+   "owner": "claude",
+   "status": "ADDITIVE_CORRECTION_RECORDED",
+   "subparts": {
+    "source_or_custody": "COMPLETE"
+   },
+   "evidence": [
+    "R9-CORRECTION.md 'CHG-023'"
+   ],
+   "note": "Impossible chronology acknowledged; the 17:53:30Z stop, 18:06Z creation and 18:12Z closure are withdrawn as observations. No replacement time is invented and the actual stop time remains unknown. This allocation's own first-action deviation is disclosed."
+  },
+  {
+   "change_id": "CHG-024",
+   "original_finding_id": "R9-CUSTODY-002",
+   "severity": "MINOR",
+   "owner": "claude",
+   "status": "ADDITIVE_CORRECTION_RECORDED",
+   "subparts": {
+    "source_or_custody": "COMPLETE"
+   },
+   "evidence": [
+    "R9-CORRECTION.md 'CHG-024'; 77/78 non-self entries re-verified in this run"
+   ],
+   "note": "78 entries = 77 valid non-self + 1 invalid self entry; 80 files with READBACK/RECEIPT outside as the later closure boundary; the report IS inside the manifest. The old manifest is preserved with its defect."
+  }
+ ],
+ "r9_review_findings": [
+  {
+   "id": "R9-CLAUDE-STATIC-001",
+   "severity": "MAJOR",
+   "addressed_by": [
+    "CHG-022"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "CC9-RR-001",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-016",
+    "CHG-019"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "CC9-RR-002",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-006",
+    "CHG-021"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "CC9-RR-003",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-006",
+    "CHG-016",
+    "CHG-019",
+    "CHG-021"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false,
+   "note": "Cases are now bound to the fresh checkers through the run-root import path and stage valid prerequisite bytes."
+  },
+  {
+   "id": "R9-CI-001",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-005",
+    "CHG-007",
+    "CHG-008",
+    "CHG-009",
+    "CHG-010",
+    "CHG-014",
+    "CHG-015",
+    "CHG-020"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false,
+   "note": "run_phases.py now imports admission, activation and a_arm and calls them on the operative path."
+  },
+  {
+   "id": "R9-CI-002",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-005",
+    "CHG-020"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "R9-CI-003",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-009"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "R9-CI-004",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-010"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "R9-CI-005",
+   "severity": "high",
+   "addressed_by": [
+    "CHG-012"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "R9-CI-006",
+   "severity": "medium",
+   "addressed_by": [
+    "CHG-015"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "R9-CI-007",
+   "severity": "medium",
+   "addressed_by": [
+    "CHG-013"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false,
+   "note": "cases_r9 is now consumed by driven scenarios (R10-P46..R10-P49), not merely imported."
+  },
+  {
+   "id": "R9-CI-008",
+   "severity": "medium",
+   "addressed_by": [
+    "CHG-008"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "R9-CUSTODY-001",
+   "severity": "MAJOR",
+   "addressed_by": [
+    "CHG-023"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  },
+  {
+   "id": "R9-CUSTODY-002",
+   "severity": "MINOR",
+   "addressed_by": [
+    "CHG-024"
+   ],
+   "state": "ADDRESSED_UNVERIFIED",
+   "closed": false
+  }
+ ],
+ "state_vocabulary": {
+  "COMPLETE_AUTHORED_UNEXECUTED": "source exists, is wired to the operative path, and was never run",
+  "PARTIAL": "some required subpart is genuinely unfinished; named in partial_reason",
+  "NOT_AUTHORED": "not written in this allocation",
+  "ROOT_DEPENDENCY_DEFERRED": "the selected v1 interface exposes no collector; fails closed"
+ },
+ "global": {
+  "execution": "NOT_RUN",
+  "validation": "NOT_PERFORMED",
+  "imports_of_authored_code": 0,
+  "compilation": 0,
+  "linting": 0,
+  "installs": 0,
+  "exports": 0,
+  "hook_activation": 0,
+  "native_model_calls": 0,
+  "native_C": "NOT_RUN",
+  "native_B": "NOT_RUN",
+  "native_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "hooks": "DESIGN_ONLY",
+  "findings_closed": 0,
+  "executable_suite_note": "phase_suite.build_root now stages the declared preflight set before generating the freeze, because the new unresolved-binding refusal would otherwise refuse every scenario at startup for a reason unrelated to what it tests."
+ },
+ "preserved": {
+  "codex_C": "COULD_NOT_RUN unchanged",
+  "codex_B": "NOT_RUN unchanged",
+  "claude_budget_FAILs": "unchanged",
+  "late_write_687s": "unchanged",
+  "held_authorities": [
+   "SESSION-002",
+   "SESSION-003",
+   "SESSION-004"
+  ],
+  "historical_APPLIED_claims": "retained as claims, not rewritten"
+ }
+}

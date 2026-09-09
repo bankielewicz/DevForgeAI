@@ -1,0 +1,24 @@
+{
+ "change_id": "CHG-019",
+ "original_finding_id": "CC8-PROP-001",
+ "executed": false,
+ "retained_from_r8": [
+  {"fixture": "POS-disclosed-sections.md", "expect": "PASS",
+   "why": "Target inspected to have no headings, and the artifact discloses that actual absence. This is the exception, and the r8 physical fixture was already correct."},
+  {"fixture": "NEG-disclosed-other-unknown.md", "expect": "FAIL",
+   "why": "Discloses a different unknown for the same artifact ID. CP5-CK-001: the baseline accepted it because declared_unavailable only asked whether the ID appeared anywhere in missing_inputs."},
+  {"fixture": "NEG-undisclosed.md", "expect": "FAIL",
+   "why": "Empty missing_inputs; silence cannot report itself."}
+ ],
+ "new_case": [
+  {"fixture": "NEG-unknown-sections.md", "expect": "FAIL",
+   "why": "The disclosure says the section list could not be READ. That is an unknown, not an inspected absence. The r8 prose predicate admitted exactly this wording and called it the exception; section_absence_disclosures classifies it as 'unknown' and check_one refuses it by name.",
+   "note": "The digest here is a placeholder: the case is about disclosure classification and is not executed in this allocation."}
+ ],
+ "sectioned_target_false_absence": {
+  "expect": "FAIL",
+  "why": "A heading-present target paired with an absence claim is refused by the existing available-sections branch, which is retained unchanged.",
+  "baseline_r7_behaviour": "FAIL (already correct; no regression introduced)"
+ },
+ "prose_correction": "The r8 positive prose case expected PASS for a section list that could not be read. That case is withdrawn and replaced by the physical POS fixture's meaning: inspected absence, explicitly disclosed."
+}

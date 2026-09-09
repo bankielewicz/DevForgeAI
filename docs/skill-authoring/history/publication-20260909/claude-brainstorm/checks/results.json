@@ -1,0 +1,56 @@
+{
+  "role": "claude-brainstorm",
+  "publication_base": "1c912649e5686701e8204a22173a02c6894df707",
+  "checks": [
+    {
+      "name": "framework",
+      "command": [
+        "python3",
+        "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+        "--framework",
+        "/home/bryan/Projects/DevForge/worktrees/publish-claude-brainstorm-20260909"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/worktrees/publish-claude-brainstorm-20260909",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "started_at_utc": "2026-09-09T13:49:28.725457+00:00",
+      "finished_at_utc": "2026-09-09T13:49:29.014455+00:00",
+      "exit_code": 0,
+      "stdout": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/checks/framework.stdout.log",
+        "sha256": "bf4b809b534e98f7d6d658d3dd4d985c78e9f56a604f668f338877266070f5be"
+      },
+      "stderr": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/checks/framework.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "scope": "Existing structural/document check only; no native behavior, installation or qualification."
+    },
+    {
+      "name": "mvp",
+      "command": [
+        "python3",
+        "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_mvp.py",
+        "--mvp",
+        "/home/bryan/Projects/DevForge/worktrees/publish-claude-brainstorm-20260909/docs/mvp"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/worktrees/publish-claude-brainstorm-20260909",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "started_at_utc": "2026-09-09T13:49:29.014614+00:00",
+      "finished_at_utc": "2026-09-09T13:49:29.051182+00:00",
+      "exit_code": 0,
+      "stdout": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/checks/mvp.stdout.log",
+        "sha256": "8476ed6ca8e0484d62329d342522bce66081139b24d3dcd0d6d7d522eb274018"
+      },
+      "stderr": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/checks/mvp.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "scope": "Existing structural/document check only; no native behavior, installation or qualification."
+    }
+  ]
+}

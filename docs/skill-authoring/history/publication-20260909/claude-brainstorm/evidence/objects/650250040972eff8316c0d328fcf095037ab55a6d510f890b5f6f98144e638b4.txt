@@ -1,0 +1,25 @@
+{
+  "schema_version": "devforge.review-allocation/v1",
+  "reviewer_agent": "/root/r7_codex_measurement_review",
+  "review_scope": "Independent static Codex r8 measurement proposal re-review",
+  "actual_start_clock_utc": "2026-09-07T14:56:44Z",
+  "max_minutes": 15,
+  "closeout_reserve_start_utc": "2026-09-07T15:07:44Z",
+  "hard_stop_utc": "2026-09-07T15:11:44Z",
+  "write_fence": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement",
+  "actual_model": "unknown",
+  "continuity": "Same reviewer agent that authored CODEX-MEAS-R7-001, retaining its own prior review context; not a fresh or blind r8 reviewer. No r8 author report/conclusions or other reviewer payloads selected.",
+  "prior_outputs": "Immutable; no prior output changes permitted",
+  "prohibited_actions": [
+    "candidate/control code execution or imports",
+    "tests",
+    "models/native/network",
+    "installations/hooks",
+    "agents",
+    "source changes"
+  ],
+  "allowed_custody": "Standard-library JSON parsing, static byte comparison and review file read/hash/write operations",
+  "input_manifest_sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+  "actual_early_closeout_start_clock_utc": "2026-09-07T15:00:31Z",
+  "closeout_note": "Closeout began early. Original 15:11:44Z hard stop and final-four-minute reserve remain unchanged."
+}

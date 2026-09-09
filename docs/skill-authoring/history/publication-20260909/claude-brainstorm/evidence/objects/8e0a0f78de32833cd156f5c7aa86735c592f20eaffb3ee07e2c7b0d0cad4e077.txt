@@ -1,0 +1,169 @@
+{
+  "schema_version": "devforge.package-derivation/v1",
+  "skill": "devforge-brainstorm",
+  "provider": "claude",
+  "recorded_at_utc": "2026-09-06T15:36Z",
+  "purpose": "Package-local copies must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by skill-authoring-contract revision 2, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
+  "selected_inputs_manifest": {
+    "store": "authority",
+    "root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc",
+    "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/INPUTS.json",
+    "sha256": "36dbe4c0413c08f1aad370a2458c3196921f027ebc6c32487e59a6c75e88b0e3",
+    "note": "The operator-selected input set this refresh was taken from. It pins the exact bytes below."
+  },
+  "derivations": [
+    {
+      "destination": "assets/idea-ledger.md",
+      "destination_sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "kind": "asset: output template copied into the package",
+      "source": {
+        "artifact": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+        "revision": "selected at INPUTS.json; source_state 'unchanged at base' a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+        "store": "project",
+        "path": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+        "preserved_selected_copy": {
+          "store": "authority",
+          "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/templates/devforge-brainstorm/idea-ledger.md"
+        },
+        "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417"
+      },
+      "transformation": "none; byte-identical copy",
+      "verified": "destination_sha256 == source sha256"
+    },
+    {
+      "destination": "assets/handoff.md",
+      "destination_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "kind": "asset: output template copied into the package",
+      "source": {
+        "artifact": "docs/mvp/templates/shared/handoff.md",
+        "revision": "selected at INPUTS.json; source_state 'operator revision after base'",
+        "store": "project",
+        "path": "docs/mvp/templates/shared/handoff.md",
+        "preserved_selected_copy": {
+          "store": "authority",
+          "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/templates/shared/handoff.md"
+        },
+        "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+      },
+      "transformation": "none; byte-identical copy",
+      "supersedes_package_copy": {
+        "sha256": "0b7056c684b619ac15fe02515d8e3c682a60ad1844393f6245fbc2dcb81a3d1f",
+        "preserved_at": {
+          "store": "authority",
+          "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/candidate/assets/handoff.md",
+          "note": "revision-1 package copy, preserved verbatim in that review's candidate snapshot"
+        },
+        "difference": "the refreshed template excludes the handoff itself from its own output table and routes the handoff's own digest to an external receipt"
+      },
+      "verified": "destination_sha256 == source sha256"
+    },
+    {
+      "destination": "references/recording-rules.md",
+      "destination_sha256": "ff88e091474399c02849f2379a8998dc6d0fe93b8989d2982566f40c106a1a9c",
+      "kind": "distilled reference: not a copy; a narrowed restatement of shared contract rules for this skill's situations",
+      "sources": [
+        {
+          "artifact": "artifact-contract",
+          "revision": 2,
+          "store": "project",
+          "path": "docs/mvp/artifact-contract.md",
+          "preserved_selected_copy": {
+            "store": "authority",
+            "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/artifact-contract.md"
+          },
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "sections_used": [
+            "Standard envelope",
+            "Skill authoring evidence"
+          ]
+        },
+        {
+          "artifact": "execution-contract",
+          "revision": 2,
+          "store": "project",
+          "path": "docs/mvp/execution-contract.md",
+          "preserved_selected_copy": {
+            "store": "authority",
+            "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/execution-contract.md"
+          },
+          "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+          "sections_used": [
+            "Worktree assignment for concurrent sessions",
+            "Provider authoring and bootstrap evaluation"
+          ]
+        },
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 2,
+          "store": "project",
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "preserved_selected_copy": {
+            "store": "authority",
+            "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/skill-authoring-contract.md"
+          },
+          "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "sections_used": [
+            "Client state and process ownership",
+            "Three separately reported evaluation tiers"
+          ]
+        },
+        {
+          "artifact": "SKILL-001",
+          "revision": 2,
+          "store": "project",
+          "path": "docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+          "preserved_selected_copy": {
+            "store": "authority",
+            "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/specifications/skill-001-devforge-brainstorm.md"
+          },
+          "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+          "sections_used": [
+            "Brainstorm-specific clarifications"
+          ]
+        }
+      ],
+      "transformation": "selected and rewritten for a brainstorming session's actual conditions (no session record, competing ownership, stale upstream, checks that could not run). It restates; it does not extend or waive the contracts. Where the two differ, the contracts govern.",
+      "verified": "source digests match the selected inputs manifest; the destination is authored text and has no source-equal digest",
+      "supersedes_package_copy": {
+        "sha256": "eed2ee6088e01895b26d0efcc6d39b8546c78fe883e00a2d4ac8256c5e4ce5e9",
+        "preserved_at": {
+          "store": "project",
+          "path": ".poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-prep-20260906T1506Z/baseline-package/references/recording-rules.md"
+        },
+        "prior_chain": [
+          {
+            "sha256": "c14d4efe5050a7f5a4e127bcc719a120ce541f50c9a2c3ecb333d6f8bee41421",
+            "preserved_at": {
+              "store": "project",
+              "path": ".poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-run-20260905T1500Z/starting-candidate/references/recording-rules.md"
+            }
+          },
+          {
+            "sha256": "0d69515aeb92628e6373faaf67714782333abb241234d5bafe71b948b9fdb99a",
+            "preserved_at": {
+              "store": "authority",
+              "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/candidate/references/recording-rules.md",
+              "note": "revision-1 package copy, preserved verbatim in that review's candidate snapshot"
+            }
+          },
+          {
+            "sha256": "190fa4529f63ce8cad99d0b4472c05d7d35f068ef210899ef02a5b1a9cd885ec",
+            "preserved_at": {
+              "store": "project",
+              "path": ".poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-run-20260905T1832Z/starting-candidate/references/recording-rules.md"
+            }
+          }
+        ],
+        "difference": "CR4-001 a sections claim names actual sections or the key is omitted, and a stand-in word is rejected with the absence disclosed; CR4-005 an artifact reference requires the target's own artifact_id and revision, while a file with no envelope is recorded as raw-file evidence keeping its native locator"
+      }
+    }
+  ],
+  "refresh_conditions": [
+    "Any of the source digests above changes in a newly selected input set: re-copy the assets, re-read the distilled reference against the new sections, and update this record.",
+    "The integration owner selects a different contract revision for this assignment.",
+    "A destination digest here stops matching the file in the package: that is drift, and the package copy is stale until reconciled.",
+    "This record is refreshed by the skill author inside the skill's source fence. It records derivation only and does not modify, reinterpret or waive any shared template or contract.",
+    "A destination digest above is updated whenever the distilled reference is re-derived; the superseded package bytes are preserved in that run's starting-candidate snapshot."
+  ],
+  "self_reference_note": "This file does not carry its own digest; it is hashed by the run's source manifest like every other package file."
+}

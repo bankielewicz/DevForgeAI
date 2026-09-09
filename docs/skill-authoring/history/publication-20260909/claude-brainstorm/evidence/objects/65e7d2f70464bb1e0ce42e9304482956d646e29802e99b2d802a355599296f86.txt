@@ -1,0 +1,7 @@
+# Root ruling: selected Claude control baseline
+
+The selected repair baseline is the retained r7-run tree `inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/` in this review. Its control/PLAN.json has 132 lines and SHA-256 002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e. All fourteen control/checker/suite files match the prior CC7 review inventory, as recorded by review-claude-proposals/INPUT-SELECTION.json. Those are the exact referents for CC7 line citations and the baseline for fresh executable repairs.
+
+The earlier selected/claude/controls copy in the issued r8 packet is preserved historical input. Its PLAN has 78 lines and SHA-256 17aeea8b0a89474328b129c9e9a24117fb5c4d0b5217d676d5283cd16a22b70a. It does not supply the later line 90 and does not replace the expressly selected r7-run control baseline. The new packet labels that tree historical and exposes the correct r7 baseline separately. This resolves the reported referent discrepancy from existing assignment and reviewed byte identities; it changes no criteria, historical files or author results.
+
+Claude's r8 controls are specifications and three physical reference fixtures. The no-execution fence forbade execution, not authoring executable control code. Specifications were permitted but do not implement the CP5/CC7 repairs. The next allocation expressly requests executable source authoring under the unchanged no-execution fence, with honest partial/deferred statuses for unavailable root runtime wiring.

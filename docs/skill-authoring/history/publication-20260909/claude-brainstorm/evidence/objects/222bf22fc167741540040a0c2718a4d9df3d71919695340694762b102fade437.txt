@@ -1,0 +1,58 @@
+{
+ "schema_version": "devforge.selected-roots/v1",
+ "status": "AUTHORED_UNEXECUTED_SELECTION_CONTRACT",
+ "why": "R10-CI-002. The runner and the freeze reached the candidate through a hardcoded worktree path, the delegation fixtures through a September 5 absolute path, and the export through an assumed export/export-01 directory. None of those was a declared selection, so emission could describe a different candidate than the one that was selected, and code could read mutable or absent historical bytes before any integrity check ran. Every root the phase path resolves against is declared here, verified before anything is loaded, and used identically by emission, verification and prospective launch.",
+ "run_root": {"kind": "relative_to_this_file", "value": "..", "note": "The run that owns this control tree."},
+ "roots": {
+  "candidate": {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm",
+   "identity": "devforge-brainstorm current candidate package",
+   "file_count": 20,
+   "entrypoint": "SKILL.md",
+   "entrypoint_sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+   "required": true,
+   "note": "All twenty files are read-only in this allocation and byte-verified before use."
+  },
+  "preflight": {
+   "path_relative_to_run": "no-model-tests",
+   "required": true,
+   "note": "The directory GATE-INPUTS actually names. Freeze keys are 'preflight/<name>' against this root, so they resolve to the same bytes the deterministic gate consumes."
+  },
+  "prepfixture": {
+   "path_relative_to_run": "fixtures",
+   "required": true,
+   "note": "Physical receipt and reference fixtures authored in this run."
+  },
+  "reference_fixtures_r8": {
+   "path_relative_to_run": "fixtures/r8-flat-reference-cases",
+   "required": true,
+   "file_count": 5,
+   "target_relative_path": "TARGET-NO-SECTIONS.md",
+   "target_sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "note": "The five actively selected R8 inputs. Their omission from the initial R10 reviewer snapshot was a snapshot gap, not author unavailability; the bytes are selected and staged here."
+  },
+  "delegation_fixture": {
+   "path": null,
+   "required": false,
+   "status": "NOT_SELECTED_IN_THIS_ALLOCATION",
+   "note": "R10 hardcoded a September 5 integration-reviews absolute path. It is not a selected input of this packet, so it is declared absent rather than read. A phase needing it must fail closed on an unresolved required root, never fall back to that historical location."
+  },
+  "export": {
+   "path": null,
+   "required_for": ["prospective native launch only"],
+   "status": "UNAVAILABLE_DEPENDENT_BLOCKER",
+   "note": "No export or install is authorized in this allocation, and no authentic exported package exists to bind. R10 assumed export/export-01/devforgeai. An unavailable authentic export is an explicit dependent blocker for launch; it is never fabricated, and its absence must not be reported as an installation."
+  }
+ },
+ "allocation": {
+  "record": "SESSION-001@11",
+  "store": "authority",
+  "path": "authoring-assignments-20260905/SESSION-001.md",
+  "sha256": "bfea50f8769254e820c729f43bed1c0df86a92414f3e7e59459f961b07b6eb17",
+  "issuance_record": "runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/ISSUANCE.json",
+  "supersedes_sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+  "note": "Read from this file, never hardcoded in an emitter. A future revision replaces this file."
+ },
+ "validation_rule": "load_selected_roots() verifies every required root exists, and verifies each declared digest, BEFORE any query, plan, configuration or module is loaded. A missing, mutated or wrong selected root refuses; an optional root declared null is an explicit dependent blocker, not a fallback to a historical absolute path.",
+ "execution": "NOT_RUN"
+}

@@ -1,0 +1,505 @@
+{
+ "schema_version": "devforge.builder-change-receipt/v1",
+ "session": "SESSION-001@9",
+ "run": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z",
+ "scope_note": "Specification authoring, executable-source authoring and execution are three separate statuses and are reported separately for every entry. No entry is marked applied on the strength of prose.",
+ "execution_counters": {
+  "tests": 0,
+  "suites": 0,
+  "fixture_execution": 0,
+  "target_or_helper_or_validator_or_linter_execution": 0,
+  "imports_of_authored_code": 0,
+  "compilation": 0,
+  "new_native_workers_graders_model_delegates": 0,
+  "installs_or_exports": 0,
+  "hook_activation": 0
+ },
+ "static_operations_only": "Standard-library JSON and source-text inspection, ast.parse of authored files as text, and file custody reads/hashes/writes.",
+ "changes": [
+  {
+   "change_id": "CHG-002",
+   "original_finding_id": "CLAUDE-SRC-001",
+   "original_severity": "MAJOR",
+   "specification_authored": false,
+   "executable_source_authored": false,
+   "status": "PRIOR_REPAIR_PRESERVED_UNCHANGED",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "note": "Selected-destination repair present in the baseline bytes and carried into the final source unchanged. No rework in this allocation."
+  },
+  {
+   "change_id": "CHG-003",
+   "original_finding_id": "CLAUDE-SRC-002",
+   "original_severity": "MINOR",
+   "specification_authored": false,
+   "executable_source_authored": false,
+   "status": "PRIOR_REPAIR_PRESERVED_UNCHANGED",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "note": "Two-root resolution preserved."
+  },
+  {
+   "change_id": "CHG-004",
+   "original_finding_id": "CLAUDE-SRC-003",
+   "original_severity": "MAJOR",
+   "specification_authored": false,
+   "executable_source_authored": false,
+   "status": "PRIOR_REPAIR_PRESERVED_UNCHANGED",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "note": "Current-provider-context qualification preserved; handoff-only mode preserved."
+  },
+  {
+   "change_id": "CHG-017",
+   "original_finding_id": "R8-CLAUDE-SOURCE-001",
+   "original_severity": "MAJOR",
+   "specification_authored": true,
+   "executable_source_authored": false,
+   "status": "APPLIED_SOURCE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/source/SKILL.md",
+     "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/source/references/recording-rules.md",
+     "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/source/references/managed-runtime.md",
+     "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+     "sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+     "sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+     "sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30"
+    }
+   ],
+   "note": "SKILL.md 'Before you call it done' step 2 now requires the handoff's upstream frontmatter to bind the completed ledger; recording-rules.md gains 'Binding the ledger in the handoff' with the six exact fields, the one-entry ambiguity rule and the output-row-is-not-the-binding distinction; managed-runtime.md states the Focus check. Authored against delivery_core.py:471-492 and phase_state.py:1020-1027. Handoff-only mode preserved explicitly (delivery_core.py:517-518 gates _ledger_binding on brainstorm mode). Executable scope: not applicable - this is instruction source, and no runtime code was written or may be written by this author."
+  },
+  {
+   "change_id": "CHG-018",
+   "original_finding_id": "R8-CLAUDE-SOURCE-002",
+   "original_severity": "MAJOR",
+   "specification_authored": true,
+   "executable_source_authored": false,
+   "status": "APPLIED_SOURCE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/source/SKILL.md",
+     "sha256": "dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/source/references/recording-rules.md",
+     "sha256": "8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/source/references/managed-runtime.md",
+     "sha256": "0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+     "sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+     "sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+     "sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30"
+    }
+   ],
+   "note": "artifact_id and revision rows in recording-rules.md now defer to externally selected identities, with local next-unused allocation as the no-selection case and conflict/absence as a dependent blocker; SKILL.md 'Where the artifacts go' extends the selection rule from path to identity; managed-runtime.md states that the runtime checks artifact_id/artifact_type/revision against the selected entry. Authored against delivery_core.py:293-309 and :454-467."
+  },
+  {
+   "change_id": "CHG-005",
+   "original_finding_id": "CC7-001",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/control-baseline-r7/control/freeze.py",
+     "sha256": "186af0e3aaf0df1d15a92a63af7e9c093ec43685d9e5bada56ac3b3ce0379187"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/freeze.py",
+     "sha256": "d6d238782105f49cb2daa53319b543f5f2a5907fff880c77a4eb66e556c14b00"
+    }
+   ],
+   "note": "freeze.py r3: selected_fixed_inputs records every entry with its role and consumed_by and binds it regardless of consumption; unresolved preflight entries are recorded and fail closed instead of binding None against an absent file; new verify() reports bound_mismatches separately from unbound_changes."
+  },
+  {
+   "change_id": "CHG-020",
+   "original_finding_id": "CC8-PROP-002",
+   "original_severity": "medium",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/control-baseline-r7/control/freeze.py",
+     "sha256": "186af0e3aaf0df1d15a92a63af7e9c093ec43685d9e5bada56ac3b3ce0379187"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/freeze.py",
+     "sha256": "d6d238782105f49cb2daa53319b543f5f2a5907fff880c77a4eb66e556c14b00"
+    }
+   ],
+   "note": "The three cases are separated in code: unchanged selected inputs PASS; mutation of any bound entry including a selected-but-unconsumed one FAILs; a genuinely unbound generated-evidence file is classified as generated evidence with freeze_violation false and never contributes to the outcome. GENERATED_EVIDENCE_PREFIXES and unbound_generated_evidence.rule state the boundary. The r8 case that demanded FAIL for an unbound file is withdrawn."
+  },
+  {
+   "change_id": "CHG-006",
+   "original_finding_id": "CC7-002",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/control-baseline-r7/checkers/check_receipts.py",
+     "sha256": "88fe0b26c004883663b6acede7ab183f06969ba8c97896946042c59f47e7596c"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/checkers/check_receipts.py",
+     "sha256": "f5941d4b4cd053a0c87550e1637fd105614e9c54e1ae64e3c6ac18b6c5d28ea4"
+    }
+   ],
+   "note": "check_receipts r3: validated locator spans are carried into records_for, which now skips any record whose locator does not begin at an already-accepted offset; DIGEST guards both sides of the 64-hex token so a 65-character run no longer yields a match. Unused _other_spans plumbing removed."
+  },
+  {
+   "change_id": "CHG-021",
+   "original_finding_id": "CC8-PROP-003",
+   "original_severity": "medium",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/INDEX.json",
+     "sha256": "a6e472df0711b7dbcc1e7196dcfc97faf8726dc2dfd83aacee992a166382bfab"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt",
+     "sha256": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt",
+     "sha256": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt",
+     "sha256": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt",
+     "sha256": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f"
+    }
+   ],
+   "note": "Physical decoy pair authored: a valid bare locator with no digest plus a separate wrong-root locator carrying the true digest. The simple wrong-root negative is retained and its baseline behaviour corrected to FAIL - the r8 claim that it passes the baseline is withdrawn in INDEX.json. Exact-root positive and 65-hex negative present. The two long swapped-pair negatives are retained r7 expectations and were not re-authored."
+  },
+  {
+   "change_id": "CHG-016",
+   "original_finding_id": "CP5-CK-001 retained absence-disclosure limitation",
+   "original_severity": "original CP5 severity retained",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/control-baseline-r7/checkers/validate_references.py",
+     "sha256": "56873b5b1b0abc362c2979b3ef1c7ed77ccba2abd24a96e8678cdaa7f53e5ffe"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/checkers/validate_references.py",
+     "sha256": "271093e6d345f244a9ccfbc79422978b81016e5f4bca6386c3aa879cec646222"
+    }
+   ],
+   "note": "section_absence_disclosures classifies each missing_inputs entry per artifact into absence / unknown / neither, requiring the entry to name both the artifact and its sections. A disclosure about a different unknown for the same ID no longer opens the exception, and the refusal says so by name."
+  },
+  {
+   "change_id": "CHG-019",
+   "original_finding_id": "CC8-PROP-001",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/control-baseline-r7/checkers/validate_references.py",
+     "sha256": "56873b5b1b0abc362c2979b3ef1c7ed77ccba2abd24a96e8678cdaa7f53e5ffe"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/checkers/validate_references.py",
+     "sha256": "271093e6d345f244a9ccfbc79422978b81016e5f4bca6386c3aa879cec646222"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md",
+     "sha256": "8de2f827a551abf2da6d3aa7d24a62c13881325e687b91de3e17ea149e6268b2"
+    },
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-019-absence-disclosure/INDEX.json",
+     "sha256": "4bd7b4558cadd915d506d24a254132bcd2e3056d6afec3ce2d0fc62133e3060a"
+    }
+   ],
+   "note": "Inspected absence and unreadable/unknown are separated: target_sections_inspected records that the target was read to get here, and an unknown-kind disclosure is refused with its own reason. The r8 prose positive expecting PASS for an unreadable section list is withdrawn in favour of the physical POS fixture's meaning. The heading-present false-absence refusal is retained unchanged."
+  },
+  {
+   "change_id": "CHG-007",
+   "original_finding_id": "CC7-003",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/admission.py",
+     "sha256": "d740ad47f16483e0d0b204695903454e2a1b1e76ced63ca664aa5a996ae2bea1"
+    }
+   ],
+   "note": "admission.preserve_check distinguishes RETAINED / CHANGED / VANISHED, recomputes the live digest at judgment time against the selected original, and records the comparison. A surviving inventory key is explicitly not surviving bytes."
+  },
+  {
+   "change_id": "CHG-008",
+   "original_finding_id": "CC7-004",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/admission.py",
+     "sha256": "d740ad47f16483e0d0b204695903454e2a1b1e76ced63ca664aa5a996ae2bea1"
+    }
+   ],
+   "note": "admission.prerequisites refuses before any marker is written, requires each prerequisite to carry a checked mechanical result and a bound judgment, and keeps the authorized C-only diagnostic scope separate from downstream admission."
+  },
+  {
+   "change_id": "CHG-009",
+   "original_finding_id": "CC7-005",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "PARTIAL_EXECUTABLE_ROOT_DEPENDENCY_DEFERRED",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/admission.py",
+     "sha256": "d740ad47f16483e0d0b204695903454e2a1b1e76ced63ca664aa5a996ae2bea1"
+    }
+   ],
+   "note": "admission.observations implements the fail-closed consumer and schema check for the five bridge observations; each requires a runtime-owned source and the exact observed bytes. stop_and_correction, receipt_publication and rendered_delivery are named in ROOT_DEPENDENCY_DEFERRED because the selected v1 interface exposes no collector: they return COULD_NOT_RUN, block dependent admission, and are not satisfied by worker text, static presence or exported hashes. Native completion, EOF, process caps and owned cleanup are listed as not established here. No collector API was invented."
+  },
+  {
+   "change_id": "CHG-015",
+   "original_finding_id": "CC7-011",
+   "original_severity": "medium",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/admission.py",
+     "sha256": "d740ad47f16483e0d0b204695903454e2a1b1e76ced63ca664aa5a996ae2bea1"
+    }
+   ],
+   "note": "admission.authority_bind compares session, revision, path and digest field by field against the selected current allocation and rejects a mismatch rather than reconciling it."
+  },
+  {
+   "change_id": "CHG-010",
+   "original_finding_id": "CC7-006",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/control-baseline-r7/control/run_phases.py",
+     "sha256": "5a4dc48df3a346d7b3c6632f11361cf088889bba99751f0cb18e8f3aecb9fa8e"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/activation.py",
+     "sha256": "85bab9563b0ae66ba4f122f8e04746a08768b6d1567f5881d314c2df7dd3d90e"
+    }
+   ],
+   "note": "activation.py r2 derived from run_phases.py:173-204 (the proposal review's locator correction; not grade.py). Selection now requires an assistant tool_use of the Skill tool naming this skill, so session metadata listing installed skills no longer counts. Unreadable, empty or partially undecodable transcripts return COULD_NOT_RUN rather than a verified negative."
+  },
+  {
+   "change_id": "CHG-012",
+   "original_finding_id": "CC7-008",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "PARTIAL_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/a_arm.py",
+     "sha256": "5352518a916d77ab2235a48aed864b87ba2941fab84fc20e28e4ba26adf28261"
+    }
+   ],
+   "note": "a_arm.run_a_arm binds case A3a/A5a explicitly, carries query_sha256 and prompt_bytes_unchanged, and takes the launcher as an argument that this allocation does not supply, so it returns NOT_RUN rather than a negative. Partial: the A5a non-invocation PASS assertion and native-completion assertion depend on the launch path and the runtime observations deferred under CHG-009."
+  },
+  {
+   "change_id": "CHG-014",
+   "original_finding_id": "CC7-010",
+   "original_severity": "medium",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "before": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/control-baseline-r7/control/controller.py",
+     "sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91"
+    }
+   ],
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/a_arm.py",
+     "sha256": "5352518a916d77ab2235a48aed864b87ba2941fab84fc20e28e4ba26adf28261"
+    }
+   ],
+   "note": "The caller repair CC7-010 asked for: preexisting-destination and insufficient-cap branches both return a recorded nonlaunch outcome with marker_written false, the pre-existing bytes captured and left untouched, and control_completion CLEAN. nonlaunch_is_not_a_result keeps a refusal from satisfying a downstream prerequisite."
+  },
+  {
+   "change_id": "CHG-013",
+   "original_finding_id": "CC7-009",
+   "original_severity": "medium",
+   "specification_authored": true,
+   "executable_source_authored": true,
+   "status": "APPLIED_EXECUTABLE",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/no-model-tests/cases_r9.py",
+     "sha256": "32b46f599f0343100151a0141e2040fe2f5db80aa8869d1e756927fb0ce4834e"
+    }
+   ],
+   "note": "Four corrected case definitions: judge={} for missing judgment, the exact permitted B prefix after failure, code 6 and zero markers for every non-1 concurrency, and a P21 resume that reaches the inventory-binding comparison and requires recorded STALE. The five locator/history errors are corrected in the module docstring, including the withdrawal of the claim that r7 tested only concurrency zero (phase_suite.py:321-334 declares A=2, :477-485 declares B=4)."
+  },
+  {
+   "change_id": "CHG-011",
+   "original_finding_id": "CC7-007",
+   "original_severity": "high",
+   "specification_authored": true,
+   "executable_source_authored": false,
+   "status": "SPECIFICATION_RETAINED_EXECUTABLE_NOT_AUTHORED",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "after": [
+    {
+     "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/no-model-tests/cases_r9.py",
+     "sha256": "32b46f599f0343100151a0141e2040fe2f5db80aa8869d1e756927fb0ce4834e"
+    }
+   ],
+   "note": "Honest partial. The six required properties are recorded in cases_r9.LIFECYCLE_DEFERRED, but the supported process/module resume lifecycle is driven by runtime-owned events with no collector in the selected v1 interface, and writing a plausible harness for it would be the invention the remediation specification forbids. Not authored; finding remains open at its original severity."
+  },
+  {
+   "change_id": "CHG-001",
+   "original_finding_id": "CODEX-MEAS-R7-001",
+   "original_severity": "medium/P2",
+   "specification_authored": false,
+   "executable_source_authored": false,
+   "status": "NOT_THIS_AUTHOR",
+   "execution": "NOT_RUN",
+   "validation_status": "NOT_PERFORMED",
+   "finding_closed": false,
+   "finding_closure_note": "Source and control authoring does not close a finding. Closure requires independently observed evidence.",
+   "note": "Codex-owned, held at SESSION-002@8. No Codex source, proposal, receipt, derivation or cache byte was read for authorship or modified in this allocation."
+  }
+ ]
+}

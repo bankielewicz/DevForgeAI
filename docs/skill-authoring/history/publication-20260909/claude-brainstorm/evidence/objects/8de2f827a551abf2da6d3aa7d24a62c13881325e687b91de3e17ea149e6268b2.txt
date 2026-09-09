@@ -1,0 +1,30 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-009"
+artifact_type: "handoff"
+project_id: "devforgeai"
+revision: 1
+status: draft
+created_at_utc: "2026-09-07T16:00:00+00:00"
+producer:
+  skill: "devforge-brainstorm"
+  skill_revision: "unknown"
+execution_ref: null
+upstream:
+  - artifact_id: "IDEAS-008"
+    revision: 1
+    store: "project"
+    path: "docs/devforge/ideas/IDEAS-008.md"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs:
+  - "IDEAS-008: the section list could not be read, so no sections are cited"
+---
+
+# Skill handoff
+
+## You are here
+
+The upstream omits `sections` and discloses an unknown, not an absence.

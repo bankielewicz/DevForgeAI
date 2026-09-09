@@ -1,0 +1,62 @@
+{
+  "schema_version": "devforge.external-review-receipt/v1",
+  "reviewer_agent": "/root/r7_codex_measurement_review",
+  "actual_model": "unknown",
+  "created_at_utc": "2026-09-07T15:03:59.703236+00:00",
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/INPUT-MANIFEST.json",
+    "sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152"
+  },
+  "final_input_custody": {
+    "accessed_files_rehashed": 12,
+    "all_match_manifest_and_selected_digests": true
+  },
+  "files": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/ALLOCATION.json",
+      "sha256": "650250040972eff8316c0d328fcf095037ab55a6d510f890b5f6f98144e638b4",
+      "bytes": 1422,
+      "complete_byte_readback": "OBSERVED_BEFORE_RECEIPT_CREATION"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/INPUT-SELECTION.json",
+      "sha256": "bacd6c8efade36ace2541a5f08981344cd8edd9e5f477b4db869f3b54ae884cb",
+      "bytes": 5839,
+      "complete_byte_readback": "OBSERVED_BEFORE_RECEIPT_CREATION"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/grade-rubric-STATIC-DIFF.json",
+      "sha256": "0a51ff38c803585e220049ce805402178b147356719fe63cb478d2dc302d5893",
+      "bytes": 33899,
+      "complete_byte_readback": "OBSERVED_BEFORE_RECEIPT_CREATION"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/measurement-plan-STATIC-DIFF.json",
+      "sha256": "55b46aa6c4d743b5185372a3d2a2f019f040510c9bb4ecb38ba54dc521ac51cc",
+      "bytes": 19442,
+      "complete_byte_readback": "OBSERVED_BEFORE_RECEIPT_CREATION"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/STATIC-COMPARISON.json",
+      "sha256": "a6b88d89b685bf41874b7d4558617b2fa2c124de2cbb02b1c42f0a90b367d2c3",
+      "bytes": 2235,
+      "complete_byte_readback": "OBSERVED_BEFORE_RECEIPT_CREATION"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/REVIEW.md",
+      "sha256": "80d5904a9e5dce1aceef82b9770ef584052d43460fb9628364d5b9716c470258",
+      "bytes": 10469,
+      "complete_byte_readback": "OBSERVED_BEFORE_RECEIPT_CREATION"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/FINDINGS.json",
+      "sha256": "132319fd7d866161055627bc05a534e520f7f6008635dadfa18ff9fc4efb5f92",
+      "bytes": 3961,
+      "complete_byte_readback": "OBSERVED_BEFORE_RECEIPT_CREATION"
+    }
+  ],
+  "review_scope": "Static r8 proposal re-review only. CODEX-MEAS-R7-001 addressed in proposal; no new material findings. No runnable enforcement, validation, native semantic result, acceptance or broad copied-run baseline audit is established.",
+  "receipt_readback": "NOT_RUN at creation; subsequent readback is a separate observation",
+  "user_delivery": "NOT_RUN at creation",
+  "self_digest": "Omitted"
+}

@@ -1,0 +1,11 @@
+# R10 Claude authoring packet — DRAFT ONLY
+
+Packet root: /home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z
+
+One actionable Claude prompt is prepared in CLAUDE-BRAINSTORM.md, contingent on independent root packet review and a separately recorded SESSION-001@9 to @10 issuance. No authority was issued and no provider source was changed by packet preparation. No Codex or contributor-context HOLD prompts were created.
+
+Read INPUTS.json, REMEDIATION-SPECIFICATION.md, REPAIR-MAP.json and EFFECTIVE-SOURCE-SELECTION.json. The package-only write fence is references/derivation.json; all nineteen other selected package files remain exact. Full actual run-side control/checker/suite authoring remains unexecuted.
+
+ROOT-INTEGRATION-SEAM.json records the completed root-owned annex, finalized before draft freeze. Proposed authority is authority/SESSION-001-r10-DRAFT.md and cannot be treated as live issuance. INPUTS binds selected immutable source/guidance/review bytes and finalized task specifications; the subsequent review manifest binds the prompt, proposed authority and other draft artifacts without recursive digests. Root must independently review the complete packet and bind final review/issuance custody before use.
+
+All new validation is NOT_PERFORMED; tests/native C/B/A/root admission/acceptance NOT_RUN. Retained historical results remain bound to historical bytes. No new runtime result is predicted.
