@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/worktrees/publish-devforge-cli-followups-20260909/scripts/validate_framework.py",
+    "--framework",
+    "/home/bryan/Projects/DevForge/worktrees/publish-devforgeai-hooks-20260909"
+  ],
+  "exit": 0
+}
