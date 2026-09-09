@@ -26,6 +26,26 @@ Keep the following concise and together:
 
 A legitimate research or design task can finish with a bounded answer and explicit unknowns. Do not force implementation into a design-only request, or expand a small implementation into a generalized platform merely because the model can imagine future uses.
 
+## Bind execution to a finite specification and delivery route
+
+Before dependent execution, fill or reuse the following fields in the existing task plan. This is a compact delivery contract, not a separate planning phase or additional artifact. Scale it to the task: a few sentences can cover these fields for a small change; the table is a guide, not a required form. Reuse settled decisions and existing acceptance criteria; clarify only ambiguities that change the outcome, authority, required evidence or limits. Resolve routine implementation choices within the assigned scope.
+
+| Field | Required content |
+| --- | --- |
+| Governing specification | Named specification and revision, applicable contracts, explicit accepted amendments, and precedence if sources conflict. Do not substitute a stale recap. |
+| Start condition | Selected input/candidate identities, owner and write scope, and the prerequisites actually required for the next action. Native execution additionally needs its selected environment and bounded allocation; a previous closed allocation is not renewed. |
+| Delivery route | Ordered milestones from current state to usable outcome. Each names the requirement it serves, owner, output and observable completion condition. Include required installation and observed use when requested. |
+| Acceptance | Map every in-scope requirement to its existing acceptance criterion and required evidence. Distinguish checks already satisfied from missing evidence; reuse only compatible observations. |
+| Exclusions and limits | Explicit non-goals and applicable time, attempt, review and repair limits. Preserve original accounting. Scope or budget changes require their existing authority; this table creates none. |
+| Success stop | All in-scope acceptance criteria are satisfied and the requested deliverable is available to its user. Stop work; do not append polish, generalized infrastructure or stronger claims to the accepted endpoint. |
+| Blocked or partial stop | Name the exact unsatisfied criterion, observed cause, preserved result, smallest viable remedy and the decision or external change required. A reached limit or exhausted authorized remedy ends dependent execution; it does not begin another allocation. |
+
+A new task belongs on the active route only if it serves an accepted requirement or removes an observed blocker to one. Record that mapping and its effect on the remaining route in the existing plan. Put optional improvements outside the delivery path. If a proposed change revises the specification, obtain the required decision before dependent work; do not silently move the finish line. Equally, do not remove required checks or declare a smaller result complete without an accepted scope change.
+
+When two successive attempts address the same blocker without new evidence or a changed condition, stop that remedy and report the concrete alternative instead of repeating it or enlarging the specification. A stricter existing attempt limit still applies; this rule grants no retries. Continue independent authorized work. If an accepted task genuinely requires broader investigation, bind that investigation to its own question, output and stop condition in the same plan.
+
+These are operational instructions for agents and reviewers. Enforcement comes only from applicable existing implemented checks and authority boundaries; this guidance does not claim universal automatic phase interception.
+
 ## Recognize different patterns
 
 A warning sign calls for judgment, not an automatic failure or a new gate.

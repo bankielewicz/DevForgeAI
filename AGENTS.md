@@ -34,7 +34,7 @@ The POC is Linux/WSL2 and local-only. Read `docs/POC.md` for commands, actual gu
 
 ## Learned behavior: bounded delivery
 
-Apply [keeping delivery bounded](docs/learned-behaviors/bounded-delivery.md) when specifications or validation/integration work expand faster than progress toward the user's outcome. Keep a concrete finish line, accepted requirements, exclusions and total remaining delivery path in the existing plan.
+Apply [keeping delivery bounded](docs/learned-behaviors/bounded-delivery.md) when specifications or validation/integration work expand faster than progress toward the user's outcome. Keep a concrete finish line, accepted requirements, exclusions and total remaining delivery path in the existing plan. Before dependent execution, identify the governing specification/revision and bind the start condition, requirement-mapped milestones, acceptance evidence, limits, and success/blocked stop conditions in that same plan. Once the agreed acceptance criteria are met, stop; proposed enhancements do not extend the delivery endpoint.
 
 Justify added work with an observed blocker, the requirement it serves, simpler alternatives, expected evidence and bounded cost. Carry settled decisions forward. When a model over-expands the specification, consolidate necessary blockers, defer optional generalization, and narrow its assignment. Request a material scope or funding change only after making the decision concrete; continue unaffected authorized work.
 
