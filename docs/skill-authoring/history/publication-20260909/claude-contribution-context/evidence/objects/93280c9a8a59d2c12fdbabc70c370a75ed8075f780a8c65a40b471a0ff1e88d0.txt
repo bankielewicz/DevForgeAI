@@ -1,0 +1,158 @@
+CCTX-IR-004 discriminating tests for the narrowed scripts/check_receipt.py
+helper sha256: c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136
+
+The finding had two parts: the helper falsely rejected a legitimate same-basename reference at a
+different path, and it accepted a self-receipt split across lines while its documentation claimed
+it established self-receipt absence. The correction narrows the helper. Receipt verification stays
+a guarantee; self-receipt handling becomes an explicitly labelled inspection that reports what it
+cannot adjudicate instead of passing or failing it.
+
+Exit codes: 0 PASS, 2 FAIL, 3 unreadable (COULD_NOT_RUN), 4 nothing asserted (COULD_NOT_RUN),
+5 inspection ran but could not adjudicate (COULD_NOT_RUN). 5 is distinct from 3 so a caller can
+tell "could not read the file" from "read it, and these lines need inspection".
+
+MODE 1 - receipt verification. Every sub-check here has a constructible failing case.
+--- R1 valid full receipt --- expect: PASS exit 0
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/good.md
+computed_sha256=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+check=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)
+check=digest_matches_bytes outcome=PASS claimed=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750 computed=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+overall=PASS
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=0
+
+--- R2 abbreviated 12-hex digest --- expect: FAIL exit 2 (format and comparison)
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/good.md
+computed_sha256=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+check=digest_format outcome=FAIL claimed_length=12 (a receipt is 64 lowercase hex characters)
+check=digest_matches_bytes outcome=FAIL claimed=9b1a8d3f1515 computed=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+overall=FAIL
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=2
+
+--- R3 uppercase hex digest --- expect: FAIL exit 2 (format)
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/good.md
+computed_sha256=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+check=digest_format outcome=FAIL claimed_length=64 (a receipt is 64 lowercase hex characters)
+check=digest_matches_bytes outcome=FAIL claimed=9B1A8D3F15154A7EEF916E85B1920423CF2C0DE978C3D6F44A442B5778513750 computed=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+overall=FAIL
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=2
+
+--- R4 digest belongs to another file --- expect: FAIL exit 2 (comparison)
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/good.md
+computed_sha256=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+check=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)
+check=digest_matches_bytes outcome=FAIL claimed=1fa9cff5d4717880d0c48867353fed07ff3d7e82ca9c81525b76a91f9a88f502 computed=9b1a8d3f15154a7eef916e85b1920423cf2c0de978c3d6f44a442b5778513750
+overall=FAIL
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=2
+
+--- R5 pre-mutation digest --- expect: FAIL exit 2 (digest taken before the final edit)
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/mutated.md
+computed_sha256=ed13018336e4d35692c43be76578030579bdbe2ef356d9ba5c89584f1990d84c
+check=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)
+check=digest_matches_bytes outcome=FAIL claimed=72c6f32c5265a482759f770e39e5c9bf1b7a91356093cf5fe260a7dd292a651a computed=ed13018336e4d35692c43be76578030579bdbe2ef356d9ba5c89584f1990d84c
+overall=FAIL
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=2
+
+--- R6 unreadable path --- expect: COULD_NOT_RUN exit 3
+check=read_file outcome=COULD_NOT_RUN cause=FileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/missing.md'
+overall=COULD_NOT_RUN
+exit=3
+
+--- R7 nothing asserted --- expect: COULD_NOT_RUN exit 4
+check=invocation outcome=COULD_NOT_RUN cause=nothing asserted: pass --expected-sha256, --self-receipt-inspection, or both
+overall=COULD_NOT_RUN
+exit=4
+
+MODE 2 - self-receipt inspection. The two cases the review reproduced are S2 and S3.
+--- S1 no digest anywhere --- expect: PASS exit 0 (absence established by absence of any digest)
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/nodigest.md
+computed_sha256=2b8d8a1b083345eaedda43f49f7923b937d73cd30e45667a7aeda36ebeb6065f
+check=no_digest_present outcome=PASS the file contains no 64-hex token, so it records no receipt for anything, itself included
+check=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee
+overall=PASS
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=0
+
+--- S2 same basename, DIFFERENT path, legitimate historical reference ---
+    expect: COULD_NOT_RUN exit 5, listed for inspection, NOT a failure
+    (revision 1 reported FAIL here; that false rejection is the defect)
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/samename/HANDOFF.md
+computed_sha256=d8d8bee598f252f713364f23ce89e77912421ccae4acf990e157f6dc1a797edf
+check=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check
+check=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee
+check=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [1] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF.md
+overall=COULD_NOT_RUN
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=5
+
+--- S3 self-receipt split across lines ---
+    expect: COULD_NOT_RUN exit 5, listed for inspection
+    (revision 1 reported overall PASS here; silent acceptance was the defect)
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/multiline/HANDOFF.md
+computed_sha256=00ff378bcb4382fc6f8aad9c57e0a82c4a5f0d2adcc84f3870807c394af5cdc6
+check=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check
+check=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee
+check=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [3] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF.md
+overall=COULD_NOT_RUN
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=5
+
+--- S4 self-receipt on one line --- expect: COULD_NOT_RUN exit 5, listed for inspection
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/sameline/HANDOFF.md
+computed_sha256=3572a3725109e183d05b363f4b0398b95cc5ca2122b04fb26792708c90b48bcb
+check=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check
+check=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee
+check=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [1] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF.md
+overall=COULD_NOT_RUN
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=5
+
+--- S5 the literal own-digest predicate --- expect: literal_self_digest PASS, overall COULD_NOT_RUN exit 5
+    This case exists to record a limitation, not to demonstrate a failure. It is the one
+    sub-check with no constructible failing case, and the record says so rather than implying
+    the suite is uniformly discriminating.
+    NOTE: a genuine fixed point is not constructible, so this predicate cannot be made to
+    fail. It is reported PASS below and is labelled non-discriminating in the output, the
+    script docstring and the workflow reference. It is NOT counted as a tested guarantee.
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/literal_wrong.md
+computed_sha256=872a09c017d28decec5c474527e440ef1d3622b9659aaf909e810f4ced7131e6
+check=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check
+check=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee
+check=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [2] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for literal_wrong.md
+overall=COULD_NOT_RUN
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=5
+
+--- S6 both modes together on a realistic handoff --- expect: COULD_NOT_RUN exit 5
+    receipt verified as a guarantee; digest lines listed for the author to read
+file=/tmp/claude-1000/-home-bryan-Projects-DevForge-worktrees-claude-contribution-context/0d915aab-7181-41d8-95c4-b23bd854cc1c/scratchpad/receipt2/realistic.md
+computed_sha256=066044abebf608a7c7df8446a16af1183bd542c24120c186334928dec7704b7d
+check=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)
+check=digest_matches_bytes outcome=PASS claimed=066044abebf608a7c7df8446a16af1183bd542c24120c186334928dec7704b7d computed=066044abebf608a7c7df8446a16af1183bd542c24120c186334928dec7704b7d
+check=no_digest_present outcome=COULD_NOT_RUN 2 digest occurrence(s) present, so absence of a self-receipt is not established by this check
+check=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee
+check=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [1, 2] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for realistic.md
+overall=COULD_NOT_RUN
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=5
+
+SUMMARY against the finding:
+
+  S2 same basename / different path  revision 1 FAIL (false rejection)  ->  revision 2 COULD_NOT_RUN, listed
+  S3 multiline self-receipt          revision 1 PASS (silent accept)    ->  revision 2 COULD_NOT_RUN, listed
+  S4 same-line self-receipt          revision 1 FAIL                    ->  revision 2 COULD_NOT_RUN, listed
+
+Revision 2 no longer claims to distinguish a self-receipt from a legitimate reference, so it
+neither rejects the legitimate case nor passes the multiline case. It reports both for the author
+to read. The one case where absence IS established, no digest present at all, passes.
+
+The literal own-digest predicate is retained and labelled non-discriminating. This suite does not
+claim every sub-check has a constructible failing case: S5 records the one that does not, and why.
+
+The governing rule that a finalized handoff carries no receipt for itself is unchanged. It is
+upheld by the documented write order and the author's inspection of the listed lines, not by a
+helper guarantee. No exit code here is semantic acceptance.

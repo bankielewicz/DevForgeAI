@@ -1,0 +1,113 @@
+{
+  "schema_note": "Local deterministic checks for the SESSION-004@2 correction pass. Outcome vocabulary is exactly PASS, FAIL, NOT_RUN, COULD_NOT_RUN, NOT_APPLICABLE.",
+  "execution_ref": "SESSION-004@2",
+  "package": "devforgeai-contribution-context",
+  "provider": "claude",
+  "package_revision": 2,
+  "recorded_at_utc": "2026-09-06T02:17:50+00:00",
+  "relationship_to_prior_run": "The stage-1 run and its 18 checks are preserved unchanged and are not superseded by this record. Their outcomes, including the two FAIL and one COULD_NOT_RUN entries, stay as recorded. This record covers only the correction pass.",
+  "checks": [
+    {
+      "id": "RCHK-01",
+      "name": "read-only preflight, phase before",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-01-preflight-before.txt",
+      "raw_output_sha256": "809589d6a8d48785abbd689b2ef6dda8d57393c819cb0f935bd3ca7f414c197e",
+      "result": "637 immutable files and the 71-file reviewed candidate baseline verified before the first source edit.",
+      "scope_limit": "Custody, base and write fence only, per the tool's own scope line. Not semantic conformance and not a native observation."
+    },
+    {
+      "id": "RCHK-02",
+      "name": "native creator instruction loading",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-02-creator-identity.txt",
+      "raw_output_sha256": "f5c68145bbe87fb44e7ef62b0dc2a4d47fef8c3bb50a7e0d6c60867998796bd7",
+      "result": "The loaded skill-creator base directory is byte-identical to the staged pin, 18/18 files, SKILL.md dcd4803e...b2bcf.",
+      "scope_limit": "Establishes which instruction bytes govern the authoring, not that the guidance was followed correctly. Model-backed creator stages remain deferred at 0 allocated calls."
+    },
+    {
+      "id": "RCHK-03",
+      "name": "corrected package checks against the revised source",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-03-package-checks.txt",
+      "raw_output_sha256": "230593cbb145591c515593a71e686d0659a09bd62817eead15ad1f5a1e8de62d",
+      "result": "All six checks PASS: 10 package-local links resolve, derived bytes match source and destination digests, 61 eval file references stay inside the eval root and exist, no held-out file appears in a worker-visible list, no developer path in a runtime file, no eval artifact in the runtime set.",
+      "scope_limit": "Mechanical structure, byte identity and path containment only. Not semantic acceptance. Run with the revision-2 checker, a new output; the revision-1 checker is unchanged in the frozen stage-1 run."
+    },
+    {
+      "id": "RCHK-04",
+      "name": "CCTX-IR-003 held-out alias discriminating tests",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-04-heldout-alias-tests.txt",
+      "raw_output_sha256": "fcf3f8b3250afa4c4e800e5315bc17a6ca7d3cfd9acd6aa221af90a8624cb58e",
+      "result": "Three alias spellings of one held-out file run against both checkers. Revision 1 rejects only the canonical spelling in eval_visibility and passes both aliases there, which is the reported defect; revision 2 rejects all three by classifying the normalized path. Containment verified separately: a path that genuinely escapes the eval root still fails, in two cases.",
+      "scope_limit": "Path spelling, containment and held-out classification are mechanical facts. Correcting a checker is not acceptance of the package it checks."
+    },
+    {
+      "id": "RCHK-05",
+      "name": "CCTX-IR-004 receipt helper discriminating tests",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-05-check-receipt-tests.txt",
+      "raw_output_sha256": "93280c9a8a59d2c12fdbabc70c370a75ed8075f780a8c65a40b471a0ff1e88d0",
+      "result": "Seven receipt-verification cases with a constructible failing case for each sub-check, and six inspection cases. The legitimate same-basename different-path reference is no longer rejected, and the multiline self-receipt is no longer silently accepted; both are reported COULD_NOT_RUN for author inspection at exit 5, distinct from the exit 3 unreadable case.",
+      "scope_limit": "Receipt verification is a guarantee of digest format and byte identity. Self-receipt inspection is a listing, not a guarantee. S5 records the one retained predicate with no constructible failing case rather than implying the suite is uniformly discriminating."
+    },
+    {
+      "id": "RCHK-06",
+      "name": "staged skill-creator quick validator",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-06-quick-validate.txt",
+      "raw_output_sha256": "d52a82d8373403671e3339767bf987841f340bf3464953cc3412fa56c21fb208",
+      "result": "'Skill is valid!', exit 0, using the staged pinned validator 67cf5703...de365.",
+      "scope_limit": "SKILL.md frontmatter only. Reads neither the body nor any resource."
+    },
+    {
+      "id": "RCHK-07",
+      "name": "reviewed corrected framework validator",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-07-validate-framework.txt",
+      "raw_output_sha256": "01c81731b9965bfe13887ca684f73686f2c9f87989ed51e38acd43eba969c5ba",
+      "result": "status PASS, 11 skills, scope structure only, using the validator SESSION-004@2 selects at e1bd36d3...2b25.",
+      "scope_limit": "Structure only. It prunes .git, .poc, __pycache__ and the real root private runtime directory, so neither run outputs nor private client state are inspected. Its eval-fixture inspection does not cover this project-expert mapping; RCHK-03 and RCHK-04 cover that."
+    },
+    {
+      "id": "RCHK-08",
+      "name": "Git state and untracked-file hygiene",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-08-git-and-hygiene.txt",
+      "raw_output_sha256": "035bfc4da278951422dc313e88e02a355c5bfc8aac98f60f00bc80672235f664",
+      "result": "Branch and base unchanged, status is the operator baseline plus exactly one untracked entry project-experts/, git diff --check clean, shared stash untouched. No trailing whitespace, tabs, missing final newline, unresolved placeholder in runtime instructions, non-ASCII byte, empty directory or Python cache.",
+      "scope_limit": "Read-only Git inspection; no commit, ref update, staging, reset, merge, push or stash. git diff --check does not cover untracked files, which is why they are inspected directly."
+    },
+    {
+      "id": "RCHK-09",
+      "name": "read-only preflight, phase protected, at handback",
+      "outcome": "PASS",
+      "raw_output": "checks/RCHK-09-preflight-protected.txt",
+      "raw_output_sha256": "cda289534b245d7aa677e814eca10885466613cb68feb61c9386f9e1a973299b",
+      "result": "637 immutable files retained. The frozen stage-1 run's nine delivered identities re-verified 9/9 unchanged, including its handoff, receipt, records, manifests and revision-1 checker.",
+      "scope_limit": "Custody, base and write fence only. Candidate files are deliberately not compared after authorized edits."
+    }
+  ],
+  "finding_dispositions": {
+    "CCTX-IR-001": "Resolved. Peer boundary in references/source-selection.md and the matching SKILL.md guidance now qualify by assignment, role and read authority. Evidence: the revised source in the manifests; no separate behavioral check, because this is instruction text and a text search that restates the prose would not be a behavioral test.",
+    "CCTX-IR-002": "Resolved. CCX-04 variant C added as eval 13 with two separate authorization records and a recorded collision observation. Evidence: eval-manifest.json, coverage-matrix.md, expectations/ccx-04-owner-missing-or-conflicting.md, and RCHK-03 eval_fixture_paths/eval_visibility over 61 references.",
+    "CCTX-IR-003": "Resolved. Evidence: RCHK-04, which shows the defect on the frozen revision-1 checker and its correction on the revision-2 checker, plus two containment cases.",
+    "CCTX-IR-004": "Resolved by narrowing. Evidence: RCHK-05, including the review's two reproduced cases.",
+    "CCTX-IR-005": "Resolved. HANDOFF-004@2 carries a section index and stable HANDOFF-004-S* identifiers.",
+    "CCTX-IR-006": "Resolved. Eval 11 appears only under orientation in the CCR-008 coverage row and the mode table. Evidence: coverage-matrix.md in the eval manifest."
+  },
+  "native_evaluation_tiers": {
+    "A_discovery_and_activation": "NOT_RUN",
+    "B_recovery_behavior": "NOT_RUN",
+    "C_installed_resources": "NOT_RUN",
+    "cause": "SESSION-004@2 allocates exactly 0 model calls, concurrency 0 and retries 0. No installation, behavior comparison or activation measurement is allocated."
+  },
+  "behavioral_status": "NOT_EVALUATED",
+  "production_suitability": "NOT_EVALUATED; the missing production architecture contract remains a prerequisite.",
+  "helper_scope_statement": "The two helpers check digest format, byte identity, path containment, link resolution and held-out visibility, and list digest occurrences they cannot adjudicate. None establishes that the instructions are correct, that the package would activate, or that anyone has accepted it.",
+  "reviewer": "The author of this candidate performed these corrections and ran these checks. A corrected helper is not independent acceptance, and resolving a review finding is not a behavioral result.",
+  "outcome_counts": {
+    "PASS": 9
+  }
+}

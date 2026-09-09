@@ -1,0 +1,19 @@
+{
+  "name": "receipt-self-multiline-old",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-receipt.py",
+    "--file",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md",
+    "--expected-sha256",
+    "5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd",
+    "--self-digest-check"
+  ],
+  "expected_exit_status": 0,
+  "required_stdout_text": "overall=PASS",
+  "exit_status": 0,
+  "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md\ncomputed_sha256=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd computed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=self_digest_absent outcome=PASS the file must not contain its own complete-byte digest\ncheck=no_self_receipt_claim outcome=PASS lines naming HANDOFF.md alongside a 64-hex digest: none. A document must not carry its own receipt; hash it after it is final and deliver that digest outside the document.\noverall=PASS\nscope=byte identity and receipt format only; not semantic acceptance\n",
+  "stderr": "",
+  "assertions_pass": true
+}

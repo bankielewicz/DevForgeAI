@@ -1,0 +1,15 @@
+{
+  "name": "receipt-self-same-line-old",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-receipt.py",
+    "--file",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-same-line/HANDOFF.md",
+    "--expected-sha256",
+    "45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79",
+    "--self-digest-check"
+  ],
+  "expected_exit_status": 2,
+  "required_stdout_text": "overall=FAIL"
+}

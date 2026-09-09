@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+"""Deterministic receipt check for a checkpoint/transfer handoff.
+
+Scope of what this script establishes, and nothing beyond it:
+
+  1. FORMAT       the claimed digest is exactly 64 lowercase hexadecimal characters.
+  2. IDENTITY     recomputing SHA-256 over the file's bytes reproduces that digest.
+  3. SELF-DIGEST  the file does not record a receipt for itself. Two sub-checks, because the
+                  realistic defect and the literal one are different:
+                    self_digest_absent    the file does not contain its own current digest.
+                                          A true fixed point is not reachable by construction,
+                                          so this catches only a deliberately built case and is
+                                          reported for completeness, not as the load-bearing check.
+                    no_self_receipt_claim no 64-hex token appears on a line that also names this
+                                          file. This is the defect that actually occurs: an
+                                          author computes a near-final digest and writes it into
+                                          the document as its own receipt, where it is
+                                          permanently wrong. A digest attributed to some other
+                                          file is fine and passes.
+
+It does NOT establish that the file's content is correct, complete, conformant,
+authorized, or accepted. A passing exit code is byte-level evidence only; reporting
+it as semantic acceptance misrepresents this check. Structural facts and semantic
+review are separately observable on purpose.
+
+Prerequisites: Python 3.8+ standard library only. No network, no configuration.
+This project's packaging does not preserve executable mode bits, so invoke the file
+through the interpreter: `python3 /absolute/path/to/check_receipt.py --help`.
+
+Arguments:
+  --file PATH               file to check; an absolute path is strongly preferred,
+                            because a relative path silently depends on the caller's
+                            working directory, which Markdown links do not imply.
+  --expected-sha256 HEX     the digest you are about to deliver as the receipt.
+                            Omit to run in report mode: the digest is computed and
+                            printed, and no comparison is asserted.
+  --self-digest-check       also assert the file records no receipt for itself.
+
+Exit status:
+  0  every requested check passed (PASS)
+  2  a requested check failed (FAIL)
+  3  the file could not be read (COULD_NOT_RUN, not FAIL)
+  4  the invocation itself was invalid (COULD_NOT_RUN)
+
+Output is one `check=<name> outcome=<label>` line per check plus a final
+`overall=<label>` line, using only the vocabulary PASS, FAIL, COULD_NOT_RUN.
+
+This script proves nothing about whether the handoff is correct, authorized or accepted.
+"""
+
+import argparse
+import hashlib
+import os
+import re
+import sys
+
+EXIT_PASS = 0
+EXIT_FAIL = 2
+EXIT_UNREADABLE = 3
+EXIT_BAD_INVOCATION = 4
+
+FULL_DIGEST = re.compile(r"^[0-9a-f]{64}$")
+ANY_DIGEST = re.compile(r"\b[0-9a-fA-F]{64}\b")
+
+
+def read_bytes(path):
+    """Return the file's bytes, or None when it cannot be read."""
+    try:
+        with open(path, "rb") as handle:
+            return handle.read()
+    except OSError as error:
+        print(f"check=read_file outcome=COULD_NOT_RUN cause={error.__class__.__name__}: {error}")
+        return None
+
+
+def report(name, ok, detail):
+    print(f"check={name} outcome={'PASS' if ok else 'FAIL'} {detail}")
+    return ok
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(
+        description="Verify a handoff receipt: digest format, byte identity, and self-digest absence.",
+        epilog="Proves byte identity and receipt format only; never semantic acceptance.",
+    )
+    parser.add_argument("--file", required=True, help="path to the file being receipted")
+    parser.add_argument(
+        "--expected-sha256",
+        default=None,
+        help="the 64-character lowercase digest to verify; omit for report-only mode",
+    )
+    parser.add_argument(
+        "--self-digest-check",
+        action="store_true",
+        help="assert the file records no receipt for itself",
+    )
+    args = parser.parse_args(argv)
+
+    if args.expected_sha256 is None and not args.self_digest_check:
+        print("check=invocation outcome=COULD_NOT_RUN "
+              "cause=nothing asserted: pass --expected-sha256, --self-digest-check, or both")
+        print("overall=COULD_NOT_RUN")
+        return EXIT_BAD_INVOCATION
+
+    data = read_bytes(args.file)
+    if data is None:
+        print("overall=COULD_NOT_RUN")
+        return EXIT_UNREADABLE
+
+    actual = hashlib.sha256(data).hexdigest()
+    print(f"file={args.file}")
+    print(f"computed_sha256={actual}")
+
+    passed = True
+
+    if args.expected_sha256 is not None:
+        claimed = args.expected_sha256
+        well_formed = bool(FULL_DIGEST.match(claimed))
+        detail = f"claimed_length={len(claimed)} (a receipt is 64 lowercase hex characters)"
+        passed &= report("digest_format", well_formed, detail)
+        # Compare even when the format is wrong, so an abbreviation is never
+        # accepted as a prefix match: only full byte-for-byte equality passes.
+        passed &= report("digest_matches_bytes", claimed == actual,
+                         f"claimed={claimed} computed={actual}")
+
+    if args.self_digest_check:
+        contains_own = actual.encode("ascii") in data
+        passed &= report("self_digest_absent", not contains_own,
+                         "the file must not contain its own complete-byte digest")
+
+        basename = os.path.basename(args.file)
+        claims = []
+        text = data.decode("utf-8", errors="replace")
+        for number, line in enumerate(text.splitlines(), start=1):
+            if basename.lower() in line.lower() and ANY_DIGEST.search(line):
+                claims.append(f"line {number}")
+        passed &= report("no_self_receipt_claim", not claims,
+                         f"lines naming {basename} alongside a 64-hex digest: {claims or 'none'}. "
+                         "A document must not carry its own receipt; hash it after it is final "
+                         "and deliver that digest outside the document.")
+
+    print(f"overall={'PASS' if passed else 'FAIL'}")
+    print("scope=byte identity and receipt format only; not semantic acceptance")
+    return EXIT_PASS if passed else EXIT_FAIL
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,8 @@
+{
+  "record_type": "preserved historical claim annotations",
+  "role": "claude-contribution-context",
+  "claims": [],
+  "locator_aliases": [],
+  "excluded_or_unresolved": [],
+  "disposition": "Historical asserted hashes and actual retained hashes are separate facts. No frozen file was corrected, repinned or relabeled as passing."
+}

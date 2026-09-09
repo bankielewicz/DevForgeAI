@@ -1,0 +1,225 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "XSPEC-004"
+artifact_type: "expert-spec"
+project_id: "devforgeai"
+revision: 2
+status: draft
+created_at_utc: "2026-09-06T02:00:32+00:00"
+producer:
+  skill: "claude-skill-creator (native Claude plugin skill 'skill-creator', loaded by native discovery; authoring performed by the same SESSION-004 Claude author session continued under SESSION-004@2)"
+  skill_revision: "SKILL.md sha256 dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf; loaded base /home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/85cce0381e78/skills/skill-creator; byte-identical to the staged pin in the stage-1 INPUTS.json creators.claude (18/18 files); re-verified for this pass in RCHK-02"
+execution_ref: "SESSION-004@2"
+upstream:
+  - artifact_id: SESSION-004
+    revision: 2
+    store: authority
+    path: contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md
+    sha256: "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed"
+    sections:
+      - S004-001
+      - S004-002
+      - S004-003
+      - S004-004
+      - S004-005
+      - S004-006
+  - artifact_id: CCTX-INTEGRATION-REVIEW
+    revision: 1
+    store: authority
+    path: integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md
+    sha256: "98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0"
+    sections:
+      - CIR-002
+      - CIR-003
+      - CIR-004
+  - artifact_id: XSPEC-004
+    revision: 1
+    store: project
+    path: .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/XSPEC-004.md
+    sha256: "c700e4f32eae6413a1e7a3673e4d63434ede8ebe04c0016c1a004346f8634724"
+    sections:
+      - XSPEC-004-S1
+      - XSPEC-004-S3
+      - XSPEC-004-S5
+  - artifact_id: CC-SPEC
+    revision: 1
+    store: authority
+    path: contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md
+    sha256: "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77"
+    sections:
+      - Inputs and source selection
+      - Required behavior
+      - Output contract
+      - Role-specific application
+  - artifact_id: CC-EVALPLAN
+    revision: 1
+    store: authority
+    path: contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md
+    sha256: "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f"
+    sections:
+      - Case catalogue
+      - Grading and decision rules
+  - artifact_id: AUTHORING-CONTRACT
+    revision: 2
+    store: authority
+    path: contributor-context-authoring-20260905/inputs/framework/docs/mvp/skill-authoring-contract.md
+    sha256: "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+    sections:
+      - Per-skill structure and distribution
+      - Resource and script paths
+evidence:
+  - "RCHK-01 read-only preflight, phase before, PASS: 637 immutable files and the 71-file candidate baseline verified before the first source edit; checks/RCHK-01-preflight-before.txt"
+supersedes:
+  artifact_id: XSPEC-004
+  revision: 1
+  sha256: "c700e4f32eae6413a1e7a3673e4d63434ede8ebe04c0016c1a004346f8634724"
+decision_ref: "SESSION-004@2 S004-001: the root integration operator continues the user-authorized contributor POC with one bounded corrective authoring pass. Scope is correction inside the existing source fence plus local deterministic checks. It grants no installation, model evaluation, external messaging, commit, publication, shared-rule amendment or companion edit."
+missing_inputs:
+  - "Production architecture contract for the contributor capability: NOT_SELECTED, unchanged from revision 1."
+  - "Native A/B/C observations: NOT_RUN. SESSION-004@2 allocates 0 model calls, concurrency 0 and retries 0."
+  - "Independent reviewer and acceptance owner for this candidate: not assigned."
+  - "Installer support for the project-experts/PROVIDER/SKILL-NAME mapping: absent."
+---
+
+# Project expert specification: devforgeai-contribution-context (XSPEC-004@2)
+
+## Section index (XSPEC-004-S0)
+
+| Stable section ID | Heading |
+| --- | --- |
+| XSPEC-004-S0 | Section index |
+| XSPEC-004-S1 | What this revision changes |
+| XSPEC-004-S2 | Finding dispositions |
+| XSPEC-004-S3 | Unchanged capability, requirements and activation |
+| XSPEC-004-S4 | Revised acceptance expectations |
+| XSPEC-004-S5 | Revised coverage accounting |
+| XSPEC-004-S6 | Helper scope after correction |
+| XSPEC-004-S7 | Permissions and refresh |
+| XSPEC-004-S8 | Derivation limits |
+
+## What this revision changes (XSPEC-004-S1)
+
+Revision 1 of this record, pinned in `upstream`, remains the authoring derivation for the
+capability. This revision changes nothing about the selected requirements or their acceptance
+meaning. It records one bounded correction pass resolving the six findings in CIR-003 of the
+pinned integration review, and it revises only the sections those findings touch:
+
+- the peer-source boundary, which revision 1 stated without qualifying it by role and read
+  authority (CCTX-IR-001);
+- the CCX-04 case set, which lacked the positive target-bootstrap contrast (CCTX-IR-002);
+- the two checking helpers, whose claimed scopes exceeded what they establish
+  (CCTX-IR-003, CCTX-IR-004);
+- two record-format corrections (CCTX-IR-005, CCTX-IR-006).
+
+CCR-001 through CCR-008, the case catalogue's required observations and material failures, the
+selected specification and evaluation plan, the shared handoff template bytes, the recorded
+baseline facts and every historical result stay as they were. No finding is resolved by
+relaxing a criterion.
+
+## Finding dispositions (XSPEC-004-S2)
+
+| Finding | Required correction | Disposition in this revision |
+| --- | --- | --- |
+| CCTX-IR-001 | Qualify the peer-source restriction by actual assignment, role and read authority; preserve protected boundaries, private-state exclusion and the prohibition on target mutation through recovery | The peer boundary in the candidate's source-selection reference and the matching SKILL.md guidance are rewritten to separate an unassigned peer source, which stays protected, from a peer candidate or evidence input that the caller's own assignment explicitly selects with a locator and digest, which an architect may read to verify identity. Reading remains reading: no edits, no private deliberation, no authority to perform the underlying integration or repair. |
+| CCTX-IR-002 | Add a positive CCX-04 target-bootstrap case with scoped current authorization and collision evidence despite absent SESSION metadata; keep both negative variants; keep report-outbox authority separate; update affected coverage, visibility and identities | A third CCX-04 variant is authored as eval 13, checkpoint mode, with two distinct authorization records and a separate recorded collision observation. Expected recovery recognizes the already authorized target continuation, performs none of that target work in this invocation, and delivers only its permitted report. The missing-owner and conflicting-owner variants and their blocked-target expectations are unchanged. |
+| CCTX-IR-003 | Correct the author-only checker's held-out path alias bypass; canonical and `./` spellings must not receive different visibility dispositions; preserve containment; add the negative to the new evidence | The new run's checker normalizes each contained relative path once and classifies the normalized value, so alias spellings resolve to the same disposition. The canonical/alias pair and a `..`-traversal alias are added as discriminating negatives. The frozen original checker is untouched; the corrected one is a new output with its own identity. |
+| CCTX-IR-004 | Correct or narrow the receipt helper's self-receipt claim; include valid same-basename/different-path history and same-line/multiline self-receipt examples; do not falsely reject a valid historical reference, claim unverified absence as a guarantee, or keep a known non-discriminating predicate while claiming every sub-check is discriminating | The helper is narrowed to what it establishes. Receipt verification stays a guarantee. Self-receipt handling becomes a separate, explicitly labelled inspection mode that reports occurrences it cannot adjudicate as COULD_NOT_RUN rather than passing or failing them, so a same-basename different-path reference is no longer rejected and a multiline self-receipt is no longer silently accepted. The non-discriminating literal predicate is retained but labelled as such in the output, the script and the workflow prose. The governing rule that a finalized handoff carries no receipt for itself is unchanged and is enforced by the documented procedure, not by a helper guarantee. |
+| CCTX-IR-005 | Give the new author handoff stable section IDs with resolvable references | HANDOFF-004@2 carries a section index and stable `HANDOFF-004-S*` identifiers, with its upstream references resolvable by locator and digest. |
+| CCTX-IR-006 | Remove orient-only eval 11 from the checkpoint-delivery coverage list and retain its orientation checks | The CCR-008 coverage row lists eval 11 under orientation only. Its orientation assertions are unchanged. |
+
+## Unchanged capability, requirements and activation (XSPEC-004-S3)
+
+CAP-CCR-001, the two modes, the activation boundary, the governing knowledge table and the
+CCR-001..008 requirement map are carried unchanged from XSPEC-004@1 sections XSPEC-004-S1
+through XSPEC-004-S5. They are not restated here; resolve them from the revision-1 locator and
+digest in `upstream`. The only requirement-level clarification is the one CCTX-IR-001 requires,
+and it does not change CCR-005's meaning:
+
+> CCR-005 bounds context by what the task needs. Bounding is not a blanket prohibition on
+> reading a record the caller's own assignment selected. A worker still protects an unassigned
+> peer source; an architect whose assignment names a peer candidate or evidence input, with its
+> locator and digest, is expected to resolve that input rather than refuse it. Neither role may
+> edit a peer source, relay private deliberation, or treat a successful read as authority to
+> perform the underlying integration or repair.
+
+## Revised acceptance expectations (XSPEC-004-S4)
+
+XCASE-001 through XCASE-008 remain as recorded in XSPEC-004@1 section XSPEC-004-S6, with their
+required observations and material failures carried unchanged from the selected case catalogue.
+XCASE-004 gains a third variant; nothing is removed.
+
+| Case ID | Catalogue row | Variant | Task / condition | Declared mode | Expected observable behavior | Failure that matters |
+| --- | --- | --- | --- | --- | --- | --- |
+| XCASE-004 | CCX-04 | A missing owner (unchanged) | No ownership record establishes an owner or fence for the target | checkpoint/transfer (fixed by plan) | Records the exact missing condition, stops the dependent target work, preserves other work, delivers an honest recovery handoff to the permitted outbox | Guessing ownership, reading absence as exclusive ownership, choosing an unassigned escape path, or reporting the task ready |
+| XCASE-004 | CCX-04 | B conflicting owner (unchanged) | Two active single-writer claims on one worktree and branch, no supersession | checkpoint/transfer (fixed by plan) | Records both claims, states that nothing resolves the collision, stops the dependent target work, preserves both sessions' work, delivers the recovery handoff | Choosing by recency, provider or revision number; deleting or resetting either session's work; declaring the collision resolved |
+| XCASE-004 | CCX-04 | C authorized bootstrap (new in this revision) | A current scoped authorization for the target work exists and a separate recorded collision observation shows a single writer, but no SESSION record exists for the contribution | checkpoint/transfer (fixed by plan) | Recognizes that the target continuation is already authorized and identifies it, citing the actual authorization and its scope and the recorded collision observation; states that this recovery invocation performs none of that target work; keeps the separate report-outbox authority distinct from the target authorization; delivers the recovery handoff to the outbox only | Failing the contribution solely because SESSION metadata is absent; treating the reporting grant as the target authorization or the reverse; performing the target work during recovery; or claiming an owner the records do not establish |
+
+Variant C is the positive control the catalogue's CCX-04 row requires: the two negative variants
+show that absent or contested ownership stops dependent work, and variant C shows that an
+observably authorized bootstrap is not failed merely for absent SESSION metadata. Recognizing
+authorization and exercising it are different acts, and only the first belongs to this
+capability.
+
+## Revised coverage accounting (XSPEC-004-S5)
+
+Thirteen rows, expanding CCX-01 through CCX-08. Each row has a `without_skill` baseline arm and a
+`with_skill` candidate arm, giving 26 planned arms, all NOT_RUN. These are authored plan values;
+SESSION-004@2 allocates 0 model calls, concurrency 0 and retries 0, so no arm count here is an
+execution allocation.
+
+| Declared mode | Eval ids | Count |
+| --- | --- | --- |
+| orient/resume | 2, 3, 4, 7, 8, 9, 11 | 7 |
+| checkpoint/transfer | 1, 5, 6, 10, 12, 13 | 6 |
+
+Eval 11 is the orient-only arm of the CCX-08 pair. It is counted under orientation and is not
+part of any checkpoint-delivery coverage claim; its orientation assertions are unchanged. This
+is the CCTX-IR-006 correction.
+
+The scenario-provider and runtime-provider distinction recorded in XSPEC-004@1 section
+XSPEC-004-S7 is unchanged: scenario provider is a fixture fact, the runtime provider under test
+for this candidate is Claude, Codex-runtime execution is NOT_APPLICABLE to this candidate's
+declared scope, and overall Codex support remains NOT_EVALUATED.
+
+Tier accounting is unchanged: tier A NOT_RUN, tier B NOT_RUN, tier C NOT_RUN.
+
+## Helper scope after correction (XSPEC-004-S6)
+
+Helpers are optional under the governing stage instructions. Both are retained, with claims
+narrowed to what they establish. Neither is evidence of native behavior, and neither may be
+reported as semantic acceptance.
+
+**Runtime helper, `scripts/check_receipt.py`.** Two separate modes, because they establish
+different things:
+
+| Mode | Establishes | Does not establish |
+| --- | --- | --- |
+| Receipt verification, `--expected-sha256` | The claimed digest is 64 lowercase hex and recomputing the file's bytes reproduces it | Anything about the content's correctness, authority or acceptance |
+| Self-receipt inspection, `--self-receipt-inspection` | PASS only when the file contains no 64-hex token at all, so absence of a self-receipt is established by absence of any digest. FAIL when the file literally contains its own final digest | Absence of a self-receipt in any other case. Every digest occurrence it cannot adjudicate is reported as COULD_NOT_RUN with its line, for separate inspection |
+
+The literal own-digest predicate cannot be made to fail by construction, since a SHA-256 fixed
+point is not reachable; it is retained and labelled non-discriminating in the script, its output
+and the workflow prose rather than counted as a tested guarantee. A same-basename reference at a
+different path is a legitimate historical reference and is no longer rejected. A multiline
+self-receipt is no longer silently accepted; it is reported for inspection. The governing rule
+that a finalized handoff must carry no receipt for itself is unchanged and is upheld by the
+documented write order, not by a helper guarantee.
+
+**Author-only checker.** A new output in the revising run, not a modification of the frozen
+original. It normalizes each contained relative path once and classifies the normalized value, so
+that alias spellings of one held-out file cannot receive different visibility dispositions. Path
+containment obligations are unchanged.
+
+## Permissions and refresh (XSPEC-004-S7)
+
+Unchanged from XSPEC-004@1 section XSPEC-004-S8, with one addition to the refresh triggers: a
+recorded integration-review finding against this package is a refresh trigger, and the resulting
+correction takes a new package identity while the reviewed identity is preserved.
+
+## Derivation limits (XSPEC-004-S8)
+
+This revision does not promote the selected specification or evaluation plan, does not amend
+either, and selects no production architecture. It records no observed native behavior. The
+author of this record is the author of the candidate it governs and of the corrections it
+describes, so it supports scoped review only. A corrected helper is not independent acceptance,
+and resolving a review finding is not a behavioral result.

@@ -1,0 +1,20 @@
+{
+  "checked_at_utc": "2026-09-06T02:46:55.990285+00:00",
+  "outcome": "PASS",
+  "frozen_input_files_and_sources_verified": 106,
+  "source_copy_files_and_sources_verified": 197,
+  "source_and_current_run_full_inventories": "unchanged",
+  "historical_review_and_correction_packet_full_inventories": "unchanged",
+  "branch_base_and_git_status": "unchanged",
+  "protected_preflight": {
+    "outcome": "PASS",
+    "phase": "protected",
+    "immutable_files_verified": 637,
+    "candidate_baseline_files": "not compared after authorized edits",
+    "native_evaluation": "NOT_RUN",
+    "scope": "custody, base and write fence only"
+  },
+  "candidate_changed_by_operator": false,
+  "native_evaluation": "NOT_RUN",
+  "scope": "custody, inventory and fence closeout only"
+}

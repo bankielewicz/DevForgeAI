@@ -1,0 +1,8 @@
+[
+  {
+    "id": "{{query-id}}",
+    "query": "{{ordinary-user-request}}",
+    "should_trigger": true,
+    "split": "train"
+  }
+]

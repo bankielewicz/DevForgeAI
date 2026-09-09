@@ -1,0 +1,60 @@
+{
+  "record_type": "operator-corrective-authoring-packet-receipt",
+  "created_at_utc": "2026-09-06T01:03:28.061698+00:00",
+  "selection": "SESSION-004@2 for the same existing Claude author",
+  "start_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/START.md",
+  "start_sha256": "c82b65caa17c61e1ab6ac49cd0e812d4a09b6fd5ce236a9386b4b129b882986f",
+  "assignment_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md",
+  "assignment_sha256": "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed",
+  "review_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md",
+  "review_sha256": "98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0",
+  "files": {
+    "ALLOCATION.json": {
+      "sha256": "ed3c03a8c71142084a8c244e90a92dcc2e831f8609dd7f060743c1ce3dfe913d",
+      "bytes": 754,
+      "readback": true
+    },
+    "INPUTS.json": {
+      "sha256": "d2d9026e2cbeb0f94837b3a1e306b4b3f73ff0056a39069596ef2b56946b472d",
+      "bytes": 174299,
+      "readback": true
+    },
+    "PACKET-CHECKS.json": {
+      "sha256": "ae1c540b5a818a857d753ff9d01d0fce916df8624e4929842086916b3710d4fc",
+      "bytes": 1829,
+      "readback": true
+    },
+    "PACKET-REVIEW.json": {
+      "sha256": "7bf83dc3a8882ff915707de36c32b8dd8d85063efe73e91e5bdc8eeaebe8f4c7",
+      "bytes": 847,
+      "readback": true
+    },
+    "PREPARATION-CHECKS.json": {
+      "sha256": "4646cf363c2de85082eb1fcd837d48a5c05a3bad61526de05290bfe244be4e37",
+      "bytes": 647,
+      "readback": true
+    },
+    "SESSION-004-r2.md": {
+      "sha256": "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed",
+      "bytes": 10176,
+      "readback": true
+    },
+    "START.md": {
+      "sha256": "c82b65caa17c61e1ab6ac49cd0e812d4a09b6fd5ce236a9386b4b129b882986f",
+      "bytes": 3016,
+      "readback": true
+    },
+    "VERIFY.py": {
+      "sha256": "303277423c650aadefff969cd8d5508548022922fbaf0f359cebb3cd8b920278",
+      "bytes": 3235,
+      "readback": true
+    }
+  },
+  "self_excluded": "REPAIR.receipt.json",
+  "preflight": "PASS at issuance; author rechecks before editing",
+  "native_evaluation_calls": 0,
+  "candidate_changed_by_operator": false,
+  "old_author_run_changed": false,
+  "native_evaluation": "NOT_RUN",
+  "publication": "NOT_RUN"
+}

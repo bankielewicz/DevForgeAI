@@ -1,0 +1,18 @@
+{
+  "name": "receipt-legitimate-verification-only-new",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+    "--file",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md",
+    "--expected-sha256",
+    "342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806"
+  ],
+  "expected_exit_status": 0,
+  "required_stdout_text": "overall=PASS",
+  "exit_status": 0,
+  "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md\ncomputed_sha256=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806 computed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\noverall=PASS\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+  "stderr": "",
+  "assertions_pass": true
+}

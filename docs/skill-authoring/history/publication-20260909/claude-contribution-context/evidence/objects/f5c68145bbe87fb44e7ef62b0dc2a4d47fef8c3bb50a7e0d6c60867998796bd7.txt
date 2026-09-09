@@ -1,0 +1,15 @@
+Native creator instruction loading for this correction pass.
+
+The same native Claude skill-creator loaded by discovery in the stage-1 pass continues to
+govern this authoring. Its loaded base directory and the staged pin are re-verified here.
+
+loaded base: /home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/85cce0381e78/skills/skill-creator
+staged pin : /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/author-tools/claude/skill-creator/skills/skill-creator
+loaded_files=18 staged_files=18 byte_differences=NONE
+SKILL.md sha256: dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf
+OUTCOME: PASS
+
+SCOPE: establishes which instruction bytes govern the authoring. It does not establish
+that the guidance was followed correctly, and it is not a native behavioral observation.
+The creator's model-backed stages remain deferred: SESSION-004@2 allocates 0 model calls,
+concurrency 0 and retries 0. No subagent was spawned for this pass.

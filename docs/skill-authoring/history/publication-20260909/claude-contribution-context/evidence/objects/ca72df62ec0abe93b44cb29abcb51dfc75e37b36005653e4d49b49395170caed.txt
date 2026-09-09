@@ -1,0 +1,92 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SESSION-004"
+artifact_type: "session-record"
+project_id: "devforgeai"
+revision: 2
+status: draft
+created_at_utc: "2026-09-06T00:54:20.173648+00:00"
+producer:
+  skill: "integration-operator"
+  skill_revision: "companion base 6983f1de3e06f9b422546fd6944888dcd34e56a1; operator review sha256 98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0"
+execution_ref: null
+upstream:
+  - artifact_id: SESSION-004
+    revision: 1
+    store: authority
+    path: contributor-context-authoring-20260905/SESSION-004.md
+    sha256: "251515799b1f603600f2dc5fa336eaa29759082a5be0d6a7120eba5d031bdfbe"
+    sections: ["Ownership and task", "Repository and write fence", "Selected context and runtime", "Stage and closeout"]
+evidence:
+  - "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md; sha256 98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0"
+  - "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/INPUTS.json; sha256 d2d9026e2cbeb0f94837b3a1e306b4b3f73ff0056a39069596ef2b56946b472d"
+supersedes:
+  artifact_id: SESSION-004
+  revision: 1
+  sha256: "251515799b1f603600f2dc5fa336eaa29759082a5be0d6a7120eba5d031bdfbe"
+decision_ref: "Root integration operator continues the user-authorized contributor POC review and preparation with one bounded corrective authoring pass. No native execution or production adoption is selected."
+missing_inputs: []
+---
+
+# Claude contributor-context corrective assignment
+
+## S004-001 Ownership and selection
+
+This revision selects the same existing Claude author for one correction pass. It supersedes SESSION-004@1 for future corrective work, while preserving that record and all history unchanged. Ownership remains retained; no second writing terminal is assigned. Use the existing Claude contribution-context session, not the companion-maintenance session or a new author.
+
+The capability, source owner and selected draft requirements are unchanged. Root Codex is the integration owner. This is authority to correct the reviewed draft inside its existing fence and run local deterministic checks. It does not grant installation, model evaluation, external messaging, commits, publication, shared-rule amendments or companion edits.
+
+## S004-002 Worktree and fences
+
+- Worktree: `/home/bryan/Projects/DevForge/worktrees/claude-contribution-context`.
+- Branch: `author/claude-contribution-context-poc`; base `c9298bd34ebb73bf598deec6253068d7f8b0ed59`; common Git directory `/home/bryan/Projects/DevForge/framework/DevForgeAI/.git`.
+- Writable candidate source: `project-experts/claude/devforgeai-contribution-context/**` only.
+- Writable task output: one exclusively created new directory beneath `.poc/claude/devforgeai-contribution-context-workspace/runs/`. Use a name containing `revise-001` and a fresh UTC timestamp; record the actual absolute path.
+- Existing author run `/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1` and every file in it are frozen. Do not rewrite or append to its check records, inventories, scripts, drafts, receipt or handoff.
+- All shared/protected worktree paths, operator controls/reviews, staged creator files, peer work and companion files stay read-only. Native operational state stays in the original private runtime fence; do not copy it into evidence.
+- No staging, commits, refs, stash, reset, cleanup or release of another owner. The original protected baseline and all original preparation files remain unchanged.
+
+## S004-003 Inputs and preflight
+
+Read this record, the six findings in `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md`, and the original selected STAGE-1/specification/evaluation-plan as needed. Use the same pinned native creator guidance; record actual instruction loading. Do not use a draft framework creator or borrow a brainstorm allocation.
+
+Verify this assignment against START.md, then verify `/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/INPUTS.json` SHA-256 `d2d9026e2cbeb0f94837b3a1e306b4b3f73ff0056a39069596ef2b56946b472d` and `/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/VERIFY.py` SHA-256 `303277423c650aadefff969cd8d5508548022922fbaf0f359cebb3cd8b920278`. Run the read-only preflight **before the first source edit**:
+
+```text
+python3 -B /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/VERIFY.py --phase before
+```
+
+It checks the reviewed 71-file source baseline, preserved history/inputs and actual branch/base/fence. An unexpected mismatch stops dependent edits; report it without restoring somebody else's state. This phase is not intended to pass again after authorized candidate changes. For later preservation checks use `--phase protected`.
+
+## S004-004 Required correction
+
+Resolve CCTX-IR-001 through CCTX-IR-006 in one new authoring run:
+
+1. Qualify peer-source restrictions by actual assignment, role and read authority. Preserve protected worker/peer boundaries and private-state exclusion while allowing an architect's explicitly selected candidate/evidence reads. Do not grant target mutation through context recovery.
+2. Add the positive CCX-04 target-bootstrap case with scoped current authorization and collision evidence despite absent SESSION metadata. Keep the missing-owner and conflicting-owner cases and their blocked-target expectations. Recovery must identify the authorized future continuation without performing the underlying target work. Keep report-outbox authority separate. Update all affected authored coverage, visibility and identities.
+3. Correct the author-only package checker's held-out path alias bypass. The canonical and `./` spellings of the same held-out file must not receive different visibility dispositions. Preserve path containment and add this negative to the new checker evidence.
+4. Correct or narrow the runtime receipt helper's self-receipt claim. Include valid same-basename/different-path history and same-line/multiline self-receipt examples. The helper must not falsely reject a valid historical reference or claim unverified absence as a guarantee. Simplification to clearly scoped digest-format/byte-identity checks is allowed if unsupported self-receipt inspection remains explicit in the workflow. Do not replace the governing receipt rule or claim that every sub-check is discriminating while retaining a known non-discriminating predicate.
+5. Give the new author HANDOFF stable section IDs with resolvable references.
+6. Remove orient-only eval 11 from the checkpoint-delivery coverage list and retain its orientation checks.
+
+Do not change the selected CCR requirements, their acceptance meaning, the shared handoff template's bytes, baseline facts, or historical results to obtain a pass. Use synthetic fixtures and real valid/invalid contrasts; text searches that merely restate instruction prose are not behavioral tests.
+
+## S004-005 Revision order and validation
+
+Before changing the candidate, write the new `XSPEC-004.md` as XSPEC-004@2 in the fresh run, referencing revision 1 and mapping this correction to unchanged selected requirements. Then update the source and the author-only checker in the new run. Preserve the reviewed current source through the operator snapshot; do not modify that snapshot. Revised XPKG-004@2 and HANDOFF-004@2 must refer to the new source/runtime/eval identities and this SESSION-004@2 locator/digest. Preserve causal reference direction and avoid digest cycles.
+
+Exercise the changed helpers with bounded positive/negative synthetic cases, recording exact commands, source identities, exit statuses and raw output. Retain first failures if any; corrections use distinct output records. Recheck the staged creator's quick validator, runtime-local links, template derivation, source/runtime/eval partition, fixture paths, visibility, untracked-file hygiene and final artifact fields/section references.
+
+For structural checking, use the reviewed corrected validator, SHA-256 `e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25`, at:
+
+`/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/companion/scripts/validate_framework.py`
+
+Record its exact path/hash and actual input scope. It prunes the real root private runtime directory. Do not edit a validator or erase any earlier FAIL. This structural observation is not native behavior. Also run git diff --check and inspect untracked source files for hygiene. Run `VERIFY.py --phase protected` at handback; it must retain all protected/history identities while permitting candidate edits inside the assigned fence.
+
+## S004-006 Allocation and handback
+
+Native A/B/C: NOT_RUN. Automated/nested model evaluation calls, concurrency and retries: all 0. No installation, benchmark, description optimization, model-backed grader or subagent test campaign is allocated. The existing interactive author may perform this bounded correction with deterministic tools.
+
+Finish the new XSPEC, XPKG, check record, three manifests and HANDOFF in the fresh run. Use actual creation timestamps, stable section IDs and truthful producer metadata. Report the old source and this revised source as distinct identities; do not rewrite old status labels or confuse a corrected helper with independent acceptance.
+
+Read back all final bytes, create an external full path/SHA-256 receipt, and deliver the complete handoff path and 64-character digest outside its bytes. Keep the new handoff free of its own receipt. Return one next task: root integration review of XPKG-004@2 and all six finding dispositions. Retain ownership and stop before native evaluation, publication or further capability work.

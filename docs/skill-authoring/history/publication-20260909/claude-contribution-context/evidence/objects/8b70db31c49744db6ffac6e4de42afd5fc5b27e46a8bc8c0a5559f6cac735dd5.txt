@@ -1,0 +1,8 @@
+.poc/
+__pycache__/
+*.pyc
+
+/.devforge-runtime/
+/.agents/
+/.claude/
+/.codex/

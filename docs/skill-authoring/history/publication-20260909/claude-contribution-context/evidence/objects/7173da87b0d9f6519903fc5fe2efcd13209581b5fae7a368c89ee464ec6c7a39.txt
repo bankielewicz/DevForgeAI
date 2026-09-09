@@ -1,0 +1,15 @@
+{
+  "name": "receipt-self-multiline-new",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+    "--file",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md",
+    "--expected-sha256",
+    "5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd",
+    "--self-receipt-inspection"
+  ],
+  "expected_exit_status": 5,
+  "required_stdout_text": "overall=COULD_NOT_RUN"
+}

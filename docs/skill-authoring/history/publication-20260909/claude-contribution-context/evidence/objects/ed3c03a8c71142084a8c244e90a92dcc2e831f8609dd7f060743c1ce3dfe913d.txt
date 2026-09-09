@@ -1,0 +1,20 @@
+{
+  "record_type": "contributor-context corrective authoring allocation",
+  "execution_ref": "SESSION-004@2",
+  "scope": "one corrective authoring pass plus deterministic checks in existing Claude author context",
+  "interactive_author": "same existing user-selected Claude terminal; not a model-call budget",
+  "native_evaluation_calls": 0,
+  "native_evaluation_concurrency": 0,
+  "native_evaluation_retries": 0,
+  "installation": "NOT_RUN",
+  "publication": "NOT_RUN",
+  "findings": [
+    "CCTX-IR-001",
+    "CCTX-IR-002",
+    "CCTX-IR-003",
+    "CCTX-IR-004",
+    "CCTX-IR-005",
+    "CCTX-IR-006"
+  ],
+  "selected_spec_and_case_semantics": "unchanged draft revision 1; correct implementation and authored coverage, do not change governing criteria"
+}

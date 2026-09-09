@@ -1,0 +1,25 @@
+# Continue the existing Claude contributor-context author
+
+This is one bounded correction pass for the same Claude author and worktree. Do not start a second writer and do not rerun the initial launcher's candidate-absent preflight.
+
+| Selected input | Absolute path | SHA-256 |
+| --- | --- | --- |
+| Corrective assignment SESSION-004@2 | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md | ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed |
+| Integration review | /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md | 98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0 |
+| Review receipt | /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/REVIEW.receipt.json | 735fd187043a960d29b23aa6b1673d1fa110f44829e4ec2725e8b0c17d6fb6e6 |
+| Correction input inventory | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/INPUTS.json | d2d9026e2cbeb0f94837b3a1e306b4b3f73ff0056a39069596ef2b56946b472d |
+| Read-only preflight | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/VERIFY.py | 303277423c650aadefff969cd8d5508548022922fbaf0f359cebb3cd8b920278 |
+| Allocation | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/ALLOCATION.json | ed3c03a8c71142084a8c244e90a92dcc2e831f8609dd7f060743c1ce3dfe913d |
+
+Read SESSION-004@2 and the six review findings, verify the selected inputs, run the `before` preflight, and complete the correction inside the original source fence with a new run. Native evaluation remains zero calls. Keep the old author run, candidate snapshot, all existing controls and failed attempts unchanged.
+
+Copyable prompt for the **existing Claude contribution-context session**:
+
+```text
+Continue as the same Claude author in /home/bryan/Projects/DevForge/worktrees/claude-contribution-context.
+Read and follow this operator-selected corrective assignment:
+/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md
+SHA-256: ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed
+
+It selects SESSION-004@2 for one bounded correction pass. Read the pinned integration review and use the new preflight in START.md before edits. Resolve CCTX-IR-001 through CCTX-IR-006, preserve the entire delivered stage-1 run and all protected inputs, and produce revised XSPEC-004@2, XPKG-004@2 and HANDOFF-004@2 in one new exclusive run. Do not launch native evaluations, install, commit, publish or change companion tooling. Deliver the finalized handoff's absolute path and complete SHA-256 externally, then stop for root integration review with ownership retained.
+```

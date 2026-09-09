@@ -1,0 +1,12 @@
+{
+  "skill_name": "{{skill-name}}",
+  "evals": [
+    {
+      "id": 1,
+      "name": "{{case-name}}",
+      "prompt": "{{realistic-user-request}}",
+      "expected_output": "{{observable-result}}",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+Git state and untracked-file hygiene for the correction pass.
+
+$ git diff --check
+exit=0
+
+$ git status --porcelain
+ M docs/mvp/skill-authoring-contract.md
+ M docs/mvp/templates/shared/handoff.md
+?? docs/coordination/20260905-contributor-context-evaluation-plan.md
+?? docs/coordination/20260905-contributor-context-spec.md
+?? docs/coordination/20260905-contributor-context-specification.receipt.json
+?? docs/coordination/20260905-contributor-expertise-proposal.md
+?? docs/coordination/20260905-contributor-expertise-proposal.receipt.json
+?? project-experts/
+
+$ git rev-parse --abbrev-ref HEAD
+author/claude-contribution-context-poc
+$ git rev-parse HEAD
+c9298bd34ebb73bf598deec6253068d7f8b0ed59
+$ git stash list
+(empty output means this session pushed nothing to the shared stash)
+
+Expected delta: identical to the stage-1 handback - the operator baseline plus exactly one
+untracked entry, project-experts/. Both runs under .poc/ and the private client state under
+.devforge-runtime/ are gitignored and therefore absent above, and git diff --check does not
+cover untracked files. Those are inspected directly below.
+
+--- trailing whitespace ---
+none
+--- tab characters ---
+none
+--- files not ending in a newline ---
+none
+--- unresolved placeholders in candidate runtime instructions ---
+none
+--- placeholders in assets/handoff-template.md (EXPECTED: it is a template) ---
+count: 28 declared template slots, filled at invocation
+--- unresolved placeholders in this run's records ---
+XSPEC-004.md: none
+--- non-ASCII in candidate ---
+none
+--- empty directories ---
+none
+--- python caches ---
+none

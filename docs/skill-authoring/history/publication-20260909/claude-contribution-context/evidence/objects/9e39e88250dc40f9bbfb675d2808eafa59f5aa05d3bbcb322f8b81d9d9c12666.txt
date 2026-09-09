@@ -1,0 +1,87 @@
+# Claude contributor-context revision-2 integration review
+
+Reviewed 2026-09-06 UTC. **All six original findings are closed within the static review scope.** No material candidate correction remains from this pass. The revised identity is ready for independent native-evaluation preparation, with three nonblocking notes below. This is not behavioral acceptance, installation approval, production adoption or a model-call allocation.
+
+## CIR2-001 You are here
+
+| Work item | Result and next owner |
+| --- | --- |
+| Revised Claude package custody | PASS: all nine supplied run identities and all 78 candidate files verified |
+| Original findings CCTX-IR-001 through CCTX-IR-006 | CLOSED: instruction, fixture, checker and handoff corrections reviewed |
+| Operator structural and reference checks | PASS; scope remains structural |
+| Independent synthetic helper reproduction | PASS: all 19 predeclared expected outcomes observed |
+| Remaining notes | Three nonblocking precision issues; recorded in CIR2-004 |
+| Candidate source and author history | Preserved; existing Claude author retains ownership |
+| Next task | Root integration owner prepares an independent native evaluation packet |
+| Native C/B/A, behavioral acceptance and production suitability | NOT_RUN / NOT_EVALUATED; no new execution allocation |
+
+The next-step description and copyable continuation are saved in [NATIVE-PREPARATION-HANDOFF.md](NATIVE-PREPARATION-HANDOFF.md). No further author correction pass is required for the six reviewed findings. Do not edit the frozen handoff or silently substitute revised candidate bytes to clear the notes.
+
+## CIR2-002 Reviewed identity and custody
+
+Worktree: `/home/bryan/Projects/DevForge/worktrees/claude-contribution-context`; branch `author/claude-contribution-context-poc`; base `c9298bd34ebb73bf598deec6253068d7f8b0ed59`. Source fence: `project-experts/claude/devforgeai-contribution-context/`.
+
+| Selected artifact | SHA-256 |
+| --- | --- |
+| [HANDOFF-004@2](run/HANDOFF-004.md) | 4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1 |
+| [Author handoff receipt](run/HANDOFF-004.receipt.json) | ff6439dfb3d3fe83e2fed177c286a29c9b24821189c27560e0650f661a57aee0 |
+| [XSPEC-004@2](run/XSPEC-004.md) | 78fa48c8b30d9e51fe194a15069c401bec306411f2a4e73e9bfe48500f404dae |
+| [XPKG-004@2](run/XPKG-004.md) | 203b3c19448ada515796e13d043ba8d43de806ac7bbfd27015844eb7de7968c1 |
+| [Source manifest](run/inventories/source-manifest.json) | 7c1b3d896607bd73446900c0f080ac83888d48c79ed67bb88881da730548794e |
+| [Runtime manifest](run/inventories/runtime-manifest.json) | a2989155fa35f63c36970f8bb1b64bfad9cc22cea117d5485eceb329dcd56d33 |
+| [Evaluation manifest](run/inventories/eval-manifest.json) | 7271151f5f07faeee40928ef221ed9a1ae3d4ff68f883bf4948b43c3d60acf54 |
+| [Author checks](run/checks.json) | 9a9ace71460db9492793a907ae054087d5220b1f276e2d29cc5ed0c9b3257206 |
+| [Author-only checker](run/package_checks.py) | 10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442 |
+
+The source inventory is complete: 78 files partition into six runtime files and 72 evaluation files. Compared with the preserved 71-file source, seven files were added, seven existing files changed, 64 are byte-identical, and none were removed. The seven additions are the positive CCX-04 fixture. All nine referenced raw check outputs match their recorded digests; all nine author check outcomes are PASS. Their scope statements and expected helper failures remain part of the evidence.
+
+The original 38-file stage-1 run is unchanged with no added files, including its earlier failures and superseded drafts. The previous operator review and corrective packet retain their complete file inventories and receipt identities. The correction preflight verifies all 637 immutable files. Source, run, branch, base and Git status are preserved through review; no source edits, staging, commits, refs, stash, native calls or private client-state inspection were performed by this review.
+
+See [INPUT-CHECKS.json](INPUT-CHECKS.json), [CUSTODY.json](CUSTODY.json), [SOURCE-COPY-CUSTODY.json](SOURCE-COPY-CUSTODY.json) and [CLOSEOUT-CHECKS.json](CLOSEOUT-CHECKS.json). The initial snapshot contains the 78 candidate files, 19 correction-run outputs and nine correction-control files. A separate 197-file source-only copy supports the structural observation.
+
+## CIR2-003 Original finding dispositions
+
+| Finding | Disposition and evidence |
+| --- | --- |
+| CCTX-IR-001: assigned peer reads | CLOSED. [Source selection](candidate/references/source-selection.md), lines 123-140, requires resolving an explicitly selected peer candidate/evidence input. Read authority follows the assignment. Unassigned peer sources, private deliberation and target mutation remain protected. The matching SKILL.md guidance agrees. This is a static instruction judgment, not a measured native behavior. |
+| CCTX-IR-002: positive bootstrap contrast | CLOSED. [Target authorization](candidate/evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md), [separate report authority](candidate/evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md) and the [collision observation](candidate/evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md) establish the intended positive condition without SESSION metadata. Recovery identifies the already authorized future target continuation and writes only its permitted handoff. [Expectations](candidate/evals/expectations/ccx-04-owner-missing-or-conflicting.md), lines 46-75, distinguish both grants and reject an unconditional missing-SESSION block. The two negative raw fixtures and first 12 case-index rows are unchanged. |
+| CCTX-IR-003: held-out alias classification | CLOSED. The [new author checker](run/package_checks.py), lines 69-81 and 166-184, classifies normalized contained paths. The reproduction confirms that the canonical and dot-alias spellings now fail visibility consistently, a contained parent alias fails visibility, and a true escape still fails containment. The valid package control passes both versions. The old checker remains preserved. |
+| CCTX-IR-004: receipt helper claim | CLOSED by the explicitly permitted narrowing. [Checkpoint guidance](candidate/references/checkpoint-transfer.md), lines 49-86, separates receipt-byte verification from author inspection. The [helper](candidate/scripts/check_receipt.py), lines 126-170, reports detected digest occurrences as COULD_NOT_RUN at exit 5. Same-basename history is no longer falsely failed; same-line and multiline self-receipts are no longer silently certified. Manual inspection remains required, and the literal fixed-point predicate is explicitly excluded from tested guarantees. See CIR2-004 N03 for the remaining wording limit. |
+| CCTX-IR-005: stable handoff sections | CLOSED. [HANDOFF-004@2](run/HANDOFF-004.md), lines 78-94, indexes nine stable HANDOFF-004-S0 through S8 sections. Operator checks verify the three revised envelopes and 17 upstream locator/digest/section references. |
+| CCTX-IR-006: mode coverage | CLOSED. [Coverage matrix](candidate/evals/coverage-matrix.md), lines 62-72, places eval 11 only under orientation and eval 13 under checkpoint. Counts reconcile to seven orientation and six checkpoint cases, 26 prospective arms, and 61 case-file memberships over 58 distinct visible fixtures. Existing CCX-08 expectations and trigger bytes are unchanged. |
+
+Three bounded reviewers checked separate scopes; the root integration owner verified the resulting evidence and record identities. [SCOPED-REVIEWS.json](SCOPED-REVIEWS.json) records their scopes. They were separate from the candidate author, but this was not a cold native-evaluation campaign.
+
+## CIR2-004 Nonblocking notes and their treatment
+
+### CCTX-R2-N01: finding-category counts
+
+[XPKG-004@2](run/XPKG-004.md), lines 138-140, and [HANDOFF-004@2](run/HANDOFF-004.md), lines 166-167, say three findings changed runtime files, two changed evaluation inputs and one changed run records. The correct count is **two runtime findings (001/004), two evaluation findings (002/006), and two run-record findings (003/005)**. The detailed file tables and frozen manifests identify the actual changes correctly. Use those identities and this annotation; preserve the delivered records.
+
+### CCTX-R2-N02: inherited runtime-target section
+
+[XPKG-004@2](run/XPKG-004.md), line 173, points to XPKG-004@1-S5 for intended runtime targets. The correct section is **XPKG-004@1-S4**, at line 151 in the preserved prior package record; S5 contains authored evaluation inputs. The current prose still declares Claude, and the selected original section explicitly names the disposable consumer destination `.claude/skills/devforgeai-contribution-context/`. A future evaluation packet must record that mapping directly with the correct source reference. This is a wrong prose locator, not an observed installation or runtime-selection failure.
+
+### CCTX-R2-N03: absence-of-token wording
+
+[Receipt helper](candidate/scripts/check_receipt.py), lines 14-16 and 133-136, and [checkpoint guidance](candidate/references/checkpoint-transfer.md), lines 68-69, infer no receipt from finding no 64-hex token. The supported observation is only **no matching token found**; abbreviated or malformed receipt claims fall outside that pattern. The surrounding text explicitly says the inspection is a listing, requires human judgment and cannot certify the document's no-self-receipt rule. This wording issue does not reopen IR-004. Future grading must inspect the full artifact and use independently tested criteria, without treating this optional author helper as a semantic grader.
+
+These notes do not change the frozen candidate, waive any capability requirement, or promote the package. Any later source correction requires a new identity and review of the changed bytes.
+
+## CIR2-005 Validation and practical limits
+
+The operator reran the pinned creator quick validator and the reviewed corrected framework validator against the source-only snapshot: both PASS, with 11 skill directories reported by the latter. Ten runtime-local Markdown links resolve to distributed files; shared-template bytes and derivation remain unchanged. Three revised record envelopes and their 17 upstream references pass the mechanical checks. See [OPERATOR-PACKAGE-CHECKS.json](OPERATOR-PACKAGE-CHECKS.json) and its [saved checker](OPERATOR-CHECKS.py).
+
+The helper reviewer saved the exact [reproduction script](reviewer-evidence/helper-reproduction/reproduce_ir003_ir004.py) before executing it once. All 19 expected deterministic results were observed, including valid controls and deliberately failing cases. [Summary and raw commands](reviewer-evidence/helper-reproduction/summary.json), individual expectations, outputs and synthetic inputs are preserved with [provenance](reviewer-evidence/helper-reproduction/PROVENANCE.json). Root inspected and archived the evidence without rerunning the reproduction.
+
+The delivered handoff has 44 full lowercase digest occurrences, all matching verified input or output identities; none is its current own digest. The same-basename historical row at line 134 identifies the preserved prior handoff at a different path. Operator inspection found no current self-receipt claim. [Digest enumeration](HANDOFF-DIGEST-INSPECTION.json) is supporting evidence, not a general semantic checker.
+
+The author reports XSPEC creation before the first source edit and continued native creator discovery. This review preserves those reports and verifies the relevant staged instruction bytes; it does not independently establish private session chronology or discovery events. Package checks and authored fixtures do not establish native activation, recovery quality, improvement over baseline or independent behavioral acceptance. Authored expectations are not independent held-out criteria.
+
+## CIR2-006 Next task and stop condition
+
+Proceed to independent native-evaluation preparation under the root integration owner. Preserve both author assignments and current candidates while preparing selected bootstrap scope, exact provider/core/install identities, task-derived independent criteria, meaningful grader negatives, separate client state and case outboxes, worker visibility, and explicit provider/role/variant/arm accounting. Re-pin the Codex candidate and reviewed companion tooling before any paired allocation.
+
+The preparation must yield a concrete reviewable packet with numeric model-call limits, per-call timeouts, concurrency, deadline and retry policy before any native launch. The existing author sessions may not become their own independent evaluators. Current native evaluation allocation remains zero; C/B/A remains NOT_RUN. Production architecture remains unselected and production suitability NOT_EVALUATED.
+
+No candidate ownership release, cleanup, installation, commit or publication is selected by this report. The external review receipt binds this report and the preserved evidence after final readback.

@@ -1,0 +1,1 @@
+{"evals": [{"name": "synthetic-case", "files": ["fixtures/input.txt"]}]}

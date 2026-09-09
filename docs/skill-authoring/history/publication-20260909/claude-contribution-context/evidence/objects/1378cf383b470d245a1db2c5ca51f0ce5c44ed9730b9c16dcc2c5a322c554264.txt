@@ -1,0 +1,357 @@
+{
+  "recorded_at_utc": "2026-09-06T02:39:07.103204+00:00",
+  "scratch_root": "/tmp/claude-context-r2-helper-review-51zqllq5",
+  "script_sha256": "93af84e2abc31ec9fb68ed4ecbfd6311538dc7b57b380aa89fa8b9c83b742c14",
+  "script_saved_before_execution": true,
+  "helper_pins": {
+    "old-receipt.py": "50dccb2c9acfb83ab073276ed132945eae5b2913c93b78e6bce0d862161d3dd5",
+    "new-receipt.py": "c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136",
+    "old-package.py": "b12237dc7882055e9b85c40f8a055b5d3ce15ed180c2b1f35e53394d2b30f8e4",
+    "new-package.py": "10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442"
+  },
+  "test_count": 19,
+  "all_expected_results_observed": true,
+  "scope": "Deterministic helpers on synthetic inputs; no native behavior or acceptance evaluated",
+  "records": [
+    {
+      "name": "package-control-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 0,
+      "required_stdout_text": "overall=PASS",
+      "exit_status": 0,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=PASS file_references=1 problems=none\ncheck=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=PASS failed=none\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-control-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 0,
+      "required_stdout_text": "check=eval_visibility outcome=PASS",
+      "exit_status": 0,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=PASS file_references=1 problems=none\ncheck=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=PASS failed=none\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-canonical-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 1,
+      "required_stdout_text": "overall=FAIL",
+      "exit_status": 1,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=PASS file_references=1 problems=none\ncheck=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=['synthetic-case: expectations/expected.md']\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_visibility']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-canonical-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 1,
+      "required_stdout_text": "check=eval_visibility outcome=FAIL",
+      "exit_status": 1,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=PASS file_references=1 problems=none\ncheck=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=['synthetic-case: expectations/expected.md']\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_visibility']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-dot-alias-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 0,
+      "required_stdout_text": "overall=PASS",
+      "exit_status": 0,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=PASS file_references=1 problems=none\ncheck=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=PASS failed=none\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-dot-alias-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 1,
+      "required_stdout_text": "check=eval_visibility outcome=FAIL",
+      "exit_status": 1,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=PASS file_references=1 problems=none\ncheck=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=[\"synthetic-case: expectations/expected.md (spelled './expectations/expected.md', normalizes to 'expectations/expected.md')\"]\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_visibility']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-internal-parent-alias-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 1,
+      "required_stdout_text": "overall=FAIL",
+      "exit_status": 1,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=FAIL file_references=1 problems=['synthetic-case: parent traversal in fixtures/../expectations/expected.md']\ncheck=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_fixture_paths']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-internal-parent-alias-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 1,
+      "required_stdout_text": "check=eval_visibility outcome=FAIL",
+      "exit_status": 1,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=PASS file_references=1 problems=none\ncheck=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=[\"synthetic-case: expectations/expected.md (spelled 'fixtures/../expectations/expected.md', normalizes to 'expectations/expected.md')\"]\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_visibility']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-root-escape-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 1,
+      "required_stdout_text": "overall=FAIL",
+      "exit_status": 1,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=FAIL file_references=1 problems=['synthetic-case: parent traversal in fixtures/../../SKILL.md']\ncheck=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_fixture_paths']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "package-root-escape-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-package.py",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape",
+        "--authority-root",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+      ],
+      "expected_exit_status": 1,
+      "required_stdout_text": "check=eval_fixture_paths outcome=FAIL",
+      "exit_status": 1,
+      "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=FAIL file_references=1 problems=['synthetic-case: parent traversal in fixtures/../../SKILL.md']\ncheck=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_fixture_paths']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-no-digest-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md",
+        "--expected-sha256",
+        "179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d",
+        "--self-digest-check"
+      ],
+      "expected_exit_status": 0,
+      "required_stdout_text": "overall=PASS",
+      "exit_status": 0,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md\ncomputed_sha256=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d computed=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d\ncheck=self_digest_absent outcome=PASS the file must not contain its own complete-byte digest\ncheck=no_self_receipt_claim outcome=PASS lines naming HANDOFF.md alongside a 64-hex digest: none. A document must not carry its own receipt; hash it after it is final and deliver that digest outside the document.\noverall=PASS\nscope=byte identity and receipt format only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-no-digest-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md",
+        "--expected-sha256",
+        "179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d",
+        "--self-receipt-inspection"
+      ],
+      "expected_exit_status": 0,
+      "required_stdout_text": "overall=PASS",
+      "exit_status": 0,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md\ncomputed_sha256=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d computed=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d\ncheck=no_digest_present outcome=PASS the file contains no 64-hex token, so it records no receipt for anything, itself included\ncheck=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee\noverall=PASS\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-same-name-different-path-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md",
+        "--expected-sha256",
+        "342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806",
+        "--self-digest-check"
+      ],
+      "expected_exit_status": 2,
+      "required_stdout_text": "overall=FAIL",
+      "exit_status": 2,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md\ncomputed_sha256=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806 computed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\ncheck=self_digest_absent outcome=PASS the file must not contain its own complete-byte digest\ncheck=no_self_receipt_claim outcome=FAIL lines naming HANDOFF.md alongside a 64-hex digest: ['line 1']. A document must not carry its own receipt; hash it after it is final and deliver that digest outside the document.\noverall=FAIL\nscope=byte identity and receipt format only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-same-name-different-path-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md",
+        "--expected-sha256",
+        "342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806",
+        "--self-receipt-inspection"
+      ],
+      "expected_exit_status": 5,
+      "required_stdout_text": "overall=COULD_NOT_RUN",
+      "exit_status": 5,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md\ncomputed_sha256=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806 computed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\ncheck=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check\ncheck=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee\ncheck=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [1] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF.md\noverall=COULD_NOT_RUN\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-legitimate-verification-only-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md",
+        "--expected-sha256",
+        "342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806"
+      ],
+      "expected_exit_status": 0,
+      "required_stdout_text": "overall=PASS",
+      "exit_status": 0,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md\ncomputed_sha256=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806 computed=342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806\noverall=PASS\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-self-same-line-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-same-line/HANDOFF.md",
+        "--expected-sha256",
+        "45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79",
+        "--self-digest-check"
+      ],
+      "expected_exit_status": 2,
+      "required_stdout_text": "overall=FAIL",
+      "exit_status": 2,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-same-line/HANDOFF.md\ncomputed_sha256=45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79 computed=45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79\ncheck=self_digest_absent outcome=PASS the file must not contain its own complete-byte digest\ncheck=no_self_receipt_claim outcome=FAIL lines naming HANDOFF.md alongside a 64-hex digest: ['line 1']. A document must not carry its own receipt; hash it after it is final and deliver that digest outside the document.\noverall=FAIL\nscope=byte identity and receipt format only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-self-same-line-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-same-line/HANDOFF.md",
+        "--expected-sha256",
+        "45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79",
+        "--self-receipt-inspection"
+      ],
+      "expected_exit_status": 5,
+      "required_stdout_text": "overall=COULD_NOT_RUN",
+      "exit_status": 5,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-same-line/HANDOFF.md\ncomputed_sha256=45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79 computed=45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79\ncheck=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check\ncheck=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee\ncheck=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [1] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF.md\noverall=COULD_NOT_RUN\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-self-multiline-old",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md",
+        "--expected-sha256",
+        "5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd",
+        "--self-digest-check"
+      ],
+      "expected_exit_status": 0,
+      "required_stdout_text": "overall=PASS",
+      "exit_status": 0,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md\ncomputed_sha256=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd computed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=self_digest_absent outcome=PASS the file must not contain its own complete-byte digest\ncheck=no_self_receipt_claim outcome=PASS lines naming HANDOFF.md alongside a 64-hex digest: none. A document must not carry its own receipt; hash it after it is final and deliver that digest outside the document.\noverall=PASS\nscope=byte identity and receipt format only; not semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    },
+    {
+      "name": "receipt-self-multiline-new",
+      "command": [
+        "python3",
+        "-B",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+        "--file",
+        "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md",
+        "--expected-sha256",
+        "5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd",
+        "--self-receipt-inspection"
+      ],
+      "expected_exit_status": 5,
+      "required_stdout_text": "overall=COULD_NOT_RUN",
+      "exit_status": 5,
+      "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md\ncomputed_sha256=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd computed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check\ncheck=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee\ncheck=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [3] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF.md\noverall=COULD_NOT_RUN\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+      "stderr": "",
+      "assertions_pass": true
+    }
+  ]
+}
