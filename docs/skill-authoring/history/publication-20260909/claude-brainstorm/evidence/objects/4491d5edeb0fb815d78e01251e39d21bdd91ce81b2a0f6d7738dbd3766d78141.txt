@@ -1,0 +1,83 @@
+# R11 executable and fixture inventory — authored, never executed
+# run: SESSION-001-r11-20260907T2258Z   allocation: SESSION-001@11   execution: NOT_RUN
+
+## control modules
+source/control/a_arm.py                              d8bc7223fe43ff8d  243L
+source/control/activation.py                         e825c34960bbd730  177L
+source/control/admission.py                          71eb8796d37aa88d  501L
+source/control/controller.py                         0231d82ed8a48dc6  175L
+source/control/freeze.py                             78b4f2806b783554  484L
+source/control/grade.py                              26748047fa06edcb  225L
+source/control/run_phases.py                         a37c801dc0b0a70b  763L
+
+## control selections and configuration
+source/control/A-CASES.json                          2893239fb68126de  36L
+source/control/ALLOCATION.json                       84f2dd0c6a3b4185  17L
+source/control/AUTHORIZED-REVIEWERS.json             e7609db24a68f3e1  7L
+source/control/CLOCK.json                            ea9864e474b9199b  16L
+source/control/GATE-INPUTS.json                      b0776ebf0177f6bf  5L
+source/control/PLAN.json                             002099d3872587b6  132L
+source/control/SELECTED-ROOTS.json                   222bf22fc1677415  58L
+source/control/SEMANTIC-DECISIONS.json               8725e8024519c2ba  5L
+
+## checkers
+source/checkers/check_outcome_labels.py              05b1a6e2f004462a  158L
+source/checkers/check_receipts.py                    dc2cf7f953ed9cc1  378L
+source/checkers/harness.py                           98650538633ecc19  164L
+source/checkers/validate_references.py               b40b1f6371731868  621L
+
+## suites and cases
+source/no-model-tests/cases_r9.py                    7df3dfb439e71d77  177L
+source/no-model-tests/checks_suite.py                1b481216df4abcab  667L
+source/no-model-tests/phase_suite.py                 f29ff80789ec8884  1541L
+
+## physical fixtures
+source/fixtures/STORY-014.md                                           8c9baa647231a350
+source/fixtures/chg-010-activation-envelopes/INDEX.json                66b138cfb9e7713e
+source/fixtures/chg-010-activation-envelopes/NEG-init-metadata-only.jsonl 71531b5c396be6ca
+source/fixtures/chg-010-activation-envelopes/NEG-other-skill-selected.jsonl 9151cdbf6655cfbf
+source/fixtures/chg-010-activation-envelopes/POS-nested-assistant-skill-tool-use.jsonl 4c3271545fa7ab56
+source/fixtures/chg-010-activation-envelopes/UNUSABLE-empty-list-line.jsonl 37517e5f3dc66819
+source/fixtures/chg-010-activation-envelopes/UNUSABLE-scalar-line.jsonl 6acf4bff71c446b6
+source/fixtures/chg-010-activation-envelopes/UNUSABLE-tool-use-without-assistant-envelope.jsonl ba748b2f0c703d74
+source/fixtures/chg-010-activation-envelopes/UNUSABLE-truncated-json.jsonl 44e379d12daa31a5
+source/fixtures/chg-019-absence-disclosure/INDEX.json                  93b6240d02e61246
+source/fixtures/chg-019-absence-disclosure/NEG-false-absence-sectioned-target.md 2e49743f07cc2f59
+source/fixtures/chg-019-absence-disclosure/NEG-other-artifact-absence.md 859de89baf0d424d
+source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md     ab616cf9e67c16d1
+source/fixtures/chg-019-absence-disclosure/NEG-unreadable-then-cited.md afba088224b4cd1c
+source/fixtures/chg-019-absence-disclosure/POS-absence-with-unrelated-unknown.md 69cd70cfad9aec63
+source/fixtures/chg-021-receipt-spans/INDEX.json                       45f31d897951dd10
+source/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt          bfd016909dd704e5
+source/fixtures/chg-021-receipt-spans/NEG-absolute-suffix-in-other-root.terminal.txt a34d3a4c9a6aa907
+source/fixtures/chg-021-receipt-spans/NEG-bare-locator-no-digest.terminal.txt 74a3f9f48a469cb8
+source/fixtures/chg-021-receipt-spans/NEG-bare-plus-wrongroot-digest.terminal.txt 6cf1122cb33da9c8
+source/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt      1fdf81946a1f5d74
+source/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt d664a2a070a0dbc4
+source/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt      73a4bacbcca9d0e7
+source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-65-hex.terminal.txt c611edd15fab64fb
+source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-plus-in-root.terminal.txt 6288409e36f255d7
+source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-plus-suffix-filename.terminal.txt 7ceacb99b575cee4
+source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-span-decoy.terminal.txt 1368f96919387884
+source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-wrong-root-only.terminal.txt 4328133785ce16fb
+source/fixtures/chg-021-receipt-spans/r11-fresh/POS-exact-root-companion.terminal.txt 7c26b234b6035791
+source/fixtures/chg-021-receipt-spans/r11-fresh/POS-exact-root.terminal.txt 83797e0756b65f32
+source/fixtures/r8-flat-reference-cases/FIXTURE-INDEX.json             ece2d995e3c1864b
+source/fixtures/r8-flat-reference-cases/NEG-disclosed-other-unknown.md 435d41dd96d1eff4
+source/fixtures/r8-flat-reference-cases/NEG-undisclosed.md             c07af4eef2155528
+source/fixtures/r8-flat-reference-cases/POS-disclosed-sections.md      30cac1547fdc8274
+source/fixtures/r8-flat-reference-cases/TARGET-NO-SECTIONS.md          103bdc02105ace4c
+source/fixtures/scenario-project/TARGET-NO-SECTIONS.md                 103bdc02105ace4c
+source/fixtures/scenario-project/a.md                                  103bdc02105ace4c
+source/fixtures/scenario-project/docs/devforge/ideas/IDEAS-001.md      103bdc02105ace4c
+source/fixtures/scenario-project/docs/devforge/ideas/IDEAS-900.md      103bdc02105ace4c
+source/fixtures/scenario-project/docs/devforge/stories/STORY-014.md    8c9baa647231a350
+
+## case counts (static, read from source text; no suite was run)
+checks_suite  R11 cases:        12
+checks_suite  R11 identifiers:  14
+phase_suite   R11 scenarios:    24
+phase_suite   R10 scenarios:    49
+CHG-010 physical transcripts:   7
+r11-fresh receipt fixtures:     7
+R8 flat reference inputs:       5

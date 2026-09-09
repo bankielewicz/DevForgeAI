@@ -1,0 +1,154 @@
+#!/usr/bin/env python3
+"""Bounded phase controller (CR3-005).
+
+Every property this enforces exists because the previous run did not enforce it:
+
+- Attempt destinations are created exclusively. The old drivers deleted and
+  reused a directory, so a collision could never be observed, and "one attempt
+  per case" was an artifact of nothing having collided rather than a check.
+- Caps come from the assignment and are further clipped by the remaining
+  overall deadline, so an arm can never outlive the budget it was launched in.
+  C was configured at 1200s against an assigned 900s and nobody noticed,
+  because the number lived in the driver instead of in a checked declaration.
+- Identity is bound per arm from the current run, not inherited from whatever
+  the last driver happened to have in a constant. Thirteen manifests carried a
+  stale run ID for that reason.
+- Phase transitions consume checker output and recorded semantic decisions.
+  A model's own summary is not an input here. A required result that is
+  missing, unreadable or failed blocks the next phase; it never defaults open.
+- After a failure, no queued arm launches. Peers already running finish inside
+  their existing caps; unstarted arms are NOT_RUN, started-incomplete are
+  COULD_NOT_RUN.
+"""
+import concurrent.futures as cf, hashlib, json, os, sys, time
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RUN = os.path.dirname(HERE)
+sys.path.insert(0, os.path.join(RUN, "checkers"))
+
+
+def sha(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 16), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
+class Budget:
+    def __init__(self, start_epoch, total_s):
+        self.start, self.total = start_epoch, total_s
+
+    def remaining(self):
+        return self.start + self.total - time.time()
+
+    def cap_for(self, assigned):
+        """The lower of the per-arm cap and what is left overall."""
+        rem = self.remaining()
+        eff = int(min(assigned, max(rem - 30, 0)))
+        return eff, {"assigned_cap_s": assigned, "remaining_overall_s": round(rem, 1),
+                     "effective_cap_s": eff,
+                     "clipped_by": "remaining overall deadline" if eff < assigned else "assigned per-arm cap"}
+
+
+class Controller:
+    def __init__(self, freeze_path, budget):
+        self.freeze = json.load(open(freeze_path))
+        self.freeze_path = freeze_path
+        self.budget = budget
+        self.phases = {}
+        self.failed = False
+        self.decisions = []
+
+    # ---- freeze -------------------------------------------------------
+    def verify_freeze(self):
+        bad = []
+        roots = self.freeze.get("path_roots", {})
+        for rel, want in self.freeze["bound_hashes"].items():
+            p = rel
+            if not os.path.isabs(p):
+                pre = p.split("/", 1)[0]
+                p = (os.path.join(roots[pre], p.split("/", 1)[1])
+                     if pre in roots and "/" in p else os.path.join(RUN, p))
+            got = sha(p) if os.path.isfile(p) else None
+            if got != want:
+                bad.append({"path": rel, "declared": want, "actual": got})
+        rec = {"check": "freeze_binding", "bound": len(self.freeze["bound_hashes"]),
+               "mismatches": bad, "outcome": "PASS" if not bad else "FAIL"}
+        self.decisions.append(rec)
+        return not bad
+
+    # ---- attempt destinations ----------------------------------------
+    def claim_attempt(self, arm_id):
+        """Exclusive create. An existing destination is a collision, not a
+        directory to clean out: something else may own those bytes."""
+        d = os.path.join(RUN, "attempts", arm_id)
+        try:
+            os.makedirs(d)   # deliberately not exist_ok
+        except FileExistsError:
+            return None, {"arm": arm_id, "outcome": "REJECTED_PREEXISTING_DESTINATION",
+                          "path": d,
+                          "reason": "attempt destination already exists; refusing to launch a "
+                                    "model over another attempt's evidence"}
+        return d, None
+
+    # ---- gates --------------------------------------------------------
+    def gate(self, name, required_results, semantic_decisions):
+        """A phase decision built from checker files and recorded semantic
+        calls. Missing or unreadable is a failure, never a skip."""
+        rows, ok = [], True
+        for r in required_results:
+            p = r["path"] if os.path.isabs(r["path"]) else os.path.join(RUN, r["path"])
+            row = {"required": r["id"], "path": r["path"]}
+            if not os.path.isfile(p):
+                row.update(status="MISSING", outcome="FAIL")
+                ok = False
+            else:
+                row["sha256"] = sha(p)
+                try:
+                    d = json.load(open(p))
+                except Exception as exc:
+                    row.update(status="UNREADABLE", detail=str(exc)[:160], outcome="FAIL")
+                    ok = False
+                    rows.append(row)
+                    continue
+                val = d
+                for k in r["field"].split("."):
+                    val = (val or {}).get(k) if isinstance(val, dict) else None
+                row["value"] = val
+                row["expected"] = r["expect"]
+                row["outcome"] = "PASS" if val in r["expect"] else "FAIL"
+                if row["outcome"] == "FAIL":
+                    ok = False
+            rows.append(row)
+        sem = []
+        for s in semantic_decisions:
+            sem.append(s)
+            # MISSING arrives here when no decision was recorded for the arm.
+            # It fails like any other non-PASS: an absent judgement is not a
+            # favourable one.
+            if s["outcome"] not in ("PASS", "NOT_APPLICABLE_DECLARED"):
+                ok = False
+        dec = {"phase_gate": name, "mechanical": rows, "semantic": sem,
+               "decision": "PROCEED" if ok else "STOP",
+               "note": "Mechanical PASS does not infer semantic PASS; both are required and both "
+                       "are recorded separately. This gate consumes checker output and recorded "
+                       "per-case decisions, never a model's own summary."}
+        self.decisions.append(dec)
+        self.phases[name] = dec["decision"]
+        if not ok:
+            self.failed = True
+        safe = name.replace("/", "_").replace(":", "-")
+        os.makedirs(os.path.join(RUN, "decisions"), exist_ok=True)
+        with open(os.path.join(RUN, "decisions", "gate-%s.json" % safe), "w") as fh:
+            json.dump(dec, fh, indent=1)
+        return ok
+
+    def may_launch(self):
+        return not self.failed and self.budget.remaining() > 60
+
+    def save(self, path):
+        with open(path, "w") as fh:
+            json.dump({"freeze": self.freeze_path, "phases": self.phases,
+                       "decisions": self.decisions,
+                       "overall_remaining_s": round(self.budget.remaining(), 1)}, fh, indent=1)

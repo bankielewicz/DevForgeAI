@@ -1,0 +1,9 @@
+# Root status at revision-9 packet preparation
+
+R8 static review and baseline ruling are complete in review-r8/INTEGRATION-REVIEW.md and CONTROL-BASELINE-RULING.md. Claude has two inherited source findings plus executable controls outstanding and three proposal findings. Codex's proposal finding is addressed at proposal level only; its author is held without a new allocation. The two contributor-context sessions remain held.
+
+Root R2 source correction closed within its original clock; its frozen 232-test synthetic selection remains FAIL (five failures, nineteen errors, runtime socket/supervisor scope). The separate required-checks-r2 validation allocation started at 15:17:18Z and is in progress at this file's creation. A later separate closeout may bind its results without rewriting this historical status or upgrading prior failures. Provider/native admission is not dependent on an inferred PASS here.
+
+Reference-coverage v2 remains unissued. Same selected managed v1 only. Native startup preparation revision 4 remains untested/unreviewed. Root native clients: zero. No installed/native/human acceptance claim is granted. Root and all delegated work halt once the four prompts are delivered until the user replies.
+
+Prepared at 2026-09-07T15:23:56.521086+00:00. Later packet issuance/receipt creation is not already observed here.

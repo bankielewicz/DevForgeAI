@@ -1,0 +1,8 @@
+{
+  "artifact_id": "FIND-CLAUDE-1",
+  "candidate": "PKG-claude@1",
+  "next_owner": "integrator",
+  "run": "TRIAL-claude",
+  "scope": "unresolved shared handoff template alignment",
+  "state": "open"
+}

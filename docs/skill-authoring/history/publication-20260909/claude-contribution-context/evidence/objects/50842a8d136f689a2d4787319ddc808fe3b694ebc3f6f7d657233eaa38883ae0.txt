@@ -1,0 +1,39 @@
+{
+  "control_json_syntax": "PASS",
+  "python_ast": "PASS",
+  "operator_markdown_whitespace_fences": "PASS",
+  "selected_source_readback": "PASS",
+  "framework_main_status_unchanged": "PASS",
+  "companion_tracked_status_unchanged": "PASS",
+  "existing_brainstorm_assignments_unchanged": "PASS",
+  "models_launched": 0,
+  "preflights": {
+    "claude": {
+      "returncode": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"provider\": \"claude\",\n  \"session\": \"SESSION-004.md\",\n  \"worktree\": \"/home/bryan/Projects/DevForge/worktrees/claude-contribution-context\",\n  \"base\": \"c9298bd34ebb73bf598deec6253068d7f8b0ed59\",\n  \"candidate\": \"ABSENT\",\n  \"scope\": \"initial authoring inputs and declared fence; native execution NOT_RUN\"\n}\n",
+      "stderr": ""
+    },
+    "codex": {
+      "returncode": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"provider\": \"codex\",\n  \"session\": \"SESSION-003.md\",\n  \"worktree\": \"/home/bryan/Projects/DevForge/worktrees/codex-contribution-context\",\n  \"base\": \"c9298bd34ebb73bf598deec6253068d7f8b0ed59\",\n  \"candidate\": \"ABSENT\",\n  \"scope\": \"initial authoring inputs and declared fence; native execution NOT_RUN\"\n}\n",
+      "stderr": ""
+    }
+  },
+  "runtime_probes": {
+    "claude": {
+      "result_file": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-probe.json",
+      "sha256": "1dd06f05abb7ee3dc4f01d024683f1a03055a015584c768bee860b0646de58d2",
+      "scope": "8 mapping/process/filesystem assertions; no authentication or native model claim"
+    },
+    "codex": {
+      "result_file": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/codex-probe.json",
+      "sha256": "4f8654caab00c69bb9aed1f4df4c3b4e327408e5bbef4bc320af544e121704d3",
+      "scope": "8 mapping/process/filesystem assertions; no authentication or native model claim"
+    }
+  },
+  "candidate_state": {
+    "claude": "ABSENT",
+    "codex": "ABSENT"
+  },
+  "checked_at_utc": "2026-09-05T20:22:17.944802+00:00"
+}

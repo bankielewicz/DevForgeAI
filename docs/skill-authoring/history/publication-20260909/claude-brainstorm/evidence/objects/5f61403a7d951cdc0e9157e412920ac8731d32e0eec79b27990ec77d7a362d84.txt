@@ -1,0 +1,298 @@
+{
+ "schema_version": "devforge.package-derivation/v1",
+ "skill": "devforge-brainstorm",
+ "provider": "claude",
+ "recorded_at_utc": "2026-09-07T12:58Z",
+ "purpose": "Package-local copies must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by skill-authoring-contract revision 2, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
+ "selected_inputs_manifest": {
+  "store": "authority",
+  "root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc",
+  "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/INPUTS.json",
+  "sha256": "343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5",
+  "note": "The revision-7 selected input set. It pins the addendum, specification and runtime bytes cited below.",
+  "supersedes_manifest": {
+   "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/INPUTS.json",
+   "sha256": "36dbe4c0413c08f1aad370a2458c3196921f027ebc6c32487e59a6c75e88b0e3",
+   "note": "Selected the revision-1..4 asset copies below; those entries keep pointing at it."
+  }
+ },
+ "derivations": [
+  {
+   "destination": "assets/idea-ledger.md",
+   "destination_sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+   "kind": "asset: output template copied into the package",
+   "source": {
+    "artifact": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+    "revision": "selected at INPUTS.json; source_state 'unchanged at base' a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+    "store": "project",
+    "path": "docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+    "preserved_selected_copy": {
+     "store": "authority",
+     "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/templates/devforge-brainstorm/idea-ledger.md"
+    },
+    "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417"
+   },
+   "transformation": "none; byte-identical copy",
+   "verified": "destination_sha256 == source sha256"
+  },
+  {
+   "destination": "assets/handoff.md",
+   "destination_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+   "kind": "asset: output template copied into the package",
+   "source": {
+    "artifact": "docs/mvp/templates/shared/handoff.md",
+    "revision": "selected at INPUTS.json; source_state 'operator revision after base'",
+    "store": "project",
+    "path": "docs/mvp/templates/shared/handoff.md",
+    "preserved_selected_copy": {
+     "store": "authority",
+     "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/templates/shared/handoff.md"
+    },
+    "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+   },
+   "transformation": "none; byte-identical copy",
+   "supersedes_package_copy": {
+    "sha256": "0b7056c684b619ac15fe02515d8e3c682a60ad1844393f6245fbc2dcb81a3d1f",
+    "preserved_at": {
+     "store": "authority",
+     "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/candidate/assets/handoff.md",
+     "note": "revision-1 package copy, preserved verbatim in that review's candidate snapshot"
+    },
+    "difference": "the refreshed template excludes the handoff itself from its own output table and routes the handoff's own digest to an external receipt"
+   },
+   "verified": "destination_sha256 == source sha256"
+  },
+  {
+   "destination": "references/recording-rules.md",
+   "destination_sha256": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b",
+   "kind": "distilled reference: not a copy; a narrowed restatement of shared contract rules for this skill's situations",
+   "sources": [
+    {
+     "artifact": "artifact-contract",
+     "revision": 2,
+     "store": "project",
+     "path": "docs/mvp/artifact-contract.md",
+     "preserved_selected_copy": {
+      "store": "authority",
+      "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/artifact-contract.md"
+     },
+     "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+     "sections_used": [
+      "Standard envelope",
+      "Skill authoring evidence"
+     ]
+    },
+    {
+     "artifact": "execution-contract",
+     "revision": 2,
+     "store": "project",
+     "path": "docs/mvp/execution-contract.md",
+     "preserved_selected_copy": {
+      "store": "authority",
+      "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/execution-contract.md"
+     },
+     "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+     "sections_used": [
+      "Worktree assignment for concurrent sessions",
+      "Provider authoring and bootstrap evaluation"
+     ]
+    },
+    {
+     "artifact": "skill-authoring-contract",
+     "revision": 2,
+     "store": "project",
+     "path": "docs/mvp/skill-authoring-contract.md",
+     "preserved_selected_copy": {
+      "store": "authority",
+      "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/skill-authoring-contract.md"
+     },
+     "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+     "sections_used": [
+      "Client state and process ownership",
+      "Three separately reported evaluation tiers"
+     ]
+    },
+    {
+     "artifact": "SKILL-001",
+     "revision": 2,
+     "store": "project",
+     "path": "docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+     "preserved_selected_copy": {
+      "store": "authority",
+      "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/specifications/skill-001-devforge-brainstorm.md"
+     },
+     "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+     "sections_used": [
+      "Brainstorm-specific clarifications"
+     ]
+    }
+   ],
+   "transformation": "selected and rewritten for a brainstorming session's actual conditions (no session record, competing ownership, stale upstream, checks that could not run). It restates; it does not extend or waive the contracts. Where the two differ, the contracts govern.",
+   "verified": "destination_sha256 equals the bytes at references/recording-rules.md in this package",
+   "supersedes_package_copy": {
+    "sha256": "eed2ee6088e01895b26d0efcc6d39b8546c78fe883e00a2d4ac8256c5e4ce5e9",
+    "preserved_at": {
+     "store": "project",
+     "path": ".poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-prep-20260906T1506Z/baseline-package/references/recording-rules.md"
+    },
+    "prior_chain": [
+     {
+      "sha256": "c14d4efe5050a7f5a4e127bcc719a120ce541f50c9a2c3ecb333d6f8bee41421",
+      "preserved_at": {
+       "store": "project",
+       "path": ".poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-run-20260905T1500Z/starting-candidate/references/recording-rules.md"
+      }
+     },
+     {
+      "sha256": "0d69515aeb92628e6373faaf67714782333abb241234d5bafe71b948b9fdb99a",
+      "preserved_at": {
+       "store": "authority",
+       "path": "integration-reviews/claude-brainstorm-20260905T114005204165Z/candidate/references/recording-rules.md",
+       "note": "revision-1 package copy, preserved verbatim in that review's candidate snapshot"
+      }
+     },
+     {
+      "sha256": "190fa4529f63ce8cad99d0b4472c05d7d35f068ef210899ef02a5b1a9cd885ec",
+      "preserved_at": {
+       "store": "project",
+       "path": ".poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-run-20260905T1832Z/starting-candidate/references/recording-rules.md"
+      }
+     }
+    ],
+    "difference": "CR4-001 a sections claim names actual sections or the key is omitted, and a stand-in word is rejected with the absence disclosed; CR4-005 an artifact reference requires the target's own artifact_id and revision, while a file with no envelope is recorded as raw-file evidence keeping its native locator"
+   },
+   "prior_destination_sha256_chain": [
+    {
+     "sha256": "ff88e091474399c02849f2379a8998dc6d0fe93b8989d2982566f40c106a1a9c",
+     "revision": "004",
+     "note": "the digest this record still bound before revision 7; it was two writes stale"
+    },
+    {
+     "sha256": "bcae04bc9e6167f424b61eeaad8242eac762c22aa8b8d597b6262ef44cc3a9b7",
+     "revision": "006",
+     "note": "CP4-SC-001 causal-upstream section rule. Written 2026-09-07T20:18:10Z under SESSION-001@6, 687 seconds after that allocation's hard deadline; the budget FAIL for that write stands and is not repaired here."
+    }
+   ],
+   "revision_007_change": {
+    "what": "Removed the bundled-helper command from the producer.skill_revision row; kept the digest-scope distinctions and the `unknown` rule. Split receipt ownership in the digest-order section: the runtime publishes, reads back and returns it when managed, the message to the user carries it otherwise. Added the managed-runtime.md pointer.",
+    "why": "The addendum moves mechanical closeout to the protected runtime and forbids a hand-run helper chain, including as a fallback.",
+    "bound_to": [
+     {
+      "artifact": "AUTHORING-RUNTIME-BRIDGE.md",
+      "store": "authority",
+      "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/AUTHORING-RUNTIME-BRIDGE.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65"
+     }
+    ],
+    "preserved": "Every envelope, locator, ownership, stale-input and could-not-run rule is unchanged, including the revision-6 causal-upstream section wording."
+   }
+  },
+  {
+   "destination": "SKILL.md",
+   "destination_sha256": "2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4",
+   "kind": "instructions: authored in-package, not a copy; revised against the selected addendum and specification",
+   "prior_destination_sha256_chain": [
+    {
+     "sha256": "7d1322dc4c003b5d50885966d6b43c5b584f374e3aacc8e155850688114be1bc",
+     "revision": "004 through 006",
+     "note": "protected and unchanged across revisions 4-6; revision 7 is the first allocation whose fence permits editing it"
+    }
+   ],
+   "source": [
+    {
+     "artifact": "AUTHORING-RUNTIME-BRIDGE.md",
+     "store": "authority",
+     "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/AUTHORING-RUNTIME-BRIDGE.md",
+     "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65"
+    },
+    {
+     "artifact": "SKILL-DESIGN-SPECIFICATION.md",
+     "store": "authority",
+     "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/SKILL-DESIGN-SPECIFICATION.md",
+     "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1"
+    }
+   ],
+   "transformation": "Added an 'If a runtime is managing this session' section carrying only the essential behaviour and the pointer to references/managed-runtime.md, per the addendum's instruction to keep substantial conditional detail in the new reference. Replaced the model-owned closeout: the check_artifact.py invocation chain, the two-roots path construction that existed to support it, and the model-delivered receipt are gone. What replaced them keeps the artifact-contract semantics that were never about the helper - dependency-ordered hashing, no self-digest, a handoff absent from its own outputs table, reading every repeated reference back after the last write, placeholders meaning draft, and the skill_revision scope distinction.",
+   "preserved": "Frontmatter name and description are byte-identical, so activation and the existing trigger queries are untouched. The fabrication and silent-promotion framing, all four phase sections, delegation-versus-fresh-authorisation rules, origin/state/decision_ref attribution, split-merge lineage, stack-choice restraint, capability-gap honesty and the suggest/installed/invoked separation are unchanged.",
+   "claims_not_made": "No native activation, installed enforcement, hook registration or verified delivery is asserted. The runtime section is conditional on context the skill can actually observe, and the unmanaged path reports drafts.",
+   "verified": "destination_sha256 equals the bytes at SKILL.md in this package"
+  },
+  {
+   "destination": "references/managed-runtime.md",
+   "destination_sha256": "9fac0836bbf4695563a40bfdc5e7ae2ece330a5b2d2cabbc4cf6deda7d4d77b5",
+   "kind": "distilled reference: new file; narrowed restatement of the selected runtime interface",
+   "created_at_revision": "007",
+   "path_absent_before": true,
+   "source": [
+    {
+     "artifact": "AUTHORING-RUNTIME-BRIDGE.md",
+     "store": "authority",
+     "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/AUTHORING-RUNTIME-BRIDGE.md",
+     "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65"
+    },
+    {
+     "artifact": "SKILL-DESIGN-SPECIFICATION.md",
+     "store": "authority",
+     "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/SKILL-DESIGN-SPECIFICATION.md",
+     "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1"
+    },
+    {
+     "artifact": "runtime/README.md",
+     "store": "authority",
+     "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/runtime/README.md",
+     "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff"
+    },
+    {
+     "artifact": "runtime/phase_state.py",
+     "store": "authority",
+     "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/runtime/phase_state.py",
+     "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95"
+    },
+    {
+     "artifact": "runtime/hook_protocol.py",
+     "store": "authority",
+     "path": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/runtime/hook_protocol.py",
+     "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3"
+    }
+   ],
+   "transformation": "Restates only what a brainstorming session must do: the six-key devforge.brainstorm-checkpoint/v1 envelope and its 65,536-byte limit, the per-phase content fields, the awaiting_user form with exactly question and blocking_dependency, the ordinary Recover-Explore-Record-Focus path and the externally selected Recover-Focus handoff-only path, one bounded correction per phase, and the prohibition on running delivery or receipt helpers. Operator command surfaces, sandboxing, IO modes and supervisor internals are deliberately left out; the skill never invokes them.",
+   "field_shapes_bound_to": {
+    "checkpoint_keys_and_limit": "runtime/phase_state.py: _checkpoint enforces exactly {schema_version, task_id, phase, challenge, state, content}, 1..65536 bytes, and the awaiting_user content pair",
+    "phase_names": "runtime/phase_state.py: _PHASES['brainstorm'] == ('Recover','Explore','Record','Focus')",
+    "per_phase_content": "AUTHORING-RUNTIME-BRIDGE.md phase table",
+    "handoff_only_path": "runtime/README.md 'Phase and delivery scope' and the addendum"
+   },
+   "claims_not_made": "Design only. Hooks are not installed or activated, native admission is refused by the current launcher, and no validation of this reference was performed. A checkpoint is observed evidence, not proof of reasoning, adoption or completion.",
+   "verified": "destination_sha256 equals the bytes at references/managed-runtime.md in this package"
+  }
+ ],
+ "refresh_conditions": [
+  "Any source digest above changes in a newly selected input set: re-read the distilled references against the new bytes and update this record.",
+  "The integration owner selects a different addendum, specification or runtime revision for this assignment.",
+  "A destination digest here stops matching the file in the package: that is drift, and the package copy is stale until reconciled. Revision 7 repaired exactly that condition for references/recording-rules.md, which had been bound two writes behind.",
+  "The runtime interface changes shape - checkpoint keys, phase names, size limit or the waiting form - which invalidates references/managed-runtime.md until it is re-derived.",
+  "This record is refreshed by the skill author inside the skill's source fence. It records derivation only and does not modify, reinterpret or waive any shared template, contract or protected evaluation file.",
+  "A destination digest above is updated whenever its file is re-derived; the superseded package bytes are preserved in that run's starting-candidate snapshot."
+ ],
+ "self_reference_note": "This file does not carry its own digest; it is hashed by the run's source manifest like every other package file. No entry above records a digest of this record.",
+ "execution_ref": {
+  "record": "SESSION-001@7",
+  "store": "authority",
+  "path": "authoring-assignments-20260905/SESSION-001.md",
+  "sha256": "2664e1e995315ec102e10e70b3a8fc057713af7e4e7bebe98ccc619da5bc0c2e",
+  "issued_copy": "runtime-repairs/brainstorm-authoring-r7-20260907T114200Z/authority/SESSION-001-r7.md",
+  "note": "Verified equal to the issued revision-7 copy before any dependent write."
+ },
+ "referenced_not_modified": [
+  {
+   "path": "evals/reference-regressions.json",
+   "current_sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+   "prior_sha256": "a150f18ed3a43ba95ad09784c80b566843c3957973ff813b6906ea3c16eb589b",
+   "changed_at_revision": "006",
+   "change": "CP4-SC-005: the five declared fixture locators were rebased from evals/fixtures/b12/... to fixtures/b12/..., relative to the containing evals directory, and the b12a/b12d section assertions were clarified to match the causal-upstream ruling.",
+   "independently_verified": "claude-brainstorm-prep-005-20260907T022606743325Z/source-review/SOURCE-REVIEW.md records all five locators resolving and the three fixture files unchanged at 69952d6c..., 5aa37aa3... and 883155123....",
+   "status_in_revision_007": "Protected by this allocation's fence. Recorded here for provenance only; its bytes were not read for authorship and were not modified.",
+   "carried_finding": "That revision-6 write also landed after its allocation's deadline. The budget FAIL stands."
+  }
+ ]
+}

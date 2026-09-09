@@ -1,0 +1,9 @@
+{
+  "artifact_id": "SUMMARY-1",
+  "candidate": "PKG-claude@1",
+  "finding": "records/finding.json",
+  "producer": "synthetic author",
+  "receipt": "records/receipt.json",
+  "reported_outcome": "FAIL",
+  "run": "TRIAL-1"
+}

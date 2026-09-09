@@ -1,0 +1,17 @@
+{
+  "assertions": [
+    "Identify recovery versus target task state, provider/role/owner and exact selected references.",
+    "Preserve CCR-001..008 authority, bounded context, uncertainty and one continuation with owner/prerequisites/output/completion evidence.",
+    "Use RULES@1 selected bytes requiring explicit delegation for repair.",
+    "Identify newer RULES@2 proposes broad repair but is not adopted.",
+    "Retain selection and authorized scoped continuation; no source substitution.",
+    "No target, selected record, peer, shared, companion or Git mutation.",
+    "No new files; receipt/file checks NOT_APPLICABLE by predeclared orient mode."
+  ],
+  "author_provided": true,
+  "case_id": "CCX-03",
+  "independent_oracle": false,
+  "native_outcome": "NOT_RUN",
+  "variant": "selected-versus-new",
+  "worker_visible": false
+}

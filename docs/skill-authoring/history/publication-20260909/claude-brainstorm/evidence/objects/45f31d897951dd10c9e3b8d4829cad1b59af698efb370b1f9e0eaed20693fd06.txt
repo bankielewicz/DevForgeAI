@@ -1,0 +1,143 @@
+{
+ "change_id": "CHG-021",
+ "original_finding_id": "CC8-PROP-003",
+ "targets": {
+  "docs/devforge/ideas/IDEAS-001.md": "894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f"
+ },
+ "executed": false,
+ "cases": [
+  {
+   "fixture": "NEG-span-decoy.terminal.txt",
+   "expect": "FAIL",
+   "why": "A valid bare locator with no digest makes locator_occurrences nonempty; the only digest-bearing occurrence is under a root nobody selected. Baseline revision 2 rescanned the whole response and accepted it. Revision 3 admits a record only at a validated span, so the wrong-root occurrence supplies no record and this fails with 'locator outside any record'.",
+   "baseline_r7_behaviour": "PASS (the defect CC7-002 names)"
+  },
+  {
+   "fixture": "NEG-wrong-root-only.terminal.txt",
+   "expect": "FAIL",
+   "why": "Simple wrong-root case, retained. locator_occurrences already excludes a relative suffix preceded by a separator, so locs is empty and check() fails on path_delivered=false.",
+   "baseline_r7_behaviour": "FAIL",
+   "corrects": "The r8 proposal claimed this case passes the baseline. It does not; that claim is withdrawn here."
+  },
+  {
+   "fixture": "POS-exact-root.terminal.txt",
+   "expect": "PASS",
+   "why": "Exact selected-root locator in a declared record shape carrying the whole 64-character digest."
+  },
+  {
+   "fixture": "NEG-65-hex.terminal.txt",
+   "expect": "FAIL",
+   "why": "A 65-character hex run is not a digest token. Baseline revision 2 matched a 64-character window inside it; revision 3 guards both sides.",
+   "baseline_r7_behaviour": "PASS (the defect CHG-006 names)"
+  }
+ ],
+ "still_required_not_authored_here": "Both long swapped-pair negatives are retained from the r7 inventory and are not re-authored in this allocation; they are unchanged expectations, not new cases.",
+ "r10_cases": [
+  {
+   "fixture": "NEG-bare-locator-no-digest.terminal.txt",
+   "expect": "FAIL",
+   "change_id": "CHG-021",
+   "predicate": "a valid bare locator with no digest anywhere is not a receipt record"
+  },
+  {
+   "fixture": "NEG-bare-plus-wrongroot-digest.terminal.txt",
+   "expect": "FAIL",
+   "change_id": "CHG-021",
+   "predicate": "the exact valid locator appears with no digest, and the true digest appears against a wrong-root locator; the decoy must not lend its digest to the bare occurrence"
+  },
+  {
+   "fixture": "NEG-absolute-suffix-in-other-root.terminal.txt",
+   "expect": "FAIL",
+   "change_id": "CHG-021",
+   "finding": "CC9-RR-002",
+   "predicate": "/other//work/arm/a.md ends in the selected sandbox locator but is a path under an unselected root; the locator-ownership guard must reject the occurrence before any record is read at it"
+  }
+ ],
+ "r11_fresh_variants": {
+  "why": "FIXTURE-SELECTION legacy-894e-receipt-fixtures. The four original fixtures declare 894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f, and no selected target hashes to it. Consuming them would make every case fail on a target-hash mismatch, which is not the receipt predicate any of them is about. Inventing preimage bytes for that digest is forbidden and would be fabrication. So the originals are preserved raw and unconsumed, and these fresh variants keep each one's locator/association and 64-versus-65-hex structure while binding the selected target's actual digest.",
+  "selected_target": {
+   "artifact_id": "IDEAS-900",
+   "revision": 1,
+   "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "bytes": 149,
+   "staged_at": "<scenario-project-root>/docs/devforge/ideas/IDEAS-001.md",
+   "scope": "Receipt-ownership fixture only. The staged path is a receipt locator label; it is not a claim that the target's artifact identity changed."
+  },
+  "originals_preserved_unconsumed": true,
+  "consumed_by_the_suite": "the fresh variants",
+  "mapping": [
+   {
+    "original_fixture": "POS-exact-root.terminal.txt",
+    "original_declared_digest": "894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f",
+    "original_sha256": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59",
+    "fresh_fixture": "r11-fresh/POS-exact-root.terminal.txt",
+    "fresh_sha256": "83797e0756b65f3232838ddd419869b9275b57ccbfdb49a7aedfd0ed501270a1",
+    "declared_digest_in_fresh": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+    "change": "same locator/association structure; the declared digest is the selected target's actual digest instead of the historical 894e600c... whose preimage is not selected"
+   },
+   {
+    "original_fixture": "NEG-65-hex.terminal.txt",
+    "original_declared_digest": "894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f",
+    "original_sha256": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f",
+    "fresh_fixture": "r11-fresh/NEG-65-hex.terminal.txt",
+    "fresh_sha256": "c611edd15fab64fb313c135573043b5ac5ee4c7a7e259e90792a21bb97bdcb27",
+    "declared_digest_in_fresh": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+    "change": "same 65-character run structure, built from the real digest plus one trailing hex character, so the negative is about token length and not about an unknown target"
+   },
+   {
+    "original_fixture": "NEG-span-decoy.terminal.txt",
+    "original_declared_digest": "894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f",
+    "original_sha256": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae",
+    "fresh_fixture": "r11-fresh/NEG-span-decoy.terminal.txt",
+    "fresh_sha256": "1368f96919387884257813418a7583a2660c9bf775db2dd2e5a253d3b538ad5c",
+    "declared_digest_in_fresh": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+    "change": "same preceding-file decoy structure; IDEAS-002 carries the real digest and IDEAS-001 follows with none, so the negative is about association rather than a target mismatch"
+   },
+   {
+    "original_fixture": "NEG-wrong-root-only.terminal.txt",
+    "original_declared_digest": "894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f",
+    "original_sha256": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44",
+    "fresh_fixture": "r11-fresh/NEG-wrong-root-only.terminal.txt",
+    "fresh_sha256": "4328133785ce16fbe610aa054210a90fefb0b4b6b0c368ebd69a331e123aa229",
+    "declared_digest_in_fresh": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+    "change": "same wrong-root structure with the real digest, so the rejection is locator ownership, not an unmatched hash"
+   }
+  ]
+ },
+ "r11_punctuation_cases": [
+  {
+   "fixture": "r11-fresh/NEG-plus-in-root.terminal.txt",
+   "expect": "FAIL",
+   "finding": "CC10-RR-002",
+   "predicate": "/other+/work/arm/a.md is a different complete path; the promised locator must not match as a substring after a filename-legal character",
+   "must_not_fail_for": "target mismatch or digest length; the digest is the promised file's real digest"
+  },
+  {
+   "fixture": "r11-fresh/NEG-plus-suffix-filename.terminal.txt",
+   "expect": "FAIL",
+   "finding": "CC10-RR-002",
+   "predicate": "/work/arm/a.md+backup is a different filename; a trailing filename-legal character means the token is not the promised locator"
+  },
+  {
+   "fixture": "r11-fresh/POS-exact-root-companion.terminal.txt",
+   "expect": "PASS",
+   "finding": "CC10-RR-002",
+   "predicate": "the exact selected sandbox-absolute locator with its own real digest still passes, so the two negatives above are about ownership and not about a tightened matcher rejecting everything"
+  }
+ ],
+ "r11_short_decoy_case": {
+  "fixture": "NEG-bare-plus-wrongroot-digest.terminal.txt",
+  "expect": "FAIL",
+  "finding": "CC10-RR-003",
+  "glue_chars": 35,
+  "predicate": "the valid bare locator on line 1 must not borrow the digest introduced on line 2 by /other//work/arm/a.md; assert the INTERVENING_LOCATOR association rejection",
+  "must_not_fail_for": "the 40-character glue cap; the physical glue is 35 characters, so a length cap does not fire and cannot stand in for the association predicate",
+  "staged": {
+   "target_sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+   "promised_relative": "a.md",
+   "promised_sandbox_absolute": "/work/arm/a.md",
+   "sandbox_root": "/work/arm",
+   "staged_file": "<scenario-project-root>/a.md"
+  }
+ }
+}

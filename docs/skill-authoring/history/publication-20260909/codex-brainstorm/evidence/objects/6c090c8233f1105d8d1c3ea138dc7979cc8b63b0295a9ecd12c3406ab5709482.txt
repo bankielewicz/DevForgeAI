@@ -1,0 +1,73 @@
+{
+  "observed_at_utc": "2026-09-06T17:33:07.194702+00:00",
+  "assignment": "SESSION-002@6",
+  "admitted_attempts": 1,
+  "cases": [
+    {
+      "case": "C-candidate",
+      "admitted_attempts": 1,
+      "grade": "grades/C-candidate.json",
+      "grade_sha256": "d32f5c00d9f4481b4e8c87de3d3ee4474b70e560195f8b380ebe01439d46ac82",
+      "named_behavior": "PASS",
+      "reference_identity": "PASS",
+      "byte_delivery": "PASS",
+      "chronology": "COULD_NOT_RUN",
+      "required_delivery": "COULD_NOT_RUN",
+      "overall_case": "COULD_NOT_RUN",
+      "missing_required_coverage": [],
+      "native_completion": "PASS"
+    },
+    {
+      "case": "B6-candidate",
+      "admitted_attempts": 0,
+      "grade": "grades/B6-candidate.json",
+      "grade_sha256": "fa228504723ab74daaa283fa8b43e58eded32bd4833c7b14947818f254f2f433",
+      "named_behavior": "NOT_RUN",
+      "reference_identity": "NOT_RUN",
+      "byte_delivery": "NOT_RUN",
+      "chronology": "NOT_RUN",
+      "required_delivery": "NOT_RUN",
+      "overall_case": "NOT_RUN",
+      "missing_required_coverage": [],
+      "native_completion": "NOT_RUN"
+    },
+    {
+      "case": "B6E-drift",
+      "admitted_attempts": 0,
+      "grade": "grades/B6E-drift.json",
+      "grade_sha256": "47e7a4404440f86a3f7a851901428e0b8a54909171f308ba264931c0cce5edc1",
+      "named_behavior": "NOT_RUN",
+      "reference_identity": "NOT_RUN",
+      "byte_delivery": "NOT_RUN",
+      "chronology": "NOT_RUN",
+      "required_delivery": "NOT_RUN",
+      "overall_case": "NOT_RUN",
+      "missing_required_coverage": [],
+      "native_completion": "NOT_RUN"
+    },
+    {
+      "case": "B6E-control",
+      "admitted_attempts": 0,
+      "grade": "grades/B6E-control.json",
+      "grade_sha256": "689c93bc7ab050b50397efcff678f293d9b7da3439704f2ce099af9893392638",
+      "named_behavior": "NOT_RUN",
+      "reference_identity": "NOT_RUN",
+      "byte_delivery": "NOT_RUN",
+      "chronology": "NOT_RUN",
+      "required_delivery": "NOT_RUN",
+      "overall_case": "NOT_RUN",
+      "missing_required_coverage": [],
+      "native_completion": "NOT_RUN"
+    }
+  ],
+  "hard_deadline_utc": "2026-09-06T17:56:56.525048+00:00",
+  "cap_seconds": 600,
+  "maximum_concurrent_workers": 1,
+  "phase_decision": "STOP after incomplete full C; no B6/B6E phase call",
+  "retries": 0,
+  "transport_failures_observed": 0,
+  "separate_approval_decision_payload": "NOT_OBSERVABLE; required escalation requested and running tool handle returned",
+  "human_usefulness_adoption": "NOT_RUN",
+  "canonical_integration": "NOT_RUN",
+  "next_skill": "NOT_RUN"
+}

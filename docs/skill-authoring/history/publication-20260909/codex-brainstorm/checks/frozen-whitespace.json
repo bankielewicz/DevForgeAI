@@ -1,0 +1,12 @@
+{
+  "observations": [
+    {
+      "kind": "frozen evidence",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/assets/skill-design-specification-template.md",
+      "published_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/c9c310037d82ccf7cab62b97d9739d1bb1e5e2637db56f16e3ddb2398492a06f.txt",
+      "lines_with_trailing_whitespace": 38,
+      "disposition": "PRESERVED_EXACT_FROZEN_BYTES"
+    }
+  ],
+  "meaning": "Historical whitespace is preserved, not corrected or treated as new semantic validation."
+}

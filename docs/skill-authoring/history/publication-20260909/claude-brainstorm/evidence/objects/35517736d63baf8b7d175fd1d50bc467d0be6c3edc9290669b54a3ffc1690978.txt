@@ -1,0 +1,130 @@
+{
+  "schema_version": "devforge.fixed-fixture-selection/v1",
+  "status": "SELECTED_BYTES_AND_PROSPECTIVE_STAGING_CONTRACT_AUTHORING_ONLY",
+  "source_roots": {
+    "retained_reference_cases": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/selected/claude/reference-fixtures-r8",
+    "current_physical_cases": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/selected/claude/effective-controls-r10/fixtures",
+    "current_candidate_fixtures": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/selected/claude/candidate/devforge-brainstorm/evals/fixtures"
+  },
+  "known_targets": {
+    "no_sections": {
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/selected/claude/reference-fixtures-r8/TARGET-NO-SECTIONS.md",
+      "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+      "bytes": 149,
+      "artifact_id": "IDEAS-900",
+      "revision": 1,
+      "body_headings": []
+    },
+    "sectioned": {
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/selected/claude/candidate/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "bytes": 1232,
+      "artifact_id": "STORY-014",
+      "revision": 3,
+      "body_headings": [
+        "Story: expire trail condition reports after 72 hours",
+        "Statement",
+        "Acceptance criteria",
+        "Notes"
+      ],
+      "preserve_target_bytes": true,
+      "target_internal_upstream": "ARCH-002 rev4 remains its original incomplete fixture metadata; do not manufacture recursive completeness."
+    }
+  },
+  "scenarios": [
+    {
+      "id": "retained-r8-flat-reference-cases",
+      "inputs": [
+        "FIXTURE-INDEX.json",
+        "TARGET-NO-SECTIONS.md",
+        "POS-disclosed-sections.md",
+        "NEG-disclosed-other-unknown.md",
+        "NEG-undisclosed.md"
+      ],
+      "stage_root": "<scenario-project-root>",
+      "store_roots": {
+        "project": "<scenario-project-root>"
+      },
+      "target_relative_path": "TARGET-NO-SECTIONS.md",
+      "target_sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+      "preserve_all_five_bytes": true,
+      "expected": [
+        "same-artifact actual section absence PASS",
+        "same-ID unrelated unknown FAIL",
+        "missing disclosure FAIL"
+      ],
+      "assertions": "Actual target availability/identity/hash must first match; assert disclosure-specific classification/reason."
+    },
+    {
+      "id": "r10-ideas900-reference-physical-cases",
+      "target_source": "known_targets.no_sections",
+      "stage_root": "<scenario-project-root>",
+      "store_roots": {
+        "project": "<scenario-project-root>"
+      },
+      "target_relative_path": "docs/devforge/ideas/IDEAS-900.md",
+      "target_sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+      "preserve_target_bytes": true,
+      "reference_inputs": [
+        "NEG-other-artifact-absence.md",
+        "NEG-unreadable-then-cited.md",
+        "POS-absence-with-unrelated-unknown.md"
+      ],
+      "assertions": "Consume physical source bytes or explicitly staged exact bytes, including the exact unreadable and mixed clauses."
+    },
+    {
+      "id": "r10-unresolved-reference-physical-cases",
+      "fresh_run_edits_required": true,
+      "changes": {
+        "NEG-unknown-sections.md": "Rebind the full upstream/disclosure identity to selected IDEAS-900 rev1 at docs/devforge/ideas/IDEAS-900.md with exact selected target digest; remove old IDEAS-008/all-zero placeholder only in fresh fixture copy.",
+        "NEG-false-absence-sectioned-target.md": "Set full upstream to selected STORY-014 revision3 at docs/devforge/stories/STORY-014.md with exact selected digest; current revision1 and placeholder digest are both wrong. Preserve target STORY bytes and absent-sections negative intent."
+      },
+      "expected": "Unavailable/schema/revision/hash setup failures cannot stand in for intended unknown/heading predicate rejection."
+    },
+    {
+      "id": "exact-short-receipt-physical-decoy",
+      "input": "selected/claude/effective-controls-r10/fixtures/chg-021-receipt-spans/NEG-bare-plus-wrongroot-digest.terminal.txt",
+      "target_source": "known_targets.no_sections",
+      "sandbox_root": "/work/arm",
+      "promised_project_relative": "a.md",
+      "promised_sandbox_absolute": "/work/arm/a.md",
+      "promised_sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+      "staged_file": "<scenario-project-root>/a.md",
+      "terminal_bytes": "Preserve exact two physical lines, including sha256 of /other//work/arm/a.md is and 35-character glue.",
+      "expected": "FAIL specifically for wrong-root/intervening-owner digest association; not length cap or target mismatch."
+    },
+    {
+      "id": "receipt-absolute-suffix-and-new-punctuation",
+      "target_source": "known_targets.no_sections",
+      "sandbox_root": "/work/arm",
+      "promised_project_relative": "a.md",
+      "staged_file": "<scenario-project-root>/a.md",
+      "promised_sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+      "retained_input": "NEG-absolute-suffix-in-other-root.terminal.txt",
+      "new_exact_shapes": [
+        "/other+/work/arm/a.md  <current64hex>",
+        "/work/arm/a.md+backup  <current64hex>"
+      ],
+      "positive_companion": "/work/arm/a.md  <current64hex>",
+      "expected": "Complete-token ownership rejection of negatives; selected exact-root positive passes."
+    },
+    {
+      "id": "legacy-894e-receipt-fixtures",
+      "inputs": [
+        "POS-exact-root.terminal.txt",
+        "NEG-65-hex.terminal.txt",
+        "NEG-span-decoy.terminal.txt",
+        "NEG-wrong-root-only.terminal.txt"
+      ],
+      "declared_historical_digest": "894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f",
+      "raw_inputs_preserved": true,
+      "fresh_run_binding_rule": "Do not invent preimage bytes for this digest. Author explicitly mapped fresh physical variants against known selected target bytes and actual digest, preserving locator/association/64-versus65-hex structure. Record exact original-to-fresh fixture byte changes and consume those fresh variants. No generic mismatched-target FAIL may stand in for receipt predicate evidence.",
+      "selected_target_source": "known_targets.no_sections",
+      "promised_project_relative": "docs/devforge/ideas/IDEAS-001.md",
+      "staged_file": "<scenario-project-root>/docs/devforge/ideas/IDEAS-001.md",
+      "scope": "Receipt ownership fixture only; path label is not a claim to change target artifact identity.",
+      "retained_positives_and_negatives": "Exact relative/sandbox-root, Markdown wrappers, table, sha256sum, adjacent labels and both long swapped-pair scenarios remain required."
+    }
+  ],
+  "runtime_note": "Scenario roots and future staging are authored code/fixture contracts, not an executed sandbox or native installation. All fixtures NOT_RUN. No current source file or historical fixture is edited by this packet."
+}

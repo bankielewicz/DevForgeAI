@@ -1,0 +1,54 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SESSION-002"
+artifact_type: "session-record"
+project_id: "devforgeai"
+revision: 6
+status: draft
+created_at_utc: "2026-09-06T16:41:41.752381+00:00"
+producer:
+  skill: "integration-operator"
+  skill_revision: "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+execution_ref: null
+upstream: []
+evidence:
+  - store: authority
+    path: "integration-reviews/codex-brainstorm-revise-004-20260906T161054829344Z/INTEGRATION-REVIEW.md"
+    sha256: "057165b1d660774fca70a0589c6aec3dad8dd0d0203f9bd042affc3567edfd7a"
+supersedes:
+  artifact_id: "SESSION-002"
+  revision: 5
+  store: authority
+  path: "integration-reviews/codex-brainstorm-revise-004-20260906T161054829344Z/authority/SESSION-002.md"
+  sha256: "8dad264b66048dad5cc14ea6a7f779c24a4f2a1c9b403309660ccf06c3e805e0"
+decision_ref: null
+missing_inputs: []
+---
+
+# Codex brainstorm author assignment: evaluation 005
+
+- Owner: same user-selected Codex author continuation as SESSION-002@5; one retained isolated writer. Ownership remains retained through handback until the integration operator explicitly changes it. This record does not launch a replacement author.
+- Authority: user's instruction to proceed with dual-provider brainstorm closeout, including root review and bounded follow-up by existing authors. This author evaluation is not human usefulness/adoption, acceptance, canonical integration or permission to advance the next capability.
+- Task: one evaluation-only iteration on the unchanged reviewed revision-004 candidate. Read the complete root review and `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-004-20260906T161054829344Z/CODEX-EVALUATE-005.md` before acting. The preserved identical assignment is in this review's authority/SESSION-002-r6.md.
+- Worktree: `/home/bryan/Projects/DevForge/worktrees/codex-brainstorm`; branch `author/codex-brainstorm-mvp`; HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`; common Git directory `/home/bryan/Projects/DevForge/framework/DevForgeAI/.git`. Git operations are read-only. Preserve expected dirty files and generated caches.
+- Current execution reference: SESSION-002@6, store authority, path authoring-assignments-20260905/SESSION-002.md under `/home/bryan/Projects/DevForge/framework/DevForge/.poc`, with this record's actual complete-byte digest. The current path must match the preserved issued record before allocated work.
+
+## Exact inputs, output and boundaries
+
+- Source selection: `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-brainstorm-revise-004-20260906T161054829344Z/next-inputs/INPUTS.json`, SHA-256 `be1b8850e7ef811f1d566f4d6d2a8dbb854a696421b5a6fe8a7a9fc7df0cca61`. Verify all 29 candidate files and selected shared/tool/input pins. The reviewed final candidate manifest is `76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4`.
+- **Source write fence: empty.** No package edit, including derivation, evals, assets or runtime helpers, is assigned. Package derivation's prior SESSION-002@5 records authoring provenance; run-side evaluation uses SESSION-002@6. The C fixture's historical SESSION-002@2 stays unchanged.
+- New output fence: exactly one exclusively created run under `.poc/codex/devforge-brainstorm-workspace/runs/`. All new run-side controls, administrative records, installations, private client state and reports stay there. Preserve every historical run, baseline and custody record.
+- Reuse selected runtime/grading logic unchanged. Before freeze, run-side administrative paths, authority references, budget/deadline, inventories and staging/freezing bookkeeping may be adapted to this allocation. No semantic runner/grader/checker change or weakened criterion is assigned. Keep full explicit manual review, including strict identity field types and real source-section resolution.
+- Companion stays at `6983f1de3e06f9b422546fd6944888dcd34e56a1`; installer SHA-256 `f9a8da5d550f261ae3baf53a0f8b707315ab1beff7120d88dc8867af4c57930e`; executable SHA-256 `1139a7f2a572be3b18d8a6ff6cd1dbb3ea88dbbfe4be42462b60082860c0daf1`. Existing validator/test changes are operator-owned. No companion write is assigned.
+- Main framework's shared contracts, operator-owned document changes, newer identity documentation, manifests, sibling providers/skills, AGENTS.md, Git metadata and authority/review records remain protected. The root operator owns any eventual canonical integration.
+- Authentication of author ownership remains a human-owned conversational assignment; cryptographic identity verification is NOT_PERFORMED. No global-state changes, credential copying/logging, API-key setup, broad process signals, commits, merges, pushes, external messages, publication or next-skill work are assigned.
+
+## Bounded execution and handback
+
+- Record the actual first-work start and a hard deadline at most 60 minutes later before other preparation. Preparation and approval time count. One candidate freeze, at most four native attempts, 600 seconds each, at most two simultaneous. No retries, timeout escalation, baseline, full A suite, unrelated B or repeated full process campaign.
+- Use the standard `tools.exec_command` approval route with `sandbox_permissions: "require_escalated"` from the first native phase, naming the exact frozen command and this bounded allocation. Keep the selected independent Bubblewrap consumer boundary and native `--sandbox workspace-write` unchanged. Freeze the requested outer launch specification before measurement and preserve actual approval/transport/handle evidence. A rejected or unavailable approval stops new launches; no automatic retry or unconfined/default-sandbox fallback.
+- Each native client has a fresh installation and exclusively created private state, with selected read-only subscription authentication and observed filesystem/PID/visibility boundaries. Credential contents remain unread and uncopied. Missing required isolation/authentication or changed frozen input stops dependent work.
+- C1 must fully pass installed-resource, behavior, complete reference, chronological delivery and native-completion checks before original B6. B6 must fully pass before B6E-drift/control. Preserve exact four-case prompts/fixtures and full manual grading. A failed or unavailable required observation stops all remaining unstarted arms; already-running peers finish under original caps. Unstarted arms remain NOT_RUN.
+- Preserve revision-004 C COULD_NOT_RUN, B NOT_RUN, and native exit/duration/termination NOT_OBSERVABLE. The original outer tool's terminal failure does not replace a missing native receipt. Do not rewrite historical output or infer behavior from missing events.
+- Save one collision-free named final report, read it back completely, and publish a separate receipt with actual target digests. Return both absolute paths and 64-character SHA-256 values. Do not include a self-digest in either artifact or retrospectively turn creation-time NOT_RUN into PASS.
+- Ownership remains **SESSION-002@6 retained for root review** after handback. Human usefulness/adoption, canonical integration and advancement to the next skill remain NOT_RUN.

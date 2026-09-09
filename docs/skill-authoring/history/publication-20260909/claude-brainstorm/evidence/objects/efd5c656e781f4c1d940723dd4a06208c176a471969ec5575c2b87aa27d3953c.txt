@@ -1,0 +1,56 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SESSION-001"
+artifact_type: "session-record"
+project_id: "devforgeai"
+revision: 8
+status: draft
+created_at_utc: "2026-09-07T14:08:59.534640+00:00"
+producer:
+  skill: "integration-operator"
+  skill_revision: "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+execution_ref: null
+upstream: []
+evidence:
+  - store: authority
+    path: "runtime-repairs/brainstorm-authoring-r8-20260907T140859534640Z/INPUTS.json"
+    sha256: "374d5a3fccaedf27149b8ca1eca0cebced6f7fd2e44e6aaa94572e67bf6518ec"
+supersedes:
+  artifact_id: "SESSION-001"
+  revision: 7
+  store: authority
+  path: "runtime-repairs/brainstorm-authoring-r8-20260907T140859534640Z/authority/SESSION-001-r7.md"
+  sha256: "2664e1e995315ec102e10e70b3a8fc057713af7e4e7bebe98ccc619da5bc0c2e"
+decision_ref: null
+missing_inputs: []
+---
+
+# Claude brainstorm: bounded revision-8 repair allocation
+
+Owner remains the same user-selected retained Claude brainstorm author. One isolated writer; ownership persists through handback. This is a new preparation allocation, not a restart of revision 7 or native evaluation. Effective only when current authority `/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md` exactly equals this issued revision-8 file and the packet ISSUANCE.json records both successful authority transitions. No user reconfirmation is required after those conditions hold.
+
+Record the actual first-work UTC timestamp before any other assignment reading/preparation; create exactly one exclusive directory below `/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/`. All reading, preparation, waiting and closeout count from that first timestamp. Set a hard deadline at most 120 minutes later and reserve the final 20 minutes for freeze/report/readback/receipt. Stop technical edits at the reserve boundary and deliver an honest partial by that original deadline. No reset, extension or automatic second cycle. This authority does not set the clock to its publication time. Do not rewrite prior clock or run files.
+
+## Preconditions
+
+Selected worktree `/home/bryan/Projects/DevForge/worktrees/claude-brainstorm`; branch `author/claude-brainstorm-mvp`; HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`; common Git directory `/home/bryan/Projects/DevForge/framework/DevForgeAI/.git`. Git is read-only. Verify those identities, current authority/issuance, INPUTS.json SHA-256 `374d5a3fccaedf27149b8ca1eca0cebced6f7fd2e44e6aaa94572e67bf6518ec`, and every selected candidate path/hash and preserved exclusion before dependent edits. Compare against `review-r7/inputs/claude/candidate/devforge-brainstorm`. Unexpected drift/collision stops affected work; preserve and report it without resetting or overwriting. After authorized edits, continuation uses recorded in-progress bytes, not an initial-manifest rollback.
+
+Read the complete REMEDIATION-SPECIFICATION.md, REPAIR-MAP.json, ROOT-STATUS.md, retained SKILL-DESIGN-SPECIFICATION-r7.md and AUTHORING-RUNTIME-BRIDGE-r7.md. Read the complete root review/receipt and your provider's two complete scoped narrative reviews with relevant finding evidence. Use the copied provider shared documents, source/run baselines and selected creator/builder guidance from INPUTS.json. Authority @8 and remediation specification govern allocation/scope; the original design's semantic requirements and same v1 bridge remain selected. Later mutable shared/runtime sources and prospective v2 are not authority.
+
+## Write fence and requested work
+
+Source directory: `/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm`. Only SKILL.md, references/recording-rules.md, references/derivation.json and references/managed-runtime.md may change inside the selected source directory. The existing managed reference is present. Preserve the other 16 files and exact discovery description. No additional source paths, deletion or renaming.
+
+Only this source fence (if any) plus your one new run is writable. Prior runs/criteria/reports/review custody and current/issued authority are read-only to you. No shared contract, provider manifest, installed cache, hook configuration, runtime/installer, sibling provider, other skill, AGENTS.md, canonical integration tree or Git metadata writes. Preserve user/operator edits and caches. Fresh control copies are preparation artifacts, not installed skill source.
+
+Apply the provider-specific CHGs in REPAIR-MAP.json following REMEDIATION-SPECIFICATION.md. Preserve original finding IDs/severity and existing workflow classifications. Source edits do not close findings. Record applied/deferred/declined with before/after bindings and retained requirements. A precise partial is preferable to crossing the original reserve/deadline; no added allocation is implied. Keep root-owned unsupported runtime/native work explicitly deferred.
+
+## Creator and execution limits
+
+Actually invoke the selected native Anthropic skill-creator in this retained Claude session and record its real observable result, or COULD_NOT_RUN with reason. Do not substitute another provider/client or infer invocation from copied bytes. Apply captured builder guidance as authoring guidance only.
+
+New native workers/graders/model calls 0; tests/suites/fixture executions 0; validator/linter/helper execution 0; compilation 0; installations/exports 0; hook activation 0. Do not import or execute authored scripts, even against your own report. Standard-library read-only JSON parsing and file custody reads/hashes/writes are permitted for inspection; those are not validation. No delegation that spawns new models or prohibited execution. No credentials/private-history reads, global mutation, API-key setup, broad signals, external messages, commits, merges, pushes, publication, acceptance or next-capability work.
+
+## Required handback and stop
+
+Within the same run save CLOCK, unchanged baseline inputs, final complete selected candidate copies/manifest, proposal inventory, AUTHORING-RECORD.md, builder change receipt, one named report and separate external receipt. Distinguish source authored/unchanged/partial, creator selection/invocation/application, validation NOT_PERFORMED, hooks DESIGN_ONLY, current native C/B/A NOT_RUN, root admission NOT_RUN and human acceptance NOT_RUN. Preserve all historical outcomes and budget findings. Read back complete final source/proposal/report bytes, then publish the separate receipt with absolute paths and full SHA-256 values. No self digest; creation-time NOT_RUN is not retroactively rewritten. Return report, manifest and receipt paths/digests and hold for independent root review. Contributor-context native evaluation remains parked.

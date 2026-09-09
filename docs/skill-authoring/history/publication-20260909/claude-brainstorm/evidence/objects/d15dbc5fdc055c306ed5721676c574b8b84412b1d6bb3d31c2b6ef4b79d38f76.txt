@@ -1,0 +1,523 @@
+{
+  "manifest_sha256": "701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152",
+  "files": [
+    {
+      "path": "inputs/claude/run/proposals/CONTROL-BASELINE-BINDING.json",
+      "sha256": "8bad3b2cb1d4e9fecfd99d8f91e5ea36880a10b7494baf6ac305eae711ce6565",
+      "bytes": 2424,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/claude/run/proposals/UNEXECUTED-PROPOSALS.json",
+      "sha256": "ba4023884e5c49613336d0e9dd95f4ee8aa5426b8909265752d4a21c33b1b420",
+      "bytes": 22916,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/claude/run/proposals/fixtures/chg-016-absence-disclosure/FIXTURE-INDEX.json",
+      "sha256": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7",
+      "bytes": 1064,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/claude/run/proposals/fixtures/chg-016-absence-disclosure/NEG-disclosed-other-unknown.md",
+      "sha256": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400",
+      "bytes": 577,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/claude/run/proposals/fixtures/chg-016-absence-disclosure/NEG-undisclosed.md",
+      "sha256": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433",
+      "bytes": 443,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/claude/run/proposals/fixtures/chg-016-absence-disclosure/POS-disclosed-sections.md",
+      "sha256": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319",
+      "bytes": 518,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/claude/run/proposals/fixtures/chg-016-absence-disclosure/TARGET-NO-SECTIONS.md",
+      "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43",
+      "bytes": 149,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/issued-r8/AUTHORING-RUNTIME-BRIDGE-r7.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+      "bytes": 9402,
+      "manifest_verified": true,
+      "inspection": "byte-identical to issued r7 guidance previously inspected; current relevant clauses inspected"
+    },
+    {
+      "path": "inputs/issued-r8/REMEDIATION-SPECIFICATION.md",
+      "sha256": "d5b60b3ea30ea4a8e426f9c2b74ff3f94298d7b3e786286285a7d1cc45b69742",
+      "bytes": 6576,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/issued-r8/REPAIR-MAP.json",
+      "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+      "bytes": 14283,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/issued-r8/SKILL-DESIGN-SPECIFICATION-r7.md",
+      "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+      "bytes": 10518,
+      "manifest_verified": true,
+      "inspection": "byte-identical to issued r7 guidance previously inspected; current relevant clauses inspected"
+    },
+    {
+      "path": "inputs/issued-r8/authority/SESSION-001-r8.md",
+      "sha256": "efd5c656e781f4c1d940723dd4a06208c176a471969ec5575c2b87aa27d3953c",
+      "bytes": 6804,
+      "manifest_verified": true,
+      "inspection": "full content inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/checkers/check_outcome_labels.py",
+      "sha256": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+      "bytes": 7674,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/checkers/check_receipts.py",
+      "sha256": "88fe0b26c004883663b6acede7ab183f06969ba8c97896946042c59f47e7596c",
+      "bytes": 12631,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/checkers/harness.py",
+      "sha256": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+      "bytes": 8045,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/checkers/validate_references.py",
+      "sha256": "56873b5b1b0abc362c2979b3ef1c7ed77ccba2abd24a96e8678cdaa7f53e5ffe",
+      "bytes": 21494,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/CLOCK.json",
+      "sha256": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+      "bytes": 773,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/GATE-INPUTS.json",
+      "sha256": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+      "bytes": 137,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/PLAN.json",
+      "sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+      "bytes": 7384,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/SEMANTIC-DECISIONS.json",
+      "sha256": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+      "bytes": 305,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/controller.py",
+      "sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91",
+      "bytes": 7018,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/freeze.py",
+      "sha256": "186af0e3aaf0df1d15a92a63af7e9c093ec43685d9e5bada56ac3b3ce0379187",
+      "bytes": 8127,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/grade.py",
+      "sha256": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+      "bytes": 12240,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/control/run_phases.py",
+      "sha256": "5a4dc48df3a346d7b3c6632f11361cf088889bba99751f0cb18e8f3aecb9fa8e",
+      "bytes": 27400,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/manifests/final-candidate/evals/triggers/trigger-queries.json",
+      "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+      "bytes": 4493,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/no-model-tests/checks_suite.py",
+      "sha256": "fa4f3138f15c4ac484344bd6a4cbb6331b955fad17bbf9246edee368aae74d34",
+      "bytes": 21502,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/prior-run-SESSION-001-r7-20260907T1253Z/no-model-tests/phase_suite.py",
+      "sha256": "8432a149a63783f48b5cb5953b9b98852ffeb2d9aa11cb513dfded924565e489",
+      "bytes": 27855,
+      "manifest_verified": true,
+      "inspection": "all bytes match prior reviewed r7 baseline; relevant proposal/source paths inspected"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/checkers/check_outcome_labels.py",
+      "sha256": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+      "bytes": 7674,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/checkers/check_receipts.py",
+      "sha256": "371a151092d12429b34cd039da9aedbcc302d96983282438c083a4364bbd0eed",
+      "bytes": 10816,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/checkers/harness.py",
+      "sha256": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+      "bytes": 8045,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/checkers/validate_references.py",
+      "sha256": "e02f2437cc911f2afc01edf96d60cdcb86819accbd93ba3c588c0dd60cc63796",
+      "bytes": 20459,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/CLOCK.json",
+      "sha256": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+      "bytes": 773,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/GATE-INPUTS.json",
+      "sha256": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+      "bytes": 137,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/PLAN.json",
+      "sha256": "17aeea8b0a89474328b129c9e9a24117fb5c4d0b5217d676d5283cd16a22b70a",
+      "bytes": 3378,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/SEMANTIC-DECISIONS.json",
+      "sha256": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+      "bytes": 305,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/controller.py",
+      "sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91",
+      "bytes": 7018,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/freeze.py",
+      "sha256": "e4e48317454ec8b0365078a50f924097575ca5463b3dea8c531c47a1b16a84f8",
+      "bytes": 5498,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/grade.py",
+      "sha256": "ea349de51eff1bbf5f556aeb72915070fcd192f4fb37ebcdc78b32a1cb570041",
+      "bytes": 11118,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/control/run_phases.py",
+      "sha256": "7b38c2dc6987f36372007a52ceeaeaf1381d0fe997e900420c6d4e50e8bdd0f1",
+      "bytes": 15438,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/no-model-tests/checks_suite.py",
+      "sha256": "ab95198bf64371fb4707b31c4bef78b0b7ce920458320ac2ad95b543c9b924b3",
+      "bytes": 14521,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/claude/run/inputs/selected-claude-controls/no-model-tests/phase_suite.py",
+      "sha256": "afba0169e9254915cabb5f95b8ce36848c077516e8d5f3cb7e63a15d83f7988a",
+      "bytes": 17578,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/checkers/check_outcome_labels.py",
+      "sha256": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+      "bytes": 7674,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/checkers/check_receipts.py",
+      "sha256": "371a151092d12429b34cd039da9aedbcc302d96983282438c083a4364bbd0eed",
+      "bytes": 10816,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/checkers/harness.py",
+      "sha256": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+      "bytes": 8045,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/checkers/validate_references.py",
+      "sha256": "e02f2437cc911f2afc01edf96d60cdcb86819accbd93ba3c588c0dd60cc63796",
+      "bytes": 20459,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/CLOCK.json",
+      "sha256": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+      "bytes": 773,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/GATE-INPUTS.json",
+      "sha256": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+      "bytes": 137,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/PLAN.json",
+      "sha256": "17aeea8b0a89474328b129c9e9a24117fb5c4d0b5217d676d5283cd16a22b70a",
+      "bytes": 3378,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/SEMANTIC-DECISIONS.json",
+      "sha256": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+      "bytes": 305,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/controller.py",
+      "sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91",
+      "bytes": 7018,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/freeze.py",
+      "sha256": "e4e48317454ec8b0365078a50f924097575ca5463b3dea8c531c47a1b16a84f8",
+      "bytes": 5498,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/grade.py",
+      "sha256": "ea349de51eff1bbf5f556aeb72915070fcd192f4fb37ebcdc78b32a1cb570041",
+      "bytes": 11118,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/control/run_phases.py",
+      "sha256": "7b38c2dc6987f36372007a52ceeaeaf1381d0fe997e900420c6d4e50e8bdd0f1",
+      "bytes": 15438,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/no-model-tests/checks_suite.py",
+      "sha256": "ab95198bf64371fb4707b31c4bef78b0b7ce920458320ac2ad95b543c9b924b3",
+      "bytes": 14521,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/issued-r8/selected/claude/controls/no-model-tests/phase_suite.py",
+      "sha256": "afba0169e9254915cabb5f95b8ce36848c077516e8d5f3cb7e63a15d83f7988a",
+      "bytes": 17578,
+      "manifest_verified": true,
+      "inspection": "custody hash comparison only; historical baseline, not repair referent"
+    },
+    {
+      "path": "inputs/prior-reviews/review-claude-controls/FINDINGS.json",
+      "sha256": "d1e83d124e56e404bb1254bb23560f1d5e66e1a7fdd3a67369e48996efbe1809",
+      "bytes": 18935,
+      "manifest_verified": true,
+      "inspection": "full custody read; identical to this reviewers r7 output already fully inspected in the retained review context"
+    },
+    {
+      "path": "inputs/prior-reviews/review-claude-controls/INPUT-SELECTION.json",
+      "sha256": "048a7399729ee3b9ae3d2fb2524316f41d6fad944be0738f9fdbc43771801cdb",
+      "bytes": 18996,
+      "manifest_verified": true,
+      "inspection": "full custody read; identical to this reviewers r7 output already fully inspected in the retained review context"
+    },
+    {
+      "path": "inputs/prior-reviews/review-claude-controls/REVIEW.md",
+      "sha256": "63b06c0f8a4c2125a3d9dc2ea159ab226c9f08960c35412d0ccd7196e3023639",
+      "bytes": 22062,
+      "manifest_verified": true,
+      "inspection": "full custody read; identical to this reviewers r7 output already fully inspected in the retained review context"
+    }
+  ],
+  "excluded": [
+    "r8 author report and conclusions",
+    "other current reviews",
+    "repaired instruction-source review"
+  ],
+  "baseline_comparisons": [
+    {
+      "relative_control_path": "checkers/check_outcome_labels.py",
+      "r7_reviewed_sha256": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+      "earlier_selected_sha256": "05b1a6e2f004462a03076b8f434c567b3ab5539765035affb362beaf38d6e1b8",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "checkers/check_receipts.py",
+      "r7_reviewed_sha256": "88fe0b26c004883663b6acede7ab183f06969ba8c97896946042c59f47e7596c",
+      "earlier_selected_sha256": "371a151092d12429b34cd039da9aedbcc302d96983282438c083a4364bbd0eed",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "checkers/harness.py",
+      "r7_reviewed_sha256": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+      "earlier_selected_sha256": "98650538633ecc1901d9d990dcb072d241bd8b3602a16cee92692d0876cce0e5",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "checkers/validate_references.py",
+      "r7_reviewed_sha256": "56873b5b1b0abc362c2979b3ef1c7ed77ccba2abd24a96e8678cdaa7f53e5ffe",
+      "earlier_selected_sha256": "e02f2437cc911f2afc01edf96d60cdcb86819accbd93ba3c588c0dd60cc63796",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/CLOCK.json",
+      "r7_reviewed_sha256": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+      "earlier_selected_sha256": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/GATE-INPUTS.json",
+      "r7_reviewed_sha256": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+      "earlier_selected_sha256": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/PLAN.json",
+      "r7_reviewed_sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+      "earlier_selected_sha256": "17aeea8b0a89474328b129c9e9a24117fb5c4d0b5217d676d5283cd16a22b70a",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/SEMANTIC-DECISIONS.json",
+      "r7_reviewed_sha256": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+      "earlier_selected_sha256": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/controller.py",
+      "r7_reviewed_sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91",
+      "earlier_selected_sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/freeze.py",
+      "r7_reviewed_sha256": "186af0e3aaf0df1d15a92a63af7e9c093ec43685d9e5bada56ac3b3ce0379187",
+      "earlier_selected_sha256": "e4e48317454ec8b0365078a50f924097575ca5463b3dea8c531c47a1b16a84f8",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/grade.py",
+      "r7_reviewed_sha256": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+      "earlier_selected_sha256": "ea349de51eff1bbf5f556aeb72915070fcd192f4fb37ebcdc78b32a1cb570041",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "control/run_phases.py",
+      "r7_reviewed_sha256": "5a4dc48df3a346d7b3c6632f11361cf088889bba99751f0cb18e8f3aecb9fa8e",
+      "earlier_selected_sha256": "7b38c2dc6987f36372007a52ceeaeaf1381d0fe997e900420c6d4e50e8bdd0f1",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "no-model-tests/checks_suite.py",
+      "r7_reviewed_sha256": "fa4f3138f15c4ac484344bd6a4cbb6331b955fad17bbf9246edee368aae74d34",
+      "earlier_selected_sha256": "ab95198bf64371fb4707b31c4bef78b0b7ce920458320ac2ad95b543c9b924b3",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    },
+    {
+      "relative_control_path": "no-model-tests/phase_suite.py",
+      "r7_reviewed_sha256": "8432a149a63783f48b5cb5953b9b98852ffeb2d9aa11cb513dfded924565e489",
+      "earlier_selected_sha256": "afba0169e9254915cabb5f95b8ce36848c077516e8d5f3cb7e63a15d83f7988a",
+      "r7_baseline_matches_prior_review": true,
+      "earlier_copy_matches_issued_historical": true
+    }
+  ],
+  "reviewer_reuse": "Intentional reuse of /root/r7_claude_controls_review; same reviewer, not a cold independent repeat of r7.",
+  "closeout_started_at_utc": "2026-09-07T15:04:31.021536+00:00",
+  "scope_notes": [
+    "R8 source instruction files, creator records, author report/change-receipt conclusions and other current reviews were not assessed.",
+    "Status assertions embedded in required proposal metadata were not used as proof of source completion or executed validation.",
+    "Standard-library JSON and custody reads only; no authored code was executed/imported."
+  ]
+}

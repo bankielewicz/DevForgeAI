@@ -1,0 +1,142 @@
+{
+  "inputs/claude/run/AUTHORING-RECORD.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/AUTHORING-RECORD.md",
+    "sha256": "71021629bfd19c10ed245dc93002adb3982b2c8c07921c9360613212872edcc0",
+    "bytes": 5619
+  },
+  "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+    "sha256": "a9ba69cb69df34b64313d3d44247af17206e76781c320815cfdd1a2c779bae60",
+    "bytes": 30045
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/CLOCK.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/CLOCK.json",
+    "sha256": "ea9864e474b9199bb1a26560a29f373a0244820ba99d7d4550bd32ba141aec16",
+    "bytes": 773
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/GATE-INPUTS.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/GATE-INPUTS.json",
+    "sha256": "b0776ebf0177f6bffd30fd05bcf7d237b378452d29ec8f71e2102c23e00a59a6",
+    "bytes": 137
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/PLAN.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/PLAN.json",
+    "sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+    "bytes": 7384
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/SEMANTIC-DECISIONS.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/SEMANTIC-DECISIONS.json",
+    "sha256": "8725e8024519c2ba0704799b874467261229b6b6b432d52abce8deffdd05a6ff",
+    "bytes": 305
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/controller.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/controller.py",
+    "sha256": "a92a09d0bdb972552bda6b4ccab9f47d679421ffcdece8bae3f46fac51c0ff91",
+    "bytes": 7018
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/freeze.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/freeze.py",
+    "sha256": "186af0e3aaf0df1d15a92a63af7e9c093ec43685d9e5bada56ac3b3ce0379187",
+    "bytes": 8127
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/grade.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/grade.py",
+    "sha256": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+    "bytes": 12240
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/control/run_phases.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/run_phases.py",
+    "sha256": "5a4dc48df3a346d7b3c6632f11361cf088889bba99751f0cb18e8f3aecb9fa8e",
+    "bytes": 27400
+  },
+  "inputs/claude/run/baseline/control-baseline-r7/no-model-tests/phase_suite.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/no-model-tests/phase_suite.py",
+    "sha256": "8432a149a63783f48b5cb5953b9b98852ffeb2d9aa11cb513dfded924565e489",
+    "bytes": 27855
+  },
+  "inputs/claude/run/source/control/a_arm.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/control/a_arm.py",
+    "sha256": "5352518a916d77ab2235a48aed864b87ba2941fab84fc20e28e4ba26adf28261",
+    "bytes": 5404
+  },
+  "inputs/claude/run/source/control/activation.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/control/activation.py",
+    "sha256": "85bab9563b0ae66ba4f122f8e04746a08768b6d1567f5881d314c2df7dd3d90e",
+    "bytes": 5823
+  },
+  "inputs/claude/run/source/control/admission.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/control/admission.py",
+    "sha256": "d740ad47f16483e0d0b204695903454e2a1b1e76ced63ca664aa5a996ae2bea1",
+    "bytes": 13773
+  },
+  "inputs/claude/run/source/control/freeze.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/control/freeze.py",
+    "sha256": "d6d238782105f49cb2daa53319b543f5f2a5907fff880c77a4eb66e556c14b00",
+    "bytes": 15294
+  },
+  "inputs/claude/run/source/no-model-tests/cases_r9.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/no-model-tests/cases_r9.py",
+    "sha256": "32b46f599f0343100151a0141e2040fe2f5db80aa8869d1e756927fb0ce4834e",
+    "bytes": 5323
+  },
+  "inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md",
+    "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+    "bytes": 9402
+  },
+  "inputs/issued-r9/REMEDIATION-SPECIFICATION.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/REMEDIATION-SPECIFICATION.md",
+    "sha256": "a9d707e4b676585c11bdb8f1d14c8379b9f6ad03b8f7fe32aefe949e8fdfda6b",
+    "bytes": 9926
+  },
+  "inputs/issued-r9/REPAIR-MAP.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/REPAIR-MAP.json",
+    "sha256": "eff24a1f400cbd863e6728b9dc5bf738bf851bb82a916a755043e0947d45e6c9",
+    "bytes": 22908
+  },
+  "inputs/issued-r9/authority/SESSION-001-r9.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/authority/SESSION-001-r9.md",
+    "sha256": "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3",
+    "bytes": 7476
+  },
+  "inputs/issued-r9/runtime/README.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/runtime/README.md",
+    "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff",
+    "bytes": 8904
+  },
+  "inputs/issued-r9/runtime/delivery_core.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/runtime/delivery_core.py",
+    "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+    "bytes": 28047
+  },
+  "inputs/issued-r9/runtime/hook_protocol.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/runtime/hook_protocol.py",
+    "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+    "bytes": 8560
+  },
+  "inputs/issued-r9/runtime/phase_state.py": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/runtime/phase_state.py",
+    "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+    "bytes": 59033
+  },
+  "inputs/prior-reviews/CONTROL-BASELINE-RULING.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-reviews/CONTROL-BASELINE-RULING.md",
+    "sha256": "65e7d2f70464bb1e0ce42e9304482956d646e29802e99b2d802a355599296f86",
+    "bytes": 1517
+  },
+  "inputs/prior-reviews/INTEGRATION-REVIEW.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-reviews/INTEGRATION-REVIEW.md",
+    "sha256": "80a614a4aca8ef29a28d1cff1fc5c5008a64d2f15c3d27da2c7a3a28bf96c331",
+    "bytes": 7899
+  },
+  "inputs/prior-reviews/review-claude-proposals/FINDINGS.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-reviews/review-claude-proposals/FINDINGS.json",
+    "sha256": "2c28a2d320ca1acdcbec08b3a3d52ff42634046162a9b878d921f76660264fd8",
+    "bytes": 12494
+  },
+  "inputs/prior-reviews/review-claude-proposals/REVIEW.md": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-reviews/review-claude-proposals/REVIEW.md",
+    "sha256": "8a6da34891f75a66920132185b7f5fc289a4550d8d91c16aeaf622675632e675",
+    "bytes": 15792
+  }
+}

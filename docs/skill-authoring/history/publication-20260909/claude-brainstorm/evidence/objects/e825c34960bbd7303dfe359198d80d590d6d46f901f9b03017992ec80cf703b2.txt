@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+"""Activation observation, revision 2 (CC7-006 / CHG-010).
+
+Derived from the selected r7 baseline `control/run_phases.py:173-204` -- the
+proposal review's locator correction: `_activation` lives there, not in
+control/grade.py. Authored, not executed.
+
+The baseline decided "was this skill selected" by asking whether one line of the
+transcript contained both `"devforge-brainstorm"` and `"Skill"` as substrings.
+Every session's opening metadata contains both: the client announces the skills
+that are installed and available before the model has selected anything. So the
+observation was reading availability and reporting selection, which is precisely
+the distinction PLAN.json:28 exists to keep ("Activation is its own observation:
+it is not evidence of C's resource loading or of B's behaviour").
+
+Revision 2 requires the event itself: an assistant turn carrying a tool_use of
+the Skill tool whose input names this skill. Three states, kept apart:
+
+  invoked        an actual assistant Skill tool_use for this skill    -> observed true
+  not invoked    a readable, well-formed transcript without one       -> observed false
+  unusable       unreadable, undecodable or structurally incomplete   -> COULD_NOT_RUN
+
+The third is not the second. A malformed transcript is absence of evidence, and
+recording it as a verified negative manufactures a result the run never had.
+"""
+import json, os
+
+SKILL_TOOLS = ("Skill", "skill")
+
+
+def envelope(event):
+    """Classify one decoded transcript line before anything is read out of it.
+
+    R9-CI-004: revision 2 asked only whether it could find a tool_use block, and
+    treated everything else as a well-formed transcript with no selection in it.
+    Two consequences, both of which manufacture a result the run never had:
+
+      - A line that decodes to ``[]``, to a scalar, or to an object with no
+        events is not an event. It yielded no tool_use, so the run was recorded
+        as a *verified* non-activation -- a negative observation drawn from a
+        transcript that never contained an observation either way.
+      - ``msg.get("role") not in (None, "assistant")`` admitted a message with
+        no role at all, so a tool_use sitting outside any assistant envelope
+        could produce a verified positive.
+
+    Returning a classification rather than a bare list keeps "no selection here"
+    apart from "this line is not something a selection could have been in".
+
+    Returns (kind, blocks) where kind is one of:
+      "assistant"   a well-formed assistant event; blocks may be empty
+      "other"       a well-formed event that is not an assistant turn
+      "malformed"   decodable JSON that is not a usable event envelope
+    """
+    if not isinstance(event, dict):
+        # `[]`, a bare string, a number: decodable JSON, not an event envelope.
+        return "malformed", []
+    msg = event.get("message") if isinstance(event.get("message"), dict) else event
+    etype = event.get("type")
+    role = msg.get("role")
+
+    if role is None and etype is None:
+        # Nothing identifies what this line is. It cannot support a positive and
+        # it cannot support a negative.
+        return "malformed", []
+    if role is not None and role != "assistant":
+        return "other", []
+    if etype is not None and etype not in ("assistant", "message"):
+        return "other", []
+    if role is None and etype not in ("assistant", "message"):
+        return "other", []
+    if role != "assistant":
+        # An assistant-typed event still has to carry the assistant envelope
+        # before a tool_use inside it counts as this model's selection.
+        return "malformed", []
+
+    content = msg.get("content")
+    if isinstance(content, dict):
+        content = [content]
+    if content is None:
+        return "malformed", []
+    if not isinstance(content, list):
+        return "malformed", []
+    blocks = [b for b in content
+              if isinstance(b, dict) and b.get("type") == "tool_use"]
+    return "assistant", blocks
+
+
+def _names_skill(block, skill):
+    name = block.get("name")
+    if name not in SKILL_TOOLS:
+        return False
+    args = block.get("input") or {}
+    if not isinstance(args, dict):
+        return False
+    # The skill parameter is the selection. A skill named anywhere else in the
+    # event -- in a listing, in prose, in another tool's arguments -- is not one.
+    for key in ("skill", "name", "skill_name"):
+        value = args.get(key)
+        if isinstance(value, str) and value.split(":")[-1] == skill:
+            return True
+    return False
+
+
+def activation(rec, q, skill="devforge-brainstorm"):
+    tp = os.path.join(rec["attempt_dir"], "transcript.jsonl")
+    out = {"query_id": q["id"], "category": q.get("category"),
+           "should_trigger": q.get("should_trigger"), "split": q.get("split"),
+           "prefix_added": False,
+           "observation_kind": "activation",
+           "query_bytes_sha256": q.get("query_sha256"),
+           "note": "selector query sent unchanged; no installed-skill instruction prepended. "
+                   "Selection is read from an assistant Skill tool_use event, never from the "
+                   "session metadata that lists which skills are installed."}
+    if not os.path.isfile(tp):
+        out.update(outcome="COULD_NOT_RUN", state="NO_TRANSCRIPT",
+                   reason="no transcript to observe selection in; absence of evidence is recorded "
+                          "as absence, not as a negative activation")
+        return out
+
+    invoked, events, malformed, assistant_events = False, 0, 0, 0
+    try:
+        with open(tp, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                events += 1
+                try:
+                    event = json.loads(line)
+                except ValueError:
+                    malformed += 1
+                    continue
+                kind, blocks = envelope(event)
+                if kind == "malformed":
+                    malformed += 1
+                    continue
+                if kind != "assistant":
+                    continue
+                assistant_events += 1
+                for block in blocks:
+                    if _names_skill(block, skill):
+                        invoked = True
+                        out["activation_event"] = {"tool": block.get("name"),
+                                                   "tool_use_id": block.get("id"),
+                                                   "input": block.get("input")}
+                        break
+                if invoked:
+                    break
+    except (OSError, UnicodeDecodeError) as exc:
+        out.update(outcome="COULD_NOT_RUN", state="UNREADABLE",
+                   reason="transcript unreadable: %s" % exc)
+        return out
+
+    out["transcript_events"] = events
+    out["malformed_events"] = malformed
+    out["assistant_events"] = assistant_events
+    if not invoked and (events == 0 or malformed or assistant_events == 0):
+        # A transcript we could not fully parse cannot support "the skill was
+        # not selected". The selection event may be in exactly the lines that
+        # failed to decode.
+        out.update(outcome="COULD_NOT_RUN", state="INCOMPLETE",
+                   reason="transcript has %d event line(s), %d of them structurally unusable, and "
+                          "%d well-formed assistant event(s). A negative activation requires a "
+                          "readable, complete transcript with assistant turns in which the "
+                          "selection event is genuinely not present; an empty, undecodable or "
+                          "envelope-less transcript is absence of evidence, not evidence of "
+                          "absence" % (events, malformed, assistant_events))
+        return out
+
+    out["skill_invoked"] = invoked
+    out["outcome"] = "PASS" if invoked == bool(q.get("should_trigger")) else "FAIL"
+    out["reason"] = ("observed selection matches the selector's expectation"
+                     if out["outcome"] == "PASS" else
+                     "observed selection does not match the selector's expectation")
+    out["not_evidence_of"] = ["installed-resource loading (phase C)", "phase B behaviour",
+                              "native turn completion"]
+    return out

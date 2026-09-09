@@ -1,0 +1,35 @@
+# Start the Codex contributor-context POC
+
+Use a new Codex author session for this assignment. The existing brainstorm terminals keep their current tasks. Root Codex remains architect/integration owner.
+
+Worktree: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context
+Branch: author/codex-contribution-context-poc
+Base: c9298bd34ebb73bf598deec6253068d7f8b0ed59
+Assignment: /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/SESSION-003.md
+Assignment SHA-256: c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93
+
+Read the assignment and /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/INPUTS.json, then /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/STAGE-1.md. Verify the selected records before writes. Read AGENTS.md and CLAUDE.md in this worktree as applicable; the explicit project-expert path selected here governs this POC instead of the generic core-plugin source location.
+
+Use the staged native skill-creator at /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.agents/skills/skill-creator/SKILL.md. Request $skill-creator in Codex or the discovered skill-creator capability in Claude, and verify the actual loaded instruction path/hash. If discovery is unavailable, explicit reading of the exact staged native creator instructions is authorized for bootstrap authoring; record that mode without claiming native discovery or secretly substituting the draft framework creator. The stage-1 assignment takes precedence over optional model-testing loops.
+
+Build devforgeai-contribution-context only in /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context. Implement both ordinary orient/resume without a compulsory HANDOFF and explicit checkpoint/transfer with finalized HANDOFF delivery. Follow CCR-001..008 and author reproducible cases for CCX-01..08 without executing model evaluations.
+
+Create a unique authoring run under /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs. Complete XSPEC-003.md before candidate authoring, then the candidate and focused resources, authored eval fixtures/queries, local deterministic checks, source/runtime/eval manifests, XPKG-003.md and HANDOFF-003.md. Read back the final outputs and deliver their absolute paths and full SHA-256 receipts. Native A/B/C are NOT_RUN; production architecture is not selected. Stop after handback for integration review.
+
+This is authoring with the same draft requirements as the peer provider, not an independent evaluation of either candidate. Do not read peer candidate work or borrow old brainstorm run allocations. Current authority records, shared docs, core plugins, companion tooling, creator copies and Git state are protected. No commits, publication, global setup changes, model campaigns or automatic next capability.
+
+## Initial terminal launch
+
+Run the following in a normal user terminal; it checks the exact package before starting the provider. Add --check to perform only preflight. The initial launcher requires an absent candidate; after authoring begins, retain this author session or request operator recovery of its current candidate rather than starting a duplicate writer.
+
+```bash
+bash /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/LAUNCH-CODEX.sh
+```
+
+The launcher uses new worktree-local private client state and the existing subscription path, with no API-key setup. Sign in there if the client requests it; global history, credentials and configuration are not copied. Runtime authentication and creator discovery must be observed at actual startup. If isolation fails, report the concrete error; do not fall back to an unconfined terminal.
+
+Once that author terminal opens, paste:
+
+```text
+Read and carry out /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/CODEX-START.md. Verify SESSION-003@1 and the selected input hashes, then use the staged native skill-creator for the assigned stage-1 POC. Return the saved candidate/handoff paths and complete SHA-256 receipts.
+```

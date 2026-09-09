@@ -1,0 +1,254 @@
+{
+  "schema_version": "devforge.static-control-integration-review/v1",
+  "reviewer": "/root/r9_controls_integration_review",
+  "model_id": "UNKNOWN",
+  "reasoning_setting": "UNKNOWN",
+  "disposition": "REVISE_AUTHORED_CONTROLS_AND_APPLIED_CLAIMS",
+  "review_status": "COMPLETED_STATIC_WITH_FINDINGS",
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/INPUT-MANIFEST.json",
+    "sha256": "c8054e31b9a8f7c184b30464a8c8a4e4acee0d5bd53cba8144cc9efdbb606e7b",
+    "verified_before_selected_source_read": true
+  },
+  "input_identities": {
+    "file": "ALL-INPUTS.json",
+    "selected_count": 29,
+    "all_hashes_and_sizes_match": true,
+    "full_hashes_paths_and_sizes_retained": true,
+    "baseline_plan_sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+    "baseline_plan_lines": 132,
+    "selected_authority_sha256": "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3",
+    "selected_interface": "managed v1; no reference-coverage v2 requirement"
+  },
+  "timing": {
+    "first_work_observed_utc": "2026-09-07T16:44:23Z",
+    "hard_deadline_utc": "2026-09-07T17:04:23Z",
+    "mandatory_reserve_begins_utc": "2026-09-07T16:59:23Z",
+    "closeout_began_utc": "2026-09-07T16:49:49Z",
+    "reset_or_extension": false
+  },
+  "findings": [
+    {
+      "id": "R9-CI-001",
+      "severity": "high",
+      "classification": "MISSING_LOCAL_INTEGRATION_AND_UNSUPPORTED_APPLIED_CLAIMS",
+      "title": "New predicates have no authored connection to the selected control path",
+      "change_ids": ["CHG-005", "CHG-007", "CHG-008", "CHG-009", "CHG-010", "CHG-014", "CHG-015", "CHG-020"],
+      "original_findings": [
+        {"id": "CC7-001", "severity": "high"},
+        {"id": "CC7-003", "severity": "high"},
+        {"id": "CC7-004", "severity": "high"},
+        {"id": "CC7-005", "severity": "high"},
+        {"id": "CC7-006", "severity": "high"},
+        {"id": "CC7-010", "severity": "medium"},
+        {"id": "CC7-011", "severity": "medium"},
+        {"id": "CC8-PROP-002", "severity": "medium"}
+      ],
+      "trigger": "Use the delivered authored controls with the selected r7 runner/controller/grader; no new caller selects the added helpers.",
+      "evidence": [
+        {"path": "INPUT-MANIFEST.json", "locator": "files entries below inputs/claude/run/source/control contain a_arm.py, activation.py, admission.py and freeze.py only"},
+        {"path": "inputs/claude/run/source/control/admission.py", "lines": "7-9", "detail": "Claims the phase path calls these decision functions."},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/control/run_phases.py", "lines": "22-28,156-204,368,395,432,470-505", "detail": "Imports original modules, invokes its own activation and original verification/grading, derives prerequisites from declared arm lists."},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/control/grade.py", "lines": "116-136,154-157", "detail": "Preservation still uses recorded inventory, not the new live-byte predicate."},
+        {"path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json", "lines": "314,333,371,390,434,451", "detail": "Applied executable claims and claimed caller repair."}
+      ],
+      "impact": "The delivered source does not change the operative preservation, prerequisites, runtime observation, activation, authority or A nonlaunch decisions. Original defects remain on the actual local path even if the isolated helpers are correct.",
+      "required_revision": "Connect locally implementable predicates to the actual fresh runner/controller/grader and freeze their bytes, or accurately label the missing local integration as partial. Do not conflate it with unavailable native collectors.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    },
+    {
+      "id": "R9-CI-002",
+      "severity": "high",
+      "classification": "SOURCE_DEFECT",
+      "title": "Real PREFLIGHT paths still resolve to the wrong location",
+      "change_ids": ["CHG-005", "CHG-020"],
+      "original_findings": [{"id": "CC7-001", "severity": "high"}, {"id": "CC8-PROP-002", "severity": "medium"}],
+      "trigger": "Populate every actual RUN/no-model-tests PREFLIGHT file before freeze and verify without mutation.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/control/freeze.py", "lines": "130-142,160-161,241-247", "detail": "Build hashes RUN/no-model-tests under preflight/ keys but omits a preflight root; verify reads RUN/preflight/no-model-tests."},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/control/controller.py", "lines": "67-77", "detail": "Actual verifier has the same resolver and still accepts None equal to None."},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/control/GATE-INPUTS.json", "lines": "3", "detail": "Actually consumed result is no-model-tests/results.json."},
+        {"path": "inputs/claude/run/source/control/freeze.py", "lines": "67-95", "detail": "Fixed code selection also omits the newly authored admission, activation, A-arm and cases files."},
+        {"path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md", "lines": "23", "detail": "Requires unchanged actual-location positive and mutation negatives with separate generated-evidence boundary."}
+      ],
+      "impact": "The explicitly required unchanged real-location positive fails by static resolution; the actual controller still lacks the unresolved-input refusal. Added controls also remain outside the declared fixed code set.",
+      "required_revision": "Map preflight keys to RUN consistently in builder and actual verifier, include selected new executable dependencies, and author discriminating actual-location and consumption-boundary scenarios without execution.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    },
+    {
+      "id": "R9-CI-003",
+      "severity": "high",
+      "classification": "SOURCE_DEFECT_IN_CLAIMED_IMPLEMENTED_PARTIAL",
+      "title": "Arbitrary assertions satisfy the runtime observation consumer",
+      "change_ids": ["CHG-009"],
+      "original_findings": [{"id": "CC7-005", "severity": "high"}],
+      "trigger": "Supply each required category a dictionary with source='worker text', observed_bytes_sha256='x', outcome='FAIL'; or replace required coverage with a caller-selected subset.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/control/admission.py", "lines": "189,199-225,227-235", "detail": "Only truthiness of two fields is checked; dictionaries bypass deferred status; outcomes and required fixed coverage are not validated."},
+        {"path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json", "lines": "347-363", "detail": "Claims fail-closed consumer/schema checks with runtime-owned source and exact observed bytes."},
+        {"path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md", "lines": "31-35", "detail": "Missing runtime observations must block; worker text and hashes are not substitutes."}
+      ],
+      "impact": "All five categories, including declared root deferrals, can become PASS without usable or successful observations. The supplied invalid values reach this branch by inspection; no probe was run.",
+      "required_revision": "Constrain coverage and consume only the selected evidence-bound record schema with actual outcomes/provenance/identity; when trustworthy selected data is unavailable, remain deferred and block. Do not invent collector APIs.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    },
+    {
+      "id": "R9-CI-004",
+      "severity": "high",
+      "classification": "SOURCE_DEFECT",
+      "title": "Structurally invalid transcript events become verified activation results",
+      "change_ids": ["CHG-010"],
+      "original_findings": [{"id": "CC7-006", "severity": "high"}],
+      "trigger": "A transcript contains only the JSON line []; or contains tool-use content without any assistant role/event identity.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/control/activation.py", "lines": "31-46,88-110,120-124", "detail": "Nonobjects count as decoded events but are silently ignored; missing role and type are allowed."},
+        {"path": "inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json", "lines": "22", "detail": "A5a expects false, so [] is labeled PASS by the static branch trace."},
+        {"path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json", "lines": "385-407", "detail": "Claims actual assistant tool-use selection and unusable transcripts separated from verified negatives."}
+      ],
+      "impact": "Malformed event structures produce a verified negative, and a missing assistant envelope may produce a positive. Correct init-metadata filtering does not establish structural validity.",
+      "required_revision": "Require the selected assistant event envelope for invocation and classify malformed structures as unusable instead of verified negatives; integrate the parser into the real local caller.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    },
+    {
+      "id": "R9-CI-005",
+      "severity": "high",
+      "classification": "SOURCE_DEFECT_IN_CLAIMED_IMPLEMENTED_PARTIAL",
+      "title": "Claimed query identity is copied or asserted rather than verified",
+      "change_ids": ["CHG-012"],
+      "original_findings": [{"id": "CC7-008", "severity": "high"}],
+      "trigger": "Pass the selected A3a query row, which has no query_sha256 field; or pass an A5a selector to case A3a.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/control/a_arm.py", "lines": "47-56,97-102", "detail": "Case whitelist only; optional digest copied, unchanged flag hardcoded, arbitrary selector forwarded."},
+        {"path": "inputs/claude/run/source/control/activation.py", "lines": "65-74", "detail": "Observation also only copies the optional query_sha256."},
+        {"path": "inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json", "lines": "3,13,22", "detail": "Exact selected row schema contains no query_sha256; A3a true and A5a false are fixed."},
+        {"path": "inputs/claude/run/AUTHORING-RECORD.md", "lines": "75-77", "detail": "Claims case binding and query-byte identity are implemented."},
+        {"path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json", "lines": "410-426", "detail": "Partial status discloses native completion and A5a assertions, but claims selector binding/carrying."}
+      ],
+      "impact": "Normal selected rows emit null query identity while claiming unchanged prompt bytes. Mismatched case/query and changed prompt content are not refused.",
+      "required_revision": "Bind each case to its selected row and expectation, compute exact selected query bytes' digest, and compare the actual prompt supplied to the launcher. Retain native completion as separately unobserved/deferred.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    },
+    {
+      "id": "R9-CI-006",
+      "severity": "medium",
+      "classification": "SOURCE_DEFECT_AND_UNSUPPORTED_APPLIED_CLAIM",
+      "title": "Fresh freeze builder still emits historical authority",
+      "change_ids": ["CHG-015"],
+      "original_findings": [{"id": "CC7-011", "severity": "medium"}],
+      "trigger": "A future authorized caller invokes the freshly authored freeze builder for a selected current allocation.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/control/freeze.py", "lines": "112,149-153", "detail": "No allocation parameter; hardcoded SESSION-001@5, revision 5, old e0dda2d0 digest."},
+        {"path": "inputs/claude/run/source/control/admission.py", "lines": "244-267", "detail": "Standalone equality helper has no caller in the builder."},
+        {"path": "inputs/issued-r9/authority/SESSION-001-r9.md", "lines": "3-6", "detail": "Selected current authority is SESSION-001 revision 9."},
+        {"path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json", "lines": "366-382", "detail": "Marks CHG-015 APPLIED_EXECUTABLE based only on the equality helper."}
+      ],
+      "impact": "The authored emitter still gives new prospective evidence the historical session identity. No claim is made that it was executed or emitted such a record during R9.",
+      "required_revision": "Require the explicitly selected allocation in the emitter and reject missing/mismatched identity before output; preserve historical baseline files as inputs.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    },
+    {
+      "id": "R9-CI-007",
+      "severity": "medium",
+      "classification": "UNSUPPORTED_EXECUTABLE_SUITE_CLAIM",
+      "title": "CHG-013 remains unused case data rather than a corrected executable suite",
+      "change_ids": ["CHG-013"],
+      "original_findings": [{"id": "CC7-009", "severity": "medium"}],
+      "trigger": "Inspect the delivered suite corrections for executable scenarios that drive the selected phase path and assert recorded outcomes.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/no-model-tests/cases_r9.py", "lines": "27-77", "detail": "Setup/expect dictionaries only; no constructor, driver, assertions or consumer."},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/no-model-tests/phase_suite.py", "lines": "213,235,286-290,321-334,408-415,438-444", "detail": "Actual old scenarios and driver remain; P21 calls drive anew in non-resume mode; P20 already supplies judge={}."},
+        {"path": "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json", "lines": "454-470", "detail": "APPLIED_EXECUTABLE claims a P21 resume reaches the comparison."},
+        {"path": "inputs/issued-r9/REMEDIATION-SPECIFICATION.md", "lines": "9", "detail": "Explicitly distinguishes future case descriptions from implemented corrections."}
+      ],
+      "impact": "Corrected expectations cannot reach the mechanisms or replace the defective scenarios; executable-suite completion is overstated.",
+      "required_revision": "Author the actual scenario setup/resume calls and evidence assertions, or report specification/data-only status. Execution must remain NOT_RUN in this authoring allocation.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    },
+    {
+      "id": "R9-CI-008",
+      "severity": "medium",
+      "classification": "SOURCE_DEFECT",
+      "title": "A5a requires an A3a semantic judgment absent from the fixed plan",
+      "change_ids": ["CHG-008"],
+      "original_findings": [{"id": "CC7-004", "severity": "high"}],
+      "trigger": "C1/B5/B11 clear their evidence-bound gates and A3a completes with the expected activation result, then request A5a admission.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/control/admission.py", "lines": "116-120,140-150", "detail": "A3a is added to A5a prerequisites and must carry mechanical PASS, judgment PASS and judgment_bound_to."},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/control/PLAN.json", "lines": "54-56,90-110", "detail": "A arms have their own activation observation, distinct from C/B artifact grades and judgments."},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/control/run_phases.py", "lines": "425-431", "detail": "A returns after native completion and activation outcome without a semantic judgment."}
+      ],
+      "impact": "Valid A3a activation cannot satisfy the new A5a guard without inventing extra C/B-style judgment fields.",
+      "required_revision": "Retain evidence-bound C/B prerequisites but sequence A5a on A3a's selected completion and activation result.",
+      "execution": "NOT_PERFORMED",
+      "closes_original_findings": false
+    }
+  ],
+  "deferred_scope_assessment": [
+    {
+      "change_id": "CHG-011",
+      "original_finding_id": "CC7-007",
+      "original_severity": "high",
+      "reported_status": "SPECIFICATION_RETAINED_EXECUTABLE_NOT_AUTHORED",
+      "assessment": "HONEST_PARTIAL_WITH_OVERBROAD_ROOT_DEPENDENCY_REASON",
+      "reason": "The selected evaluation runner already has main(--resume); its local process/module lifecycle and saved-result assertions can be authored without a native callback collector. This differs from the managed runtime WAITING_USER lifecycle. No finding is raised merely because this authorized partial is incomplete.",
+      "evidence": [
+        {"path": "inputs/claude/run/source/no-model-tests/cases_r9.py", "lines": "79-102"},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/control/run_phases.py", "lines": "334-335,404-418,442-460"},
+        {"path": "inputs/claude/run/baseline/control-baseline-r7/no-model-tests/phase_suite.py", "lines": "195-235"}
+      ]
+    },
+    {
+      "change_id": "CHG-009",
+      "original_finding_id": "CC7-005",
+      "original_severity": "high",
+      "assessment": "NATIVE_COLLECTOR_GAPS_LEGITIMATE_BUT_CONSUMER_DEFECTS_SEPARATE",
+      "reason": "Selected v1 exposes protected phase/correction/resume operations and verified receipt results; actual native callback provenance, installed consultation and rendering remain independent missing observations. Blanket lack-of-interface statements overstate the gap. CI-003 concerns the claimed implemented consumer, not a requirement to invent missing collectors.",
+      "evidence": [
+        {"path": "inputs/issued-r9/runtime/phase_state.py", "lines": "689-759,839-861,1042-1129"},
+        {"path": "inputs/issued-r9/runtime/delivery_core.py", "lines": "566-615"},
+        {"path": "inputs/issued-r9/runtime/hook_protocol.py", "lines": "84-104"},
+        {"path": "inputs/issued-r9/runtime/README.md", "lines": "95-107"}
+      ]
+    },
+    {
+      "change_id": "CHG-012",
+      "original_finding_id": "CC7-008",
+      "original_severity": "high",
+      "assessment": "DISCLOSED_NATIVE_COMPLETION_PARTIAL; LOCAL_SELECTOR_CLAIM_UNSUPPORTED",
+      "reason": "Actual native completion may remain deferred. Selector/query-byte comparisons and authoring an A5a negative synthetic expectation do not require creating native completion evidence. CI-005 addresses only the claimed implemented portion."
+    }
+  ],
+  "positive_static_observations": [
+    "freeze.verify separates explicitly selected entries from unbound observed extras and keeps unresolved None entries failing in that isolated helper.",
+    "preserve_check hashes existing live bytes and distinguishes RETAINED, CHANGED and VANISHED for its caller-supplied selected map.",
+    "prerequisites names C1, B5 and B11 and rejects downstream arms in a C-only diagnostic branch.",
+    "observations lists all five bridge categories and blocks absent dictionaries, with named deferred categories.",
+    "activation ignores ordinary init metadata and parses the ordinary nested assistant Skill tool_use shape.",
+    "run_a_arm ordinary preexisting-directory and insufficient-cap branches return explicit nonlaunch statuses before creating a directory; no launcher returns NOT_RUN.",
+    "cases_r9 corrects the five locator/history statements and distinguishes future expected outcomes from executed results in its prose."
+  ],
+  "limits": {
+    "executed_tests_or_probes": 0,
+    "authored_imports_or_package_execution": 0,
+    "native_or_model_calls": 0,
+    "network_calls": 0,
+    "subagents": 0,
+    "target_or_authority_writes": 0,
+    "runtime_review_depth": "selected interfaces only; complete file hashes do not imply complete runtime semantic review",
+    "out_of_scope": ["receipt/reference checker internals and fixtures", "candidate instruction-source conformance", "author delivery chronology", "global manifest custody", "current mutable authority issuance", "root runtime correctness", "human acceptance"],
+    "tests_validation": "NOT_PERFORMED",
+    "native_C_B_A": "NOT_RUN",
+    "root_admission": "NOT_RUN",
+    "human_acceptance": "NOT_RUN",
+    "CP5_CC7_closure": "NOT_ESTABLISHED",
+    "runnable_readiness": "NOT_ESTABLISHED",
+    "native_readiness": "NOT_ESTABLISHED"
+  }
+}

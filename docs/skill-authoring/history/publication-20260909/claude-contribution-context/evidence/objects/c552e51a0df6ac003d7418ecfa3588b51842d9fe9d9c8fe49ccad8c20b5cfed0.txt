@@ -1,0 +1,66 @@
+from pathlib import Path
+import collections, datetime, hashlib, json, re, subprocess, yaml
+Q=Path(__file__).resolve().parent
+R=Q.parent/'claude-contributor-context-20260906T002254636139Z'
+D=Q.parents[2]
+W=Path('/home/bryan/Projects/DevForge/worktrees/claude-contribution-context')
+A=W/'.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001'
+h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+required=['schema_version','artifact_id','artifact_type','project_id','revision','status','created_at_utc','producer','execution_ref','upstream','evidence','supersedes','decision_ref','missing_inputs']
+records=[]
+for name in ['XSPEC-004.md','XPKG-004.md','HANDOFF-004.md']:
+    raw=(Q/'run'/name).read_text();meta=yaml.safe_load(raw.split('---\n',2)[1])
+    assert all(k in meta for k in required),name
+    assert meta['revision']==2 and meta['execution_ref']=='SESSION-004@2' and meta['status']=='draft'
+    links=[]
+    for row in meta['upstream']:
+        root=D/'.poc' if row['store']=='authority' else W
+        p=root/row['path'];assert h(p)==row['sha256'],str(p)
+        headings=re.findall(r'^#{1,6} (.+)$',p.read_text(),re.M)
+        for sec in row['sections']:assert any(sec in heading for heading in headings),(name,str(p),sec)
+        links.append({'artifact_id':row['artifact_id'],'path':str(p),'sha256':h(p),'sections':row['sections']})
+    ids=re.findall(r'^## .*\(('+meta['artifact_id']+r'-S\d+)\)$',raw,re.M)
+    assert len(ids)==len(set(ids))==9,(name,ids)
+    records.append({'path':name,'outcome':'PASS','stable_sections':ids,'verified_upstream':links})
+old={str(p.relative_to(R/'candidate')):p for p in (R/'candidate').rglob('*') if p.is_file()}
+new={str(p.relative_to(Q/'candidate')):p for p in (Q/'candidate').rglob('*') if p.is_file()}
+delta={'added':sorted(set(new)-set(old)),'removed':sorted(set(old)-set(new)),'changed':sorted(n for n in set(old)&set(new) if h(old[n])!=h(new[n])),'unchanged':sorted(n for n in set(old)&set(new) if h(old[n])==h(new[n]))}
+assert len(delta['added'])==7 and not delta['removed'] and len(delta['changed'])==7 and len(delta['unchanged'])==64
+runtime={row['path'] for row in json.loads((Q/'run/inventories/runtime-manifest.json').read_text())['files']}
+links=[]
+for rel in runtime:
+    p=Q/'candidate'/rel
+    if p.suffix!='.md':continue
+    for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)',p.read_text()):
+        if target.startswith(('http:','https:','#')):continue
+        dst=(p.parent/target.split('#',1)[0]).resolve();assert dst.is_relative_to(Q/'candidate') and dst.is_file(),(rel,target)
+        assert str(dst.relative_to(Q/'candidate')) in runtime,(rel,target)
+        links.append({'source':rel,'target':target})
+assert h(Q/'candidate/assets/handoff-template.md')==h(R/'selected/framework/docs/mvp/templates/shared/handoff.md')
+oldrun=Path(json.loads((Q/'authority/INPUTS.json').read_text())['prior_author_run'])
+assert {str(p.relative_to(oldrun)) for p in oldrun.rglob('*') if p.is_file()}=={str(p.relative_to(R/'run')) for p in (R/'run').rglob('*') if p.is_file()}
+for p in (R/'run').rglob('*'):
+    if p.is_file():assert h(p)==h(oldrun/p.relative_to(R/'run'))
+F=Q/'framework-source';F.mkdir(exist_ok=False);copies={}
+for p in (R/'framework-source').rglob('*'):
+    assert not p.is_symlink(),str(p)
+    if not p.is_file():continue
+    rel=p.relative_to(R/'framework-source')
+    if str(rel).startswith('project-experts/claude/devforgeai-contribution-context/'):continue
+    dst=F/rel;dst.parent.mkdir(parents=True,exist_ok=True)
+    with dst.open('xb') as f:f.write(p.read_bytes())
+    copies[str(dst.relative_to(Q))]={'source':str(p),'sha256':h(dst)}
+for rel,p in new.items():
+    dst=F/'project-experts/claude/devforgeai-contribution-context'/rel;dst.parent.mkdir(parents=True,exist_ok=True)
+    with dst.open('xb') as f:f.write(p.read_bytes())
+    copies[str(dst.relative_to(Q))]={'source':str(p),'sha256':h(dst)}
+commands=[('creator-quick-validate',['python3','-B',str(R/'selected/claude-creator/skills/skill-creator/scripts/quick_validate.py'),str(Q/'candidate')]),('framework-source-only',['python3','-B',str(R/'companion/scripts/validate_framework.py'),'--framework',str(F)])]
+observations=[]
+for name,cmd in commands:
+    proc=subprocess.run(cmd,text=True,capture_output=True)
+    observations.append({'name':name,'command':cmd,'tool_sha256':h(Path(cmd[2])),'exit_status':proc.returncode,'stdout':proc.stdout,'stderr':proc.stderr,'outcome':'PASS' if proc.returncode==0 else 'FAIL'})
+assert all(row['outcome']=='PASS' for row in observations)
+report={'checked_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'outcome':'PASS','records':records,'candidate_delta':delta,'runtime_links':links,'template_derivation':'PASS; shared template bytes unchanged','old_author_run_full_inventory':'PASS; all 38 preserved files unchanged, no added files','handoff_current_digest_absent_from_own_bytes':h(Q/'run/HANDOFF-004.md').encode() not in (Q/'run/HANDOFF-004.md').read_bytes(),'structural_observations':observations,'native_evaluation':'NOT_RUN','limitations':['Source chronology and native creator discovery remain author reports; no private history inspected.','Structural and reference checks do not decide native behavior or independent acceptance.']}
+for name,data in [('OPERATOR-PACKAGE-CHECKS.json',report),('SOURCE-COPY-CUSTODY.json',{'files':copies})]:
+    with (Q/name).open('x') as f:json.dump(data,f,indent=2);f.write('\n')
+print(json.dumps({'outcome':'PASS','artifact_records':len(records),'upstream_links':sum(len(r['verified_upstream']) for r in records),'runtime_links':len(links),'source_delta_counts':{k:len(v) for k,v in delta.items()},'source_copy_files':len(copies),'structural_checks':[{k:r[k] for k in ['name','outcome','exit_status']} for r in observations]},indent=2))

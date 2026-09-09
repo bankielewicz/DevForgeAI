@@ -1,0 +1,155 @@
+# R10 authoring record — what was written, and why
+
+One allocation, SESSION-001@10, one new run, no execution of anything authored here.
+
+## The live package
+
+The write fence was `references/derivation.json` only, and it held: the other nineteen
+files re-verified byte-exact against the frozen pins after the write.
+
+CHG-022 refreshed three destination digests that named superseded source bytes while
+claiming an after-last-write verification that had not happened for those paths. The
+new values were **computed from the files**, not transcribed — an intermediate draft
+of this work did transcribe them and put one wrong character into the
+recording-rules digest (`...de8c...` for `...de7c...`); it was caught by comparing
+the record against recomputed bytes and corrected before anything else consumed it.
+That is the whole argument for deriving these values rather than copying them.
+
+Superseded digests are retained in each entry's `prior_destination_sha256_chain`
+marked explicitly historical. The record's own digest is still not inside itself.
+
+## The control tree
+
+`baseline/effective-controls-selected/` holds the 25 selected effective files
+unchanged. `source/` is the copy this run edited: 13 of the selected files modified, 8 added.
+
+The organising problem was R9-CI-001. R9 delivered `admission.py`, `activation.py` and
+`a_arm.py` beside the runner and never imported one of them, so the operative
+preservation, prerequisite, observation, activation, authority and nonlaunch decisions
+were still the old inline ones. Correct helpers that nothing calls do not change what
+the control path decides. So the first change was to import them and route the
+decisions through them, and every predicate repair below is reachable from
+`run_phases.main()`.
+
+### What each repair actually changes
+
+**Freeze and preflight (CHG-005/020, R9-CI-002).** `PREFLIGHT_ROOT` and `FIXTURE_ROOT`
+are declared fixed selections instead of joins onto whatever `RUN` happened to be, so
+the required unchanged real-location positive resolves. `CODE` now includes the four
+modules and three suites that were deciding things from outside the pinned set —
+a freeze that omits the deciding modules does not pin the decision. `controller.verify_freeze`
+grew the unresolved-binding refusal: an entry unresolved at freeze time declares `None`,
+an absent file hashes to `None`, and `None == None` was letting a missing admission
+input verify as satisfied. That is the one comparison that must never agree with
+nothing.
+
+**Receipt locator ownership (CHG-006/021, CC9-RR-002).** The separator guard applied
+only to the relative form, on the reasoning that an absolute locator carries its own
+root. It does not: `/other//work/arm/a.md` contains `/work/arm/a.md` starting at a
+separator. The guard is now the same for every accepted form, because ownership of the
+locator is the criterion for all of them.
+
+**Section absence (CHG-016/019, CC9-RR-001).** Classification was entry-wide: any
+artifact ID plus any section word anywhere in the entry. So
+"IDEAS-900 has no authoring date; IDEAS-901 has no stable sections." credited IDEAS-900
+with an absence it never claimed, and one unknown anywhere in an entry demoted a valid
+absence elsewhere in it. Classification is now per clause, and a clause without its own
+ID inherits only when the entry names exactly one artifact — with two in play there is
+no honest way to guess, and guessing is what produced the defect.
+
+**Runtime observations (CHG-009, R9-CI-003).** Two truthy keys were enough to pass, so
+`{"source": "worker text", "observed_bytes_sha256": "x", "outcome": "FAIL"}` passed —
+an unsuccessful outcome, a malformed digest and a source the runtime does not own.
+Worse, a deferred class was only deferred when nothing was supplied for it, so handing
+it a dictionary bypassed the deferral. Deferred is now checked first and
+unconditionally, and provenance, digest syntax, task identity, outcome and coverage
+each fail with their own reason.
+
+**A3a sequencing (CHG-008, R9-CI-008).** A5a's guard asked A3a for a checked mechanical
+PASS and a bound semantic judgment. A3a produces no artifact map — its result is an
+activation observation — so a valid A3a could never satisfy A5a without someone
+inventing judgment fields the fixed plan does not define. A3a is now judged on
+completion plus its own activation result.
+
+**Transcript envelopes (CHG-010, R9-CI-004).** A line decoding to `[]` or a scalar
+yielded no tool_use and was recorded as a *verified* non-activation, and a message with
+no role at all was admitted, so a tool_use outside any assistant envelope could produce
+a positive. `envelope()` now separates "no selection here" from "this is not something
+a selection could have been in".
+
+**Query identity (CHG-012, R9-CI-005).** The record copied `selector["query_sha256"]`
+— absent from every selected row — and asserted `prompt_bytes_unchanged: True` beside
+the resulting null. The digest is derived from the row's own query bytes and compared
+against the prompt actually handed to the launcher, so a launch-time mutation is caught.
+
+**Nonlaunch preservation (CHG-014).** `_sentinel_state` recorded sizes. Equal sizes are
+not equal bytes, which is the entire claim a nonlaunch makes.
+
+**Authority binding (CHG-015, R9-CI-006).** The emitter had `SESSION-001@5` and its
+digest as constants, so every freeze it produced claimed a finished allocation's
+identity. It now reads `control/ALLOCATION.json`, validates it, and refuses to emit
+without it. `R10-P07` scans the module text for the @5, @9 and @10 digests and asserts
+their absence, so a regression re-surfaces as a failing case rather than as silence.
+
+## The two subparts that were nearly left short
+
+Both were finished, and both are worth naming because the first draft of this run
+stopped at the case definitions.
+
+**CHG-011.** R9 recorded the whole change as deferred to a missing native collector.
+That was wrong in one direction: `main(--resume)` is an ordinary local lifecycle, and
+`drive()` already re-enters it on a freshly loaded module. Four local scenarios are
+specified in `cases_r9.LOCAL_RESUME_CASES` and driven by `R10-P40..R10-P45`, which
+assert arm order, exactly one marker per arm, an unchanged allocation across resumes,
+completed arms read rather than relaunched, each consumed judgment bound to its arm's
+actual inventory digest, and a pause that holds when the next judgment is absent. Only
+the managed WAITING_USER callbacks remain deferred.
+
+**CHG-013.** `R10-P46..R10-P49` read each case from `cases_r9.CASES` itself — not a
+second copy — and drive it: `judge={}` for the genuinely missing judgment, the exact
+permitted `C1, B5` prefix after a B failure, concurrency 0/2/4 each refused with code 6
+and no marker, and P21 resumed with a judgment that differs from the published binding
+in exactly one field, so `STALE` comes from the comparison rather than from an earlier
+malformed-judgment branch.
+
+**One consequence worth recording.** Making an unresolved binding fail closed in
+`controller.verify_freeze` would have refused every existing scenario at startup, because
+`build_root` never staged the five declared preflight inputs — under the old
+`None == None` comparison their absence had been silently fine. `build_root` now calls
+`stage_preflight()` before generating the freeze. Without that, the suite would have
+been internally inconsistent: a repair in one module quietly breaking every scenario in
+another.
+
+## What remains genuinely open
+
+**Root dependencies, not unfinished work.** The managed WAITING_USER callback lifecycle
+and the three observation classes — `stop_and_correction`, `receipt_publication`,
+`rendered_delivery` — have no collector in the selected v1 interface. They fail closed
+and block native admission. No collector API was invented for them.
+
+**One unusable fixture.** `NEG-false-absence-sectioned-target.md` carries a placeholder
+target digest and is recorded in `INDEX.json` as an unresolved binding. The same
+discrimination is covered executably by the `checks_suite` case, which stages real
+bytes, so the coverage exists; the physical fixture does not, and it is not counted as
+one.
+
+## Creator action
+
+The selected native Anthropic skill-creator was invoked in this session and its
+instructions loaded — an observable action, recorded as INVOKED_LOADED. Its
+applicability was narrow here: the packaging and description-optimisation guidance
+addresses SKILL.md, which this allocation's fence forbids touching, and every
+evaluation helper it describes (`run_loop.py`, `generate_review.py`,
+`aggregate_benchmark`, `package_skill.py`) is disabled by the no-execution rule. What
+was applied is its writing guidance — explain the why rather than stacking imperatives,
+and keep the reasoning next to the rule — which is the style the module docstrings and
+case rationales above follow. Reading it would not have been invocation; it was
+invoked, and it produced no artifact.
+
+## Status
+
+Validation NOT_PERFORMED. Tests, native C/B/A, root admission, hook activation and
+human acceptance NOT_RUN. Hooks DESIGN_ONLY. Zero findings closed: authored source is
+not observed behaviour. Codex C COULD_NOT_RUN, Codex B NOT_RUN, the prior Claude budget
+FAILs and the 687-second late write are unchanged. The three held authorities received
+no work and no prompt.

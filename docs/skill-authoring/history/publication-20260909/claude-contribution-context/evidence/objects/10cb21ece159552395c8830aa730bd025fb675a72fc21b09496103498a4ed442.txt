@@ -1,0 +1,250 @@
+#!/usr/bin/env python3
+"""Authoring-time deterministic checks for the devforgeai-contribution-context source package.
+
+Revision 2, authored for the SESSION-004@2 correction pass. This is a NEW output: the
+revision-1 checker in the frozen stage-1 run is unchanged and remains the record of what
+was run there. The functional difference is in eval_visibility, described below.
+
+What each check claims, and nothing more:
+
+  link_resolution        every relative Markdown link target in a runtime file resolves to a
+                         file inside the package.
+  derivation_bytes       every derived file recorded in references/derivation.json exists, its
+                         bytes match the recorded destination digest, and refresh triggers are
+                         declared. The recorded source digest is compared too when the authority
+                         store root is supplied with --authority-root; without it that
+                         comparison is reported COULD_NOT_RUN, because the bytes were not
+                         compared rather than found wrong.
+  eval_fixture_paths     every path in an evals.json case `files` array is relative, contains no
+                         parent traversal, exists, and resolves inside the evals directory.
+  eval_visibility        no held-out file appears in any case's worker-visible `files` array.
+                         Revision 1 resolved the path for the existence check but classified the
+                         RAW string, so `./expectations/x.md` and `expectations/x.md` named one
+                         file and received different dispositions. Both spellings are now
+                         normalized once, before existence and classification alike, and the
+                         normalized value is what gets classified.
+  runtime_hygiene        no runtime file embeds a developer home directory or an absolute path
+                         into this checkout, and no cache directory is present.
+  runtime_export_set     no file a runtime distribution would carry is an authored eval artifact,
+                         and the authored evals tree exists outside that set.
+
+None of these establish that the instructions are correct, that the guidance is sound, that the
+package would activate, or that anyone has accepted it. Heading presence and digest equality are
+mechanical facts; semantic conformance is a separate, human or separately assigned judgement.
+Correcting a checker is not independent acceptance of the package it checks.
+
+Exit 0 when every check passes, 1 when any fails, 3 when the package cannot be read. A
+COULD_NOT_RUN sub-observation does not by itself fail a check; it is reported and counted
+separately, because an unobtained observation is not a failed one.
+
+Usage: python3 package_checks.py <package-directory> [--authority-root <path>]
+"""
+
+import hashlib
+import json
+import os
+import re
+import sys
+
+RUNTIME_DIRS = ("references", "assets", "scripts")
+HELD_OUT_PREFIXES = ("expectations", "withheld", "triggers")
+HELD_OUT_FILES = ("evals.json", "coverage-matrix.md", "README.md")
+MD_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+HOME_MARKERS = ("/home/", "/Users/", "C:\\Users")
+
+results = []
+
+
+def record(name, ok, detail):
+    results.append((name, ok, detail))
+    print(f"check={name} outcome={'PASS' if ok else 'FAIL'} {detail}")
+    return ok
+
+
+def digest(path):
+    with open(path, "rb") as handle:
+        return hashlib.sha256(handle.read()).hexdigest()
+
+
+def normalize(rel):
+    """One canonical spelling for a package-relative path.
+
+    Alias spellings of a single file must not reach different conclusions, so every
+    consumer below classifies this value rather than the raw string. Separators are
+    unified first so a Windows-style spelling normalizes with the rest.
+    """
+    return os.path.normpath(rel.replace("\\", "/"))
+
+
+def is_held_out(normalized):
+    parts = normalized.split(os.sep)
+    return parts[0] in HELD_OUT_PREFIXES or (len(parts) == 1 and parts[0] in HELD_OUT_FILES)
+
+
+def runtime_files(pkg):
+    out = []
+    if os.path.isfile(os.path.join(pkg, "SKILL.md")):
+        out.append("SKILL.md")
+    for d in RUNTIME_DIRS:
+        for dp, dn, fn in os.walk(os.path.join(pkg, d)):
+            dn[:] = [x for x in dn if x != "__pycache__"]
+            for f in sorted(fn):
+                out.append(os.path.relpath(os.path.join(dp, f), pkg))
+    return sorted(out)
+
+
+def check_link_resolution(pkg):
+    broken, checked = [], 0
+    for rel in runtime_files(pkg):
+        if not rel.endswith(".md"):
+            continue
+        base = os.path.dirname(os.path.join(pkg, rel))
+        for target in MD_LINK.findall(open(os.path.join(pkg, rel)).read()):
+            if target.startswith(("http://", "https://", "#", "mailto:")):
+                continue
+            checked += 1
+            resolved = os.path.normpath(os.path.join(base, target.split("#", 1)[0]))
+            if not os.path.isfile(resolved):
+                broken.append(f"{rel} -> {target}")
+            elif not os.path.abspath(resolved).startswith(os.path.abspath(pkg) + os.sep):
+                broken.append(f"{rel} -> {target} (escapes package)")
+    return record("link_resolution", not broken,
+                  f"relative_links_checked={checked} broken={broken or 'none'}")
+
+
+def check_derivation(pkg, authority_root=None):
+    path = os.path.join(pkg, "references", "derivation.json")
+    if not os.path.isfile(path):
+        return record("derivation_bytes", False, "references/derivation.json missing")
+    data = json.load(open(path))
+    problems, unobtained = [], []
+    entries = data.get("derived_files", [])
+    for entry in entries:
+        dest = os.path.join(pkg, entry["destination"])
+        if not os.path.isfile(dest):
+            problems.append(f"{entry['destination']} missing")
+            continue
+        actual = digest(dest)
+        if actual != entry["destination_sha256"]:
+            problems.append(f"{entry['destination']} digest {actual} != recorded {entry['destination_sha256']}")
+        src = entry.get("source", {})
+        if authority_root is None:
+            unobtained.append(f"{entry['destination']}: source digest not compared "
+                              f"(no --authority-root supplied for store '{src.get('preserved_store')}')")
+        else:
+            preserved = os.path.join(authority_root, src.get("preserved_locator", ""))
+            if os.path.isfile(preserved):
+                src_actual = digest(preserved)
+                if src_actual != src.get("source_sha256"):
+                    problems.append(f"preserved source digest {src_actual} != recorded {src.get('source_sha256')}")
+                if entry.get("transformation") == "none; byte-identical copy" and src_actual != actual:
+                    problems.append(f"{entry['destination']} declares an identical copy but differs from its source")
+            else:
+                unobtained.append(f"preserved source not readable at {preserved}")
+        if not entry.get("refresh_triggers"):
+            problems.append(f"{entry['destination']} declares no refresh triggers")
+    return record("derivation_bytes", not problems and bool(entries),
+                  f"derived_files={len(entries)} problems={problems or 'none'} "
+                  f"could_not_run={unobtained or 'none'}")
+
+
+def check_evals(pkg):
+    evals_dir = os.path.join(pkg, "evals")
+    index = os.path.join(evals_dir, "evals.json")
+    if not os.path.isfile(index):
+        record("eval_fixture_paths", False, "evals/evals.json missing")
+        return record("eval_visibility", False, "evals/evals.json missing")
+    data = json.load(open(index))
+    root = os.path.abspath(evals_dir)
+    path_problems, leaked, total = [], [], 0
+    for case in data["evals"]:
+        for raw in case["files"]:
+            total += 1
+            if os.path.isabs(raw):
+                path_problems.append(f"{case['name']}: absolute path {raw}")
+                continue
+            # Normalize once, then use the normalized value for BOTH the containment and
+            # existence checks and the held-out classification. Revision 1 split these and
+            # let an alias spelling reach a different visibility disposition.
+            rel = normalize(raw)
+            if ".." in rel.split(os.sep):
+                path_problems.append(f"{case['name']}: parent traversal in {raw}")
+                continue
+            resolved = os.path.abspath(os.path.join(evals_dir, rel))
+            if not resolved.startswith(root + os.sep):
+                path_problems.append(f"{case['name']}: {raw} escapes the eval root")
+            elif not os.path.isfile(resolved):
+                path_problems.append(f"{case['name']}: missing fixture {raw}")
+            if is_held_out(rel):
+                note = f" (spelled {raw!r}, normalizes to {rel!r})" if rel != raw else ""
+                leaked.append(f"{case['name']}: {rel}{note}")
+    ok_paths = record("eval_fixture_paths", not path_problems,
+                      f"file_references={total} problems={path_problems or 'none'}")
+    ok_vis = record("eval_visibility", not leaked,
+                    f"held_out_leaked_into_worker_visible_files={leaked or 'none'}")
+    return ok_paths and ok_vis
+
+
+def check_runtime_hygiene(pkg):
+    offenders, caches = [], []
+    for rel in runtime_files(pkg):
+        text = open(os.path.join(pkg, rel), errors="replace").read()
+        for marker in HOME_MARKERS:
+            if marker in text:
+                offenders.append(f"{rel} contains {marker}")
+    for dp, dn, fn in os.walk(pkg):
+        if "__pycache__" in dp or any(f.endswith(".pyc") for f in fn):
+            caches.append(os.path.relpath(dp, pkg))
+    return record("runtime_hygiene", not offenders and not caches,
+                  f"absolute_path_offenders={offenders or 'none'} caches={caches or 'none'}")
+
+
+def check_runtime_export_set(pkg):
+    files = runtime_files(pkg)
+    leaked = [f for f in files
+              if "evals" in f.split(os.sep) or os.path.basename(f) in ("evals.json", "triggers.json")]
+    evals_dir = os.path.join(pkg, "evals")
+    authored = []
+    for dp, dn, fn in os.walk(evals_dir):
+        dn[:] = [x for x in dn if x != "__pycache__"]
+        authored.extend(os.path.relpath(os.path.join(dp, f), pkg) for f in fn)
+    overlap = sorted(set(files) & set(authored))
+    ok = not leaked and not overlap and bool(files) and bool(authored)
+    return record("runtime_export_set", ok,
+                  f"runtime_files={len(files)} authored_eval_files={len(authored)} "
+                  f"eval_artifacts_in_runtime_set={leaked or 'none'} overlap={overlap or 'none'}")
+
+
+def main(argv):
+    authority_root = None
+    args = argv[1:]
+    if "--authority-root" in args:
+        i = args.index("--authority-root")
+        try:
+            authority_root = os.path.abspath(args[i + 1])
+        except IndexError:
+            print("usage: python3 package_checks.py <package-directory> [--authority-root <path>]")
+            return 3
+        del args[i:i + 2]
+    if len(args) != 1:
+        print("usage: python3 package_checks.py <package-directory> [--authority-root <path>]")
+        return 3
+    pkg = os.path.abspath(args[0])
+    if not os.path.isdir(pkg):
+        print(f"check=read_package outcome=COULD_NOT_RUN cause=not a directory: {pkg}")
+        return 3
+    print(f"package={pkg}")
+    print(f"authority_root={authority_root or 'not supplied'}")
+    check_link_resolution(pkg)
+    check_derivation(pkg, authority_root)
+    check_evals(pkg)
+    check_runtime_hygiene(pkg)
+    check_runtime_export_set(pkg)
+    failed = [n for n, ok, _ in results if not ok]
+    print(f"overall={'PASS' if not failed else 'FAIL'} failed={failed or 'none'}")
+    print("scope=mechanical structure, byte identity and path containment only; not semantic acceptance")
+    return 0 if not failed else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

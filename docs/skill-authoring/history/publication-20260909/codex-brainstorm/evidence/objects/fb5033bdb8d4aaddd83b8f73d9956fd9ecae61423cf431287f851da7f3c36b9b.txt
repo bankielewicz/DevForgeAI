@@ -1,0 +1,46 @@
+{
+  "schema_version": "devforge.static-review-receipt/v1",
+  "reviewer": "/root/r7_codex_source_review",
+  "created_at_utc": "2026-09-07T13:35:38.330097+00:00",
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r7-20260907T132636368009Z/INPUT-MANIFEST.json",
+    "sha256": "3129fdecc77efc01c6e4e29095d96109fe5c07c9e0671a38ae4a3937240b9698"
+  },
+  "files": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r7-20260907T132636368009Z/review-codex-source/ALLOCATION.json",
+      "sha256": "decc66d4077eddf30bb13f181a09721656375354690df862df3f82ef84fa823f",
+      "bytes": 829,
+      "readback": "COMPLETE_BYTES_READ"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r7-20260907T132636368009Z/review-codex-source/INPUT-READS.jsonl",
+      "sha256": "38473f0056ed2e24af97ba9e2c3df9b39a39f848c004d1a1bccc3598bc9d7e6d",
+      "bytes": 19691,
+      "readback": "COMPLETE_BYTES_READ"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r7-20260907T132636368009Z/review-codex-source/AI-REVIEW.json",
+      "sha256": "7314d80976c7f5daa8ba88c2340faca82a848a4d1a22b95142172c780e3ef52e",
+      "bytes": 77415,
+      "readback": "COMPLETE_BYTES_READ"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r7-20260907T132636368009Z/review-codex-source/REVIEW.md",
+      "sha256": "6cbef409ef54ec0e3d390a3470561818f8a4c42715005b1ec22f44cfa3f3f6fd",
+      "bytes": 4097,
+      "readback": "COMPLETE_BYTES_READ"
+    }
+  ],
+  "receipt_self_digest_included": false,
+  "scope": "Complete-byte readback and custody of reviewer-owned outputs only; not candidate validation, native delivery or acceptance.",
+  "checks": {
+    "all_output_bytes_read_back": true,
+    "ai_review_json_parsed": true,
+    "r01_r10_present": true,
+    "all_criterion_evidence_paths_hashes_and_line_ranges_rechecked": true,
+    "deadline_met_at_receipt_creation": true,
+    "new_candidate_execution_count": 0
+  },
+  "completion_status": "STATIC_REVIEW_COMPLETE"
+}

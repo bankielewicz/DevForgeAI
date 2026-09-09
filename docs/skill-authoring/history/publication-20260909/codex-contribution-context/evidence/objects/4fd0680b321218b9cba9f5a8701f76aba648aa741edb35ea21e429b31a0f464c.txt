@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-09-05T23:45:31.309842+00:00",
+  "outcome": "PASS",
+  "preserved_entries_and_originals_unchanged": 647,
+  "original_main_files_unchanged_during_review": true,
+  "main_and_review_worktree_match_frozen_patch": true,
+  "source_base": "6983f1de3e06f9b422546fd6944888dcd34e56a1",
+  "main_index_unchanged": true,
+  "review_index_empty": true,
+  "cli_binary_sha256": "1139a7f2a572be3b18d8a6ff6cd1dbb3ea88dbbfe4be42462b60082860c0daf1",
+  "review_worktree": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+  "native_evaluation": "NOT_RUN",
+  "publication": "NOT_RUN"
+}

@@ -1,0 +1,88 @@
+{
+  "framework_files": {
+    "docs/mvp/artifact-contract.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "source_base_commit": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md",
+      "source_state": "unchanged at base"
+    },
+    "docs/mvp/execution-contract.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "source_base_commit": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md",
+      "source_state": "unchanged at base"
+    },
+    "docs/mvp/skill-authoring-contract.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/skill-authoring-contract.md",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "source_base_commit": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "source_state": "operator revision after base"
+    },
+    "docs/mvp/specifications/skill-001-devforge-brainstorm.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+      "source_base_commit": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "source_state": "unchanged at base"
+    },
+    "docs/mvp/templates/devforge-brainstorm/idea-ledger.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "source_base_commit": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "source_state": "unchanged at base"
+    },
+    "docs/mvp/templates/shared/handoff.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/framework/docs/mvp/templates/shared/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "source_base_commit": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+      "source_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+      "source_state": "operator revision after base"
+    }
+  },
+  "instruction": "Use exact framework file paths in this record for this new assignment; do not overwrite another worktree's pinned shared documents. Native creator package is for the author, not grading-answer input to evaluated workers.",
+  "schema_version": "devforge.operator-selected-inputs/v1",
+  "selected_revisions": {
+    "SKILL-001": 2,
+    "artifact-contract": 2,
+    "execution-contract": 2,
+    "skill-authoring-contract": 2
+  },
+  "shared_patch_sha256": "7848ca8193332d166844fefe427770e3752ffb896b3eca7d711890cf642af096",
+  "skill_creator": {
+    "cache_identity": "85cce0381e78",
+    "excluded": [
+      ".in_use/**",
+      "__pycache__/**"
+    ],
+    "files_sha256": {
+      ".claude-plugin/plugin.json": "658debd3e0bef690d15e948f0fbebb569eb172111f5e816b226537c911d75069",
+      "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "README.md": "6692d88192f72ac3b4a56d048b43f5f9751178a6b3d1716128927748a90d0924",
+      "skills/skill-creator/LICENSE.txt": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "skills/skill-creator/SKILL.md": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf",
+      "skills/skill-creator/agents/analyzer.md": "bf68f4cac5a56c673a928c2e6d619586c5b93ea364026ab37547772cb45a663a",
+      "skills/skill-creator/agents/comparator.md": "fe1fc9787c495d864c5d6eada47396478572325fde1b33a96d78bf4b849b7a3e",
+      "skills/skill-creator/agents/grader.md": "57134da0c1a4eea33fbd74a1c9c44aa814f07d6bc64de303edb586f941e5d21a",
+      "skills/skill-creator/assets/eval_review.html": "ce477dcc74dc1c0d1d3352646a79167b5a63634e936b1019160025065974e452",
+      "skills/skill-creator/eval-viewer/generate_review.py": "fc9d1b9243fe5ab6012ebd579bd76d0035de1b79fd3b969de114defab26478fb",
+      "skills/skill-creator/eval-viewer/viewer.html": "a53213426ee1100441d701a3a0d49cda7a842f992d2c36463f4d3cc0258575fa",
+      "skills/skill-creator/references/schemas.md": "8e8876180a8989b406a4d3edddf875b04cdfd5805cc8616686d552b11ce4455f",
+      "skills/skill-creator/scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "skills/skill-creator/scripts/aggregate_benchmark.py": "123ef128ea5ccc01a4b1ac212ef5567f21e9c13d3d240609780beeb3200c49aa",
+      "skills/skill-creator/scripts/generate_report.py": "13df7118a3c50c83c4c3250a606d5f2b20b25a3d44cbc392b3d669ec75281453",
+      "skills/skill-creator/scripts/improve_description.py": "87d864570220b699fac52da309d2d6efdb060647bfebc74f768128e646accf80",
+      "skills/skill-creator/scripts/package_skill.py": "1a33059b0db1ef73375d46d513e5ea81369d2e8838c970597b0d52ddef8d1c0f",
+      "skills/skill-creator/scripts/quick_validate.py": "67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365",
+      "skills/skill-creator/scripts/run_eval.py": "43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f",
+      "skills/skill-creator/scripts/run_loop.py": "7bd6f674203168520517eec94c55f493c0d154339b061b4d7c0f0dad187d0f21",
+      "skills/skill-creator/scripts/utils.py": "3af8ae62c40c73ab712207436a0d9a981e845f25c5a7040229eb189cc8e45bb1"
+    },
+    "native_activation": "NOT_RUN; staged source package only",
+    "source_root": "/home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/85cce0381e78",
+    "staged_root": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-brainstorm-20260905T114005204165Z/next-inputs/skill-creator"
+  }
+}

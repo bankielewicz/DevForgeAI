@@ -1,0 +1,18 @@
+[
+  {
+    "path": "providers/claude/plugins/devforgeai/hooks/hooks.json",
+    "sha256": "9c4c57827e194aea3ca107193085ecad5f078cb27dfb4e12d64c032a7ff55530"
+  },
+  {
+    "path": "providers/claude/plugins/devforgeai/hooks/runtime-requirements.json",
+    "sha256": "3f3ff9b08b3e19e6ac20dd2973130626208346aa2d8110eea6dcd05b45cb90bf"
+  },
+  {
+    "path": "providers/codex/plugins/devforgeai/hooks/hooks.json",
+    "sha256": "48d8bbef4081b207efc2e36d510da01a11b24d5a9f221b83ffe5b90e29fb9bad"
+  },
+  {
+    "path": "providers/codex/plugins/devforgeai/hooks/runtime-requirements.json",
+    "sha256": "9df2f2aed9a4a4be735fb50b7018574a5e99d9893eb404ad2cdf7b2469c14569"
+  }
+]

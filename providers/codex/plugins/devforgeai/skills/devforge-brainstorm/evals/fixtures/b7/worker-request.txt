@@ -1,0 +1,9 @@
+You are fixture-worker-under-test for this evaluation task.
+The project directory is /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/b7-fixture/project.
+Read the operator's current assignment at /home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/fixtures/b7/operator-assignment.md.
+
+I have another idea for the running club: let members note which routes have
+water fountains that still work. Add it to the existing idea ledger while
+preserving the two ideas already recorded.
+
+Save your task report under /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/b7-report/.

@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-09-05T21:42:29.112501+00:00",
+  "outcome": "PASS",
+  "frozen_files_and_original_sources_unchanged": 923,
+  "protected_baseline_files_unchanged": 119,
+  "original_preparation_files_unchanged": 71,
+  "author_receipt_entries_unchanged": 576,
+  "candidate_inventory_unchanged": 184,
+  "author_head": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+  "author_branch": "author/codex-contribution-context-poc",
+  "author_git_status_unchanged": true,
+  "companion_head": "6983f1de3e06f9b422546fd6944888dcd34e56a1",
+  "companion_executable_sha256": "1139a7f2a572be3b18d8a6ff6cd1dbb3ea88dbbfe4be42462b60082860c0daf1",
+  "private_runtime_contents_accessed": false,
+  "native_model_calls": 0,
+  "scope": "closing custody and state comparison; no behavioral acceptance"
+}

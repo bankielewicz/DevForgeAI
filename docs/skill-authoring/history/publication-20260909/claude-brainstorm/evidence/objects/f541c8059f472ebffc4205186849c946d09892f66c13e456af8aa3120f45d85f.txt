@@ -1,0 +1,16 @@
+{
+ "schema_version": "devforge.selected-allocation/v1",
+ "session": "SESSION-001@10",
+ "artifact_id": "SESSION-001",
+ "revision": 10,
+ "store": "authority",
+ "path": "authoring-assignments-20260905/SESSION-001.md",
+ "sha256": "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587",
+ "issued_copy": "runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/authority/SESSION-001-r10-DRAFT.md",
+ "issuance_record": "runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/ISSUANCE.json",
+ "supersedes_sha256": "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3",
+ "run_id": "SESSION-001-r10-20260907T1919Z",
+ "note": "The current issued allocation, verified byte-equal to the issued copy and to the live assignment file before any dependent write. freeze.selected_allocation() reads this file; no session digest is hardcoded in the emitter. A later allocation replaces this file rather than editing the emitter.",
+ "native_arms_authorized": 0,
+ "executions_authorized": 0
+}

@@ -1,0 +1,67 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SESSION-001"
+artifact_type: "session-record"
+project_id: "devforgeai"
+revision: 10
+status: draft
+created_at_utc: "2026-09-07T17:12:52.929986+00:00"
+producer:
+  skill: "integration-operator"
+  skill_revision: "ddad934f359c108facaca2997bc4fe073df87540"
+execution_ref: null
+upstream: []
+evidence:
+  - store: authority
+    path: "runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/INPUTS.json"
+    sha256: "ff5bf837183cdd907fa34231889fe896f3206ed464c4f913dfb464484e09bc82"
+  - store: authority
+    path: "runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/ROOT-INTEGRATION-ANNEX.json"
+    sha256: "b87b441ebfc23311c9a0eb135b3000886e6e99116a4e4ca1b028f664d3b30dcb"
+supersedes:
+  artifact_id: "SESSION-001"
+  revision: 9
+  store: authority
+  path: "runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/authority/SESSION-001-r9.md"
+  sha256: "9622527ab2b104dc43ae76b24e1b1009ffcfbb530b5b7dd79c1888f1e73900d3"
+decision_ref: null
+missing_inputs: []
+---
+
+# Claude brainstorm revision-10 bounded authoring allocation — proposed, unissued
+
+This allocation is a DRAFT until independent root packet review is completed and root records a successful compare-and-swap from the exact SESSION-001@9 before hash to these exact @10 bytes. It becomes effective only when current /home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md equals this file and /home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/ISSUANCE.json binds that successful transition, the reviewed packet INPUTS/review-manifest/annex and the independent review. Packet preparation alone grants no provider work. Other authorities remain held; no joint transition is required.
+
+The writer is the retained user-selected Claude brainstorm author in the existing assigned author session. One fresh run is allocated, not a restart of R9, replacement author, evaluation cycle or new capability. First action/tool is an actual clock observation before any assignment-file reading. The same at-most-120-minute allocation counts all reading, preparation, waits, creator action and persistence; final twenty minutes are reserved for freeze, report, full readback and receipt. Compute and record absolute reserve and hard cutoff from that first clock, stop technical edits at reserve, and return a precise partial by the original hard cutoff. No reset, extension or retrospective timestamp rewrite.
+
+## Exact selection, worktree and collision gate
+
+Worktree /home/bryan/Projects/DevForge/worktrees/claude-brainstorm; branch author/claude-brainstorm-mvp; HEAD a006b3d91f39776cf3ac4cd06b174d5fa3ed688c; common Git directory /home/bryan/Projects/DevForge/framework/DevForgeAI/.git. Root repository HEAD selected at preparation is ddad934f359c108facaca2997bc4fe073df87540. Git is read-only. Before dependent writing verify these identities, issued current authority and its exact receipt bindings, INPUTS.json SHA-256 ff5bf837183cdd907fa34231889fe896f3206ed464c4f913dfb464484e09bc82, ROOT-INTEGRATION-ANNEX.json SHA-256 b87b441ebfc23311c9a0eb135b3000886e6e99116a4e4ca1b028f664d3b30dcb, and all twenty current candidate identities. Complete raw reads/hashes are custody authoring operations, not target validation.
+
+The current source snapshot is /home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/selected/claude/candidate/devforge-brainstorm. Bind it to live source /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm. Unexpected drift/collision stops affected work without overwrite, reset, rollback, relocation or inferred selection. After authorized edits continue from recorded in-progress bytes, not an automatic rollback to the initial pins. Preserve simultaneous user/operator work.
+
+Read INPUTS, the complete REMEDIATION-SPECIFICATION, REPAIR-MAP, EFFECTIVE-SOURCE-SELECTION, ROOT-INTEGRATION-ANNEX, root R9 integration review and all three scoped narrative reviews, custody findings, selected r7 design/bridge, selected six Claude shared files, and applicable frozen builder/creator guidance. Their exact bytes are in INPUTS. Historical criteria/outcomes remain attributed to their original bytes; later mutable shared/runtime/utility files and prospective v2 are not selected.
+
+## Writes and requested corrections
+
+Only references/derivation.json may change in the live Claude package. Preserve the other nineteen files exactly, including description and operative instructions. Refresh the three current destination hashes and corresponding verification statements, retaining old values explicitly historical. CHG-022 identifies this bounded metadata correction. No package additions/deletions/renames or behavioral expansion.
+
+Create exactly one exclusive new directory under /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/. This new run may contain baseline/final candidate copies, the complete fresh executable control/checker/suite tree, actual fixture definitions and suite bindings, authored specifications, additive R9 chronology/manifest correction, authoring/change records and custody/report artifacts. Copy the exact twenty-five-file selected effective tree (fourteen-file 132-line-PLAN r7 baseline plus selected R9 overlay) into this new run, preserve the historical sources, and author actual caller integration plus executable scenarios required by CHG-005..016/019..021 and every R9 CI/RR finding. A helper, dictionary or unused fixture index is not integration. Add CHG-023/024 corrections without changing old R9 bytes.
+
+Read and follow all explicit discriminating cases in the specification. Keep CHG-011 local evaluation main(--resume) work separate from unavailable native WAITING_USER callbacks. Fixed C/B prerequisites and evidence-bound A3a completion/activation sequencing are different predicates. All five authentic observation classes fail closed when unavailable; no invented collector/API or synthetic PASS. Source/fixture roots and all effective code are explicit fixed selections; no historical absolute fallback. Fresh emitters consume the independently selected current issuance identity; do not hardcode any historical or prospective authority digest.
+
+All prior runs/reports/receipts, shared contracts/templates, provider manifests, installed caches, hooks/configuration, root runtime/installer, sibling provider, other skills, AGENTS, canonical tree, Git metadata and live authority files remain read-only. No executable hook authoring. Codex and both contributor-context sessions receive no work or new prompts; their authority hashes remain 002 aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383; 003 c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93; 004 251515799b1f603600f2dc5fa336eaa29759082a5be0d6a7120eba5d031bdfbe.
+
+## Authoring guidance and prohibited execution
+
+Use the selected native Anthropic skill-creator in the retained Claude session as the previously authorized authoring-guidance action. Record actual observable invocation/application, or COULD_NOT_RUN if unavailable; reading/copying alone is not invocation. Do not replace it with another client/provider/model delegate. Creator evaluation helpers remain disabled. Frozen validator guidance is read-only context; no validator campaign.
+
+Tests/suites/fixture execution 0; authored target/helper imports or execution 0; validator/linter/compilation 0; new native workers/model clients/graders 0; installs/exports 0; hook activation 0. Standard-library file custody, JSON and source-text inspection/writes are allowed. Do not run new candidate code even against the new report. Do not delegate prohibited execution, access credentials/private histories, modify global settings, use broad signals, send external messages, commit/merge/push/publish or claim acceptance.
+
+## Handback and truthful status
+
+Follow the specification's complete handback list and per-subpart state rules. Freeze the entire current candidate plus complete selected authored tree. Preserve original IDs/severities, historical APPLIED claims as claims and exact reviewer partials; new source cannot close prior native findings. Identify specification, helper/checker, actual caller, executable suite/fixture and deferred native subparts independently. Do not claim APPLIED_EXECUTABLE for dictionaries or an entire partial CHG, or predict unperformed results.
+
+Add the R9 chronology/coverage correction, preserving impossible assertions as reported and unverified rather than inventing replacements. Finalize all manifest members, exclude the manifest itself, then read back complete members and manifest, publish explicit READBACK coverage and separate external RECEIPT binding report/manifest/readback and later records. The receipt has no self digest; read it back and return its full SHA-256 externally. Late artifacts need explicit later bindings. Return one named report, manifest, readback and receipt with absolute paths/full digests before hard cutoff, then hold for independent root review.
+
+Validation NOT_PERFORMED; tests/native C/B/A/root admission/hook activation/human acceptance NOT_RUN; hooks DESIGN_ONLY. Selected root fixture tests are historical root-owned synthetic evidence only. Retain previous Codex C COULD_NOT_RUN/B NOT_RUN, prior Claude budget FAILs and 687-second late write. No root startup-r4, v2, native or acceptance readiness is granted.

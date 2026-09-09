@@ -1,0 +1,19 @@
+---
+artifact_id: "IDEAS-904"
+revision: 1
+upstream:
+  - artifact_id: "IDEAS-900"
+    revision: 1
+    store: "project"
+    path: "docs/devforge/ideas/IDEAS-900.md"
+    sha256: "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43"
+missing_inputs:
+  - "IDEAS-900: unable to read the section list, so no sections are cited."
+---
+
+# Negative: unreadable is not absence
+
+One clause, about IDEAS-900's sections, carrying both an unknown and an absence
+word. Inside the clause that is actually about the sections, the unknown wins:
+nobody looked, so nothing was observed to be absent. Expected FAIL with the
+unknown-rather-than-absence reason, not a generic early failure.

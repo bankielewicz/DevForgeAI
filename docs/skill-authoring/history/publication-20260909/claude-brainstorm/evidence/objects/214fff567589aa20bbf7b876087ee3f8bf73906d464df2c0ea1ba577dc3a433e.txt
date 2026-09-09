@@ -1,0 +1,131 @@
+{
+  "schema_version": "devforge.root-custody-findings/v1",
+  "created_at_utc": "2026-09-07T22:09:56.872817+00:00",
+  "findings": [
+    {
+      "id": "R10-CUSTODY-001",
+      "severity": "MAJOR",
+      "title": "Repeated first-action deviation and contradictory allocation accounting",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/CLOCK.json",
+          "sha256": "83635224d4f4e2cb888389cc04690f03256481cbb3a32b9f18566fec3ce1916c",
+          "lines": [
+            6
+          ],
+          "text_match": "start_basis"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/CLOCK.json",
+          "sha256": "83635224d4f4e2cb888389cc04690f03256481cbb3a32b9f18566fec3ce1916c",
+          "lines": [
+            15
+          ],
+          "text_match": "Three tool calls"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/CLOCK.json",
+          "sha256": "83635224d4f4e2cb888389cc04690f03256481cbb3a32b9f18566fec3ce1916c",
+          "lines": [
+            17
+          ],
+          "text_match": "at most a few minutes late"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/report/SEVAL-R10-001.md",
+          "sha256": "c5ce312a6e04c3095d06752bcd9ba387536e39c1b3a34036069baea53136d1ba",
+          "lines": [
+            84
+          ],
+          "text_match": "shortens"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/R9-CORRECTION.md",
+          "sha256": "5bf583a2ccafaacf075bf17370a9ecac01f85c958de12109acb86649887a3086",
+          "lines": [
+            75
+          ],
+          "text_match": "shortens"
+        }
+      ],
+      "finding": "CLOCK start_basis says observed before reading any packet, while first_action_rule_deviation says three preceding calls included prompt reading. The report and correction claim a later clock start shortens allocation; fixed-duration cutoffs computed from a later start instead move later relative to the unknown actual first work. Neither unknown true duration nor a bound of a few minutes is independently supported here.",
+      "conclusion": "FIRST_ACTION_NONCONFORMANT_SELF_REPORTED; exact total duration and original first-work cutoff UNKNOWN; no inferred overrun.",
+      "repair": "Add a separate correction in a new run; retain original bytes. Distinguish actual first clock observation, unknown true first-work time, scheduled cutoffs, and unverified author closeout. Do not invent or backdate timestamps. Next allocation delivery must put clock-before-file-read instruction directly in the delivered outer prompt."
+    },
+    {
+      "id": "R10-CUSTODY-002",
+      "severity": "MINOR",
+      "title": "External receipt issuance timestamp contains an unexpanded format directive",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/report/RECEIPT.json",
+          "sha256": "862e275f6a6663f76d0e694bda349f349e26783d3687dd53ec8b5dd0d0ef47fd",
+          "lines": [
+            10
+          ],
+          "text_match": "19:49:52.%f"
+        }
+      ],
+      "finding": "issued_at_utc is not a valid ISO-8601 timestamp because it contains literal %f. Byte bindings still verify; exact issuance time cannot be parsed from the declared field.",
+      "repair": "Preserve receipt; additive correction must label original timestamp invalid and exact fractional time unknown. New records should use an actual observed UTC datetime serialized with isoformat and parse/readback it before closure, without changing this historical receipt."
+    },
+    {
+      "id": "R10-CUSTODY-003",
+      "severity": "MINOR",
+      "title": "Final handoff contains stale counts and an overbroad verification instruction",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/HANDOFF.md",
+          "sha256": "3a641c196df48da319718672371fd67498e482d6b6e00ae70052cf0486dad630",
+          "lines": [
+            39
+          ],
+          "text_match": "two subparts are locally unfinished"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/HANDOFF.md",
+          "sha256": "3a641c196df48da319718672371fd67498e482d6b6e00ae70052cf0486dad630",
+          "lines": [
+            79
+          ],
+          "text_match": "21 of the 25"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/HANDOFF.md",
+          "sha256": "3a641c196df48da319718672371fd67498e482d6b6e00ae70052cf0486dad630",
+          "lines": [
+            118
+          ],
+          "text_match": "replacing every"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/HANDOFF.md",
+          "sha256": "3a641c196df48da319718672371fd67498e482d6b6e00ae70052cf0486dad630",
+          "lines": [
+            103
+          ],
+          "text_match": "Native C / B / A"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/inputs/claude/run/AUTHORING-RECORD.md",
+          "sha256": "08da2d2926f8d281c3c2e6baa517ac8eb7727568484e916e29709bb05acf1f36",
+          "lines": [
+            24
+          ],
+          "text_match": "13 of the selected files"
+        }
+      ],
+      "finding": "SOURCE-MAP and byte diff show 13 selected files modified plus 8 additions; handoff says 21 of 25 modified. Local unfinished summary is not reconciled with the detailed per-subpart record. Its copyable prompt proposes replacing every NOT_RUN verification-table entry with observed outcomes from no-model suites even though that table includes native C/B/A, root admission, hooks and acceptance. A no-model execution can update only the suite results it actually observes.",
+      "repair": "Add a reconciled authoritative handoff correction with exact 13+8 counts and complete explicit local PARTIAL subparts (including CHG-010 physical per-reason fixture set and CHG-019 unresolved file); scope any new execution prompt to actual no-model observations and preserve all native/admission/acceptance labels."
+    }
+  ],
+  "status": "REPORTING_REVISION_REQUIRED",
+  "custody_supplement": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r10-20260907T220504052286Z/CUSTODY-SUPPLEMENT.json",
+    "sha256": "85f0d0f454fbdc95691b85e1b328ea74533457a798c1c3f7a8cc87790af022d9",
+    "bytes": 417601
+  },
+  "creator_action": "AUTHOR_REPORTED_INVOKED_LOADED_NOT_INDEPENDENTLY_OBSERVED",
+  "execution": "NOT_RUN",
+  "historical_claims_not_upgraded": true
+}

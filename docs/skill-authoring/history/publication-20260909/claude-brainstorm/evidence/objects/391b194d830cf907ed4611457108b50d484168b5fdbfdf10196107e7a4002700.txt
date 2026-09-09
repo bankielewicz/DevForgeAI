@@ -1,0 +1,16 @@
+{
+  "schema_version": "devforge.packet-author-allocation/v1",
+  "owner": "/root/r10_packet_author",
+  "scope": "R11 DRAFT packet only; no source or authority mutations or issuance",
+  "first_clock_tool_result_utc": "2026-09-07 22:11:54 UTC",
+  "allocation_persisted_at_utc": "2026-09-07T22:11:54.339792+00:00",
+  "first_work_utc": "2026-09-07T22:11:54Z",
+  "budget_minutes": 30,
+  "technical_budget_minutes": 24,
+  "reserve_minutes": 6,
+  "technical_cutoff_utc": "2026-09-07T22:35:54Z",
+  "hard_deadline_utc": "2026-09-07T22:41:54Z",
+  "deadline_reset_or_extended": false,
+  "status": "DRAFT_PREPARATION_WAITING_FINAL_ROOT_AND_SCOPED_REVIEWS",
+  "initial_draft_clock_field_correction": "Corrected an initial unissued allocation-field transcription error immediately from the actual first clock tool result; deadlines now anchored to that tool second, 0.339792 seconds earlier than the persistence time. No reset or extension."
+}

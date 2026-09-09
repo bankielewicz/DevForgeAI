@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider claude"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider claude"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider claude"
+          }
+        ]
+      }
+    ]
+  }
+}

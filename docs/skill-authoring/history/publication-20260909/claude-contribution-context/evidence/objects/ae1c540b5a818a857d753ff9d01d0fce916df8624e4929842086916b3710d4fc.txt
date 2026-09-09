@@ -1,0 +1,36 @@
+{
+  "outcome": "PASS",
+  "start_selected_paths_and_hashes": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md",
+      "sha256": "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md",
+      "sha256": "98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/REVIEW.receipt.json",
+      "sha256": "735fd187043a960d29b23aa6b1673d1fa110f44829e4ec2725e8b0c17d6fb6e6"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/INPUTS.json",
+      "sha256": "d2d9026e2cbeb0f94837b3a1e306b4b3f73ff0056a39069596ef2b56946b472d"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/VERIFY.py",
+      "sha256": "303277423c650aadefff969cd8d5508548022922fbaf0f359cebb3cd8b920278"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/ALLOCATION.json",
+      "sha256": "ed3c03a8c71142084a8c244e90a92dcc2e831f8609dd7f060743c1ce3dfe913d"
+    }
+  ],
+  "session_envelope": "PASS",
+  "session_revision": 2,
+  "stable_assignment_sections": 6,
+  "review_findings": 6,
+  "report_links_resolve": true,
+  "native_evaluation_calls": 0,
+  "scope": "operator packet references and structure; no identity authentication or behavioral acceptance"
+}

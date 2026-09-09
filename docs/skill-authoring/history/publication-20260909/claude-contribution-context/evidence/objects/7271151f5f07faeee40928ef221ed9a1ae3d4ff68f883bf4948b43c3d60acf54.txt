@@ -1,0 +1,455 @@
+{
+  "schema_note": "Frozen inventory produced at authoring time. A digest proves byte identity only; it establishes nothing about semantic conformance, activation, or acceptance.",
+  "package": "devforgeai-contribution-context",
+  "provider": "claude",
+  "source_directory": "project-experts/claude/devforgeai-contribution-context",
+  "package_revision": 2,
+  "supersedes_inventory": "the stage-1 run's inventory of the reviewed 71-file source; that identity is preserved and this one is distinct",
+  "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context",
+  "branch": "author/claude-contribution-context-poc",
+  "base_commit": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+  "execution_ref": "SESSION-004@2",
+  "frozen_at_utc": "2026-09-06T02:16:35+00:00",
+  "inventory_type": "authored-evaluation-inputs",
+  "description": "Authored cases, fixtures, held-out material and trigger queries. Excluded from any runtime distribution.",
+  "file_count": 72,
+  "case_count": 13,
+  "worker_visible_file_count": 58,
+  "held_out_file_count": 10,
+  "execution_status": "NOT_RUN. 0 model calls allocated; no case, arm or trigger query executed.",
+  "visibility_rule": "An evaluated worker receives its case's raw prompt and that case's listed files only. expectations/, withheld/, the index and the coverage matrix are held out.",
+  "files": [
+    {
+      "path": "evals/README.md",
+      "sha256": "e2dca9c6ad8ce4e3296f4540534b258716ae72773ac4274924c83a2829b45d6c",
+      "category": "eval-index",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/coverage-matrix.md",
+      "sha256": "2166ed2086b25a35773fd19a7433cc7a33f57cf8d3c621c1959e51e6f0055a7a",
+      "category": "eval-index",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/evals.json",
+      "sha256": "6fd4100d5016ec1813e2dad80db2c014bbe92d1e53315a78c36aca3073c5cdf7",
+      "category": "eval-index",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/README.md",
+      "sha256": "5e1566f387dcfb56ab8ad2805fff83b7b2fd0216c2d2ef5db4f39b89f685a1d6",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-01-replacement-architect.md",
+      "sha256": "3c9f2ca7b771994749c7e1ab740f0615df2a706c851a55681a58be317a47e5fa",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-02-worker-recovery.md",
+      "sha256": "cc17be4e8738f7c6ba8ebb35f5efee184511a7f8d95d7056c8fc503a6b9843a8",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-03-selected-revision-drift.md",
+      "sha256": "576927a3690d7bc3a1cc75815ac3c74360665c2df8af28cd218d11c2586f0f28",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-04-owner-missing-or-conflicting.md",
+      "sha256": "fb793b1bc0a591eae277b489bfd28feecb60a2ef839ee5cd0d539ce24613cc66",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-05-valid-prior-delegation.md",
+      "sha256": "66434aff30427911252addee5f70498f2a5f60335617a73357b1804f4de56f78",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-06-inaccessible-record.md",
+      "sha256": "f5d18937d6c96ced8996fa558d4f9c3340c2249d683bd9cd43bbdaf9b7a12241",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-07-conflicting-outcomes.md",
+      "sha256": "c6f03642ef239334d5b3d2f7b40ee3fc3da7669538881966cf69ef0c57655608",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/expectations/ccx-08-mode-and-checkpoint-integrity.md",
+      "sha256": "49a2fb181a72436e3e42a08a68d893dd083be5f8d2950416f31532bb39f0db2d",
+      "category": "eval-heldout",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/assignment/SESSION-900-architect.md",
+      "sha256": "438cf0124407e698469e7cf8912b76c8ddcbd3f89b75e29411fc7a9ed710ebdf",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/outbox/README.md",
+      "sha256": "fb82c0e1e97dd166fb122db2aae26da700012f025292417a14b9bd11c33a16c7",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/records/FIND-901.md",
+      "sha256": "49f3d73ae4ff029c01c41e5bb71a81a07d20937267b75c1558ce89cf8a1db782",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/records/REVIEW-900-summary.md",
+      "sha256": "6fc06c7a8eb1d01e80c29b69a57ac82de87dfb515736c1b6b38a34b4762df3d9",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/records/SESSION-901-codex-worker.md",
+      "sha256": "4ac713df942b3a40b1c9658c3118bbe9646e647b7705b9bdec6e5d7192e7426f",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/records/SESSION-902-claude-worker.md",
+      "sha256": "bc7b4469afc5b5a5f252c485fcfedc9b5bcd7035f8e58871a17d9b89a1afbef7",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/records/XPKG-901-codex-candidate.md",
+      "sha256": "758262baeb98d5b9bcf46a799f1daae4d93ee9363844c29d8d71151923135a5a",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-01-replacement-architect/records/XPKG-902-claude-candidate.md",
+      "sha256": "ffb286cca307785963a7068eca662f3cf56c413c7f865357ac93cfb697b68ce5",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02a-codex-worker-recovery/assignment/SESSION-911-codex-worker.md",
+      "sha256": "284ed7e91b147e092fb3ac875497c661c1ecfcb860b9d046323af35352c1513d",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02a-codex-worker-recovery/peer/SESSION-912-claude-worker.md",
+      "sha256": "4035a7b306799d88873bad7920d9448a3dac11ad90ecf1707f7c815ad98c4205",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02a-codex-worker-recovery/records/FIND-911.md",
+      "sha256": "39d70a0d6f78cd11235493bea51dced184de7c08802ffae937b79057ca244d41",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02a-codex-worker-recovery/shared/authoring-rules.md",
+      "sha256": "5ad0c4c33a94a481d4611421ef20f3ad4c145beaf0a3aa3c9d68978c64a1daed",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02b-claude-worker-recovery/assignment/SESSION-912-claude-worker.md",
+      "sha256": "8a44e07546c578ec9409e6ce6a350e70a86b832366afe52b64ad73f7d761bb26",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02b-claude-worker-recovery/peer/SESSION-911-codex-worker.md",
+      "sha256": "9a2feeaf7cb9cc14dbc9043d020fbbc5789750d72aed3c0e5a7964f05080ba8c",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02b-claude-worker-recovery/records/FIND-912.md",
+      "sha256": "cd8b4f51d4201a6f17f9cf856cc600e5105e6938487a74616c97e6867c608607",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-02b-claude-worker-recovery/shared/authoring-rules.md",
+      "sha256": "5ad0c4c33a94a481d4611421ef20f3ad4c145beaf0a3aa3c9d68978c64a1daed",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-03-selected-revision-drift/assignment/SESSION-920-worker.md",
+      "sha256": "83caa5181262af8f81c795b7bdfb4227e011cfdda0f5cd4fb72b1983d989abec",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-03-selected-revision-drift/main/packaging-rule.md",
+      "sha256": "07801dc9e6348bb35bcc25ed0420e95c447d4d37e5edc812c78ca1a40ffe2710",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-03-selected-revision-drift/selected/packaging-rule.md",
+      "sha256": "863405bfacd76379039542fdccca8aaf282a95b15a493b6184275e2cf4fb4b60",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04a-missing-owner/authority/REPORT-AUTHORITY-930.md",
+      "sha256": "d754e859c9eafa800deacf2cd780bda542c6623c0446d11f9eb1fae7b0cbc6b0",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04a-missing-owner/candidate/packaging.md",
+      "sha256": "757258788e84c50e32a171f3b73f392be1653b2e3e443f5413fdeec8c0fe40ba",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04a-missing-owner/outbox/README.md",
+      "sha256": "55f93572073b724fa5ca67f0515a979f9df12cfa19c5a0cc7aaedf7247980349",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04a-missing-owner/records/records-index.md",
+      "sha256": "3385e5a6c94973024c75958920466973baed69260beb9bf3935932972ac98f25",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04a-missing-owner/records/task-request.md",
+      "sha256": "573c84c756468ba8acec0180bc3eaf0c70ededa0bc325ab2ae786b234b3e23ac",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04b-conflicting-owner/authority/REPORT-AUTHORITY-931.md",
+      "sha256": "3fd88e73b34eeb8e19e37122fc4d863f6c7d46cf4907fd622242b8d64c5b9d43",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04b-conflicting-owner/candidate/packaging.md",
+      "sha256": "f5bfcd6025708994dc063ac5f46302a6162d4f59466b83a9091d568edcea9729",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04b-conflicting-owner/outbox/README.md",
+      "sha256": "9069b9fc630f1d933236b6074f921fa0c407433013d70dc5d2e40cf252435911",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-931-claim.md",
+      "sha256": "11d7a449016894979c41c139dfa3088752fd33fe8bd637f96094665dcb1bb062",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-932-claim.md",
+      "sha256": "50cf7501d679b5a645c91b6eff7fe3508383e44a981260a39d40009c3452f516",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04b-conflicting-owner/records/task-request.md",
+      "sha256": "8daed285c4f33091398d0bcbb071cb999dda77057e3e845cb20a4a2fda6ca459",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md",
+      "sha256": "e6b096743954eddb4d7a1a3949ea593c486f5ea614e6b181d1eb5769972dee6d",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md",
+      "sha256": "46e334a103c9d39e9e1f4ae94b5329a58faac5b37bcbe44fe8313a5010611eee",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04c-authorized-bootstrap/candidate/packaging.md",
+      "sha256": "0b54973efc466c99b31b9d63ce77c9a630ab1bb44dfc7fb55f5fcdb2bc8f3fd0",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04c-authorized-bootstrap/outbox/README.md",
+      "sha256": "ab4a5733bea39fffc814b01301fd970bf6024edaa6df4a0eea658658add1f00a",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md",
+      "sha256": "63c3a5b3c6b13b742b3a4c0c11ecc50749371b71e1c461fdbb62c23e3758d49f",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04c-authorized-bootstrap/records/records-index.md",
+      "sha256": "056b1577fc4aa138b8b4eb97721a8fe41078ed08701b760f932bec90ac09f025",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-04c-authorized-bootstrap/records/task-request.md",
+      "sha256": "9b50cc4345d875d067f794d9dc8592f91a93ca9e13792df462303b2bd0613bd4",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-05a-valid-delegation/assignment/SESSION-940-worker.md",
+      "sha256": "6d521993f476370bc9440ed5df6cb91c7a20483d10ca51bcd9cd30d5e0e815c1",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-05a-valid-delegation/records/HANDOFF-940.md",
+      "sha256": "829d47ce581bc01ac8f235be7b268321f9e80860c818951abdc0efdbea9d61cd",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-05a-valid-delegation/records/task-request.md",
+      "sha256": "ce9b62573d93230710701c1d2a759de5c5c6008ea3e6ed3ee5e31535100da19a",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-05b-delegation-control/assignment/SESSION-941-worker.md",
+      "sha256": "e1b3bb27c2a39f12c7f84a95435213006bcc2e78d27893d96a85d78f2962246d",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-05b-delegation-control/records/HANDOFF-941.md",
+      "sha256": "7583b921849ee41adfb7cea7809ca7ef146b8d2f5222d67bf1494107bfe19707",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-05b-delegation-control/records/task-request.md",
+      "sha256": "ce9b62573d93230710701c1d2a759de5c5c6008ea3e6ed3ee5e31535100da19a",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-06-inaccessible-record/assignment/SESSION-950-worker.md",
+      "sha256": "92124074aad8e50fece01cd7192150aaecc5c38d69403926eda273958ea89512",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-06-inaccessible-record/authority/README.md",
+      "sha256": "b843fbb99a3c3bcb5bde556aab814503dd302699215f5da88f741a5546cc26a0",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-06-inaccessible-record/notes/DECISION-950.md",
+      "sha256": "e5fcaad85d5cdcab05e95440124f3f67e274d1483ef0574f47e0a3ba2885d645",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-07-conflicting-outcomes/assignment/SESSION-960-architect.md",
+      "sha256": "a004190eb8dbb49c05aeef39bea67cae7a49ebda9a10bcfb1bca3ba395a4d488",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-07-conflicting-outcomes/outbox/README.md",
+      "sha256": "763a789b76e623a3fe53b3fbd4f57b4a42acbb96dc125252bc7cb22689e068bb",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-07-conflicting-outcomes/records/EVREPORT-960-summary.md",
+      "sha256": "7c581362400561729555d34f1bdea171f18ce7be87c75622a5cab18664d48735",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-07-conflicting-outcomes/records/FIND-960.md",
+      "sha256": "97f947ab46d58998c88ee62b17b9366afb57def5e440410b9f95e2e6c8486eed",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-07-conflicting-outcomes/records/RUN-960-manifest.json",
+      "sha256": "b48e564a66a5cc23f81e4a2fd0a0888cd49c22274b64001f301746dfd5e6a198",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md",
+      "sha256": "c13e56ce410d91fdd2f1eabd296681b8b2a05dceff35da6faf411a9cf1e18db3",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json",
+      "sha256": "0b160da594b12476d5e89f012d1e8336202431b9df8cdfb72eacd318b00d3fad",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md",
+      "sha256": "02dd82e4af48469a0d1941591e7094a653769ae40a6f0dd7c817e99528c7c919",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-08-mode-integrity/variant-a-resume/task-request.md",
+      "sha256": "cfc1d090ab3adea88d15dbc376a0859ef2be4a63cd321e3e971a910000e42080",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/authority/REPORT-AUTHORITY-970.md",
+      "sha256": "729f03467955f9d24d677d6a097f05f540e2b9ea7e870a0dda1a33f57bac3a8e",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/outbox/README.md",
+      "sha256": "bb3129908da0cdce8c9c2725314f6b8de1d165826707ea7916d6692803328685",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/task-request.md",
+      "sha256": "8ea5e9287179f1fe210c7bccf5aedf0984f09f89ad4053aa9514d54bcac81d22",
+      "category": "eval-fixture",
+      "worker_visible": true
+    },
+    {
+      "path": "evals/triggers/triggers.json",
+      "sha256": "4beb10eafb0bf40bdd855ca19166d954dfa91bd7b3456d7e99bb14acb2101843",
+      "category": "eval-trigger",
+      "worker_visible": false
+    },
+    {
+      "path": "evals/withheld/ccx-06-DECISION-950.md",
+      "sha256": "0586b0b9da4c7e9e908ca61e09f95cf50f4b4cc076533fca7c9f6dd5b082b982",
+      "category": "eval-heldout",
+      "worker_visible": false
+    }
+  ]
+}

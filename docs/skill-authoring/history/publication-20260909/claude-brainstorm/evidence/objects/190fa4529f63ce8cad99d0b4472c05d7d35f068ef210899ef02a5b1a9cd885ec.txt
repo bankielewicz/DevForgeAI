@@ -1,0 +1,118 @@
+# Recording rules: envelope, session, and honest reporting
+
+Read this while filling artifact frontmatter, or when one of the awkward conditions below occurs. The governing sources are the DevForgeAI artifact contract and execution contract; this file distills only the parts a brainstorming session actually hits.
+
+## Envelope fields
+
+Every artifact this skill writes carries the `devforge.artifact/v1` envelope from the template. What to put in each field:
+
+| Field | What goes here |
+| --- | --- |
+| `artifact_id` | `IDEAS-001`, `HANDOFF-001` - next unused number in the project's store. Never reuse an ID for different content. |
+| `revision` | `1` for a new ledger. Revising an existing ledger increments its revision and keeps the same `artifact_id`. |
+| `status` | `draft` while the user is still exploring. Only the user's actual adoption moves anything toward `accepted`. |
+| `created_at_utc` | The real current UTC time for this revision. |
+| `producer.skill_revision` | The SHA-256 of this skill's installed `SKILL.md`, obtained by running the bundled helper against it (`python3 <skill-root>/scripts/check_artifact.py <skill-root>/SKILL.md`) - that route works in installs where `Bash` refuses `sha256sum` on a path outside the session's working directories. Name the scope of what you report: that digest covers one file's installed bytes, a plugin version covers whatever a manifest says and can be identical across two different drafts, and the helper's placeholder exit status is about placeholders and vouches for neither. They are not interchangeable. If none is observable, write `unknown` - not a plausible-looking digest. |
+| `execution_ref` | The authority-selected session record's ID and revision (`SESSION-001@1`) plus where its bytes actually live. Only from a record you were given - usually there is none; see below. |
+| `upstream` | Real inputs you consumed: an existing ledger, a change request. Each entry needs `artifact_id`, `revision`, `store`, `path`, `sha256`, and the `sections` you actually used. See *Locators that resolve* below for what `store` and `path` may contain. |
+| `evidence` | Sources you actually retrieved: URL, retrieval date, version if relevant, and the claim it supports. |
+| `supersedes` | The prior revision you replaced, with its digest, and the locator where those bytes are still readable - which is not the path you just overwrote. Preserve them before writing; see *Locators that resolve*. |
+| `decision_ref` | `null` until the user adopts something. This field is the difference between a proposal and a commitment. |
+| `missing_inputs` | Everything required that you could not resolve. This is the correct home for gaps. |
+
+Placeholders (`{{...}}`) are the template's, not yours. A required field still holding one means the artifact is a draft.
+
+## Locators that resolve
+
+A reference is only as good as the bytes it resolves to. Three things go wrong often enough to be worth naming.
+
+**`store` is a small vocabulary, not free text.** Use `project` for the consuming project's own artifact tree and `authority` for an external assignment/authority store you were given. Words like `project filesystem` or an absolute host path are not members of that vocabulary and tell a later reader nothing about which root to resolve against. Give `path` relative to the selected store's root, so the same reference still works from another checkout.
+
+**A superseded revision needs somewhere to live.** Naming revision 1 and its digest while revision 2 now occupies that exact path produces a reference that resolves to the wrong content - and it is worse than a missing reference, because it looks checkable. Copy the prior bytes to a stable authorized location first, confirm the copy hashes to the digest you are about to cite, and cite the copy. A populated `supersedes` field is not by itself preservation. Neither is a copy that exists only inside some harness or evaluation directory the artifact's reader has no path to: if the bytes are not reachable from the locator you wrote, the reference is still broken.
+
+**Identifiers you cannot resolve are `missing_inputs` entries.** If the prior bytes were already gone, or the archive location is not yours to write, or a stable ID for something simply does not exist yet, say that. Inventing an ID or citing a locator you did not check is the failure this section exists to prevent.
+
+After the last write, resolve every reference you made, including the repeated ones. The same digest usually appears more than once - an output table row, a resume or custody line, an invalidation condition, a continuation note - and correcting only the primary occurrence leaves a document that contradicts itself. Read each occurrence against the actual file.
+
+## Digests and their order
+
+An artifact never contains its own complete-byte digest. Writing one is impossible to keep true anyway - inserting the digest changes the bytes it describes.
+
+Hash in dependency order: finish the ledger, hash it, then reference that digest from the handoff. If something needs the handoff's own digest, compute it after the handoff is complete and put it in an external record - your message to the user, or an operator-saved receipt - never back inside the handoff. The handoff does not appear in its own outputs table.
+
+## When no session record exists
+
+This is the normal case for someone with a new idea, and it is not an error. What it is *not* is evidence that you are the only writer. The absence of a record proves nothing about ownership in either direction, and "no record, therefore bootstrap mode, therefore I may write" is exactly the inference the execution contract rules out.
+
+Bootstrap mode is available to an *observably assigned* single writer. Before dependent writes, establish two things and record what you actually observed:
+
+1. **Authorization.** The user's own request is the scope. Write what they asked for, where they asked for it. A task you inferred is not authorization.
+2. **Collision evidence.** Look before writing, at the actual target path: an assignment or session record naming a different owner, a write fence that excludes your target, or another branch or worktree claiming it. Any of those puts you in the competing-ownership case below rather than in bootstrap mode. An existing artifact produced by a session that is not yours is a *prompt to check*, not collision evidence by itself - almost every ledger you inherit was written by someone else. Look for whether that other assignment is still live, as the competing-ownership section describes, and weigh it against your own.
+
+Having looked and found nothing is a genuine observation and is worth recording as one. Not having looked is not the same thing, and must not be written as if it were.
+
+Record it as it is:
+
+```yaml
+execution_ref: null
+missing_inputs:
+  - "session assignment: no record found; wrote under the user's direct request after
+     checking the target path for competing ownership evidence and finding none"
+```
+
+Do not invent a `SESSION-001`, do not invent a base commit SHA, and do not run `git init` or commit the user's work to manufacture a baseline. A worker-authored session ID proves nothing about ownership - assignment records come from the external authority, not from you.
+
+If the user does supply a session record, use its ID and revision and respect the write fence it declares.
+
+## Competing ownership
+
+The trigger is any ownership evidence naming someone else for what you are about to write. It does not have to be a Git collision, and there does not have to be a second process actually running. Any of these is enough on its own:
+
+- An assignment or session record that names a different owner for the target project, directory, or write fence.
+- A write fence that permits some paths but not the one you were asked to write.
+- A branch, worktree, or lease claim held by another session.
+- An existing artifact in the target whose producer is a session that is not yours **and** whose assignment is still live - see the paragraph below before treating this one as a collision.
+
+A synthetic or fixture assignment record still counts while you are operating under it. So does one with `base commit: null` and no repository - ownership is asserted by the record, not by Git.
+
+**Past authorship is not a current claim.** Artifacts are meant to be revised, and almost every ledger you inherit was written by some earlier session. If the only thing you have is a different `producer` or `execution_ref` in an old document, you have history, not a competing owner - stopping there would make every artifact permanently unrevisable by anyone but its first writer, which is the opposite of what a durable ledger is for. Look for evidence that the other assignment is *active*: a fence that still names that owner for this path, a session record that has not been superseded or released, a lease or worktree claim, an assignment you were handed that says so. Weigh it against your own: if you hold a current authorization naming this target, that is the one that governs, and you revise the older producer's ledger normally - recording the real `supersedes` chain and leaving their attribution intact rather than rewriting it as yours. When the two genuinely conflict, or when you cannot tell whether the other assignment is still live, that uncertainty is itself the collision condition: stop the dependent writes and report what you read and where, rather than resolving it in your own favour.
+
+When you find one: stop the writes that depend on that target and report the collision, naming exactly what you observed and the path you read it from. Then:
+
+- Do not delete, reset, revert, or force past anyone's work.
+- Do not switch branch, directory, or filename to make the write land somewhere else. A path that happens to be writable but was not assigned to you is not a fallback - taking it is the failure this rule exists to prevent, not a workaround for it.
+- Do not ask the conflict away by re-reading the record until it says something more convenient.
+
+What you can still do: everything that does not write into the contested target. If you were given an explicitly permitted report or outbox directory, writing your report there is allowed and is not an escape path - it is the declared delivery route. Say what you would have written and what you observed, so the rightful owner can pick it up. Both sessions' work is preserved; the operator resolves the ownership.
+
+## Stale inputs
+
+If an upstream artifact's current bytes no longer match the revision and digest you referenced, you have a staleness condition, not a silent upgrade. Either use the preserved referenced version or report the staleness - never relabel newer bytes as the old revision. The same applies when the installed skill, base commit, or candidate changed under you: mark the affected prior evidence stale and say what needs re-running.
+
+## Checks that could not run
+
+A check outcome is exactly one of `PASS`, `FAIL`, `NOT_RUN`, `COULD_NOT_RUN`, or `NOT_APPLICABLE`. Those five strings are the whole vocabulary for that field. Write the bare value and nothing else - no suffix, no "then repaired", no "at time of writing". A reader scanning a column of outcomes should be able to tell what happened without parsing prose, and a qualifier welded onto the value destroys that. Everything you want to add - what happened first, what changed, what the scope was - belongs in the evidence or scope column beside it, where there is room for it and where it does not corrupt the value.
+
+The absence of an error is not `PASS`.
+
+When something could not run, record `COULD_NOT_RUN` with the actual cause: tool absent, permission denied, no network, capability not implemented. Then block only the claim that depended on it; brainstorming itself continues with the uncertainty written down.
+
+`NOT_APPLICABLE` is narrower than it looks. It means the check genuinely does not apply to this artifact - you are asked about a package helper and there is no package. It does **not** mean "required, but nothing can do it". No available tool judges whether the ideas are good or the attributions faithful, and that observation is still required; it is simply unperformed. Record it `NOT_RUN`, or `COULD_NOT_RUN` naming what would have been needed. Marking it `NOT_APPLICABLE` reads as "out of scope", which quietly retires an obligation the user is in fact still owed.
+
+Note that no available check validates brainstorming quality. `devforge check` inspects structural policy and provenance and explicitly does not certify semantic behavior. Do not describe a structural pass as evidence that the ideas are sound.
+
+## Finishing a handoff in the right order
+
+A handoff describes the state at the moment it was written, and that is the only state it can honestly describe. So write it as of then - including checks that are genuinely `NOT_RUN` at that point, with the reason in the scope column - then save it, read it back, and deliver its digest outside the document.
+
+What not to do is go back afterwards and edit the completed handoff to record the check you have since run, or to insert its own digest. Both change the bytes the digest you just published describes, so the receipt stops being true the moment you write it. If a later result matters enough to record, it belongs in your message to the user or in a new revision that supersedes this one - not retrofitted into a document that already claims to be final.
+
+## Where things are stored
+
+Default project artifact paths, unless the project has adopted a different map:
+
+- `docs/devforge/ideas/` - idea ledgers
+- `docs/devforge/handoffs/` - handoffs
+- `docs/devforge/changes/` - change requests
+
+Never claim a file is saved until you have observed its path and bytes.

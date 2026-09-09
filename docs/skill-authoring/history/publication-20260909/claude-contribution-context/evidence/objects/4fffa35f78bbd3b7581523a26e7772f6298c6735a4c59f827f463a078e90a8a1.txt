@@ -1,0 +1,253 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-004"
+artifact_type: "handoff"
+project_id: "devforgeai"
+revision: 2
+status: draft
+created_at_utc: "2026-09-06T02:22:18+00:00"
+producer:
+  skill: "claude-skill-creator (native Claude plugin skill 'skill-creator', loaded by native discovery; authoring performed by the same SESSION-004 Claude author session continued under SESSION-004@2)"
+  skill_revision: "SKILL.md sha256 dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf; loaded base /home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/85cce0381e78/skills/skill-creator; byte-identical to the staged pin, 18/18 files, re-verified in RCHK-02"
+execution_ref: "SESSION-004@2"
+upstream:
+  - artifact_id: SESSION-004
+    revision: 2
+    store: authority
+    path: contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md
+    sha256: "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed"
+    sections:
+      - S004-001
+      - S004-002
+      - S004-004
+      - S004-005
+      - S004-006
+  - artifact_id: CCTX-INTEGRATION-REVIEW
+    revision: 1
+    store: authority
+    path: integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md
+    sha256: "98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0"
+    sections:
+      - CIR-003
+  - artifact_id: XSPEC-004
+    revision: 2
+    store: project
+    path: .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/XSPEC-004.md
+    sha256: "78fa48c8b30d9e51fe194a15069c401bec306411f2a4e73e9bfe48500f404dae"
+    sections:
+      - XSPEC-004-S2
+      - XSPEC-004-S4
+      - XSPEC-004-S6
+  - artifact_id: XPKG-004
+    revision: 2
+    store: project
+    path: .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/XPKG-004.md
+    sha256: "203b3c19448ada515796e13d043ba8d43de806ac7bbfd27015844eb7de7968c1"
+    sections:
+      - XPKG-004-S1
+      - XPKG-004-S2
+      - XPKG-004-S3
+      - XPKG-004-S4
+      - XPKG-004-S8
+  - artifact_id: HANDOFF-004
+    revision: 1
+    store: project
+    path: .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/HANDOFF-004.md
+    sha256: "736a5f13709cbefbe0e10461ae7f24b4edb32fb2b2814a6af24a006c2c54feb4"
+    sections:
+      - You are here
+      - Observed verification
+evidence:
+  - "Correction-pass check record, 9 checks, all PASS: checks.json sha256 9a9ace71460db9492793a907ae054087d5220b1f276e2d29cc5ed0c9b3257206"
+  - "Raw per-check output with digests recorded inside checks.json: checks/ in this run"
+  - "Frozen inventories: inventories/ in this run, digests in the outputs table of HANDOFF-004-S3"
+supersedes:
+  artifact_id: HANDOFF-004
+  revision: 1
+  sha256: "736a5f13709cbefbe0e10461ae7f24b4edb32fb2b2814a6af24a006c2c54feb4"
+decision_ref: "SESSION-004@2 S004-001: the root integration operator continues the user-authorized contributor POC with one bounded corrective authoring pass. Scope is correction inside the existing source fence plus local deterministic checks. It grants no installation, model evaluation, external messaging, commit, publication, shared-rule amendment or companion edit."
+missing_inputs:
+  - "Production architecture contract for the contributor capability: NOT_SELECTED."
+  - "Native A/B/C observations: NOT_RUN. 0 model calls allocated."
+  - "Installer support for the project-experts/PROVIDER/SKILL-NAME mapping: absent."
+  - "Independent reviewer and acceptance owner: not assigned."
+---
+
+# Skill handoff (HANDOFF-004@2)
+
+## Section index (HANDOFF-004-S0)
+
+| Stable section ID | Heading |
+| --- | --- |
+| HANDOFF-004-S0 | Section index |
+| HANDOFF-004-S1 | You are here |
+| HANDOFF-004-S2 | Finding dispositions |
+| HANDOFF-004-S3 | Inputs consumed and outputs produced |
+| HANDOFF-004-S4 | What changed and what remains open |
+| HANDOFF-004-S5 | Observed verification |
+| HANDOFF-004-S6 | Continuation directory |
+| HANDOFF-004-S7 | Copyable next-session prompt |
+| HANDOFF-004-S8 | Resume and custody |
+
+This revision supersedes HANDOFF-004@1, whose bytes are preserved unchanged in the frozen
+stage-1 run and are pinned in `upstream`. Adding these identifiers is the CCTX-IR-005 correction.
+
+## You are here (HANDOFF-004-S1)
+
+- Skill and use case: the Claude candidate for CAP-CCR-001, `devforgeai-contribution-context`, a reusable contributor workflow that recovers the context of a bounded DevForgeAI contribution and returns the next permitted action in two modes.
+- Current phase: one bounded correction pass complete, resolving the six findings of the pinned integration review; awaiting root integration review of the revised identity.
+- Task state: **the correction task is complete**. The underlying capability is **NOT_EVALUATED**: no native behavior, activation or installed-resource observation exists for it, before or after this pass. These two states are distinct and neither implies the other. Resolving a static review finding is not a behavioral result.
+- Session/worktree assignment: SESSION-004@2, authority store, `contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md`. Worktree /home/bryan/Projects/DevForge/worktrees/claude-contribution-context, branch author/claude-contribution-context-poc, base c9298bd34ebb73bf598deec6253068d7f8b0ed59. Same author, same worktree, same source fence; no second writer was opened.
+- Exact candidate scope: source package `project-experts/claude/devforgeai-contribution-context`, now **78 authored files**, frozen by the source inventory in HANDOFF-004-S3. Package revision 2.
+- Relationship to the reviewed identity: XPKG-004@1 over 71 files, source inventory sha256 e4a75c3efd7c77e5b9a3845a709a67b21096ca5faa746d2e8ed3a9dbdacc2e5d, is preserved and unchanged in the frozen stage-1 run. **This is a distinct identity, not a restatement.** Evidence bound to the reviewed source stays bound to it; a later evaluation of this package evaluates these 78 files.
+- Existing authorization carried forward: the decision_ref above. It covers correction inside the existing fence plus local deterministic checks. It does not cover installation, commits, refs, publication, model evaluation, shared-rule amendments or companion edits, and none were performed.
+
+## Finding dispositions (HANDOFF-004-S2)
+
+All six are resolved. Each row names what changed and the check record that shows it.
+
+| Finding | Disposition | Files changed | Evidence |
+| --- | --- | --- | --- |
+| CCTX-IR-001 qualify the peer-source restriction by actual read authority | Resolved. The boundary now separates an unassigned peer source, which stays protected, from a peer candidate or evidence input the caller's own assignment selects with a locator and digest, which an architect is expected to resolve rather than refuse. Prohibitions on edits, private deliberation and target mutation through recovery are retained. | references/source-selection.md, SKILL.md | Revised bytes in the source and runtime inventories. This is instruction text; a text search restating the prose would not be a behavioral test, so none is claimed |
+| CCTX-IR-002 add the positive bootstrap contrast | Resolved. CCX-04 variant C added as eval 13, checkpoint mode: a current scoped target authorization, a separate reporting authority, and the operator's recorded worktree/branch collision observation, with no session record. Expected recovery recognizes the authorized continuation, performs none of that target work, and keeps the two grants distinct. Both negative variants and their blocked-target expectations are unchanged. | 7 new fixture files, evals/evals.json, evals/expectations/ccx-04-owner-missing-or-conflicting.md, evals/coverage-matrix.md | Eval inventory; RCHK-03 over 61 worker-visible references |
+| CCTX-IR-003 classify held-out paths after normalization | Resolved. The corrected checker normalizes each contained relative path once and classifies the normalized value, so alias spellings of one held-out file reach one disposition. Containment is preserved. | the run's package_checks.py, a new output; the frozen revision-1 checker is unchanged | RCHK-04: three alias spellings against both checkers, plus two escaping-path cases |
+| CCTX-IR-004 correct the receipt helper's guarantee and false rejection | Resolved by narrowing, which the finding permits. Receipt verification stays a guarantee. Self-receipt handling is now a separate inspection mode that reports what it cannot adjudicate as COULD_NOT_RUN at a distinct exit code, so a legitimate same-basename different-path reference is no longer rejected and a multiline self-receipt is no longer silently accepted. The non-discriminating literal predicate is retained and labelled as such in the script, its output and the workflow prose. | scripts/check_receipt.py, references/checkpoint-transfer.md, SKILL.md | RCHK-05: thirteen cases including the review's two reproductions |
+| CCTX-IR-005 stable section IDs in the author handoff | Resolved. This revision carries a section index and stable HANDOFF-004-S* identifiers, with upstream references resolvable by locator and digest. | this record | HANDOFF-004-S0 |
+| CCTX-IR-006 correct the checkpoint coverage list | Resolved. Eval 11 appears only under orientation in the CCR-008 coverage row and the mode table; its orientation assertions are unchanged. | evals/coverage-matrix.md | Eval inventory |
+
+## Inputs consumed and outputs produced (HANDOFF-004-S3)
+
+Authority-store locators resolve under /home/bryan/Projects/DevForge/framework/DevForge/.poc.
+
+| Direction | Artifact ID/revision | Store/path | SHA-256 | Relevant sections | Decision/freshness state |
+| --- | --- | --- | --- | --- | --- |
+| input | SESSION-004@2 | authority / contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md | ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed | S004-001 through S004-006 | selected, current; supersedes SESSION-004@1 for corrective work |
+| input | CCTX-INTEGRATION-REVIEW | authority / integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md | 98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0 | CIR-002, CIR-003, CIR-004 | selected, current |
+| input | review external receipt | authority / integration-reviews/claude-contributor-context-20260906T002254636139Z/REVIEW.receipt.json | 735fd187043a960d29b23aa6b1673d1fa110f44829e4ec2725e8b0c17d6fb6e6 | whole record | selected, current |
+| input | correction input inventory | authority / contributor-context-authoring-20260905/claude-revision-001/INPUTS.json | d2d9026e2cbeb0f94837b3a1e306b4b3f73ff0056a39069596ef2b56946b472d | before_source_sha256; immutable_files_sha256 | selected, current |
+| input | read-only preflight | authority / contributor-context-authoring-20260905/claude-revision-001/VERIFY.py | 303277423c650aadefff969cd8d5508548022922fbaf0f359cebb3cd8b920278 | whole script | selected; executed in RCHK-01 and RCHK-09 |
+| input | START.md continuation packet | authority / contributor-context-authoring-20260905/claude-revision-001/START.md | c82b65caa17c61e1ab6ac49cd0e812d4a09b6fd5ce236a9386b4b129b882986f | whole document | selected, current |
+| input | corrective allocation | authority / contributor-context-authoring-20260905/claude-revision-001/ALLOCATION.json | ed3c03a8c71142084a8c244e90a92dcc2e831f8609dd7f060743c1ce3dfe913d | whole record | selected, current |
+| input | reviewed corrected framework validator | authority / integration-reviews/claude-contributor-context-20260906T002254636139Z/companion/scripts/validate_framework.py | e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25 | whole script | selected; executed in RCHK-07 |
+| input | XSPEC-004@1 | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/XSPEC-004.md | c700e4f32eae6413a1e7a3673e4d63434ede8ebe04c0016c1a004346f8634724 | XSPEC-004-S1 through XSPEC-004-S8 | preserved prior revision, superseded by XSPEC-004@2 |
+| input | XPKG-004@1 | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/XPKG-004.md | 6900761195e51b582bd872ac38d3b0f34bb1215529fbab4d3252b37a5a914254 | XPKG-004-S2, XPKG-004-S3, XPKG-004-S6 | preserved prior revision, superseded by XPKG-004@2 |
+| input | HANDOFF-004@1 | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/HANDOFF-004.md | 736a5f13709cbefbe0e10461ae7f24b4edb32fb2b2814a6af24a006c2c54feb4 | You are here; Observed verification | preserved prior revision, superseded by this record |
+| input | revision-1 package checker | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/package_checks.py | b12237dc7882055e9b85c40f8a055b5d3ce15ed180c2b1f35e53394d2b30f8e4 | eval_visibility | preserved unchanged; executed read-only in RCHK-04 to show the defect |
+| input | CC-SPEC@1 | authority / contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md | a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77 | Inputs and source selection; Required behavior; Role-specific application | selected draft, unchanged and not promoted |
+| input | CC-EVALPLAN@1 | authority / contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md | 4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f | Case catalogue; Grading and decision rules | selected draft, unchanged and not promoted |
+| input | AUTHORING-CONTRACT@2 | authority / contributor-context-authoring-20260905/inputs/framework/docs/mvp/skill-authoring-contract.md | 1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e | Per-skill structure and distribution; Resource and script paths | selected draft |
+| input | TPL-HANDOFF | authority / contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/shared/handoff.md | abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206 | whole template | selected; the package-local copy is unchanged by this pass |
+| input | native skill-creator SKILL.md | loaded plugin base / /home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/85cce0381e78/skills/skill-creator/SKILL.md; byte-identical to authority / contributor-context-authoring-20260905/author-tools/claude/skill-creator/skills/skill-creator/SKILL.md | dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf | whole document | selected; actually loaded, re-verified in RCHK-02 |
+| input | staged quick_validate.py | authority / contributor-context-authoring-20260905/author-tools/claude/skill-creator/skills/skill-creator/scripts/quick_validate.py | 67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365 | validator | selected; executed in RCHK-06 |
+| output | XSPEC-004@2 | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/XSPEC-004.md | 78fa48c8b30d9e51fe194a15069c401bec306411f2a4e73e9bfe48500f404dae | XSPEC-004-S0 through XSPEC-004-S8 | draft; written before the first candidate change |
+| output | XPKG-004@2 | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/XPKG-004.md | 203b3c19448ada515796e13d043ba8d43de806ac7bbfd27015844eb7de7968c1 | XPKG-004-S0 through XPKG-004-S8 | draft; frozen revised candidate definition |
+| output | source inventory | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/inventories/source-manifest.json | 7c1b3d896607bd73446900c0f080ac83888d48c79ed67bb88881da730548794e | 78 files by category | frozen |
+| output | runtime inventory | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/inventories/runtime-manifest.json | a2989155fa35f63c36970f8bb1b64bfad9cc22cea117d5485eceb329dcd56d33 | 6 files | frozen |
+| output | eval inventory | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/inventories/eval-manifest.json | 7271151f5f07faeee40928ef221ed9a1ae3d4ff68f883bf4948b43c3d60acf54 | 72 files, 58 worker-visible | frozen |
+| output | check record | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/checks.json | 9a9ace71460db9492793a907ae054087d5220b1f276e2d29cc5ed0c9b3257206 | 9 checks with raw-output digests | frozen |
+| output | corrected authoring checker | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/package_checks.py | 10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442 | eval_visibility normalization | authoring tool, not distributed; distinct identity from the revision-1 checker |
+| output | candidate instructions | project / project-experts/claude/devforgeai-contribution-context/SKILL.md | fc4da253e610550a39411a703bd04bed1ac6a4be84edc98f24d3043202788d32 | peer read authority; helper description | revised candidate |
+| output | candidate reference | project / project-experts/claude/devforgeai-contribution-context/references/source-selection.md | 25cd4f62ff4f13f473a147cc91bfd64936b4c50c0851c00b953824c33346ff83 | peer boundary qualified by read authority | revised candidate |
+| output | candidate reference | project / project-experts/claude/devforgeai-contribution-context/references/checkpoint-transfer.md | bf308634b49dbec8aafe25f39d423307f4a61bdade091b0c9edf6030b4e56d9e | two-command helper flow and its scope | revised candidate |
+| output | candidate derivation record | project / project-experts/claude/devforgeai-contribution-context/references/derivation.json | f7bddb1a3794bf60472f7f52c13c5b8feb5911cb2444cbc856a99ca18a720d8c | template provenance | unchanged by this pass |
+| output | candidate asset | project / project-experts/claude/devforgeai-contribution-context/assets/handoff-template.md | abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206 | package-local handoff template | unchanged; byte-identical to the selected shared template |
+| output | candidate helper | project / project-experts/claude/devforgeai-contribution-context/scripts/check_receipt.py | c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136 | receipt verification and self-receipt inspection | revised candidate |
+| output | authored eval index | project / project-experts/claude/devforgeai-contribution-context/evals/evals.json | 6fd4100d5016ec1813e2dad80db2c014bbe92d1e53315a78c36aca3073c5cdf7 | 13 cases over CCX-01..08 | frozen; NOT_RUN |
+| output | authored coverage matrix | project / project-experts/claude/devforgeai-contribution-context/evals/coverage-matrix.md | 2166ed2086b25a35773fd19a7433cc7a33f57cf8d3c621c1959e51e6f0055a7a | 13 rows, 26 arms, mode coverage | frozen; NOT_RUN |
+| output | authored trigger queries | project / project-experts/claude/devforgeai-contribution-context/evals/triggers/triggers.json | 4beb10eafb0bf40bdd855ca19166d954dfa91bd7b3456d7e99bb14acb2101843 | 20 queries, fixed 12/8 split | unchanged; NOT_RUN |
+
+The remaining 68 authored eval files, including the seven new CCX-04 variant C fixture files, are
+individually pinned in the eval inventory rather than repeated here.
+
+## What changed and what remains open (HANDOFF-004-S4)
+
+**What this pass produced.** One revised candidate resolving all six findings, its revised
+specification and package records, a corrected authoring checker as a new output, and nine
+deterministic checks. Three findings changed runtime bytes, two changed only authored evaluation
+inputs, one changed only this run's records.
+
+**What was deliberately not changed.** CCR-001 through CCR-008 and their acceptance meaning; the
+case catalogue's required observations and material failures; the selected specification and
+evaluation plan; the shared handoff template's bytes and the package-local copy of it; the
+recorded baseline facts; and every historical result, including the stage-1 run's two FAIL and
+one COULD_NOT_RUN entries and its preserved superseded drafts. No finding was resolved by
+relaxing a criterion or by rewriting an old status label.
+
+**Work not performed, by allocation.** No model evaluation of any kind; no installation, export
+or consuming-project copy; no commit, ref update, staging, stash or cleanup; no companion edit;
+no change to any validator; no release of another owner.
+
+**Unresolved and needing an owner.**
+
+- No production architecture contract is selected. This pass does not address that prerequisite,
+  and the candidate cannot be promoted past bootstrap scope regardless of any later result.
+- No installer supports the `project-experts/PROVIDER/SKILL-NAME` mapping.
+- Whether a bounded context packet alone meets the need remains open and untested.
+- The corrections were authored and checked by the same session that authored the candidate. The
+  static findings came from an independent operator review; their resolutions have not been
+  independently reviewed.
+- Nothing in this pass measured native behavior. The capability's behavioral status is exactly
+  what it was before the review.
+
+## Observed verification (HANDOFF-004-S5)
+
+Full detail, including per-check raw-output digests, is in the check record pinned in
+HANDOFF-004-S3. All nine checks in this pass returned PASS; the stage-1 run's outcomes are
+preserved separately and are not restated or altered here.
+
+| Check | Outcome | Raw evidence | Cause or scope limit |
+| --- | --- | --- | --- |
+| Read-only preflight, phase before | PASS | checks/RCHK-01-preflight-before.txt | 637 immutable files and the 71-file reviewed baseline, before the first source edit. Custody, base and fence only |
+| Native creator instruction loading | PASS | checks/RCHK-02-creator-identity.txt | Establishes which bytes govern the authoring, not that the guidance was followed correctly |
+| Corrected package checks over the revised source | PASS | checks/RCHK-03-package-checks.txt | Mechanical structure, byte identity and path containment only |
+| CCTX-IR-003 held-out alias discriminating tests | PASS | checks/RCHK-04-heldout-alias-tests.txt | Shows the defect on the frozen revision-1 checker and its correction, plus two containment cases. Correcting a checker is not acceptance of the package it checks |
+| CCTX-IR-004 receipt helper discriminating tests | PASS | checks/RCHK-05-check-receipt-tests.txt | Receipt verification is a guarantee; self-receipt inspection is a listing. S5 records the one retained predicate with no constructible failing case |
+| Staged skill-creator quick validator | PASS | checks/RCHK-06-quick-validate.txt | SKILL.md frontmatter only |
+| Reviewed corrected framework validator | PASS | checks/RCHK-07-validate-framework.txt | Structure only; prunes .git, .poc, __pycache__ and the private runtime directory. Its eval-fixture inspection does not cover this project-expert mapping |
+| Git state and untracked-file hygiene | PASS | checks/RCHK-08-git-and-hygiene.txt | Read-only inspection; no commit, ref, staging, reset, merge, push or stash |
+| Read-only preflight, phase protected, at handback | PASS | checks/RCHK-09-preflight-protected.txt | 637 immutable files retained; the stage-1 run's nine delivered identities unchanged. Candidate files deliberately not compared after authorized edits |
+| Tier A, discovery and activation | NOT_RUN | none | 0 model calls allocated; no installed package, no fresh target terminal |
+| Tier B, recovery behavior | NOT_RUN | none | 0 model calls allocated; cases and expectations authored only |
+| Tier C, installed resources | NOT_RUN | none | No installation performed; no installer supports this source mapping |
+
+Every value in the Outcome column is one of the five permitted check outcomes. Behavioral
+expertise for this candidate is NOT_EVALUATED and production suitability is NOT_EVALUATED; those
+are status values rather than check outcomes, so they are stated here and in `missing_inputs`
+rather than placed in that column.
+
+Git status at handback is the operator baseline plus exactly one untracked entry,
+`project-experts/`. Both runs under `.poc/` and the private client state are gitignored and
+therefore absent from that status.
+
+## Continuation directory (HANDOFF-004-S6)
+
+| Order | Task | Owner / skill | Prerequisites | Completion evidence |
+| --- | --- | --- | --- | --- |
+| 1 | Root integration review of XPKG-004@2 and all six finding dispositions | Root Codex architect / integration operator | This handoff and the records it pins; read access to the revised source and this run | A recorded review disposition naming XPKG-004@2, its source inventory digest, and each of CCTX-IR-001 through CCTX-IR-006 |
+| 2 (only if the reviewer allocates it) | Allocate the baseline/candidate evaluation: frozen independent criteria, required grader negatives, fixture visibility, client-state isolation, exact provider/role/variant/arm allocation, core-context and installed-package selection, per-call timeout, concurrency, deadline and retry policy | Integration operator | Order 1 complete | A written allocation with numeric limits, distinct from this corrective assignment |
+| 3 (only after order 2) | Run the allocated arms and record them per provider and tier | Separately assigned evaluator, not this author | Order 2 complete; frozen fixtures; the candidate unchanged or reissued with a new identity | Run manifests, transcripts and a scoped evaluation report with its own receipt |
+
+Order 1 is the single next task. Orders 2 and 3 are the dependency chain, not work this handoff
+authorizes.
+
+## Copyable next-session prompt (HANDOFF-004-S7)
+
+Goal: Record an integration review disposition for the revised Claude contributor-context candidate XPKG-004@2, covering all six finding dispositions, and decide whether to allocate its evaluation.
+Context: The correction run at /home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/ - read its handoff, then XPKG-004.md sections XPKG-004-S1 through XPKG-004-S4 and XPKG-004-S8, XSPEC-004.md sections XSPEC-004-S2 and XSPEC-004-S4, checks.json, and the three inventories. The revised candidate source is project-experts/claude/devforgeai-contribution-context in that worktree. The reviewed prior identity and all stage-1 evidence are preserved unchanged in the sibling run 20260905T205129932751Z-claude-authoring-stage-1.
+Output: A review disposition naming XPKG-004@2 and the source inventory digest 7c1b3d896607bd73446900c0f080ac83888d48c79ed67bb88881da730548794e, saved wherever the integration owner's records live.
+Boundaries: The Claude author retains ownership of that worktree until you record a release. Native A/B/C remain NOT_RUN and no production architecture is selected, so no behavioral or production claim may be made from this package. The corrections were made and checked by their own author; that is not independent acceptance. Allocating any model evaluation requires a new assignment with numeric limits.
+Verify: The revised candidate's 78 source files still match the source inventory, the stage-1 run's nine delivered identities are unchanged, the 637 immutable files still verify under VERIFY.py --phase protected, and the branch is still at base c9298bd34ebb73bf598deec6253068d7f8b0ed59 with no commits.
+
+There is no installed DevForgeAI skill or CLI command that performs this review. It is a
+plain-language task for the integration owner; naming a command that does not exist would not
+make it runnable.
+
+## Resume and custody (HANDOFF-004-S8)
+
+- Task output readback: every output listed in HANDOFF-004-S3 was written, read back and hashed after its bytes were complete. Their digests appear in that table. This record is excluded from it.
+- This record's location: saved in this correction run as the SESSION-named handoff file. Its digest is deliberately not recorded here; a document cannot carry its own complete-byte digest.
+- This record's external receipt: computed after saving and reading it back, and delivered in the run's separate receipt file and in the author session's final response. That digest is not inserted into this document, and this document is not modified afterwards to record it.
+- Preserved prior work: the stage-1 run, its handoff and receipt, its records, inventories, checks, raw check files, superseded drafts and the revision-1 checker are unchanged. RCHK-09 re-verified nine of those identities at handback and the preflight retained all 637 immutable files.
+- Worktree ownership disposition: **retained** by the SESSION-004 Claude author. No cleanup is assigned. Ownership persists until the integration operator records a release or revocation.
+- External gate state: no external gate was invoked. The companion CLI was not run, and no structural binding, installation or policy check was requested.
+- Conditions invalidating this record: a change to any selected input digest; a change to the revised candidate source bytes, which would require another package identity; a change to the SESSION-004@2 assignment, fences or authorization; a change to the base commit; selection of a production architecture contract; or any actual native observation, which would supersede the NOT_RUN and NOT_EVALUATED states recorded here.

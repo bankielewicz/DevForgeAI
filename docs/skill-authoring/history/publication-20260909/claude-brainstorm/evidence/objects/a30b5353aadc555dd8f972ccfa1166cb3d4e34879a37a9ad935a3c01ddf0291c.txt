@@ -1,0 +1,92 @@
+{
+  "schema_version": "devforge.scoped-static-review-receipt/v1",
+  "reviewer": "/root/r9_claude_source_fresh_review",
+  "receipt_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-claude-source/RECEIPT.json",
+  "created_at_utc": "2026-09-07 16:54:41 UTC",
+  "scope": "Static Claude candidate prompt/source correctness and selected framework-contract review, R01-R10 only",
+  "review_status": "COMPLETE",
+  "disposition": "REVISE",
+  "finding_ids": [
+    "R9-CLAUDE-STATIC-001"
+  ],
+  "finding_count": 1,
+  "severity_counts": {
+    "MAJOR": 1
+  },
+  "criteria_outcomes": {
+    "R01": "PASS",
+    "R02": "PASS",
+    "R03": "PASS",
+    "R04": "PASS",
+    "R05": "PASS",
+    "R06": "PASS",
+    "R07": "FAIL",
+    "R08": "PASS",
+    "R09": "FAIL",
+    "R10": "PASS"
+  },
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/CLAUDE-SOURCE-INPUTS.json",
+    "sha256": "f184155b93a755d4062c31b0abf5505aa8b5424265bf6174f4713d09a8baf0c0"
+  },
+  "custody": {
+    "manifest_verified_before_candidate_text": true,
+    "all_56_listed_sizes_and_sha256_verified_before_candidate_text": true,
+    "all_56_listed_sizes_and_sha256_reverified_at_closeout": true,
+    "candidate_files_read_completely": 20,
+    "frozen_inputs_changed": false,
+    "read_access": "Only listed frozen input paths, scoped manifest and own new review outputs",
+    "write_access": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-claude-source/",
+    "output_directory_created_exclusively": true,
+    "target_edits": false
+  },
+  "reports": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-claude-source/AI-REVIEW.json",
+      "bytes": 53537,
+      "sha256": "a7ea442e406317a59bb9b09799d16d5ec376e0345078fba1c45f7a20884ca513",
+      "full_readback": true,
+      "exact_content_matches_authored_text": true,
+      "json_parse": "PASS",
+      "criterion_inventory": "R01-R10 exactly once"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-claude-source/REVIEW.md",
+      "bytes": 20750,
+      "sha256": "3acb95c8cf0ed5fecac6ae25b0ba712d3d0d30ee978d693f198562bdbddc049f",
+      "full_readback": true,
+      "exact_content_matches_authored_text": true
+    }
+  ],
+  "reports_readback_completed_at_utc": "2026-09-07T16:54:03Z",
+  "timing": {
+    "first_work_utc": "2026-09-07T16:43:36Z",
+    "original_deadline_utc": "2026-09-07T17:03:36Z",
+    "final_five_minute_reserve_begins_utc": "2026-09-07T16:58:36Z",
+    "analysis_complete_utc": "2026-09-07T16:48:10Z",
+    "original_deadline_reset": false,
+    "original_deadline_extended": false,
+    "partial_work_remaining": []
+  },
+  "reviewer_configuration": {
+    "actual_model": "unknown",
+    "actual_client_version": "unknown",
+    "observable_arrangement": "Separate Codex agent reviewer context; not a demonstrated filesystem/process/client-history/memory sandbox",
+    "blinding_limits": "Automatically provided memory summary, author-history assertions inside allowed candidate derivation, selected bridge's historical assertions, and authored expected-output/trigger data were visible. No separate author reports, prior reviews, repair maps or memory/history files were opened. Embedded assertions were not adopted as verified conclusions."
+  },
+  "excluded_execution": {
+    "target_helper_execution": false,
+    "target_import": false,
+    "tests": false,
+    "native_client": false,
+    "install_export": false,
+    "network": false,
+    "subagents": false,
+    "native_admission": "Unavailable and unattempted",
+    "A": "NOT_RUN",
+    "B": "NOT_RUN",
+    "C": "NOT_RUN",
+    "acceptance": "NOT_GRANTED"
+  },
+  "self_digest_policy": "This receipt does not contain its own complete-byte digest. Its final hash and full readback are delivered externally after saving."
+}

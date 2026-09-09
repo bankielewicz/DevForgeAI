@@ -1,0 +1,14 @@
+{
+ "schema_version": "devforge.fixture-index/v1",
+ "change_id": "CHG-016",
+ "finding_alias": "F-016",
+ "original_finding_id": "CP5-CK-001 retained absence-disclosure limitation",
+ "checker": "checkers/validate_references.py",
+ "target_artifact": {"file": "TARGET-NO-SECTIONS.md", "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43", "note": "Referenced artifact with no headings."},
+ "cases": [
+  {"file": "POS-disclosed-sections.md", "expected": "PASS", "discriminates": "disclosure is about this artifact's sections"},
+  {"file": "NEG-disclosed-other-unknown.md", "expected": "FAIL", "discriminates": "same artifact ID in missing_inputs, but the disclosure is about an unrelated unknown - the exact defect F-016 names"},
+  {"file": "NEG-undisclosed.md", "expected": "FAIL", "discriminates": "no disclosure at all; retained r7 behaviour"}
+ ],
+ "execution": "NOT_RUN. These fixtures were authored, not executed; no checker was imported or invoked against them. Every expected value above is an authored expectation, not an observation."
+}

@@ -1,0 +1,1298 @@
+{
+  "role": "codex-contribution-context",
+  "publication_base": "1c912649e5686701e8204a22173a02c6894df707",
+  "author_inventory_sha256": "e76e9f88f8a5c990dba73675289c1682745621ee4c6c966f321da2829f78b792",
+  "source_scope": "project-experts/codex/devforgeai-contribution-context",
+  "source_file_count": 184,
+  "files": [
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/SKILL.md",
+      "sha256": "54f402e1c5a08da4aac4a2ea16f745ca2294a934d5e8129f61413a6fb46b430f",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/SKILL.md",
+      "bytes": 5724
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/assets/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/assets/handoff.md",
+      "bytes": 3342
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/coverage.json",
+      "sha256": "cc39ff34272529bc2d10c0e142b4e3d22137ecdcbd365b034cd7166b15af8ebd",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/coverage.json",
+      "bytes": 6090
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/evals.json",
+      "sha256": "2f7db1243659150e5dedc869b257968635d273014d3584a5eed7cff5ca139f32",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/evals.json",
+      "bytes": 15860
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-01-replacement.json",
+      "sha256": "76dfa3579da271b80baba8732f207f65c1262b296d2493b06f7e063d0779c392",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-01-replacement.json",
+      "bytes": 955
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-claude-worker.json",
+      "sha256": "01cc6d6413e0ac074b57da5970387142c6ada536b907a98deb144416c76dd2af",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-claude-worker.json",
+      "bytes": 785
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-codex-worker.json",
+      "sha256": "96c2c5c534b384e95a78b8297eadae831e2927b5af5b1e2feb627cd0fb4e5f90",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-codex-worker.json",
+      "bytes": 785
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-03-selected-versus-new.json",
+      "sha256": "14f8203dfe1a4a5ac5e731f3cd3f706dcd7851d22039c70679edab76470cb47f",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-03-selected-versus-new.json",
+      "bytes": 837
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-authorized-bootstrap.json",
+      "sha256": "614932cae64d10fdc2609a02e45b25cc06b7cab2f427a65dc41cfe4306f183e5",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-authorized-bootstrap.json",
+      "bytes": 955
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-conflicting-owners.json",
+      "sha256": "87d712f8459cdc1c4a58c2ed397d294959ea5a7fee5a76f3f5bc74a72c2922b6",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-conflicting-owners.json",
+      "bytes": 926
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-missing-owner.json",
+      "sha256": "5b7ffd82a0bdf16123c8f9eb75502a6b4f8048dbe60da84a1642cd7ff31935d2",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-missing-owner.json",
+      "bytes": 869
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-absent.json",
+      "sha256": "46ad0091bc4f947af8110e1fa99b3a33a3d7dbeae269ed33fec8a79a61578e61",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-absent.json",
+      "bytes": 832
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-present.json",
+      "sha256": "19bf4131018ed0f3d30f845a751cbbfa77ef774853df2a96ef5b2100379f910a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-present.json",
+      "bytes": 817
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-06-inaccessible.json",
+      "sha256": "88e304c4e8b508209cce1f0821c5488a597202101606968fdcb793d72bc1ffbb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-06-inaccessible.json",
+      "bytes": 859
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-07-outcome-conflict.json",
+      "sha256": "6eed293496e9e36ac6db07e3a146970b51e8859c501b121b1d38d4ff8710bf74",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-07-outcome-conflict.json",
+      "bytes": 954
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-explicit-transfer.json",
+      "sha256": "d83c8234b52e5091c6d70503482b0aaefc84e33ea2cd7f0939fe72b01f3ce7f2",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-explicit-transfer.json",
+      "bytes": 856
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-unchanged-resume.json",
+      "sha256": "212449f5ea6b7a21a6d88543a8cfaa4db29161f40bbdc0fea0b68ffce11a1dc6",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-unchanged-resume.json",
+      "bytes": 781
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/assignment.json",
+      "sha256": "7da649d14186c88eb42437e35cb31285bb1f378b99db0d96fff82247b98a8d09",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/assignment.json",
+      "bytes": 687
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/decision.json",
+      "sha256": "c5997c3484fe3b37a79f9c81d82d05e30a552e316cce839b96ec59b4dccdef2c",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/decision.json",
+      "bytes": 179
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-claude.json",
+      "sha256": "5960fdb8b83c5e800e837451fbd17f1e21096eb390ccd1392abbb07838bfa9da",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-claude.json",
+      "bytes": 376
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-codex.json",
+      "sha256": "ef6b1e0b70ce2879a7cc2f53eef7b9d30e04322cf770e15f5472533c4bb64f46",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-codex.json",
+      "bytes": 369
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/observations/worktree.json",
+      "sha256": "e0ef0c19f3260f78f7a42bbd3c22fcbbb32d522782073fd2222c7a9b4e2a8847",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/observations/worktree.json",
+      "bytes": 252
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/packet.json",
+      "sha256": "eae6f9b4bc9c764e6697a68e8bca2edf9a177593dbe5f5e347abe27b3e735b36",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/packet.json",
+      "bytes": 2854
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-package.json",
+      "sha256": "0e0c2b70265acfb76d8b5c45850324c0a03668c96f758c3ff78535564ca76d47",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-package.json",
+      "bytes": 245
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-report.json",
+      "sha256": "993dd97f919994fdc7f5ec9e3dcced5a7401ddd9e6b96b539f89bffb78cd31a4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-report.json",
+      "bytes": 213
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-package.json",
+      "sha256": "78efa16a7fd360cdda5e4b94137332eb1e1d9166a74eeac4d8c31bf1d0a9b86c",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-package.json",
+      "bytes": 242
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-report.json",
+      "sha256": "c094c83dc0b599aaa9735b4ec21e4d8e2df347f18ccf9d90d14ba5c35b9b7483",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-report.json",
+      "bytes": 199
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/integration-finding.json",
+      "sha256": "60b2e2f7712d578a12acdd2e3bcd54fb0a76bf387819c74b29e44c47d92baa7e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/integration-finding.json",
+      "bytes": 201
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-claude/SKILL.md",
+      "sha256": "7c044e9125ac7c5cf9977ded5a38c04e39b8158d04a7e033da38880df547bb80",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-claude/SKILL.md",
+      "bytes": 121
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-codex/SKILL.md",
+      "sha256": "4cef644d5ac76c5f7d5d3b5f64deb9ba5abbdc0593e11ee8bedd972f3f591d1f",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-codex/SKILL.md",
+      "bytes": 119
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/assignment.json",
+      "sha256": "a04205748b191e439ac01460eb67ad2d73e8909287784710307deb395c6daa01",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/assignment.json",
+      "bytes": 733
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/decision.json",
+      "sha256": "99e8cb21f74ffd9f731665da0e098fbf7bebbc5f45da29efb79cbc062769b0cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/decision.json",
+      "bytes": 381
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/observations/worktree.json",
+      "sha256": "66fc4e0341ffbe739c5cee32237f5313b27b2de7790219753616fbfab4a3aa7f",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/observations/worktree.json",
+      "bytes": 256
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/packet.json",
+      "sha256": "f8313532812f022fcec98ffcad8c1b562887c9533ec844f2beb3ba07ffe895f2",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/packet.json",
+      "bytes": 2066
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/finding.json",
+      "sha256": "e12d35a071fc805b30ffb8baffc4d3acadf509216707fd693c05e833afa982fd",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/finding.json",
+      "bytes": 299
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/package.json",
+      "sha256": "97c41f0b7121c26c60029fc3edfa8b1c2f212067c4d9594c6b43f79ba0f2315c",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/package.json",
+      "bytes": 294
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/receipt.json",
+      "sha256": "14486f5732ef2445bb64fef9e1bdab50be342b6b6a7c68a620a9dfc5dce78644",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/receipt.json",
+      "bytes": 286
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/summary.json",
+      "sha256": "f1e038356f02344c15f13a1d3a649141cf883c0ed490c3982decaaa6d745a97d",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/summary.json",
+      "bytes": 222
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/project-experts/claude/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/project-experts/claude/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/decision.json",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/decision.json",
+      "bytes": 378
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/packet.json",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/packet.json",
+      "bytes": 2063
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/decision.json",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/decision.json",
+      "bytes": 378
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/main-rules.md",
+      "sha256": "a6ffb3286685cf47fb2d0ef750433461281968541481fe63ee0f6c9e7a024837",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/main-rules.md",
+      "bytes": 114
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/packet.json",
+      "sha256": "b5c6d1edf37dba79ac980a5be3468b0e680db967af44bce314567d016bfcfb5e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/packet.json",
+      "bytes": 2225
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/authority/bootstrap.json",
+      "sha256": "265993d67729b75ba9821539022e57d41bce42ab18e68535fc4747ab77bfc766",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/authority/bootstrap.json",
+      "bytes": 261
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/observations/worktree.json",
+      "sha256": "0bdf0ae12124140a0062177671038293b1e5cd2b9f4d706e5133afbb637a7b22",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/observations/worktree.json",
+      "bytes": 253
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/packet.json",
+      "sha256": "2d4820a4dbad6083b48d22ddc9394809a9a747f8bdb7e3968a8cf84c559a20f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/packet.json",
+      "bytes": 2134
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/conflicting-assignment.json",
+      "sha256": "487d2e48d5c09655d623daca7ca60b5e291491e5cb67e346b1162e29b4ce888b",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/conflicting-assignment.json",
+      "bytes": 785
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/packet.json",
+      "sha256": "9c883970544186bcf73024aa4e97439571ff5cc129a69fddc93e475e7ad7a959",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/packet.json",
+      "bytes": 2331
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/observations/worktree.json",
+      "sha256": "831741163d1e3b5ca93317899d6f09f5e9b020fd07abbabd79f4ca5069f83897",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/observations/worktree.json",
+      "bytes": 176
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/packet.json",
+      "sha256": "1bb6eb06794bfce74871d1837fdd0ed6fc92dc288285bb433ccbdd5b8e3fbbd0",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/packet.json",
+      "bytes": 1974
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/packet.json",
+      "sha256": "5f20655763e20b00cbf5703ba7ca86d7956ac12891ae84335a81f9c168d08210",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/packet.json",
+      "bytes": 1904
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/decision.json",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/decision.json",
+      "bytes": 378
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/packet.json",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/packet.json",
+      "bytes": 2063
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/decision.json",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/decision.json",
+      "bytes": 378
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/elsewhere/required-secret.json",
+      "sha256": "fca468b684e222518f0329b18ee08582d3527bc7bd0213c41fc53f058da46c0b",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/elsewhere/required-secret.json",
+      "bytes": 30
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/packet.json",
+      "sha256": "81cc6c41eef950e6ceb0b0add291b2d5a87d5acda451ba52984dfb918581a7fe",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/packet.json",
+      "bytes": 2459
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/decision.json",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/decision.json",
+      "bytes": 378
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/packet.json",
+      "sha256": "173f5cb5225715e059c02a7cab4ba184471402eb22a1da3f8abfd9838624f784",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/packet.json",
+      "bytes": 2317
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/summary.json",
+      "sha256": "99fbdf615386dbd85e37b1933ee7597d68d23da4f84b13219049de8c6b789622",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/decision.json",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/decision.json",
+      "bytes": 378
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/packet.json",
+      "sha256": "276c555424456daaf53974b062d00134f47cc00e3095670c4749d2bcb43c1ad6",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/packet.json",
+      "bytes": 2317
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/assignment.json",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/assignment.json",
+      "bytes": 729
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/decision.json",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/decision.json",
+      "bytes": 378
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/observations/worktree.json",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/observations/worktree.json",
+      "bytes": 254
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/packet.json",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/packet.json",
+      "bytes": 2063
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/finding.json",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/finding.json",
+      "bytes": 297
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/package.json",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/package.json",
+      "bytes": 291
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/receipt.json",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/receipt.json",
+      "bytes": 285
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/summary.json",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/summary.json",
+      "bytes": 221
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/selected/rules.md",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/selected/rules.md",
+      "bytes": 363
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/old-handoff.md",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/old-handoff.md",
+      "bytes": 80
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/project-experts/codex/fixture-capability/SKILL.md",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/project-experts/codex/fixture-capability/SKILL.md",
+      "bytes": 172
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-01-replacement.txt",
+      "sha256": "bf70fc19cc473d63b588c0559e9b0318895874a5cec5ae511177bcdb1eb67e09",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-01-replacement.txt",
+      "bytes": 65
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-claude-worker.txt",
+      "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-claude-worker.txt",
+      "bytes": 82
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-codex-worker.txt",
+      "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-codex-worker.txt",
+      "bytes": 82
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-03-selected-versus-new.txt",
+      "sha256": "806ca3c3ac488d7f60bad8fbb508d399b4c502ea60b3d1ff1276ceb8ba131c8a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-03-selected-versus-new.txt",
+      "bytes": 105
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-authorized-bootstrap.txt",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-authorized-bootstrap.txt",
+      "bytes": 93
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-conflicting-owners.txt",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-conflicting-owners.txt",
+      "bytes": 93
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-missing-owner.txt",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-missing-owner.txt",
+      "bytes": 93
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-absent.txt",
+      "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-absent.txt",
+      "bytes": 88
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-present.txt",
+      "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-present.txt",
+      "bytes": 88
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-06-inaccessible.txt",
+      "sha256": "b00b9b0252e0593ab9fc6a6d141b2be835ccea32315df68b9b4c18b11fd373d7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-06-inaccessible.txt",
+      "bytes": 47
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-07-outcome-conflict.txt",
+      "sha256": "c78164b9223e2bd3cf071561caa9488f696c30c5a8dd0368e45087eb91827049",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-07-outcome-conflict.txt",
+      "bytes": 90
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-explicit-transfer.txt",
+      "sha256": "2225cd30be9bc574c7eff93fd023bbc48def6864092041c883196c5030b771a9",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-explicit-transfer.txt",
+      "bytes": 85
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-unchanged-resume.txt",
+      "sha256": "17f5cf231ad4e8a799490e99efa2ffc061866b2e515620ce58a210a3f2b619e6",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-unchanged-resume.txt",
+      "bytes": 68
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/triggers/queries.json",
+      "sha256": "508265912ff3d9b3e8f810c78344483ba1c826200e9e6e93895abdd5b571b1f7",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/triggers/queries.json",
+      "bytes": 2332
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/evals/visibility.md",
+      "sha256": "8ac93da836cdbc7fe56c1c36b3e367b5ea536b3340969cee24869cdc493b8f39",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/evals/visibility.md",
+      "bytes": 2176
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/references/checkpoint.md",
+      "sha256": "e316eb653a95e9156061361418e94b0dd1353bc55687129776ccd4042bf1caae",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/references/checkpoint.md",
+      "bytes": 3360
+    },
+    {
+      "path": "project-experts/codex/devforgeai-contribution-context/references/derivation.json",
+      "sha256": "a191de4dbe2666d58423a88688c676dcbc1052d68fbae5e6ce62da5f8b2e409a",
+      "mode": 420,
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context/references/derivation.json",
+      "bytes": 2622
+    }
+  ],
+  "observations": "All original and copied hashes match; original modes preserved. This is source custody, not native evaluation."
+}

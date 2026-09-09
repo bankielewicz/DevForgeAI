@@ -1,0 +1,10 @@
+$ python3 -B /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/author-tools/claude/skill-creator/skills/skill-creator/scripts/quick_validate.py /home/bryan/Projects/DevForge/worktrees/claude-contribution-context/project-experts/claude/devforgeai-contribution-context
+Skill is valid!
+exit=0
+
+validator sha256: 67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365
+pinned expectation: 67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365
+
+SCOPE: SKILL.md frontmatter only - YAML parse, allowed keys, name kebab-case and length,
+description length and absence of angle brackets. It reads neither the body nor any
+resource, and establishes nothing about behavior.

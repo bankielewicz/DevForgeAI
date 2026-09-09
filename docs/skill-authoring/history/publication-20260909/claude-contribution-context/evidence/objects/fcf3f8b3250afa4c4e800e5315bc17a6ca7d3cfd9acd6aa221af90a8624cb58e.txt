@@ -1,0 +1,81 @@
+CCTX-IR-003 discriminating tests: held-out classification after path normalization.
+
+The finding: revision 1 resolved the path for the existence check but classified the raw
+string, so two spellings of one held-out file reached different dispositions. Every case is
+run against BOTH checkers, so this record shows the defect and its correction side by side.
+Expected outcomes are stated before each run.
+
+  frozen revision-1 checker: .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/package_checks.py
+    sha256 b12237dc7882055e9b85c40f8a055b5d3ce15ed180c2b1f35e53394d2b30f8e4  (unchanged; this pass did not modify it)
+  revision-2 checker:        .poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/package_checks.py
+    sha256 10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442
+
+Part 1 - alias spellings of one held-out file. All three name
+evals/expectations/ccx-01-replacement-architect.md and all three must be rejected.
+
+--- CASE canonical: worker-visible list gains  expectations/ccx-01-replacement-architect.md
+    revision-1 (frozen):
+      check=eval_fixture_paths outcome=PASS file_references=62 problems=none
+      check=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=['ccx-01-replacement-architect: expectations/ccx-01-replacement-architect.md']
+      overall=FAIL failed=['eval_visibility']
+    revision-2 (corrected):
+      check=eval_fixture_paths outcome=PASS file_references=62 problems=none
+      check=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=['ccx-01-replacement-architect: expectations/ccx-01-replacement-architect.md']
+      overall=FAIL failed=['eval_visibility']
+
+--- CASE dot-alias: worker-visible list gains  ./expectations/ccx-01-replacement-architect.md
+    revision-1 (frozen):
+      check=eval_fixture_paths outcome=PASS file_references=62 problems=none
+      check=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none
+    revision-2 (corrected):
+      check=eval_fixture_paths outcome=PASS file_references=62 problems=none
+      check=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=["ccx-01-replacement-architect: expectations/ccx-01-replacement-architect.md (spelled './expectations/ccx-01-replacement-architect.md', normalizes to 'expectations/ccx-01-replacement-architect.md')"]
+      overall=FAIL failed=['eval_visibility']
+
+--- CASE dotdot-alias: worker-visible list gains  fixtures/../expectations/ccx-01-replacement-architect.md
+    revision-1 (frozen):
+      check=eval_fixture_paths outcome=FAIL file_references=62 problems=['ccx-01-replacement-architect: parent traversal in fixtures/../expectations/ccx-01-replacement-architect.md']
+      check=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none
+      overall=FAIL failed=['eval_fixture_paths']
+    revision-2 (corrected):
+      check=eval_fixture_paths outcome=PASS file_references=62 problems=none
+      check=eval_visibility outcome=FAIL held_out_leaked_into_worker_visible_files=["ccx-01-replacement-architect: expectations/ccx-01-replacement-architect.md (spelled 'fixtures/../expectations/ccx-01-replacement-architect.md', normalizes to 'expectations/ccx-01-replacement-architect.md')"]
+      overall=FAIL failed=['eval_visibility']
+
+OBSERVED, and verified rather than assumed:
+
+  canonical     rev1 eval_visibility FAIL   rev2 eval_visibility FAIL
+  ./alias       rev1 eval_visibility PASS   rev2 eval_visibility FAIL   <- the reported defect
+  ../ alias     rev1 eval_visibility PASS   rev2 eval_visibility FAIL   <- same defect
+
+For the ../ spelling the two checkers reach the same overall rejection by different routes.
+Revision 1 rejects it in eval_fixture_paths, because it tests the RAW string for a ".." segment,
+and never classifies it for visibility. Revision 2 normalizes first, so the interior ".." is gone
+before that test and eval_fixture_paths passes it; eval_visibility then rejects it as the
+held-out file it actually names. Normalizing an interior ".." is correct: the path names a
+contained file, and its spelling should not change its disposition.
+
+Part 2 - containment is preserved. Normalization must not weaken the eval-root boundary, so
+a path that genuinely escapes still has to fail. Both cases must be rejected by revision 2.
+
+--- CASE escape-etc: ../../../../etc/hostname --- expect revision-2 eval_fixture_paths FAIL
+      check=eval_fixture_paths outcome=FAIL file_references=62 problems=['ccx-01-replacement-architect: parent traversal in ../../../../etc/hostname']
+      overall=FAIL failed=['eval_fixture_paths']
+
+--- CASE escape-parent: fixtures/../../SKILL.md --- expect revision-2 eval_fixture_paths FAIL
+      check=eval_fixture_paths outcome=FAIL file_references=62 problems=['ccx-01-replacement-architect: parent traversal in fixtures/../../SKILL.md']
+      overall=FAIL failed=['eval_fixture_paths']
+
+A path that escapes the eval root retains a leading ".." after normalization and is still
+rejected. Only an interior ".." that resolves back inside the root is normalized away.
+
+Part 3 - control. The unmodified package must pass both checks under revision 2.
+
+      check=eval_fixture_paths outcome=PASS file_references=61 problems=none
+      check=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none
+      overall=PASS failed=none
+
+SCOPE: path spelling, containment and held-out classification are mechanical facts. This record
+shows that one specific checker defect is corrected and that containment did not regress. It
+establishes nothing about the candidate's instructions, and correcting a checker is not
+independent acceptance of the package it checks.

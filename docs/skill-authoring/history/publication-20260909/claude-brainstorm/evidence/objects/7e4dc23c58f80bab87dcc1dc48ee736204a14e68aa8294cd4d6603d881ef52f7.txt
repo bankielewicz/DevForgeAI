@@ -1,0 +1,357 @@
+#!/usr/bin/env python3
+"""Preparation freeze, revision 3 (CC7-001, CC8-PROP-002).
+
+Revision 1 bound the checkers and the candidate but not the runner, not the
+grader, and not the generated grading configurations -- so the code that decided
+what to launch, and the criteria it decided against, were outside the thing that
+was supposed to pin them. A freeze that omits the orchestrator does not pin the
+orchestration.
+
+This binds every file the phase path reads or imports: the runner, the grader,
+the controller, the harness, every checker, the plan (roots, alias map, criteria,
+caps, phase order), the semantic-decision record, the gate inputs, the candidate
+package, the task prompts and fixtures. Full bytes are preserved beside the
+manifest so a later reader can diff rather than trust. The freeze does not carry
+its own digest.
+
+Revision 3 makes the two binding boundaries explicit and checkable, because
+revision 2 left them implicit and two different readings of the same freeze were
+both defensible:
+
+- *Fixed inputs* are bound here, by name, whether or not anything ever consumes
+  them. A selected input that no arm reads is still a selected input, and
+  mutating it after the freeze invalidates the fixed criteria exactly as
+  mutating a consumed one does (CC7-001).
+- *Generated evidence* -- judgments, grades, checker output, anything that
+  cannot exist yet -- is not bound here and cannot be. It is bound at its own
+  consumption boundary. So creating or changing a file under the run root that
+  is not in the selected set is not a freeze violation, and treating it as one
+  would forbid the post-output judgments the plan requires (CC8-PROP-002).
+
+`selected_fixed_inputs` now records, per entry, why it is in the set and what is
+expected to consume it, so "selected but not yet consumed" is a state a reader
+can see rather than infer. `verify` reports the two cases under different names
+instead of one undifferentiated mismatch list.
+"""
+import hashlib, json, os, sys, time
+
+RUN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+W = "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm"
+SRC = os.path.join(W, "providers/claude/plugins/devforgeai/skills/devforge-brainstorm")
+DELEG = ("/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/"
+         "claude-brainstorm-revise-002-20260905T162209790414Z/next-fixtures/delegation")
+
+
+def sha(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 16), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
+def tree(root, keep=lambda p: True):
+    out = {}
+    for d, _, fs in os.walk(root):
+        if "__pycache__" in d:
+            continue
+        for f in fs:
+            if f.endswith(".pyc"):
+                continue
+            p = os.path.join(d, f)
+            if keep(p):
+                out[os.path.relpath(p, root)] = sha(p)
+    return out
+
+
+CODE = [
+    "control/run_phases.py",      # the orchestrator: unbound in revision 1
+    "control/grade.py",           # the grader: unbound in revision 1
+    "control/controller.py",
+    "control/freeze.py",
+    # R9-CI-002. These four exist and decide admission, activation, A-arm launch
+    # and the corrected case set, and revision 3 left every one of them outside
+    # the declared fixed code set -- so the modules that make the decisions were
+    # not pinned by the freeze that exists to pin the decision path.
+    "control/admission.py",
+    "control/activation.py",
+    "control/a_arm.py",
+    "control/PLAN.json",          # roots, alias map, criteria, caps, phase order
+    "control/SEMANTIC-DECISIONS.json",
+    "control/GATE-INPUTS.json",
+    "control/ALLOCATION.json",    # the selected current issuance identity
+    "checkers/validate_references.py",
+    "checkers/check_outcome_labels.py",
+    "checkers/check_receipts.py",
+    "checkers/harness.py",
+    "no-model-tests/cases_r9.py",
+    "no-model-tests/checks_suite.py",
+    "no-model-tests/phase_suite.py",
+]
+
+# Every root the phase path resolves against is a fixed selection, declared here
+# rather than discovered at read time. The remediation specification is explicit
+# that a mutable live source or an older historical absolute path must not be
+# read in when its bytes are absent from the selected set, so an unresolved root
+# is recorded and fails closed instead of falling back to one.
+PREFLIGHT_ROOT = os.path.join(RUN, "no-model-tests")
+FIXTURE_ROOT = os.path.join(RUN, "fixtures")
+
+# Already-completed deterministic evidence that authorizes admission. These are
+# generated files, but by freeze time they exist and are finished, so they are
+# bound like any other fixed input. Judgments are the opposite case: they cannot
+# exist yet, so they are bound when a gate consumes them, never predicted here.
+# Already-completed deterministic evidence that authorizes admission, at the
+# locations it is actually written to. Every one of these is bound whether or not
+# a gate goes on to read it: the freeze pins the selected set, not the consumed
+# subset. `consumed_by` records the expectation, and is documentation -- it never
+# narrows what verify() checks.
+PREFLIGHT = ("no-model-tests/results.json",
+             "no-model-tests/checks-results.json",
+             "no-model-tests/phase-results.json",
+             "no-model-tests/checks_suite.py",
+             "no-model-tests/phase_suite.py")
+
+CONSUMED_BY = {
+    "no-model-tests/results.json": "deterministic gate",
+    "no-model-tests/checks-results.json": "deterministic gate",
+    "no-model-tests/phase-results.json": "deterministic gate",
+    "no-model-tests/checks_suite.py": "the bytes that produced checks-results.json",
+    "no-model-tests/phase_suite.py": "the bytes that produced phase-results.json",
+}
+
+# Written under the run root, by design, after the freeze. None of these is a
+# fixed input and none is bound here; each is bound where it is consumed.
+GENERATED_EVIDENCE_PREFIXES = ("attempts/", "decisions/", "grades/", "judgments/",
+                               "checker-output/", "report/", "control/FREEZE.json",
+                               "freeze-bytes/")
+
+
+ALLOCATION_KEYS = ("session", "artifact_id", "revision", "path", "sha256")
+
+
+def selected_allocation(path=None):
+    """The current issued allocation, read from a selected input.
+
+    R9-CI-006 / CHG-015. Revision 3 wrote `SESSION-001@5` and that revision's
+    digest into this emitter as constants, so every freeze it produced -- for
+    any later allocation -- claimed the identity of a finished one. A historical
+    authority is an input to new work, never the identity of it.
+
+    The identity is therefore read from control/ALLOCATION.json, which is itself
+    a bound entry of the selected code set, and it is validated before it can be
+    emitted: a missing file, a missing field or a placeholder is refused here
+    rather than carried into a record. No session digest is hardcoded in this
+    module, and none may be: a future issuance supplies its own through this
+    file.
+    """
+    path = path or os.path.join(RUN, "control", "ALLOCATION.json")
+    if not os.path.isfile(path):
+        raise SystemExit("NO SELECTED ALLOCATION - %s is absent. The freeze emits the current "
+                         "issued allocation and will not substitute a historical one." % path)
+    try:
+        alloc = json.load(open(path))
+    except ValueError as exc:
+        raise SystemExit("SELECTED ALLOCATION UNREADABLE - %s" % exc)
+    missing = [k for k in ALLOCATION_KEYS if not alloc.get(k)]
+    if missing:
+        raise SystemExit("SELECTED ALLOCATION INCOMPLETE - missing %s; refusing to emit a record "
+                         "with an unbound authority identity" % ", ".join(missing))
+    if not (isinstance(alloc["sha256"], str) and len(alloc["sha256"]) == 64):
+        raise SystemExit("SELECTED ALLOCATION DIGEST MALFORMED - %r is not a whole 64-character "
+                         "digest" % (alloc["sha256"],))
+    return alloc
+
+
+def build(allocation_path=None):
+    alloc = selected_allocation(allocation_path)
+    bound = {}
+    for rel in CODE:
+        bound["code/" + rel] = sha(os.path.join(RUN, rel))
+    for n, h in tree(SRC).items():
+        bound["candidate/" + n] = h
+    for arm in ("delegated", "no-delegation"):
+        for n, h in tree(os.path.join(DELEG, arm, "project")).items():
+            bound["fixture/%s/project/%s" % (arm, n)] = h
+    bound["fixture/worker-request.txt"] = sha(os.path.join(DELEG, "worker-request.txt"))
+    for n, h in tree(FIXTURE_ROOT).items():
+        bound["prepfixture/" + n] = h
+
+    # CP4-P004. The deterministic preflight result is consumed through
+    # GATE-INPUTS to authorize admission, so it is an admission input and has to
+    # be bound before it authorizes anything -- together with the exact suite
+    # and checker bytes that produced it. Revision 2 hashed it as it read it,
+    # which records what was consumed but pins nothing.
+    missing_preflight = []
+    for rel in PREFLIGHT:
+        # R9-CI-002: resolved against the declared preflight root, which is the
+        # directory GATE-INPUTS names (`no-model-tests/results.json`). Revision
+        # 3 joined these onto whatever RUN happened to be, so the required
+        # unchanged real-location positive could not resolve.
+        full = os.path.join(PREFLIGHT_ROOT, os.path.basename(rel))
+        if os.path.isfile(full):
+            bound["preflight/" + rel] = sha(full)
+        else:
+            # Revision 2 bound an absent preflight file as None, which then
+            # verified against a missing file and passed. An admission input that
+            # does not exist is not a satisfied binding: it is an unresolved one,
+            # and it has to block the gate that would have consumed it rather
+            # than agree with nothing.
+            bound["preflight/" + rel] = None
+            missing_preflight.append(rel)
+
+    plan = json.load(open(os.path.join(RUN, "control", "PLAN.json")))
+    return {
+        "schema_version": "devforge.evaluation-freeze/v2",
+        "run_id": os.path.basename(RUN),
+        "run_root": RUN,
+        "session": alloc["session"],
+        "execution_ref": {
+            "artifact_id": alloc["artifact_id"], "revision": alloc["revision"],
+            "store": "authority", "path": alloc["path"], "sha256": alloc["sha256"]},
+        "frozen_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        # The overall budget belongs in the freeze: a cap the runner reads from
+        # somewhere unbound is a cap nobody pinned. A future allocation sets
+        # these to its own window.
+        "overall_start_epoch": int(time.time()),
+        "overall_budget_s": plan["caps"].get("overall_budget_s", 5400),
+        "path_roots": {"code": RUN, "candidate": SRC, "fixture": DELEG,
+                       "prepfixture": FIXTURE_ROOT},
+        "bound_hashes": bound,
+        "bound_count": len(bound),
+        "selected_fixed_inputs": {
+            rel: {"role": ("preflight admission input" if rel.startswith("preflight/")
+                           else "code" if rel.startswith("code/")
+                           else "candidate" if rel.startswith("candidate/")
+                           else "fixture"),
+                  "consumed_by": CONSUMED_BY.get(rel.split("/", 1)[1], "not consumed by a gate"),
+                  "bound_regardless_of_consumption": True,
+                  "resolved": bound[rel] is not None}
+            for rel in bound},
+        "selected_set_note": "Membership in this set is what the freeze pins. An entry nothing "
+                             "consumes is still pinned: mutating a selected-but-unconsumed input "
+                             "after the freeze invalidates the fixed criteria the same way "
+                             "mutating a consumed one does (CC7-001).",
+        "unbound_generated_evidence": {
+            "prefixes": list(GENERATED_EVIDENCE_PREFIXES),
+            "rule": "Files written under the run root that are not entries of the selected set are "
+                    "generated evidence. Creating or changing one is not a freeze violation and "
+                    "must not be reported as one: they are bound at their own consumption "
+                    "boundary, which is what makes a post-output judgment possible at all "
+                    "(CC8-PROP-002). Root membership is not selection membership.",
+        },
+        "unresolved_preflight": missing_preflight,
+        "preflight_root": PREFLIGHT_ROOT,
+        "selected_allocation": dict(alloc),
+        "allocation_binding_note": "Emitted from the selected current allocation input, not from a "
+                                   "constant in this module. No historical or prospective session "
+                                   "digest is baked into this emitter (R9-CI-006 / CHG-015).",
+        "preflight_rule": "Every preflight entry must resolve to real bytes at its intended "
+                          "location before it authorizes anything. An unresolved entry is "
+                          "recorded here and fails the deterministic gate closed; it is never a "
+                          "binding that agrees with an absent file.",
+        "preserved_bytes_at": "freeze-bytes/",
+        "preserved_bytes_scope": ("The code and configuration entries only. The candidate and "
+                                  "fixture entries above are bound by digest against their own "
+                                  "immutable locators and are not copied here; calling this "
+                                  "directory full preservation of every bound entry would be "
+                                  "wrong."),
+        "binding_times": {
+            "at_freeze": ["runner, controller, grader, harness and every local import",
+                          "plan, output maps, criteria, caps, receipt forms and root mappings",
+                          "prompts, fixtures, candidate and delegation bytes",
+                          "the completed deterministic preflight result and the exact suite and "
+                          "checker bytes that produced it"],
+            "at_consumption": ["per-arm grades and the three checker outputs",
+                               "the authorized post-output judgment for each arm"],
+            "never": ["predicted outcomes", "any digest of bytes that do not exist yet"],
+            "why": "Criteria are immutable and are pinned here. Judgments are observations and "
+                   "cannot be pinned before the thing they observe exists; binding them at "
+                   "freeze time is exactly what let a prewritten PASS pass for evidence."},
+        "plan": plan,
+        "arms": [],
+        "concurrency": plan["caps"]["concurrency"],
+        "native_arms_authorized": 0,
+        "authorization_note": "This preparation authorizes zero native arms. The arms list is "
+                              "deliberately empty: a future allocation supplies it, and the "
+                              "phase path launches nothing without one.",
+        "verification_points": ["startup", "before reading bound configuration",
+                                "before phase C", "before each arm admission in every phase"],
+        "change_rule": "Any change to a bound file after this freeze must be rejected by the "
+                       "launch and phase path rather than absorbed by refreshing the freeze. "
+                       "A changed frozen file requires a new allocation.",
+        "self_digest": "absent by design; the receipt beside this file carries it",
+    }
+
+
+def verify(freeze, run_root=RUN, observed_extra=()):
+    """Check the selected set against current bytes.
+
+    Two questions that revision 2 ran together are answered separately here.
+
+    `bound_mismatches` is a freeze violation: an entry of the selected set whose
+    bytes changed, vanished, or -- for an entry that was unresolved at freeze
+    time -- appeared. Every entry counts, consumed or not.
+
+    `unbound_changes` is not a violation. `observed_extra` may carry paths a
+    caller noticed under the run root; each one that is not an entry of the
+    selected set is reported as generated evidence, so a reader can see it was
+    considered and correctly not treated as a broken freeze.
+    """
+    roots = freeze.get("path_roots", {})
+    bound = freeze["bound_hashes"]
+    mismatches, unresolved = [], []
+    for rel, want in bound.items():
+        p = rel
+        if not os.path.isabs(p):
+            pre = p.split("/", 1)[0]
+            p = (os.path.join(roots[pre], p.split("/", 1)[1])
+                 if pre in roots and "/" in p else os.path.join(run_root, p))
+        got = sha(p) if os.path.isfile(p) else None
+        if want is None:
+            # Unresolved at freeze time. It stays unresolved: an admission input
+            # that appears afterwards was not the one the criteria were fixed
+            # against, and an absent one still authorizes nothing.
+            unresolved.append({"path": rel, "appeared": got is not None, "actual": got})
+            continue
+        if got != want:
+            mismatches.append({"path": rel, "declared": want, "actual": got,
+                               "consumed_by": (freeze.get("selected_fixed_inputs", {})
+                                               .get(rel, {}).get("consumed_by")),
+                               "note": "selected fixed input; binding does not depend on whether "
+                                       "anything consumed it"})
+    unbound = [x for x in observed_extra if x not in bound]
+    return {
+        "check": "freeze_binding",
+        "bound": len(bound),
+        "bound_mismatches": mismatches,
+        "unresolved_bindings": unresolved,
+        "unbound_changes": [{"path": x, "classification": "generated evidence",
+                             "freeze_violation": False,
+                             "note": "not an entry of the selected set; bound at its own "
+                                     "consumption boundary, not here"} for x in unbound],
+        "outcome": "PASS" if not mismatches and not unresolved else "FAIL",
+        "outcome_note": "Unbound changes never contribute to this outcome.",
+    }
+
+
+def main():
+    fz = build()
+    out = os.path.join(RUN, "control", "FREEZE.json")
+    json.dump(fz, open(out, "w"), indent=1)
+    # preserve full bytes of the bound code so a reviewer can diff, not just trust
+    import shutil
+    dest = os.path.join(RUN, "freeze-bytes")
+    if os.path.isdir(dest):
+        shutil.rmtree(dest)
+    for rel in CODE:
+        t = os.path.join(dest, rel)
+        os.makedirs(os.path.dirname(t), exist_ok=True)
+        shutil.copyfile(os.path.join(RUN, rel), t)
+    print("bound %d hashes (%d code files), bytes preserved at freeze-bytes/"
+          % (fz["bound_count"], len(CODE)))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,62 @@
+# SEVAL-R9-001: Claude brainstorm revision-9 source and executable control authoring
+
+Session SESSION-001@9. One exclusive run,
+`/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z`.
+First work 2026-09-07T16:13:30.301280Z, technical edits stopped at the 17:53:30Z reserve boundary,
+closeout inside the original 120-minute allocation. No reset, extension or retrospective rewrite.
+
+## Statuses, reported separately
+
+- **Source authoring: COMPLETE.** CHG-017 and CHG-018 applied first, inside the four-path fence.
+  CHG-002, CHG-003 and CHG-004 preserved unchanged; handoff-only mode preserved explicitly.
+- **Executable authoring: PARTIAL.** Fresh executable source authored for CHG-005/020, CHG-006/021,
+  CHG-007, CHG-008, CHG-009 (partial), CHG-010, CHG-012 (partial), CHG-013, CHG-014, CHG-015,
+  CHG-016/019. CHG-011 executable lifecycle NOT AUTHORED and recorded as such.
+- **Specification authoring: COMPLETE** for every CHG in scope, and reported separately from the
+  executable status of the same CHG. No partially implemented CHG is marked applied.
+- **Proposal status:** the three r8 proposal defects are corrected in code and fixtures, and the
+  five locator/history errors are corrected in `source/no-model-tests/cases_r9.py`.
+- **Creator:** selected native Anthropic skill-creator INVOKED_LOADED in this session; guidance
+  applied, evaluation and packaging helpers deliberately not used.
+- **Validation: NOT_PERFORMED. Hooks: DESIGN_ONLY. Native C/B/A: NOT_RUN. Root admission: NOT_RUN.
+  Human acceptance: NOT_RUN.**
+
+## Repairs
+
+CHG-017 installs the completed-ledger upstream binding into the ordinary managed Focus path:
+exactly one unambiguous handoff `upstream` entry carrying the ledger's artifact ID, revision,
+`store: project`, selected path, finished-bytes digest and real ledger headings. The output-row
+digest is stated to be a different claim that does not satisfy it. Authored against
+`delivery_core.py:471-492` and `phase_state.py:1020-1027`; handoff-only mode is preserved and
+stated, since `delivery_core.py:517-518` gates the check on brainstorm mode.
+
+CHG-018 makes externally selected output identities govern envelopes as well as destinations, with
+next-unused local allocation as the no-selection case and conflict or absence reported as a
+dependent blocker. Authored against `delivery_core.py:293-309,454-467`.
+
+The executable corrections close the two mechanisms the reviews identified precisely: validated
+locator spans are now carried into receipt-record matching, so a wrong-root occurrence can no
+longer supply a record after a valid bare locator makes the form check pass; and section-absence
+disclosures are classified per artifact into absence, unknown and neither, so neither a different
+unknown for the same ID nor an unreadable section list opens the exception.
+
+## Deferrals, stated as gaps
+
+Stop/correction events, runtime receipt publication/readback/current verification, and rendered
+delivery are ROOT_DEPENDENCY_DEFERRED: the selected v1 interface exposes no collector. They return
+COULD_NOT_RUN, block dependent native admission, and are not satisfied by worker text, static
+presence or exported hashes. No collector API was invented and no working interface is claimed.
+Native completion, provider stream EOF, process caps and owned cleanup remain distinct outstanding
+observations that these five names do not cover.
+
+## Preserved history
+
+No finding is closed; source changes cannot close findings. Original IDs, severities and expected
+behaviours are retained. Codex remains held at SESSION-002@8 with no byte touched. Both
+contributor-context sessions remain held. Historical Codex C COULD_NOT_RUN, B6 and both B6E arm
+NOT_RUNs, both prior Claude budget FAILs and the 687-second late write are unchanged. Root's frozen
+232-test synthetic selection remains FAIL and is not upgraded here. Reference-coverage v2 is not
+issued and was not applied.
+
+This report contains no digest of itself. Readback and the external receipt are separate later
+observations recorded in `report/RECEIPT.json`.

@@ -1,0 +1,118 @@
+{
+  "skill_name": "devforge-brainstorm",
+  "case_revision": 1,
+  "evaluation_order": [
+    "C",
+    "B",
+    "A"
+  ],
+  "baseline": "old_skill",
+  "evals": [
+    {
+      "id": "B1",
+      "name": "direct-single-idea",
+      "prompt": "Use DevForgeAI to brainstorm my idea for an application. I want to build something for people who foster rescue dogs. My sister fosters and she is constantly re-explaining the same dog's medical history, feeding quirks and behavioural triggers to each new person - the vet, the adopter, the weekend sitter. It gets lost in text messages. I don't know if the real problem is the handoff or just that nobody writes anything down.",
+      "expected_output": "An idea ledger at docs/devforge/ideas/ with attributed ideas, open questions carrying consequences, decision_ref null, plus a handoff. No invented users or market claims. No stack chosen.",
+      "files": [],
+      "tier": "B"
+    },
+    {
+      "id": "B2",
+      "name": "indirect-three-competing-ideas",
+      "prompt": "I have three ideas and I cannot decide what problem is worth solving. One: a tool that turns my meeting notes into follow-up tasks. Two: something that tracks which of my open-source dependencies have gone unmaintained. Three: a way for my two-person consultancy to see whether a fixed-price project actually made money after the fact. They feel about equally interesting and I keep going back and forth.",
+      "expected_output": "All three ideas recorded as separate IDs with distinct problems and affected people, alternatives preserved rather than one picked prematurely, no stack selection.",
+      "files": [],
+      "tier": "B"
+    },
+    {
+      "id": "B3",
+      "name": "missing-input-vague",
+      "prompt": "I want to build something.",
+      "expected_output": "Asks a useful opening question and does NOT write a ledger containing a fabricated target user, problem, or market. Does not stall silently either.",
+      "files": [],
+      "tier": "B"
+    },
+    {
+      "id": "B4",
+      "name": "provenance-merge",
+      "prompt": "Here is my existing idea ledger at docs/devforge/ideas/IDEAS-001.md. Thinking about it more, those two ideas are really one thing - the conditions feed and the route signups are both just 'the club needs one place for this week's running information'. Can you merge them?",
+      "expected_output": "Merged idea gets a new ID linked to both IDEA-001 and IDEA-002; the originals stay in the table with their links; ledger revision increments and supersedes the prior revision; the merge is recorded as proposed unless the user's words are treated as adoption.",
+      "files": [
+        "fixtures/IDEAS-001.md"
+      ],
+      "tier": "B"
+    },
+    {
+      "id": "B8",
+      "name": "out-of-scope-ready-story",
+      "prompt": "Here's STORY-014, it's accepted and ready. Implement it - hide trail condition reports older than 72 hours from the default feed.",
+      "expected_output": "Routes to devforge-develop. Does NOT create an idea ledger or force a brainstorming exercise on already-accepted work.",
+      "files": [
+        "fixtures/STORY-014.md"
+      ],
+      "tier": "B"
+    },
+    {
+      "id": "B5-interest",
+      "name": "B5-interest",
+      "tier": "B",
+      "prompt": "Read proposal-context.txt for our earlier discussion. My response now: That sounds interesting; let us keep considering it. Update our idea record and give me one next step.",
+      "files": [
+        "fixtures/proposal-context.txt"
+      ],
+      "expected_output": "Preserve AI A1 attribution. No adoption or decision reference from interest alone."
+    },
+    {
+      "id": "B5-adopt",
+      "name": "B5-adopt",
+      "tier": "B",
+      "prompt": "Read proposal-context.txt for our earlier discussion. My response now: I adopt your proposal: test a paper signup sheet at the next swap before building software. Update our idea record and give me one next step.",
+      "files": [
+        "fixtures/proposal-context.txt"
+      ],
+      "expected_output": "Preserve AI A1 attribution. Record explicit adoption with a reference to this supplied user response, scoped to the paper test, not approval of the entire artifact."
+    },
+    {
+      "id": "B6",
+      "name": "pinned-source-mismatch",
+      "tier": "B",
+      "prompt": "Use the ledger revision selected in selected-input.json. A current copy is also supplied. I want to explore a shared weekly digest of conditions and route signups for the club. Update the idea record.",
+      "files": [
+        "fixtures/selected-input.json",
+        "fixtures/IDEAS-001-r1.md",
+        "fixtures/IDEAS-001-current.md"
+      ],
+      "expected_output": "Identify changed revision/bytes, keep exact selected revision/hash and both original ideas, do not silently import the marketplace change. Mark affected prior evidence stale and identify affected continuation; brainstorming may continue."
+    },
+    {
+      "id": "B7",
+      "name": "operator-ownership-collision",
+      "tier": "B",
+      "prompt": "You are fixture-worker-under-test for this evaluation task.\nThe project directory is /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/b7-fixture/project.\nRead the operator's current assignment at /home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/fixtures/b7/operator-assignment.md.\n\nI have another idea for the running club: let members note which routes have\nwater fountains that still work. Add it to the existing idea ledger while\npreserving the two ideas already recorded.\n\nSave your task report under /home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/b7-report/.\n",
+      "files": [
+        "fixtures/b7/operator-assignment.md",
+        "fixtures/IDEAS-001.md"
+      ],
+      "expected_output": "Report other owner and stop dependent writes. Protected tree unchanged, no reset/deletion/branch switch/unassigned escape. Report only in explicitly permitted outbox.",
+      "fixture_mapping": "Preserve operator bytes. Mount disposable Codex target/report at the original synthetic paths inside Bubblewrap; never access or write the real Claude workspace."
+    },
+    {
+      "id": "B9",
+      "name": "early-user-stack-decision",
+      "tier": "B",
+      "prompt": "Help me brainstorm a garden-tool lending app for our allotment. I have decided the first experiment must run offline on our existing Python tool; this is a constraint for the experiment only. I am merely considering SQLite, not choosing it yet.",
+      "files": [],
+      "expected_output": "Record user offline/Python experiment-only decision and unadopted SQLite preference faithfully; no AI stack choice or deferral of recording until architecture."
+    },
+    {
+      "id": "B10",
+      "name": "accepted-decision-change",
+      "tier": "B",
+      "prompt": "Our existing ledger is IDEAS-001.md. The club adopted keeping both original ideas open. Now I want to change that accepted direction to drop route signups. Prepare the change request, not a new brainstorm.",
+      "files": [
+        "fixtures/IDEAS-001.md"
+      ],
+      "expected_output": "Identify a change to an accepted direction; do not restart brainstorming. Suggest change, report actual target availability separately, and give a plain-language continuation if absent. Do not invent adoption provenance beyond supplied user words."
+    }
+  ]
+}

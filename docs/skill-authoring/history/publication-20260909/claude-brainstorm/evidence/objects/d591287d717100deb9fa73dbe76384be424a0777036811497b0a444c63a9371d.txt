@@ -1,0 +1,72 @@
+# Authoring record: SESSION-001@7, Claude devforge-brainstorm
+
+What was decided while writing the four fenced source files, and why. The
+specification and the runtime interface were settled before this allocation;
+these are the provider-specific choices left to the author.
+
+## The creator, and what it actually changed
+
+`/skill-creator:skill-creator` was invoked in this session through the native
+Skill tool and returned its real result: base directory
+`.../next-inputs/skill-creator/skills/skill-creator`, the selected package whose
+SKILL.md is `dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf`.
+No dedicated invocation event ID is exposed to this session and none was
+invented.
+
+Four pieces of its guidance changed the result:
+
+- **Progressive disclosure.** The runtime interface is conditional detail that
+  most sessions never need, so it went into `references/managed-runtime.md` and
+  SKILL.md keeps a short section and a pointer. SKILL.md is 137 lines.
+- **Explain the why.** The removed closeout was a command chain; what replaced
+  it argues from what a later reader can check. The `sections` and receipt rules
+  read as reasons rather than as MUSTs.
+- **Do not overfit.** The managed section keys on context the skill can actually
+  observe - a phase, a task ID, a challenge - rather than naming a launcher or a
+  hook that may not be there.
+- **The evaluation loop.** Its with-skill/baseline runs, grading, benchmark and
+  description optimisation are exactly the stages this allocation sets to zero.
+  They are deferred, not done, and are reported that way.
+
+## Decisions
+
+**Keep the description byte-identical.** The specification asks to preserve
+discovery and the out-of-scope exclusions. The description is also the trigger
+mechanism the existing `evals/triggers/trigger-queries.json` measures, and phase
+A now uses those selectors unchanged. Editing it would have invalidated the
+comparison this candidate is heading toward, for no requirement.
+
+**Delete the helper chain rather than demote it.** SKILL.md previously told the
+model to run `check_artifact.py`, build two absolute roots to do it, and deliver
+a receipt. The addendum moves that to the runtime and forbids a hand-run
+substitute *including as a fallback*. Keeping a weakened version would have
+recreated the ritual; keeping the two-roots paragraph would have kept scaffolding
+for a command that is no longer issued. Both are gone. `scripts/check_artifact.py`
+stays in the package as preserved bytes - it is outside the fence, and the
+addendum keeps helpers as resources rather than as workflow steps.
+
+**Keep the artifact-contract semantics that were never about the helper.**
+Dependency-ordered hashing, no self-digest, a handoff absent from its own outputs
+table, reading every repeated reference back after the last write, placeholders
+meaning draft, and the `producer.skill_revision` scope distinction are all rules
+about what a reference means. They survive unchanged.
+
+**Make the unmanaged path explicit rather than silent.** With no runtime, the
+skill still does the whole job and the artifacts are drafts. Saying so in both
+SKILL.md and the reference is what stops an unverified session from reading as a
+completed one - and it is the honest description of every session today, because
+native admission is still refused.
+
+**Do not claim enforcement.** Nothing in the source says hooks are installed,
+that a runtime is present, or that delivery was verified. The managed section is
+conditional throughout.
+
+## What a reviewer should look at hardest
+
+The removal is larger than the addition. If a session runs unmanaged - which is
+every session today - the model no longer computes and delivers a digest of its
+own outputs. That was a real check, and the runtime that replaces it is not yet
+admitted natively. The reference says the artifacts are unverified drafts, which
+is truthful, but it is a reduction in what an unmanaged session mechanically
+guarantees. That trade is the addendum's to make and it made it deliberately;
+this note exists so the reviewer does not have to infer it from a diff.

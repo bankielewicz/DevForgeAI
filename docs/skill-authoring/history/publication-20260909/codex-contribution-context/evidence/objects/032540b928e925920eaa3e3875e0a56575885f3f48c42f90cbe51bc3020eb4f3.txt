@@ -1,0 +1,25 @@
+{
+  "checked_at_utc": "2026-09-05T23:44:02.159252+00:00",
+  "outcome": "PASS",
+  "operator_focused_tests": 9,
+  "checks": [
+    {
+      "name": "focused-regression",
+      "outcome": "PASS",
+      "exit_status": 0
+    },
+    {
+      "name": "preserved-source",
+      "outcome": "PASS",
+      "exit_status": 0
+    },
+    {
+      "name": "synthetic-runtime",
+      "outcome": "PASS",
+      "exit_status": 0
+    }
+  ],
+  "scope": "operator reproduction of changed-code regression and structural input observations only; native evaluation not run",
+  "author_full_suite": "47 tests passed in preserved author evidence; not rerun by operator",
+  "original_check05": "FAIL retained"
+}

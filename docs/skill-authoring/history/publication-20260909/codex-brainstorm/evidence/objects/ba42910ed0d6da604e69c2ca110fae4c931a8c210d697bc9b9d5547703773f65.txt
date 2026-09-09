@@ -1,0 +1,52 @@
+# Brainstorm authoring contract for managed runtime integration
+
+This root-owned addendum selects the authoring interface for SESSION-001@7 and SESSION-002@7. It takes effect for an author only when the current authority record equals its issued revision-7 copy. It does not activate hooks, admit a native client, certify a candidate, or reset an earlier allocation. Selected source and runtime bytes are in INPUTS.json.
+
+The user requested ordinary subscribed Codex/Claude brainstorming with automatic checks for missing artifacts and skipped phases, and removal of repeated model-owned closeout mechanics. Root now owns an implemented, synthetically exercised phase/delivery runtime. Native launcher admission, effective hook-source verification, actual installed activation, native turn completion and rendered delivery remain unfinished. The default production launcher still refuses native admission. Author the integration against this explicit interface; do not describe native enforcement as already delivered.
+
+## Allocation-specific precedence
+
+Keep each provider's selected shared contracts and templates as semantic inputs. This addendum supersedes only the old no-hooks implementation choice and the requirement that the brainstorming model manually run mechanical closeout helpers. Root owns subsequent canonical shared-document and hook registration changes. The authors must not alter shared documents, manifests, active hooks, runtime code or installer code. No artifact identity, adoption, attribution, reference, ownership or human acceptance rule is waived.
+
+The new skill-builder informs requirements and authoring. Its output is unvalidated; its hook proposal is design only. The user's already authorized root runtime work and later independent validation remain separate allocations. The announced skill-validator is still in progress and is not selected or executed here.
+
+## Conversational responsibilities
+
+Preserve natural discovery of the existing devforge-brainstorm capability, useful questions, explicit unknowns, alternative ideas, stable identities, split/merge origins, faithful user/AI attribution, and scope-aware routing. A user preference, interest or permission to explore is not adoption. A runtime callback or correction is not user authority. Preserve accepted source revisions and the user's actual decision scope.
+
+Continue to save the selected ledger and shared handoff using the installed package's resources. Required artifacts must exist at the externally selected destinations. Collision or ownership conflict does not authorize another destination. A routed/blocked task uses a separately selected handoff-only contract; the model cannot switch modes to satisfy a weaker gate. Unmanaged sessions may support discussion and draft artifacts, but cannot claim runtime-verified completion or manufacture a receipt. Do not add a manual helper chain as a fallback.
+
+## Runtime interface to document concisely
+
+Root selects a devforge.brainstorm-session/v1 contract before admitting the task. It binds task/assignment identities, immutable inputs, installed resources, original deadline, mutable-output baselines and archives, checkpoint destination and external receipt destination. Mutable ledgers are not immutable inputs; preservation requires actual retained bytes. Only the protected runtime owns transitions, accepted evidence snapshots, completion and receipt publication.
+
+The runtime supplies the current phase, fresh challenge, task identity, exact checkpoint destination and JSON shape through provider context. The worker performs the useful phase work and writes the supplied evidence shape with actual facts. Never hardcode a task ID, challenge, destination or example fact. The devforge.brainstorm-checkpoint/v1 envelope has exactly schema_version, task_id, phase, challenge, state and content. Maximum complete size is 65,536 bytes. This is observed semantic evidence, not an authoritative phase_complete flag or proof of hidden reasoning.
+
+| Phase | Ready checkpoint content | Automatic responsibility |
+| --- | --- | --- |
+| Recover | known_ideas, known_decisions, missing_inputs: lists of strings, with at least one item across them | Bind current selected inputs and checkpoint before Explore. |
+| Explore | ideas: 1–100 objects with unique idea_id, people, problem, outcome, alternatives, open_questions; missing_inputs list | Require the checkpoint before Record. Unknown people/problem/outcome may be null with a real open question. |
+| Record | ledger_path equal to the selected idea-ledger destination | Check the persisted ledger envelope, selected identity/revision, reference revision types and required headings before Focus; the selected handoff-to-ledger binding is checked at Focus. |
+| Focus | next_action, owner, completion_evidence, non_goals list, handoff_path equal to the selected handoff | Inspect all selected artifacts, complete the mechanical task and publish/read back/verify the receipt. |
+
+The ordinary path is Recover → Explore → Record → Focus. The externally selected handoff-only path is Recover → Focus, with Explore/Record explicitly NOT_APPLICABLE. Required phase classifications come from the user's requirement to prevent skipping phases; no new per-phase human approval is introduced.
+
+When a real blocking question remains, ask it and write state awaiting_user with content containing exactly question and blocking_dependency, both nonempty strings. The runtime preserves WAITING_USER and issues no receipt. UserPromptSubmit resumes the pending phase; it does not certify that the user adopted an idea or supplied the missing decision. Nonblocking unknowns may remain in the ordinary evidence. Each phase allows one bounded correction; exhaustion, stale/replayed evidence, deadline expiry or unavailable authority stops dependent completion. An author must not propose automatic retries or a new deadline.
+
+Do not instruct the model to invoke delivery advance/resume/complete/check/verify or package receipt/check helpers. Root/operator commands remain operator-owned. Existing helpers are preserved as historical/resources bytes in this source allocation, not called from the managed workflow. Put substantial conditional details in the new references/managed-runtime.md and retain only the useful link and essential behavior in SKILL.md.
+
+## Completion and measurements
+
+Managed-session completion occurs during the qualifying Stop callback after Focus reaches READY, while the owned client may remain alive. Runtime reads/checks final artifact bytes, exclusively publishes a separately bound receipt, reads the complete receipt back, verifies its current targets, and returns its actual locator/full SHA-256 through synchronous systemMessage. A successful socket write is not proof of rendering. No worker PASS text establishes success. A later failure or drift retains the historical receipt with a separate current-applicability result.
+
+The saved handoff describes checks already observed and preserves creation-time NOT_RUN for later receipt/readback/delivery operations. It excludes its own complete-byte digest and does not claim that a planned receipt already exists. Runtime completion is reported separately without rewriting that history. Where a handoff needs an artifact digest, the author may calculate truthful metadata; this does not make the model the final delivery verifier. Semantic quality, adoption and human usefulness remain separately evaluated.
+
+Update run-side measurement proposals to observe runtime-owned phase/receipt ordering instead of the old model-helper invocation sequence. Retain installed SKILL/workflow/template loading, inaccessible source resources, real discovery/activation, complete identity/reference checks, provider-native stream/EOF/completion, actual Stop/correction events, receipt rendering, process caps and cleanup. Runtime telemetry does not establish that a model read an input or that a human saw a response.
+
+Retain C-before-B and required A admission. Semantic judgments must be generated after their corresponding outputs/checks exist, bind those exact bytes and fixed criteria, and be selected before the next admission. No grading result or model call is created in this authoring allocation. Codex retains C COULD_NOT_RUN and the three B arms NOT_RUN; preserve B6 selected-r1/current-mismatch and B6E drift/control meanings. Claude preserves the late-write/budget FAIL, three checker findings and unfinished phase controls until new independently observed evidence closes them.
+
+## Evidence and remaining integration work
+
+INPUTS.json selects exact runtime copies and existing result records. Root's 312-test Python result precedes the final installer hardlink fix; the affected 37-test installer suite passed afterward. The final Rust build includes float-roundtrip result preservation; its unchanged case-02 cancellation regression passed. These are runtime tests, not skill validation or native evaluation.
+
+Root still must finish native admission/startup preparation, install and observe both providers' actual callbacks, review new authored candidates and controls, allocate independent evaluation, integrate reviewed provider/shared bytes, verify combined install/export, and obtain required human acceptance. Contributor-context native evaluation remains parked. Define-product advancement follows brainstorm closeout.

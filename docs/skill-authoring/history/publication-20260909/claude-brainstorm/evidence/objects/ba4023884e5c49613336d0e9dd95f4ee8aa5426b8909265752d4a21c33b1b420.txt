@@ -1,0 +1,286 @@
+{
+ "schema_version": "devforge.unexecuted-proposals/v1",
+ "assignment": "SESSION-001@8",
+ "status": "AUTHORED, NOT EXECUTED",
+ "binds_to_control_baseline": {
+  "plan_sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+  "see": "CONTROL-BASELINE-BINDING.json in this directory"
+ },
+ "execution_in_this_allocation": {
+  "native_model_calls": 0,
+  "tests": 0,
+  "suites_run": 0,
+  "cases_run": 0,
+  "helper_or_validator_execution": 0,
+  "synthetic_fixture_execution": 0,
+  "installations": 0,
+  "exports": 0,
+  "hook_activation": 0,
+  "authored_scripts_run": 0,
+  "static_checks_only": "json.load over each edited JSON file, and byte reads/hashes for custody. Parsing is not behaviour; nothing below is demonstrated, and no expected_discrimination below has been observed.",
+  "every_verified_field_below": false
+ },
+ "priority_order_applied": "REMEDIATION-SPECIFICATION: source repair first (done, see builder change receipt), then receipt/reference/preservation and admission predicates (CHG-006, CHG-016, CHG-007, CHG-005, CHG-008), then their discriminating suite definitions and remaining controls (CHG-011..CHG-015, CHG-009, CHG-010).",
+
+ "predicate_repairs": [
+  {
+   "change_id": "CHG-006",
+   "finding_alias": "F-006",
+   "original_finding_id": "CC7-002",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "checkers/check_receipts.py",
+   "binds": ["PLAN.json:14 locator_mapping.note", "PLAN.json:20 record_shape_note", "PLAN.json:25 receipts criterion"],
+   "predicate_change": "Receipt ownership becomes file-specific and root-exact. Three separable rules: (a) a locator only counts in a declared accepted form - project_relative below the arm's project root, or sandbox_absolute under that arm's own sandbox mount - so a path under any other root that merely ends in the accepted relative suffix is not this file and does not satisfy the promise; (b) a digest token is exactly 64 hex characters, and a 65-character run is not a 64-character digest with a spare character, it is a malformed token; (c) each promised file must carry its own complete current digest inside one declared record shape, and two records disagreeing about one locator are rejected by name rather than resolved by proximity.",
+   "discriminating_cases": [
+    {"case": "T-wrong-root-suffix", "fixture": "terminal text naming <other-root>/docs/devforge/ideas/IDEAS-001.md paired with the correct digest of the real IDEAS-001.md", "expected": "FAIL", "why": "The locator is well-formed and the digest is genuine; only the root is unselected. Distance ranking and suffix matching both accept this today, which is the defect."},
+    {"case": "T-65-char-token", "fixture": "correct locator paired with a 65-character hex run", "expected": "FAIL", "why": "Truncating or sliding a 65-character run to find 64 valid characters invents a digest the worker never wrote."},
+    {"case": "T-exact-selected-root", "fixture": "locator in each declared accepted form with its own current 64-character digest", "expected": "PASS", "why": "Retained positive: the repair must not tighten past the criterion PLAN.json:25 already fixed."},
+    {"case": "T-swapped-long-a", "fixture": "long-locator pair with the two digests exchanged, subject = first file", "expected": "FAIL", "why": "Retained from the r7 CP5-CK-003 repair."},
+    {"case": "T-swapped-long-b", "fixture": "same pair, subject = second file", "expected": "FAIL", "why": "Both halves of the swapped pair must fail; failing only the subject re-admits the original defect from the other direction."}
+   ],
+   "must_not_regress": ["T-sha256sum-order", "T-table-row", "T-adjacent-line-pairs"],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-016",
+   "finding_alias": "F-016",
+   "original_finding_id": "CP5-CK-001 retained absence-disclosure limitation",
+   "original_severity": "original CP5 finding retained; no new severity claim",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["P3","P4"],
+   "file": "checkers/validate_references.py",
+   "binds": ["declared_unavailable()", "sections_of()", "PLAN.json:18 reference_conformance"],
+   "predicate_change": "The unsectioned-reference exception requires a disclosure about the sections of that artifact, not merely the artifact's ID appearing somewhere in missing_inputs. Today any missing_inputs entry mentioning the artifact satisfies the exception, so a disclosure about a completely different unknown for the same artifact silently licenses an unsectioned reference. The disclosure must name the artifact AND state that its sections are unavailable or that it has none.",
+   "discriminating_cases": [
+    {"case": "R-unsectioned-disclosed-sections", "fixture": "reference omits sections; missing_inputs discloses that the target's section list could not be read", "expected": "PASS", "why": "The exception exists for exactly this case."},
+    {"case": "R-unsectioned-disclosed-other-unknown", "fixture": "reference omits sections; missing_inputs mentions the same artifact but discloses an unrelated unknown (its revision date)", "expected": "FAIL", "why": "This is the finding. An ID match is not a disclosure about sections, and accepting it means the exception can be satisfied by any unrelated honesty about the same artifact."},
+    {"case": "R-unsectioned-undisclosed", "fixture": "reference omits sections; no missing_inputs entry", "expected": "FAIL", "why": "Retained from the r7 CP5-CK-001 repair."},
+    {"case": "R-sectioned-resolvable", "fixture": "reference names two sections that both resolve in the target body", "expected": "PASS", "why": "Retained positive; the repair touches only the no-sections path."}
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-007",
+   "finding_alias": "F-007",
+   "original_finding_id": "CC7-003",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "control/grade.py",
+   "binds": ["coverage()", "classify()", "PLAN.json:26 inventory criterion", "AUTHORING-RUNTIME-BRIDGE-r7.md:21", "REMEDIATION-SPECIFICATION.md:51"],
+   "predicate_change": "Preservation is judged against live bytes at judgment time, not against a saved inventory key. A selected retained archive must (a) still exist when the judgment is made and (b) hash equal to the selected original baseline digest. Two failure modes are currently invisible: an archive whose bytes changed after staging, and an archive that disappears during the pause between staging and judgment. A surviving inventory key is not retained bytes.",
+   "discriminating_cases": [
+    {"case": "I-preserved-mutated", "fixture": "selected retained archive present but one byte changed after the baseline digest was recorded", "expected": "FAIL", "why": "A supersedes reference to those bytes is false the moment they change; the digest no longer describes what is at the locator."},
+    {"case": "I-preserved-vanished-during-pause", "fixture": "archive present at staging, removed before the post-output judgment runs", "expected": "FAIL", "why": "The judgment pause is exactly where this is currently missed - the key survives in the staged inventory."},
+    {"case": "I-preserved-retained", "fixture": "archive unchanged, live digest re-read and compared to the selected original baseline", "expected": "PASS", "why": "Retained positive, and the comparison itself must be recorded, not merely performed."},
+    {"case": "I-preserved-removed", "fixture": "staged path deleted, inventory key remains as removed", "expected": "FAIL", "why": "Retained from the r7 CP5-CK-002 repair."}
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-005",
+   "finding_alias": "F-005",
+   "original_finding_id": "CC7-001",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "control/freeze.py",
+   "binds": ["build()", "SESSION-001-r7.md:52", "AUTHORING-RUNTIME-BRIDGE-r7.md:46"],
+   "predicate_change": "verify_freeze must bind the result that is actually consumed downstream, at its intended location. The test that would demonstrate this populates every real PREFLIGHT file where the controller will look for it, requires verify_freeze PASS while untouched, then mutates the exact consumed result and requires FAIL. Substituting a differently-located ok.json proves only that some file was hashed.",
+   "discriminating_cases": [
+    {"case": "F-freeze-intact", "fixture": "all real PREFLIGHT files populated at their intended locations", "expected": "PASS", "why": "Establishes the positive against real locations rather than a stand-in."},
+    {"case": "F-freeze-consumed-result-mutated", "fixture": "mutate the specific result the downstream gate consumes", "expected": "FAIL", "why": "This is the discrimination the r7 case missed by mutating an unbound file."},
+    {"case": "F-freeze-unbound-file-mutated", "fixture": "mutate a file inside the freeze root that nothing consumes", "expected": "FAIL", "why": "Freeze covers the whole selected set; a change anywhere in it invalidates the freeze. Kept explicitly so the repair is not read as narrowing freeze to only the consumed file."}
+   ],
+   "criteria_ordering_note": "All fixed criteria and completed deterministic evidence are frozen before consumption. This proposal does not weaken that: it makes the binding specific, it does not move the freeze later.",
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-008",
+   "finding_alias": "F-008",
+   "original_finding_id": "CC7-004",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "control/run_phases.py",
+   "binds": ["_arm_gate()", "PLAN.json:43-56 phase_plan", "AUTHORING-RUNTIME-BRIDGE-r7.md:46"],
+   "predicate_change": "Admission refuses before any marker is written, not after. C-before-B and the required C/B arms before A are retained exactly as the fixed plan names them: C1, then B5, then B11, then A3a, then A5a. A B arm without its required checked C arm, and an A arm without checked results for every required C and B arm, must refuse at the gate. An explicitly authorized C-only diagnostic scope stays a separate mode that admits nothing downstream.",
+   "discriminating_cases": [
+    {"case": "G-B-without-C", "fixture": "B5 requested with C1 absent or ungraded", "expected": "REFUSE, zero markers written", "why": "Refusing after a marker exists leaves evidence of an admission that should never have happened."},
+    {"case": "G-A-without-required-arms", "fixture": "A3a requested with B11 ungraded", "expected": "REFUSE, zero markers written", "why": "A consumes a checked result for every required C and B arm."},
+    {"case": "G-C-only-diagnostic", "fixture": "explicitly authorized C-only scope; B and A never requested", "expected": "C1 runs; no B or A admission is implied or recorded as available", "why": "A diagnostic scope must not become a partial admission path."},
+    {"case": "G-full-order", "fixture": "C1, B5, B11, A3a, A5a in the fixed order with each gate consuming the prior grade", "expected": "PASS", "why": "Retained positive for the ordinary path."}
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  }
+ ],
+
+ "observation_definitions": [
+  {
+   "change_id": "CHG-009",
+   "finding_alias": "F-009",
+   "original_finding_id": "CC7-005",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "control/PLAN.json (new required_observations) and control/grade.py",
+   "binds": ["AUTHORING-RUNTIME-BRIDGE-r7.md:40-46"],
+   "predicate_change": "Five fixed independent observations are defined, each blocking its own gate when missing, even when artifacts are valid and a worker printed a final hash: (1) ordered phase checkpoints in the runtime's own ordering, (2) runtime Stop and any correction/wait/resume events, (3) runtime receipt publication, readback and current-target verification, (4) exact installed SKILL/reference/template consultation, (5) rendered delivery to the user. A static hash, an advertised resource list, or a worker's final hash text satisfies none of them.",
+   "missing_observation_rule": "A missing observation yields the appropriate nonpass or unavailable status for the gate it belongs to. It is never an inferred positive, and never a verified negative.",
+   "discriminating_cases": [
+    {"case": "O-artifacts-valid-no-stop-event", "fixture": "all artifacts valid and hashed; no runtime Stop observation", "expected": "completion gate blocked, recorded unavailable", "why": "This is the defect: valid artifacts currently stand in for the completion event."},
+    {"case": "O-worker-hash-text-only", "fixture": "worker transcript contains a correct final hash; no runtime receipt publication observation", "expected": "receipt gate blocked", "why": "No worker PASS text establishes success (bridge:40)."},
+    {"case": "O-all-five-present", "fixture": "all five observations recorded", "expected": "gates evaluate normally", "why": "Retained positive."}
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false,
+   "unsupported_integration_note": "Where the current runtime cannot emit one of these observations, the interface is authored fail-closed and the integration is marked deferred to root. This allocation does not fake working runtime wiring."
+  },
+  {
+   "change_id": "CHG-010",
+   "finding_alias": "F-010",
+   "original_finding_id": "CC7-006",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "control/grade.py activation path",
+   "binds": ["PLAN.json:28 activation criterion", "PLAN.json:90-110 A3a/A5a required_observations", "AUTHORING-RUNTIME-BRIDGE-r7.md:44"],
+   "predicate_change": "Activation is an observation of actual selection, distinct from installed-resource availability. skill_invoked is true only on an actual assistant Skill tool_use event naming the selected skill in that arm's own transcript. Init metadata advertising the skill is availability, not selection.",
+   "discriminating_cases": [
+    {"case": "AC-init-metadata-only", "fixture": "transcript init block advertises the skill; no Skill tool_use event", "expected": "skill_invoked false", "why": "Availability is not selection; conflating them makes every arm trivially positive."},
+    {"case": "AC-real-tool-use", "fixture": "assistant Skill tool_use event naming the selected skill", "expected": "skill_invoked true", "why": "Retained positive."},
+    {"case": "AC-malformed-transcript", "fixture": "truncated or unparseable transcript", "expected": "COULD_NOT_RUN", "why": "PLAN.json:90-110 already says unreadable_transcript is COULD_NOT_RUN, never a negative result. An incomplete observation must not count as a verified negative."},
+    {"case": "AC-other-skill-invoked", "fixture": "Skill tool_use event naming a different skill", "expected": "skill_invoked false", "why": "Selection of something else is a real negative, unlike an unreadable transcript."}
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  }
+ ],
+
+ "suite_definitions": [
+  {
+   "change_id": "CHG-011",
+   "finding_alias": "F-011",
+   "original_finding_id": "CC7-007",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "no-model-tests/phase_suite.py",
+   "binds": ["SESSION-001-r7.md:52", "prior integration review:23"],
+   "predicate_change": "The prospective path pauses for post-output judgments and resumes without rerunning completed work, using the actual supported process/module lifecycle for each resume rather than a fresh in-process replay. Each resume retains the same original allocation and the saved evidence from before the pause.",
+   "assertions": [
+    "C1 then B5 then B11 then the A arms, in that order",
+    "exactly one marker per arm - not zero, not two",
+    "each gate consumed the judgment recorded for the arm it gates",
+    "each preserved result digest is unchanged across the pause",
+    "the allocation carried across resume is the original one, not a new clock"
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-012",
+   "finding_alias": "F-012",
+   "original_finding_id": "CC7-008",
+   "original_severity": "high",
+   "builder_severity": "MAJOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "no-model-tests/phase_suite.py A arms",
+   "binds": ["SESSION-001-r7.md:52", "PLAN.json:28"],
+   "predicate_change": "Real prospective A3a and A5a launch/completion paths bound explicitly by case:\"A3a\" and case:\"A5a\", with the selected query bytes unchanged. In the valid scenario only A3a is invoked, and A5a's non-invocation is itself the expected PASS for a should_trigger-false selector.",
+   "assertions": [
+    "query identity matches the selected selector",
+    "prompt bytes are byte-unchanged - no installed-skill instruction prepended",
+    "native completion observed for the launched arm",
+    "both activation outcomes asserted (A3a positive, A5a negative), not merely marker presence"
+   ],
+   "preserved_semantics": "A3a positive and A5a negative unchanged query bytes; concurrency 1; native and nonlaunch outcomes; old failures retained.",
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-013",
+   "finding_alias": "F-013",
+   "original_finding_id": "CC7-009",
+   "original_severity": "medium",
+   "builder_severity": "MINOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "no-model-tests/checks_suite.py and phase_suite.py expectations",
+   "binds": ["SESSION-001-r7.md:52"],
+   "predicate_change": "Four synthetic expectations are corrected so each reaches the mechanism it claims to test rather than passing for an unrelated reason.",
+   "corrections": [
+    {"case": "missing-judgment", "was": "judge omitted or null", "now": "judge={}", "why": "PLAN.json:22 says absence is not PASS; the case must present an empty recorded decision, which is the shape the gate actually inspects."},
+    {"case": "post-failure-B-prefix", "was": "asserts some B arm ran", "now": "asserts exactly the permitted B prefix after failure", "why": "Asserting 'some B ran' passes whether or not the stop rule works."},
+    {"case": "concurrency-not-1", "was": "checked only concurrency 0", "now": "expect exit code 6 and zero markers for every non-1 concurrency value", "why": "Claude concurrency is fixed at 1; a single sampled value leaves the rest unconstrained."},
+    {"case": "resume-P21", "was": "resumed at the wrong point, so STALE was never reached", "now": "resume P21 correctly and require recorded STALE with the inventory-binding mismatch", "why": "The case previously passed without exercising staleness at all."}
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-014",
+   "finding_alias": "F-014",
+   "original_finding_id": "CC7-010",
+   "original_severity": "medium",
+   "builder_severity": "MINOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "no-model-tests/phase_suite.py A nonlaunch arms",
+   "binds": ["SESSION-001-r7.md:52", "control/controller.py:81-93 claim_attempt()"],
+   "predicate_change": "Valid A selectors are driven through the two real nonlaunch branches - preexisting attempt destination, and insufficient remaining cap - and each must fail closed without replacing evidence.",
+   "assertions": [
+    "no marker written",
+    "sentinel bytes at the preexisting destination are preserved exactly",
+    "a nonlaunch outcome is recorded (REJECTED_PREEXISTING_DESTINATION or the cap equivalent), not a silent skip",
+    "the control completes cleanly rather than aborting"
+   ],
+   "why": "claim_attempt already refuses to launch over another attempt's evidence; nothing currently asserts that the refusal is recorded truthfully and leaves the bytes intact.",
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  },
+  {
+   "change_id": "CHG-015",
+   "finding_alias": "F-015",
+   "original_finding_id": "CC7-011",
+   "original_severity": "medium",
+   "builder_severity": "MINOR",
+   "preserved_requirement_ids": ["W1","P1","P3","P4"],
+   "file": "control/freeze.py identity binding and its suite case",
+   "binds": ["SESSION-001-r7.md:36,46,58"],
+   "predicate_change": "Historical clocks and receipts are inputs only. A builder supplied with the explicitly selected current allocation must emit that exact session, revision, path and digest; a mismatched or historical authority is rejected rather than carried forward into new records.",
+   "discriminating_cases": [
+    {"case": "ID-current-allocation", "fixture": "builder given the selected current allocation", "expected": "emits that exact session/revision/path/digest", "why": "New work binds current identities."},
+    {"case": "ID-historical-authority", "fixture": "builder given a prior revision's authority record", "expected": "REJECT", "why": "This is the defect - historical authority was carried into new records instead of being refused."},
+    {"case": "ID-mismatched-digest", "fixture": "authority path correct, digest not matching the bytes", "expected": "REJECT", "why": "A path alone does not identify bytes."}
+   ],
+   "status": "AUTHORED_PROPOSAL",
+   "validation_status": "NOT_PERFORMED",
+   "verified": false
+  }
+ ],
+
+ "fail_closed": "Every predicate above is authored to refuse on a missing, stale or unreadable observation rather than to infer a result. No proposal synthesizes an observation, and none launches a model.",
+ "what_running_these_would_settle": "Whether each repaired predicate actually discriminates its stated positive from its stated negative. None of that is known now. Authored means authored: no expected_discrimination above has been observed, and no CP5 or CC7 finding is closed by this file.",
+ "explicitly_not_claimed": [
+  "No CP5/CC7 closure is claimed from inspection or from JSON parsing.",
+  "No SEVAL/SENH completion and no CLI acceptance is invented.",
+  "Root-owned unsupported runtime/native work stays deferred: native admission, effective hook provenance, installed observation and full runtime validation are not authored here."
+ ]
+}

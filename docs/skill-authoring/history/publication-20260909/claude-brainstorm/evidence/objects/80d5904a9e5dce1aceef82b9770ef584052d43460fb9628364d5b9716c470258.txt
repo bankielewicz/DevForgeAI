@@ -1,0 +1,53 @@
+# Codex revision-8 measurement proposal re-review
+
+No new material finding was identified in the scoped static review. CODEX-MEAS-R7-001 is addressed in the revision-8 proposal: causal provenance is now an explicit mandatory judgment, with evidence requirements and a missing-observation rule that blocks dependent admission. Runnable enforcement, native evidence and validation remain deferred.
+
+The reviewed rubric is `inputs/codex/run/proposals/grade-rubric.proposed.json`, SHA-256 `b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b`. The reviewed plan is `inputs/codex/run/proposals/measurement-plan.proposed.json`, SHA-256 `8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415`.
+
+## Scope and independence
+
+The assigned input manifest was verified as `701cfdba4f5f4980cbd5cc0e99fa4304b607ce8f402ae1cffb4bd69f390c2152`. Every accessed input was hashed against that manifest. `INPUT-SELECTION.json` records actual exposure, including the exact prior finding. The two static field-diff files and `STATIC-COMPARISON.json` retain the comparisons.
+
+This is the same reviewer agent, `/root/r7_codex_measurement_review`, that authored the r7 measurement finding. Its own prior review context and frozen FINDINGS.json were used; continuity is disclosed, and this is not a fresh blind review. The reviewer remained independent of the author. No r8 author report/conclusions, other reviewer bodies, memory or live source were read. Exact serving model/version is unknown. The issued remediation/design documents contain cross-provider allocation context, which was not treated as a separate review of that provider.
+
+Actual first-work clock was 2026-09-07 14:56:44 UTC. Maximum allocation is 15 minutes; hard stop 15:11:44 UTC, with the final four minutes reserved from 15:07:44 UTC. Early closeout began at observed 15:00:31 UTC. Only the newly and exclusively created `review-codex-measurement/` directory was written. Prior review artifacts remain immutable. No candidate/control code imports or execution, tests, models/native/network calls, installations, hooks or subagents were used. Standard-library JSON and byte/digest comparisons were the only analysis automation.
+
+The root owns the broad baseline-copy discrepancy and source review separately. This review does not certify the complete copied prior run. Source-body inspection was limited to the retained artifact-workflow causal rule; the 30 source pins were compared against root custody rather than re-auditing source.
+
+## CODEX-MEAS-R7-001 disposition
+
+Disposition: **addressed in the proposal**, with executable enforcement and behavioral/native closure still unestablished. Original severity remains medium/P2; the author's separate builder alias does not overwrite it.
+
+The selected shared artifact contract requires an acyclic causal upstream graph and distinguishes membership, next-step and handoff backlinks from causal inputs (`inputs/issued-r8/selected/codex/shared/docs/mvp/artifact-contract.md:75–79`). The retained source applies this to split/merge relationships and handoff/ledger direction (`inputs/codex/candidate/devforge-brainstorm/references/artifact-workflow.md:73`). Revision-8 authority permits only proposal/record changes and preserves all source bytes (`inputs/issued-r8/authority/SESSION-002-r8.md:42`); the remediation specification explicitly calls for mandatory causal judgment and discriminating future cases (`inputs/issued-r8/REMEDIATION-SPECIFICATION.md:7`).
+
+| Required repair | Current proposal evidence and assessment |
+| --- | --- |
+| Mandatory complete causal judgment | Rubric lines 22–32 append `causal_provenance` as a tenth common check. Line 50 defines it for every generated artifact and every reachable upstream occurrence. It requires substantive causal-content evidence, not merely matching identity or hash. |
+| Exact immutable nodes and complete coverage | `/causal_provenance_judgment/node_and_direction`, `/inventory_and_scope` and `/per_upstream_occurrence_required_fields` require own artifact identity, revision, project, path, complete digest, retained-byte locators and each reference occurrence. Reachable inputs are inspected recursively to observed terminals; unsupported forms, missing bytes and omitted edges remain coverage gaps. Repeated references and table/prose relationships are explicitly included. |
+| Relationships and graph direction | `/graph_and_handoff_evidence` requires an explicit graph order or concrete declared cycle, keeps distinct immutable revisions separate, and checks the final handoff consumes its completed ledger. A later ledger may legitimately consume an earlier handoff when exact revision/evidence supports it; labels alone do not establish causality. The graph convention is explicitly consumer → causal input. |
+| Feasible cycle negatives | The rubric and CP-03/CP-05 distinguish a declared unsupported cycle from resolvable complete-byte identity. They require retaining identity failures and expressly forbid fabricating mutually self-consistent hashes or claiming an unobserved downstream checker result. |
+| Empty/unavailable cases | An observed empty upstream list needs exact inspected locators, relationship inventory and applicable mode. Missing review is NOT_RUN; an attempted unavailable observation is COULD_NOT_RUN. Neither is an empty-graph PASS or an automatic NOT_APPLICABLE waiver. |
+| Judgment chronology and admission | Rubric lines 267–277 require frozen criteria before output, a separate completed judgment after exact outputs/inputs/check/native observations, reviewer identity, evidence/order records and root selection before dependent admission. Missing keys, blank evidence, omitted edge/graph coverage and every nonpass state block admission. The causal check is a conjunct with all retained required checks, not another route to PASS. |
+| Discriminating descriptions | Plan `/unexecuted_causal_provenance_cases` contains CP-01 through CP-08: completed-ledger positive; relationship-promotion pair; wrong direction; distinct-revision positive; transitive lineage/cycle claim; missing versus genuinely empty evidence; stale/early judgment; and repeated-occurrence failure. Their predicates cover the previously missing distinction without changing the four core cases. |
+
+## Retained behavior and identity
+
+Static JSON comparison establishes that all nine prior common checks remain in order. The prior case maps, B6/B6E behavior/extra checks, decision format, no-relaxation rule and missing-coverage rule are retained. All five runtime-observation substitutions keep their semantics; the only change within a prior definition is the explicit current preparation reference from SESSION@7 to SESSION@8, repeated consistently in the corresponding substitution record.
+
+The plan's C → B6 → both B6E arms → separately allocated A sequence, all prior coverage entries and prospective bounds are unchanged. This retains exact installed-resource consultation and source inaccessibility; native completion/EOF and owned cleanup; real Stop/correction/wait/resume observations; runtime checks/publication/readback/current verification; separate rendering; full identity/attribution/ownership checks; fixed post-output judgment custody; and the two distinct B6E applicability meanings. Explicit path-supplied C/B work still does not prove implicit activation. Old C COULD_NOT_RUN and all three B-arm NOT_RUN states are unchanged.
+
+All 30 candidate-source pins are identical across the r7 and r8 plans, the current candidate manifest and the root manifest's candidate custody entries. The current candidate manifest has a new digest because it is a new preparation record; it expressly retains revision-7 source authorship (`inputs/codex/run/CANDIDATE-MANIFEST.json:16–20`). The plan and rubric both bind that actual new manifest and issued SESSION-002@8 while preserving source @7 and parent SESSION@2 as distinct provenance/ownership scopes.
+
+No changed current-control or criteria identity was improperly relabeled within the reviewed documents. The plan's `/rubric_proposal` and `/causal_provenance_measurement/fixed_criterion` both bind the actual new rubric digest. The `/previous_proposal` fields bind the unchanged r7 baseline digests. Historical revision-004 control pins are unchanged and identified as historical; they do not enforce the new check. The retained v4 format name does not make the newly hashed criteria identical to the old criteria. No conclusion here certifies the broader copied-run baseline, which remains root's separate audit scope.
+
+## Proposal and specimen limits
+
+Both documents remain `executable: false` and `native_admission: false`. Every CP description says `execution: NOT_RUN`, `fixture_bytes: NOT_AUTHORED; descriptions only`, and `native_admission: false`. PASS wording describes conditional future criteria; no specimen is a completed judgment or observed result. The retained decision-format example contains an outcome enumeration and illustrative reviewer/evidence fields, not a preselected PASS. The added causal contract separately requires a root-selected independent reviewer and actual completed evidence. A future adapter must use those real bindings rather than treating placeholders as observations.
+
+The rubric's `/causal_provenance_judgment/implementation_status` and the plan's `/causal_provenance_measurement/controller_dependency` expressly state that the old graders, runtime and observers do not implement or certify the addition. Root must separately allocate, select, review and freeze fixtures, observers, independent judgment records and the admission consumer. Native startup, effective callbacks, rendering, complete installed observation and other retained prerequisites remain required. No source or executable change is needed or authorized by this static re-review.
+
+This result resolves the missing written criterion within the proposal scope. It does not establish runnable enforcement, native semantic PASS, skill validation, release readiness or human acceptance, and it does not rewrite the historical finding or any r7 result.
+
+## Closeout custody
+
+At creation, this report's later external receipt publication and readback are NOT_RUN. This report contains no self-digest and will remain unchanged after later custody observations. A separate receipt will bind all completed review artifacts after complete-byte readback; its own subsequent readback is a separate observation.

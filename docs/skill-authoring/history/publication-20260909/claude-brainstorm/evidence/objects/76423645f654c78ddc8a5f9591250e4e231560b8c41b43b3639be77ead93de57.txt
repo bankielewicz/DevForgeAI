@@ -1,0 +1,7 @@
+{
+  "inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json",
+    "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+    "bytes": 4493
+  }
+}

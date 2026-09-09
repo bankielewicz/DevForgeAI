@@ -1,0 +1,16 @@
+{
+  "case_id": "C-installed-resources",
+  "case_revision": 1,
+  "provider": "codex",
+  "installation_mode": "project-local",
+  "raw_prompt": "Use devforge-brainstorm at /tmp/project/.agents/skills/devforge-brainstorm/SKILL.md. I want to build something for people who foster rescue dogs. My sister keeps re-explaining each dog's feeding quirks and behavioural triggers to new carers; it gets lost in messages. I do not know if the issue is the handoff or that nobody writes it down. Explore this and save a useful idea record and handoff.\n\nFor this disposable task you are the sole assigned writer for /tmp/project/docs/** and /tmp/project/outbox/**. Inputs and installed skills are read-only task inputs. No Git operations or external actions. Project ID is foster-notes; use docs/devforge/ideas and docs/devforge/handoffs. There is no evaluation-specific session record; the parent authoring assignment is supplied at authority/SESSION-002.md for provenance, not as a claim that your evaluation process owns its source worktree. Save your final task response under outbox/response.md.\nKeep the records concise. This is a single-turn task; record unanswered questions for the next conversation.\n",
+  "raw_fixture": "Actual parent SESSION-002@2 record is copied byte-for-byte into authority/SESSION-002.md; it is parent provenance, not evaluation ownership. Its actual digest belongs in the run manifest.",
+  "isolation_requirement": "Hide the selected source checkout/docs with a tested filesystem boundary, stage only the installed runtime package and supplied raw inputs. Record actual mounts.",
+  "expected_observations": [
+    "Loaded SKILL.md, workflow reference and templates come from installed skill root.",
+    "Helper invoked through installed absolute path and returns actual byte/marker observations.",
+    "Ledger and handoff land in consuming project map and receive external readback receipts.",
+    "Source docs inaccessible and evals excluded from installed runtime."
+  ],
+  "prior_attempts": "Same resource requirements were attempted in C/C2/C3; preserve mount, network and timeout failures. This source case captures the reproducible prompt for a longer bounded completion run, not revised passing criteria."
+}

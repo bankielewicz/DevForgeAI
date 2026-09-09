@@ -1,0 +1,56 @@
+{
+ "change_id": "CHG-021",
+ "original_finding_id": "CC8-PROP-003",
+ "targets": {
+  "docs/devforge/ideas/IDEAS-001.md": "894e600c032503cc01148063c039759471d756fdf0f0ba6b22a4d0a9459c970f"
+ },
+ "executed": false,
+ "cases": [
+  {
+   "fixture": "NEG-span-decoy.terminal.txt",
+   "expect": "FAIL",
+   "why": "A valid bare locator with no digest makes locator_occurrences nonempty; the only digest-bearing occurrence is under a root nobody selected. Baseline revision 2 rescanned the whole response and accepted it. Revision 3 admits a record only at a validated span, so the wrong-root occurrence supplies no record and this fails with 'locator outside any record'.",
+   "baseline_r7_behaviour": "PASS (the defect CC7-002 names)"
+  },
+  {
+   "fixture": "NEG-wrong-root-only.terminal.txt",
+   "expect": "FAIL",
+   "why": "Simple wrong-root case, retained. locator_occurrences already excludes a relative suffix preceded by a separator, so locs is empty and check() fails on path_delivered=false.",
+   "baseline_r7_behaviour": "FAIL",
+   "corrects": "The r8 proposal claimed this case passes the baseline. It does not; that claim is withdrawn here."
+  },
+  {
+   "fixture": "POS-exact-root.terminal.txt",
+   "expect": "PASS",
+   "why": "Exact selected-root locator in a declared record shape carrying the whole 64-character digest."
+  },
+  {
+   "fixture": "NEG-65-hex.terminal.txt",
+   "expect": "FAIL",
+   "why": "A 65-character hex run is not a digest token. Baseline revision 2 matched a 64-character window inside it; revision 3 guards both sides.",
+   "baseline_r7_behaviour": "PASS (the defect CHG-006 names)"
+  }
+ ],
+ "still_required_not_authored_here": "Both long swapped-pair negatives are retained from the r7 inventory and are not re-authored in this allocation; they are unchanged expectations, not new cases.",
+ "r10_cases": [
+  {
+   "fixture": "NEG-bare-locator-no-digest.terminal.txt",
+   "expect": "FAIL",
+   "change_id": "CHG-021",
+   "predicate": "a valid bare locator with no digest anywhere is not a receipt record"
+  },
+  {
+   "fixture": "NEG-bare-plus-wrongroot-digest.terminal.txt",
+   "expect": "FAIL",
+   "change_id": "CHG-021",
+   "predicate": "the exact valid locator appears with no digest, and the true digest appears against a wrong-root locator; the decoy must not lend its digest to the bare occurrence"
+  },
+  {
+   "fixture": "NEG-absolute-suffix-in-other-root.terminal.txt",
+   "expect": "FAIL",
+   "change_id": "CHG-021",
+   "finding": "CC9-RR-002",
+   "predicate": "/other//work/arm/a.md ends in the selected sandbox locator but is a path under an unselected root; the locator-ownership guard must reject the occurrence before any record is read at it"
+  }
+ ]
+}

@@ -1,0 +1,103 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SEVAL-R10-001"
+artifact_type: "authoring-report"
+project_id: "devforgeai"
+revision: 1
+status: final
+producer:
+  skill: "devforge-brainstorm source authoring"
+  session: "SESSION-001@10"
+execution_ref:
+  record: "SESSION-001@10"
+  store: "authority"
+  path: "authoring-assignments-20260905/SESSION-001.md"
+  sha256: "0b5d5fece804bcd2221ea48f80ba5f93e04d82f0fa9298f0b07807da8987f587"
+missing_inputs:
+  - "Authentic native runtime observations for stop_and_correction, receipt_publication and rendered_delivery: the selected v1 interface exposes no collector, so these are ROOT_DEPENDENCY_DEFERRED and block native admission."
+  - "The actual time R9 technical editing stopped is unknown and is not reconstructed; see R9-CORRECTION.md."
+---
+
+# R10 bounded source and executable-control authoring — report
+
+## Outcome by subpart
+
+| Subpart | State |
+| --- | --- |
+| Live package metadata correction (CHG-022) | APPLIED_TO_LIVE_PACKAGE |
+| Specification authoring | COMPLETE_AUTHORED_UNEXECUTED |
+| Helper / checker source | COMPLETE_AUTHORED_UNEXECUTED |
+| Actual caller integration | COMPLETE_AUTHORED_UNEXECUTED |
+| Executable suite and fixtures | COMPLETE_AUTHORED_UNEXECUTED (one fixture unresolved) |
+| CHG-011 local resume driver | COMPLETE_AUTHORED_UNEXECUTED |
+| CHG-013 case consumer | COMPLETE_AUTHORED_UNEXECUTED |
+| Native observation collection (CHG-009) | ROOT_DEPENDENCY_DEFERRED |
+| Native managed callback lifecycle (CHG-011) | ROOT_DEPENDENCY_DEFERRED |
+| Additive R9 corrections (CHG-023, CHG-024) | COMPLETE |
+| Execution of anything authored here | NOT_RUN |
+
+Per-change and per-finding detail is in `BUILDER-RECEIPT.json`; the reasoning is in
+`AUTHORING-RECORD.md`.
+
+## What changed in the live package
+
+`references/derivation.json` only. The other nineteen files re-verified byte-exact
+against the frozen pins after the write. Three destination digests that named
+superseded source bytes were refreshed from computed bytes, their after-last-write
+verification statements reconciled, and the superseded values retained as explicit
+history. The record still carries no digest of itself.
+
+## What was authored in the new run
+
+`source/` holds 33 files: the 25 selected effective files, 13 of them modified, plus 8
+new ones. The selected bytes are preserved unchanged under
+`baseline/effective-controls-selected/`.
+
+The change that makes the rest reachable is that `run_phases.py` now imports
+`admission`, `activation` and `a_arm` and routes the operative decisions through them.
+R9 shipped those modules beside the runner without importing one of them, so the
+preservation, prerequisite, observation, activation, authority and nonlaunch decisions
+on the actual path were still the old ones (R9-CI-001).
+
+Eight discriminating checker cases and forty-nine phase scenarios were authored, each
+staging valid prerequisite bytes so it reaches the predicate it is named for rather
+than failing early for an unrelated reason. The last ten drive the CHG-011 local resume
+lifecycle and the CHG-013 corrected cases through the real `main()` and `main(--resume)`,
+which is what moves both off the partial state R9 left them in.
+
+## What is deferred, and what is merely unfinished
+
+These are different, and R9 ran them together. The managed WAITING_USER callback
+lifecycle and the three uncollectable observation classes are genuine root
+dependencies: the selected v1 interface exposes no collector, they fail closed, and no
+collector API was invented for them. The CHG-011 local resume driver and the CHG-013
+case consumer were **local work**, not root gaps, and they were finished in this
+allocation rather than deferred. What remains unresolved locally is one fixture:
+`NEG-false-absence-sectioned-target.md` needs the real STORY-014 digest staged, and is
+recorded as an explicit unresolved binding rather than counted as a runnable case.
+
+## Clock
+
+First observed clock 2026-09-07T19:19:29Z; reserve 20:59:29Z; hard deadline
+21:19:29Z. No reset, no extension. The issued rule requires the clock before any
+assignment-file reading, and three tool calls preceded it in this session; the
+deviation is recorded in `CLOCK.json` under `first_action_rule_deviation` and shortens
+this allocation rather than extending it. It is the same rule R9 deviated from, which
+is why CHG-023 names it.
+
+## Creator
+
+The selected native Anthropic skill-creator was invoked in session and its instructions
+loaded: **INVOKED_LOADED**. Its evaluation helpers were not run. Its packaging and
+description guidance addresses SKILL.md, which this fence forbids editing; its writing
+guidance was applied to the authored modules and records.
+
+## Claims not made
+
+Validation NOT_PERFORMED. Tests, native C/B/A, root admission, hook activation and
+human acceptance NOT_RUN. Hooks DESIGN_ONLY. **Zero findings closed** — authored source
+is not observed behaviour, and a corrected provenance record is not evidence of a
+corrected package. Codex C COULD_NOT_RUN, Codex B NOT_RUN, the prior Claude budget
+FAILs and the 687-second late write are unchanged. The three held authorities received
+no work and no new prompt. No native, v2, acceptance or release readiness follows from
+this handback.

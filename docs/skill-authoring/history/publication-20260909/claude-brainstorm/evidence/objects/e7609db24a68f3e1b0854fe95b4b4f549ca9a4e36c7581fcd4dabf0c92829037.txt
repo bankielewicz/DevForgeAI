@@ -1,0 +1,7 @@
+{
+ "schema_version": "devforge.authorized-reviewers/v1",
+ "authorized_reviewer_ids": [],
+ "why_empty": "No semantic reviewer is authorized for this allocation. R11 authorizes control/checker/suite authoring only; no arm runs, so no post-output judgment is produced and none may be consumed. An empty set is the correct closed state: _authorized_reviewers() returns nothing and every judgment is refused as UNATTRIBUTED or UNAUTHORIZED_REVIEWER. A future allocation that actually runs arms populates this file with the reviewer identities it selects.",
+ "consumed_by": "run_phases._judgment, at the judgment consumption boundary (R10-CI-009)",
+ "execution": "NOT_RUN"
+}

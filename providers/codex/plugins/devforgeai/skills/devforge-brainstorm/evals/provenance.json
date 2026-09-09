@@ -1,0 +1,25 @@
+{
+  "requirements": {
+    "docs/mvp/skill-authoring-contract.md": "d2850a7a687cc3ac6c6014164483c32a3856907aaf3820362c22b19228d2b94c",
+    "docs/mvp/artifact-contract.md": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+    "docs/mvp/execution-contract.md": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+    "docs/mvp/specifications/skill-001-devforge-brainstorm.md": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718"
+  },
+  "raw_case_sources": {
+    "provider": "claude",
+    "usage": "Raw input requests and fixtures only; no provider output or grades reused",
+    "paths": [
+      "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+      "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md"
+    ]
+  },
+  "b7": {
+    "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/fixtures/b7",
+    "authorship": "integration-operator",
+    "bytes": "unmodified",
+    "mapping": "runtime-only filesystem mounts onto Codex disposable data"
+  },
+  "expectations_frozen_before_measurement": true,
+  "trigger_limit": "Fixed train/validation split. Author-created validation queries are not blind held-out evidence. No description optimization or statistical claims. Workers never receive labels or expected outputs."
+}

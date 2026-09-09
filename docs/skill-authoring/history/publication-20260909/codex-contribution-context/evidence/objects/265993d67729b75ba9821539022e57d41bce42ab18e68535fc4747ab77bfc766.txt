@@ -1,0 +1,9 @@
+{
+  "artifact_id": null,
+  "base": null,
+  "kind": "recorded-user-authorization",
+  "owner": "worker-codex",
+  "scope": "single writer for greenfield target/project-experts/codex/fixture-capability; draft source only",
+  "session": null,
+  "state": "current"
+}

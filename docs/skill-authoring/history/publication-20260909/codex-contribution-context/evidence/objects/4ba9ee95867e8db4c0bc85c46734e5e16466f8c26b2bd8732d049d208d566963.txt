@@ -1,0 +1,7 @@
+{
+  "scope": "Exact AST statements from run/local-checks.py lines 40-57 plus original inside/digest helpers; not full author check or native grading",
+  "baseline": "PASS",
+  "mutated_transfer_identity_and_selected_roots": "PASS",
+  "effect": "Fixture checker accepts CCX-08 context selection differences beyond the allowed report_authority delta. Frozen original pair independently verified equal apart from report_authority.",
+  "scratch": "/tmp/ccx-fixture-audit-6lrglqcd"
+}

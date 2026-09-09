@@ -1,0 +1,56 @@
+{
+  "schema_note": "Frozen inventory produced at authoring time. A digest proves byte identity only; it establishes nothing about semantic conformance, activation, or acceptance.",
+  "package": "devforgeai-contribution-context",
+  "provider": "claude",
+  "source_directory": "project-experts/claude/devforgeai-contribution-context",
+  "package_revision": 2,
+  "supersedes_inventory": "the stage-1 run's inventory of the reviewed 71-file source; that identity is preserved and this one is distinct",
+  "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context",
+  "branch": "author/claude-contribution-context-poc",
+  "base_commit": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+  "execution_ref": "SESSION-004@2",
+  "frozen_at_utc": "2026-09-06T02:16:35+00:00",
+  "inventory_type": "runtime",
+  "description": "Files a runtime distribution would carry. Authored evals, run outputs, private client state and provenance sidecars are omitted.",
+  "file_count": 6,
+  "omitted_from_runtime": {
+    "authored evals": 72,
+    "run outputs": "not in the source package; they live in the assigned output fence",
+    "private client state": "not in the source package; the private runtime fence is excluded from reports, manifests and evidence copies",
+    "provenance sidecars": "XSPEC/XPKG/HANDOFF are authoring records in the run, not package files"
+  },
+  "linked_dependency_note": "references/derivation.json is retained in the runtime distribution because SKILL.md links it for maintenance. A linked dependency is not silently omitted.",
+  "installation_status": "NOT_INSTALLED. This is a source manifest, not an installation receipt.",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "fc4da253e610550a39411a703bd04bed1ac6a4be84edc98f24d3043202788d32",
+      "category": "instructions"
+    },
+    {
+      "path": "assets/handoff-template.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "category": "asset"
+    },
+    {
+      "path": "references/checkpoint-transfer.md",
+      "sha256": "bf308634b49dbec8aafe25f39d423307f4a61bdade091b0c9edf6030b4e56d9e",
+      "category": "reference"
+    },
+    {
+      "path": "references/derivation.json",
+      "sha256": "f7bddb1a3794bf60472f7f52c13c5b8feb5911cb2444cbc856a99ca18a720d8c",
+      "category": "reference"
+    },
+    {
+      "path": "references/source-selection.md",
+      "sha256": "25cd4f62ff4f13f473a147cc91bfd64936b4c50c0851c00b953824c33346ff83",
+      "category": "reference"
+    },
+    {
+      "path": "scripts/check_receipt.py",
+      "sha256": "c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136",
+      "category": "script"
+    }
+  ]
+}

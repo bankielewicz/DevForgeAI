@@ -1,0 +1,7 @@
+{
+  "base": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "branch": "fixture/worker-codex",
+  "collision_check": "unknown",
+  "observed_writer": null,
+  "worktree": "target"
+}

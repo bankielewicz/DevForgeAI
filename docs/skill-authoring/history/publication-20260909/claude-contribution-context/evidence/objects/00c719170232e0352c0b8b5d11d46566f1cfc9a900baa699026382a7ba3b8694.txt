@@ -1,0 +1,13 @@
+{
+  "name": "package-dot-alias-old",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias",
+    "--authority-root",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+  ],
+  "expected_exit_status": 0,
+  "required_stdout_text": "overall=PASS"
+}

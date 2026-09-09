@@ -1,0 +1,8 @@
+{
+  "record_type": "historical external receipt (synthetic fixture)",
+  "receipt_for": "records/HANDOFF-970.md",
+  "recorded_at_utc": "2026-06-08T11:24:00+00:00",
+  "recorded_by": "SESSION-970",
+  "sha256": "c13e56ce410d",
+  "known_omission": "This receipt was recorded with an abbreviated digest instead of the complete 64-character value. The omission is preserved deliberately as part of the historical record. A later correct receipt does not retroactively repair this frozen one; correcting it in place would destroy the evidence that the original delivery was incomplete."
+}

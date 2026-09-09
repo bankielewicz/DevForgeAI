@@ -1,0 +1,35 @@
+{
+  "receipt_entries_verified": 576,
+  "source_files": 184,
+  "runtime_files": 4,
+  "eval_files": 180,
+  "partition": "disjoint and complete",
+  "runtime_local_links": [
+    {
+      "source": "references/checkpoint.md",
+      "target": "../assets/handoff.md"
+    },
+    {
+      "source": "references/checkpoint.md",
+      "target": "derivation.json"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/checkpoint.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/derivation.json"
+    }
+  ],
+  "final_author_envelope_required_fields": "PASS",
+  "upstream_digest_and_sections": "PASS",
+  "creator_quick_validate": {
+    "exit": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  },
+  "original_startup_recovery": "author-reported PASS; supported by completed source/evidence, private transcript not inspected",
+  "native_CBA": "NOT_RUN",
+  "scope": "operator static and structural checks; not independent behavioral acceptance"
+}

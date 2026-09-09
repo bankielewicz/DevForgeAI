@@ -1,0 +1,75 @@
+# Skill Design Specification
+
+## 1. Identity and purpose
+
+Skill: devforge-brainstorm, existing Codex and Claude provider implementations. Help a user explore an undeveloped product idea, preserve alternatives and attribution in a ledger, and leave one useful continuation. The enhancement moves mechanical phase/delivery checking into the protected runtime while keeping the conversation useful. Preserve each existing discovery description and out-of-scope exclusions unless a demonstrated integration conflict needs root adjudication.
+
+## 2. Scope and activation
+
+Use for idea exploration, refinement, comparison and merging of undecided ideas. Example: “Help me explore an app idea; I know the frustration but not the product yet.” Preserve normal automatic selection and explicit invocation. Implementation of an accepted story routes to development; reversal of an accepted decision routes to change handling. No new skill, global install, plugin publication or contributor-context work is selected.
+
+## 3. Inputs and expected results
+
+Inputs are the actual request/steering, applicable ownership and assignment, selected prior artifacts, installed resources, and runtime-provided phase context when managed. Missing nonblocking facts remain explicit; a blocking question preserves the current phase. Output is the selected idea ledger plus shared handoff, or an externally selected handoff-only outcome. Root selects destinations and baselines. Completion requires useful phase evidence, persisted applicable artifacts, runtime verification and separately evaluated semantics; a self-reported flag is insufficient. Authoring deliverables are the four fenced instruction/derivation paths and an unexecuted run-side measurement proposal. Preserve assets and existing evaluation fixtures.
+
+## 4. Workflow
+
+| ID | Level and parent | Action and dependent result | Classification | Hook proposal |
+| --- | --- | --- | --- | --- |
+| W1 | Workflow; none | Brainstorm and deliver the applicable artifacts | Enforced | H1 |
+| P1 | Phase; W1 | Recover selected context before Explore or routed Focus | Enforced | H1 |
+| P2 | Phase; W1 | Explore ideas, alternatives and unknowns before Record | Enforced for ordinary brainstorming; NOT_APPLICABLE only in owner-selected handoff-only mode | H1 |
+| P3 | Phase; W1 | Save and inspect the ledger before Focus | Enforced for ordinary brainstorming; NOT_APPLICABLE only in owner-selected handoff-only mode | H1 |
+| P4 | Phase; W1 | Save useful continuation and complete mechanical delivery | Enforced | H1 |
+
+These classifications reuse the user's explicit request to prevent forgotten artifacts and skipped skill phases. No additional child tasks or optional workflow groups are introduced. Evidence fields, waiting/resume, freshness, collisions and bounded correction are specified in AUTHORING-RUNTIME-BRIDGE.md. A pending question is not phase completion and does not create an adoption decision.
+
+## 5. Task-specific rules
+
+Keep stable IDs, revision preservation, valid artifact versus raw-evidence references, causal section versus row identity, complete receipt bindings and exact attribution. Preserve existing provider differences and assets. A root runtime message is mechanically generated context, never human approval. Do not force a stack choice or invent missing people/problem/outcome. No manual phase/receipt command chain in managed skill instructions. Keep installed references self-contained. Do not turn historical failures into current PASS, rename old records or edit expired runs.
+
+## 6. Tools and supporting resources
+
+Target: ordinary subscribed Codex/Claude on Linux/WSL2, with externally managed task admission. Dependencies: reviewed DevForge Rust/Python runtime, Bubblewrap, terminal transport, provider hook registration and installed skill assets/references. Runtime/native support remains incomplete. Authors use their provider's selected creator; Codex also applies the new project skill-builder's authoring guidance. The in-progress skill-validator is not a dependency in this allocation.
+
+Resources: the selected shared six-document input set; AUTHORING-RUNTIME-BRIDGE.md; frozen README, phase_state.py and hook_protocol.py copies; provider's existing source inventory and review; skill-builder's interview/selection/specification guidance; existing native creator selection. Resolve all exact paths through INPUTS.json. The bridge is the settled interface; source implementation defects are reported to root.
+
+H1 proposal covers W1 and P1–P4. Protected actions are next-phase admission and mechanical task completion. Scope is one externally selected managed brainstorm task, never an unrelated session. Proposed synchronous SessionStart/UserPromptSubmit context and Stop control use unconditional registration; SessionEnd supplies lifecycle observation. The protected runtime owns state, unpredictable challenges, selected assignment/resources/input identities, archived baselines, exact evidence digests, original deadline and receipt. It blocks progress on missing/stale/replayed/out-of-order evidence and fails explicitly on unavailable transport; a missing registration cannot itself prove enforcement. WAITING_USER preserves the phase, and a new prompt resumes it without creating user authority. Recovery must recheck the same owned task and original allocation. No automatic override or fallback is selected.
+
+Configuration requirements are root-owned provider hooks plus an explicit compatible runtime and verified effective configuration; authors only describe the interface. Feasibility: Partial. Documented event/control fields exist, and root has synthetic runtime evidence; effective native configuration, trust, callback origin, actual activation and rendered receipt delivery are still unverified. Observable checkpoint content cannot certify hidden reasoning, adoption or usefulness. Enforcement requested; not confirmed in the native target environment. The feasible implementation path is the protected supervisor already being developed under root authority, followed by separately allocated native observation. No downgrade to reminder-only instructions is selected.
+
+Official references consulted 2026-09-07: [Codex hooks](https://learn.chatgpt.com/docs/hooks), [Claude hooks](https://code.claude.com/docs/en/hooks). Proposal status: Design only; not installed, activated, executed, or validated by this authoring workflow. Existing root runtime tests are a separate scope.
+
+## 7. Validation examples — capture only
+
+| Case | Input | Expected behavior for future validation |
+| --- | --- | --- |
+| Typical task | Undeveloped app idea | Useful exploration; ordered evidence; ledger and continuation; actual runtime receipt after final checks. |
+| Missing input | Blocking ownership or decision ambiguity | Ask the real question, preserve WAITING_USER, no receipt or invented adoption. |
+| Outside scope | Implement an accepted story | Applicable routing handoff; no new brainstorming ledger or fictitious invoked skill. |
+| Skip/replay | Focus checkpoint before Record or old challenge reused | Protected runtime refuses next-phase/completion claim. |
+| Preservation | Selected mutable ledger changes or retained bytes disappear | Detect stale baseline or missing preserved bytes; no completion PASS. |
+| Drift/control | Selected historical revision differs from current, then matching control | Preserve Codex B6/B6E semantics and separately observed current applicability. |
+| Receipt interruption | Cancellation after publication or failed response transmission | Preserve original receipt/history, verify current applicability separately, do not infer native rendering. |
+
+Validation status: Not performed for the new provider authoring. These are future expectations; no generated skill, helper, validator, evaluation, install or hook is run by the builder.
+
+## 8. Placement and maintenance
+
+Enhance durable provider source only in the two retained brainstorm worktrees, under providers/<provider>/plugins/devforgeai/skills/devforge-brainstorm. Fenced changes: SKILL.md, the existing workflow/recording reference, references/derivation.json, and new references/managed-runtime.md. Root integrates reviewed bytes later; installed copies/caches are not authoring targets. Keep this design outside installed instructions. Revisit on demonstrated runtime-interface changes, failed independent cases or changed artifact contracts.
+
+## 9. Authoring decision and progress
+
+Decision: Enhance both existing implementations. The task purpose, activation, inputs, outputs and conversational process already belong to devforge-brainstorm; the missing integration belongs there. Current status: design sufficient for bounded authoring; provider edits not yet delivered. Use the same specification throughout this allocation and record provider-specific implementation/derivation decisions in the new run's authoring record.
+
+Search scope: current available skill catalog, accessible project .agents/skills and personal .codex/skills SKILL.md inventory, explicitly selected system skill-creator, and both named durable brainstorm sources. Provided plugin catalog descriptions were considered; no unrelated cache/source scan or execution occurred. This is not a globally exhaustive duplicate search.
+
+| Candidate | Comparison and recommendation |
+| --- | --- |
+| Retained Codex devforge-brainstorm | Same purpose, activation, artifacts and process; enhance its managed phase/delivery instructions. |
+| Retained Claude devforge-brainstorm | Same purpose and artifacts with provider-specific authoring/evaluation obligations; enhance independently. |
+| Project skill-builder | Reuse for settled authoring design; it authors workflows and does not replace brainstorming. |
+| Selected provider skill-creator | Reuse authoring guidance/invocation; separate workflow, not a brainstorming duplicate. |
+| Available market-data/security/research skills | Different purposes, inputs and outputs; no candidate matches this enhancement. |
+
+Settled requirements: existing user modernization request, original integration/acceptance objective, retained authors, source fences, all required phases, no new human approval per phase, separate evaluation and acceptance. Proposed implementation details are confined to the bridge. Open dependencies: native admission/effective configuration, author handbacks, independent validation and human acceptance. No essential authoring choice is awaiting a new user answer. Hook status: Design only.

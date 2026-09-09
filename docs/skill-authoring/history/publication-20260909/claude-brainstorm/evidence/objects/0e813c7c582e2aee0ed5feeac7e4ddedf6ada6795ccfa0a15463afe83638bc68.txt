@@ -1,0 +1,146 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "HANDOFF-R11-001"
+artifact_type: "handoff"
+project_id: "devforgeai"
+revision: 1
+status: final
+created_at_utc: "2026-09-07T23:23:00.316475+00:00"
+producer:
+  skill: "devforge-brainstorm control authoring"
+  skill_revision: "SESSION-001@11; candidate SKILL.md a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c"
+execution_ref: "SESSION-001@11"
+upstream:
+  - artifact_id: "SEVAL-R11-001"
+    revision: 1
+    store: "project"
+    path: ".poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/report/SEVAL-R11-001.md"
+    sha256: "4d7c3de89b5e5fd6107491c9469fd359e9fdef83416e2e546ea2ce71e9e9c7ec"
+    sections:
+      - "Outcome by subpart"
+      - "What is deferred, and what is merely unfinished"
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs:
+  - "Authentic native runtime observations for stop_and_correction, receipt_publication and rendered_delivery: no collector exists in the selected v1 interface, so native admission stays blocked."
+  - "An authentic exported package: none exists to bind and none is authorized here."
+  - "The true first-work time, total duration and original cutoffs of the R10 allocation remain unknown."
+---
+
+# Skill handoff
+
+## You are here
+
+- Skill and use case: `devforge-brainstorm` (Claude provider). Control, checker, suite and
+  physical-fixture authoring, plus additive custody correction. No skill-source change.
+- Current phase: authoring complete for this allocation; held for independent root review.
+- Task state: **partial by design.** Source, caller integration, suites and fixtures are
+  authored and unexecuted; one subpart is locally unfinished; three are root-deferred or
+  unavailable. The document itself is final.
+- Session/worktree: SESSION-001@11, worktree
+  `/home/bryan/Projects/DevForge/worktrees/claude-brainstorm`, branch
+  `author/claude-brainstorm-mvp`, HEAD `a006b3d91f39776cf3ac4cd06b174d5fa3ed688c`.
+- Candidate scope: the twenty-file package, **read-only in this allocation and unchanged**.
+- Authorization carried forward: none. This handback authorizes nothing.
+
+## Inputs consumed and outputs produced
+
+This handoff is excluded from the table: it cannot contain its own complete-byte digest.
+The manifest, readback and receipt are the later closure boundary and are excluded here
+too; the receipt binds them.
+
+| Direction | Artifact ID/revision | Store/path | SHA-256 | Relevant sections | State |
+| --- | --- | --- | --- | --- | --- |
+| input | SESSION-001@11 | authority: `authoring-assignments-20260905/SESSION-001.md` | `bfea50f8769254e820c729f43bed1c0df86a92414f3e7e59459f961b07b6eb17` | Exclusive write fence; Required local work | issued; verified byte-equal to the issued copy |
+| input | R11 INPUTS | authority: `runtime-repairs/brainstorm-authoring-r11-20260907T221154339792Z/INPUTS.json` | `549e91ff874d83ea9c44dcd965d9d202a6786da87e785ea9ddcf80612f0da08c` | whole | frozen selection |
+| input | FIXTURE-SELECTION | authority: same packet, `FIXTURE-SELECTION.json` | `35517736d63baf8b7d175fd1d50bc467d0be6c3edc9290669b54a3ffc1690978` | scenarios | frozen staging contract |
+| input | ROOT-INTEGRATION-ANNEX | authority: same packet, `ROOT-INTEGRATION-ANNEX.json` | `7da23e43df9d32ac0f2916f9ccf1c4c146def73513b0eb43b0773190955be94b` | whole | frozen status cut |
+| output | SEVAL-R11-001 r1 | project: `<run>/report/SEVAL-R11-001.md` | `4d7c3de89b5e5fd6107491c9469fd359e9fdef83416e2e546ea2ce71e9e9c7ec` | Outcome by subpart | final |
+| output | AUTHORING-RECORD | project: `<run>/AUTHORING-RECORD.md` | `d3117ad8a084473d6583638908dd48b9b382d02745fd216e76cebb8f6106582a` | The checkers; The control path | final |
+| output | R10-CORRECTION | project: `<run>/R10-CORRECTION.md` | `5ebbc9a342063ce7711e611ab177382a03fd42a504c993729852aafe1d0b6a24` | CHG-039; CHG-040; CHG-041 | additive; changes no R10 byte |
+| output | BUILDER-RECEIPT | project: `<run>/BUILDER-RECEIPT.json` | `d3be49e9f8dde5b6f69b673a75d1963d7ca58869719684fe1c3fe60ca6f65b4c` | records | final |
+| output | SOURCE-MAP | project: `<run>/SOURCE-MAP.json` | `2ac5996e6301ee4619fc594a8ab43372108ecc080cc3dd91e39e41a0ec5851e7` | control_tree.counts | final |
+| output | CLOCK | project: `<run>/CLOCK.json` | `d8cf23ee478369d9770b2e9033667c8a4c837932c81de16e88c7a1e2bd81880c` | first_action_rule_satisfied | final |
+| output | EXECUTABLE-INVENTORY | project: `<run>/EXECUTABLE-INVENTORY.txt` | `4491d5edeb0fb815d78e01251e39d21bdd91ce81b2a0f6d7738dbd3766d78141` | whole | final |
+
+`<run>` is `.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z`.
+The authored tree under `<run>/source/` (62 files) and the preserved baselines under
+`<run>/baseline/` are enumerated with digests in the manifest.
+
+## What changed and what remains open
+
+Nothing in the package: all twenty files verified byte-exact before and after.
+
+In the run: 12 of 33 selected control files modified, 21 preserved, 29 added, 62 final.
+The fourteen R10 checker/control records are addressed; the reasoning is in
+`AUTHORING-RECORD.md` and the per-record states in `BUILDER-RECEIPT.json`.
+
+Open **locally**: the R10-CI-009 valid-reviewer positive scenario. Open as **root
+dependencies**: the managed WAITING_USER callback lifecycle and the three uncollectable
+observation classes. **Unavailable**: an authentic exported package. Open as findings:
+all of them — nothing here closes one.
+
+## Observed verification
+
+| Check | Outcome | Raw evidence / external receipt | Cause or scope limit |
+| --- | --- | --- | --- |
+| Twenty candidate pins bound to live source | PASS | this run; all twenty matched before and after | custody read, not target validation |
+| Package preserved byte-exact | PASS | `SOURCE-MAP.json` `all_twenty_preserved: true` | compares frozen pins to final bytes |
+| Selected fixture targets staged with exact bytes | PASS | `SOURCE-MAP.json` `selected_fixtures` | staging contract, not an executed sandbox |
+| R10 count reconciliation | PASS | `R10-CORRECTION.md` CHG-041, recomputed from R10's own SOURCE-MAP | arithmetic over recorded digests |
+| R10 receipt timestamp validity | FAIL (recorded) | `R10-CORRECTION.md` CHG-040; `fromisoformat` raises | the field is invalid; original bytes unaltered |
+| Authored suites | NOT_RUN | — | execution forbidden by this allocation |
+| Imports, compilation, linting | NOT_RUN | — | forbidden |
+| Native C / B / A | NOT_RUN | — | zero native calls authorized |
+| Root admission, hook activation, human acceptance | NOT_RUN | — | root-owned |
+| Validation | NOT_PERFORMED | — | no validator campaign authorized |
+
+**These rows are independent.** A no-model suite result, if one is ever produced, updates
+only that suite's row. Native C/B/A, root admission, hook activation and acceptance keep
+their own states and are not touched by any volume of no-model observation. R10's handoff
+instruction to replace every NOT_RUN after no-model testing was overbroad and is withdrawn
+(CHG-041).
+
+## Continuation directory
+
+| Order | Task | Owner / skill | Prerequisites | Completion evidence |
+| --- | --- | --- | --- | --- |
+| 1 | Independent root review of this run | root integration owner | this handoff, its receipt, the manifest | a root review record and receipt |
+| 2 | Author the R10-CI-009 valid-reviewer positive scenario | Claude brainstorm author, new allocation | a selected authorized reviewer identity and a complete raw-evidence inventory | that subpart moves off PARTIAL |
+| 3 | Execute the authored suites and report actual results | Claude brainstorm author, new allocation | an allocation permitting execution | `checks-results.json` and `phase-results.json` with real outcomes |
+| 4 | Supply authentic native observation collection, or record it unavailable | root | runtime interface work | CHG-009 / CHG-011 native subparts resolve |
+| 5 | Produce an authentic exported package, or keep launch blocked | root | export/install authorization | the export root stops being a dependent blocker |
+
+## Copyable next-session prompt
+
+Goal: run the authored no-model suites and report what they actually do, replacing the two
+suite rows in the verification table above with observed outcomes.
+Context: `<run>/source/no-model-tests/checks_suite.py` (physical fixture consumption with
+reason assertions), `<run>/source/no-model-tests/phase_suite.py` (R11-P01..P24 plus the
+retained R10 scenarios), `<run>/BUILDER-RECEIPT.json` `records`.
+Output: `checks-results.json` and `phase-results.json` under a new run, plus a report
+naming per-subpart states and every case that fails.
+Boundaries: worktree `claude-brainstorm`, branch `author/claude-brainstorm-mvp`; the twenty
+package files stay read-only unless a new allocation says otherwise; the native callback
+lifecycle stays deferred and must not be simulated; a failing case is reported as a
+failure, not adjusted away.
+Verify: every case reaches its own predicate rather than failing in setup; real model
+invocations remain zero; native and admission rows are left untouched.
+
+An allocation permitting execution is required. This session had none, which is why every
+suite outcome here is NOT_RUN rather than a result.
+
+## Resume and custody
+
+- Task output readback: every path in the outputs table was read back after its last write
+  and its digest recorded there. This handoff is excluded.
+- This handoff's location: `<run>/HANDOFF.md`. No self-digest appears in it.
+- This handoff's external receipt: `<run>/report/RECEIPT.json`, which carries this
+  handoff's digest together with the report, manifest and readback. Its own digest is
+  computed after it is written and read back, and returned in the terminal response — not
+  inserted here.
+- Worktree ownership disposition: retained, held for independent root review.
+- External gate state: no root admission record exists. Native C/B/A NOT_RUN.
+- Conditions invalidating this handoff: any change to the twenty package files, to the 33
+  selected R10 control bytes, to SESSION-001@11, or to the selected v1 runtime interface.

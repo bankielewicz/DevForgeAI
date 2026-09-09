@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/author-fixtures.py",
+    "--output",
+    "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/reproduced-fixtures"
+  ],
+  "exit_status": 0,
+  "stdout": "Created exact handoff asset, derivation, 13 variants and 9 fixed-split queries; no models run.\n",
+  "stderr": "",
+  "outcome": "PASS",
+  "reproduction_byte_differences": []
+}

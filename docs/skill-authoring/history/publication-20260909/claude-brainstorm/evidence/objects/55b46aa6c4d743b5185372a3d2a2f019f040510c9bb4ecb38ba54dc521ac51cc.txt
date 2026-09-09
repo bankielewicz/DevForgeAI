@@ -1,0 +1,235 @@
+{
+  "method": "Static JSON field comparison only; no evaluated code execution",
+  "changes": [
+    {
+      "pointer": "/authoring_assignment",
+      "before": "SESSION-002@7",
+      "after": "SESSION-002@8"
+    },
+    {
+      "pointer": "/authority/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/authority/SESSION-002-r7.md",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/authority/SESSION-002-r8.md"
+    },
+    {
+      "pointer": "/authority/sha256",
+      "before": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+      "after": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383"
+    },
+    {
+      "pointer": "/candidate/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/CANDIDATE-MANIFEST.json",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json"
+    },
+    {
+      "pointer": "/candidate/sha256",
+      "before": "a5c9bdc2bc6a431df72750bdb1bf1c54b70a8b2439c62ddf053010cc03aa8253",
+      "after": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2"
+    },
+    {
+      "pointer": "/causal_provenance_measurement",
+      "added": {
+        "finding": "CODEX-MEAS-R7-001 / F-001 / CHG-001",
+        "original_severity": "medium/P2",
+        "builder_severity": "MAJOR",
+        "fixed_criterion": {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json",
+          "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+          "locator": "/proposed_rubric/definitions/causal_provenance and /causal_provenance_judgment"
+        },
+        "retained_order": "C-candidate -> B6-candidate -> both B6E arms, then only separately allocated A; complete applicable gates remain required. Causal coverage adds a conjunct to each complete semantic gate, never an alternative path.",
+        "cases_are": "Future unexecuted discriminating control descriptions only; no fixtures, native cases, calls or decisions were generated. Separately select controls, input bytes, exact expected observations and budget before execution. These do not alter B6/B6E prompts, current/selected-ledger difference, receipt/continuation objects or case lists.",
+        "controller_dependency": "Root-owned manual-judgment integration and runner/grader enforcement are DEFERRED. The unchanged historical grader cannot be treated as enforcing the new check. New fixed control bytes must be reviewed/frozen in a separate allocation; no pre-authored PASS, best-effort waiver, unsupported v2 adoption or unassigned retry.",
+        "scope_limits": "Judgment assesses observable artifact lineage and supported content use; it cannot certify hidden reasoning, expert behavior, actual rendering or human acceptance. Each of those keeps its existing separate evidence requirements."
+      }
+    },
+    {
+      "pointer": "/change_boundary",
+      "before": "Replace old model-owned helper/receipt sequence observations with protected runtime phase and delivery ordering. Preserve underlying requests, raw fixture facts and identities, named behaviors, A/B/C separation, reference/adoption/ownership checks, native completion, process caps/cleanup and fail-closed admission. Necessary consumer contract, output/receipt locators, checkpoint fence and installed-manifest bindings must be selected before a new run by root; this proposal supplies no native authority.",
+      "after": "CHG-001 adds mandatory evidence-bound manual causal-provenance coverage to the retained revision-7 proposal. Preserve its five managed runtime observation substitutions, every prior semantic/reference/delivery check, all four core case definitions, admission order, original caps and separate A allocation. Preparation bindings now use SESSION-002@8; the complete 30-file candidate remains revision-7 bytes. Only these two run-side proposal documents and custody/authoring records are authored; no runner/grader/runtime/source changes or native authority."
+    },
+    {
+      "pointer": "/coverage/causal_provenance",
+      "added": "Required tenth common check causal_provenance, fully specified in the bound rubric /causal_provenance_judgment. Inspect and classify every upstream occurrence and reachable immutable-revision causal edge, separately identify membership/split-merge/next-step/backlink relationships, resolve all exact input/output revisions and hashes, show acyclic lineage and correct completed-ledger -> consumed-by-handoff direction. Use consumer -> input for the recorded graph. Require exact per-edge and graph evidence locators plus a completed post-output manual judgment selected before dependent admission. Missing evidence or unresolved closure prevents full semantic PASS; identity checks or mechanical receipts alone do not cover causality."
+    },
+    {
+      "pointer": "/created_at_utc",
+      "before": "2026-09-07T13:11:35.744907+00:00",
+      "after": "2026-09-07T14:41:03.216569+00:00"
+    },
+    {
+      "pointer": "/current_allocation_note",
+      "added": "This is unexecuted revision-8 preparation. The source candidate and its derivation retain revision-7 authorship. Copied historical criteria, results, clocks and assignments remain historical. No new consumer execution allocation is selected."
+    },
+    {
+      "pointer": "/historical_dispositions/CODEX_MEAS_R7_001",
+      "added": "Original medium/P2 inherited coverage gap retained; CHG-001 preparation authored, independent reevaluation required; no finding closure or demonstrated native false PASS."
+    },
+    {
+      "pointer": "/historical_dispositions/claude_budget_and_late_write",
+      "added": "Preserve all prior Claude budget FAIL and late-write findings as recorded in the selected root review. This Codex-only proposal supplies no Claude remediation or reevaluation."
+    },
+    {
+      "pointer": "/historical_dispositions/revision_7_codex_source_review",
+      "added": "No material source defect reported in the selected scoped static review; no native/behavioral validation or acceptance inferred."
+    },
+    {
+      "pointer": "/previous_proposal",
+      "added": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/inputs/codex/run/proposals/measurement-plan.proposed.json",
+        "sha256": "c68565dc10917b0ffb9de22bbf75acc42bc337628f09e2722199645f078d6707"
+      }
+    },
+    {
+      "pointer": "/readiness_blockers",
+      "before": [
+        "Selected production launcher refuses native admission; root must finish and independently establish native startup/effective configuration and callback/receipt-rendering observations.",
+        "Selected grade_v4.py and mechanical_delivery.py implement historical model-published files-style receipts and fixed saved-response assumptions; those bytes remain untouched. Root must allocate, implement, review and freeze only the necessary runtime observation adaptation before using new criteria.",
+        "Source evals/installed-resources.json still records the historical helper-invocation observation; fixtures/triggers/evals/helpers are protected in this allocation. Preserve their bytes/history and select a reviewed run-side interpretation rather than silently executing conflicting expectations.",
+        "A new actual consumer task/session contract, output/checkpoint/archive/receipt selection, source-inaccessible installation and independent fixed semantic decision mechanism are not created by this proposal.",
+        "Required native, delivery/rendering or semantic observation gaps must prevent dependent admission; root result records and custody do not supply them."
+      ],
+      "after": [
+        "Selected production launcher refuses native admission; root must finish and independently establish native startup/effective configuration and callback/receipt-rendering observations.",
+        "Selected grade_v4.py and mechanical_delivery.py implement historical model-published files-style receipts and fixed saved-response assumptions; those bytes remain untouched. Root must allocate, implement, review and freeze only the necessary runtime observation adaptation before using new criteria.",
+        "Source evals/installed-resources.json still records the historical helper-invocation observation; fixtures/triggers/evals/helpers are protected in this allocation. Preserve their bytes/history and select a reviewed run-side interpretation rather than silently executing conflicting expectations.",
+        "A new actual consumer task/session contract, output/checkpoint/archive/receipt selection, source-inaccessible installation and independent fixed semantic decision mechanism are not created by this proposal.",
+        "Required native, delivery/rendering or semantic observation gaps must prevent dependent admission; root result records and custody do not supply them.",
+        "CHG-001 causal_provenance manual edge/graph/evidence requirement is authored, not wired or validated. A root-selected independent post-output reviewer/record and fail-closed admission consumer remain to be implemented/reviewed/frozen in a separate allocation; the old grader does not enforce this addition."
+      ]
+    },
+    {
+      "pointer": "/remediation_specification",
+      "added": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REMEDIATION-SPECIFICATION.md",
+        "sha256": "d5b60b3ea30ea4a8e426f9c2b74ff3f94298d7b3e786286285a7d1cc45b69742"
+      }
+    },
+    {
+      "pointer": "/repair_mapping",
+      "added": {
+        "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/REPAIR-MAP.json",
+        "sha256": "ce39c0cc2b0398c3b4dbe339008556d77217606d20ea54fb5554b3528225fc26",
+        "locator": "/findings/0"
+      }
+    },
+    {
+      "pointer": "/rubric_proposal/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/proposals/grade-rubric.proposed.json",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json"
+    },
+    {
+      "pointer": "/rubric_proposal/sha256",
+      "before": "1eba87fb7754004445ace03edf6fc132b2c2fef620b807d73f86abcb50fabb8e",
+      "after": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b"
+    },
+    {
+      "pointer": "/selected_baseline_controls/measurement_plan/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/controls/measurement-plan.json",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/controls/measurement-plan.json"
+    },
+    {
+      "pointer": "/selected_baseline_controls/rubric/path",
+      "before": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/controls/grade-rubric.json",
+      "after": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/selected/codex/controls/grade-rubric.json"
+    },
+    {
+      "pointer": "/selected_baseline_controls/scope",
+      "before": "Selected revision-004 controls were copied without mutation before adapting these prose/JSON proposals. The 769 binding entries in the old plan and its historical freeze/budget remain historical; no old command was executed or old freeze reactivated.",
+      "after": "Exact revision-004 controls and the entire selected revision-7 Codex run are retained under inputs, unchanged. Revision-7 proposals are the immediate preparation baseline. The old plan binding entries, freeze, judgments and clocks remain historical; no old command was executed or old allocation reactivated."
+    },
+    {
+      "pointer": "/status/compilation",
+      "added": 0
+    },
+    {
+      "pointer": "/status/root_admission",
+      "added": "NOT_RUN"
+    },
+    {
+      "pointer": "/unexecuted_causal_provenance_cases",
+      "added": [
+        {
+          "case_id": "CP-01",
+          "title": "Positive completed-ledger direction",
+          "proposed_input_distinction": "A completed ledger is retained before handoff creation. The handoff consumes its exact immutable identity. Any continuation/backlink is recorded as a relationship, and every other causal input is substantively supported.",
+          "expected_observation": "Causal check may PASS only with full per-edge evidence, graph order, exact input/output hashes and actual chronology. All retained checks still apply.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        },
+        {
+          "case_id": "CP-02",
+          "title": "Relationship promotion pair",
+          "proposed_input_distinction": "For each of membership, next-step, handoff backlink and split/merge relationship, use genuine retained hash-correct artifact references. Contrast a relationship-only record with promotion of that same relationship to upstream when no content was causally consumed.",
+          "expected_observation": "Require FAIL for unsupported causal promotion even when reference identity/section checks pass. The positive retains the relationship without inventing consumption. A split/merge relationship with separately observed substantive source consumption is judged on that evidence, not banned by label.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        },
+        {
+          "case_id": "CP-03",
+          "title": "Wrong paired ledger/handoff direction",
+          "proposed_input_distinction": "A ledger claims its own later paired handoff as a causal input, or the paired handoff fails to consume the completed ledger. Preserve the actual creation sequence and reference-resolution outcomes.",
+          "expected_observation": "Require nonpass for missing/reversed direction and unsupported causal use. If claimed hashes cannot resolve, retain that identity FAIL too; never construct or claim a real mutually self-consistent complete-byte hash cycle.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        },
+        {
+          "case_id": "CP-04",
+          "title": "Revision-aware lineage positive",
+          "proposed_input_distinction": "A later ledger revision uses an earlier handoff that itself consumed an earlier revision of the same ledger. All three own identities, complete hashes and causal content are retained.",
+          "expected_observation": "Assess the distinct immutable nodes and require an explicit acyclic order. Do not reject solely because artifact IDs repeat across revisions; do not collapse earlier and later ledger nodes.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        },
+        {
+          "case_id": "CP-05",
+          "title": "Reachable lineage and declared cycle",
+          "proposed_input_distinction": "Inspect an output whose upstream artifact has further upstream claims, including an unsupported cyclic lineage claim in a separately selected negative. Retain every actual resolution outcome.",
+          "expected_observation": "Enumerate the full reachable graph and exact cycle claim or acyclic order. Missing transitive inspection blocks PASS. A declared cycle or conflicting identity must remain nonpass; no assumption that top-level hash correctness proves global causality.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        },
+        {
+          "case_id": "CP-06",
+          "title": "Missing observation versus explicit empty graph",
+          "proposed_input_distinction": "Contrast a genuinely observed empty upstream/relationship inventory under the selected output mode with absent causal judgment, omitted edge records, unavailable referenced bytes, and missing required ledger-completion evidence.",
+          "expected_observation": "Only the completely observed applicable empty case can contribute PASS. Missing review is NOT_RUN; an unavailable attempted observation is COULD_NOT_RUN; both block full semantic PASS and every dependent admission even with valid artifacts and a runtime receipt.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        },
+        {
+          "case_id": "CP-07",
+          "title": "Judgment bound to different bytes or ordered too early",
+          "proposed_input_distinction": "After a completed judgment is selected, change a reviewed input/output revision or digest, or supply a judgment created before the corresponding output/check observations. Preserve the original judgment and bytes.",
+          "expected_observation": "Refuse use for full semantic PASS and dependent admission; require separately authorized evidence for the new bytes. Hash or timestamp presence alone cannot prove correct review chronology; no automatic second attempt.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        },
+        {
+          "case_id": "CP-08",
+          "title": "Repeated occurrence coverage",
+          "proposed_input_distinction": "Keep the first upstream occurrence supported while adding a later unsupported occurrence in another bound artifact or a contradictory causal claim in a table/prose passage.",
+          "expected_observation": "The complete inventory must locate and reject the unsupported occurrence. A correct first match, limited parser result or mechanical receipt cannot supply the missing semantic judgment.",
+          "criterion": "causal_provenance",
+          "execution": "NOT_RUN",
+          "fixture_bytes": "NOT_AUTHORED; descriptions only",
+          "native_admission": false
+        }
+      ]
+    }
+  ]
+}

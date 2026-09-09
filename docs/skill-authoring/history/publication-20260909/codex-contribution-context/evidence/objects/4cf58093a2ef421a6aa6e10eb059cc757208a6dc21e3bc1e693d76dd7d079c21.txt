@@ -1,0 +1,20 @@
+{
+  "exclusions": [
+    "evals/**",
+    "run outputs",
+    "private client state",
+    "provenance sidecars outside candidate"
+  ],
+  "files_sha256": {
+    "SKILL.md": "54f402e1c5a08da4aac4a2ea16f745ca2294a934d5e8129f61413a6fb46b430f",
+    "assets/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "references/checkpoint.md": "e316eb653a95e9156061361418e94b0dd1353bc55687129776ccd4042bf1caae",
+    "references/derivation.json": "a191de4dbe2666d58423a88688c676dcbc1052d68fbae5e6ce62da5f8b2e409a"
+  },
+  "installation": "NOT_RUN",
+  "intended_destination": ".agents/skills/devforgeai-contribution-context",
+  "intended_mode": "project-local",
+  "linked_derivation_included": true,
+  "provider": "codex",
+  "source_root": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context"
+}

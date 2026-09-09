@@ -1,0 +1,15 @@
+{
+  "name": "receipt-no-digest-new",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+    "--file",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md",
+    "--expected-sha256",
+    "179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d",
+    "--self-receipt-inspection"
+  ],
+  "expected_exit_status": 0,
+  "required_stdout_text": "overall=PASS"
+}

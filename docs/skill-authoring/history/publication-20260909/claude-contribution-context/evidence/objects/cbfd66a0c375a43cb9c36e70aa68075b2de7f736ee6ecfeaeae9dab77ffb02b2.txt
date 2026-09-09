@@ -1,0 +1,9 @@
+{
+  "name": "devforgeai",
+  "version": "0.2.0",
+  "description": "Brainstorm project ideas, author project-specific expert skills, and prepare governed development with the external DevForge CLI.",
+  "author": {
+    "name": "bankielewicz"
+  },
+  "repository": "https://github.com/bankielewicz/DevForgeAI"
+}

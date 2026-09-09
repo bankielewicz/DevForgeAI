@@ -1,0 +1,39 @@
+# Revision-8 brainstorm integration review
+
+Disposition: CLAUDE_REPAIR_REQUIRED; CODEX_HOLD. Codex's new causal-provenance requirement addresses CODEX-MEAS-R7-001 at proposal level without new material findings. All thirty Codex source files are unchanged. Claude's three earlier source corrections are present, but the fresh complete static source review identifies two inherited managed-integration gaps. Claude's run-side specifications have three material defects and contain no implemented executable control corrections. Provider validation, native admission, installation, acceptance and promotion remain unfinished.
+
+## Evidence and independence
+
+INPUT-MANIFEST.json freezes 690 files. CUSTODY.json records the six user-supplied report/manifest/receipt digests matching actual bytes; thirty Codex and twenty Claude candidate files match complete final snapshots. Codex preserved all thirty files and its existing excluded Python cache. Claude changed exactly the four authorized paths and preserved sixteen others and the discovery description. Existing retained worktree HEAD, branch and common-directory identities, exact source bytes and current @8 authorities were rechecked before preparing the next allocation. ROOT-CLOSEOUT-CUSTODY.json records the new readback and all scoped review receipt targets.
+
+Three separately assigned non-author agents produced bounded static reviews. Codex measurement and Claude proposal reviewers were intentionally reused and disclosed prior-review knowledge. Claude source received a fresh separate task with all R01-R10 rubric criteria and fifty-six scoped inputs, excluding author reports, repair maps and prior conclusions. Candidate derivation still exposed author history; the reviewer disclosed that limit. No OS/history isolation or distinct actual model identity is claimed. Root read all three complete narrative reports, the author handbacks and the relevant instruction/contract evidence; root did not semantically inspect every field of the large AI-REVIEW.json. Its complete bytes and receipt bindings were checked. This is not a completed P1-P6 skill-validator campaign.
+
+## Source and proposal findings
+
+- CODEX-MEAS-R7-001: ADDRESSED_PROPOSAL_ONLY. The mandatory tenth causal_provenance judgment and eight future case descriptions are present. Existing nine checks, five runtime substitutions and admission order are preserved. No fixture execution or runnable enforcement was supplied. Source remains producer revision 7 while preparation is revision 8. No further Codex author change is allocated now.
+- CLAUDE-SRC-001 through CLAUDE-SRC-003: the selected-destination, two-root and current provider-context repairs are present by source inspection. This does not close native evaluation or erase prior findings.
+- R8-CLAUDE-SOURCE-001 (MAJOR, inherited): ordinary managed Focus instructions must require the unique completed ledger reference in handoff frontmatter upstream, including exact ID/revision/store/path/digest and actual section binding. A ledger digest in the output table does not satisfy that requirement. Preserve owner-selected handoff-only mode.
+- R8-CLAUDE-SOURCE-002 (MAJOR, inherited): selected managed output IDs/revisions must govern envelopes; local next-unused identity allocation applies only without external identity selection. Conflicting or missing managed identity is a dependent blocker, not permission to allocate a substitute.
+- CC8-PROP-001 (high): CHG-016 prose permits unreadable/unknown sections where inspected actual absence is required. Its physical fixtures correctly use a target without headings. Reconcile prose and code expectations; retain a separate unreadable/unknown negative.
+- CC8-PROP-002 (medium): CHG-005 must distinguish mutation of an explicitly bound fixed input, even unconsumed, from changes to genuinely unbound generated evidence. Root directory membership alone is not frozen selection membership.
+- CC8-PROP-003 (medium): CHG-006 needs a valid bare locator decoy plus a separate wrong-root locator carrying the digest to expose the actual retained span bug. The simple wrong-root-only case already fails the baseline.
+
+The complete proposal review also corrects five locator/history statements. CP5/CC7 finding IDs and original high/medium severities remain unchanged. R8 CHG-005 through CHG-016 are specifications with verified:false and NOT_PERFORMED; they cannot be relabeled as executable repairs. The baseline discrepancy is resolved by CONTROL-BASELINE-RULING.md. The fourteen-file r7 control tree is selected; the earlier copy remains historical. Missing root observations and collector wiring remain root dependencies and must fail closed.
+
+## Timing and historical limits
+
+The authors report actual first-work clocks and receipt completion inside their original allocations. Stored records are consistent with those reported timestamps; root did not audit private histories or independently observe all editing and creator events. Claude reports invoking its native creator; loaded SKILL.md identifies one file, not the package, and no independently observed invocation event is supplied. Claude discloses correcting three future timestamps before final closeout; the final derivation/manifest digest changed. This does not justify rewriting old runs or infer a stronger chronology audit.
+
+Historical Codex C remains COULD_NOT_RUN; B6 and both B6E arms remain NOT_RUN. Both earlier Claude budget FAILs and the 687-second late write remain unchanged. Current provider validation NOT_PERFORMED; hooks DESIGN_ONLY; native C/B/A, root admission and human acceptance NOT_RUN.
+
+## Separate root work
+
+The root foundation is now preserved by user/operator commit ddad934f359c108facaca2997bc4fe073df87540. Root reconciled that HEAD before its new bounded R2 corrections and did not rewrite Git. The R2 source allocation closed at 15:16:36.599493Z within its original deadline. Its fresh frozen synthetic run reported 232 tests, five failures and nineteen errors, all in runtime socket/supervisor tests with EPERM and dependent missing-worker outcomes. The core/reference/phase modules reported ok; the whole selection remains FAIL. A separate required-checks validation allocation is in progress at this report's creation, with no new source edits or native calls; it does not change this report's historical result.
+
+Reference-coverage v2 remains unissued to either author. The same frozen managed v1 bridge governs their repairs. Native startup revision 4 remains untested/unreviewed. Root still owns complete managed metadata delivery, native/effective-hook admission, installed consultation and rendered receipt observations, full repository verification and eventual integration/human acceptance. No provider is asked to fix the root runtime or fabricate its observations. Root native client launches remain zero. Both contributor-context POC sessions remain parked.
+
+## Next bounded allocation
+
+Issue SESSION-001@9 to the retained Claude brainstorm author only: at most 120 minutes from actual first work, including all reading/waiting/closeout, with final twenty minutes reserved. Prioritize the two source gaps in the existing four-path fence, then author actual executable control/checker/suite corrections from the selected r7 baseline and correct the r8 specifications. Unsupported root wiring may remain precisely deferred behind a refusing interface. No execution, native clients, evaluation, installation or hook activation is authorized. Preserve settled workflow classifications and every original finding.
+
+Codex remains held at SESSION-002@8 with no new clock, source/proposal changes or report. POC sessions stay held at SESSION-003@1 and SESSION-004@2. After the four saved prompts are delivered, root and all delegated work halt until the user replies. This report has no self digest; external receipt/readback remains a separate later observation.

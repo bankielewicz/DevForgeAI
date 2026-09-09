@@ -1,0 +1,426 @@
+{
+ "schema_version": "devforge.r11-builder-receipt/v1",
+ "run_id": "SESSION-001-r11-20260907T2258Z",
+ "allocation": "SESSION-001@11",
+ "allocation_sha256": "bfea50f8769254e820c729f43bed1c0df86a92414f3e7e59459f961b07b6eb17",
+ "created_at_utc": "2026-09-07T23:20:15.743769+00:00",
+ "scope": "Control/checker/suite/fixture authoring plus additive custody correction. All twenty skill-package files preserved byte-exact. Nothing authored here was executed.",
+ "records": [
+  {
+   "record": "CC10-RR-001",
+   "severity": "high",
+   "chg": "CHG-025",
+   "prior": [
+    "CHG-016",
+    "CHG-019"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "physical_fixture": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/checkers/validate_references.py: _UNKNOWN broadened (it did not match 'unable to read' at all, which is why that disclosure was classified as an absence); _CLAUSE now splits on the comma; section_absence_state() makes unknown beat absence per artifact",
+    "checks_suite R11-unable-to-read-is-unknown / R11-comma-other-artifact / R11-comma-unrelated-unknown",
+    "source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md carries the exact inline form"
+   ],
+   "note": "The three required cases classify as unknown, none and absence respectively. No new v2 disclosure grammar was introduced."
+  },
+  {
+   "record": "CC10-RR-002",
+   "severity": "high",
+   "chg": "CHG-026",
+   "prior": [
+    "CHG-006",
+    "CHG-021"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "physical_fixture": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/checkers/check_receipts.py: PATH_CHAR extends the boundary set to the filename-legal characters WORDISH omitted",
+    "source/fixtures/chg-021-receipt-spans/r11-fresh/NEG-plus-in-root.terminal.txt and NEG-plus-suffix-filename.terminal.txt, with POS-exact-root-companion",
+    "checks_suite R11-plus-in-root / R11-plus-suffix-filename / R11-exact-root-companion"
+   ],
+   "note": "PATH_CHAR was first written wide enough to reject valid Markdown wrappers and trailing commas; it was narrowed to filename-legal characters only, and the retained wrapper positives are asserted alongside the two new negatives."
+  },
+  {
+   "record": "CC10-RR-003",
+   "severity": "high",
+   "chg": "CHG-027",
+   "prior": [
+    "CHG-006",
+    "CHG-021"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "physical_fixture": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/checkers/check_receipts.py: OTHER_PATH + _between() reject a record whose digest is introduced by a different path standing between the locator and it (INTERVENING_LOCATOR)",
+    "checks_suite R11-short-decoy-association consumes the exact physical two-line decoy and asserts the association reason"
+   ],
+   "note": "The physical glue is 35 characters, confirmed by reading the fixture: the 40-character cap does not fire, so the assertion is about association and not about length."
+  },
+  {
+   "record": "CC10-RR-004",
+   "severity": "high",
+   "chg": "CHG-028",
+   "prior": [
+    "CHG-006",
+    "CHG-016",
+    "CHG-019",
+    "CHG-021"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "checker": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "physical_fixture_consumption": "COMPLETE_AUTHORED_UNEXECUTED",
+    "chg_010_physical_transcripts": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "checks_suite load_fixture()/rcp_physical()/rec_reason(): fixtures are read off disk and the recorded reason is asserted, not just the outcome",
+    "all five R8 flat cases, the 65-hex case, both fresh exact-root positives and the wrong-root negative are consumed",
+    "source/fixtures/chg-010-activation-envelopes/: seven physical per-reason transcripts with an INDEX"
+   ],
+   "note": "_A_BODY stages the promised file with the selected target's own bytes. An earlier draft used the suite's inline no-sections string, which would have made every receipt case fail on a digest mismatch instead of its ownership predicate -- the same substitution error this record is about."
+  },
+  {
+   "record": "R10-CI-001",
+   "severity": "high",
+   "chg": "CHG-029",
+   "prior": [
+    "CHG-005",
+    "CHG-020"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/freeze.py: PREFLIGHT names are relative to the declared root, keys are 'preflight/<name>', path_roots carries 'preflight', GATE_INPUT_CONSUMED records the location the deterministic gate actually reads",
+    "phase_suite R11-P03/R11-P04"
+   ],
+   "note": "Both verifiers previously fell through to RUN/preflight/no-model-tests, so the required positive could not resolve and every mutation negative failed on that standing mismatch."
+  },
+  {
+   "record": "R10-CI-002",
+   "severity": "high",
+   "chg": "CHG-030",
+   "prior": [
+    "CHG-005",
+    "CHG-020"
+   ],
+   "status": "AUTHORED_UNEXECUTED_WITH_DECLARED_BLOCKER",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "authentic_export": "UNAVAILABLE",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/SELECTED-ROOTS.json + freeze.load_selected_roots(): every root and identity verified before any query, plan or module is loaded",
+    "source/control/run_phases.py: ROOTS/SRC/EXPORT/DELEG come from the selection; launch refuses closed when no authentic export exists",
+    "phase_suite R11-P01/R11-P02"
+   ],
+   "note": "The hardcoded worktree candidate path, the September 5 delegation path and the assumed export/export-01 directory are gone. No export or install is authorized; the unavailable export is a declared dependent blocker and is never fabricated."
+  },
+  {
+   "record": "R10-CI-003",
+   "severity": "high",
+   "chg": "CHG-031",
+   "prior": [
+    "CHG-005",
+    "CHG-011",
+    "CHG-013"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "phase_suite stage_selected_code(): stages whatever freeze.CODE names, plus the fixture tree, and reports missing_selected_entries by name",
+    "used by both build_root and the separate r10-freeze setup"
+   ],
+   "note": "The scratch root was missing no-model-tests/cases_r9.py once freeze.CODE required it, so the constructor raised inside m.build() before any scenario reached its predicate."
+  },
+  {
+   "record": "R10-CI-004",
+   "severity": "high",
+   "chg": "CHG-032",
+   "prior": [
+    "CHG-011"
+   ],
+   "status": "AUTHORED_UNEXECUTED_WITH_DECLARED_ROOT_DEPENDENCY",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "preservation_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "native_managed_callbacks": "ROOT_DEPENDENCY_DEFERRED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "phase_suite _fresh_run_phases() purges every control import and re-execs the module, so the controller is reconstructed rather than inherited",
+    "drive_fresh() re-enters on a fresh module for every resume and accumulates markers",
+    "R11-P20..R11-P23 and R11-P24 (archive removed during the pause)"
+   ],
+   "note": "R10 called main() twice on one module; CTL.failed persisted from the pause, so B5 could never be admitted and the ordered progression the case claimed was unreachable."
+  },
+  {
+   "record": "R10-CI-005",
+   "severity": "medium",
+   "chg": "CHG-033",
+   "prior": [
+    "CHG-013"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "phase_suite reads decisions/gate-C-C1.json, the name Controller.gate actually emits after replacing ':' with '-'"
+   ],
+   "note": "R10 read gate-C:C1.json, a file that never exists, so `recorded` was always None and the STALE assertion could not observe the classification it named."
+  },
+  {
+   "record": "R10-CI-006",
+   "severity": "high",
+   "chg": "CHG-034",
+   "prior": [
+    "CHG-009"
+   ],
+   "status": "AUTHORED_UNEXECUTED_WITH_DECLARED_ROOT_DEPENDENCY",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "authentic_native_observation_collection": "ROOT_DEPENDENCY_DEFERRED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/admission.py: CLASS_CONTRACT gives each class the source that owns it and the fields that can establish it; missing outcome is refused rather than defaulted; _evidence_bytes_match recomputes the digest of the named evidence file; _checkpoints_ordered requires an actual ordered sequence",
+    "phase_suite R11-P05..R11-P08"
+   ],
+   "note": "The aggregate refusal from the three unconditional deferred classes is unchanged and this record does not claim it was bypassed. What is repaired is the per-class qualification: a record shaped like a runtime record is no longer an observation."
+  },
+  {
+   "record": "R10-CI-007",
+   "severity": "high",
+   "chg": "CHG-035",
+   "prior": [
+    "CHG-008",
+    "CHG-010",
+    "CHG-012"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/A-CASES.json: the fixed case-to-row mapping, derived from the candidate's own trigger file with its digest recorded",
+    "source/control/a_arm.py: cross-case, modified-row, modified-expectation and modified-launch-prompt refusals against that fixed selection",
+    "phase_suite R11-P09..R11-P12"
+   ],
+   "note": "R10 derived the digest from the selector it was handed and compared it with itself, so the check could only agree. The invented q-1 positive is replaced by the exact selected rows."
+  },
+  {
+   "record": "R10-CI-008",
+   "severity": "high",
+   "chg": "CHG-036",
+   "prior": [
+    "CHG-010",
+    "CHG-011",
+    "CHG-012",
+    "CHG-014"
+   ],
+   "status": "AUTHORED_UNEXECUTED_WITH_DECLARED_ROOT_DEPENDENCY",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "physical_fixture": "COMPLETE_AUTHORED_UNEXECUTED",
+    "native_completion_EOF_cleanup": "ROOT_DEPENDENCY_DEFERRED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/a_arm.py: launcher(case, selector, dest, prompt) is a reachable injectable seam; the caller is the single owner of exclusive directory creation and records activation_inputs for the observation",
+    "phase_suite _local_seam + R11-P13..R11-P16",
+    "source/fixtures/chg-010-activation-envelopes/ supplies nested assistant envelopes with the case key"
+   ],
+   "note": "This is local test-interface authoring. No native collector API is invented and no authority to call a model is claimed; truthful no-launcher NOT_RUN is retained."
+  },
+  {
+   "record": "R10-CI-009",
+   "severity": "high",
+   "chg": "CHG-037",
+   "prior": [
+    "CHG-008"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "PARTIAL",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/run_phases.py: _authorized_reviewers() and _raw_evidence_check(); a judgment is refused UNATTRIBUTED, UNAUTHORIZED_REVIEWER or EVIDENCE_UNBOUND",
+    "source/control/AUTHORIZED-REVIEWERS.json declares the empty closed set",
+    "phase_suite R11-P17"
+   ],
+   "partial_reason": "The refusal paths and the closed default are authored and asserted, but no positive scenario with a valid selected reviewer and complete raw evidence was authored, because no arm runs in this allocation and no authentic reviewer identity is selected. The positive-path scenario remains unauthored.",
+   "note": "Advertised hashes plus outcome PASS no longer satisfy a semantic gate. Hash and issued_at strings do not establish post-output chronology; matching raw bytes do."
+  },
+  {
+   "record": "R10-CI-010",
+   "severity": "medium",
+   "chg": "CHG-038",
+   "prior": [
+    "CHG-015"
+   ],
+   "status": "AUTHORED_UNEXECUTED",
+   "subparts": {
+    "specification": "COMPLETE_AUTHORED_UNEXECUTED",
+    "helper": "COMPLETE_AUTHORED_UNEXECUTED",
+    "actual_caller": "COMPLETE_AUTHORED_UNEXECUTED",
+    "suite_scenario": "COMPLETE_AUTHORED_UNEXECUTED",
+    "execution": "NOT_RUN"
+   },
+   "evidence": [
+    "source/control/freeze.py selected_allocation(): hex-syntax check, authority file re-read and compared, issuance record required to bind the transition, run identity matched",
+    "phase_suite R11-P18 (non-hex) and R11-P19 (stale @10 authority)"
+   ],
+   "note": "Tested against the actual emitter rather than by dictionary inequality. No authority digest is hardcoded in generic code; a future @11 revision arrives through ALLOCATION.json."
+  },
+  {
+   "record": "R10-CUSTODY-001",
+   "severity": "MAJOR",
+   "chg": "CHG-039",
+   "prior": [
+    "CHG-023"
+   ],
+   "status": "ADDITIVE_CORRECTION_RECORDED",
+   "subparts": {
+    "custody": "COMPLETE"
+   },
+   "evidence": [
+    "R10-CORRECTION.md 'CHG-039'",
+    "CLOCK.json first_action_rule_satisfied: true"
+   ],
+   "note": "R10's shortening and few-minute-bound claims are withdrawn; true first-work time, total duration and original cutoffs remain unknown; no overrun inferred, no timestamp invented. R11's first tool action was the clock, before any file read."
+  },
+  {
+   "record": "R10-CUSTODY-002",
+   "severity": "MINOR",
+   "chg": "CHG-040",
+   "prior": [
+    "CHG-024"
+   ],
+   "status": "ADDITIVE_CORRECTION_RECORDED",
+   "subparts": {
+    "custody": "COMPLETE"
+   },
+   "evidence": [
+    "R10-CORRECTION.md 'CHG-040'",
+    "every R11 timestamp uses datetime isoformat and is parsed back before closure"
+   ],
+   "note": "The literal %f field is labelled invalid and the exact fractional time unknown; the original bytes are not altered."
+  },
+  {
+   "record": "R10-CUSTODY-003",
+   "severity": "MINOR",
+   "chg": "CHG-041",
+   "prior": [
+    "CHG-010",
+    "CHG-019",
+    "CHG-024"
+   ],
+   "status": "ADDITIVE_CORRECTION_RECORDED",
+   "subparts": {
+    "custody": "COMPLETE"
+   },
+   "evidence": [
+    "R10-CORRECTION.md 'CHG-041'",
+    "SOURCE-MAP.json control_tree.counts"
+   ],
+   "note": "R10 reconciled as 13 modified + 12 preserved = 25 selected, plus 8 added = 33 final, i.e. 21 changed-or-added. The overbroad replace-every-NOT_RUN instruction is withdrawn."
+  }
+ ],
+ "preserved_earlier": {
+  "CHG-001..CHG-024": "identities, severities and historical statuses retained; earlier whole-CHG author claims remain attributed claims and are not accepted wholesale",
+  "CHG-017/018": "PRESERVE_ONLY; instruction bytes are outside every fence in this allocation",
+  "R9_and_R10_runs": "unchanged",
+  "authorities": "unchanged"
+ },
+ "state_vocabulary": {
+  "COMPLETE_AUTHORED_UNEXECUTED": "the exact subpart is written, wired to the operative path and never run",
+  "PARTIAL": "a required subpart is genuinely unfinished; named in partial_reason",
+  "ROOT_DEPENDENCY_DEFERRED": "the selected v1 interface exposes no collector; fails closed",
+  "UNAVAILABLE": "the input does not exist to be bound; declared, not fabricated"
+ },
+ "global": {
+  "execution": "NOT_RUN",
+  "validation": "NOT_PERFORMED",
+  "imports_of_authored_code": 0,
+  "compilation": 0,
+  "linting": 0,
+  "installs": 0,
+  "exports": 0,
+  "hook_activation": 0,
+  "native_model_calls": 0,
+  "creator_invocations": 0,
+  "native_C": "NOT_RUN",
+  "native_B": "NOT_RUN",
+  "native_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "hooks": "DESIGN_ONLY",
+  "findings_closed": 0,
+  "no_model_results_note": "No suite ran, so no NOT_RUN in any verification table is replaced. A no-model result could only ever update that suite's own row."
+ },
+ "creator": {
+  "r10_status": "AUTHOR_REPORTED_INVOKED_LOADED_NOT_INDEPENDENTLY_OBSERVED",
+  "r11_action": "NONE",
+  "why": "no skill-source byte changes in this allocation, so no new creator invocation is required or authorized; frozen guidance applied read-only, which is not invocation"
+ }
+}

@@ -1,0 +1,158 @@
+#!/usr/bin/env python3
+"""Outcome-table coverage and vocabulary checker, revision 2 (CR3-002).
+
+Revision 1 matched only the exact heading "## Observed verification". Case 9
+wrote "## 7. Observed verification" with nine real Outcome rows, and the
+checker reported no table at all -- which the caller then recorded as
+NOT_APPLICABLE. A required table that escapes inspection had become a pass.
+
+So this revision does two things differently. It finds tables by their own
+structure -- any markdown table carrying an Outcome column -- under a heading
+matched with optional numbering, and it takes an expected inventory of
+artifacts up front. An artifact that was supposed to carry a table and has
+none is a coverage failure with a name, not a silent absence.
+"""
+import argparse, json, os, re, sys
+
+CANON = ("PASS", "FAIL", "NOT_RUN", "COULD_NOT_RUN", "NOT_APPLICABLE")
+HEADING = re.compile(r"^(#{1,6})\s*(?:\d+[.)]\s*)?(.+?)\s*$", re.M)
+# NOT_APPLICABLE means the check does not apply here. "Required, but nothing
+# installed can do it" is COULD_NOT_RUN -- the distinction matters because the
+# first reads as nothing owing and the second as a real gap left open.
+TOOL_ABSENCE = re.compile(
+    r"\b(no\s+(?:\w+\s+){0,2}tools?\b|no such tool|tool (?:is )?(?:absent|unavailable)|"
+    r"not installed|no available|could not (?:be )?(?:find|locate)|"
+    r"not permitted|not available|unavailable)\b", re.I)
+
+
+def split_row(line):
+    s = line.strip()
+    if s.startswith("|"):
+        s = s[1:]
+    if s.endswith("|"):
+        s = s[:-1]
+    return [c.strip() for c in s.split("|")]
+
+
+def is_sep(cells):
+    return bool(cells) and all(re.fullmatch(r":?-{2,}:?", c or "") for c in cells)
+
+
+def find_tables(text):
+    """Every markdown table with an Outcome column, with the heading in force."""
+    lines = text.split("\n")
+    heads = {}
+    for m in HEADING.finditer(text):
+        heads[text[:m.start()].count("\n")] = (len(m.group(1)), m.group(2))
+    tables, i = [], 0
+    while i < len(lines):
+        if lines[i].lstrip().startswith("|") and i + 1 < len(lines) and is_sep(split_row(lines[i + 1])):
+            hdr = split_row(lines[i])
+            oc = [j for j, c in enumerate(hdr) if re.fullmatch(r"\**outcome\**", c.strip(), re.I)]
+            j = i + 2
+            body = []
+            while j < len(lines) and lines[j].lstrip().startswith("|"):
+                body.append((j + 1, split_row(lines[j])))
+                j += 1
+            if oc:
+                heading = None
+                for ln in sorted(heads, reverse=True):
+                    if ln < i:
+                        heading = heads[ln][1]
+                        break
+                tables.append({"line": i + 1, "heading": heading, "header": hdr,
+                               "outcome_column": oc[0], "rows": body})
+            i = j
+        else:
+            i += 1
+    return tables
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--out")
+    a = ap.parse_args()
+    cfg = json.load(open(a.config))
+
+    artifacts, violations, coverage = [], [], []
+    total_tables = total_rows = 0
+
+    for art in cfg["artifacts"]:
+        path, label = art["path"], art.get("label", art["path"])
+        required = art.get("requires_outcome_table", True)
+        rec = {"artifact": label, "path": path, "required": required,
+               "tables": [], "table_count": 0, "row_count": 0}
+        if not os.path.isfile(path):
+            rec["status"] = "MISSING_ARTIFACT"
+            coverage.append({"artifact": label, "problem": "artifact not found at %s" % path})
+            artifacts.append(rec)
+            continue
+        text = open(path, encoding="utf-8", errors="replace").read()
+        tables = find_tables(text)
+        rec["table_count"] = len(tables)
+        for t in tables:
+            rows = []
+            for lineno, cells in t["rows"]:
+                if len(cells) <= t["outcome_column"]:
+                    violations.append({"artifact": label, "line": lineno,
+                                       "problem": "row has fewer cells than the Outcome column index"})
+                    continue
+                raw = cells[t["outcome_column"]]
+                # Strip markdown emphasis without eating the underscores that
+                # are part of the vocabulary itself: NOT_RUN is not NOTRUN.
+                val = raw.strip()
+                val = re.sub(r"^[`*]+|[`*]+$", "", val).strip()
+                if len(val) > 2 and val[0] == "_" and val[-1] == "_" and "_" not in val[1:-1]:
+                    val = val[1:-1].strip()
+                row = {"line": lineno, "raw": raw, "value": val,
+                       "canonical": val in CANON, "label": cells[0] if cells else ""}
+                if not row["canonical"]:
+                    violations.append({"artifact": label, "line": lineno, "value": raw,
+                                       "problem": "Outcome cell is not one of the five canonical "
+                                                  "values %s" % ", ".join(CANON)})
+                elif val == "NOT_APPLICABLE":
+                    joined = " | ".join(cells)
+                    if TOOL_ABSENCE.search(joined):
+                        violations.append({"artifact": label, "line": lineno, "value": raw,
+                                           "problem": "NOT_APPLICABLE justified by a tool being "
+                                                      "absent; that condition is COULD_NOT_RUN"})
+                rows.append(row)
+            rec["tables"].append({"line": t["line"], "heading": t["heading"], "row_count": len(rows),
+                                  "rows": rows})
+            rec["row_count"] += len(rows)
+        total_tables += rec["table_count"]
+        total_rows += rec["row_count"]
+        if required and rec["table_count"] == 0:
+            rec["status"] = "NO_TABLE_FOUND"
+            coverage.append({"artifact": label,
+                             "problem": "an Outcome table was required here and none was "
+                                        "recognized; an uninspected required table fails "
+                                        "coverage and cannot become NOT_APPLICABLE by absence"})
+        else:
+            rec["status"] = "INSPECTED" if rec["table_count"] else "NO_TABLE_NOT_REQUIRED"
+        exp_t, exp_r = art.get("expect_tables"), art.get("expect_rows")
+        if exp_t is not None and exp_t != rec["table_count"]:
+            coverage.append({"artifact": label, "problem": "expected %d table(s), inspected %d"
+                             % (exp_t, rec["table_count"])})
+        if exp_r is not None and exp_r != rec["row_count"]:
+            coverage.append({"artifact": label, "problem": "expected %d Outcome row(s), inspected %d"
+                             % (exp_r, rec["row_count"])})
+        artifacts.append(rec)
+
+    result = {"schema_version": "devforge.outcome-labels/v2", "checker_revision": 2,
+              "canonical_values": list(CANON), "artifacts": artifacts,
+              "inventory": {"artifacts": len(artifacts), "tables": total_tables, "rows": total_rows},
+              "violations": violations, "coverage_problems": coverage,
+              "conformance": "FAIL" if (violations or coverage) else "PASS",
+              "conformance_note": "Canonical labels establish vocabulary only. They are not "
+                                  "evidence that a cell's claim is semantically true."}
+    txt = json.dumps(result, indent=1)
+    if a.out:
+        open(a.out, "w").write(txt + "\n")
+    print(txt)
+    return 0 if result["conformance"] == "PASS" else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

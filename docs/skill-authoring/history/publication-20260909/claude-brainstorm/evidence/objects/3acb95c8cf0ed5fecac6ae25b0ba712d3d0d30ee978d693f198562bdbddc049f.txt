@@ -1,0 +1,176 @@
+# Claude brainstorm candidate static source review
+
+The frozen candidate requires revision. One MAJOR finding affects R07 and R09: three current derivation entries still contain baseline file hashes while asserting that the package destinations were verified after the last write. The other eight criteria pass within this static scope. No score or percentage is calculated.
+
+This report evaluates the current candidate in full. It does not adjudicate earlier findings, authorize source changes, establish native operation, or grant acceptance.
+
+## Scope, identity and custody
+
+- Reviewer: `/root/r9_claude_source_fresh_review`, a separate static reviewer context.
+- Target: the twenty files under `inputs/claude/candidate/devforge-brainstorm/`.
+- Entrypoint: `SKILL.md`, SHA-256 `a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c`, 20,207 bytes.
+- Scoped input manifest: `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/CLAUDE-SOURCE-INPUTS.json`, SHA-256 `f184155b93a755d4062c31b0abf5505aa8b5424265bf6174f4713d09a8baf0c0`.
+- The manifest digest was verified first. Every one of its 56 listed files was then read as raw bytes and checked against its listed size and SHA-256 before candidate text was read. All matched.
+- Output ownership: the exclusive new `/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-claude-source/` directory. Its creation succeeded without overwriting an existing directory. No evaluated source or other review output was modified.
+
+Actual model configuration and client/version were not exposed and are recorded as unknown. The target provider is Claude; that does not identify this reviewer's model.
+
+The first-work UTC clock was 2026-09-07 16:43:36. The original deadline is 17:03:36, with the last five minutes reserved beginning 16:58:36. Source analysis completed at 16:48:10. The deadline was not reset or extended. Final persistence/readback timing and report identities are in the separate receipt and final delivery.
+
+## Governing evidence and independence limits
+
+The selected artifact, execution and skill-authoring contracts are revision 2. The selected SKILL-001 specification and the two selected shared templates also govern. The frozen r7 design and managed-runtime bridge select the v1 interface. The bridge supersedes only the old no-hooks choice and model-owned mechanical closeout; it does not waive identity, adoption, attribution, ownership, reference or acceptance rules.
+
+The frozen validator rubric supplies R01–R10 and reporting vocabulary, and its AI-review template supplies the JSON report shape. The validator's current workflow and context notes do not replace the selected Claude contract revisions. The template's usual structural-result reference was replaced explicitly with the scoped source manifest because no structural validator was executed.
+
+This was a separate task-specific prompt context, not a demonstrated OS, filesystem, process, client-history or memory sandbox. The developer-provided memory summary was automatically visible and included related DevForge brainstorming history; it was not used as evidence, and no memory/history files were consulted. No live source, root CUSTODY, other review, run control, repair map or author report was opened. No network or subagent was used.
+
+The allowed candidate `references/derivation.json` itself exposes author history, alleged verification, previous finding IDs/severities and chronology, including lines 176–216, 224–272, 340–385 and 419–429. The selected bridge also describes earlier outcomes at lines 46–52. Those assertions were treated as unverified embedded material, not conclusions to reproduce; their targets were not opened. This limits blinding and is disclosed rather than represented as full isolation. The new finding below comes from the current frozen bytes and selected requirements.
+
+Authored eval expectations and held-out trigger split are visible as package source. They were reviewed for static consistency; this reviewer is consequently unsuitable as a clean task worker for those native cases. No evaluation outcome is inferred from an expected-output string.
+
+## Material finding
+
+### R9-CLAUDE-STATIC-001 — stale current destination hashes
+
+Severity: **MAJOR**. Disposition: **REVISE**. Affected criteria: **R07, R09**.
+
+Trigger: a maintainer or consumer reads/verifies the current package derivation entries for the three operative instruction files.
+
+| Destination | Declared current SHA-256 | Verified candidate SHA-256 |
+| --- | --- | --- |
+| `SKILL.md` | `dc5920c79dd7b9364cb671801d8e8be5d0a7c0e288d15b3c38383a6e1899d3ca` | `a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c` |
+| `references/recording-rules.md` | `8ab3e94554a55e518d5b4d33f37ba9614fa756fc121b25334f172e523aaf1013` | `5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3` |
+| `references/managed-runtime.md` | `0661f7ac401106cc6a3e155aeac2020de96d2c1763e74268a1aab72a163e5c02` | `6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30` |
+
+All three declared values match the corresponding listed baseline files. The current values were verified against the candidate raw bytes before review.
+
+The stale fields occur in candidate `references/derivation.json` at lines 80–82, 219–220 and 276–277. The associated claims at lines 145, 267 and 321 explicitly say each destination digest equals the package bytes read back after the last write. The appended revision-009 change record at lines 340–385 describes edits but provides no replacement current destination hashes.
+
+The selected `skill-authoring-contract.md:53` requires exact source and destination SHA-256 values for package copies/derivations. Lines 69–70 keep changed candidate identities and acceptance separate. The selected `artifact-contract.md:109–111` likewise requires exact file identities and retains old results against old inputs. The current fields cannot satisfy these requirements by describing earlier bytes.
+
+Impact: the required provenance record falsely identifies the operative instruction revision and cannot establish package freshness. The failure affects all three changed instruction bindings, which supports MAJOR severity under the rubric's incorrect-required-behavior anchor. It does not establish that native brainstorming, activation or delivery failed.
+
+Bounded correction for the assigned Claude source author, under the integration owner: refresh the three current destination hashes from final source bytes, keep the old hashes as explicitly historical entries, and reconcile the corresponding verified statements. Preserve operative instructions, selected contracts/templates and historical outcomes. Do not insert this derivation record's own complete-byte digest inside it.
+
+After a separately authorized repair, verify every current destination binding against the new frozen package and retain the new candidate identity for affected review and later evaluation. The metadata repair alone closes no native result. This evaluator has made no repair.
+
+## Complete criterion dispositions
+
+### R01 — PASS
+
+Applicable: every skill; the candidate is an early product-idea brainstorming skill.
+
+Discovery metadata and the full four-phase entrypoint identify exploration/refinement and exclude accepted-story implementation or reopening adopted decisions. Required ledger and handoff are in scope. No native activation is inferred.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/SKILL.md:1-15`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:85-143`.
+
+Required behavior: `inputs/issued-r9/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md:10-18`; `inputs/issued-r9/SKILL-DESIGN-SPECIFICATION-r7.md:5-13`.
+
+### R02 — PASS
+
+Applicable: inputs, saved artifacts and completion are central to the declared task.
+
+Consequential missing information prompts a real question; ordinary unknowns remain explicit. Selected paths/identities govern ledger and handoff, templates supply consumer fields, and drafts are distinct from runtime mechanical completion. Handoff-only mode is externally selected.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/SKILL.md:50-83`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:112-129`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:145-191`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:104-160`; `inputs/claude/candidate/devforge-brainstorm/assets/idea-ledger.md:1-50`; `inputs/claude/candidate/devforge-brainstorm/assets/handoff.md:1-74`.
+
+Required behavior: `inputs/issued-r9/SKILL-DESIGN-SPECIFICATION-r7.md:13-25`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:17-42`; `inputs/issued-r9/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md:55-65`.
+
+### R03 — PASS
+
+Applicable: DevForge skill authoring local artifacts can mutate project state.
+
+Current authorization and scope control decisions; recorded acceptance is not silently adopted. Existing delegation is honored. Selected paths, artifact identities, ownership and archive permissions constrain writes, with no unassigned escape destination or worker-created session authority.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/SKILL.md:60-108`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:120-131`; `inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:90-133`.
+
+Required behavior: `inputs/issued-r9/selected/claude/shared/docs/mvp/execution-contract.md:15-29`; `inputs/issued-r9/selected/claude/shared/docs/mvp/execution-contract.md:89-96`; `inputs/issued-r9/selected/claude/shared/docs/mvp/skill-authoring-contract.md:114-120`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:9-17`.
+
+### R04 — PASS
+
+Applicable: ordinary, blocked, stale-input and routed paths are declared.
+
+The source provides four ordered phases, an owner-selected Recover-to-Focus route, awaiting_user evidence that preserves the current phase, and bounded correction/deadline failures. Missing archives, contested writes and stale inputs remain explicit. The explicit unique-ledger rule controls current handoff binding; other upstream entries must not duplicate that ledger by ID or path.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/SKILL.md:85-143`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:37-80`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:104-132`; `inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:61-78`; `inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:135-147`.
+
+Required behavior: `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:23-36`; `inputs/issued-r9/runtime/phase_state.py:515-577`; `inputs/issued-r9/runtime/delivery_core.py:471-492`.
+
+### R05 — PASS
+
+Applicable: installed assets/references and an optional externally managed runtime exist; historical helper-specific execution is not selected.
+
+Entrypoint routes both assets and operative references from the installed skill root, separately from project artifacts. Required resources exist in the frozen package. Managed dependency absence has an unmanaged draft outcome and no helper-chain fallback. The preserved helper and authored evals are not required runtime inputs. Installed loading and delivery are unobserved.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/SKILL.md:17-48`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:77-83`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:124-137`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:195`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:32-35`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:152-160`; `inputs/claude/candidate/devforge-brainstorm/scripts/check_artifact.py:1-16`.
+
+Required behavior: `inputs/issued-r9/selected/claude/shared/docs/mvp/skill-authoring-contract.md:47-61`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:17`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:36`; `inputs/issued-r9/runtime/README.md:30-37`.
+
+### R06 — PASS
+
+Applicable: user records, earlier artifacts, research and supplied documents are read.
+
+Read content is distinguished from current provider context and cannot supply permissions or phase assignments. Supplied change acceptance cannot replace actual scoped authorization. Synthetic ownership data applies only while operating under the selected fixture, not as authority over real assignments.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/SKILL.md:28-40`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:87-108`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:9-15`; `inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:123-125`.
+
+Required behavior: `inputs/issued-r9/selected/claude/shared/docs/mvp/artifact-contract.md:101-103`; `inputs/issued-r9/selected/claude/shared/docs/mvp/execution-contract.md:106`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:15`.
+
+### R07 — FAIL
+
+Applicable: framework artifact provenance and package derivation both apply.
+
+Artifact instructions otherwise preserve stable IDs, exact references, adoption state and acyclic digest ordering, but three current package derivation destination hashes demonstrably bind baseline bytes instead of the frozen current candidate. See R9-CLAUDE-STATIC-001.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:7-88`; `inputs/claude/candidate/devforge-brainstorm/references/derivation.json:80-82`; `inputs/claude/candidate/devforge-brainstorm/references/derivation.json:219-220`; `inputs/claude/candidate/devforge-brainstorm/references/derivation.json:276-277`.
+
+Required behavior: `inputs/issued-r9/selected/claude/shared/docs/mvp/skill-authoring-contract.md:53`; `inputs/issued-r9/selected/claude/shared/docs/mvp/artifact-contract.md:109-113`.
+
+### R08 — PASS
+
+Applicable: prompt organization and point-of-use access are reviewed.
+
+Core work, destination precedence and completion are in the entrypoint; detailed envelope/failure and managed checkpoint rules are linked when needed. Templates agree with operative rules, with bridge-selected runtime receipt ownership taking precedence over preserved manual-template boilerplate. No arbitrary length, heading or style gate is imposed.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/SKILL.md:17-26`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:145-195`; `inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:45-88`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:134-160`; `inputs/claude/candidate/devforge-brainstorm/assets/handoff.md:67-74`.
+
+Required behavior: `inputs/issued-r9/selected/claude/shared/docs/mvp/skill-authoring-contract.md:47-59`; `inputs/issued-r9/selected/claude/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md:113`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:9`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:36-42`.
+
+### R09 — FAIL
+
+Applicable: source includes completion/check claims and retained authored evaluation materials.
+
+Task instructions distinguish draft, unavailable, mechanical and semantic results, and eval definitions retain meaningful paired cases without claiming execution. However, derivation.json explicitly states three current destination hashes equal package bytes after last write; independent raw-byte verification disproves all three statements. This is the same provenance defect as R07, not a second finding.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/references/derivation.json:144-145`; `inputs/claude/candidate/devforge-brainstorm/references/derivation.json:267`; `inputs/claude/candidate/devforge-brainstorm/references/derivation.json:321`; `inputs/claude/candidate/devforge-brainstorm/references/recording-rules.md:139-157`; `inputs/claude/candidate/devforge-brainstorm/evals/evals.json:90-128`; `inputs/claude/candidate/devforge-brainstorm/evals/evals.json:147-250`; `inputs/claude/candidate/devforge-brainstorm/evals/triggers/trigger-queries.json:3-4`.
+
+Required behavior: `inputs/issued-r9/selected/claude/shared/docs/mvp/skill-authoring-contract.md:53`; `inputs/issued-r9/selected/claude/shared/docs/mvp/artifact-contract.md:69-73`; `inputs/validator/references/ai-review-rubric.md:109-115`.
+
+### R10 — PASS
+
+Applicable: every DevForge skill has handoff anchors; this candidate also describes managed enforcement.
+
+Phase evidence, selected artifacts and runtime-owned transitions/completion remain distinct from adoption and semantics. One-correction/deadline failures block dependent work. Handoff names outputs, checks, owner and a concrete continuation; operator-owned receipt work is excluded from worker repair. Runtime design description does not establish installed activation or rendering.
+
+Candidate/evidence: `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:22-35`; `inputs/claude/candidate/devforge-brainstorm/references/managed-runtime.md:104-150`; `inputs/claude/candidate/devforge-brainstorm/SKILL.md:133-191`; `inputs/claude/candidate/devforge-brainstorm/references/derivation.json:320-321`; `inputs/claude/candidate/devforge-brainstorm/assets/handoff.md:44-74`.
+
+Required behavior: `inputs/issued-r9/SKILL-DESIGN-SPECIFICATION-r7.md:19-41`; `inputs/issued-r9/AUTHORING-RUNTIME-BRIDGE-r7.md:21-42`; `inputs/issued-r9/runtime/README.md:88-102`; `inputs/issued-r9/selected/claude/shared/docs/mvp/execution-contract.md:73-75`.
+
+## Coverage and limits
+
+All twenty current candidate files were read: the entrypoint; two assets; all three references; the preserved helper source; evals.json; reference-regressions.json; trigger-queries.json; and all ten listed fixtures. The six selected Claude shared documents/templates were inspected. The selected runtime README and hook protocol were read, with the relevant phase-state checkpoint/transition/context code and delivery-core artifact/ledger-binding interface inspected. This is not a security or completeness audit of the runtime implementation.
+
+The baseline was used only for source comparison. All baseline file sizes and hashes were verified. Sixteen of twenty candidate files are byte-identical to baseline. SKILL.md, recording-rules.md, managed-runtime.md and derivation.json differ; the three operative instruction diffs were inspected alongside full current contents. No claim of behavioral improvement follows from these differences.
+
+The two candidate assets match their selected shared-template hashes exactly. The retained helper is historical/resource source, not an operative managed-workflow command; the selected bridge explicitly preserves it without invocation. Its presence therefore does not create a requirement to execute it here. Existing eval fixtures are not completed outputs, so their deliberate gaps are not graded as newly emitted artifact defects.
+
+The source's explicit one-entry rule rejects a duplicate current-ledger binding by ID or path. References to an earlier revision of that same stable ledger must therefore preserve lineage without adding a second selected-ledger entry in the handoff upstream; the reference's permission to retain other upstream entries does not override its explicit uniqueness constraint. This was assessed against frozen delivery_core.py:471–492, not a newer utility contract.
+
+No candidate helper was executed or imported. No tests, install/export, native client, native admission, hooks, model-worker run or semantic grader ran. A/B/C remain NOT_RUN. Native admission was unavailable and unattempted for this allocation; the frozen runtime README:30–37 also states refusal. Installed-resource loading, activation, actual callbacks, native completion and rendered receipt delivery remain unobserved. This static report does not close those observations.
+
+## Handoff
+
+The integration owner receives a complete static **REVISE** disposition with one material finding and exact identities. The assigned Claude source author owns any bounded repair. Preserve this report and the frozen input set; a changed candidate needs a new identity and affected review before any broader claim.
+
+`AI-REVIEW.json` contains every criterion, requirement/evidence location, finding and reviewer limitation. `RECEIPT.json` separately binds the completed JSON and this narrative after full readback. Neither report nor receipt contains its own complete-byte digest.

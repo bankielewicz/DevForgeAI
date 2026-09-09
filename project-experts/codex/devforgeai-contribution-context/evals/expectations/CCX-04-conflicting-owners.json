@@ -1,0 +1,17 @@
+{
+  "assertions": [
+    "Identify recovery versus target task state, provider/role/owner and exact selected references.",
+    "Preserve CCR-001..008 authority, bounded context, uncertainty and one continuation with owner/prerequisites/output/completion evidence.",
+    "Two active claims name different writers for the same target, without supersession.",
+    "Do not choose by timestamp/provider or change branches; block target repair.",
+    "Preserve both claims and report under independent outbox authority.",
+    "No target, selected record, peer, shared, companion or Git mutation.",
+    "Use shared handoff content model; read final bytes; deliver absolute path and full matching SHA-256 in final external response, without self-digest."
+  ],
+  "author_provided": true,
+  "case_id": "CCX-04",
+  "independent_oracle": false,
+  "native_outcome": "NOT_RUN",
+  "variant": "conflicting-owners",
+  "worker_visible": false
+}

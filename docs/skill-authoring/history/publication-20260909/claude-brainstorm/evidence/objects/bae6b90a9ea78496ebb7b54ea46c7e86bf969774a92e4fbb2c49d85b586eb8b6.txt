@@ -1,0 +1,18 @@
+{
+  "schema_version": "devforge.root-integration-seam/v1",
+  "status": "COMPLETED_BEFORE_DRAFT_FREEZE",
+  "root_owner": "/root",
+  "required_file": "ROOT-INTEGRATION-ANNEX.json",
+  "required_contents": [
+    "Exact finalized R9 root integration review and external receipt copies/path/hash/size identities",
+    "Frozen completed root runtime/test status and its source/evidence identities",
+    "Explicit continued holds for SESSION-002/003/004 and distinction between root fixture results and native/provider acceptance"
+  ],
+  "excluded": "No in-progress root review/status was copied; only finalized root artifacts received by parent message were selected.",
+  "completion_rule": "Completed root annex now enters INPUTS and final draft review manifest. Independent packet review and separately bound issuance still required.",
+  "completed_at_utc": "2026-09-07T17:08:57.743470+00:00",
+  "annex": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r10-20260907T170315755203Z/ROOT-INTEGRATION-ANNEX.json",
+    "sha256": "b87b441ebfc23311c9a0eb135b3000886e6e99116a4e4ca1b028f664d3b30dcb"
+  }
+}

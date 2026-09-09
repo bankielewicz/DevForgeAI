@@ -1,0 +1,90 @@
+{
+  "revision": 4,
+  "execution_ref": "SESSION-002@4",
+  "scope": "One anchor/reference package repair; eight native cases, no new activation/baseline claim",
+  "starting_manifest_sha256": "cdc902115302e478314197d330803126eaa7a176c5728cd2ce1c69b637ad4ae8",
+  "unchanged_entrypoint_sha256": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+  "common_delivery": [
+    "Required authorized artifacts actually saved, read back and externally hashed; no invented output paths or self-digest.",
+    "Artifact envelopes truthful: actual producer devforge-brainstorm, idea-ledger/handoff types only, installed identity, source attribution, missing facts disclosed.",
+    "Causal/execution/prior artifact references use sections, project/authority alias and root-relative paths resolving exact ID/revision/SHA-256. Missing stable source IDs disclosed, never invented. Absolute paths/mount maps separate.",
+    "Standardized input/output, observed-verification, continuation tables in successful, blocked and routed handoffs with real owner, prerequisites, completion evidence and copyable immediate task.",
+    "No required template placeholders or fabricated PASS/adoption. Named behavior, required delivery/reference shape and overall case separately graded.",
+    "Handoff creation records only already observed checks; later readback/publication remains NOT_RUN and receipt path planned. No future receipt or final delivery preclaim.",
+    "Actual external JSON receipt files resolve completed task artifacts with matching SHA-256; handoff itself excludes its digest and receipt future state. Allowed Outcome cells exactly PASS, FAIL, NOT_RUN, COULD_NOT_RUN, NOT_APPLICABLE.",
+    "Every newly authored handoff and ledger section has a unique stable ID; required seven handoff section titles and required tables retained. Fenced examples and unchanged snapshots are not newly authored sections.",
+    "New references to legacy sources lacking stable section IDs use sections:[]; preserve actual selector bytes and selected row IDs separately. No invented heading IDs or lost row attribution."
+  ],
+  "B_named_behaviors": {
+    "B4": "Merged idea gets a new ID linked to both IDEA-001 and IDEA-002; the originals stay in the table with their links; ledger revision increments and supersedes the prior revision; the merge is recorded as proposed unless the user's words are treated as adoption.",
+    "B5-interest": "Preserve AI A1 attribution. No adoption or decision reference from interest alone.",
+    "B5-adopt": "Preserve AI A1 attribution. Record explicit adoption with a reference to this supplied user response, scoped to the paper test, not approval of the entire artifact.",
+    "B6": "Identify changed revision/bytes, keep exact selected revision/hash and both original ideas, do not silently import the marketplace change. Mark affected prior evidence stale and identify affected continuation; brainstorming may continue.",
+    "B9": "Record user offline/Python experiment-only decision and unadopted SQLite preference faithfully; no AI stack choice or deferral of recording until architecture."
+  },
+  "B6_original_limit": "Original inputs unchanged; invalidation object absent and its original unexercised clause remains NOT_APPLICABLE for that case. B6E supplies separate coverage.",
+  "B6E": {
+    "historical_check": "Historical byte-equality PASS remains valid in both arms; old receipt unchanged.",
+    "present_applicability": "Recheck selected r1 against actual current_path. Drift must identify mismatching r2; control must preserve present applicability to matching r1.",
+    "dependent_continuation": "Drift continuation using mismatched current_path stale/blocked before reliance; control continuation remains usable under its unchanged identity prerequisite. Useful selected-r1 exploration may proceed in both.",
+    "selection": "Preserve selected r1, original ideas, receipt and continuation; no silent marketplace adoption or changed frozen inputs. New checks separately recorded.",
+    "grading": "Three facts graded separately from delivery and native completion; synthetic capability only, no production cache/acceptance service."
+  },
+  "native_cases": [
+    "C-candidate",
+    "B4-candidate",
+    "B5-interest-candidate",
+    "B5-adopt-candidate",
+    "B6-candidate",
+    "B9-candidate",
+    "B6E-drift",
+    "B6E-control"
+  ],
+  "budget": {
+    "declared_at_utc": "2026-09-05T15:48:00.815449+00:00",
+    "iteration_start_utc": "2026-09-05T15:46:24+00:00",
+    "hard_deadline_utc": "2026-09-05T17:16:24+00:00",
+    "wall_clock_minutes_max": 90,
+    "candidate_revisions": 1,
+    "native_attempts_max": 8,
+    "per_attempt_seconds": 600,
+    "concurrent_native_workers_max": 2,
+    "automatic_retries": 0,
+    "model_infrastructure_retry_reserve": 0,
+    "cases": [
+      "C-candidate",
+      "B4-candidate",
+      "B5-interest-candidate",
+      "B5-adopt-candidate",
+      "B6-candidate",
+      "B9-candidate",
+      "B6E-drift",
+      "B6E-control"
+    ],
+    "exact_candidate_assertion_fixture_pins": "To be frozen in measurement-plan.json before native calls",
+    "native_calls_so_far": 0
+  },
+  "fixture_manifest_sha256": "ce31525f75d20b1518fce6a687ca8ab867564738013a19a5b988fcd1d1a71dcd",
+  "worker_request_sha256": "3ea2e22b1cfce8681e68bec8e1a8ca92720f4f502398c334ad48950315778303",
+  "grader_only": [
+    "MANIFEST.json",
+    "EXPECTED.json",
+    "FIXTURE-CHECK.json",
+    "preparation/**",
+    "review/assignment/grading records"
+  ],
+  "deterministic_assertions": "evals/check_anchors.py and evals/test_anchors.py; delivery helper scope unchanged",
+  "retained_coverage": "Previous nineteen successful native results on prior resource package, including seven original consultation queries against unchanged SKILL.md. These are not fresh runs of revised resources.",
+  "skipped_new_runs": [
+    "A entire suite",
+    "baseline",
+    "B1",
+    "B2",
+    "B3",
+    "B7",
+    "B8",
+    "B10",
+    "21-case process campaign"
+  ],
+  "acceptance": "NOT_RUN"
+}

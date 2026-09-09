@@ -1,0 +1,33 @@
+{
+  "files_sha256": {
+    "SKILL.md": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+    "assets/handoff.md": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9",
+    "assets/idea-ledger.md": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e",
+    "evals/assertions-revise-001.json": "f314c0d9a94d355d58b639638b2b2468e8243e7c76f8565be271382bf258e97a",
+    "evals/assertions-revise-002.json": "83a350fb6908e5ab5fdb3cdec94d621f7f43554e41eef2481f7f780862c6e42f",
+    "evals/assertions-revise-003.json": "89b74fb7d0b87a7ddc25e68a176d49a4746297c82b913eaf65c88070770326d8",
+    "evals/assertions-revise-004.json": "e6f94665e3b26011c9896e3bd28f2493ecb9c3e8f13267d31591c8802c5799e8",
+    "evals/check_anchors.py": "0eafb40a442460e7c4e4736c0a6cd74ed0923fb73be8a255fec7a27a53ee9ebd",
+    "evals/evals.json": "9b0a44071c91502b615c5d581050899bd01526b1afe357c54cc259c7a6ffcbca",
+    "evals/fixtures/IDEAS-001-current.md": "7a8169f7291924f19618e7fd5392bdf3f29739c4ad5074c0e4c6937cd02ba49b",
+    "evals/fixtures/IDEAS-001-r1.md": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+    "evals/fixtures/IDEAS-001.md": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+    "evals/fixtures/STORY-014.md": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+    "evals/fixtures/b7/operator-assignment.md": "c4e619e8740bfff8eb695cf5ac5ba247e0feefbeafd88f46165cd57036593d9a",
+    "evals/fixtures/b7/operator-expectations.json": "85b7456fe49e3835278fd7abc2aff1a410b602041cc9acccce2cf18df1798ef4",
+    "evals/fixtures/b7/worker-request.txt": "ccbf1e1bac0bb68ed4c54733e74da0cc0e5c6cbca8e46ccf1202da528d6af1bf",
+    "evals/fixtures/proposal-context.txt": "1741f5fd122423d425b411838b082392c385be739d4af134f1c84f8371544a39",
+    "evals/fixtures/selected-input.json": "d579ad85f7593f3c54b67ec470fc6fc66a7aed787ab14cc7471e478c6a7b5e6f",
+    "evals/installed-resources.json": "3a13a3bdf8e262ee89416d54d4ba7de2d73bf751576c6ab68fb7e8d508f31283",
+    "evals/provenance.json": "85c6389ec252577def9b4072af6c05569016574ecc92f5d4a2cc963406afa233",
+    "evals/reference_identity_v4.py": "5dbbc380e05a9104e571c2364a45773fa9eb34f4f7240ac35e2d0b27a6009367",
+    "evals/test_anchors.py": "78b3fb4f7c6c115e0892650dc7ab038b8076f4bd110782f576154768d145f43c",
+    "evals/test_delivery_check.py": "ffa2b377cfa3e7285efc0940f1ea75c12f3378f831e8804032191d677b944c57",
+    "evals/test_reference_identity_v4.py": "011d212e723c099b82458a4eab47124ac7066ae143d9c71831de781657bb185f",
+    "evals/triggers/queries.json": "95369f479d979db6c20108abbd3206f6061097c76b80b5276c51c42ced11eb6b",
+    "references/artifact-workflow.md": "8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9",
+    "references/derivation.json": "11504c3881b17e52e8d8d2113c3fe26a22ca98530ba04a43baa8a4def4c7258e",
+    "scripts/artifact_receipt.py": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449",
+    "scripts/delivery_check.py": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872"
+  }
+}

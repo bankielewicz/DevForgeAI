@@ -1,0 +1,18 @@
+{
+  "allocation": "R9 receipt/reference static review",
+  "reviewer": "/root/r7_claude_controls_review",
+  "cold_session": false,
+  "reuse": "Reviewed R7 controls and R8 proposals in earlier allocations. New R9 allocation; original finding IDs/statuses retained.",
+  "first_work_utc": "2026-09-07T16:44:39.655603Z",
+  "basis": "Conservative earliest R9 task receipt and assignment-continuation note timestamp, before context transition and first clock observation at 16:45:14 UTC.",
+  "max_seconds": 1080,
+  "reserve_seconds": 240,
+  "reserve_start_utc": "2026-09-07T16:58:39.655603Z",
+  "hard_stop_utc": "2026-09-07T17:02:39.655603Z",
+  "execution_policy": "Static text and own standard-library custody only; no candidate imports, helpers, tests, native calls, network, or subagents.",
+  "initial_recorded_first_work_utc": "2026-09-07T16:44:49.592821Z",
+  "clock_correction": {
+    "at_utc": "2026-09-07T16:49:03.239731+00:00",
+    "reason": "Include assignment recovery before context transition; shortened all boundaries by 9.937218 seconds. No extension or fresh allocation."
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "schema_version": "devforge.r9-static-review-receipt/v1",
+  "reviewer": "/root/r7_claude_controls_review",
+  "cold_session": false,
+  "reviewer_reuse_disclosed": true,
+  "review_scope": "R9 receipt/reference checkers and discriminating fixtures; CHG-006/021 and CHG-016/019",
+  "disposition": "REVISE_EXECUTABLE_CHECKERS_AND_COMPLETE_SUITE",
+  "finding_ids": [
+    "CC9-RR-001",
+    "CC9-RR-002",
+    "CC9-RR-003"
+  ],
+  "published_at_utc": "2026-09-07T16:55:06.401754+00:00",
+  "full_readback_completed_before_publication": true,
+  "full_readback_scope": "Complete bytes of all selected inputs, manifest and four report/selection/allocation outputs; REVIEW.md, FINDINGS.json and ALLOCATION.json also read back as full text. All selected bytes/hash values unchanged. This is custody only, not test execution.",
+  "input_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/INPUT-MANIFEST.json",
+    "bytes": 125909,
+    "sha256": "c8054e31b9a8f7c184b30464a8c8a4e4acee0d5bd53cba8144cc9efdbb606e7b"
+  },
+  "selected_input_count": 27,
+  "selected_inputs": {
+    "inputs/claude/run/BUILDER-CHANGE-RECEIPT.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/BUILDER-CHANGE-RECEIPT.json",
+      "bytes": 30045,
+      "sha256": "a9ba69cb69df34b64313d3d44247af17206e76781c320815cfdd1a2c779bae60"
+    },
+    "inputs/claude/run/baseline/control-baseline-r7/checkers/check_receipts.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/checkers/check_receipts.py",
+      "bytes": 12631,
+      "sha256": "88fe0b26c004883663b6acede7ab183f06969ba8c97896946042c59f47e7596c"
+    },
+    "inputs/claude/run/baseline/control-baseline-r7/checkers/validate_references.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/checkers/validate_references.py",
+      "bytes": 21494,
+      "sha256": "56873b5b1b0abc362c2979b3ef1c7ed77ccba2abd24a96e8678cdaa7f53e5ffe"
+    },
+    "inputs/claude/run/baseline/control-baseline-r7/control/PLAN.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/control/PLAN.json",
+      "bytes": 7384,
+      "sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e"
+    },
+    "inputs/claude/run/baseline/control-baseline-r7/no-model-tests/checks_suite.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/baseline/control-baseline-r7/no-model-tests/checks_suite.py",
+      "bytes": 21502,
+      "sha256": "fa4f3138f15c4ac484344bd6a4cbb6331b955fad17bbf9246edee368aae74d34"
+    },
+    "inputs/claude/run/source/checkers/check_receipts.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/checkers/check_receipts.py",
+      "bytes": 16009,
+      "sha256": "f5941d4b4cd053a0c87550e1637fd105614e9c54e1ae64e3c6ac18b6c5d28ea4"
+    },
+    "inputs/claude/run/source/checkers/validate_references.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/checkers/validate_references.py",
+      "bytes": 26901,
+      "sha256": "271093e6d345f244a9ccfbc79422978b81016e5f4bca6386c3aa879cec646222"
+    },
+    "inputs/claude/run/source/fixtures/chg-019-absence-disclosure/INDEX.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/fixtures/chg-019-absence-disclosure/INDEX.json",
+      "bytes": 1740,
+      "sha256": "4bd7b4558cadd915d506d24a254132bcd2e3056d6afec3ce2d0fc62133e3060a"
+    },
+    "inputs/claude/run/source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md",
+      "bytes": 733,
+      "sha256": "8de2f827a551abf2da6d3aa7d24a62c13881325e687b91de3e17ea149e6268b2"
+    },
+    "inputs/claude/run/source/fixtures/chg-021-receipt-spans/INDEX.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/fixtures/chg-021-receipt-spans/INDEX.json",
+      "bytes": 1771,
+      "sha256": "a6e472df0711b7dbcc1e7196dcfc97faf8726dc2dfd83aacee992a166382bfab"
+    },
+    "inputs/claude/run/source/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt",
+      "bytes": 110,
+      "sha256": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f"
+    },
+    "inputs/claude/run/source/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt",
+      "bytes": 226,
+      "sha256": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae"
+    },
+    "inputs/claude/run/source/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt",
+      "bytes": 137,
+      "sha256": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44"
+    },
+    "inputs/claude/run/source/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt",
+      "bytes": 109,
+      "sha256": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59"
+    },
+    "inputs/claude/run/source/no-model-tests/cases_r9.py": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/claude/run/source/no-model-tests/cases_r9.py",
+      "bytes": 5323,
+      "sha256": "32b46f599f0343100151a0141e2040fe2f5db80aa8869d1e756927fb0ce4834e"
+    },
+    "inputs/issued-r9/REMEDIATION-SPECIFICATION.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/REMEDIATION-SPECIFICATION.md",
+      "bytes": 9926,
+      "sha256": "a9d707e4b676585c11bdb8f1d14c8379b9f6ad03b8f7fe32aefe949e8fdfda6b"
+    },
+    "inputs/issued-r9/REPAIR-MAP.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/REPAIR-MAP.json",
+      "bytes": 22908,
+      "sha256": "eff24a1f400cbd863e6728b9dc5bf738bf851bb82a916a755043e0947d45e6c9"
+    },
+    "inputs/issued-r9/selected/claude/control-baseline-r7/control/PLAN.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/selected/claude/control-baseline-r7/control/PLAN.json",
+      "bytes": 7384,
+      "sha256": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e"
+    },
+    "inputs/prior-reviews/review-claude-proposals/FINDINGS.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-reviews/review-claude-proposals/FINDINGS.json",
+      "bytes": 12494,
+      "sha256": "2c28a2d320ca1acdcbec08b3a3d52ff42634046162a9b878d921f76660264fd8"
+    },
+    "inputs/prior-reviews/review-claude-proposals/REVIEW.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-reviews/review-claude-proposals/REVIEW.md",
+      "bytes": 15792,
+      "sha256": "8a6da34891f75a66920132185b7f5fc289a4550d8d91c16aeaf622675632e675"
+    },
+    "inputs/issued-r9/selected/claude/shared/docs/mvp/artifact-contract.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/issued-r9/selected/claude/shared/docs/mvp/artifact-contract.md",
+      "bytes": 10482,
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    },
+    "inputs/prior-r8-proposals/UNEXECUTED-PROPOSALS.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-r8-proposals/UNEXECUTED-PROPOSALS.json",
+      "bytes": 22916,
+      "sha256": "ba4023884e5c49613336d0e9dd95f4ee8aa5426b8909265752d4a21c33b1b420"
+    },
+    "inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/FIXTURE-INDEX.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/FIXTURE-INDEX.json",
+      "bytes": 1064,
+      "sha256": "ece2d995e3c1864b4c00a2d70ce3b3972381a95aae310adae6bc6c3a162e4bd7"
+    },
+    "inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/NEG-disclosed-other-unknown.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/NEG-disclosed-other-unknown.md",
+      "bytes": 577,
+      "sha256": "435d41dd96d1eff4fb0d66235042ee13aa50d72de79b20f244893a555b014400"
+    },
+    "inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/NEG-undisclosed.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/NEG-undisclosed.md",
+      "bytes": 443,
+      "sha256": "c07af4eef2155528fc010e6266b26e0b455ae20e0dfa763a7ef7594f0ff13433"
+    },
+    "inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/POS-disclosed-sections.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/POS-disclosed-sections.md",
+      "bytes": 518,
+      "sha256": "30cac1547fdc8274442e74123f28a00bcd1a29d11dc15ff7ae62790bf6321319"
+    },
+    "inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/TARGET-NO-SECTIONS.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/inputs/prior-r8-proposals/fixtures/chg-016-absence-disclosure/TARGET-NO-SECTIONS.md",
+      "bytes": 149,
+      "sha256": "103bdc02105ace4c1eb5b6ddea626033336b445fc38c24cedab5b9e491aebc43"
+    }
+  },
+  "outputs": {
+    "ALLOCATION.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-receipts-references/ALLOCATION.json",
+      "bytes": 1086,
+      "sha256": "12ae1705bb7ec79d3c1fc85107e8936a490d45124115d225fffe3aed46396b33"
+    },
+    "INPUT-SELECTION.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-receipts-references/INPUT-SELECTION.json",
+      "bytes": 10682,
+      "sha256": "565684c75442a5a9e5ad7af4c9f6d5727f5222db1f2d6dc79768a36c1da57dfa"
+    },
+    "FINDINGS.json": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-receipts-references/FINDINGS.json",
+      "bytes": 14962,
+      "sha256": "3b48f0fee6c5a8b610df9ecb7273a418d7b5582885cf6d5dd0a07071c1f9e4ea"
+    },
+    "REVIEW.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r9-20260907T164248604482Z/review-receipts-references/REVIEW.md",
+      "bytes": 18121,
+      "sha256": "7c4d9f51a99ded4e4b63fa0480b18735d424bbdff9e0bc6cbc0533d02fe9e93e"
+    }
+  },
+  "allocation": {
+    "allocation": "R9 receipt/reference static review",
+    "reviewer": "/root/r7_claude_controls_review",
+    "cold_session": false,
+    "reuse": "Reviewed R7 controls and R8 proposals in earlier allocations. New R9 allocation; original finding IDs/statuses retained.",
+    "first_work_utc": "2026-09-07T16:44:39.655603Z",
+    "basis": "Conservative earliest R9 task receipt and assignment-continuation note timestamp, before context transition and first clock observation at 16:45:14 UTC.",
+    "max_seconds": 1080,
+    "reserve_seconds": 240,
+    "reserve_start_utc": "2026-09-07T16:58:39.655603Z",
+    "hard_stop_utc": "2026-09-07T17:02:39.655603Z",
+    "execution_policy": "Static text and own standard-library custody only; no candidate imports, helpers, tests, native calls, network, or subagents.",
+    "initial_recorded_first_work_utc": "2026-09-07T16:44:49.592821Z",
+    "clock_correction": {
+      "at_utc": "2026-09-07T16:49:03.239731+00:00",
+      "reason": "Include assignment recovery before context transition; shortened all boundaries by 9.937218 seconds. No extension or fresh allocation."
+    }
+  },
+  "elapsed_seconds_at_publication": 626.746151,
+  "original_findings_preserved": true,
+  "source_or_authority_edits": false,
+  "other_review_outputs_modified": false,
+  "candidate_or_test_execution": false,
+  "network_used": false,
+  "children_spawned": false,
+  "validation": "NOT_PERFORMED",
+  "native_C_B_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "receipt_digest_policy": "This receipt contains no digest of itself. Its complete SHA-256 is returned externally after receipt readback."
+}

@@ -1,0 +1,1 @@
+Prepare a contribution checkpoint from packet.json and the referenced evaluation records.

@@ -1,0 +1,161 @@
+# R11 authoring record — what was written, and why
+
+One allocation, SESSION-001@11, one new run, no execution of anything authored here, and
+no change to any of the twenty skill-package files.
+
+## The package
+
+All twenty files are read-only in this allocation and all twenty verified byte-exact
+against the frozen pins, before and after. `references/derivation.json` is unchanged at
+`eafe53ec…`. The R11 source review passes R01–R10 with no supported current source
+finding, which is a static observation and closes nothing.
+
+## The control tree
+
+`baseline/effective-controls-r10/` holds the 33 selected R10 files unchanged. `source/`
+is the copy this run edited: 12 modified, 21 preserved, 29 added, 62 files final.
+
+The R10 review returned fourteen checker/control records. Several describe the same
+underlying mistake in different places: **a case that produces the expected outcome for a
+reason unrelated to what it claims to test.** A negative that fails because its target is
+missing, a positive that cannot resolve its own preflight path, a decoy rejected by a
+length cap instead of by the association rule — each looks like coverage in a summary and
+is not. Most of the work below is making the expected outcome arrive by the intended
+route.
+
+### The checkers
+
+**Section disclosure (CC10-RR-001).** The reported case was
+`"SOURCE-001: unable to read the section list, so no sections are cited."` passing as an
+inspected absence. The cause was narrower than it looked: `_UNKNOWN` matched
+"unreadable", "could not read" and "cannot read", but not **"unable to read"** — that
+phrasing hit none of the alternatives, so the sentence fell through to `_ABSENCE` on its
+trailing "no sections are cited". Three changes: the unknown vocabulary now covers
+"unable/failed/refused to read", `_CLAUSE` splits on the comma as well (so
+`"SOURCE-001 has no authoring date, while SOURCE-902 has no stable sections."` no longer
+carries the section fact across to the artifact it was not written about), and
+`section_absence_state()` states the precedence once — for a single artifact, an unknown
+about its sections defeats an absence. That last rule is what keeps
+`"…, so no sections are cited"` an unknown while leaving
+`"…, and its authoring date is unknown"` a valid absence: only clauses about *sections*
+are recorded at all, so an unrelated unknown never reaches the decision.
+
+**Locator ownership (CC10-RR-002).** `WORDISH` listed the obvious filename characters and
+omitted the rest, so `/other+/work/arm/a.md` and `/work/arm/a.md+backup` — two different
+complete paths — matched `/work/arm/a.md` because `+` was not in the set. `PATH_CHAR`
+extends the boundary. The first version of it was too wide: it included brackets,
+parentheses and commas, which would have rejected `](/work/arm/a.md)` and
+`/work/arm/a.md, and` — both still this file's locator. It is narrowed to characters that
+would make the token a *different filename*, and the retained wrapper positives are
+asserted next to the two new negatives so the tightening is visibly not blanket rejection.
+
+**Digest association (CC10-RR-003).** In the physical decoy, a valid bare locator sits on
+line 1 and line 2 reads `sha256 of /other//work/arm/a.md is <digest>`. The wrong-root
+locator was correctly rejected by the form check — and rejecting it is exactly what left
+its digest looking unowned, so `labelled_next_line` handed it to the valid locator above.
+`OTHER_PATH`/`_between()` reject a record whose digest is introduced by a different path
+standing between the locator and it. The glue there is 35 characters, read off the
+fixture, so the 40-character cap does not fire: the assertion is about association, which
+is the whole point of the case.
+
+### The control path
+
+**Preflight keys (R10-CI-001).** Entries were keyed `preflight/no-model-tests/<name>`
+while `path_roots` declared no `preflight` root, so both verifiers resolved them under
+`RUN/preflight/no-model-tests/` — a directory that does not exist. One convention now:
+names relative to the declared root, keys `preflight/<name>`, and the root recorded in
+`path_roots`, pointing at the directory GATE-INPUTS actually names.
+
+**Selected roots (R10-CI-002).** The candidate, the delegation fixtures and the export
+were three hardcoded absolute paths, read before anything verified them.
+`SELECTED-ROOTS.json` declares every root and `load_selected_roots()` verifies each one —
+existence, entrypoint digest, file count — *before* any query, plan or module loads. The
+two this allocation does not select stay `null` and are returned as dependent blockers, so
+a phase needing one fails closed instead of reaching a September 5 path. `launch()`
+refuses when no authentic export exists rather than building a command against an assumed
+directory.
+
+**Scratch staging (R10-CI-003).** `build_root` copied `control/*` and `checkers/*` and
+stopped, so once `freeze.CODE` grew to include `cases_r9.py` the constructor raised inside
+`m.build()` before any scenario reached its predicate. `stage_selected_code()` stages
+whatever `freeze.CODE` names, so the two cannot drift apart, and it reports a missing
+entry by name.
+
+**Resume lifecycle (R10-CI-004).** R10 called `main([])` then `main(["--resume"])` on one
+imported module. `run_phases` builds `CTL` at import time and the pause sets
+`CTL.failed`, so the second call re-entered an already-failed controller — B5 could never
+be admitted, and the ordered progression the case claimed to prove was unreachable.
+`_fresh_run_phases()` purges every control import and re-execs the module, so each resume
+gets a reconstructed controller with the same immutable allocation and the saved evidence
+still on disk. A real pause/removal scenario deletes a selected preserved archive during
+the pause and requires the resumed arm to fail.
+
+**Observation classes (R10-CI-006).** Source `runtime.phase_state`, a matching task string
+and any 64 hex characters qualified both implementable classes. None of that establishes
+what the class claims — an ordered checkpoint sequence is a *sequence*, and installed-
+resource consultation names *which* resource. `CLASS_CONTRACT` gives each class the source
+that owns it and the fields that can carry the claim; `_evidence_bytes_match` recomputes
+the digest of the evidence file the record names; a missing outcome is refused rather than
+defaulted to PASS. The aggregate refusal from the three deferred classes is unchanged, and
+this repair does not claim that gate was ever bypassed.
+
+**A identity and the launch seam (R10-CI-007, R10-CI-008).** `run_a_arm` derived the query
+digest from the selector it was handed and compared it against that same selector, so the
+wrong case, a changed query and a changed expectation all passed as unchanged. The fixed
+expectation now comes from `A-CASES.json`, built from the candidate's own trigger file with
+its digest recorded, and the invented `q-1` positive is replaced by the exact selected A3a
+and A5a rows. The launcher is a reachable parameter, the caller is the single owner of
+exclusive directory creation, and the seam receives the verified prompt bytes — local test-
+interface authoring, with no native collector invented and no authority to call a model
+claimed.
+
+**Judgment consumption (R10-CI-009).** A dictionary carrying the published binding and
+`outcome: PASS` satisfied a semantic gate with nobody named and none of the raw evidence.
+Consumption now requires an identified reviewer from a selected authorized set, and an
+evidence inventory whose paths are re-read and re-hashed. Hash and `issued_at` strings do
+not establish post-output chronology; matching raw bytes that only exist after the arm ran
+do.
+
+**Emitter rejection (R10-CI-010).** The digest was length-checked only, and neither the
+authority file nor the issuance record was consulted, so a stale or invented selection
+agreed with itself. `selected_allocation()` now checks hex syntax, re-reads the authority
+file and compares it, requires an issuance record binding the transition, and matches the
+run identity.
+
+## Fixtures
+
+The five R8 reference inputs were omitted from the initial R10 reviewer snapshot. They are
+actively selected, so they are staged and consumed here; the omission was a snapshot gap,
+not author unavailability. Two R10 fixtures were unresolved and are rebound in fresh
+copies: `NEG-unknown-sections.md` pointed at an IDEAS-008 path with an all-zero digest and
+now binds selected IDEAS-900 revision 1; `NEG-false-absence-sectioned-target.md` carried
+revision 1 and a placeholder digest and now binds STORY-014 **revision 3** with its real
+digest — both were wrong, not just the digest. STORY-014's own incomplete ARCH-002
+metadata is preserved rather than made recursively complete.
+
+Four legacy receipt fixtures declare `894e600c…`, and no selected target hashes to it.
+Inventing preimage bytes for a digest is forbidden and would be fabrication, so the
+originals are preserved raw and unconsumed, and fresh variants keep each one's locator,
+association and 64-versus-65-hex structure while binding the selected target's actual
+digest. Every original-to-fresh change is recorded in the fixture INDEX.
+
+## Where this run is honestly short
+
+**R10-CI-009 positive path.** The refusal paths and the closed default are authored and
+asserted. No positive scenario with a valid selected reviewer and a complete raw-evidence
+inventory was authored, because no arm runs here and no authentic reviewer identity is
+selected. That subpart is PARTIAL — local work, not a root gap.
+
+**Root dependencies.** The managed WAITING_USER callback lifecycle and the three
+uncollectable observation classes have no collector in the selected v1 interface. They
+fail closed. An authentic exported package does not exist to bind and is declared
+UNAVAILABLE rather than fabricated.
+
+## Status
+
+Validation NOT_PERFORMED. Tests, native C/B/A, root admission, hook activation and human
+acceptance NOT_RUN. Hooks DESIGN_ONLY. **Zero findings closed** — authored source is not
+observed behaviour, and a static source PASS closes nothing native or historical. No
+creator invocation was made or required. Codex C COULD_NOT_RUN, Codex B NOT_RUN, the prior
+budget failures and the 687-second late write are unchanged, and the three held
+authorities received no work and no prompt.

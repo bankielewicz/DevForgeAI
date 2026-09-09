@@ -1,0 +1,619 @@
+"""Mechanical delivery checks for an externally selected, protected task contract.
+
+This module has no worker/model invocation.  The caller must stop the worker and
+protect the contract, implementation and receipt directory using its supervisor.
+PASS establishes the checks below, never adoption or cognitive phase completion.
+"""
+from __future__ import annotations
+
+from contextlib import contextmanager
+from datetime import datetime, timezone
+import errno
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import stat
+from typing import Any
+
+import yaml
+
+
+CONTRACT_LIMIT = 64 * 1024
+OUTPUT_LIMIT = 1024 * 1024
+INPUT_LIMIT = 8 * 1024 * 1024
+RECEIPT_LIMIT = 128 * 1024
+MECHANICAL_SCOPE = (
+    "Mechanical delivery only: selected input bytes, required artifact identity, "
+    "draft status, real populated section IDs, template-marker absence and "
+    "brainstorm handoff-to-ledger binding. No semantic quality, adoption, "
+    "native behavior or cognitive phase certification."
+)
+PREPARATION_SCOPE = (
+    "Preparation only: fixed task contract, confined paths and selected input "
+    "bytes validated. Required outputs and delivery completion NOT_EVALUATED."
+)
+_HEX = re.compile(r"[0-9a-f]{64}\Z")
+_MARKER = re.compile(
+    r"\{\{[\s\S]*?\}\}|\$\{[\s\S]*?\}|"
+    r"\[(?:TODO|TBD|PLACEHOLDER)(?:\s*:[^\]\n]*)?\]|"
+    r"<(?:TODO|TBD|PLACEHOLDER)(?:\s*:[^>\n]*)?>",
+    re.IGNORECASE,
+)
+
+
+class _Problem(Exception):
+    def __init__(self, result: str, issue: str):
+        super().__init__(issue)
+        self.result = result
+        self.issue = issue
+
+
+def _fail(issue: str) -> None:
+    raise _Problem("FAIL", issue)
+
+
+def _operational(issue: str) -> None:
+    raise _Problem("COULD_NOT_RUN", issue)
+
+
+def _os_problem(exc: OSError, label: str, missing: str = "COULD_NOT_RUN") -> None:
+    if exc.errno in (errno.ELOOP, errno.ENOTDIR):
+        _fail(f"{label}: a path component is a symlink or is not a directory")
+    if exc.errno == errno.ENOENT:
+        raise _Problem(missing, f"{label}: required path does not exist")
+    _operational(f"{label}: filesystem operation unavailable ({exc.strerror or type(exc).__name__})")
+
+
+def _text(value: Any, label: str) -> str:
+    if not isinstance(value, str) or not value.strip() or value != value.strip():
+        _fail(f"{label}: expected a nonempty string without surrounding whitespace")
+    if any(ord(c) < 32 or ord(c) == 127 for c in value):
+        _fail(f"{label}: control characters are forbidden")
+    try:
+        value.encode("utf-8")
+    except UnicodeError:
+        _fail(f"{label}: value is not a valid UTF-8 string")
+    return value
+
+
+def _revision(value: Any, label: str) -> int:
+    if type(value) is not int or value < 1:
+        _fail(f"{label}: revision must be a positive integer, not a boolean or float")
+    return value
+
+
+def _relative(value: Any, label: str) -> str:
+    value = _text(value, label)
+    if value.startswith("/") or re.match(r"^[A-Za-z]:", value) or "\\" in value or "\x00" in value:
+        _fail(f"{label}: expected a project-relative path without backslashes or NUL")
+    if any(part in ("", ".", "..") for part in value.split("/")):
+        _fail(f"{label}: empty, dot and parent path components are forbidden")
+    return value
+
+
+def _absolute(value: Any, label: str) -> Path:
+    value = _text(value, label)
+    if not value.startswith("/") or "\\" in value or "\x00" in value:
+        _fail(f"{label}: expected an absolute path without backslashes or NUL")
+    if value != "/" and any(x in ("", ".", "..") for x in value[1:].split("/")):
+        _fail(f"{label}: empty, dot and parent path components are forbidden")
+    return Path(value)
+
+
+def _argument_path(value: Path, label: str) -> Path:
+    # pathlib arguments may be relative; the resolved spelling is not obtained
+    # through Path.resolve(), which would silently follow forbidden symlinks.
+    try:
+        raw = os.fspath(value)
+    except TypeError:
+        _fail(f"{label}: expected a filesystem path")
+    if not isinstance(raw, str) or "\x00" in raw or "\\" in raw:
+        _fail(f"{label}: invalid filesystem path")
+    return _absolute(os.path.abspath(raw), label)
+
+
+def _within(path: Path, root: Path) -> bool:
+    return path == root or root in path.parents
+
+
+def _exact(obj: Any, keys: set[str], label: str) -> dict:
+    if not isinstance(obj, dict) or set(obj) != keys:
+        _fail(f"{label}: expected exactly the fields {', '.join(sorted(keys))}")
+    return obj
+
+
+def _json_pairs(pairs: list[tuple[str, Any]]) -> dict:
+    result: dict = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+def _json(raw: bytes, label: str) -> Any:
+    try:
+        return json.loads(
+            raw.decode("utf-8"), object_pairs_hook=_json_pairs,
+            parse_constant=lambda value: (_ for _ in ()).throw(ValueError(f"invalid JSON number: {value}")),
+        )
+    except (UnicodeError, ValueError, RecursionError) as exc:
+        _fail(f"{label}: invalid strict UTF-8 JSON ({str(exc)[:160]})")
+
+
+@contextmanager
+def _directory(path: Path, label: str, missing: str = "COULD_NOT_RUN"):
+    """Walk from / with O_NOFOLLOW, never resolving a symlink component."""
+    fd = None
+    try:
+        fd = os.open("/", os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC)
+        for component in path.parts[1:]:
+            new = os.open(component, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC, dir_fd=fd)
+            os.close(fd)
+            fd = new
+        yield fd
+    except OSError as exc:
+        _os_problem(exc, label, missing)
+    finally:
+        if fd is not None:
+            os.close(fd)
+
+
+@contextmanager
+def _parent(root_fd: int, relative: str, label: str, missing: str):
+    fd = os.dup(root_fd)
+    try:
+        for component in relative.split("/")[:-1]:
+            new = os.open(component, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC, dir_fd=fd)
+            os.close(fd)
+            fd = new
+        yield fd, relative.split("/")[-1]
+    except OSError as exc:
+        _os_problem(exc, label, missing)
+    finally:
+        os.close(fd)
+
+
+def _identity(info: os.stat_result) -> tuple:
+    return (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_ctime_ns, info.st_nlink)
+
+
+def _read_at(root_fd: int, relative: str, limit: int, label: str, missing: str) -> bytes:
+    with _parent(root_fd, relative, label, missing) as (parent, name):
+        fd = None
+        try:
+            initial = os.stat(name, dir_fd=parent, follow_symlinks=False)
+            if not stat.S_ISREG(initial.st_mode) or initial.st_nlink != 1:
+                _fail(f"{label}: expected a regular file with exactly one link")
+            # O_NONBLOCK avoids blocking on a substituted FIFO before fstat.
+            fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_CLOEXEC, dir_fd=parent)
+            before = os.fstat(fd)
+            if not stat.S_ISREG(before.st_mode) or before.st_nlink != 1:
+                _fail(f"{label}: expected a regular file with exactly one link")
+            if _identity(initial) != _identity(before):
+                _fail(f"{label}: file changed while opening")
+            if before.st_size == 0 or before.st_size > limit:
+                _fail(f"{label}: file must contain 1 to {limit} bytes")
+            pieces = []
+            total = 0
+            while total <= limit:
+                part = os.read(fd, min(65536, limit + 1 - total))
+                if not part:
+                    break
+                pieces.append(part)
+                total += len(part)
+            raw = b"".join(pieces)
+            after = os.fstat(fd)
+            current = os.stat(name, dir_fd=parent, follow_symlinks=False)
+            if _identity(before) != _identity(after) or _identity(after) != _identity(current):
+                _fail(f"{label}: file changed during readback")
+            if len(raw) != before.st_size or not raw or len(raw) > limit:
+                _fail(f"{label}: incomplete, empty or oversized readback")
+            try:
+                raw.decode("utf-8")
+            except UnicodeError:
+                _fail(f"{label}: bytes are not valid UTF-8")
+            return raw
+        except OSError as exc:
+            _os_problem(exc, label, missing)
+        finally:
+            if fd is not None:
+                os.close(fd)
+
+
+def _read_external(path: Path, limit: int, label: str) -> bytes:
+    with _directory(path.parent, label) as fd:
+        return _read_at(fd, path.name, limit, label, "COULD_NOT_RUN")
+
+
+def _inspect_destination(root_fd: int, relative: str) -> None:
+    """Reject existing unsafe components without requiring future output bytes."""
+    fd = os.dup(root_fd)
+    try:
+        parts = relative.split("/")
+        for component in parts[:-1]:
+            try:
+                new = os.open(component, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC, dir_fd=fd)
+            except FileNotFoundError:
+                return
+            os.close(fd)
+            fd = new
+        try:
+            info = os.stat(parts[-1], dir_fd=fd, follow_symlinks=False)
+        except FileNotFoundError:
+            return
+        if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+            _fail(f"output {relative}: existing destination is not a regular single-link file")
+    except OSError as exc:
+        _os_problem(exc, f"output {relative}")
+    finally:
+        os.close(fd)
+
+
+def _sections(value: Any, label: str) -> list[str]:
+    if not isinstance(value, list) or not value:
+        _fail(f"{label}: expected a nonempty section-ID array")
+    values = [_text(v, label) for v in value]
+    if len(set(values)) != len(values):
+        _fail(f"{label}: duplicate section IDs")
+    if any("[" in v or "]" in v for v in values):
+        _fail(f"{label}: section IDs must not include marker brackets")
+    return values
+
+
+def _load_contract(path: Path) -> tuple[dict, bytes, Path]:
+    path = _argument_path(path, "contract path")
+    raw = _read_external(path, CONTRACT_LIMIT, "contract")
+    data = _exact(_json(raw, "contract"), {
+        "schema_version", "task_id", "project_root", "mode", "inputs", "outputs"
+    }, "contract")
+    if data["schema_version"] != "devforge.delivery-task/v1":
+        _fail("contract: unsupported schema_version")
+    _text(data["task_id"], "task_id")
+    root = _absolute(data["project_root"], "project_root")
+    if _within(path, root):
+        _fail("contract: contract file must be outside the writable project")
+    if data["mode"] not in ("brainstorm", "handoff-only"):
+        _fail("contract: unsupported mode")
+    if not isinstance(data["inputs"], list) or not isinstance(data["outputs"], list):
+        _fail("contract: inputs and outputs must be arrays")
+    paths: set[str] = set()
+    for entry in data["inputs"]:
+        _exact(entry, {"path", "sha256"}, "input")
+        rel = _relative(entry["path"], "input path")
+        if not isinstance(entry["sha256"], str) or not _HEX.fullmatch(entry["sha256"]):
+            _fail(f"input {rel}: expected a lowercase complete SHA-256")
+        if rel in paths:
+            _fail(f"contract: duplicate/colliding path {rel}")
+        paths.add(rel)
+    ids: set[str] = set()
+    roles: set[str] = set()
+    for entry in data["outputs"]:
+        _exact(entry, {"path", "artifact_id", "artifact_type", "revision", "sections"}, "output")
+        rel = _relative(entry["path"], "output path")
+        aid = _text(entry["artifact_id"], "output artifact_id")
+        role = entry["artifact_type"]
+        if not isinstance(role, str) or role not in ("idea-ledger", "handoff"):
+            _fail(f"output {rel}: unsupported artifact_type")
+        _revision(entry["revision"], "output revision")
+        _sections(entry["sections"], "output sections")
+        if rel in paths or aid in ids or role in roles:
+            _fail(f"contract: colliding output path, artifact ID or role for {rel}")
+        paths.add(rel)
+        ids.add(aid)
+        roles.add(role)
+    wanted = {"idea-ledger", "handoff"} if data["mode"] == "brainstorm" else {"handoff"}
+    if roles != wanted:
+        _fail(f"contract: {data['mode']} requires exactly {', '.join(sorted(wanted))}")
+    # A file cannot also be another target's parent directory.
+    for rel in paths:
+        if any("/".join(rel.split("/")[:n]) in paths for n in range(1, len(rel.split("/")))):
+            _fail(f"contract: file/directory path collision for {rel}")
+    return data, raw, root
+
+
+class _UniqueLoader(yaml.SafeLoader):
+    """Safe YAML with bounded nesting, no expansion aliases and unique keys."""
+    def compose_node(self, parent, index):
+        if self.check_event(yaml.AliasEvent):
+            raise yaml.YAMLError("YAML aliases are not supported by this bounded contract")
+        self._delivery_depth = getattr(self, "_delivery_depth", 0) + 1
+        try:
+            if self._delivery_depth > 64:
+                raise yaml.YAMLError("YAML nesting exceeds 64 levels")
+            return super().compose_node(parent, index)
+        finally:
+            self._delivery_depth -= 1
+
+    def construct_mapping(self, node, deep=False):
+        self.flatten_mapping(node)
+        seen = set()
+        for key_node, _ in node.value:
+            key = self.construct_object(key_node, deep=deep)
+            try:
+                if key in seen:
+                    raise yaml.YAMLError(f"duplicate YAML key: {key}")
+                seen.add(key)
+            except TypeError as exc:
+                raise yaml.YAMLError("unhashable YAML mapping key") from exc
+        return super().construct_mapping(node, deep=deep)
+
+
+def _markdown_lines(text: str) -> list[str]:
+    # str.splitlines() incorrectly promotes VT, NEL and Unicode separators to
+    # Markdown line endings, allowing non-headings to appear as real headings.
+    return text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+
+
+def _envelope(raw: bytes, label: str) -> tuple[dict, str]:
+    text = raw.decode("utf-8")
+    lines = _markdown_lines(text)
+    if not lines or lines[0] != "---":
+        _fail(f"{label}: artifact must begin with --- frontmatter")
+    closing = next((i for i in range(1, len(lines)) if lines[i] == "---"), None)
+    if closing is None:
+        _fail(f"{label}: frontmatter closing delimiter is absent")
+    try:
+        value = yaml.load("\n".join(lines[1:closing]), Loader=_UniqueLoader)
+    except (yaml.YAMLError, ValueError, TypeError, RecursionError) as exc:
+        _fail(f"{label}: invalid unique-key YAML/JSON frontmatter ({str(exc)[:160]})")
+    if not isinstance(value, dict):
+        _fail(f"{label}: artifact envelope must be an object")
+    if _MARKER.search(text):
+        _fail(f"{label}: unresolved template marker")
+    return value, "\n".join(lines[closing + 1:])
+
+
+def _heading_sections(body: str, selected: list[str], label: str) -> dict[str, int]:
+    lines = _markdown_lines(body)
+    headings: list[tuple[int, int, str, int]] = []
+    content: set[int] = set()
+    fence: tuple[str, int] | None = None
+    comment = False
+    previous_text: int | None = None
+    for index, line in enumerate(lines):
+        if fence is not None:
+            if re.fullmatch(r" {0,3}" + re.escape(fence[0]) + "{" + str(fence[1]) + r",}[ \t]*", line):
+                fence = None
+            elif line.strip():
+                content.add(index)
+            previous_text = None
+            continue
+        visible = ""
+        rest = line
+        while rest:
+            if comment:
+                end_comment = rest.find("-->")
+                if end_comment < 0:
+                    rest = ""
+                    break
+                rest = rest[end_comment + 3:]
+                comment = False
+            else:
+                start_comment = rest.find("<!--")
+                if start_comment < 0:
+                    visible += rest
+                    break
+                visible += rest[:start_comment]
+                rest = rest[start_comment + 4:]
+                comment = True
+        line = visible
+        # This bounded checker does not implement CommonMark raw HTML blocks.
+        # Refuse them explicitly instead of promoting their apparent headings.
+        # Literal HTML inside a fenced code block took the earlier fence branch.
+        if re.match(r"^ {0,3}<(?:(?:/?[A-Za-z][A-Za-z0-9-]*)(?=[ \t/>]|$)|[!?])", line):
+            _fail(f"{label}: unsupported raw HTML block; real section headings cannot be established")
+        opening = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
+        if opening and not (opening[1][0] == "`" and "`" in opening[2]):
+            fence = (opening[1][0], len(opening[1]))
+            previous_text = None
+            continue
+        atx = re.match(r"^ {0,3}(#{1,6})[ \t]+(.*)$", line)
+        if atx:
+            title = re.sub(r"[ \t]+#+[ \t]*$", "", atx[2]).strip()
+            headings.append((index, len(atx[1]), title, index))
+            previous_text = None
+            continue
+        underline = re.fullmatch(r" {0,3}(=+|-+)[ \t]*", line)
+        if underline and previous_text is not None:
+            headings.append((previous_text, 1 if underline[1][0] == "=" else 2, lines[previous_text].strip(), index))
+            content.discard(previous_text)
+            previous_text = None
+            continue
+        if line.strip() and not re.fullmatch(r"\s*(?:<!--[\s\S]*?-->|[-*_][ \t]*)+\s*", line):
+            content.add(index)
+        previous_text = index if line.strip() and len(line) - len(line.lstrip(" ")) <= 3 else None
+    if fence is not None:
+        _fail(f"{label}: unclosed Markdown code fence")
+    found: dict[str, int] = {}
+    for section in selected:
+        matches = [h for h in headings if h[2] == section or re.search(r"(?:^|\s)\[" + re.escape(section) + r"\](?:\s|$)", h[2])]
+        if len(matches) != 1:
+            _fail(f"{label}: section {section} must resolve to exactly one real heading")
+        start, level, _, end_heading = matches[0]
+        end = next((h[0] for h in headings if h[0] > start and h[1] <= level), len(lines))
+        if not any(end_heading < line < end for line in content):
+            _fail(f"{label}: section {section} has no nonempty content")
+        found[section] = start + 1
+    return found
+
+
+def _reference_revision_types(value: Any, label: str, context: str = "") -> None:
+    if isinstance(value, list):
+        for item in value:
+            _reference_revision_types(item, label, context)
+    elif isinstance(value, dict):
+        if ("artifact_id" in value or context in ("upstream", "supersedes", "evidence")) and value.get("revision") is not None:
+            _revision(value["revision"], f"{label} reference revision")
+        for key, child in value.items():
+            _reference_revision_types(child, label, str(key))
+
+
+def _artifact(raw: bytes, spec: dict) -> tuple[dict, str]:
+    label = spec["path"]
+    env, body = _envelope(raw, label)
+    if env.get("schema_version") != "devforge.artifact/v1":
+        _fail(f"{label}: invalid artifact schema_version")
+    for key in ("artifact_id", "artifact_type"):
+        if env.get(key) != spec[key]:
+            _fail(f"{label}: artifact {key} does not match the selected contract")
+    if _revision(env.get("revision"), f"{label} own revision") != spec["revision"]:
+        _fail(f"{label}: own revision does not match the contract")
+    if env.get("status") != "draft":
+        _fail(f"{label}: only draft artifacts are permitted")
+    _reference_revision_types(env, label)
+    _heading_sections(body, spec["sections"], label)
+    return env, body
+
+
+def _ledger_binding(artifacts: dict[str, tuple[dict, str]], specs: list[dict], hashes: dict[str, str]) -> None:
+    ledger = next(s for s in specs if s["artifact_type"] == "idea-ledger")
+    handoff = next(s for s in specs if s["artifact_type"] == "handoff")
+    env, _ = artifacts[handoff["path"]]
+    refs = env.get("upstream")
+    if not isinstance(refs, list):
+        _fail("handoff upstream: an array binding the selected ledger is required")
+    matches = []
+    for ref in refs:
+        if not isinstance(ref, dict):
+            _fail("handoff upstream: every reference must be an object")
+        # Type checking is not optional even for another upstream artifact.
+        _revision(ref.get("revision"), "handoff upstream revision")
+        if ref.get("artifact_id") == ledger["artifact_id"] or ref.get("path") == ledger["path"]:
+            matches.append(ref)
+    if len(matches) != 1:
+        _fail("handoff upstream: exactly one unambiguous selected-ledger binding is required")
+    ref = matches[0]
+    expected = {"artifact_id": ledger["artifact_id"], "revision": ledger["revision"], "store": "project", "path": ledger["path"], "sha256": hashes[ledger["path"]]}
+    if any(ref.get(k) != v for k, v in expected.items()):
+        _fail("handoff upstream: selected ledger identity, revision, store, path or digest does not match")
+    _heading_sections(artifacts[ledger["path"]][1], _sections(ref.get("sections"), "handoff upstream sections"), "handoff upstream ledger sections")
+
+
+def _evaluate(contract_path: Path, require_outputs: bool) -> dict:
+    scope = MECHANICAL_SCOPE if require_outputs else PREPARATION_SCOPE
+    result: dict = {"result": "COULD_NOT_RUN", "issues": [], "scope": scope}
+    try:
+        contract, raw, root = _load_contract(contract_path)
+        result.update(task_id=contract["task_id"], contract_sha256=hashlib.sha256(raw).hexdigest(), project_root=str(root), inputs={})
+        artifacts = {}
+        with _directory(root, "project_root") as fd:
+            for spec in contract["outputs"]:
+                _inspect_destination(fd, spec["path"])
+            for spec in contract["inputs"]:
+                value = _read_at(fd, spec["path"], INPUT_LIMIT, f"input {spec['path']}", "COULD_NOT_RUN")
+                digest = hashlib.sha256(value).hexdigest()
+                result["inputs"][spec["path"]] = digest
+                if digest != spec["sha256"]:
+                    _fail(f"input {spec['path']}: selected SHA-256 does not match current bytes")
+            if require_outputs:
+                result["outputs"] = {}
+                for spec in contract["outputs"]:
+                    value = _read_at(fd, spec["path"], OUTPUT_LIMIT, f"output {spec['path']}", "FAIL")
+                    result["outputs"][spec["path"]] = hashlib.sha256(value).hexdigest()
+                    artifacts[spec["path"]] = _artifact(value, spec)
+                if contract["mode"] == "brainstorm":
+                    _ledger_binding(artifacts, contract["outputs"], result["outputs"])
+        result["result"] = "PASS"
+    except _Problem as exc:
+        result.update(result=exc.result, issues=[exc.issue])
+    except OSError as exc:
+        result.update(result="COULD_NOT_RUN", issues=[f"Filesystem prerequisite unavailable: {exc.strerror or type(exc).__name__}"])
+    return result
+
+
+def prepare(contract_path: Path) -> dict:
+    """Validate the fixed contract and inputs; delivery remains unevaluated."""
+    return _evaluate(contract_path, False)
+
+
+def check(contract_path: Path) -> dict:
+    """Read and mechanically check the selected current input/output bytes."""
+    return _evaluate(contract_path, True)
+
+
+_RECEIPT_KEYS = {"schema_version", "result", "task_id", "contract_sha256", "project_root", "inputs", "outputs", "scope", "completed_checks_at_utc", "receipt_path", "receipt_publication", "receipt_readback"}
+
+
+def _receipt_path(path: Path, checked: dict) -> Path:
+    path = _argument_path(path, "receipt path")
+    if _within(path, Path(checked["project_root"])):
+        _fail("receipt: publication must be outside the writable project")
+    return path
+
+
+def _validate_receipt(record: Any, path: Path, checked: dict) -> None:
+    _exact(record, _RECEIPT_KEYS, "receipt")
+    if record["schema_version"] != "devforge.delivery-receipt/v1" or record["result"] != "PASS":
+        _fail("receipt: unsupported schema or non-PASS mechanical result")
+    for field in ("task_id", "contract_sha256", "project_root", "inputs", "outputs", "scope"):
+        if record[field] != checked[field]:
+            _fail(f"receipt: current {field} binding does not match")
+    if record["receipt_path"] != str(path):
+        _fail("receipt: copied or mismatched publication path")
+    if record["receipt_publication"] != "NOT_RUN" or record["receipt_readback"] != "NOT_RUN":
+        _fail("receipt: its own publication/readback must remain pending at creation")
+    try:
+        stamp = datetime.fromisoformat(record["completed_checks_at_utc"])
+        if stamp.utcoffset() is None:
+            raise ValueError("timezone required")
+    except (TypeError, ValueError):
+        _fail("receipt: invalid completed-check timestamp")
+
+
+def finalize(contract_path: Path, receipt_path: Path) -> dict:
+    """Check itself, exclusively publish externally, then read back its receipt."""
+    checked = check(contract_path)
+    if checked["result"] != "PASS":
+        return checked
+    try:
+        path = _receipt_path(receipt_path, checked)
+        record = {"schema_version": "devforge.delivery-receipt/v1", **{k: checked[k] for k in ("result", "task_id", "contract_sha256", "project_root", "inputs", "outputs", "scope")}, "completed_checks_at_utc": datetime.now(timezone.utc).isoformat(), "receipt_path": str(path), "receipt_publication": "NOT_RUN", "receipt_readback": "NOT_RUN"}
+        raw = (json.dumps(record, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+        if len(raw) > RECEIPT_LIMIT:
+            _fail("receipt: serialized receipt exceeds the bounded size")
+        with _directory(path.parent, "receipt parent") as parent:
+            fd = None
+            try:
+                fd = os.open(path.name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW | os.O_CLOEXEC, 0o600, dir_fd=parent)
+                offset = 0
+                while offset < len(raw):
+                    written = os.write(fd, raw[offset:])
+                    if written <= 0:
+                        _operational("receipt: incomplete publication")
+                    offset += written
+                os.fsync(fd)
+            except FileExistsError:
+                _fail("receipt: destination already exists; existing receipt preserved")
+            except OSError as exc:
+                _os_problem(exc, "receipt publication")
+            finally:
+                if fd is not None:
+                    os.close(fd)
+            readback = _read_at(parent, path.name, RECEIPT_LIMIT, "receipt readback", "COULD_NOT_RUN")
+            if readback != raw:
+                _fail("receipt: complete-byte readback differs from published bytes")
+        _validate_receipt(_json(readback, "receipt"), path, checked)
+        return {**checked, "receipt_path": str(path), "receipt_sha256": hashlib.sha256(readback).hexdigest(), "receipt_published": True, "receipt_readback": True}
+    except _Problem as exc:
+        return {**checked, "result": exc.result, "issues": [exc.issue]}
+    except OSError as exc:
+        return {**checked, "result": "COULD_NOT_RUN", "issues": [f"Receipt filesystem operation unavailable: {exc.strerror or type(exc).__name__}"]}
+
+
+def verify(contract_path: Path, receipt_path: Path) -> dict:
+    """Repeat current byte/mechanical checks and validate the external receipt."""
+    checked = check(contract_path)
+    if checked["result"] != "PASS":
+        return checked
+    try:
+        path = _receipt_path(receipt_path, checked)
+        raw = _read_external(path, RECEIPT_LIMIT, "receipt")
+        _validate_receipt(_json(raw, "receipt"), path, checked)
+        return {**checked, "receipt_path": str(path), "receipt_sha256": hashlib.sha256(raw).hexdigest(), "receipt_verified": True}
+    except _Problem as exc:
+        return {**checked, "result": exc.result, "issues": [exc.issue]}
+    except OSError as exc:
+        return {**checked, "result": "COULD_NOT_RUN", "issues": [f"Receipt filesystem operation unavailable: {exc.strerror or type(exc).__name__}"]}

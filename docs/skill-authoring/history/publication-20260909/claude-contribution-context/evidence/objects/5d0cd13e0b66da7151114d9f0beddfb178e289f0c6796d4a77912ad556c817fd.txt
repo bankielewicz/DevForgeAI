@@ -1,0 +1,3 @@
+This document receipt:
+file: HANDOFF.md
+sha256: 1bab07254df58885321fcef30749653cb497e91dbdc227104dbb53d96d5c7262

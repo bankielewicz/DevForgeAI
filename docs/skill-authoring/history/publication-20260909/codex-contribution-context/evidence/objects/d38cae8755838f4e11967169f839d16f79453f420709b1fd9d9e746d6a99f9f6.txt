@@ -1,0 +1,10 @@
+{
+  "artifact_id": "PKG-codex",
+  "files_sha256": {
+    "SKILL.md": "3f475538c0c3a56b6fa2bb15a38ff0ca68c1fd42590208e1509ff90cf73f5263"
+  },
+  "native": "NOT_RUN",
+  "revision": 1,
+  "run": "TRIAL-codex",
+  "source": "target-codex/SKILL.md"
+}

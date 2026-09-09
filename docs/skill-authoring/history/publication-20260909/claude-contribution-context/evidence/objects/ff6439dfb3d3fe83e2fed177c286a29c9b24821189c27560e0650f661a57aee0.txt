@@ -1,0 +1,78 @@
+{
+  "record_type": "external receipt for a checkpoint handoff",
+  "receipt_for": {
+    "artifact_id": "HANDOFF-004",
+    "revision": 2,
+    "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/HANDOFF-004.md",
+    "sha256": "4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1",
+    "byte_length": 29553
+  },
+  "supersedes_receipt": {
+    "artifact_id": "HANDOFF-004",
+    "revision": 1,
+    "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/HANDOFF-004.receipt.json",
+    "sha256": "40dcc13bd04926889640ccb58db8c91c37eedd8ed568027eaf3643c0f2f325c7",
+    "note": "The revision-1 handoff and its receipt are preserved unchanged in the frozen stage-1 run. This receipt is for a distinct document, not a reissue of that one."
+  },
+  "execution_ref": "SESSION-004@2",
+  "package": "devforgeai-contribution-context",
+  "provider": "claude",
+  "package_revision": 2,
+  "issued_at_utc": "2026-09-06T02:23:35+00:00",
+  "issued_by": "SESSION-004 Claude author session",
+  "procedure": [
+    "Every listed task output was completed and hashed before the handoff referenced it.",
+    "The handoff was written, then read back from disk, and this digest was computed from those bytes.",
+    "Receipt verification and self-receipt inspection were run with the revised package helper, and the enumerated digest lines were inspected by the author.",
+    "This digest is recorded here and delivered in the author session's final response. It is deliberately absent from the handoff's own bytes, and the handoff was not modified after this receipt was issued."
+  ],
+  "verification": {
+    "receipt_verification": {
+      "command": "python3 -B /home/bryan/Projects/DevForge/worktrees/claude-contribution-context/project-experts/claude/devforgeai-contribution-context/scripts/check_receipt.py --file /home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/HANDOFF-004.md --expected-sha256 4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1",
+      "checks": {
+        "digest_format": "PASS",
+        "digest_matches_bytes": "PASS"
+      },
+      "exit_status": 0,
+      "scope": "A guarantee of digest format and byte identity. Nothing about correctness, authority or acceptance."
+    },
+    "self_receipt_inspection": {
+      "command": "python3 -B /home/bryan/Projects/DevForge/worktrees/claude-contribution-context/project-experts/claude/devforgeai-contribution-context/scripts/check_receipt.py --file /home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/HANDOFF-004.md --self-receipt-inspection",
+      "checks": {
+        "no_digest_present": "COULD_NOT_RUN",
+        "literal_self_digest": "PASS (non-discriminating predicate, retained and labelled)",
+        "unadjudicated_digest_occurrences": "COULD_NOT_RUN"
+      },
+      "exit_status": 5,
+      "scope": "A listing, not a guarantee. Exit 5 is the documented expected result for a handoff whose inputs table pins many digests.",
+      "author_inspection": "44 digest occurrences enumerated; 1 sits on a line also naming a file called HANDOFF-004.md. That line is the inputs-table row for the PRIOR revision at a different path in the frozen stage-1 run, carrying that file's digest 736a5f13...feb4. It is a legitimate historical reference, not a receipt for this document. The revision-1 helper would have falsely rejected it, which is the CCTX-IR-004 defect. No line records a receipt for this document, and its own digest appears 0 times in its bytes.",
+      "record": "checks/DELIVERY-handoff-inspection.txt",
+      "record_sha256": "8210e4ec33e1c9a53be7ebcc4650d1d349cebd5818b0316ceb82441a4e297a20"
+    }
+  },
+  "companion_records": {
+    "XSPEC-004.md": "78fa48c8b30d9e51fe194a15069c401bec306411f2a4e73e9bfe48500f404dae",
+    "XPKG-004.md": "203b3c19448ada515796e13d043ba8d43de806ac7bbfd27015844eb7de7968c1",
+    "checks.json": "9a9ace71460db9492793a907ae054087d5220b1f276e2d29cc5ed0c9b3257206",
+    "package_checks.py": "10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442",
+    "inventories/source-manifest.json": "7c1b3d896607bd73446900c0f080ac83888d48c79ed67bb88881da730548794e",
+    "inventories/runtime-manifest.json": "a2989155fa35f63c36970f8bb1b64bfad9cc22cea117d5485eceb329dcd56d33",
+    "inventories/eval-manifest.json": "7271151f5f07faeee40928ef221ed9a1ae3d4ff68f883bf4948b43c3d60acf54"
+  },
+  "preserved_prior_run": {
+    "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1",
+    "state": "unchanged; nine delivered identities re-verified at handback in RCHK-09, and the read-only preflight retained all 637 immutable files"
+  },
+  "delivery": "Saved in the assigned output fence and delivered in the author session's final terminal response. No other outbox exists for this assignment, and none was invented.",
+  "status_limits": {
+    "behavioral_status": "NOT_EVALUATED",
+    "native_tiers": {
+      "A": "NOT_RUN",
+      "B": "NOT_RUN",
+      "C": "NOT_RUN"
+    },
+    "production_suitability": "NOT_EVALUATED",
+    "independent_acceptance": "none; the corrections were authored and checked by their own author",
+    "ownership": "retained by the SESSION-004 Claude author until the integration operator records a release"
+  }
+}

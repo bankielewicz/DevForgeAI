@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+    "--framework",
+    "/tmp/contributor-validator-runtime-repro-v_9dkm18/framework-source"
+  ],
+  "exit_status": 0,
+  "stdout": "{\n  \"status\": \"PASS\",\n  \"skills\": 26,\n  \"scope\": \"structure only\",\n  \"behavior\": \"NOT_EVALUATED\"\n}\n",
+  "stderr": "",
+  "outcome": "PASS"
+}

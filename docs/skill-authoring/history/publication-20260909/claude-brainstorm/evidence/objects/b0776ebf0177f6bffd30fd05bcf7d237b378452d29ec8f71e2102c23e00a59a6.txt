@@ -1,0 +1,5 @@
+{
+ "deterministic": [
+  {"id": "no-model-suite", "path": "no-model-tests/results.json", "field": "conformance", "expect": ["PASS"]}
+ ]
+}

@@ -1,0 +1,10 @@
+{
+  "run_id": "r9-source-exec-authoring-20260907T161330303011Z",
+  "session": "SESSION-001@9",
+  "first_work_utc": "2026-09-07T16:13:30.301280Z",
+  "allocation_minutes": 120,
+  "reserve_minutes": 20,
+  "technical_edit_boundary_utc": "2026-09-07T17:53:30.301280Z",
+  "hard_deadline_utc": "2026-09-07T18:13:30.301280Z",
+  "clock_note": "first_work_utc recorded before any assignment reading beyond CLAUDE-BRAINSTORM.md and authority verification; no reset or rewrite permitted"
+}

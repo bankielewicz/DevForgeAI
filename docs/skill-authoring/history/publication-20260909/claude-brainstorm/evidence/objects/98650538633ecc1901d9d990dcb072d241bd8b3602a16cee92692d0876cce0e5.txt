@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""Shared worker harness: one isolated arm = one fresh private client state.
+
+Every arm gets its own writable client-state store, its own sandbox project path
+(Claude Code keys per-project history and memory by working directory, so a shared
+path leaks one arm's memory into another), and its own recorded process group.
+Subscription auth is bound read-only from the author profile; its bytes are never
+copied into the evidence bundle.
+"""
+import json, os, queue, signal, subprocess, threading, time
+
+HOME = os.environ["HOME"]
+W = "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm"
+
+
+def build_cmd(sandbox_proj, prompt, skill_ro, allowed_tools, extra_binds=()):
+    cs_marker = None  # set by caller via extra_binds
+    cmd = ["bwrap",
+           "--ro-bind", "/usr", "/usr", "--ro-bind", "/bin", "/bin", "--ro-bind", "/sbin", "/sbin",
+           "--ro-bind", "/lib", "/lib", "--ro-bind", "/lib64", "/lib64", "--ro-bind", "/etc", "/etc",
+           "--proc", "/proc", "--dev", "/dev", "--tmpfs", "/tmp", "--tmpfs", "/run",
+           "--ro-bind", "/mnt/wsl/resolv.conf", "/mnt/wsl/resolv.conf",
+           "--ro-bind", "%s/.local" % HOME, "%s/.local" % HOME]
+    cmd += list(extra_binds)
+    if skill_ro:
+        cmd += ["--ro-bind", skill_ro[0], skill_ro[1]]
+    cmd += ["--setenv", "HOME", HOME,
+            "--setenv", "PATH", "%s/.local/bin:/usr/local/bin:/usr/bin:/bin" % HOME,
+            "--unshare-pid", "--new-session", "--die-with-parent",
+            "--chdir", sandbox_proj,
+            "claude", "-p", prompt,
+            "--output-format", "stream-json", "--verbose",
+            "--permission-mode", "acceptEdits",
+            "--allowedTools"] + list(allowed_tools)
+    return cmd
+
+
+def client_state_binds(arm_dir):
+    cs = os.path.join(arm_dir, "clientstate")
+    os.makedirs(cs, exist_ok=True)
+    with open(os.path.join(cs, "settings.json"), "w") as fh:
+        fh.write('{"theme":"dark"}\n')
+    cj = os.path.join(arm_dir, "claude.json")
+    with open(cj, "w") as fh:
+        fh.write("{}\n")
+    return ["--bind", cs, "%s/.claude" % HOME,
+            "--ro-bind", "%s/.claude/.credentials.json" % HOME, "%s/.claude/.credentials.json" % HOME,
+            "--bind", cj, "%s/.claude.json" % HOME]
+
+
+def stream(cmd, transcript_path, timeout_s, stderr_path=None):
+    """Run, capture the stream, and fold it into an observation record."""
+    obs = {"visible_context": {}, "tool_use_counts": {}, "tool_results": {"ok": 0, "error": 0},
+           "tool_errors": [], "auxiliary_tools": {}, "skills_selected": [],
+           "terminal": None, "terminal_detail": None, "result_text": None, "usage": {},
+           "events": 0}
+    tool_names = {}
+    start = time.time()
+    errfh = open(stderr_path, "wb") if stderr_path else subprocess.DEVNULL
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=errfh,
+                         stdin=subprocess.DEVNULL, start_new_session=True,
+                         env={k: v for k, v in os.environ.items()
+                              if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")})
+    obs["process"] = {"pid": p.pid, "pgid": os.getpgid(p.pid),
+                      "termination_scope": "os.killpg on this recorded pgid only"}
+    q = queue.Queue()
+
+    def pump():
+        try:
+            for raw in p.stdout:
+                q.put(raw)
+        finally:
+            q.put(None)
+    threading.Thread(target=pump, daemon=True).start()
+
+    deadline = start + timeout_s
+    with open(transcript_path, "w") as fh:
+        while True:
+            budget = deadline - time.time()
+            if budget <= 0:
+                obs["terminal"] = "TIMEOUT"
+                obs["terminal_detail"] = "no terminal result within %ss (enforced on silence)" % timeout_s
+                break
+            try:
+                raw = q.get(timeout=min(budget, 5.0))
+            except queue.Empty:
+                continue
+            if raw is None:
+                if obs["terminal"] is None:
+                    obs["terminal"] = "EOF_WITHOUT_RESULT"
+                    obs["terminal_detail"] = "stdout closed before any result event"
+                break
+            fh.write(raw.decode("utf-8", "replace"))
+            fh.flush()
+            try:
+                ev = json.loads(raw.decode("utf-8", "replace").strip())
+            except Exception:
+                continue
+            obs["events"] += 1
+            t = ev.get("type")
+            if t == "system" and ev.get("subtype") == "init":
+                obs["visible_context"] = {
+                    "model": ev.get("model"), "tools": ev.get("tools"), "skills": ev.get("skills"),
+                    "plugins": [x.get("name") for x in (ev.get("plugins") or [])],
+                    "mcp_servers": ev.get("mcp_servers"), "slash_commands": ev.get("slash_commands"),
+                    "permissionMode": ev.get("permissionMode"), "cwd": ev.get("cwd"),
+                    "agents": ev.get("agents"), "output_style": ev.get("output_style")}
+            elif t == "assistant":
+                for c in ev.get("message", {}).get("content", []):
+                    if c.get("type") != "tool_use":
+                        continue
+                    n = c.get("name")
+                    tool_names[c.get("id")] = n
+                    obs["tool_use_counts"][n] = obs["tool_use_counts"].get(n, 0) + 1
+                    if n == "Skill":
+                        obs["skills_selected"].append((c.get("input") or {}).get("skill"))
+                    if n not in ("Read", "Write", "Edit", "Glob", "Grep", "Bash", "Skill",
+                                 "TodoWrite", "Task", "NotebookEdit"):
+                        a = obs["auxiliary_tools"].setdefault(n, {"calls": 0, "ok": 0, "error": 0})
+                        a["calls"] += 1
+            elif t == "user":
+                for c in ev.get("message", {}).get("content", []):
+                    if c.get("type") != "tool_result":
+                        continue
+                    n = tool_names.get(c.get("tool_use_id"))
+                    if c.get("is_error"):
+                        obs["tool_results"]["error"] += 1
+                        obs["tool_errors"].append({"tool": n, "content": str(c.get("content"))[:200]})
+                        if n in obs["auxiliary_tools"]:
+                            obs["auxiliary_tools"][n]["error"] += 1
+                    else:
+                        obs["tool_results"]["ok"] += 1
+                        if n in obs["auxiliary_tools"]:
+                            obs["auxiliary_tools"][n]["ok"] += 1
+            elif t == "result":
+                obs["terminal"] = "ERROR" if ev.get("is_error") else "COMPLETED"
+                obs["terminal_detail"] = ev.get("subtype")
+                obs["result_text"] = ev.get("result")
+                obs["usage"] = {"num_turns": ev.get("num_turns"), "duration_ms": ev.get("duration_ms"),
+                                "total_cost_usd": ev.get("total_cost_usd"),
+                                "permission_denials": ev.get("permission_denials"),
+                                "terminal_reason": ev.get("terminal_reason"),
+                                "modelUsage": list((ev.get("modelUsage") or {}).keys())}
+                break
+    if p.poll() is None:
+        try:
+            os.killpg(obs["process"]["pgid"], signal.SIGTERM)
+            time.sleep(2)
+            if p.poll() is None:
+                os.killpg(obs["process"]["pgid"], signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+    obs["os_exit"] = {"returncode": p.wait(),
+                      "note": "OS process exit status. Separate from the native terminal result "
+                              "and from whether nested tool calls succeeded; none implies another.",
+                      "stderr_path": stderr_path}
+    if stderr_path:
+        try:
+            errfh.close()
+        except Exception:
+            pass
+        obs["os_exit"]["stderr_bytes"] = os.path.getsize(stderr_path)
+    obs["seconds"] = round(time.time() - start, 1)
+    return obs

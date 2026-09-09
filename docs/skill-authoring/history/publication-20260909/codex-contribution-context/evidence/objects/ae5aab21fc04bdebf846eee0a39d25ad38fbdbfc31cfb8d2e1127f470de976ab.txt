@@ -1,0 +1,86 @@
+# Contributor context native evaluation preparation handoff
+
+## You are here
+
+**Preparation complete and checked. Native evaluation, candidate installation, independent result review and acceptance: NOT_RUN. Native launch: NOT_READY.**
+
+The root integration owner completed the selected NATIVE-PREPARATION-HANDOFF.md task in this exclusive packet directory. Both author worktrees, source candidates and frozen histories remain preserved. The source inventories remain Codex 184 files (4 runtime, 180 evaluation) and Claude revision 2 78 files (6 runtime, 72 evaluation). Payload archives are not native installations. Existing authors retain their ownership. No candidate/shared-rule edits, credentials/history copying, commits or publication occurred.
+
+Root and three scoped preparation agents authored and checked this packet. These preparation activities are separate from native evaluation trials and the future independent result-review role. Native evaluation calls and candidate installations during preparation are both zero.
+
+## Prepared scope and allocation
+
+The independent bundle freezes 13 semantic rows across all eight catalogue topics, four activation queries and a separate installed-resource checkpoint using CCX-01 facts. Both native providers receive identical selected raw facts, core and helper bytes across baseline/candidate pairs. Criteria and grading machinery remain outside worker-visible inputs. Every proposed worker and review request is saved.
+
+| Native provider | Proposed worker calls | Proposed independent review calls | Proposed maximum |
+| --- | ---: | ---: | ---: |
+| Codex | 31 | 36 | 67 |
+| Claude | 31 | 0 | 31 |
+| Total | 62 | 36 | 98 |
+
+The worker allocation is 52 B worker trials forming 26 paired comparisons, 2 C resource trials and 8 A activation trials. Global concurrency is 1; timeout is 600 seconds per call plus 10 seconds termination grace; campaign deadline is 86,400 seconds; retries, provider fallback, nested models and trigger optimization are zero. This is PROPOSED_NOT_SELECTED_FOR_EXECUTION. Exact session model/effort identities remain unselected; the skills retain their existing inherited/session behavior.
+
+## Observed preparation checks
+
+| Check | Observed result |
+| --- | --- |
+| Independent fixture consistency | PASS: 950 checks |
+| Final grader contrasts | PASS: 35/35 |
+| Extractor validation | PASS: 2/2 |
+| Fixture-to-grader integration | PASS: exact references pass and wrong selected section fails; semantic result stays NOT_RUN |
+| Actual synthetic worker isolation | PASS: 8 attempts, 748 checks and 19 cross-attempt checks |
+| Offline public versions/help | PASS: Codex 0.153.4, Claude 2.1.261, bubblewrap 0.9.0, Python 3.12.3, Bash 5.2.21 |
+| Root packet integration/custody | PASS: 4,305 checks |
+| Author preservation and selected-byte check | PASS: 2,808 immutable external files; 2,833 checks |
+| Allocation correction review | CLOSED: four negative role/provider mappings and scope applicability corrected; 62 requests verified |
+
+Earlier grader startup/parser failures, runtime NETLINK/ETXTBSY diagnostics, the timed-out permission review and the initial root checker-label mismatch remain preserved. The later successful checks do not overwrite them. The runtime used an automatically reviewed outer-sandbox execution to create its own strict bubblewrap boundary; no unconfined worker fallback occurred. Help/version calls were offline and made no model requests.
+
+## Limits and carried findings
+
+The synthetic probes establish filesystem, fresh-profile, PID, temporary-storage and offline-network behavior. They do not establish native skill discovery/loading, package-local resource consumption, provider API transport, model availability, actual recovery behavior or effectiveness. The preparation launcher intentionally refuses native execution. Native reviewer mount preflight is still NOT_RUN. The future native materializer/controller, authentication and network transport need explicit selection and their own preflight.
+
+The bounded mechanical grader leaves semantic review independent. Concise orientation via a selected manifest, multiple revisions sharing an artifact ID, broader Markdown formats and malformed self-receipt claims can exceed its coverage. Missing coverage cannot pass silently, and a parser limitation alone is not a proven semantic failure. Inaccessible bytes remain unverified even when correctly diagnosing the blockage passes recovery.
+
+CCX-08 compares fresh invocations over the same preserved inner-session facts. It does not demonstrate longitudinal persistence in one continuing client session. Single trials do not establish statistical reliability or production suitability. A candidate pass alone does not establish improvement; paired ties and regressions must remain visible.
+
+Carry all three Claude CIR2-004 notes: two runtime findings (001/004), two evaluation findings (002/006), two run-record findings (003/005); XPKG-004@1-S4 is the correct runtime target section; no matching 64-hex token does not prove absence of every malformed self-receipt. The frozen candidate remains unchanged.
+
+## Selected packet records
+
+Paths below are relative to this packet directory. Their whole-file SHA-256 values were read before handoff finalization. The final external packet receipt also binds these records and this handoff.
+
+| Record | SHA-256 |
+| --- | --- |
+| EVALUATION-PLAN.md | 375be04ef947744d2d43a9cf72da4569b07adac491014b03dd0abedf8b2a681d |
+| MATERIALIZATION.md | c7decdf9a422005cd3a4b890362ff3a8e30b90bfe377adc0bd6f155e9ee022c5 |
+| records/CANDIDATES.json | 384048d6dbd1a23f2edb2bacb757fda003f47dc610f3048f0f333d22dc97456f |
+| records/INPUTS.json | f2067e36eca0b64fc1dbaa2d31d6a4b9bb8d28e9d2dabeb5b9b43c0e503e7c12 |
+| records/CALLS.json | 5d98d0294f6fd4b8fbd5a7c3cacd06975b9da027661c2adeae3d07154359b8e8 |
+| records/GRADING-BINDINGS.json | e694cbae816b016eab8b17513809b0f00ba8094eef5d90596237123bf29062fa |
+| records/FINAL-VERIFICATION.json | 8b48584b68fd57a6d2545bfa1bd624a92d56635eec22159264f2d583e4274819 |
+| records/INTEGRATION-REVIEW-002.md | e71f6b6f038212ef414789be98cdd9c23c99efc1301f04ea932c4f79b1277793 |
+| runtime/RUNTIME-MANIFEST.json | d17a48cc6f68e226eb0bed8fdb395383df852794c7fe49e38a319f7279c649c6 |
+| EXECUTION-SELECTION.template.json | 1254b5ff9caaebac7ab93d3404292dd6463813d683339c925ffaf5489b2c2f5c |
+
+## Continuation and ownership
+
+Root integration owns any subsequent execution selection and operator evidence. Each independent result review must use a fresh context distinct from authors, evaluated workers, fixture generation and this root conversation. The user owns acceptance/disposition.
+
+The proposed campaign root has not been created. Before execution, issue a new recorded selection binding the external packet receipt, selected call rows, candidates, exact worker/reviewer model and effort, fresh authentication, explicit API transport, native materialization, tool policy and worker/reviewer preflight. A collision, changed pin, unavailable prerequisite or missing authority stops dependent work. The unissued template is provided for that selection; preparation is not launch authority.
+
+## Copyable next-session prompt
+
+```text
+Continue as the root integration owner in /home/bryan/Projects/DevForge/framework/DevForge.
+Read the completed preparation handoff at:
+/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-native-preparation-20260906T025103738073Z/HANDOFF.md
+Use the external SHA-256 delivered with it. Verify the external digest for:
+/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-native-preparation-20260906T025103738073Z/PACKET.receipt.json
+Then run the packet VERIFY.py --receipt read-only and read EVALUATION-PLAN.md, MATERIALIZATION.md, records/CALLS.json, records/GRADING-BINDINGS.json and runtime/RUNTIME-MANIFEST.json.
+Preparation is complete. All native evaluation and installation results remain NOT_RUN, and the 98-call maximum is an unissued proposal. Preserve both author candidates/histories and all frozen packet bytes. A later user-selected execution requires a separate concrete recorded selection and fresh native worker/reviewer preflight; do not infer it from this handoff or the static PASS.
+```
+
+## Resume and custody
+
+This operator handoff is not a framework acceptance artifact. It contains no digest of itself. The complete regular-file inventory, modes and symlink target strings are saved in PACKET.receipt.json; both handoff and receipt hashes are delivered externally after final readback. Do not modify the sealed packet. Keep subsequent execution, corrections or observations in a new exclusive directory.

@@ -1,0 +1,113 @@
+{
+  "schema_version": "devforge.author-preparation-receipt/v1",
+  "issued_at_utc": "2026-09-07T13:20:48Z",
+  "assignment": "SESSION-001@7",
+  "assignment_sha256": "2664e1e995315ec102e10e70b3a8fc057713af7e4e7bebe98ccc619da5bc0c2e",
+  "assignment_verified": "live authority byte-identical to the issued SESSION-001-r7.md copy before any dependent write",
+  "selected_inputs_sha256": "343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5",
+  "run_root": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r7-20260907T1253Z",
+  "status": "SOURCE_PASS_COMPLETE_CONTROLS_AUTHORED_UNEXECUTED",
+  "binds": {
+    "report": {"path": "report/SEVAL-PREP-003.md",
+      "sha256": "5dd6387881ee6eabf947c4308736ff51e2e6844dfbf1e580dcc5d67114881e0d",
+      "complete_readback": "PASS"},
+    "candidate_manifest": {"path": "manifests/final-package.json",
+      "sha256": "0f10ca5f63390d4a340110894447d538912e7548fabca472dd78344fa5de6ae2"},
+    "authoring_record": {"path": "proposals/AUTHORING-RECORD.md",
+      "sha256": "d591287d717100deb9fa73dbe76384be424a0777036811497b0a444c63a9371d"},
+    "unexecuted_proposals": {"path": "proposals/UNEXECUTED-PROPOSALS.json",
+      "sha256": "78067fa2e910dea77bd6fd82f19cfcdcd4242fad8d09bb8bafa98966ee362afc"},
+    "evidence_index": {"path": "report/evidence-index.sha256",
+      "sha256": "0aea44709a71b95402e75aa8e18f62354076add6b5f46b4b5c787d98b0ddc62f",
+      "entries": 60, "readback_mismatches": 0}
+  },
+  "acyclic": "The report carries no digest of itself; this receipt is absent from the index it binds.",
+  "final_source": {
+    "root": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm",
+    "SKILL.md": "2f503ce6b1ae1879589fc26e822bc6dc94889dd40847a5a79d194cc0c95dabe4",
+    "references/recording-rules.md": "9cdf32e25117f31d5c087176de6bd00117526924a6718c09205650aaf988506b",
+    "references/derivation.json": "5f61403a7d951cdc0e9157e412920ac8731d32e0eec79b27990ec77d7a362d84",
+    "references/managed-runtime.md": "9fac0836bbf4695563a40bfdc5e7ae2ece330a5b2d2cabbc4cf6deda7d4d77b5",
+    "starting_files": 19, "final_files": 20,
+    "unchanged": 16, "changed": 3, "added": 1, "removed": 0,
+    "fence_respected": true,
+    "fence": ["SKILL.md", "references/recording-rules.md", "references/derivation.json", "references/managed-runtime.md"],
+    "protected_unchanged": "evals/reference-regressions.json remains 09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7; its revision-6 locator provenance is recorded in derivation.json without modifying it",
+    "description_line": "byte-identical to the starting copy; activation and trigger queries untouched"
+  },
+  "run_side_authored_unexecuted": {
+    "control/run_phases.py": "5a4dc48df3a346d7b3c6632f11361cf088889bba99751f0cb18e8f3aecb9fa8e",
+    "control/grade.py": "26748047fa06edcbbba467ac608a5499f8787e23c943787313b7d081f5715d94",
+    "control/freeze.py": "186af0e3aaf0df1d15a92a63af7e9c093ec43685d9e5bada56ac3b3ce0379187",
+    "control/PLAN.json": "002099d3872587b6fee487528bea30c31bde85fa953d0a5f6dd37efdec80c56e",
+    "checkers/check_receipts.py": "88fe0b26c004883663b6acede7ab183f06969ba8c97896946042c59f47e7596c",
+    "checkers/validate_references.py": "56873b5b1b0abc362c2979b3ef1c7ed77ccba2abd24a96e8678cdaa7f53e5ffe",
+    "no-model-tests/checks_suite.py": "fa4f3138f15c4ac484344bd6a4cbb6331b955fad17bbf9246edee368aae74d34",
+    "no-model-tests/phase_suite.py": "8432a149a63783f48b5cb5953b9b98852ffeb2d9aa11cb513dfded924565e489"
+  },
+  "budget": {
+    "start_utc": "2026-09-07T12:53:29Z",
+    "budget_minutes": 120,
+    "technical_stop_utc": "2026-09-07T14:33:29Z",
+    "hard_deadline_utc": "2026-09-07T14:53:29Z",
+    "last_technical_edit_utc": "2026-09-07T13:17:32Z",
+    "outcome": "PASS",
+    "detail": "All technical edits finished inside the window, ahead of the closeout reserve. No extension, reset or second cycle."
+  },
+  "verification_performed": {
+    "assignment_and_issued_copy": "PASS",
+    "selected_inputs_manifest": "PASS",
+    "starting_candidate_19_files": "PASS",
+    "new_reference_path_absent_before_write": "PASS",
+    "final_source_readback": "PASS",
+    "evidence_index_readback": "PASS",
+    "report_outcome_vocabulary": "PASS, by inspection",
+    "static_syntax_checks": "ast.parse over each edited Python file; json.load over each edited JSON file",
+    "suites_executed": 0, "cases_executed": 0,
+    "note": "The authored checkers were NOT run, including against this report: this allocation forbids executing authored scripts. Vocabulary and digest readback were done by inspection. Parsing is not behaviour and no repair in this handback is demonstrated."
+  },
+  "creator": {
+    "package_sha256": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf",
+    "package_files": 21,
+    "native_invocation": "PASS",
+    "invoked_identifier": "/skill-creator:skill-creator",
+    "observed_result": "Launching skill: skill-creator:skill-creator; base directory .../next-inputs/skill-creator/skills/skill-creator",
+    "invocation_event_id": null,
+    "invocation_event_id_note": "No dedicated invocation event ID is exposed to this session; none was invented.",
+    "guidance_applied": "PASS",
+    "stages_deferred": ["with-skill and baseline runs", "grading", "benchmark aggregation", "eval viewer review loop", "description optimization", "packaging"]
+  },
+  "scopes": {
+    "source_authored": "COMPLETE within the four-file fence",
+    "controls_authored": "COMPLETE",
+    "controls_demonstrated": "NOT_RUN",
+    "provider_validation": "NOT_PERFORMED",
+    "hooks": "DESIGN_ONLY",
+    "native_C_B_A_this_revision": "NOT_RUN",
+    "root_native_admission": "NOT_RUN",
+    "human_acceptance": "NOT_RUN"
+  },
+  "preserved_history": {
+    "prep_004": {"report": "a94d430e3b2da71ac0e7ad1bd0eca7ec1c52d14a6b8ee938382b2466efe0103a",
+                 "receipt": "e3cc40ceadee3569342205394c9b06f99d3c53e96fa534d1f6f0090e54a4dad3",
+                 "freeze": "eabcd457e9c5ef54eba9cc66c62bf06c9654d6f8ba9e05b97e873065e65ca6e5",
+                 "budget": "FAIL"},
+    "prep_005_session_001_at_6": {
+      "report": "88f948f21cd55673e2195a460598c5ca182c855c6e8aa8a67788a5f838007be6",
+      "receipt": "626794a73427b2d84dff783de140432b04a73d9fa04ccd7f2b17f9f5727709ce",
+      "status": "PARTIAL", "budget": "FAIL",
+      "late_source_write_s": 687},
+    "note": "Neither is repaired, relabelled or rewritten by this allocation. No old native output becomes a current-candidate result. Codex retains C COULD_NOT_RUN and three B arms NOT_RUN."
+  },
+  "gates": {
+    "native_model_calls": 0, "tests": 0, "suites": 0,
+    "helper_or_validator_execution": 0, "synthetic_fixture_execution": 0,
+    "installations": 0, "exports": 0, "hook_activation": 0,
+    "attempt_directories_created": 0, "grades_produced": 0
+  },
+  "git": {"head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+          "branch": "author/claude-brainstorm-mvp",
+          "operations": "read-only inspection only"},
+  "ownership": "SESSION-001@7 retained with the same Claude author, for independent root review.",
+  "next": "No automatic retry, acceptance, integration, publication or capability follows this handback. Contributor-context native evaluation remains parked."
+}

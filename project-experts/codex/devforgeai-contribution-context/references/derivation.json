@@ -1,0 +1,51 @@
+{
+  "guidance_sources": [
+    {
+      "path": "docs/coordination/20260905-contributor-context-spec.md",
+      "preserved_locator": "contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md",
+      "sections": [
+        "Invocation and modes",
+        "Required behavior",
+        "Output contract",
+        "Role-specific application"
+      ],
+      "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77"
+    },
+    {
+      "path": "docs/mvp/artifact-contract.md",
+      "preserved_locator": "contributor-context-authoring-20260905/inputs/framework/docs/mvp/artifact-contract.md",
+      "sections": [
+        "Standard envelope",
+        "Decisions, readiness, and evaluation are separate",
+        "Provenance without circular bookkeeping"
+      ],
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    },
+    {
+      "path": "docs/mvp/execution-contract.md",
+      "preserved_locator": "contributor-context-authoring-20260905/inputs/framework/docs/mvp/execution-contract.md",
+      "sections": [
+        "Worktree assignment for concurrent sessions",
+        "Failure and recovery cases required before adoption"
+      ],
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8"
+    }
+  ],
+  "kind": "package-maintenance-derivation",
+  "maintenance": "These locators identify provenance, not runtime reads. Resolve only against an authority root selected for maintenance. Runtime guidance uses supplied task roots and package-local resources. Changed guidance/template bytes receive a new identity and affected evaluation. Mutable assignment changes update task records, not this package.",
+  "source_basis_status": "operator-selected draft bootstrap inputs; not production adoption",
+  "template": {
+    "destination": "assets/handoff.md",
+    "destination_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "preserved_locator": "contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/shared/handoff.md",
+    "preserved_store": "authority",
+    "refresh_triggers": [
+      "selected shared template or governing artifact/execution contract changes",
+      "observed checkpoint failure requiring reviewed correction"
+    ],
+    "source_path": "docs/mvp/templates/shared/handoff.md",
+    "source_revision": "selected 2026-09-05 shared template bytes accompanying authoring contract revision 2",
+    "source_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "transformation": "none; exact byte copy"
+  }
+}

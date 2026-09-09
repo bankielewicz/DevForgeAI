@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""Read-only correction preflight; no model, source mutation or behavioral acceptance."""
+from pathlib import Path
+import argparse, hashlib, json, subprocess, sys
+PIN = "d2d9026e2cbeb0f94837b3a1e306b4b3f73ff0056a39069596ef2b56946b472d"
+P = Path(__file__).resolve().parent
+
+def sha(p):
+    if p.is_symlink() or not p.is_file():
+        raise ValueError("expected regular input: " + str(p))
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+
+def git(root, *args):
+    return subprocess.check_output(["git", "-C", str(root), *args], text=True)
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--phase", choices=("before", "protected"), required=True)
+    args = ap.parse_args()
+    if sha(P / "INPUTS.json") != PIN:
+        raise ValueError("correction INPUTS.json digest changed")
+    data = json.loads((P / "INPUTS.json").read_text())
+    for path, expected in data["immutable_files_sha256"].items():
+        if sha(Path(path)) != expected:
+            raise ValueError("immutable input changed: " + path)
+    w = Path(data["worktree"])
+    if git(w, "rev-parse", "HEAD").strip() != data["base"]:
+        raise ValueError("author base changed")
+    if git(w, "branch", "--show-current").strip() != data["branch"]:
+        raise ValueError("author branch changed")
+    common = Path(git(w, "rev-parse", "--git-common-dir").strip())
+    if not common.is_absolute():
+        common = w / common
+    if common.resolve() != Path(data["common_git_directory"]).resolve():
+        raise ValueError("unexpected common Git directory")
+    if git(w, "diff", "--cached", "--name-only"):
+        raise ValueError("staged changes are not assigned")
+    prefix = data["source_relative"] + "/"
+    status = git(w, "status", "--short", "--untracked-files=all").splitlines()
+    outside = [line for line in status if not line[3:].startswith(prefix)]
+    if sorted(outside) != sorted(data["baseline_non_candidate_status_lines"]):
+        raise ValueError("status outside source fence changed")
+    if git(data["companion_root"], "rev-parse", "HEAD").strip() != data["companion_head"]:
+        raise ValueError("selected companion base changed")
+    if args.phase == "before":
+        source = Path(data["source_directory"])
+        current = {}
+        for path in source.rglob("*"):
+            if path.is_symlink():
+                raise ValueError("source symlink: " + str(path))
+            if path.is_file():
+                current[str(path.relative_to(source))] = sha(path)
+        if current != data["before_source_sha256"]:
+            raise ValueError("candidate differs from reviewed pre-repair source")
+    print(json.dumps({"outcome": "PASS", "phase": args.phase,
+        "immutable_files_verified": len(data["immutable_files_sha256"]),
+        "candidate_baseline_files": len(data["before_source_sha256"]) if args.phase == "before" else "not compared after authorized edits",
+        "native_evaluation": "NOT_RUN", "scope": "custody, base and write fence only"}, indent=2))
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (ValueError, OSError, subprocess.CalledProcessError) as error:
+        print("FAIL: " + str(error), file=sys.stderr)
+        sys.exit(2)

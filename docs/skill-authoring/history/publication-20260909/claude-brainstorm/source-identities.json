@@ -1,0 +1,162 @@
+{
+  "record_type": "released source identities",
+  "role": "claude-brainstorm",
+  "publication_base": "1c912649e5686701e8204a22173a02c6894df707",
+  "source_selection": {
+    "path": "/home/bryan/Projects/DevForge/tmp/github-publication-execution-20260909/author-source-selections.json",
+    "sha256": "78629d62f80efee1f6e3b7d647fcbbb91d60d5a40c5127b66508efe8508d1789"
+  },
+  "author_inventory": {
+    "original_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/docs/skill-authoring/history/publication-20260909/claude-brainstorm/file-identity-inventory.json",
+    "sha256": "e93ab76ab02a77450cee8f7fb89b273bf25399405c37b836f70384b43c2c4313",
+    "durable_relative_path": "docs/skill-authoring/history/publication-20260909/claude-brainstorm/file-identity-inventory.json"
+  },
+  "source_scope": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm",
+  "original_worktree": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm",
+  "file_count": 20,
+  "files": [
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+      "size": 20207,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "size": 3342,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "size": 1598,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+      "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+      "size": 23649,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "size": 2188,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "size": 1232,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+      "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+      "size": 2209,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+      "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+      "size": 783,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+      "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+      "size": 1608,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+      "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+      "size": 777,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+      "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+      "size": 555,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+      "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+      "size": 1114,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+      "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+      "size": 2702,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+      "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+      "size": 925,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/reference-regressions.json",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/reference-regressions.json",
+      "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+      "size": 3863,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json",
+      "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+      "size": 4493,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+      "sha256": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef",
+      "size": 37125,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+      "sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+      "size": 9053,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+      "sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+      "size": 21702,
+      "mode": 420
+    },
+    {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py",
+      "source": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+      "size": 1874,
+      "mode": 493
+    }
+  ],
+  "source_bytes_and_modes_copied_exactly": true,
+  "deletions": [],
+  "release_scope": "Exact author-released bytes only; no shared contracts, hooks, installation or native qualification."
+}

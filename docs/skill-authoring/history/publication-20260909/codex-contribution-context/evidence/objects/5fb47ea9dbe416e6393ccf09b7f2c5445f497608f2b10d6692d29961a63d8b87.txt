@@ -1,0 +1,70 @@
+# Codex contributor-context stage-1 integration review
+
+Operator review, 2026-09-05. Disposition: no material candidate instruction or current fixture defect found. Preserve the candidate for evaluation preparation. The required full-worktree structural check remains FAIL; native C/B/A and independent behavioral acceptance remain NOT_RUN. This is a static integration review with bounded review assistance, not a cold behavioral evaluation or production acceptance.
+
+## IR-001 You are here
+
+| Work item | Result and scope | Owner / continuation |
+| --- | --- | --- |
+| Candidate authoring | Frozen: two modes, 13 case variants, nine authored activation queries | Codex author retains SESSION-003@1 ownership; no reauthoring requested by this review |
+| Static candidate review | PASS for the checks described below; no material instruction or current fixture defect found | Root architect/integration operator |
+| Required whole-worktree check | FAIL, original check-05 retained unchanged | Companion DevForge tooling owner must resolve the runtime traversal issue |
+| Separate source-only structural diagnostic | PASS, exit 0; behavior NOT_EVALUATED | Diagnostic evidence only; does not replace check-05 |
+| Native installed resources C, recovery comparison B, activation A | NOT_RUN; no native evaluation launched or allocated | Separate execution allocation required |
+| Independent behavioral acceptance and production adoption | NOT_RUN | No acceptance or adoption issued |
+
+The next task is a bounded companion-validator correction and verification, described in [TOOLING-FOLLOWUP.md](TOOLING-FOLLOWUP.md). This review does not assign that correction to the skill author, release author ownership, install the candidate, or start native evaluation. The separate Claude contribution-context POC is outside this review.
+
+## IR-002 Selected identity and custody
+
+Author worktree: `/home/bryan/Projects/DevForge/worktrees/codex-contribution-context`; branch `author/codex-contribution-context-poc`; base `c9298bd34ebb73bf598deec6253068d7f8b0ed59`. Candidate source: `project-experts/codex/devforgeai-contribution-context/`. Author run: `.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/` beneath that worktree.
+
+| Selected record | SHA-256 |
+| --- | --- |
+| [SESSION-003@1](authority/SESSION-003.md) | c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93 |
+| [Contributor specification revision 1](selected/framework/docs/coordination/20260905-contributor-context-spec.md) | a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77 |
+| [Evaluation plan revision 1](selected/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md) | 4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f |
+| [Candidate source manifest](run/source-manifest.json) | 625d838acc84c02136e574da165bc686c3855092e66d13aef498b784acc42737 |
+| [Runtime manifest](run/runtime-manifest.json) | 4cf58093a2ef421a6aa6e10eb059cc757208a6dc21e3bc1e693d76dd7d079c21 |
+| [Evaluation-input manifest](run/eval-manifest.json) | 6b758caae5ae57a38d340575cb3a4aa448420e48223d6d3d20211af0ae969ef0 |
+| [Author HANDOFF-003](run/HANDOFF-003.md) | 7cdf87a1d43e2099dec748f3e9b95770dabac0f7756049e922a2cf3018d1bdd1 |
+| [Author external receipt](run/RECEIPT.json) | 8f6c97a9181dfeca9a6e55a69fdc5d366fd639223fc6ce58381aa843806bd92a |
+| [Initial review custody inventory](CUSTODY.json) | ac6b2640d47648b31d8075b426b6a272acac590e8b57e05347b0fe26ce34f094 |
+
+All 576 author receipt entries match actual files. The source inventory contains exactly 184 files: four runtime resources and 180 evaluation files, with disjoint and complete membership. The original run receipt is the only run file not listed in its own receipt. No handoff self-digest was found. The 27 handoff inventory rows resolve to actual files and full hashes.
+
+At closeout, all 923 initially preserved review files and their original sources still matched; all 119 protected baseline files and all 71 original preparation controls matched. Author branch, base, Git status and candidate inventory were unchanged. Companion HEAD remained `6983f1de3e06f9b422546fd6944888dcd34e56a1`; the selected CLI executable remained unchanged. See [CLOSEOUT-CHECKS.json](CLOSEOUT-CHECKS.json), [OPERATOR-PACKAGE-CHECKS.json](OPERATOR-PACKAGE-CHECKS.json) and [HANDOFF-ROW-CHECKS.json](HANDOFF-ROW-CHECKS.json).
+
+## IR-003 Static assessment
+
+The four runtime files preserve CCR-001 through CCR-008. [SKILL.md](candidate/SKILL.md) separates provider from assigned role, selects actual authority and preserved records, carries applicable prior delegation, records inaccessible inputs without substitution, attributes reported outcomes, and returns one scoped continuation. Orient/resume avoids unnecessary persistence and returns control for already authorized work. [Checkpoint guidance](candidate/references/checkpoint.md) uses installed package-local resources, independent report authority, the shared artifact content model, finalized readback and external delivery of the full absolute path and SHA-256.
+
+All four runtime-local links resolve within the package. The shared handoff template is an exact source copy. Its [derivation record](candidate/references/derivation.json) preserves source and destination identities, maintenance locators and refresh triggers; those maintenance locators do not become runtime dependencies. Creator quick validation passed on the preserved source package. Final XSPEC, XPKG and author handoff required fields and actual upstream section references were checked.
+
+The 13 variants preserve the selected CCX-01..08 contrasts: replacement architect, both provider workers, selected versus newer revision, three ownership conditions, delegation pair, inaccessible record, conflicting recorded outcomes and paired modes. Expected assertions remain outside the declared worker-visible inputs. The nine activation queries are authored train/validation cases, not held-out observations. The frozen CCX-08 pair has equal path sets and identical non-packet bytes; its parsed packets differ only by report_authority. See [CURRENT-PAIR-CHECK.json](reviewer-evidence/CURRENT-PAIR-CHECK.json).
+
+The XSPEC source-heading correction, malformed-fixture structural failure and subsequent correction remain preserved. Earlier author startup remains COULD_NOT_RUN in its historical record; recovery is reported successful and supported by the completed authoring evidence. Actual implicit creator discovery was not measured. None of those events establishes candidate native behavior.
+
+## IR-004 Companion tooling finding
+
+The required [check-05](run/check-05.json) exited 2 because the validator encountered `.devforge-runtime/codex/home/tmp/arg0/codex-arg0Kko27e/codex-execve-wrapper`. [validate_framework.py](companion/scripts/validate_framework.py), lines 17-22, recursively enumerates the tree and rejects symlinks without excluding the private runtime directory. This runtime directory is already excluded by the framework's root [gitignore](framework-source/.gitignore). The companion's pinned [Rust read_tree](companion/src/main.rs), lines 434-454, rejects a symlink at the root entry and then skips the root-relative `.devforge-runtime` directory before descent.
+
+A bounded reviewer ran the unchanged validator against a copy of the 303-file preserved framework source: PASS, exit 0, 26 SKILL.md files including synthetic fixtures, structure only, behavior NOT_EVALUATED. Adding only a benign synthetic runtime symlink produced the same failure class: FAIL, exit 2. No live private runtime was inspected or changed. The original check-05 remains FAIL. See the [diagnostic summary](reviewer-evidence/validator/summary.json) and its raw source-only and synthetic-runtime results.
+
+Disposition: companion traversal defect; no candidate correction is indicated. The future correction should prune only the actual top-level operational runtime directory, reject a symlink at that root entry, and keep authored-source checks, including nested same-named directories. Adding a broad path-component exemption or deleting live runtime state would not resolve the intended boundary correctly.
+
+## IR-005 Nonblocking fixture-helper limitation
+
+The author-only [local-checks.py](run/local-checks.py), lines 54-56, compares only non-packet files found from the resume side. It does not compare both path sets or packet fields other than separately checked conditions. A bounded AST-slice reproduction accepted a transfer packet with changed identity and selected_roots. This demonstrates a mechanical checker limitation, not a defect in the frozen current pair and not a full-check or native result.
+
+Evidence: [RESULT.json](reviewer-evidence/RESULT.json). The accompanying [reproduction script](reviewer-evidence/reproduce-ast-check-reconstructed-001.py) was reconstructed from the executed Python body afterward, has a provenance header, and was not rerun as a saved script. The original checker slice and current frozen fixtures are preserved here.
+
+Before reusing this helper to certify future pair equality, compare both relative-file sets and parsed packet contents after removing only the explicitly allowed report_authority difference, and add a discriminating negative. Alternatively, replace that certification with an independently verified exact pair comparison. Do not mutate the frozen author run to retrofit a pass. The current candidate is not blocked by this limitation.
+
+## IR-006 Evaluation and ownership limits
+
+This review does not demonstrate improvement over the no-expert baseline, successful native loading, installed-resource behavior, activation, cross-provider support or semantic recovery. The three native tiers remain NOT_RUN. The existing zero-call stage-1 allocation is unchanged.
+
+Before native execution, the execution owner must freeze the selected subset and all provider/role/variant/arm counts, installation and client-state mappings, equal baseline/candidate raw inputs, worker visibility, independent criteria and any held-outs, grading-helper negative results, outboxes, per-call timeout, concurrency, total deadline and retry policy. The authoring fixture catalogue and mechanical checks do not substitute for that allocation or independent grading. The selected evaluation plan's historical preparation table is not a launch order.
+
+Author ownership remains retained under SESSION-003@1. No candidate, frozen author output, authority, shared validator, CLI binary, Git ref or peer work was modified. Operator outputs are confined to this review archive; diagnostic modifications were confined to new temporary synthetic copies. No native evaluation client or campaign was launched. Changed candidate, authority, validator or relevant evidence bytes invalidate the affected conclusions and require a separately identified review or recheck.

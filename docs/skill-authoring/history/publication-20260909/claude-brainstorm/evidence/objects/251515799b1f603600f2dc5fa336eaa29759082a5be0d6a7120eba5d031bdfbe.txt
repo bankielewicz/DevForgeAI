@@ -1,0 +1,67 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "SESSION-004"
+artifact_type: "session-record"
+project_id: "devforgeai"
+revision: 1
+status: draft
+created_at_utc: "2026-09-05T20:13:32.538212+00:00"
+producer:
+  skill: "integration-operator"
+  skill_revision: "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+execution_ref: null
+upstream: []
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs: []
+---
+
+# Contributor-context Claude author assignment
+
+## Ownership and task
+
+- Session/task: SESSION-004@1; CAP-CCR-001, stage-1 bootstrap authoring.
+- Owner: one new user-selected Claude author terminal in the worktree below. Existing brainstorm terminals are different owners and retain their assignments.
+- Assignment state: active for that author; retained until the integration operator records release or revocation. Do not open a second writing terminal for this assignment. A replacement requires recovery of the same assignment and collision inspection.
+- Authority: the user requested two separate Codex/Claude POCs of the repeatable contributor-context skill after reviewing its proposal and draft specification. The integration operator allocates reversible authoring and local deterministic checks here. This selects draft inputs for an experiment, without production adoption or behavioral acceptance.
+- Single writer: this Claude author. Root Codex remains architect/integration owner; provider identity grants no other role.
+- Intended result: one candidate implementing CCR-001 through CCR-008, source-grounded references, reproducible authored eval inputs, exact package identity and authoring handoff.
+- Execution reference: SESSION-004@1, store authority, path contributor-context-authoring-20260905/SESSION-004.md under /home/bryan/Projects/DevForge/framework/DevForge/.poc; use this record's actual SHA-256.
+
+## Repository and write fence
+
+- Mode: git-worktree.
+- Repository/common Git directory: /home/bryan/Projects/DevForge/framework/DevForgeAI / /home/bryan/Projects/DevForge/framework/DevForgeAI/.git.
+- Worktree: /home/bryan/Projects/DevForge/worktrees/claude-contribution-context
+- Branch: author/claude-contribution-context-poc
+- Base: c9298bd34ebb73bf598deec6253068d7f8b0ed59
+- Starting candidate: ABSENT. Preserve this as without_skill baseline intent; no old skill or observed baseline result exists.
+- Candidate source fence: project-experts/claude/devforgeai-contribution-context/**. This is the assignment-specific project-expert mapping, outside core plugin exports.
+- Output fence: .poc/claude/devforgeai-contribution-context-workspace/runs/**. Create one unique authoring run with exclusive creation; preserve completed outputs and failures.
+- Native client-state fence: .devforge-runtime/claude/** only. This is private operational state, excluded from reports, manifests and evidence copies.
+- Protected: all other paths, shared documents, existing core skills/plugins/manifests, peer worktrees/providers, control records, author-tool copies, Git metadata, and all companion DevForge sources/policy/runner. Read-only Git inspection is allowed; no commits, refs, staging, reset, merge, push, publishing or external messages.
+- Initial operator changes: selected documents copied into this new worktree and recorded in claude-baseline.json. These are protected inputs, not author changes to revert. No existing worktree was reconciled or reassigned.
+- Collision evidence: PREPARATION-BEFORE.json and claude-baseline.json. No second writer or existing branch/source was present when allocated.
+- The launcher enforces the worktree boundary; finer source fences are declared and checked by inventory, not claimed as per-file filesystem enforcement.
+
+## Selected context and runtime
+
+- Read INPUTS.json, SHA-256 0e8b3254f71f04210a1509764c36633878d8e9240ece01a6c3c5860d770b6a2f, and STAGE-1.md next to this record.
+- Governing requirements: exact selected contributor-context spec revision 1; CCR-001..008. Case catalogue: selected evaluation-plan revision 1, CCX-01..08. Neither file is silently promoted to an accepted production artifact.
+- Shared artifact, execution and authoring contracts: selected revision 2 bytes. Native expert and handoff templates: exact selected copies. Historical brainstorm-specific clauses apply only to their named skill.
+- Authoring tool: staged native Claude skill-creator from INPUTS.json. Record actual loading/usage. Its model-evaluation suggestions are outside this stage's allocation.
+- Native configuration: fresh worktree-local client state through the pinned external DevForge isolate launcher; subscription sign-in may be needed in this private profile. No global credential/history copying or mutation and no API-key setup. Authentication and native creator discovery remain unobserved until the user starts this author terminal.
+- External CLI: /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge; SHA-256 1139a7f2a572be3b18d8a6ff6cd1dbb3ea88dbbfe4be42462b60082860c0daf1; companion commit 6983f1de3e06f9b422546fd6944888dcd34e56a1.
+- No application policy/ARCH is selected; do not invent one or run the draft core expert creator's prepare/bind/gate sequence. This native-creator bootstrap is allowed by the selected authoring contract.
+- Shared services, ports, database: none.
+
+## Stage and closeout
+
+- One interactive author session per provider; this record does not fix model token usage. Automated/nested model evaluation budget: exactly 0 calls, concurrency 0, retries 0. No native test campaign, optimization sweep or model-backed subagent validation in this stage.
+- Local deterministic authoring and checks are authorized. Further evaluation requires an allocation of frozen fixtures/visibility, runtime/core-context setup, counted arms/timeouts and reviewer after candidate handback. Existing brainstorm allocations cannot be borrowed.
+- Intended candidate installation after later allocation: copy runtime files only to a disposable consumer's .claude/skills/devforgeai-contribution-context/. No current general expert installer supports this source mapping. Do not change the installer or claim installation from source presence.
+- Report location: a new run under the output fence. Produce XSPEC-004.md, XPKG-004.md, source/runtime/eval manifests, deterministic checks and HANDOFF-004.md with external full path/SHA-256 receipt after readback. Omit credentials and private client history.
+- Integration target: framework main at c9298bd34ebb73bf598deec6253068d7f8b0ed59; integration owner is root Codex/operator, with human adoption retained. Author self-review is not independent acceptance.
+- Native A/B/C observations: NOT_RUN. Production suitability: NOT_EVALUATED; missing selected production architecture remains a prerequisite.
+- Ownership after handback: retained, no cleanup assigned. Stop after delivering the candidate for operator review.

@@ -1,0 +1,146 @@
+{
+ "schema_version": "devforge.r11-external-receipt/v1",
+ "run_id": "SESSION-001-r11-20260907T2258Z",
+ "allocation": {
+  "record": "SESSION-001@11",
+  "store": "authority",
+  "path": "authoring-assignments-20260905/SESSION-001.md",
+  "sha256": "bfea50f8769254e820c729f43bed1c0df86a92414f3e7e59459f961b07b6eb17"
+ },
+ "issued_at_utc": "2026-09-07T23:24:00.337896+00:00",
+ "timestamp_note": "Produced by datetime.datetime.now(datetime.timezone.utc).isoformat(). R10's receipt carried a literal %f because time.strftime does not implement that directive; every timestamp in this run is parsed with fromisoformat before closure (R10-CUSTODY-002/CHG-040).",
+ "self_digest": "absent by design; this receipt carries no digest of itself. It is read back after being written and its complete-byte SHA-256 is returned externally in the terminal response.",
+ "bindings": [
+  {
+   "path": "report/SEVAL-R11-001.md",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/report/SEVAL-R11-001.md",
+   "sha256": "4d7c3de89b5e5fd6107491c9469fd359e9fdef83416e2e546ea2ce71e9e9c7ec",
+   "bytes": 5220,
+   "role": "named report"
+  },
+  {
+   "path": "MANIFEST.sha256",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/MANIFEST.sha256",
+   "sha256": "f1596396845be86611e84ff660dc4ef4be1f09f03691590a8fc37d42f1be78ef",
+   "bytes": 18851,
+   "role": "run manifest; excludes itself and names the later closure boundary"
+  },
+  {
+   "path": "report/READBACK.json",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/report/READBACK.json",
+   "sha256": "a121d8319882c12975e968d4e5e89fe2fe683e97a9d6c5daa500d1b546e7e252",
+   "bytes": 43193,
+   "role": "complete readback of the manifest and all 148 listed members"
+  },
+  {
+   "path": "HANDOFF.md",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/HANDOFF.md",
+   "sha256": "0e813c7c582e2aee0ed5feeac7e4ddedf6ada6795ccfa0a15463afe83638bc68",
+   "bytes": 10046,
+   "role": "reconciled authoritative handoff; excluded from its own outputs table"
+  },
+  {
+   "path": "AUTHORING-RECORD.md",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/AUTHORING-RECORD.md",
+   "sha256": "d3117ad8a084473d6583638908dd48b9b382d02745fd216e76cebb8f6106582a",
+   "bytes": 10323,
+   "role": "authoring rationale and honest shortfalls"
+  },
+  {
+   "path": "R10-CORRECTION.md",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/R10-CORRECTION.md",
+   "sha256": "5ebbc9a342063ce7711e611ab177382a03fd42a504c993729852aafe1d0b6a24",
+   "bytes": 6912,
+   "role": "additive CHG-039/040/041 custody corrections"
+  },
+  {
+   "path": "BUILDER-RECEIPT.json",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/BUILDER-RECEIPT.json",
+   "sha256": "d3be49e9f8dde5b6f69b673a75d1963d7ca58869719684fe1c3fe60ca6f65b4c",
+   "bytes": 18060,
+   "role": "per-record and per-subpart states for the 14 R10 records"
+  },
+  {
+   "path": "SOURCE-MAP.json",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/SOURCE-MAP.json",
+   "sha256": "2ac5996e6301ee4619fc594a8ab43372108ecc080cc3dd91e39e41a0ec5851e7",
+   "bytes": 27352,
+   "role": "package preservation and control tree mapping with reconciled counts"
+  },
+  {
+   "path": "CLOCK.json",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/CLOCK.json",
+   "sha256": "d8cf23ee478369d9770b2e9033667c8a4c837932c81de16e88c7a1e2bd81880c",
+   "bytes": 1406,
+   "role": "clock, cutoffs and first-action compliance"
+  },
+  {
+   "path": "EXECUTABLE-INVENTORY.txt",
+   "absolute_path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/SESSION-001-r11-20260907T2258Z/EXECUTABLE-INVENTORY.txt",
+   "sha256": "4491d5edeb0fb815d78e01251e39d21bdd91ce81b2a0f6d7738dbd3766d78141",
+   "bytes": 5936,
+   "role": "authored executable and fixture inventory"
+  }
+ ],
+ "later_artifact_bindings": [
+  {
+   "path": "report/READBACK.json",
+   "relationship": "written after the manifest; covers the manifest and every listed member. Bound explicitly here, not by implicit coverage.",
+   "sha256": "a121d8319882c12975e968d4e5e89fe2fe683e97a9d6c5daa500d1b546e7e252"
+  },
+  {
+   "path": "report/RECEIPT.json",
+   "relationship": "this document. Written after the readback, so no earlier artifact can bind it and it cannot bind itself. Its digest is returned externally.",
+   "sha256": null
+  }
+ ],
+ "skill_package": {
+  "root": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm",
+  "file_count": 20,
+  "changed_in_this_allocation": [],
+  "all_twenty_preserved": true,
+  "derivation_json_sha256": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef",
+  "skill_md_sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+  "note": "No write fence was allocated. All twenty verified byte-exact before and after."
+ },
+ "coverage_statement": "This receipt binds the named report, the manifest, the complete readback, the reconciled handoff and every other substantive record of this run. The manifest excludes itself; the readback covers the manifest and its members; this receipt covers the readback and carries no digest of itself. No artifact is covered only implicitly.",
+ "status": {
+  "execution": "NOT_RUN",
+  "validation": "NOT_PERFORMED",
+  "native_C": "NOT_RUN",
+  "native_B": "NOT_RUN",
+  "native_A": "NOT_RUN",
+  "root_admission": "NOT_RUN",
+  "hook_activation": "NOT_RUN",
+  "human_acceptance": "NOT_RUN",
+  "hooks": "DESIGN_ONLY",
+  "findings_closed": 0,
+  "creator_invocation": "NONE_MADE_NONE_AUTHORIZED",
+  "r10_creator_status": "AUTHOR_REPORTED_INVOKED_LOADED_NOT_INDEPENDENTLY_OBSERVED",
+  "specification_authoring": "COMPLETE_AUTHORED_UNEXECUTED",
+  "checker_source": "COMPLETE_AUTHORED_UNEXECUTED",
+  "actual_caller_integration": "COMPLETE_AUTHORED_UNEXECUTED",
+  "suite_scenarios": "COMPLETE_AUTHORED_UNEXECUTED",
+  "physical_fixtures": "COMPLETE_AUTHORED_UNEXECUTED",
+  "r10_ci_009_positive_scenario": "PARTIAL",
+  "native_observation_collection": "ROOT_DEPENDENCY_DEFERRED",
+  "managed_callback_lifecycle": "ROOT_DEPENDENCY_DEFERRED",
+  "authentic_export": "UNAVAILABLE",
+  "no_model_results": "none produced; no NOT_RUN field anywhere is replaced"
+ },
+ "preserved_unchanged": {
+  "held_authorities": [
+   "SESSION-002",
+   "SESSION-003",
+   "SESSION-004"
+  ],
+  "codex_C": "COULD_NOT_RUN",
+  "codex_B": "NOT_RUN",
+  "budget_failures": "unchanged",
+  "late_write_687s": "unchanged",
+  "r9_run_bytes": "unchanged",
+  "r10_run_bytes": "unchanged",
+  "twenty_package_files": "unchanged"
+ },
+ "next": "Hold for independent root review. This receipt is not an admission, an acceptance or an authority issuance."
+}

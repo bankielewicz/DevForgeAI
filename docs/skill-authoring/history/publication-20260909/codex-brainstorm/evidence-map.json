@@ -1,0 +1,776 @@
+{
+  "role": "codex-brainstorm",
+  "selection_manifest_sha256": "8b1d306fcdb877bd6a741741d8ac77b246e8d755a39be0d16e574e8aa0698c8d",
+  "meaning": "Original frozen locators map to exact inert archived bytes. Duplicate hashes intentionally share objects. No historical content rewritten.",
+  "entries": [
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/INTEGRATION-REVIEW.md",
+      "sha256": "80a614a4aca8ef29a28d1cff1fc5c5008a64d2f15c3d27da2c7a3a28bf96c331",
+      "bytes": 7899,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/80a614a4aca8ef29a28d1cff1fc5c5008a64d2f15c3d27da2c7a3a28bf96c331.txt",
+      "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "80a614a4aca8ef29a28d1cff1fc5c5008a64d2f15c3d27da2c7a3a28bf96c331",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/INTEGRATION-REVIEW.receipt.json",
+      "sha256": "0376fcc7580dfed578f9ad14e4df000d7bfa8514efbb4e3131abdab6b9c4c455",
+      "bytes": 4123,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/0376fcc7580dfed578f9ad14e4df000d7bfa8514efbb4e3131abdab6b9c4c455.txt",
+      "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "0376fcc7580dfed578f9ad14e4df000d7bfa8514efbb4e3131abdab6b9c4c455",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/FINDINGS.json",
+      "sha256": "132319fd7d866161055627bc05a534e520f7f6008635dadfa18ff9fc4efb5f92",
+      "bytes": 3961,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/132319fd7d866161055627bc05a534e520f7f6008635dadfa18ff9fc4efb5f92.txt",
+      "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "132319fd7d866161055627bc05a534e520f7f6008635dadfa18ff9fc4efb5f92",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/RECEIPT.json",
+      "sha256": "a4651995ea95858ba4c2d4221d8bc0c2317622c9c36d7d6498fa4fb56d8a1b3d",
+      "bytes": 3519,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/a4651995ea95858ba4c2d4221d8bc0c2317622c9c36d7d6498fa4fb56d8a1b3d.txt",
+      "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "a4651995ea95858ba4c2d4221d8bc0c2317622c9c36d7d6498fa4fb56d8a1b3d",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/brainstorm-r8-20260907T145546267093Z/review-codex-measurement/REVIEW.md",
+      "sha256": "80d5904a9e5dce1aceef82b9770ef584052d43460fb9628364d5b9716c470258",
+      "bytes": 10469,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/80d5904a9e5dce1aceef82b9770ef584052d43460fb9628364d5b9716c470258.txt",
+      "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "80d5904a9e5dce1aceef82b9770ef584052d43460fb9628364d5b9716c470258",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_INDEPENDENT_PROPOSAL_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/runtime-repairs/brainstorm-authoring-r9-20260907T152356521086Z/CODEX-BRAINSTORM.md",
+      "sha256": "fae26640d481463f1dfa1a9563b3d2885ab726c1d56ce0f6a8e80e96e8c5b35c",
+      "bytes": 1219,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/fae26640d481463f1dfa1a9563b3d2885ab726c1d56ce0f6a8e80e96e8c5b35c.txt",
+      "reason": "Author-selected PREVIOUS_HOLD",
+      "selection_basis": [
+        {
+          "expected_sha256": "fae26640d481463f1dfa1a9563b3d2885ab726c1d56ce0f6a8e80e96e8c5b35c",
+          "matches_current_bytes": true,
+          "reason": "Author-selected PREVIOUS_HOLD"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/CODEX-BRAINSTORM.md",
+      "sha256": "5914114cd2eb90c790983d603e56134917c05499e65f2cd57c25474df8888e39",
+      "bytes": 1563,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/5914114cd2eb90c790983d603e56134917c05499e65f2cd57c25474df8888e39.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "5914114cd2eb90c790983d603e56134917c05499e65f2cd57c25474df8888e39",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/INPUTS.json",
+      "sha256": "343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5",
+      "bytes": 78984,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "343c565f8afc33771f759f7710ad8a659868bea37616bd9758442fab7d053da5",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/authority/SESSION-002-r6.md",
+      "sha256": "ee771b42d8b7a2da0de1b62b05dbc913eb04de70c072ac4d34d26f1241b5affe",
+      "bytes": 7179,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/ee771b42d8b7a2da0de1b62b05dbc913eb04de70c072ac4d34d26f1241b5affe.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "ee771b42d8b7a2da0de1b62b05dbc913eb04de70c072ac4d34d26f1241b5affe",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/authority/authority/SESSION-002-r7.md",
+      "sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+      "bytes": 7188,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "44f5d40955851ab011403853885d2bc36c492f73a569a0ad2c75c300c373d513",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/AUTHORING-RUNTIME-BRIDGE.md",
+      "sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+      "bytes": 9402,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "ba42910ed0d6da604e69c2ca110fae4c931a8c210d697bc9b9d5547703773f65",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/SKILL-DESIGN-SPECIFICATION.md",
+      "sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+      "bytes": 10518,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "6e2722f66df31c3e482837cd0afb210f6eded525a20bc0ce85ebd09e30421cd1",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/codex-skill-creator/SKILL.md",
+      "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+      "bytes": 15311,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/SKILL.md",
+      "sha256": "1d4934310c2fc41abe057d45a49d09af54cf331436d042f80e99d0a5110a238d",
+      "bytes": 8854,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/1d4934310c2fc41abe057d45a49d09af54cf331436d042f80e99d0a5110a238d.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "1d4934310c2fc41abe057d45a49d09af54cf331436d042f80e99d0a5110a238d",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/assets/skill-design-specification-template.md",
+      "sha256": "c9c310037d82ccf7cab62b97d9739d1bb1e5e2637db56f16e3ddb2398492a06f",
+      "bytes": 10327,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/c9c310037d82ccf7cab62b97d9739d1bb1e5e2637db56f16e3ddb2398492a06f.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "c9c310037d82ccf7cab62b97d9739d1bb1e5e2637db56f16e3ddb2398492a06f",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/references/existing-skill-selection.md",
+      "sha256": "43b546b02d41152f44695e90e69f6dc13a05a25738bde4e38a9a21efe0535a55",
+      "bytes": 3608,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/43b546b02d41152f44695e90e69f6dc13a05a25738bde4e38a9a21efe0535a55.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "43b546b02d41152f44695e90e69f6dc13a05a25738bde4e38a9a21efe0535a55",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/guidance/skill_builder/references/interview-guide.md",
+      "sha256": "fc7359f9725d71f0db4c618359db25c93c141d5a2f6c9ba1701dc816c6184f44",
+      "bytes": 4718,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/fc7359f9725d71f0db4c618359db25c93c141d5a2f6c9ba1701dc816c6184f44.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "fc7359f9725d71f0db4c618359db25c93c141d5a2f6c9ba1701dc816c6184f44",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/README.md",
+      "sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff",
+      "bytes": 8904,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "88cf31d1aab8afa6a016e6b49358c41595b4bd0a02977da269154c11d0b4b0ff",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/delivery_core.py",
+      "sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+      "bytes": 28047,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "a08ecfda42e5e9b6ef4163f7c1fb3f673d99e1115d148232e4b7a7f1f09e6d9d",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/hook_protocol.py",
+      "sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+      "bytes": 8560,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "be2151e5c6093537dcb4ffd16d95c480913dad062db71a75bc80a94267e887a3",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/runtime/phase_state.py",
+      "sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+      "bytes": 59033,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "25ccd20a0b2be05251fc37b8789d85e9ed3a1427009555975e1a715021ce4d95",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "bytes": 10482,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "bytes": 10720,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/skill-authoring-contract.md",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "bytes": 19657,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+      "bytes": 10496,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/selected/shared/docs/mvp/templates/shared/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_INPUT",
+      "selection_basis": [
+        {
+          "expected_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_INPUT"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/starting-candidate/SKILL.md",
+      "sha256": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+      "bytes": 6791,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_HISTORY",
+      "selection_basis": [
+        {
+          "expected_sha256": "ddd33bca3a97093aa953b4ef82f8d97ae248e5aa916e742126b6162397ee5828",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_HISTORY"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/starting-candidate/references/artifact-workflow.md",
+      "sha256": "8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9",
+      "bytes": 13682,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_HISTORY",
+      "selection_basis": [
+        {
+          "expected_sha256": "8d9221aa879cb279b7b44bf30a522db899a9183443a0d5970a4d125657cbd1b9",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_HISTORY"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r7-20260907T125533937440Z/starting-candidate/references/derivation.json",
+      "sha256": "11504c3881b17e52e8d8d2113c3fe26a22ca98530ba04a43baa8a4def4c7258e",
+      "bytes": 2687,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/11504c3881b17e52e8d8d2113c3fe26a22ca98530ba04a43baa8a4def4c7258e.txt",
+      "reason": "Author-selected SOURCE_DERIVATION_HISTORY",
+      "selection_basis": [
+        {
+          "expected_sha256": "11504c3881b17e52e8d8d2113c3fe26a22ca98530ba04a43baa8a4def4c7258e",
+          "matches_current_bytes": true,
+          "reason": "Author-selected SOURCE_DERIVATION_HISTORY"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-RECORD.md",
+      "sha256": "cc5b537fe88102413ad1e9316a541b62da31d3209ffe0cf0d16c35bb20f2538b",
+      "bytes": 14148,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/cc5b537fe88102413ad1e9316a541b62da31d3209ffe0cf0d16c35bb20f2538b.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "cc5b537fe88102413ad1e9316a541b62da31d3209ffe0cf0d16c35bb20f2538b",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-REPORT.md",
+      "sha256": "658726e7ed2a9cef0a28025da71769d6b85cd8786dc21e17d465fa9699461bfe",
+      "bytes": 10241,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/658726e7ed2a9cef0a28025da71769d6b85cd8786dc21e17d465fa9699461bfe.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "658726e7ed2a9cef0a28025da71769d6b85cd8786dc21e17d465fa9699461bfe",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/AUTHORING-REPORT.receipt.json",
+      "sha256": "2f4c60bfece6bf8de488f752f60a7338d17a60802158078c73bae0a8860233b4",
+      "bytes": 6617,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/2f4c60bfece6bf8de488f752f60a7338d17a60802158078c73bae0a8860233b4.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "2f4c60bfece6bf8de488f752f60a7338d17a60802158078c73bae0a8860233b4",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/BUILDER-CHANGE-RECEIPT.json",
+      "sha256": "0b82f381b07b8d4e18992b2e71bea13602ce2a290cc135d0820089b83ef5e1e0",
+      "bytes": 51320,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/0b82f381b07b8d4e18992b2e71bea13602ce2a290cc135d0820089b83ef5e1e0.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "0b82f381b07b8d4e18992b2e71bea13602ce2a290cc135d0820089b83ef5e1e0",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/CANDIDATE-MANIFEST.json",
+      "sha256": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2",
+      "bytes": 5118,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "cf5b34c68924f1893d2970bf0726502ae617f8f1d0226af3215ab365d96bf8d2",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/EVIDENCE-MANIFEST.json",
+      "sha256": "5b2f4fad18356f22a69587b7029d308470ba9da4200bc83de49a9b5237f3a29c",
+      "bytes": 143729,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/5b2f4fad18356f22a69587b7029d308470ba9da4200bc83de49a9b5237f3a29c.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "5b2f4fad18356f22a69587b7029d308470ba9da4200bc83de49a9b5237f3a29c",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/PROPOSAL-INVENTORY.json",
+      "sha256": "6925a7432f5cb8662c67e660e720c5d83bd5764498a8861c7a66b87a3bc3e56b",
+      "bytes": 2095,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/6925a7432f5cb8662c67e660e720c5d83bd5764498a8861c7a66b87a3bc3e56b.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "6925a7432f5cb8662c67e660e720c5d83bd5764498a8861c7a66b87a3bc3e56b",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/RECEIPT-READBACK.json",
+      "sha256": "65cf0859a0434af20987a9ecdaa045ca00c2c6ca4e8778e80d14426e1ca5530c",
+      "bytes": 1672,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/65cf0859a0434af20987a9ecdaa045ca00c2c6ca4e8778e80d14426e1ca5530c.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "65cf0859a0434af20987a9ecdaa045ca00c2c6ca4e8778e80d14426e1ca5530c",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/authority/SESSION-002-r8.md",
+      "sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383",
+      "bytes": 6648,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383.txt",
+      "reason": "Author-selected PREVIOUS_PREPARATION_AUTHORITY",
+      "selection_basis": [
+        {
+          "expected_sha256": "aa1d773e4737d7ac235c3a29c6b90f415c5103c3aede4289e1fc5b352aca2383",
+          "matches_current_bytes": true,
+          "reason": "Author-selected PREVIOUS_PREPARATION_AUTHORITY"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-source/AI-REVIEW.json",
+      "sha256": "7314d80976c7f5daa8ba88c2340faca82a848a4d1a22b95142172c780e3ef52e",
+      "bytes": 77415,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/7314d80976c7f5daa8ba88c2340faca82a848a4d1a22b95142172c780e3ef52e.txt",
+      "reason": "Author-selected R7_SOURCE_STATIC_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "7314d80976c7f5daa8ba88c2340faca82a848a4d1a22b95142172c780e3ef52e",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R7_SOURCE_STATIC_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-source/RECEIPT.json",
+      "sha256": "fb5033bdb8d4aaddd83b8f73d9956fd9ecae61423cf431287f851da7f3c36b9b",
+      "bytes": 2228,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/fb5033bdb8d4aaddd83b8f73d9956fd9ecae61423cf431287f851da7f3c36b9b.txt",
+      "reason": "Author-selected R7_SOURCE_STATIC_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "fb5033bdb8d4aaddd83b8f73d9956fd9ecae61423cf431287f851da7f3c36b9b",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R7_SOURCE_STATIC_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/inputs/review-r7/review-codex-source/REVIEW.md",
+      "sha256": "6cbef409ef54ec0e3d390a3470561818f8a4c42715005b1ec22f44cfa3f3f6fd",
+      "bytes": 4097,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/6cbef409ef54ec0e3d390a3470561818f8a4c42715005b1ec22f44cfa3f3f6fd.txt",
+      "reason": "Author-selected R7_SOURCE_STATIC_REVIEW",
+      "selection_basis": [
+        {
+          "expected_sha256": "6cbef409ef54ec0e3d390a3470561818f8a4c42715005b1ec22f44cfa3f3f6fd",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R7_SOURCE_STATIC_REVIEW"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/grade-rubric.proposed.json",
+      "sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+      "bytes": 32726,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "b62cd2552742209ccbc5527fda85e974f37370abe89fb2499d200da31826550b",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/authoring-r8-20260907T143109896368Z/proposals/measurement-plan.proposed.json",
+      "sha256": "8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415",
+      "bytes": 32129,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415.txt",
+      "reason": "Author-selected R8_AUTHORING",
+      "selection_basis": [
+        {
+          "expected_sha256": "8e0561b738c585945d82f96415dfa7d666c4d19626dae3e26f2555f01fdca415",
+          "matches_current_bytes": true,
+          "reason": "Author-selected R8_AUTHORING"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/C-native-observation-gap.json",
+      "sha256": "8448f662915f3dd78899624b04e5163ed59c18000d1a7aa253bfa3c9c313443d",
+      "bytes": 972,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/8448f662915f3dd78899624b04e5163ed59c18000d1a7aa253bfa3c9c313443d.txt",
+      "reason": "Author-selected HISTORICAL_EVALUATE_005",
+      "selection_basis": [
+        {
+          "expected_sha256": "8448f662915f3dd78899624b04e5163ed59c18000d1a7aa253bfa3c9c313443d",
+          "matches_current_bytes": true,
+          "reason": "Author-selected HISTORICAL_EVALUATE_005"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/FINAL-REPORT.md",
+      "sha256": "dc0a7d752667ccd544719902c6904a25331bcbdd5060cd6254e763de12277cb5",
+      "bytes": 29887,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/dc0a7d752667ccd544719902c6904a25331bcbdd5060cd6254e763de12277cb5.txt",
+      "reason": "Author-selected HISTORICAL_EVALUATE_005",
+      "selection_basis": [
+        {
+          "expected_sha256": "dc0a7d752667ccd544719902c6904a25331bcbdd5060cd6254e763de12277cb5",
+          "matches_current_bytes": true,
+          "reason": "Author-selected HISTORICAL_EVALUATE_005"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/FINAL-REPORT.receipt.json",
+      "sha256": "b898afe4f845fb947bf900a28c9dd8170e5e6459da7d6a4f71ade24f79d8b347",
+      "bytes": 4417,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/b898afe4f845fb947bf900a28c9dd8170e5e6459da7d6a4f71ade24f79d8b347.txt",
+      "reason": "Author-selected HISTORICAL_EVALUATE_005",
+      "selection_basis": [
+        {
+          "expected_sha256": "b898afe4f845fb947bf900a28c9dd8170e5e6459da7d6a4f71ade24f79d8b347",
+          "matches_current_bytes": true,
+          "reason": "Author-selected HISTORICAL_EVALUATE_005"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/candidate-final-manifest.json",
+      "sha256": "76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4",
+      "bytes": 3052,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4.txt",
+      "reason": "Author-selected HISTORICAL_EVALUATE_005",
+      "selection_basis": [
+        {
+          "expected_sha256": "76aa4b407b9cf02e6d4587db74f40aa1965f358d22205e22113b5896ecead9a4",
+          "matches_current_bytes": true,
+          "reason": "Author-selected HISTORICAL_EVALUATE_005"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/grades/C-candidate.json",
+      "sha256": "d32f5c00d9f4481b4e8c87de3d3ee4474b70e560195f8b380ebe01439d46ac82",
+      "bytes": 40007,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/d32f5c00d9f4481b4e8c87de3d3ee4474b70e560195f8b380ebe01439d46ac82.txt",
+      "reason": "Author-selected HISTORICAL_EVALUATE_005",
+      "selection_basis": [
+        {
+          "expected_sha256": "d32f5c00d9f4481b4e8c87de3d3ee4474b70e560195f8b380ebe01439d46ac82",
+          "matches_current_bytes": true,
+          "reason": "Author-selected HISTORICAL_EVALUATE_005"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/.poc/codex/devforge-brainstorm-workspace/runs/evaluate-005-20260906T170437985433Z/phase-decisions.json",
+      "sha256": "6c090c8233f1105d8d1c3ea138dc7979cc8b63b0295a9ecd12c3406ab5709482",
+      "bytes": 2571,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/evidence/objects/6c090c8233f1105d8d1c3ea138dc7979cc8b63b0295a9ecd12c3406ab5709482.txt",
+      "reason": "Author-selected HISTORICAL_EVALUATE_005",
+      "selection_basis": [
+        {
+          "expected_sha256": "6c090c8233f1105d8d1c3ea138dc7979cc8b63b0295a9ecd12c3406ab5709482",
+          "matches_current_bytes": true,
+          "reason": "Author-selected HISTORICAL_EVALUATE_005"
+        }
+      ]
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/docs/skill-authoring/history/publication-20260909/codex-brainstorm/author-handoff.md",
+      "sha256": "0ed8dd22a3d01b148946d98b8bfabc78e5647f38b05c464b25a042de792c8e07",
+      "bytes": 5921,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/author-handoff.md",
+      "reason": "Released author source-publication handoff",
+      "selection_basis": []
+    },
+    {
+      "role": "codex-brainstorm",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm/docs/skill-authoring/history/publication-20260909/codex-brainstorm/file-identities.json",
+      "sha256": "1add71a47919ff7c97d76415f05f495e5a0ee9a9813886417fb1d7e76144b761",
+      "bytes": 79352,
+      "proposed_durable_relative_path": "docs/skill-authoring/history/publication-20260909/codex-brainstorm/file-identities.json",
+      "reason": "Released exact source identity inventory",
+      "selection_basis": []
+    }
+  ],
+  "locator_aliases": []
+}

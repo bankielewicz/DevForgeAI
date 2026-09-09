@@ -1,0 +1,541 @@
+#!/usr/bin/env python3
+"""Bounded sequential phase runner: C1 -> B5 -> B11 -> A3a -> A5a, one freeze.
+
+Revision 3 (SESSION-001@7) changes four things and is unexecuted:
+
+- Semantic judgments are no longer read from a frozen file before C launches.
+  A judgment is generated after an arm's outputs and checks exist, and is
+  consumed only if it names this run, session and arm and the exact digests of
+  that arm's result, output inventory and three checker outputs, under the
+  frozen criteria revision. A prefilled PASS cannot satisfy that, because the
+  digests it would have to carry do not exist when it would have been written.
+- Admission is sequential. Concurrency is 1 for every phase, so there is no
+  window in which a peer finishes ungraded while the next arm is submitted.
+- Phase A actually launches. It uses the unchanged trigger-query selectors and
+  never the C/B "read the installed SKILL.md" prefix, because that prefix would
+  answer the question A exists to ask.
+- Fixed criteria and generated judgments are bound at different times: criteria
+  come from the freeze, judgments are hashed into the gate as they are consumed.
+
+Under a zero-call allocation this refuses before any launch or marker.
+"""
+import concurrent.futures as cf, hashlib, json, os, shutil, subprocess, sys, time
+RUN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RUN, "checkers"))
+sys.path.insert(0, os.path.join(RUN, "control"))
+import harness as H
+import controller as CT
+import grade as G
+
+W = "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm"
+SRC = os.path.join(W, "providers/claude/plugins/devforgeai/skills/devforge-brainstorm")
+FIX = os.path.join(SRC, "evals/fixtures")
+EXPORT = os.path.join(RUN, "export/export-01/devforgeai")
+DELEG = ("/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/"
+         "claude-brainstorm-revise-002-20260905T162209790414Z/next-fixtures/delegation")
+FREEZE = json.load(open(os.path.join(RUN, "control", "FREEZE.json")))
+BUD = CT.Budget(FREEZE["overall_start_epoch"], FREEZE["overall_budget_s"])
+CTL = CT.Controller(os.path.join(RUN, "control", "FREEZE.json"), BUD)
+ALLOWED = ["Read", "Write", "Edit", "Glob", "Grep", "Skill", "Bash(python3:*)"]
+# Production leaves this None. A no-model test assigns a stand-in that records a
+# launch marker in place of the model call.
+LAUNCH_HOOK = None
+LAUNCH_MARKERS = []
+HEAD = ("Read the skill instructions at /opt/devforgeai/skills/devforge-brainstorm/SKILL.md "
+        "and follow them for the request below.\n\n")
+CLAUDE_MD = ("# Project workspace\n\nA new project that has not been named yet. "
+             "DevForge artifacts live under `docs/devforge/`.\n")
+EVALS = {e["id"]: e for e in json.load(open(os.path.join(SRC, "evals/evals.json")))["evals"]}
+A_QUERIES = {q["id"]: q for q in json.load(
+    open(os.path.join(SRC, "evals/triggers/trigger-queries.json")))["queries"]}
+JUDGMENTS = os.path.join(RUN, "judgments")
+STAGING = {
+    0: [], 3: [("IDEAS-001.md", "docs/devforge/ideas/IDEAS-001.md")],
+    5: [("IDEAS-001.md", "docs/devforge/ideas/IDEAS-001.md")],
+    6: [("IDEAS-001.md", "docs/devforge/ideas/IDEAS-001.md")],
+    8: [("b6/IDEAS-002.md", "docs/devforge/ideas/IDEAS-001.md"),
+        ("b6/CHANGE-003.md", "docs/devforge/changes/CHANGE-003.md")],
+    11: [("b6/IDEAS-002.md", "docs/devforge/ideas/IDEAS-001.md"),
+         ("b6/CHANGE-003.md", "docs/devforge/changes/CHANGE-003.md"),
+         ("b6/preserved/CHANGE-003.r1.md", "docs/devforge/changes/archive/CHANGE-003.r1.md")],
+}
+C_PROMPT = HEAD + (
+    "I help run a small community tool library - neighbours borrow drills, ladders, that sort of "
+    "thing. The thing that keeps going wrong is that nobody knows what is actually on the shelf "
+    "right now, because half the returns never get logged and two of us keep separate notebooks. "
+    "I am not sure whether the real problem is the logging or the fact that there are two "
+    "notebooks. I would like to think this through properly and have something written down I can "
+    "come back to.\n\nWhen you are done, tell me in your final message: the exact path of every "
+    "file you saved, the SHA-256 of each one, and where each template and reference you used was "
+    "actually read from.\n")
+
+
+def sha(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 16), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
+def tree(root):
+    out = {}
+    for d, _, fs in os.walk(root):
+        for f in fs:
+            p = os.path.join(d, f)
+            out[os.path.relpath(p, root)] = sha(p)
+    return out
+
+
+def launch(arm_id, prompt, sandbox, staged, cap_assigned, extra_ro=()):
+    d, why = CTL.claim_attempt(arm_id)
+    if d is None:
+        return {"arm": arm_id, "outcome": "COULD_NOT_RUN", "detail": why}
+    cap, capdet = BUD.cap_for(cap_assigned)
+    if cap < 60:
+        return {"arm": arm_id, "outcome": "NOT_RUN",
+                "detail": {"reason": "remaining overall budget below the minimum useful cap",
+                           **capdet}}
+    proj = os.path.join(d, "project")
+    os.makedirs(proj, exist_ok=True)
+    open(os.path.join(proj, "CLAUDE.md"), "w").write(CLAUDE_MD)
+    staged_map = {}
+    for src, dst in staged:
+        s = src if os.path.isabs(src) else os.path.join(FIX, src)
+        t = os.path.join(proj, dst)
+        os.makedirs(os.path.dirname(t), exist_ok=True)
+        shutil.copyfile(s, t)
+        staged_map[dst] = {"from": s, "sha256": sha(t)}
+    binds = H.client_state_binds(d) + ["--bind", proj, sandbox]
+    for a, b in extra_ro:
+        binds += ["--ro-bind", a, b]
+    cmd = H.build_cmd(sandbox, prompt, (EXPORT + "/skills/devforge-brainstorm",
+                                        "/opt/devforgeai/skills/devforge-brainstorm"),
+                      ALLOWED, binds)
+    t0 = time.time()
+    LAUNCH_MARKERS.append(arm_id)
+    if LAUNCH_HOOK is None:
+        obs = H.stream(cmd, os.path.join(d, "transcript.jsonl"), cap,
+                       stderr_path=os.path.join(d, "stderr.log"))
+    else:
+        # A deterministic test drives this same function so that what is
+        # measured is the real admission path, not a second implementation of
+        # what it ought to do. The hook stands exactly where the model call is;
+        # it records a marker and never reaches an executable.
+        obs = LAUNCH_HOOK(arm_id, cmd, d, cap)
+    rec = {"arm": arm_id, "run_id": FREEZE["run_id"], "session": FREEZE["session"],
+           "sandbox_project": sandbox, "attempt_dir": d,
+           "cap": capdet, "staged_inputs": staged_map,
+           "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+           "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t0)),
+           "observation": obs, "outputs": tree(proj)}
+    rec["outcome"] = "PASS" if obs["terminal"] == "COMPLETED" else (
+        "COULD_NOT_RUN" if obs["terminal"] in ("TIMEOUT", "EOF_WITHOUT_RESULT") else "FAIL")
+    if obs.get("result_text"):
+        open(os.path.join(d, "terminal-response.txt"), "w").write(obs["result_text"])
+    json.dump(rec, open(os.path.join(d, "arm.json"), "w"), indent=1)
+    return rec
+
+
+def b_arm(spec):
+    if isinstance(spec["case"], int):
+        c = spec["case"]
+        ev = EVALS[c]
+        return launch(spec["id"], HEAD + ev["prompt"], "/work/%s" % spec["id"], STAGING[c],
+                      spec["assigned_cap_s"])
+    arm = spec["case"]
+    req = open(os.path.join(DELEG, "worker-request.txt")).read()
+    files = [(os.path.join(DELEG, arm, "project", r), r) for r in (
+        "docs/devforge/changes/CHANGE-003.md",
+        "docs/devforge/changes/archive/CHANGE-003.r1.md",
+        "docs/devforge/decisions/DELEGATION-001.md",
+        "docs/devforge/ideas/IDEAS-001.md")]
+    return launch(spec["id"], HEAD + req, "/work/%s" % spec["id"], files, spec["assigned_cap_s"])
+
+
+def a_arm(spec):
+    """Phase A observes discovery, so it must not be told what to discover.
+
+    C and B prepend HEAD, which names the installed SKILL.md and tells the
+    worker to follow it. Prepending that here would answer A's own question --
+    whether the skill is selected from the request alone -- so A sends the
+    selector query unchanged and records activation as its own observation,
+    separate from whether any artifact was later written.
+    """
+    q = A_QUERIES[spec["case"]]
+    rec = launch(spec["id"], q["query"], "/work/%s" % spec["id"], [],
+                 spec["assigned_cap_s"])
+    rec["activation"] = _activation(rec, q)
+    json.dump(rec, open(os.path.join(rec["attempt_dir"], "arm.json"), "w"), indent=1)
+    return rec
+
+
+def _activation(rec, q):
+    """Was the skill actually selected, and was that the expected outcome?
+
+    This is a distinct observation from C's installed-resource loading and from
+    B's behaviour. A transcript that cannot be read is COULD_NOT_RUN, not a
+    negative result: absence of evidence is recorded as absence.
+    """
+    tp = os.path.join(rec["attempt_dir"], "transcript.jsonl")
+    out = {"query_id": q["id"], "category": q.get("category"),
+           "should_trigger": q.get("should_trigger"), "split": q.get("split"),
+           "prefix_added": False,
+           "note": "selector query sent unchanged; no installed-skill instruction prepended"}
+    if not os.path.isfile(tp):
+        out.update(outcome="COULD_NOT_RUN",
+                   reason="no transcript to observe selection in")
+        return out
+    invoked = False
+    try:
+        with open(tp, encoding="utf-8", errors="replace") as fh:
+            for line in fh:
+                if '"devforge-brainstorm"' in line and '"Skill"' in line:
+                    invoked = True
+                    break
+    except OSError as exc:
+        out.update(outcome="COULD_NOT_RUN", reason="transcript unreadable: %s" % exc)
+        return out
+    out["skill_invoked"] = invoked
+    out["outcome"] = "PASS" if invoked == bool(q.get("should_trigger")) else "FAIL"
+    out["reason"] = ("observed selection matches the selector's expectation"
+                     if out["outcome"] == "PASS" else
+                     "observed selection does not match the selector's expectation")
+    return out
+
+
+def _grade(arm_id, rec, plan):
+    """Grade one completed arm now, before anything else is admitted."""
+    gd = os.path.join(RUN, "grades")
+    os.makedirs(gd, exist_ok=True)
+    return G.grade_arm(arm_id, rec, plan, gd)
+
+
+def _fhash(path):
+    try:
+        return hashlib.sha256(open(path, "rb").read()).hexdigest()
+    except OSError:
+        return None
+
+
+def _criteria_revision(plan):
+    """The fixed criteria, which are frozen and therefore cannot move.
+
+    Criteria are an immutable input; judgments are generated evidence. Binding
+    them at the same moment is what let a prefilled PASS look like an
+    observation, so they are bound separately: this digest comes from the frozen
+    plan, the judgment digest is taken when the gate consumes it.
+    """
+    return hashlib.sha256(
+        json.dumps(plan.get("criteria"), sort_keys=True).encode()).hexdigest()
+
+
+def _evidence_binding(arm_id, rec, grade, plan):
+    """Exactly what a judgment for this arm has to name to be about this arm."""
+    gd = os.path.join(RUN, "grades")
+    b = {"run_id": FREEZE["run_id"], "session": FREEZE["session"], "arm": arm_id,
+         "criteria_revision": _criteria_revision(plan),
+         "result_sha256": _fhash(os.path.join(rec["attempt_dir"], "arm.json")),
+         "output_inventory_sha256": hashlib.sha256(
+             json.dumps(grade.get("inventory"), sort_keys=True).encode()).hexdigest()}
+    for n in ("references", "labels", "receipts"):
+        b["%s_sha256" % n] = _fhash(os.path.join(gd, "%s-%s.json" % (arm_id, n)))
+    return b
+
+
+def _judgment(arm_id, rec, grade, plan):
+    """Consume an authorized judgment written after this arm produced output.
+
+    Revision 2 loaded control/SEMANTIC-DECISIONS.json once, before C launched,
+    and read that same in-memory object at every gate. A judgment written there
+    in advance judged an arm whose output did not exist yet; one written
+    afterwards changed a frozen input and was invisible to the running process.
+    Either way nothing could be observed.
+
+    So the judgment lives outside the freeze, in RUN/judgments/, and has to name
+    this run, session and arm together with the digests of the completed result,
+    the output inventory and all three checker outputs, under the frozen
+    criteria revision. Those digests do not exist before the arm runs, which is
+    what makes a prepopulated PASS fail here rather than pass silently. A
+    missing judgment leaves downstream work unstarted; a stale or mismatched one
+    stops it.
+    """
+    want = _evidence_binding(arm_id, rec, grade, plan)
+    path = os.path.join(JUDGMENTS, "%s.json" % arm_id)
+    base = {"arm": arm_id, "expected_binding": want, "judgment_path":
+            os.path.relpath(path, RUN)}
+    if not os.path.isfile(path):
+        base.update(outcome="MISSING",
+                    basis="no authorized judgment for this arm; absence cannot default to "
+                          "PASS, and the gate leaves downstream work unstarted")
+        return base
+    try:
+        j = json.load(open(path))
+    except (ValueError, OSError) as exc:
+        base.update(outcome="UNREADABLE", basis="judgment could not be parsed: %s" % exc)
+        return base
+    base["judgment_sha256"] = _fhash(path)
+    missing = [k for k in want if k not in j]
+    if missing:
+        base.update(outcome="MALFORMED",
+                    basis="judgment does not state %s, so it cannot be shown to be about this "
+                          "arm's actual evidence" % ", ".join(sorted(missing)))
+        return base
+    bad = sorted(k for k, v in want.items() if str(j.get(k)) != str(v))
+    if bad:
+        base.update(outcome="STALE", mismatched=bad,
+                    observed={k: j.get(k) for k in bad},
+                    basis="judgment names different %s than this arm's current evidence; a "
+                          "judgment about other bytes is not an observation about these"
+                          % ", ".join(bad))
+        return base
+    if j.get("outcome") not in ("PASS", "FAIL"):
+        base.update(outcome="MALFORMED",
+                    basis="judgment outcome %r is not PASS or FAIL" % j.get("outcome"))
+        return base
+    base.update(outcome=j["outcome"], criterion=j.get("criterion", "named behaviour"),
+                basis=str(j.get("basis", ""))[:400], issued_at_utc=j.get("issued_at_utc"))
+    return base
+
+
+def _arm_gate(ctl, phase, arm_id, grade, sem, plan):
+    """Bind this arm's checked results, by hash, into a phase decision."""
+    gd = os.path.join(RUN, "grades")
+    required = [{"id": "%s-%s" % (arm_id, k), "path": os.path.relpath(
+                    os.path.join(gd, "%s-%s.json" % (arm_id, n)), RUN),
+                 "field": "conformance", "expect": ["PASS"]}
+                for k, n in (("references", "references"), ("labels", "labels"),
+                             ("receipts", "receipts"))]
+    required.append({"id": "%s-grade" % arm_id,
+                     "path": os.path.relpath(os.path.join(gd, "%s-grade.json" % arm_id), RUN),
+                     "field": "mechanical", "expect": ["PASS"]})
+    return ctl.gate("%s:%s" % (phase, arm_id), required,
+                    [{"case": arm_id, "criterion": sem.get("criterion", "named behaviour"),
+                      "outcome": "PASS" if sem.get("outcome") == "PASS" else "FAIL",
+                      "recorded": sem.get("outcome"),
+                      "judgment_sha256": sem.get("judgment_sha256"),
+                      "judgment_path": sem.get("judgment_path"),
+                      "criteria_revision": (sem.get("expected_binding") or {}).get(
+                          "criteria_revision"),
+                      "basis": str(sem.get("basis"))[:200]}])
+
+
+def main(argv=None):
+    """C1, then B5, then B11, then A3a and A5a - each behind the last one's
+    checks and its authorized post-output judgment, one arm at a time.
+
+    Revision 1 launched C, checked only that the process completed, and
+    submitted every B arm in the next statement. Revision 2 graded before
+    admitting but kept a concurrent pool and a pre-loaded decision list, so a
+    peer could finish ungraded and no judgment could ever be an observation.
+    Revision 3 removes both: concurrency is 1, and the judgment is read after
+    the output exists and must name that output's digests.
+    """
+    argv = sys.argv[1:] if argv is None else list(argv)
+    resume = "--resume" in argv
+    results, phase_state, consumed = {}, {}, {}
+    paused = []
+
+    def stop_here(reason, phase):
+        CTL.failed = True
+        phase_state[phase] = {"decision": "STOP", "reason": reason}
+
+    def refuse(code, message, gate="startup"):
+        print(message)
+        CTL.decisions.append({"phase_gate": gate, "decision": "STOP", "reason": message})
+        CTL.save(os.path.join(RUN, "control", "PHASES.json"))
+        return code
+
+    # Fail closed before anything can launch. A preparation freeze authorizes no
+    # native call, so the honest response to being run is a clean refusal at the
+    # boundary -- not an empty arm list that falls through the phases and prints
+    # PROCEED because nothing failed.
+    if int(FREEZE.get("native_arms_authorized", 0)) <= 0:
+        return refuse(5, "NO NATIVE ARM AUTHORIZED - this freeze permits zero model calls; "
+                         "refusing before any launch, stand-in or marker")
+    if not FREEZE.get("arms"):
+        return refuse(5, "NO ARMS DECLARED - nothing to admit; refusing rather than reporting "
+                         "an empty run as a completed one")
+    conc = FREEZE.get("concurrency", {})
+    wrong = sorted(k for k, v in conc.items() if int(v) != 1)
+    if wrong:
+        return refuse(6, "SEQUENTIAL POLICY VIOLATED - concurrency for %s is not 1; this runner "
+                         "implements one-arm-at-a-time admission and will not run a policy it "
+                         "cannot enforce" % ", ".join(wrong))
+
+    # Verify before reading. The plan is a bound file; parsing it first would
+    # mean acting on bytes whose integrity has not been established yet.
+    if not CTL.verify_freeze():
+        return refuse(2, "FREEZE MISMATCH - no arm launched")
+    try:
+        plan = json.load(open(os.path.join(RUN, "control", "PLAN.json")))
+        prefilled = json.load(open(os.path.join(RUN, "control", "SEMANTIC-DECISIONS.json")))
+    except (ValueError, OSError) as exc:
+        return refuse(4, "BOUND CONFIGURATION UNREADABLE - no arm launched: %s" % exc)
+    if prefilled.get("decisions"):
+        return refuse(7, "FROZEN JUDGMENTS PRESENT - the bound decisions file carries %d "
+                         "prewritten judgment(s); a judgment fixed before its arm produced "
+                         "output is not an observation of that output"
+                      % len(prefilled["decisions"]))
+
+    gates = json.load(open(os.path.join(RUN, "control", "GATE-INPUTS.json")))
+    if not CTL.gate("deterministic", gates["deterministic"], []):
+        print("DETERMINISTIC GATE FAILED - native phase NOT_RUN")
+        CTL.save(os.path.join(RUN, "control", "PHASES.json"))
+        return 3
+
+    os.makedirs(JUDGMENTS, exist_ok=True)
+
+    def run_one(phase, spec, launcher):
+        """Launch, complete, check, then consume this arm's own judgment.
+
+        Nothing later is admitted until this returns, which is the whole of the
+        sequential policy: there is no pool and therefore no ungraded peer.
+        """
+        if not CTL.verify_freeze():
+            stop_here("freeze drift detected before admitting %s" % spec["id"], phase)
+            return False
+        if not CTL.may_launch():
+            results.setdefault(spec["id"], {
+                "arm": spec["id"], "outcome": "NOT_RUN",
+                "detail": "overall budget exhausted before this arm was admitted"})
+            stop_here("budget exhausted before %s" % spec["id"], phase)
+            return False
+        # Resume must not relaunch a completed arm. Its result already exists;
+        # relaunching would spend a native call to reproduce evidence that is
+        # already on disk, and the second run would not be the thing the pending
+        # judgment was written about.
+        prior = os.path.join(RUN, "attempts", spec["id"], "arm.json")
+        if resume and os.path.isfile(prior):
+            try:
+                rec = json.load(open(prior))
+                rec["resumed_without_relaunch"] = True
+            except (ValueError, OSError) as exc:
+                stop_here("recorded result for %s is unreadable on resume: %s"
+                          % (spec["id"], exc), phase)
+                return False
+        else:
+            rec = launcher(spec)
+        results[rec["arm"]] = rec
+        json.dump(results, open(os.path.join(RUN, "control", "ARMS.json"), "w"), indent=1)
+        if rec.get("outcome") != "PASS":
+            print("  ", rec["arm"], rec["outcome"], "- stopping further admission")
+            stop_here("%s did not complete natively" % rec["arm"], phase)
+            return False
+        if phase == "A":
+            act = rec.get("activation", {})
+            ok = act.get("outcome") == "PASS"
+            print("  ", rec["arm"], rec["outcome"], "| activation", act.get("outcome"))
+            if not ok:
+                stop_here("%s did not show the expected activation" % rec["arm"], phase)
+            return ok
+        g = _grade(rec["arm"], rec, plan)
+        sem = _judgment(rec["arm"], rec, g, plan)
+        consumed[rec["arm"]] = sem.get("outcome")
+
+        # The pause. The judgment for this arm can only be written now: its
+        # binding names the digests of the result, the inventory and the three
+        # checker outputs, none of which existed before this point. So when it
+        # is absent the runner stops and states exactly what a judgment would
+        # have to say to be about this arm, rather than advancing on nothing or
+        # accepting something written earlier.
+        if sem.get("outcome") == "MISSING":
+            req = os.path.join(JUDGMENTS, "%s.REQUIRED.json" % rec["arm"])
+            json.dump({"schema_version": "devforge.judgment-request/v1",
+                       "arm": rec["arm"], "phase": phase,
+                       "required_binding": sem["expected_binding"],
+                       "write_to": os.path.relpath(
+                           os.path.join(JUDGMENTS, "%s.json" % rec["arm"]), RUN),
+                       "then": "re-invoke this runner with --resume; the completed arm is "
+                               "read from its recorded result and is not relaunched",
+                       "outcome_values": ["PASS", "FAIL"],
+                       "note": "These digests describe evidence that exists now. A judgment "
+                               "written before this arm ran cannot carry them."},
+                      open(req, "w"), indent=1)
+            paused.append(rec["arm"])
+            phase_state[phase] = {"decision": "AWAITING_JUDGMENT", "arm": rec["arm"]}
+            print("  ", rec["arm"], rec["outcome"], "| mechanical", g["mechanical"],
+                  "| judgment MISSING - paused, request written to",
+                  os.path.relpath(req, RUN))
+            return False
+
+        ok = _arm_gate(CTL, phase, rec["arm"], g, sem, plan)
+        print("  ", rec["arm"], rec["outcome"], "| mechanical", g["mechanical"],
+              "| judgment", sem.get("outcome"), "|", "ADMIT-NEXT" if ok else "STOP")
+        if not ok:
+            stop_here("%s failed a required check or judgment" % rec["arm"], phase)
+        return ok
+
+    # ---- Phase C ---------------------------------------------------------
+    cspecs = [a for a in FREEZE["arms"] if a["phase"] == "C"]
+    c_ok = True
+    for spec in cspecs:
+        c_ok = run_one("C", spec, lambda sp: launch(
+            sp["id"], C_PROMPT, "/work/tierC-%s" % sp["id"].lower(), [],
+            sp["assigned_cap_s"]))
+        if not c_ok:
+            break
+    phase_state.setdefault("C", {"decision": "PROCEED" if c_ok else "STOP"})
+
+    # ---- Phase B: one at a time, behind C -------------------------------
+    bspecs = [a for a in FREEZE["arms"] if a["phase"] == "B"]
+    b_ok = c_ok
+    for spec in bspecs:
+        if not b_ok:
+            results.setdefault(spec["id"], {
+                "arm": spec["id"], "outcome": "NOT_RUN",
+                "detail": "never admitted: an earlier required arm did not clear its gate, or "
+                          "the overall budget was exhausted"})
+            continue
+        b_ok = run_one("B", spec, b_arm)
+    phase_state.setdefault("B", {"decision": "STOP" if CTL.failed else "PROCEED"})
+
+    # ---- A gate: a checked result and a bound judgment for every C and B --
+    req_ids = [s["id"] for s in cspecs] + [s["id"] for s in bspecs]
+    missing = [i for i in req_ids
+               if results.get(i, {}).get("outcome") != "PASS"
+               or not os.path.isfile(os.path.join(RUN, "grades", "%s-grade.json" % i))
+               or not os.path.isfile(os.path.join(JUDGMENTS, "%s.json" % i))]
+    a_inputs = [{"id": "%s-grade" % i, "path": "grades/%s-grade.json" % i,
+                 "field": "mechanical", "expect": ["PASS"]} for i in req_ids]
+    a_sem = [{"case": i, "criterion": "named behaviour",
+              "outcome": "PASS" if consumed.get(i) == "PASS" else "FAIL",
+              "judgment_sha256": _fhash(os.path.join(JUDGMENTS, "%s.json" % i)),
+              "basis": "judgment consumed at this arm's own gate"} for i in req_ids]
+    a_ok = (not missing) and CTL.gate("A", a_inputs, a_sem)
+    if missing:
+        CTL.decisions.append({"phase_gate": "A", "decision": "STOP",
+                              "reason": "required arms without a checked result and a bound "
+                                        "judgment: %s" % missing})
+        CTL.failed = True
+    phase_state["A"] = {"decision": "PROCEED" if a_ok else "STOP"}
+
+    # ---- Phase A: actually launched, one at a time ----------------------
+    aspecs = [a for a in FREEZE["arms"] if a["phase"] == "A"]
+    a_running = a_ok
+    for spec in aspecs:
+        if not a_running:
+            results.setdefault(spec["id"], {
+                "arm": spec["id"], "outcome": "NOT_RUN",
+                "detail": "A gate did not consume a checked PASS and a bound judgment for "
+                          "every required C and B arm" if not a_ok else
+                          "an earlier A arm did not show the expected activation"})
+            continue
+        a_running = run_one("A", spec, a_arm)
+
+    json.dump(results, open(os.path.join(RUN, "control", "ARMS.json"), "w"), indent=1)
+    json.dump({"phases": phase_state, "launch_markers": list(LAUNCH_MARKERS),
+               "awaiting_judgment": paused, "resumed": resume,
+               "policy": "sequential, concurrency 1 for C, B and A"},
+              open(os.path.join(RUN, "control", "PHASE-STATE.json"), "w"), indent=1)
+    CTL.save(os.path.join(RUN, "control", "PHASES.json"))
+    print("phases:", {k: v["decision"] for k, v in phase_state.items()},
+          "| launch markers:", LAUNCH_MARKERS)
+    if paused:
+        print("AWAITING JUDGMENT for:", ", ".join(paused))
+        return 8
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,443 @@
+{
+  "schema_version": "devforge.authoring-repair-map/v1",
+  "scope": "R9 bounded authoring intake; not native or completed validator acceptance",
+  "stable_id_rule": "CHG/F-001 through 016 retained exactly; new 017 through 021 append source and proposal findings. Original severities retained alongside intake aliases.",
+  "findings": [
+    {
+      "finding_alias": "F-001",
+      "change_id": "CHG-001",
+      "original_finding_id": "CODEX-MEAS-R7-001",
+      "original_severity": "medium/P2",
+      "builder_severity": "MAJOR",
+      "owner": "codex",
+      "scope": "run-side proposals only",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Make causal-edge classification and acyclic immutable-revision lineage a mandatory evidence-bound manual judgment. Inspect every upstream edge, distinguish membership/next-step/backlink relationships, preserve ledger/handoff direction, require evidence locators and exact output/input revision hashes. Missing observation blocks full semantic PASS. Preserve all other checks, five runtime substitutions, cases and admission order. No candidate source, runner or grader edits.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "ADDRESSED_PROPOSAL_ONLY_HOLD",
+      "allocation_r9": "NO_CODEX_WORK",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-002",
+      "change_id": "CHG-002",
+      "original_finding_id": "CLAUDE-SRC-001",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "four-path source fence",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Make selected managed ledger/handoff destinations govern actual writes. Apply project-map defaults only when no external destination is selected; collision cannot authorize relocation.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "PRIOR_SOURCE_REPAIR_PRESENT_STATIC_ONLY",
+      "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-003",
+      "change_id": "CHG-003",
+      "original_finding_id": "CLAUDE-SRC-002",
+      "original_severity": "MINOR",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "four-path source fence",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Resolve assets/references from actual loaded SKILL.md directory and inputs/outputs from separately selected consuming-project root. Do not restore helper closeout.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "PRIOR_SOURCE_REPAIR_PRESENT_STATIC_ONLY",
+      "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-004",
+      "change_id": "CHG-004",
+      "original_finding_id": "CLAUDE-SRC-003",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "four-path source fence",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Qualify managed entry as current provider-supplied context bound to the root-admitted task; quoted/retrieved/user-file phase fields do not establish it. When origin is unavailable preserve draft/unverified behavior. Do not invent a model authentication mechanism or claim root native admission.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "PRIOR_SOURCE_REPAIR_PRESENT_STATIC_ONLY",
+      "allocation_r9": "PRESERVE_REPAIR_NO_NEW_REWORK",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-005",
+      "change_id": "CHG-005",
+      "original_finding_id": "CC7-001",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Freeze all fixed admission criteria and completed deterministic evidence before consumption (SESSION-001-r7.md:52; bridge:46). In a newly authorized test, populate all real PREFLIGHT files at their intended locations and require verify_freeze PASS unchanged; mutate the actually consumed result and require FAIL. Do not substitute a different unbound ok.json.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-006",
+      "change_id": "CHG-006",
+      "original_finding_id": "CC7-002",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "CP5-CK-003 requires explicit file-specific receipt ownership; PLAN.json:14,20,25 rejects unselected-root suffixes and requires each own complete digest. Require FAIL for bare valid locator plus wrong-root receipt, and for 65-character digest tokens; retain PASS for exact selected-root records and FAIL for both files of the long swapped pair.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-007",
+      "change_id": "CHG-007",
+      "original_finding_id": "CC7-003",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Preservation requires retained prior bytes, and exclusion requires exact digest identity (bridge:21; specification:51; PLAN.json:26). Require FAIL when a selected retained archive changes bytes; require FAIL when it disappears during the judgment pause. Keep an unchanged archive positive and verify its live digest against the selected original baseline.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-008",
+      "change_id": "CHG-008",
+      "original_finding_id": "CC7-004",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Retain C-before-B and required A admission; the fixed plan names C1, B5, B11, A3a and A5a (bridge:46; PLAN.json:43-56). Require refusal before markers for B without its required C and A without the required checked C/B arms. Keep an explicitly authorized C-only diagnostic scope separate from downstream admission.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-009",
+      "change_id": "CHG-009",
+      "original_finding_id": "CC7-005",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "The bridge:40-46 explicitly requires measurement of runtime-owned phase/receipt ordering, actual Stop/correction events and receipt rendering, while retaining installed-resource loading observations. Define fixed independent observations for ordered checkpoints, runtime Stop/correction, runtime receipt publication/readback/current verification, resource loading and rendered delivery. Require missing observations to block the relevant gate even with valid artifacts and worker hash text.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-010",
+      "change_id": "CHG-010",
+      "original_finding_id": "CC7-006",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Activation must be distinct from installed-resource availability and must observe actual selection (PLAN.json:28,90-110; bridge:44). Supply init metadata alone and require skill_invoked false; supply an actual assistant Skill tool_use event with the selected skill and require true; malformed/incomplete observation must not count as a verified negative.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-011",
+      "change_id": "CHG-011",
+      "original_finding_id": "CC7-007",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "The prospective path must pause for post-output judgments and resume without rerunning completed work (SESSION-001-r7.md:52; prior integration review:23). Use the actual supported process/module lifecycle for each resume, retaining the same original allocation and saved evidence. Require C1 then B5 then B11 then A arms, exactly one marker each, and assert each consumed judgment and preserved result digest.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-012",
+      "change_id": "CHG-012",
+      "original_finding_id": "CC7-008",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Author real prospective A3a/A5a launch/completion paths with unchanged selected query expectations (SESSION-001-r7.md:52; PLAN.json:28). Bind case:\"A3a\" and case:\"A5a\" explicitly; the valid scenario invokes only A3a and requires A5a non-invocation PASS. Assert query identity, unchanged prompt bytes, native completion and both activation outcomes, not merely markers.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-013",
+      "change_id": "CHG-013",
+      "original_finding_id": "CC7-009",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Synthetic positive and negative expectations must agree with the fixed contracts and reach the mechanism they claim to test (SESSION-001-r7.md:52). Set judge={} for missing judgment; assert exactly the permitted B prefix after failure; expect code 6 and zero markers for every non-1 concurrency; resume P21 correctly and require recorded STALE with the inventory-binding mismatch.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-014",
+      "change_id": "CHG-014",
+      "original_finding_id": "CC7-010",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "A requires truthful launch/completion outcomes and retained attempt ownership; collisions must fail closed without replacing evidence (SESSION-001-r7.md:52; controller.py:81-93). Drive valid A selectors through preexisting-destination and insufficient-cap branches; require no marker, preserved sentinel bytes, a recorded nonlaunch outcome and clean control completion.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-015",
+      "change_id": "CHG-015",
+      "original_finding_id": "CC7-011",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Historical clocks/receipts are inputs only; new work and prospective evidence must bind the selected current run/authority identities (SESSION-001-r7.md:36,46,58). Require a builder supplied with the explicitly selected current allocation to emit that exact session/revision/path/digest; reject mismatched or historical authority rather than carrying it into new records.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-016",
+      "change_id": "CHG-016",
+      "original_finding_id": "CP5-CK-001 retained absence-disclosure limitation",
+      "original_severity": "original CP5 finding retained; no new severity claim",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "fresh executable run-side control/checker/suite source and corrected specifications, no execution",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Require an explicit absence-of-sections disclosure tied to the referenced artifact, not merely its ID anywhere in missing_inputs. A disclosure about a different unknown for the same artifact must not satisfy the exception. Author positive and negative fixtures without execution.",
+      "validation_status": "NOT_PERFORMED",
+      "historical_status": "REQUESTED_NOT_APPLIED",
+      "status": "EXECUTABLE_AUTHORING_REQUESTED_NOT_APPLIED",
+      "allocation_r9": "AUTHOR_EXECUTABLE_CORRECTION; root collector wiring may remain precisely deferred with fail-closed admission",
+      "prior_r8_findings_remain_immutable": true
+    },
+    {
+      "finding_alias": "F-017",
+      "change_id": "CHG-017",
+      "original_finding_id": "R8-CLAUDE-SOURCE-001",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "same four source paths",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Require unique current completed-ledger upstream frontmatter binding on ordinary managed handoff: exact artifact ID, revision, project store, selected path, digest and real section identifiers required by selected v1. Output-row digest alone is insufficient. Preserve owner-selected handoff-only mode and runtime receipt ownership.",
+      "status": "REQUESTED_NOT_APPLIED",
+      "validation_status": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-018",
+      "change_id": "CHG-018",
+      "original_finding_id": "R8-CLAUDE-SOURCE-002",
+      "original_severity": "MAJOR",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "same four source paths",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Externally selected managed output IDs/revisions govern envelope identities as well as destinations. Next-unused local allocation applies only without selected identity. Report conflict/missing selected identity as dependent blocker without substitute identity or relocation.",
+      "status": "REQUESTED_NOT_APPLIED",
+      "validation_status": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-019",
+      "change_id": "CHG-019",
+      "original_finding_id": "CC8-PROP-001",
+      "original_severity": "high",
+      "builder_severity": "MAJOR",
+      "owner": "claude",
+      "scope": "CHG-016 corrected specification and executable checker/suite source",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Allow omitted upstream sections only when selected target is inspected to have no stable sections AND missing_inputs explicitly discloses actual absence tied to that artifact. Unreadable/unknown section list is not actual absence. Match physical POS fixture; include unreadable/unknown negative and sectioned-target false-absence negative.",
+      "status": "REQUESTED_NOT_APPLIED",
+      "validation_status": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-020",
+      "change_id": "CHG-020",
+      "original_finding_id": "CC8-PROP-002",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "CHG-005 corrected specification and executable freeze/controller/suite source",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Separate unchanged selected fixed inputs PASS; mutation of explicitly bound input including unconsumed selected input FAIL; creation/mutation of genuinely unbound generated evidence does not alone invalidate fixed-input freeze and is judged at its own evidence boundary. Preserve consumed-result negative and real PREFLIGHT location positive.",
+      "status": "REQUESTED_NOT_APPLIED",
+      "validation_status": "NOT_PERFORMED"
+    },
+    {
+      "finding_alias": "F-021",
+      "change_id": "CHG-021",
+      "original_finding_id": "CC8-PROP-003",
+      "original_severity": "medium",
+      "builder_severity": "MINOR",
+      "owner": "claude",
+      "scope": "CHG-006 corrected specification and executable receipt checker/suite source",
+      "type": "Required repair",
+      "preserved_requirement_ids": [
+        "W1",
+        "P3",
+        "P4"
+      ],
+      "expected_behavior": "Retain simple wrong-root negative; add the exact valid bare locator without digest plus separate wrong-root locator carrying the true digest. Each accepted receipt record must use the validated locator occurrence span and whole 64-hex token. Retain both long swapped-pair negatives, exact root positives and 65-hex negative. Correct the false historical claim that the simpler wrong-root-only case passes baseline.",
+      "status": "REQUESTED_NOT_APPLIED",
+      "validation_status": "NOT_PERFORMED"
+    }
+  ]
+}

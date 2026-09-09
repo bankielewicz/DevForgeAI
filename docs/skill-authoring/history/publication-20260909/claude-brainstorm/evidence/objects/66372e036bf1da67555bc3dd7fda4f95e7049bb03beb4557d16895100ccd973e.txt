@@ -1,0 +1,277 @@
+{
+ "schema_version": "devforge.readback/v1",
+ "session": "SESSION-001@9",
+ "at_utc": "2026-09-07T16:28:45.874190+00:00",
+ "method": "each file read back completely from disk after the last write and hashed",
+ "final_source": [
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+   "bytes": 20207,
+   "sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+   "bytes": 3342,
+   "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+   "bytes": 1598,
+   "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+   "bytes": 23649,
+   "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+   "bytes": 2188,
+   "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+   "bytes": 1232,
+   "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+   "bytes": 2209,
+   "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+   "bytes": 783,
+   "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+   "bytes": 1608,
+   "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+   "bytes": 777,
+   "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+   "bytes": 555,
+   "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+   "bytes": 1114,
+   "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+   "bytes": 2702,
+   "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+   "bytes": 925,
+   "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/reference-regressions.json",
+   "bytes": 3863,
+   "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json",
+   "bytes": 4493,
+   "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+   "bytes": 29197,
+   "sha256": "8f4ad26e13fab252d56cc078463f89b911f089fb7d767642d359a8cb3accc31b",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+   "bytes": 9053,
+   "sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+   "bytes": 21702,
+   "sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py",
+   "bytes": 1874,
+   "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+   "read_back_complete": true
+  }
+ ],
+ "executable_source": [
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/checkers/check_receipts.py",
+   "bytes": 16009,
+   "sha256": "f5941d4b4cd053a0c87550e1637fd105614e9c54e1ae64e3c6ac18b6c5d28ea4",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/checkers/validate_references.py",
+   "bytes": 26901,
+   "sha256": "271093e6d345f244a9ccfbc79422978b81016e5f4bca6386c3aa879cec646222",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/a_arm.py",
+   "bytes": 5404,
+   "sha256": "5352518a916d77ab2235a48aed864b87ba2941fab84fc20e28e4ba26adf28261",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/activation.py",
+   "bytes": 5823,
+   "sha256": "85bab9563b0ae66ba4f122f8e04746a08768b6d1567f5881d314c2df7dd3d90e",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/admission.py",
+   "bytes": 13773,
+   "sha256": "d740ad47f16483e0d0b204695903454e2a1b1e76ced63ca664aa5a996ae2bea1",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/control/freeze.py",
+   "bytes": 15294,
+   "sha256": "d6d238782105f49cb2daa53319b543f5f2a5907fff880c77a4eb66e556c14b00",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-019-absence-disclosure/INDEX.json",
+   "bytes": 1740,
+   "sha256": "4bd7b4558cadd915d506d24a254132bcd2e3056d6afec3ce2d0fc62133e3060a",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-019-absence-disclosure/NEG-unknown-sections.md",
+   "bytes": 733,
+   "sha256": "8de2f827a551abf2da6d3aa7d24a62c13881325e687b91de3e17ea149e6268b2",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/INDEX.json",
+   "bytes": 1771,
+   "sha256": "a6e472df0711b7dbcc1e7196dcfc97faf8726dc2dfd83aacee992a166382bfab",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/NEG-65-hex.terminal.txt",
+   "bytes": 110,
+   "sha256": "bfd016909dd704e519b8622d60a64f33dfc65436bbeefdf06c5079d0ab70aa4f",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/NEG-span-decoy.terminal.txt",
+   "bytes": 226,
+   "sha256": "1fdf81946a1f5d741c6949ed1ebe3c5a63ce1fdf060d3b90ebcfaf20f47325ae",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/NEG-wrong-root-only.terminal.txt",
+   "bytes": 137,
+   "sha256": "d664a2a070a0dbc434fe27f6780bad638112535a5d729985f90c8cee3a6b2d44",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/fixtures/chg-021-receipt-spans/POS-exact-root.terminal.txt",
+   "bytes": 109,
+   "sha256": "73a4bacbcca9d0e76ab213e2dc83455d60ec0542a488ce61a59cc366857c6f59",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/source/no-model-tests/cases_r9.py",
+   "bytes": 5323,
+   "sha256": "32b46f599f0343100151a0141e2040fe2f5db80aa8869d1e756927fb0ce4834e",
+   "read_back_complete": true
+  }
+ ],
+ "records": [
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/AUTHORING-RECORD.md",
+   "bytes": 5619,
+   "sha256": "71021629bfd19c10ed245dc93002adb3982b2c8c07921c9360613212872edcc0",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/BUILDER-CHANGE-RECEIPT.json",
+   "bytes": 30045,
+   "sha256": "a9ba69cb69df34b64313d3d44247af17206e76781c320815cfdd1a2c779bae60",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/HANDOFF.md",
+   "bytes": 3118,
+   "sha256": "55b993f4ca8e3d196f2088e94fe47da142f5e3232ccfcc19db8744e25ecf6e92",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/CLOCK.json",
+   "bytes": 478,
+   "sha256": "89bda0a4358d3c054fc6b36cd05d0fa995f35b73cccd8d5c218587daa8ad3997",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/MANIFEST.sha256",
+   "bytes": 8707,
+   "sha256": "768ce11a14c2ab51a61c4820197f0f9cbde9f6a3d222ba67fef99df819bef079",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/EXECUTABLE-INVENTORY.txt",
+   "bytes": 1502,
+   "sha256": "ff246f4cef151cf55cfd165991bc266285bb87aa23ce7fb296de4f421639abd1",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/final/FINAL-SOURCE-MANIFEST.txt",
+   "bytes": 1952,
+   "sha256": "b4ace064a9ef3832452c791ebd2ee2747a4cb8958b1aee136c9b39b76f969aed",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/BASELINE-MANIFEST.txt",
+   "bytes": 1952,
+   "sha256": "ddda88ca30c1cd5412e749f691c2c8642bdd4b48d088a3dff8bc8c4f91bf806e",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/baseline/CONTROL-BASELINE-R7-MANIFEST.txt",
+   "bytes": 1298,
+   "sha256": "3f707dec6e5ca93ea90bbcf5cb639979fa26531abc86a0272a0d25a271dc0657",
+   "read_back_complete": true
+  },
+  {
+   "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm/.poc/claude/devforge-brainstorm-workspace/runs/r9-source-exec-authoring-20260907T161330303011Z/report/SEVAL-R9-001.md",
+   "bytes": 4149,
+   "sha256": "714bf70beb591049c7af01e16d068f3bf1813e1482afb4418824d0409204fc8d",
+   "read_back_complete": true
+  }
+ ],
+ "no_self_digest": "This readback does not contain its own digest."
+}

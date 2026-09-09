@@ -1,0 +1,297 @@
+{
+  "catalogue_revision": 1,
+  "counts": {
+    "allocated_model_calls": 0,
+    "planned_arm_slots": 26,
+    "variants": 13
+  },
+  "provider_limit": "Claude-worker fixture is preserved as catalogue coverage; execution requires separate Claude candidate and allocation. This Codex source proves no Claude behavior.",
+  "variants": [
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-01",
+      "mode": "checkpoint",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "architect-integration",
+      "variant": "replacement"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-02",
+      "mode": "orient",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "codex-worker"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-02",
+      "mode": "orient",
+      "native_outcome": "NOT_RUN",
+      "provider": "claude",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "claude-worker"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-03",
+      "mode": "orient",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "selected-versus-new"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-04",
+      "mode": "checkpoint",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "missing-owner"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-04",
+      "mode": "checkpoint",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "conflicting-owners"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-04",
+      "mode": "checkpoint",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "authorized-bootstrap"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-05",
+      "mode": "orient",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "delegation-present"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-05",
+      "mode": "orient",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "delegation-absent"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-06",
+      "mode": "orient",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "inaccessible"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-07",
+      "mode": "checkpoint",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "outcome-conflict"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-08",
+      "mode": "orient",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "unchanged-resume"
+    },
+    {
+      "arms": [
+        "without_skill",
+        "candidate"
+      ],
+      "case_id": "CCX-08",
+      "mode": "checkpoint",
+      "native_outcome": "NOT_RUN",
+      "provider": "codex",
+      "requirements": [
+        "CCR-001",
+        "CCR-002",
+        "CCR-003",
+        "CCR-004",
+        "CCR-005",
+        "CCR-006",
+        "CCR-007",
+        "CCR-008"
+      ],
+      "role": "worker",
+      "variant": "explicit-transfer"
+    }
+  ]
+}

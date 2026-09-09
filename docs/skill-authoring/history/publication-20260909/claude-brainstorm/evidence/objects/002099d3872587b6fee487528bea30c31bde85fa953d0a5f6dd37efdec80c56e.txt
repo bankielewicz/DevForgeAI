@@ -1,0 +1,132 @@
+{
+ "schema_version": "devforge.evaluation-plan/v1",
+ "purpose": "Everything the graders and the phase path read, fixed before measurement so that no criterion can be widened after seeing output.",
+ "stores": {
+  "authority": "/home/bryan/Projects/DevForge/framework/DevForge/.poc"
+ },
+ "stores_note": "The project store is bound per arm to that arm's own project directory by the grader; it is not a global root.",
+ "locator_mapping": {
+  "accepted_forms": [
+   "project_relative",
+   "sandbox_absolute"
+  ],
+  "declared_before_measurement": true,
+  "note": "A worker names files by what it can see. Both forms are declared here, in advance, with their exact meaning: project_relative is the path below the arm's project root, sandbox_absolute is that path under the arm's own sandbox mount. The host attempt path is not accepted, because the worker never sees it. A path under any other root that merely ends in the accepted relative suffix is not this file.",
+  "record_shapes": [
+   "locator_then_digest",
+   "digest_then_locator",
+   "labelled_next_line"
+  ],
+  "record_shape_note": "A receipt is a record: one locator written together with one digest, in a shape fixed before measurement. Ranking nearby digests by distance let a preceding file's digest own the next locator once the locators grew long enough (CP5-CK-003), so ownership now comes from the record, and two records disagreeing about one locator are rejected rather than resolved."
+ },
+ "criteria": {
+  "reference_conformance": "Every parsed reference resolves: declared store, store-confined path, digest equal to the bytes at that path, target artifact identity and revision present and matching, and every claimed section resolvable. Causal upstream names the target's available stable sections; omission is permitted only for a target with none, and only when that absence is disclosed in missing_inputs. upstream and supersedes are artifact-reference fields and an evidence_kind override cannot exempt them.",
+  "outcome_labels": "Every Outcome cell is exactly one of PASS, FAIL, NOT_RUN, COULD_NOT_RUN, NOT_APPLICABLE, in every relevant table regardless of heading numbering, against a declared artifact inventory.",
+  "receipts": "Each promised file is named by a declared locator form and written together with all 64 characters of its own current digest, inside a declared receipt record shape. A digest merely near the locator is not its receipt, and an ambiguous record set is rejected by name.",
+  "inventory": "Built from observed before/after bytes plus this output map. Exclusion requires exact digest identity and its comparison is recorded. Required outputs must exist and be inspected regardless of retention class; a path selected under preserved_outputs must have actual retained bytes, not merely a surviving inventory key.",
+  "semantic": "A judgment must be generated after the arm's outputs and checks exist, name this run, session and arm and the digests of the result, output inventory and three checker outputs, and cite this criteria revision. Missing, stale, mismatched or prewritten leaves downstream work unstarted.",
+  "activation": "Phase A sends the unchanged trigger-query selector with no installed-skill instruction prepended, and observes whether the skill was selected. Activation is its own observation: it is not evidence of C's resource loading or of B's behaviour, and neither is evidence of it."
+ },
+ "caps": {
+  "C": 900,
+  "B": 900,
+  "A3a": 300,
+  "A5a": 600,
+  "concurrency": {
+   "C": 1,
+   "B": 1,
+   "A": 1
+  },
+  "overall_budget_s": 5400,
+  "concurrency_note": "Sequential for every phase. The bounded plan needs no scheduler, and one arm at a time removes the window in which a peer could finish ungraded while the next was admitted."
+ },
+ "phase_plan": [
+  "verify freeze",
+  "deterministic gate",
+  "verify freeze",
+  "launch C1",
+  "C1 completion",
+  "C1 inventory and checks",
+  "C1 post-output judgment bound to those exact digests",
+  "bound C1 gate",
+  "B5 admitted only now; same sequence",
+  "B11 admitted only after B5's gate",
+  "A gate consuming a checked result and a bound judgment for C1, B5 and B11",
+  "launch A3a, observe activation",
+  "launch A5a only after A3a"
+ ],
+ "outputs": {
+  "C1": {
+   "required_outputs": [
+    "docs/devforge/ideas/IDEAS-001.md",
+    "docs/devforge/handoffs/HANDOFF-001.md"
+   ],
+   "optional_outputs": []
+  },
+  "B5": {
+   "required_outputs": [
+    "docs/devforge/ideas/IDEAS-001.md",
+    "docs/devforge/handoffs/HANDOFF-002.md"
+   ],
+   "optional_outputs": [
+    "docs/devforge/ideas/IDEAS-001.r1.md"
+   ],
+   "preserved_outputs": [
+    "docs/devforge/ideas/archive/IDEAS-001.r1.md"
+   ]
+  },
+  "B11": {
+   "required_outputs": [
+    "docs/devforge/ideas/IDEAS-001.md",
+    "docs/devforge/handoffs/HANDOFF-003.md"
+   ],
+   "optional_outputs": [
+    "docs/devforge/ideas/archive/IDEAS-001.r2.md"
+   ],
+   "preserved_outputs": [
+    "docs/devforge/changes/archive/CHANGE-003.r1.md"
+   ]
+  },
+  "A3a": {
+   "observation_kind": "activation",
+   "required_outputs": [],
+   "note": "A produces no artifact map. Reusing C/B's required_outputs here would fail an arm for not writing a ledger it was never asked to write. What A must produce is an observation: was the skill selected from this selector alone.",
+   "required_observations": [
+    "skill_invoked recorded from the arm's own transcript",
+    "expected outcome taken from the selector's should_trigger",
+    "no installed-skill instruction prepended to the query"
+   ],
+   "unreadable_transcript": "COULD_NOT_RUN, never a negative result"
+  },
+  "A5a": {
+   "observation_kind": "activation",
+   "required_outputs": [],
+   "note": "A produces no artifact map. Reusing C/B's required_outputs here would fail an arm for not writing a ledger it was never asked to write. What A must produce is an observation: was the skill selected from this selector alone.",
+   "required_observations": [
+    "skill_invoked recorded from the arm's own transcript",
+    "expected outcome taken from the selector's should_trigger",
+    "no installed-skill instruction prepended to the query"
+   ],
+   "unreadable_transcript": "COULD_NOT_RUN, never a negative result"
+  }
+ },
+ "outputs_note": "C1, B5 and B11 carry artifact maps; A3a and A5a carry observation requirements instead. This preparation authorizes none of them.",
+ "revision": 3,
+ "revision_note": "SESSION-001@7. Sequential admission at concurrency 1, declared receipt record shapes replacing proximity, preserved_outputs as an explicit selection, and A observation requirements that are A's own rather than the C/B artifact map. Unexecuted: no arm is authorized by this plan.",
+ "criteria_binding_note": "These criteria are an immutable input and are bound by the freeze. Judgments are generated evidence and are bound by hash when a gate consumes them. Binding both at freeze time is what allowed a prewritten PASS to look like an observation.",
+ "worker_visibility": {
+  "sees": [
+   "its own sandbox project root",
+   "the installed export at /opt/devforgeai",
+   "its staged inputs",
+   "its own prompt"
+  ],
+  "does_not_see": [
+   "host attempt paths",
+   "other arms",
+   "the freeze, plan, grades or judgments",
+   "any authority record"
+  ],
+  "why": "Receipt locator forms are limited to what the worker can actually name; the host attempt path is not an accepted form because the worker never sees it."
+ }
+}

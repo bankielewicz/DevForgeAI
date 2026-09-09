@@ -1,0 +1,13 @@
+{
+  "reviewer": "/root/r7_claude_controls_review",
+  "cold_session": false,
+  "reuse": "Same reviewer previously reviewed R7/R8/R9 controls and receipt/reference proposals. R10 is a new bounded allocation, not cold.",
+  "first_work_utc": "2026-09-07T22:05:43Z",
+  "max_seconds": 1080,
+  "reserve_seconds": 240,
+  "technical_stop_utc": "2026-09-07T22:19:43Z",
+  "hard_stop_utc": "2026-09-07T22:23:43Z",
+  "parent_technical_stop_utc": "2026-09-07T22:24:41Z",
+  "parent_hard_stop_utc": "2026-09-07T22:27:41Z",
+  "scope": "R10 checker/reference/receipt static source, callers and discriminating fixture review. No code import, execution, compile, helper or native test."
+}

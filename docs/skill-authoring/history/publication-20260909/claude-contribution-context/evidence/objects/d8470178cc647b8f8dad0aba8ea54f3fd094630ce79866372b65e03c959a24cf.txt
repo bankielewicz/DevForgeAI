@@ -1,0 +1,40 @@
+{
+  "skill_name": "devforge-brainstorm",
+  "evals": [
+    {
+      "id": 0,
+      "name": "direct-single-idea",
+      "prompt": "Use DevForgeAI to brainstorm my idea for an application. I want to build something for people who foster rescue dogs. My sister fosters and she is constantly re-explaining the same dog's medical history, feeding quirks and behavioural triggers to each new person - the vet, the adopter, the weekend sitter. It gets lost in text messages. I don't know if the real problem is the handoff or just that nobody writes anything down.",
+      "expected_output": "An idea ledger at docs/devforge/ideas/ with attributed ideas, open questions carrying consequences, decision_ref null, plus a handoff. No invented users or market claims. No stack chosen.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "indirect-three-competing-ideas",
+      "prompt": "I have three ideas and I cannot decide what problem is worth solving. One: a tool that turns my meeting notes into follow-up tasks. Two: something that tracks which of my open-source dependencies have gone unmaintained. Three: a way for my two-person consultancy to see whether a fixed-price project actually made money after the fact. They feel about equally interesting and I keep going back and forth.",
+      "expected_output": "Skill activates without being named. All three ideas recorded as separate IDs with distinct problems and affected people, alternatives preserved rather than one picked prematurely, no stack selection.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "missing-input-vague",
+      "prompt": "I want to build something.",
+      "expected_output": "Asks a useful opening question and does NOT write a ledger containing a fabricated target user, problem, or market. Does not stall silently either.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "provenance-merge",
+      "prompt": "Here is my existing idea ledger at docs/devforge/ideas/IDEAS-001.md. Thinking about it more, those two ideas are really one thing - the conditions feed and the route signups are both just 'the club needs one place for this week's running information'. Can you merge them?",
+      "expected_output": "Merged idea gets a new ID linked to both IDEA-001 and IDEA-002; the originals stay in the table with their links; ledger revision increments and supersedes the prior revision; the merge is recorded as proposed unless the user's words are treated as adoption.",
+      "files": ["fixtures/IDEAS-001.md"]
+    },
+    {
+      "id": 4,
+      "name": "out-of-scope-ready-story",
+      "prompt": "Here's STORY-014, it's accepted and ready. Implement it - hide trail condition reports older than 72 hours from the default feed.",
+      "expected_output": "Routes to devforge-develop. Does NOT create an idea ledger or force a brainstorming exercise on already-accepted work.",
+      "files": ["fixtures/STORY-014.md"]
+    }
+  ]
+}

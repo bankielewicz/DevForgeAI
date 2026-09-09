@@ -1,0 +1,19 @@
+{
+  "observations": [
+    {
+      "kind": "frozen evidence",
+      "original_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/validator-runtime-20260905T234329495677Z/maintenance/validator-runtime.patch",
+      "published_path": "docs/skill-authoring/history/publication-20260909/codex-contribution-context/evidence/objects/5dcbf0720cb83dff2390a1285aa0e93cbe4ce63104b2d30438b5ba138e60cefc.txt",
+      "lines_with_trailing_whitespace": 4,
+      "disposition": "PRESERVED_EXACT_FROZEN_BYTES"
+    },
+    {
+      "kind": "frozen evidence",
+      "original_path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/author-fixtures.py",
+      "published_path": "docs/skill-authoring/history/publication-20260909/codex-contribution-context/evidence/objects/5a59aa325665abaf37215e762e78b88ee3f630d133abce8b7e94bb67d81c4084.txt",
+      "lines_with_trailing_whitespace": 1,
+      "disposition": "PRESERVED_EXACT_FROZEN_BYTES"
+    }
+  ],
+  "meaning": "Historical whitespace is preserved, not corrected or treated as new semantic validation."
+}

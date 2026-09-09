@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/worktrees/publish-devforge-cli-followups-20260909/scripts/validate_framework.py",
+    "--framework",
+    "/home/bryan/Projects/DevForge/worktrees/publish-codex-contribution-context-20260909"
+  ],
+  "cwd": "/home/bryan/Projects/DevForge/worktrees/publish-codex-contribution-context-20260909",
+  "started_at_utc": "2026-09-09T13:48:38.575915+00:00",
+  "finished_at_utc": "2026-09-09T13:48:38.869781+00:00",
+  "elapsed_seconds": 0.29386887699365616,
+  "exit_code": 0,
+  "stdout": "docs/skill-authoring/history/publication-20260909/codex-contribution-context/checks/framework.stdout.txt",
+  "stderr": "docs/skill-authoring/history/publication-20260909/codex-contribution-context/checks/framework.stderr.txt"
+}
