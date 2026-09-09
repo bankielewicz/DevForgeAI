@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider codex"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider codex"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider codex"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}\" delivery hook --provider codex"
+          }
+        ]
+      }
+    ]
+  }
+}
