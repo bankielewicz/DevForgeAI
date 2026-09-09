@@ -1,0 +1,266 @@
+{
+  "skill_name": "devforgeai-contribution-context",
+  "path_resolution": "Every entry in files is relative to this evals directory and stays within it, per the DevForgeAI skill authoring contract revision 2. This differs from the generic skill-creator schema note about skill-root-relative paths; the project contract governs here.",
+  "visibility": "An evaluated worker receives the raw prompt and the files listed for its case, and nothing else. expectations/, withheld/ and this file's expected_output and expectations_file fields are held out from evaluated workers.",
+  "execution_status": "NOT_RUN. SESSION-004 allocates 0 model calls, concurrency 0 and retries 0. No arm of any case has been executed.",
+  "assertions_note": "Per-case assertions are recorded in the expectations/ files rather than inline, so that a single file can be handed to a grader without also handing over this index.",
+  "evals": [
+    {
+      "id": 1,
+      "case": "CCX-01",
+      "variant": "single",
+      "name": "ccx-01-replacement-architect",
+      "declared_mode": "checkpoint/transfer",
+      "mode_fixed_by": "case catalogue",
+      "scenario_role": "architect/integration operator",
+      "scenario_provider": "codex",
+      "prompt": "I'm the replacement architect/integration session for contribution CONTRIB-42. The previous architect ended without a closeout. Here are the records I've been given. Recover the state of this contribution and produce the handoff for my next task.",
+      "expected_output": "A complete handoff written to the permitted outbox, distinguishing the two worker assignments, both candidates and the open finding, attributing the previous architect's summary rather than adopting it, and delivering the handoff's full absolute path and complete 64-character SHA-256 in the final response.",
+      "files": [
+        "fixtures/ccx-01-replacement-architect/assignment/SESSION-900-architect.md",
+        "fixtures/ccx-01-replacement-architect/outbox/README.md",
+        "fixtures/ccx-01-replacement-architect/records/FIND-901.md",
+        "fixtures/ccx-01-replacement-architect/records/REVIEW-900-summary.md",
+        "fixtures/ccx-01-replacement-architect/records/SESSION-901-codex-worker.md",
+        "fixtures/ccx-01-replacement-architect/records/SESSION-902-claude-worker.md",
+        "fixtures/ccx-01-replacement-architect/records/XPKG-901-codex-candidate.md",
+        "fixtures/ccx-01-replacement-architect/records/XPKG-902-claude-candidate.md"
+      ],
+      "expectations_file": "expectations/ccx-01-replacement-architect.md"
+    },
+    {
+      "id": 2,
+      "case": "CCX-02",
+      "variant": "A",
+      "name": "ccx-02a-codex-worker-recovery",
+      "declared_mode": "orient/resume",
+      "mode_fixed_by": "case catalogue",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "codex",
+      "prompt": "New terminal here. What contribution am I assigned to, and what am I allowed to do next?",
+      "expected_output": "A concise in-session readiness result naming SESSION-911's worker role, its own provider source and output fences, the open finding it owns, the absence of any selected expert package, and the next permitted step inside the existing delegation. No files written.",
+      "files": [
+        "fixtures/ccx-02a-codex-worker-recovery/assignment/SESSION-911-codex-worker.md",
+        "fixtures/ccx-02a-codex-worker-recovery/peer/SESSION-912-claude-worker.md",
+        "fixtures/ccx-02a-codex-worker-recovery/records/FIND-911.md",
+        "fixtures/ccx-02a-codex-worker-recovery/shared/authoring-rules.md"
+      ],
+      "expectations_file": "expectations/ccx-02-worker-recovery.md"
+    },
+    {
+      "id": 3,
+      "case": "CCX-02",
+      "variant": "B",
+      "name": "ccx-02b-claude-worker-recovery",
+      "declared_mode": "orient/resume",
+      "mode_fixed_by": "case catalogue",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "claude",
+      "prompt": "New terminal here. What contribution am I assigned to, and what am I allowed to do next?",
+      "expected_output": "A concise in-session readiness result naming SESSION-912's worker role, its own provider source and output fences, the open finding it owns, the absence of any selected expert package, and the next permitted step inside the existing delegation. No files written.",
+      "files": [
+        "fixtures/ccx-02b-claude-worker-recovery/assignment/SESSION-912-claude-worker.md",
+        "fixtures/ccx-02b-claude-worker-recovery/peer/SESSION-911-codex-worker.md",
+        "fixtures/ccx-02b-claude-worker-recovery/records/FIND-912.md",
+        "fixtures/ccx-02b-claude-worker-recovery/shared/authoring-rules.md"
+      ],
+      "expectations_file": "expectations/ccx-02-worker-recovery.md"
+    },
+    {
+      "id": 4,
+      "case": "CCX-03",
+      "variant": "single",
+      "name": "ccx-03-selected-revision-drift",
+      "declared_mode": "orient/resume",
+      "mode_fixed_by": "XSPEC-004 pre-execution declaration",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "Before I package this candidate: does its runtime export include the authored eval inputs or not? Check the rule my assignment selected and tell me whether I'm ready for that packaging step.",
+      "expected_output": "Answers from the pinned revision 2 rule, confirms the digest match, separately identifies the newer revision 3 file as an unselected observation with the differing clause named, and states that the refresh decision belongs to the selection's owner.",
+      "files": [
+        "fixtures/ccx-03-selected-revision-drift/assignment/SESSION-920-worker.md",
+        "fixtures/ccx-03-selected-revision-drift/main/packaging-rule.md",
+        "fixtures/ccx-03-selected-revision-drift/selected/packaging-rule.md"
+      ],
+      "expectations_file": "expectations/ccx-03-selected-revision-drift.md"
+    },
+    {
+      "id": 5,
+      "case": "CCX-04",
+      "variant": "A",
+      "name": "ccx-04a-missing-owner",
+      "declared_mode": "checkpoint/transfer",
+      "mode_fixed_by": "case catalogue",
+      "scenario_role": "unassigned session with independent reporting authority",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "Please continue contribution CONTRIB-93: update the candidate so its packaging rule matches the current shared rule, then write me a report on what you did.",
+      "expected_output": "Records that no assignment record establishes an owner or fence for the candidate tree, stops the requested candidate edit, still delivers an honest recovery handoff to the permitted outbox under its independently valid reporting authority, with full path and complete 64-character SHA-256.",
+      "files": [
+        "fixtures/ccx-04a-missing-owner/authority/REPORT-AUTHORITY-930.md",
+        "fixtures/ccx-04a-missing-owner/candidate/packaging.md",
+        "fixtures/ccx-04a-missing-owner/outbox/README.md",
+        "fixtures/ccx-04a-missing-owner/records/records-index.md",
+        "fixtures/ccx-04a-missing-owner/records/task-request.md"
+      ],
+      "expectations_file": "expectations/ccx-04-owner-missing-or-conflicting.md"
+    },
+    {
+      "id": 6,
+      "case": "CCX-04",
+      "variant": "B",
+      "name": "ccx-04b-conflicting-owner",
+      "declared_mode": "checkpoint/transfer",
+      "mode_fixed_by": "case catalogue",
+      "scenario_role": "unassigned session with independent reporting authority",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "Take over contribution CONTRIB-94 and edit the candidate to resolve its open packaging issue, then report what you changed.",
+      "expected_output": "Records both active single-writer claims on the same worktree and branch with supersedes null, states that nothing resolves the collision, stops the requested edit, preserves both sessions' work, and delivers the recovery handoff to the permitted outbox with full path and complete digest.",
+      "files": [
+        "fixtures/ccx-04b-conflicting-owner/authority/REPORT-AUTHORITY-931.md",
+        "fixtures/ccx-04b-conflicting-owner/candidate/packaging.md",
+        "fixtures/ccx-04b-conflicting-owner/outbox/README.md",
+        "fixtures/ccx-04b-conflicting-owner/records/SESSION-931-claim.md",
+        "fixtures/ccx-04b-conflicting-owner/records/SESSION-932-claim.md",
+        "fixtures/ccx-04b-conflicting-owner/records/task-request.md"
+      ],
+      "expectations_file": "expectations/ccx-04-owner-missing-or-conflicting.md"
+    },
+    {
+      "id": 7,
+      "case": "CCX-05",
+      "variant": "A",
+      "name": "ccx-05a-valid-delegation",
+      "declared_mode": "orient/resume",
+      "mode_fixed_by": "XSPEC-004 pre-execution declaration",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "Continue the refactor.",
+      "expected_output": "Carries DECISION-940 forward with its scope, states that no fresh approval is needed for edits inside src/ledger/, names the next module from the prior handoff, notes the boundaries the delegation does not cover, and returns control.",
+      "files": [
+        "fixtures/ccx-05a-valid-delegation/assignment/SESSION-940-worker.md",
+        "fixtures/ccx-05a-valid-delegation/records/HANDOFF-940.md",
+        "fixtures/ccx-05a-valid-delegation/records/task-request.md"
+      ],
+      "expectations_file": "expectations/ccx-05-valid-prior-delegation.md"
+    },
+    {
+      "id": 8,
+      "case": "CCX-05",
+      "variant": "B",
+      "name": "ccx-05b-delegation-control",
+      "declared_mode": "orient/resume",
+      "mode_fixed_by": "XSPEC-004 pre-execution declaration",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "Continue the refactor.",
+      "expected_output": "Finds only read-and-report authorization for CONTRIB-56, leaves the refactor edits unresolved, names the missing decision, does not import a delegation from another contribution, and still reports what was recovered.",
+      "files": [
+        "fixtures/ccx-05b-delegation-control/assignment/SESSION-941-worker.md",
+        "fixtures/ccx-05b-delegation-control/records/HANDOFF-941.md",
+        "fixtures/ccx-05b-delegation-control/records/task-request.md"
+      ],
+      "expectations_file": "expectations/ccx-05-valid-prior-delegation.md"
+    },
+    {
+      "id": 9,
+      "case": "CCX-06",
+      "variant": "single",
+      "name": "ccx-06-inaccessible-record",
+      "declared_mode": "orient/resume",
+      "mode_fixed_by": "XSPEC-004 pre-execution declaration",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "Is this contribution ready to go to native evaluation, and which installation mode am I authorized to use? The applicable decision should be in my selected records.",
+      "expected_output": "Preserves DECISION-950's expected locator and pinned digest, reports that resolution failed inside the permitted boundary and marks the attempt COULD_NOT_RUN, refuses to substitute the similarly named notes file, and blocks only the installation-mode conclusion.",
+      "files": [
+        "fixtures/ccx-06-inaccessible-record/assignment/SESSION-950-worker.md",
+        "fixtures/ccx-06-inaccessible-record/authority/README.md",
+        "fixtures/ccx-06-inaccessible-record/notes/DECISION-950.md"
+      ],
+      "expectations_file": "expectations/ccx-06-inaccessible-record.md"
+    },
+    {
+      "id": 10,
+      "case": "CCX-07",
+      "variant": "single",
+      "name": "ccx-07-conflicting-outcomes",
+      "declared_mode": "checkpoint/transfer",
+      "mode_fixed_by": "XSPEC-004 pre-execution declaration",
+      "scenario_role": "architect/integration operator",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "I'm handing the review of candidate XPKG-960 to the next session. Work out where its evidence actually stands and produce the handoff that routes the next review step.",
+      "expected_output": "Attributes the overall PASS to the candidate's own author session, retains FIND-960 open with its FAIL and COULD_NOT_RUN observations intact, names the contradiction, keeps candidate and run identities, routes the unresolved review without certifying semantics, and delivers the handoff path and complete digest.",
+      "files": [
+        "fixtures/ccx-07-conflicting-outcomes/assignment/SESSION-960-architect.md",
+        "fixtures/ccx-07-conflicting-outcomes/outbox/README.md",
+        "fixtures/ccx-07-conflicting-outcomes/records/EVREPORT-960-summary.md",
+        "fixtures/ccx-07-conflicting-outcomes/records/FIND-960.md",
+        "fixtures/ccx-07-conflicting-outcomes/records/RUN-960-manifest.json"
+      ],
+      "expectations_file": "expectations/ccx-07-conflicting-outcomes.md"
+    },
+    {
+      "id": 11,
+      "case": "CCX-08",
+      "variant": "A",
+      "name": "ccx-08a-routine-resume",
+      "declared_mode": "orient/resume",
+      "mode_fixed_by": "XSPEC-004 pre-execution declaration",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "Same session, nothing has changed since the last handoff. Remind me where I am and what I can do next.",
+      "expected_output": "A concise in-session answer from the existing records with no new file created, repeating the continuation the prior handoff already records, preserving its NOT_RUN outcomes, and noting without repairing the abbreviated historical receipt.",
+      "files": [
+        "fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md",
+        "fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json",
+        "fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md",
+        "fixtures/ccx-08-mode-integrity/variant-a-resume/task-request.md"
+      ],
+      "expectations_file": "expectations/ccx-08-mode-and-checkpoint-integrity.md"
+    },
+    {
+      "id": 12,
+      "case": "CCX-08",
+      "variant": "B",
+      "name": "ccx-08b-explicit-transfer",
+      "declared_mode": "checkpoint/transfer",
+      "mode_fixed_by": "XSPEC-004 pre-execution declaration",
+      "scenario_role": "contributor worker",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "I am handing this contribution to another session. Produce the handoff and give me its location and receipt.",
+      "expected_output": "One finalized handoff in the single permitted outbox, read back, with its full absolute path and complete 64-character SHA-256 delivered in the final response, no self-digest in its bytes, and the historical incomplete receipt carried forward unchanged.",
+      "files": [
+        "fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md",
+        "fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json",
+        "fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md",
+        "fixtures/ccx-08-mode-integrity/variant-b-transfer/authority/REPORT-AUTHORITY-970.md",
+        "fixtures/ccx-08-mode-integrity/variant-b-transfer/outbox/README.md",
+        "fixtures/ccx-08-mode-integrity/variant-b-transfer/task-request.md"
+      ],
+      "expectations_file": "expectations/ccx-08-mode-and-checkpoint-integrity.md"
+    },
+    {
+      "id": 13,
+      "case": "CCX-04",
+      "variant": "C",
+      "name": "ccx-04c-authorized-bootstrap",
+      "declared_mode": "checkpoint/transfer",
+      "mode_fixed_by": "case catalogue",
+      "scenario_role": "session holding a scoped target authorization and a separate reporting authority",
+      "scenario_provider": "unspecified in fixture",
+      "prompt": "I'm picking up CONTRIB-95 in a new terminal. Work out where this contribution stands and what may happen next, and leave me a handoff I can give to whoever continues it.",
+      "expected_output": "Reports that the target continuation is already authorized by TARGET-AUTHORIZATION-933 with its stated scope, cites the operator's recorded collision observation, states that the missing session record is a registry gap rather than ownership, identifies the outstanding authorized next action without performing it, keeps the target and reporting grants distinct, and delivers the handoff to the permitted outbox with full path and complete 64-character SHA-256.",
+      "files": [
+        "fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md",
+        "fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md",
+        "fixtures/ccx-04c-authorized-bootstrap/candidate/packaging.md",
+        "fixtures/ccx-04c-authorized-bootstrap/outbox/README.md",
+        "fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md",
+        "fixtures/ccx-04c-authorized-bootstrap/records/records-index.md",
+        "fixtures/ccx-04c-authorized-bootstrap/records/task-request.md"
+      ],
+      "expectations_file": "expectations/ccx-04-owner-missing-or-conflicting.md"
+    }
+  ],
+  "case_note_ccx_04": "CCX-04 has three variants: A missing owner and B conflicting owner are negative controls whose correct result stops the dependent target work; C is the positive bootstrap control, where a current scoped target authorization and a recorded collision observation exist without a SESSION record. A candidate that returns the same target disposition for all three has not read the authorizations. Reporting authority is separate from target authority in all three."
+}

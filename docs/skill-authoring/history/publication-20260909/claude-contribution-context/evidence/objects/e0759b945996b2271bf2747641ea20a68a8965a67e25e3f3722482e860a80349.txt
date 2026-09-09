@@ -1,0 +1,19 @@
+{
+  "name": "receipt-no-digest-new",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+    "--file",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md",
+    "--expected-sha256",
+    "179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d",
+    "--self-receipt-inspection"
+  ],
+  "expected_exit_status": 0,
+  "required_stdout_text": "overall=PASS",
+  "exit_status": 0,
+  "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md\ncomputed_sha256=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d computed=179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d\ncheck=no_digest_present outcome=PASS the file contains no 64-hex token, so it records no receipt for anything, itself included\ncheck=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee\noverall=PASS\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+  "stderr": "",
+  "assertions_pass": true
+}

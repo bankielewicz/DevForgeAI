@@ -1,0 +1,19 @@
+{
+  "name": "receipt-self-multiline-new",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+    "--file",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md",
+    "--expected-sha256",
+    "5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd",
+    "--self-receipt-inspection"
+  ],
+  "expected_exit_status": 5,
+  "required_stdout_text": "overall=COULD_NOT_RUN",
+  "exit_status": 5,
+  "stdout": "file=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md\ncomputed_sha256=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)\ncheck=digest_matches_bytes outcome=PASS claimed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd computed=5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd\ncheck=no_digest_present outcome=COULD_NOT_RUN 1 digest occurrence(s) present, so absence of a self-receipt is not established by this check\ncheck=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee\ncheck=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [3] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF.md\noverall=COULD_NOT_RUN\nscope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance\n",
+  "stderr": "",
+  "assertions_pass": true
+}

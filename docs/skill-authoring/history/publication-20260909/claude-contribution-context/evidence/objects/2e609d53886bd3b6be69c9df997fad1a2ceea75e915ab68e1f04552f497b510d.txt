@@ -1,0 +1,188 @@
+{
+  "record_type": "operator specification-draft custody receipt; not an adopted framework schema",
+  "issued_at_utc": "2026-09-05T19:58:15.253832+00:00",
+  "outputs": {
+    "20260905-contributor-context-spec.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-spec.md",
+      "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77",
+      "readback": true,
+      "status": "DRAFT_FOR_REVIEW"
+    },
+    "20260905-contributor-context-evaluation-plan.md": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-evaluation-plan.md",
+      "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f",
+      "readback": true,
+      "status": "DRAFT_FOR_REVIEW"
+    }
+  },
+  "source_heads": {
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+    "/home/bryan/Projects/DevForge/framework/DevForge": "6983f1de3e06f9b422546fd6944888dcd34e56a1"
+  },
+  "source_working_tree_status_before": {
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI": " M docs/mvp/skill-authoring-contract.md\n M docs/mvp/templates/shared/handoff.md\n?? docs/coordination/20260905-contributor-expertise-proposal.md\n?? docs/coordination/20260905-contributor-expertise-proposal.receipt.json\n",
+    "/home/bryan/Projects/DevForge/framework/DevForge": ""
+  },
+  "sources": {
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/AGENTS.md": {
+      "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/AGENTS.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.md": {
+      "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+      "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md": {
+      "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/roster.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md": {
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/artifact-contract.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md": {
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/execution-contract.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md": {
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/session-record.md": {
+      "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/shared/session-record.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md": {
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/shared/handoff.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md": {
+      "sha256": "eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md": {
+      "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md": {
+      "sha256": "3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md": {
+      "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md": {
+      "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md": {
+      "sha256": "89c5a6ff2b4118ab75214becc9ff2f6bacf2148ef8f2ca37a11656e302e8ea21",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-001.md",
+      "readback": true
+    },
+    "/home/bryan/Projects/DevForge/framework/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md": {
+      "sha256": "f93882af69926ad2dbc92b686d35e4d147cf15589a8e927ce88f83a3e7ff8964",
+      "preserved_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/architecture-reviews/contributor-context-spec-20260905T195815176460Z/source/DevForge/.poc/authoring-assignments-20260905/SESSION-002.md",
+      "readback": true
+    }
+  },
+  "user_direction": "Reusable contributor skill and repeatable orient/resume workflow; no bespoke input handoff or new HANDOFF for every read-only invocation. Durable checkpoints remain required at the defined boundaries.",
+  "design_review": "Two bounded read-only analyses reviewed authority, missing inputs, provider scope, independent cases and conditional checkpoint behavior. No cold certification claimed.",
+  "checks": {
+    "local_links": 12,
+    "whitespace_and_fences": "PASS",
+    "unresolved_template_placeholders": 0,
+    "capability_requirements": 8,
+    "logical_case_groups": 8,
+    "runtime_arm_count": "NOT_ALLOCATED"
+  },
+  "local_links": [
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "20260905-contributor-expertise-proposal.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-expertise-proposal.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "../mvp/templates/devforge-project-expert-creator/expert-skill.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "../mvp/execution-contract.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "../mvp/artifact-contract.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "../mvp/skill-authoring-contract.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "../mvp/templates/shared/session-record.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/session-record.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "../mvp/templates/shared/handoff.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "../mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "20260905-contributor-context-evaluation-plan.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-evaluation-plan.md"
+    },
+    {
+      "in": "20260905-contributor-context-spec.md",
+      "target": "20260905-contributor-context-specification.receipt.json",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-specification.receipt.json"
+    },
+    {
+      "in": "20260905-contributor-context-evaluation-plan.md",
+      "target": "20260905-contributor-context-spec.md",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-spec.md"
+    },
+    {
+      "in": "20260905-contributor-context-evaluation-plan.md",
+      "target": "20260905-contributor-context-specification.receipt.json",
+      "resolved": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/coordination/20260905-contributor-context-specification.receipt.json"
+    }
+  ],
+  "active_assignments_changed": false,
+  "governing_contracts_changed": false,
+  "existing_proposal_changed": false,
+  "native_skill_authored": false,
+  "models_launched": 0,
+  "native_evaluation": "NOT_RUN",
+  "production_adoption": "NOT_RECORDED",
+  "scope": "Specification and evaluation-plan drafts only. Runtime package mapping, fixture bytes, source/evaluation assignments and numeric execution budget require subsequent allocation."
+}

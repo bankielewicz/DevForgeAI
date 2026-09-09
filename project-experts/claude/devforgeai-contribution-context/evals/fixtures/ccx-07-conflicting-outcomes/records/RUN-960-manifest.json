@@ -1,0 +1,20 @@
+{
+  "schema_version": "devforge.skill-run/v1",
+  "run_id": "RUN-960",
+  "tier": "B",
+  "provider": "claude",
+  "installation_mode": "project-local",
+  "candidate": "XPKG-960@1",
+  "baseline": {
+    "kind": "without_skill",
+    "outcome": "NOT_RUN"
+  },
+  "checks": [
+    {"id": "structural-syntax", "outcome": "PASS"},
+    {"id": "package-local-template-reference", "outcome": "FAIL", "finding": "FIND-960"},
+    {"id": "tier-c-installed-resources", "outcome": "COULD_NOT_RUN", "finding": "FIND-960"},
+    {"id": "tier-a-activation", "outcome": "NOT_RUN"}
+  ],
+  "produced_by": "SESSION-959",
+  "note": "Author-recorded observations. An author's own grades support scoped review and are not independent acceptance."
+}

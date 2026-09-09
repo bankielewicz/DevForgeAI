@@ -1,0 +1,17 @@
+{
+  "name": "package-internal-parent-alias-old",
+  "command": [
+    "python3",
+    "-B",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias",
+    "--authority-root",
+    "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority"
+  ],
+  "expected_exit_status": 1,
+  "required_stdout_text": "overall=FAIL",
+  "exit_status": 1,
+  "stdout": "package=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias\nauthority_root=/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority\ncheck=link_resolution outcome=PASS relative_links_checked=1 broken=none\ncheck=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none\ncheck=eval_fixture_paths outcome=FAIL file_references=1 problems=['synthetic-case: parent traversal in fixtures/../expectations/expected.md']\ncheck=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none\ncheck=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none\ncheck=runtime_export_set outcome=PASS runtime_files=4 authored_eval_files=3 eval_artifacts_in_runtime_set=none overlap=none\noverall=FAIL failed=['eval_fixture_paths']\nscope=mechanical structure, byte identity and path containment only; not semantic acceptance\n",
+  "stderr": "",
+  "assertions_pass": true
+}

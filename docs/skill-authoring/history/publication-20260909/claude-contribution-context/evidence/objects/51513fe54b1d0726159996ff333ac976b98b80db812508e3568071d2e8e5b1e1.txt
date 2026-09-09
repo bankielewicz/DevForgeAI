@@ -1,0 +1,433 @@
+{
+  "recorded_at_utc": "2026-09-06T02:45:17.861442+00:00",
+  "source_root": "/tmp/claude-context-r2-helper-review-51zqllq5",
+  "files": {
+    "helpers/new-package.py": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-package.py",
+      "sha256": "10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442",
+      "bytes": 11920
+    },
+    "helpers/new-receipt.py": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/new-receipt.py",
+      "sha256": "c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136",
+      "bytes": 8040
+    },
+    "helpers/old-package.py": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-package.py",
+      "sha256": "b12237dc7882055e9b85c40f8a055b5d3ce15ed180c2b1f35e53394d2b30f8e4",
+      "bytes": 10805
+    },
+    "helpers/old-receipt.py": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/helpers/old-receipt.py",
+      "sha256": "50dccb2c9acfb83ab073276ed132945eae5b2913c93b78e6bce0d862161d3dd5",
+      "bytes": 6585
+    },
+    "inputs/authority/handoff.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/authority/handoff.md",
+      "sha256": "25c4fedb374fd37c8517c32d09fe981782c13b9c2e21e009562dc5a1c79c0e24",
+      "bytes": 17
+    },
+    "inputs/package-canonical/SKILL.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical/SKILL.md",
+      "sha256": "6d832f69638673503f84d17f71ed02c597645dc489ddbd7dcca9c94f029dd562",
+      "bytes": 31
+    },
+    "inputs/package-canonical/assets/handoff.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical/assets/handoff.md",
+      "sha256": "25c4fedb374fd37c8517c32d09fe981782c13b9c2e21e009562dc5a1c79c0e24",
+      "bytes": 17
+    },
+    "inputs/package-canonical/evals/evals.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical/evals/evals.json",
+      "sha256": "41c311940f8dfddb29d97fd74599a4d3d2b4a024fe0e81f78ab24a975898967c",
+      "bytes": 78
+    },
+    "inputs/package-canonical/evals/expectations/expected.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical/evals/expectations/expected.md",
+      "sha256": "6f083da393642374447c70ba7c03fa491a5d3874d59ceb5fb13d01f9023edd87",
+      "bytes": 26
+    },
+    "inputs/package-canonical/evals/fixtures/input.txt": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical/evals/fixtures/input.txt",
+      "sha256": "3935963d15310967ed23dc951fe5486d96534f9bdddd7c723dcf7f845de21f5d",
+      "bytes": 18
+    },
+    "inputs/package-canonical/references/derivation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical/references/derivation.json",
+      "sha256": "63bbda064fec4ee579fd973af63658ef8369bd5a0e387d46d614d365c26845c0",
+      "bytes": 398
+    },
+    "inputs/package-canonical/references/ref.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-canonical/references/ref.md",
+      "sha256": "b0701ab66af0597d68615c94ea1d15b56158c59754206bcc73708f25b5b5406b",
+      "bytes": 28
+    },
+    "inputs/package-control/SKILL.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control/SKILL.md",
+      "sha256": "6d832f69638673503f84d17f71ed02c597645dc489ddbd7dcca9c94f029dd562",
+      "bytes": 31
+    },
+    "inputs/package-control/assets/handoff.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control/assets/handoff.md",
+      "sha256": "25c4fedb374fd37c8517c32d09fe981782c13b9c2e21e009562dc5a1c79c0e24",
+      "bytes": 17
+    },
+    "inputs/package-control/evals/evals.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control/evals/evals.json",
+      "sha256": "d5791503d072ee45379ae92828cf56239c5531657d6aaf454b9629ad1679d9f3",
+      "bytes": 72
+    },
+    "inputs/package-control/evals/expectations/expected.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control/evals/expectations/expected.md",
+      "sha256": "6f083da393642374447c70ba7c03fa491a5d3874d59ceb5fb13d01f9023edd87",
+      "bytes": 26
+    },
+    "inputs/package-control/evals/fixtures/input.txt": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control/evals/fixtures/input.txt",
+      "sha256": "3935963d15310967ed23dc951fe5486d96534f9bdddd7c723dcf7f845de21f5d",
+      "bytes": 18
+    },
+    "inputs/package-control/references/derivation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control/references/derivation.json",
+      "sha256": "63bbda064fec4ee579fd973af63658ef8369bd5a0e387d46d614d365c26845c0",
+      "bytes": 398
+    },
+    "inputs/package-control/references/ref.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-control/references/ref.md",
+      "sha256": "b0701ab66af0597d68615c94ea1d15b56158c59754206bcc73708f25b5b5406b",
+      "bytes": 28
+    },
+    "inputs/package-dot-alias/SKILL.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias/SKILL.md",
+      "sha256": "6d832f69638673503f84d17f71ed02c597645dc489ddbd7dcca9c94f029dd562",
+      "bytes": 31
+    },
+    "inputs/package-dot-alias/assets/handoff.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias/assets/handoff.md",
+      "sha256": "25c4fedb374fd37c8517c32d09fe981782c13b9c2e21e009562dc5a1c79c0e24",
+      "bytes": 17
+    },
+    "inputs/package-dot-alias/evals/evals.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias/evals/evals.json",
+      "sha256": "dfc0b43d9c8724ab8b78552efb8a54a168d6541d146f4ea52319c02942dd4382",
+      "bytes": 80
+    },
+    "inputs/package-dot-alias/evals/expectations/expected.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias/evals/expectations/expected.md",
+      "sha256": "6f083da393642374447c70ba7c03fa491a5d3874d59ceb5fb13d01f9023edd87",
+      "bytes": 26
+    },
+    "inputs/package-dot-alias/evals/fixtures/input.txt": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias/evals/fixtures/input.txt",
+      "sha256": "3935963d15310967ed23dc951fe5486d96534f9bdddd7c723dcf7f845de21f5d",
+      "bytes": 18
+    },
+    "inputs/package-dot-alias/references/derivation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias/references/derivation.json",
+      "sha256": "63bbda064fec4ee579fd973af63658ef8369bd5a0e387d46d614d365c26845c0",
+      "bytes": 398
+    },
+    "inputs/package-dot-alias/references/ref.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-dot-alias/references/ref.md",
+      "sha256": "b0701ab66af0597d68615c94ea1d15b56158c59754206bcc73708f25b5b5406b",
+      "bytes": 28
+    },
+    "inputs/package-internal-parent-alias/SKILL.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias/SKILL.md",
+      "sha256": "6d832f69638673503f84d17f71ed02c597645dc489ddbd7dcca9c94f029dd562",
+      "bytes": 31
+    },
+    "inputs/package-internal-parent-alias/assets/handoff.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias/assets/handoff.md",
+      "sha256": "25c4fedb374fd37c8517c32d09fe981782c13b9c2e21e009562dc5a1c79c0e24",
+      "bytes": 17
+    },
+    "inputs/package-internal-parent-alias/evals/evals.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias/evals/evals.json",
+      "sha256": "768bc27f5f71ba21a072160e1cdd0d41d68f055057cb4c941f4a65c706e2de18",
+      "bytes": 90
+    },
+    "inputs/package-internal-parent-alias/evals/expectations/expected.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias/evals/expectations/expected.md",
+      "sha256": "6f083da393642374447c70ba7c03fa491a5d3874d59ceb5fb13d01f9023edd87",
+      "bytes": 26
+    },
+    "inputs/package-internal-parent-alias/evals/fixtures/input.txt": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias/evals/fixtures/input.txt",
+      "sha256": "3935963d15310967ed23dc951fe5486d96534f9bdddd7c723dcf7f845de21f5d",
+      "bytes": 18
+    },
+    "inputs/package-internal-parent-alias/references/derivation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias/references/derivation.json",
+      "sha256": "63bbda064fec4ee579fd973af63658ef8369bd5a0e387d46d614d365c26845c0",
+      "bytes": 398
+    },
+    "inputs/package-internal-parent-alias/references/ref.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-internal-parent-alias/references/ref.md",
+      "sha256": "b0701ab66af0597d68615c94ea1d15b56158c59754206bcc73708f25b5b5406b",
+      "bytes": 28
+    },
+    "inputs/package-root-escape/SKILL.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape/SKILL.md",
+      "sha256": "6d832f69638673503f84d17f71ed02c597645dc489ddbd7dcca9c94f029dd562",
+      "bytes": 31
+    },
+    "inputs/package-root-escape/assets/handoff.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape/assets/handoff.md",
+      "sha256": "25c4fedb374fd37c8517c32d09fe981782c13b9c2e21e009562dc5a1c79c0e24",
+      "bytes": 17
+    },
+    "inputs/package-root-escape/evals/evals.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape/evals/evals.json",
+      "sha256": "ec815278a86bd1b98a00ea417288072989472a6a69396e6bc7eb1c295fb3d1ef",
+      "bytes": 77
+    },
+    "inputs/package-root-escape/evals/expectations/expected.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape/evals/expectations/expected.md",
+      "sha256": "6f083da393642374447c70ba7c03fa491a5d3874d59ceb5fb13d01f9023edd87",
+      "bytes": 26
+    },
+    "inputs/package-root-escape/evals/fixtures/input.txt": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape/evals/fixtures/input.txt",
+      "sha256": "3935963d15310967ed23dc951fe5486d96534f9bdddd7c723dcf7f845de21f5d",
+      "bytes": 18
+    },
+    "inputs/package-root-escape/references/derivation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape/references/derivation.json",
+      "sha256": "63bbda064fec4ee579fd973af63658ef8369bd5a0e387d46d614d365c26845c0",
+      "bytes": 398
+    },
+    "inputs/package-root-escape/references/ref.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/package-root-escape/references/ref.md",
+      "sha256": "b0701ab66af0597d68615c94ea1d15b56158c59754206bcc73708f25b5b5406b",
+      "bytes": 28
+    },
+    "inputs/prior/HANDOFF.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/prior/HANDOFF.md",
+      "sha256": "dc75a7e8ee7808d6d90db35a2b289fa31ad774f0a176b20da0b7dd827579c1ab",
+      "bytes": 25
+    },
+    "inputs/receipt-no-digest/HANDOFF.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-no-digest/HANDOFF.md",
+      "sha256": "179c0aaa8cd4a3844d07588cf0b73d5e02665fd39767feb63169b625e2a3da9d",
+      "bytes": 37
+    },
+    "inputs/receipt-same-name-different-path/HANDOFF.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-same-name-different-path/HANDOFF.md",
+      "sha256": "342634ecd1351caa50df9821ebacb89c507a58568ec62fda694e61520e96a806",
+      "bytes": 150
+    },
+    "inputs/receipt-self-multiline/HANDOFF.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-multiline/HANDOFF.md",
+      "sha256": "5d0cd13e0b66da7151114d9f0beddfb178e289f0c6796d4a77912ad556c817fd",
+      "bytes": 113
+    },
+    "inputs/receipt-self-same-line/HANDOFF.md": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/inputs/receipt-self-same-line/HANDOFF.md",
+      "sha256": "45713293db6ebb4a61eea52b0af4b799497b07863b2a945bdcb01f02e1d2cc79",
+      "bytes": 107
+    },
+    "outputs/package-canonical-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-canonical-new-expectation.json",
+      "sha256": "fb075cb55534d6f0ba79269614eb08851d3c8e55db44a407d15bc7de5f2148c0",
+      "bytes": 423
+    },
+    "outputs/package-canonical-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-canonical-new.json",
+      "sha256": "20a3825153c50450a0a2edca39124282d0e615008c1560aabd41d163a56efb20",
+      "bytes": 1351
+    },
+    "outputs/package-canonical-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-canonical-old-expectation.json",
+      "sha256": "0222abdd7dfefb68e34ab66ae8e0438fa8cc5636a346c06aea5353ccaad3069f",
+      "bytes": 401
+    },
+    "outputs/package-canonical-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-canonical-old.json",
+      "sha256": "cb10ee6a8982d36f9af17e5677c53d33d2b98a486f911d59c9b08be95467740c",
+      "bytes": 1329
+    },
+    "outputs/package-control-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-control-new-expectation.json",
+      "sha256": "006da87c53d4e6302e5fa104fcbdff79c2c6820470a5405e3a18bf279f70f3dd",
+      "bytes": 419
+    },
+    "outputs/package-control-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-control-new.json",
+      "sha256": "4dbd1f52e1f3bca9358d3f0e351d2e4e321d582b08193c1ef67f4d2009f20c98",
+      "bytes": 1290
+    },
+    "outputs/package-control-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-control-old-expectation.json",
+      "sha256": "109a79a425fe737f101eb2d38986dbb119dce6dbe38d2777737c9468581689ce",
+      "bytes": 397
+    },
+    "outputs/package-control-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-control-old.json",
+      "sha256": "ce5a6a7fc99c1544e9237b9c34bb1f6fcaca546c98ec7a4e677ce059e33da076",
+      "bytes": 1268
+    },
+    "outputs/package-dot-alias-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-dot-alias-new-expectation.json",
+      "sha256": "d590a1fef47edd9a7c4c624a1db91c764b8a96b20cccd2c8fa2f061611655b7b",
+      "bytes": 423
+    },
+    "outputs/package-dot-alias-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-dot-alias-new.json",
+      "sha256": "36b4ff056b33fe45e0c30733e1b553142e9aa8353a8aeac83262ccbbf08d8cfd",
+      "bytes": 1434
+    },
+    "outputs/package-dot-alias-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-dot-alias-old-expectation.json",
+      "sha256": "00c719170232e0352c0b8b5d11d46566f1cfc9a900baa699026382a7ba3b8694",
+      "bytes": 401
+    },
+    "outputs/package-dot-alias-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-dot-alias-old.json",
+      "sha256": "da9a3c24733f6c1fc2a0a26f62d6cfe01a9aeee5b9819b738d18c47b234633c0",
+      "bytes": 1274
+    },
+    "outputs/package-internal-parent-alias-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-internal-parent-alias-new-expectation.json",
+      "sha256": "04f528dee0ecb8134f9c43c3446b49d38f5fe0a6b51b20bb4f8bf9c90daa9f8f",
+      "bytes": 447
+    },
+    "outputs/package-internal-parent-alias-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-internal-parent-alias-new.json",
+      "sha256": "3905ac27de0e9d892ec99635bb6fed885e4e03b56c232fa36bd69d285f978a46",
+      "bytes": 1480
+    },
+    "outputs/package-internal-parent-alias-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-internal-parent-alias-old-expectation.json",
+      "sha256": "c8cc5f3c3ecb825733bb126ad0329f5f4583ca8243917cfca6bcc039b015aab4",
+      "bytes": 425
+    },
+    "outputs/package-internal-parent-alias-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-internal-parent-alias-old.json",
+      "sha256": "8ea76ca1c3861ad6a0120f4a381e1de4fa4cfcb4c2ff41498e8c925e30d291e8",
+      "bytes": 1400
+    },
+    "outputs/package-root-escape-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-root-escape-new-expectation.json",
+      "sha256": "6e8c1353d496fae7c07e11472442c7d0898692685c2dbcf5b7452f859967cdf6",
+      "bytes": 430
+    },
+    "outputs/package-root-escape-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-root-escape-new.json",
+      "sha256": "8a1b00fc09bd28d8ac6050846288d6501aba6eb3baf27cd3a1d8a5317596d684",
+      "bytes": 1382
+    },
+    "outputs/package-root-escape-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-root-escape-old-expectation.json",
+      "sha256": "b1817b51bfc2c2556fba0eb626806cf8030bbba245563c3db4a225aec2674cb4",
+      "bytes": 405
+    },
+    "outputs/package-root-escape-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/package-root-escape-old.json",
+      "sha256": "83ab32fcd60db5854a8361def315d09c2bf6787a9aba1f64e79d86c540c17b90",
+      "bytes": 1357
+    },
+    "outputs/receipt-legitimate-verification-only-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-legitimate-verification-only-new-expectation.json",
+      "sha256": "a00d8587f6aac06fa39ee415a49f88719970c503a9b40a9db2408e869d391963",
+      "bytes": 463
+    },
+    "outputs/receipt-legitimate-verification-only-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-legitimate-verification-only-new.json",
+      "sha256": "58b2f3340342c3db30fa93b1b9d6da103ad17cbdde0fd051a73103691f7ca93f",
+      "bytes": 1172
+    },
+    "outputs/receipt-no-digest-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-no-digest-new-expectation.json",
+      "sha256": "8f96d5b0458e14ecfa941345f06b4a1613f1ef3719dbdd36e53e038cab796c6d",
+      "bytes": 462
+    },
+    "outputs/receipt-no-digest-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-no-digest-new.json",
+      "sha256": "e0759b945996b2271bf2747641ea20a68a8965a67e25e3f3722482e860a80349",
+      "bytes": 1507
+    },
+    "outputs/receipt-no-digest-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-no-digest-old-expectation.json",
+      "sha256": "c34be5fb24913b7fadc7c2b9dc8c07d1e27cf000b9d8dda6af4c85c81ab28dae",
+      "bytes": 456
+    },
+    "outputs/receipt-no-digest-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-no-digest-old.json",
+      "sha256": "56b96bdb052cb5bfff505c3c1030366f2ae0abe5b0fae6c3fd945ad8d38265e6",
+      "bytes": 1380
+    },
+    "outputs/receipt-same-name-different-path-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-same-name-different-path-new-expectation.json",
+      "sha256": "6343702edfd11d4cd5d35a23a34d9ca9e882458d812438a0dfe62b66ff752d0b",
+      "bytes": 501
+    },
+    "outputs/receipt-same-name-different-path-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-same-name-different-path-new.json",
+      "sha256": "501fba2a7c5b2a2ec0a9175b746fbfec978b33860011dc487e7016d218969358",
+      "bytes": 1870
+    },
+    "outputs/receipt-same-name-different-path-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-same-name-different-path-old-expectation.json",
+      "sha256": "769a254be33f13a472f0be7cd78bdbad41740e07dea0193afe83a3cfce6b4d91",
+      "bytes": 486
+    },
+    "outputs/receipt-same-name-different-path-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-same-name-different-path-old.json",
+      "sha256": "7594634c527fd98a665fb3385b6d9feed6eb59eb07fb9accc3306af4b90e2c92",
+      "bytes": 1431
+    },
+    "outputs/receipt-self-multiline-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-multiline-new-expectation.json",
+      "sha256": "7173da87b0d9f6519903fc5fe2efcd13209581b5fae7a368c89ee464ec6c7a39",
+      "bytes": 481
+    },
+    "outputs/receipt-self-multiline-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-multiline-new.json",
+      "sha256": "b030cac0f6e6e99a18b20f73f3d8e132c16a5bf937649afa89c8e7c58811da2d",
+      "bytes": 1840
+    },
+    "outputs/receipt-self-multiline-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-multiline-old-expectation.json",
+      "sha256": "b0e5d89b0c4e94253e4ba8c43367a2b9ab4e96d4e977320b4b0445f96c7907ba",
+      "bytes": 466
+    },
+    "outputs/receipt-self-multiline-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-multiline-old.json",
+      "sha256": "d83863011fdf35f3d3dd6b83d798be6feef0fbb6e16447d40e7efd07e269b0b0",
+      "bytes": 1395
+    },
+    "outputs/receipt-self-same-line-new-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-same-line-new-expectation.json",
+      "sha256": "4144596c5f7e4d7af0117394d24b354f73b7cbf12c71f666cabca739c52ba81a",
+      "bytes": 481
+    },
+    "outputs/receipt-self-same-line-new.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-same-line-new.json",
+      "sha256": "59b69e777afce7d5be165f0d1d9ad2253c9e1ac284c5a0b170c80e793098ab7f",
+      "bytes": 1840
+    },
+    "outputs/receipt-self-same-line-old-expectation.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-same-line-old-expectation.json",
+      "sha256": "214fb56fba080cbd2b00bbeeb5986c90a5a7ccd05afec7635d0050636a701ff7",
+      "bytes": 466
+    },
+    "outputs/receipt-self-same-line-old.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/outputs/receipt-self-same-line-old.json",
+      "sha256": "01c08f954c53ad02b5ddbd2e01e0957578b808bfc89cb55c8317f070dc8b10d1",
+      "bytes": 1401
+    },
+    "reproduce_ir003_ir004.py": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/reproduce_ir003_ir004.py",
+      "sha256": "93af84e2abc31ec9fb68ed4ecbfd6311538dc7b57b380aa89fa8b9c83b742c14",
+      "bytes": 6681
+    },
+    "summary.json": {
+      "source": "/tmp/claude-context-r2-helper-review-51zqllq5/summary.json",
+      "sha256": "1378cf383b470d245a1db2c5ca51f0ce5c44ed9730b9c16dcc2c5a322c554264",
+      "bytes": 29598
+    }
+  },
+  "execution": "reviewer ran the exact saved script once before archival; root inspected and copied it without rerunning",
+  "limits": "synthetic deterministic reproduction only; no native evaluation"
+}

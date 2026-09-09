@@ -1,0 +1,156 @@
+{
+  "skill_name": "devforgeai-contribution-context",
+  "purpose": "Authored activation queries for a future tier-A observation. Positives cover explicit invocation and natural recovery requests that name neither the skill nor its path; negatives are near-misses that share vocabulary or shape with the capability but need a different workflow.",
+  "split_rule": "The train/validation split below is fixed at authoring time and must not be reassigned after any measurement. 12 train, 8 validation.",
+  "status": "NOT_RUN. These queries are authored, not observed. Their selection has not been measured, and no activation, loading or execution has been recorded for any of them.",
+  "negative_pass_rule": "A negative passes only on a successful terminal result reached without consulting this skill. Observing another skill's selection during an incomplete run does not complete the assertion.",
+  "excluded_by_specification": [
+    "Ordinary implementation whose context is already complete",
+    "General application brainstorming",
+    "Arbitrary code explanation",
+    "Final semantic QA or acceptance review",
+    "Changing an external gate, validator or policy"
+  ],
+  "queries": [
+    {
+      "id": "t01",
+      "kind": "explicit",
+      "should_trigger": true,
+      "split": "train",
+      "query": "use the devforgeai-contribution-context skill to work out what I'm assigned on this branch and whether I can keep going"
+    },
+    {
+      "id": "t02",
+      "kind": "explicit",
+      "should_trigger": true,
+      "split": "validation",
+      "query": "run contribution-context in checkpoint mode - I need the handoff and its receipt before I close this terminal"
+    },
+    {
+      "id": "t03",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "train",
+      "query": "picking this back up after a week. i'm in worktrees/claude-audit-77 on author/audit-77 and honestly i've lost the thread - what was i assigned here, what's already done, and what am i actually allowed to touch?"
+    },
+    {
+      "id": "t04",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "train",
+      "query": "the previous architect session died without writing a closeout. i've got the session records and both workers' package records in docs/coordination/. can you reconstruct where this contribution stands and give me a handoff for whoever picks up integration?"
+    },
+    {
+      "id": "t05",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "validation",
+      "query": "i'm handing this off to a colleague's session tonight. write the handoff into the outbox the assignment gives me and tell me the full path plus the sha256 so i can paste it to them"
+    },
+    {
+      "id": "t06",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "train",
+      "query": "my SESSION record pins skill-authoring-contract.md at revision 2 with a digest, but the copy on main is revision 3 now and says something different about eval packaging. which one governs my work and does it change what i do next?"
+    },
+    {
+      "id": "t07",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "validation",
+      "query": "there's no session record anywhere for this candidate directory but someone's asking me to edit it. can i? and if not, what do i tell them - i do have permission to write a report to .poc/reports/"
+    },
+    {
+      "id": "t08",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "train",
+      "query": "the eval report at the top says PASS but FIND-0031 underneath it records a failed template check that nobody withdrew. before i sign anything off, work out what the evidence actually supports and who needs to look at it"
+    },
+    {
+      "id": "t09",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "train",
+      "query": "fresh claude terminal, no context. the user says i'm the codex worker on contrib-42 which doesn't sound right. figure out from the records what my actual role and fence are"
+    },
+    {
+      "id": "t10",
+      "kind": "natural",
+      "should_trigger": true,
+      "split": "validation",
+      "query": "do i need to go back and ask for approval again to keep refactoring src/ledger, or did the earlier decision already cover the whole contribution? check the assignment"
+    },
+    {
+      "id": "n01",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "train",
+      "query": "write a sprint handoff doc for my team - who's on what, what slipped, what's carrying into next sprint. it's for our internal wiki, nothing to do with any repo assignment"
+    },
+    {
+      "id": "n02",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "train",
+      "query": "compute the sha256 of dist/bundle.js and compare it to the value in RELEASE.md, then tell me if the artifact matches"
+    },
+    {
+      "id": "n03",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "validation",
+      "query": "set up a git worktree for me off main at 4b1c9e7 called hotfix-auth and check out a branch in it"
+    },
+    {
+      "id": "n04",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "train",
+      "query": "i've got the story, the architecture doc and the acceptance criteria all in front of me and everything's clear - just implement the posting.py refactor we discussed"
+    },
+    {
+      "id": "n05",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "train",
+      "query": "walk me through what providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md actually does, i'm trying to understand how the review skill is structured"
+    },
+    {
+      "id": "n06",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "validation",
+      "query": "review this candidate against SKILL-007 and tell me whether the implementation genuinely meets the spec - i want your judgement on the semantics, not a checklist"
+    },
+    {
+      "id": "n07",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "train",
+      "query": "we're kicking around ideas for a maintenance scheduling app - offline sync, equipment records, that kind of thing. what capabilities would it need?"
+    },
+    {
+      "id": "n08",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "validation",
+      "query": "the CI gate is failing on the policy validator in the companion repo. loosen the rule so my candidate passes"
+    },
+    {
+      "id": "n09",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "train",
+      "query": "summarise what changed in docs/mvp/ between the last two commits"
+    },
+    {
+      "id": "n10",
+      "kind": "near-miss",
+      "should_trigger": false,
+      "split": "validation",
+      "query": "i need a session record template filled in for a new assignment i'm creating for a worker - owner, worktree, fence, the usual fields"
+    }
+  ]
+}

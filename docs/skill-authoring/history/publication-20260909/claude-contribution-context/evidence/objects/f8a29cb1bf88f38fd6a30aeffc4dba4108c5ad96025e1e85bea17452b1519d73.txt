@@ -1,0 +1,51 @@
+# Contributor context: native-evaluation preparation handoff
+
+## NP-001 Current result
+
+Claude XPKG-004@2 passed the bounded root integration review: all six original findings are closed statically, with three nonblocking notes. The exact result is [/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/INTEGRATION-REVIEW.md](/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/INTEGRATION-REVIEW.md), SHA-256 `9e39e88250dc40f9bbfb675d2808eafa59f5aa05d3bbcb322f8b81d9d9c12666`. Candidate source SHA-256 inventory: `7c1b3d896607bd73446900c0f080ac83888d48c79ed67bb88881da730548794e`; runtime inventory: `a2989155fa35f63c36970f8bb1b64bfad9cc22cea117d5485eceb329dcd56d33`.
+
+This document saves the next task for the root integration owner. It is not an issued native execution assignment or model-call allocation. Existing author ownership remains retained, current model evaluation calls/concurrency/retries remain zero, and no installed or behavioral result is claimed.
+
+## NP-002 Selected references
+
+| Reference | Absolute path | SHA-256 |
+| --- | --- | --- |
+| Revised Claude review | /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/INTEGRATION-REVIEW.md | 9e39e88250dc40f9bbfb675d2808eafa59f5aa05d3bbcb322f8b81d9d9c12666 |
+| Revised Claude package record | /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/run/XPKG-004.md | 203b3c19448ada515796e13d043ba8d43de806ac7bbfd27015844eb7de7968c1 |
+| Prior Codex review | /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-contributor-context-20260905T213708193042Z/INTEGRATION-REVIEW.md | 5fb47ea9dbe416e6393ccf09b7f2c5445f497608f2b10d6692d29961a63d8b87 |
+| Selected capability specification | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md | a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77 |
+| Selected evaluation plan | /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md | 4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f |
+| Reviewed corrected validator | /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/companion/scripts/validate_framework.py | e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25 |
+
+The Codex review reference is verified here; current Codex source and runtime state must be re-pinned during preparation. Do not infer a fresh native observation from the prior review. The corrected validator's structural identity does not select a new companion binary or grant companion writes.
+
+## NP-003 Continuation
+
+Root working directory: `/home/bryan/Projects/DevForge/framework/DevForge`. Preserve the two author worktrees and all frozen histories. Prepare a new exclusive output directory under the root operator's `.poc` area; do not reuse either author run as an evaluator outbox.
+
+Prepare a concrete bootstrap evaluation packet that freezes:
+
+1. The chosen coverage subset and explicit omissions, both candidates and required core context, and declared native install mappings. Carry CIR2-004's corrected section reference and helper limits explicitly.
+2. Independent task-derived criteria and permitted worker-visible synthetic facts. A fresh independent fixture/grading owner must not receive candidate-author preferred answers as its oracle; evaluated workers receive neither expectations nor author/private histories.
+3. Grading machinery challenged with the selected plan's receipt, section-reference, outcome-label and missing-record negatives before any model execution.
+4. Actual client-state and filesystem isolation, exact tool versions, permissions and unique outboxes; baseline and candidate arms receive identical raw facts and equivalent allowed assistance.
+5. Numeric calls per provider, role, variant and arm; timeouts, concurrency, deadline and retry policy; raw-evidence preservation and failure dispositions.
+6. Named evaluation and acceptance/disposition owners, reviewable preflight evidence, and a saved final packet with full external path/SHA-256 receipt.
+
+Stop after preparing and checking that packet. No native calls, installation, credential/history copying, candidate edits, shared-rule changes, commits or publication are selected by this handoff. Any later native execution requires its concrete recorded allocation first; elapsed time, a static PASS or an author label does not supply it.
+
+## NP-004 Copyable root continuation
+
+```text
+Continue as the root integration owner in /home/bryan/Projects/DevForge/framework/DevForge.
+Read and verify:
+/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/INTEGRATION-REVIEW.md
+SHA-256: 9e39e88250dc40f9bbfb675d2808eafa59f5aa05d3bbcb322f8b81d9d9c12666
+Then follow NP-002 and NP-003 in:
+/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/NATIVE-PREPARATION-HANDOFF.md
+Prepare the independent native-evaluation packet for the contributor-context POC. Preserve both author-owned candidates and histories. Carry the three nonblocking review notes explicitly. Re-pin all selected current inputs, separate independent criteria from author expectations, and produce a concrete allocation and preflight package for review. Native evaluation remains zero calls during preparation. Save the finalized packet and deliver its full path and SHA-256 externally.
+```
+
+## NP-005 Custody
+
+Read back this completed document and deliver its digest outside its own bytes. The root review receipt binds it with the review and evidence. This is a next-task description; preparation is not reported as completed here.

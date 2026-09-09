@@ -1,0 +1,57 @@
+Delivery-time verification of HANDOFF-004@2.
+
+Performed after the handoff was final, which is why it is not in the handoff's own check
+table or in checks.json: those were frozen before these bytes existed. This record is
+referenced from the external receipt.
+
+=== Command 1: receipt verification (a guarantee) ===
+file=/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/HANDOFF-004.md
+computed_sha256=4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1
+check=digest_format outcome=PASS claimed_length=64 (a receipt is 64 lowercase hex characters)
+check=digest_matches_bytes outcome=PASS claimed=4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1 computed=4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1
+overall=PASS
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=0
+
+=== Command 2: self-receipt inspection (a listing, not a verdict) ===
+file=/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/HANDOFF-004.md
+computed_sha256=4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1
+check=no_digest_present outcome=COULD_NOT_RUN 44 digest occurrence(s) present, so absence of a self-receipt is not established by this check
+check=literal_self_digest outcome=PASS the file does not contain its own final digest. NON-DISCRIMINATING: a SHA-256 fixed point is not constructible, so this predicate cannot be made to fail and is not a tested guarantee
+check=unadjudicated_digest_occurrences outcome=COULD_NOT_RUN lines [11, 18, 29, 36, 45, 56, 61, 67, 102, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 237] carry a 64-hex token. This script cannot tell a legitimate reference to another file from a receipt for this one, including forms split across lines. Inspect these lines and confirm none is a receipt for HANDOFF-004.md
+overall=COULD_NOT_RUN
+scope=receipt verification is byte identity and format only; self-receipt inspection is a listing, not a guarantee; neither is semantic acceptance
+exit=5
+
+=== Author inspection of the listed lines ===
+
+Exit 5 is the documented, expected result for a handoff whose inputs table pins many digests. The
+script hands over the lines; the judgement is the author's. Every listed occurrence is checked
+below against one question: is this digest attributed to a path OTHER than this document?
+
+digest occurrences inspected: 44
+occurrences on a line that also names HANDOFF-004.md: 1
+
+  line 134: names ['.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/HANDOFF-004.md']
+    digest 736a5f13709cbefbe0e10461ae7f24b4edb32fb2b2814a6af24a006c2c54feb4
+    context: | input | HANDOFF-004@1 | project / .poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/HANDOFF
+
+VERDICT, recorded by the author:
+
+The single flagged line is the inputs-table row for HANDOFF-004@1, the PRIOR revision. Its path is
+.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/HANDOFF-004.md
+- a different file in a different run - and the digest 736a5f13...feb4 is that file's digest, not
+this document's. It is a legitimate historical reference, and the row explicitly labels it
+"preserved prior revision, superseded by this record".
+
+This is exactly the case CCTX-IR-004 identified. The revision-1 helper matched basename plus a
+same-line digest and would have reported FAIL here, rejecting a correct reference in a correct
+document. The revision-2 helper lists it instead and leaves the judgement to the author, which is
+the behavior the finding required.
+
+No line records a receipt for this document, and the document's own digest
+(4fffa35f78bbd3b7581523a26e7772f6298c6735a4c59f827f463a078e90a8a1) appears 0 times in its bytes, confirmed by direct search:
+  occurrences: 0
+
+SCOPE: byte identity, plus a documented author judgement over an enumerated list. Neither
+is semantic acceptance of the handoff's content.

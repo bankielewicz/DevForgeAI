@@ -1,0 +1,1 @@
+A handoff without any digest tokens.

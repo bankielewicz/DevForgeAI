@@ -1,0 +1,26 @@
+from pathlib import Path
+import datetime, hashlib, json, subprocess
+Q=Path(__file__).resolve().parent
+h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+obs=json.loads((Q/'INPUT-CHECKS.json').read_text())
+for name in ['CUSTODY.json','SOURCE-COPY-CUSTODY.json']:
+    rows=json.loads((Q/name).read_text())['files']
+    for rel,row in rows.items():
+        assert h(Q/rel)==row['sha256']==h(Path(row['source'])),rel
+for prefix,key in [('candidate','source'),('run','author_run')]:
+    source=Path(obs[key]);local=Q/prefix
+    assert {str(p.relative_to(source)) for p in source.rglob('*') if p.is_file()}=={str(p.relative_to(local)) for p in local.rglob('*') if p.is_file()}
+for path,row in obs['historical_receipts_verified'].items():
+    p=Path(path);assert h(p)==row['sha256'];data=json.loads(p.read_text())
+    assert {str(f.relative_to(p.parent)) for f in p.parent.rglob('*') if f.is_file()}==set(data['files'])|{p.name}
+    for rel,entry in data['files'].items():assert h(p.parent/rel)==entry['sha256'],str(p.parent/rel)
+W=Path(obs['worktree'])
+assert subprocess.check_output(['git','-C',str(W),'status','--short','--untracked-files=all'],text=True)==obs['git_status']
+assert subprocess.check_output(['git','-C',str(W),'rev-parse','HEAD'],text=True).strip()==obs['head']
+assert subprocess.check_output(['git','-C',str(W),'branch','--show-current'],text=True).strip()==obs['branch']
+P=Path('/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001')
+p=subprocess.run(['python3','-B',str(P/'VERIFY.py'),'--phase','protected'],capture_output=True,text=True)
+assert p.returncode==0,p.stdout+p.stderr
+result={'checked_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'outcome':'PASS','frozen_input_files_and_sources_verified':len(json.loads((Q/'CUSTODY.json').read_text())['files']),'source_copy_files_and_sources_verified':len(json.loads((Q/'SOURCE-COPY-CUSTODY.json').read_text())['files']),'source_and_current_run_full_inventories':'unchanged','historical_review_and_correction_packet_full_inventories':'unchanged','branch_base_and_git_status':'unchanged','protected_preflight':json.loads(p.stdout),'candidate_changed_by_operator':False,'native_evaluation':'NOT_RUN','scope':'custody, inventory and fence closeout only'}
+with (Q/'CLOSEOUT-CHECKS.json').open('x') as f:json.dump(result,f,indent=2);f.write('\n')
+print(json.dumps(result,indent=2))

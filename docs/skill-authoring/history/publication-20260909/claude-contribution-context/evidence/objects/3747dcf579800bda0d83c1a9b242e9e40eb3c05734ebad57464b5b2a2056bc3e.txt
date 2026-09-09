@@ -1,0 +1,2775 @@
+{
+  "snapshot_at_utc": "2026-09-09T12:32:56.335322+00:00",
+  "purpose": "Planning snapshot; no source publication or implementation performed. Recheck current state before executing prompts.",
+  "remote_observations": {
+    "source": "Authenticated GitHub get_repo plus prior git ls-remote; current targets supersede stale cached page",
+    "DevForge": {
+      "id": 1357535417,
+      "visibility": "public",
+      "default_branch": "main",
+      "size": 0,
+      "advertised_refs": 0
+    },
+    "DevForgeAI": {
+      "id": 1357534418,
+      "visibility": "public",
+      "default_branch": "main",
+      "size": 0,
+      "advertised_refs": 0
+    }
+  },
+  "repositories": [
+    {
+      "name": "DevForge",
+      "main_path": "/home/bryan/Projects/DevForge/framework/DevForge",
+      "main_head": "4859a279784f902d5f9dabcb0664907b24b297a5",
+      "origin_url": "https://github.com/bankielewicz/DevForge.git",
+      "worktrees": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge",
+          "is_main_checkout": true,
+          "branch": "refs/heads/main",
+          "head": "4859a279784f902d5f9dabcb0664907b24b297a5",
+          "main_only_commits": 0,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [
+            "AGENTS.md",
+            "docs/POC.md",
+            "runtime/delivery/delivery_core.py",
+            "scripts/demo.py",
+            "tests/test_delivery_references.py"
+          ],
+          "untracked_paths": [],
+          "working_files": {
+            "AGENTS.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 4137,
+              "sha256": "48896679eda60e72c9591d0785666e718d08183c2ede8edaea1b6e4b0c717cff"
+            },
+            "docs/POC.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 10544,
+              "sha256": "8c770a341a759b576430b335a375e09fc09ce4bd0a1c53ee4f0fbaf2da8739da"
+            },
+            "runtime/delivery/delivery_core.py": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 77214,
+              "sha256": "f01eda3d5e4964a527e617316df52be63f2d67c9b68a28e52f65807753b2c3ae"
+            },
+            "scripts/demo.py": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 4173,
+              "sha256": "84fb2fbe39f62ed2fbf7ff44908d9c5f3948f98b787e997be663e80dd4a267b6"
+            },
+            "tests/test_delivery_references.py": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 80544,
+              "sha256": "7aa2cc3a85412315a7a2faa8e84e6df09fb9e9bfdd483acfed2f34da597c3c43"
+            }
+          }
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/expert-foundation-gate-20260908",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/expert-foundation-gate-20260908",
+          "head": "4859a279784f902d5f9dabcb0664907b24b297a5",
+          "main_only_commits": 0,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/framework-validation-20260908",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/framework-validation-20260908",
+          "head": "62e9329e2aa69cf3ae43f269ad3620d1fca2095f",
+          "main_only_commits": 5,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/ni11-interactive-20260908",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/ni11-interactive-20260908",
+          "head": "c7b2a62696c7f3764fdea3313182b9e896339a2a",
+          "main_only_commits": 3,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-20260907",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/skill-utilities-runtime-20260907",
+          "head": "cd403cfee0b120ada2f9e198d3a15db5d4147252",
+          "main_only_commits": 12,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-continuation-20260907T220803638693Z",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/skill-utilities-runtime-continuation-20260907T220803Z",
+          "head": "30417d68a5c5c61505bd76e1a9593c4944869056",
+          "main_only_commits": 9,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+          "is_main_checkout": false,
+          "branch": null,
+          "head": "6983f1de3e06f9b422546fd6944888dcd34e56a1",
+          "main_only_commits": 15,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [
+            "scripts/validate_framework.py",
+            "tests/test_validation.py"
+          ],
+          "untracked_paths": [],
+          "working_files": {
+            "scripts/validate_framework.py": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 3637,
+              "sha256": "e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25"
+            },
+            "tests/test_validation.py": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 8857,
+              "sha256": "b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1"
+            }
+          }
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-cli",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/vpi01-20260908T144631697661Z-repair-cli",
+          "head": "bdcdd5eed28c95df70b90a95f72be11c9e9137a9",
+          "main_only_commits": 3,
+          "worktree_only_commits": 3,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-core",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/vpi01-20260908T144631697661Z-runtime-core",
+          "head": "9ed3559d92da9b9ef7c5d4fb1c02f84f4d2f5dbd",
+          "main_only_commits": 3,
+          "worktree_only_commits": 1,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-runtime-schedule",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/vpi01-20260908T144631697661Z-runtime-schedule",
+          "head": "47f4f5150b6a2b4c1690fbb8fe6bbf02dc74766f",
+          "main_only_commits": 3,
+          "worktree_only_commits": 2,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        }
+      ]
+    },
+    {
+      "name": "DevForgeAI",
+      "main_path": "/home/bryan/Projects/DevForge/framework/DevForgeAI",
+      "main_head": "d29430beace67a141d4d35c2beb066981060cda4",
+      "origin_url": "https://github.com/bankielewicz/DevForgeAI.git",
+      "worktrees": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI",
+          "is_main_checkout": true,
+          "branch": "refs/heads/main",
+          "head": "d29430beace67a141d4d35c2beb066981060cda4",
+          "main_only_commits": 0,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [
+            "AGENTS.md",
+            "docs/mvp/execution-contract.md",
+            "docs/mvp/skill-authoring-contract.md",
+            "docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+            "docs/mvp/templates/shared/handoff.md"
+          ],
+          "untracked_paths": [
+            "docs/coordination/20260905-contributor-context-evaluation-plan.md",
+            "docs/coordination/20260905-contributor-context-spec.md",
+            "docs/coordination/20260905-contributor-context-specification.receipt.json",
+            "docs/coordination/20260905-contributor-expertise-proposal.md",
+            "docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+            "providers/claude/plugins/devforgeai/hooks/hooks.json",
+            "providers/claude/plugins/devforgeai/hooks/runtime-requirements.json",
+            "providers/codex/plugins/devforgeai/hooks/hooks.json",
+            "providers/codex/plugins/devforgeai/hooks/runtime-requirements.json"
+          ],
+          "working_files": {
+            "AGENTS.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 4995,
+              "sha256": "5c52c03f942022a48c3dfacdae335a1d93676eaffe8c1b086477671cb0a8b058"
+            },
+            "docs/coordination/20260905-contributor-context-evaluation-plan.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 13852,
+              "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f"
+            },
+            "docs/coordination/20260905-contributor-context-spec.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 17057,
+              "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77"
+            },
+            "docs/coordination/20260905-contributor-context-specification.receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 12659,
+              "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d"
+            },
+            "docs/coordination/20260905-contributor-expertise-proposal.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 20188,
+              "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32"
+            },
+            "docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 20001,
+              "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd"
+            },
+            "docs/mvp/execution-contract.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 17588,
+              "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+            },
+            "docs/mvp/skill-authoring-contract.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 28979,
+              "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+            },
+            "docs/mvp/specifications/skill-001-devforge-brainstorm.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 17634,
+              "sha256": "ae4ff98bb3c7f0c4d93633e28407e7c41096086a3f854b9e01cdc31decebb0ce"
+            },
+            "docs/mvp/templates/shared/handoff.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "providers/claude/plugins/devforgeai/hooks/hooks.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 942,
+              "sha256": "9c4c57827e194aea3ca107193085ecad5f078cb27dfb4e12d64c032a7ff55530"
+            },
+            "providers/claude/plugins/devforgeai/hooks/runtime-requirements.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 303,
+              "sha256": "3f3ff9b08b3e19e6ac20dd2973130626208346aa2d8110eea6dcd05b45cb90bf"
+            },
+            "providers/codex/plugins/devforgeai/hooks/hooks.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 938,
+              "sha256": "48d8bbef4081b207efc2e36d510da01a11b24d5a9f221b83ffe5b90e29fb9bad"
+            },
+            "providers/codex/plugins/devforgeai/hooks/runtime-requirements.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 302,
+              "sha256": "9df2f2aed9a4a4be735fb50b7018574a5e99d9893eb404ad2cdf7b2469c14569"
+            }
+          }
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/agent-scope-lessons-20260908T151556Z",
+          "is_main_checkout": false,
+          "branch": "refs/heads/docs/agent-scope-lessons-20260908T151556Z",
+          "head": "56035f70ed48b2662192123c656b712c36684395",
+          "main_only_commits": 6,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-brainstorm",
+          "is_main_checkout": false,
+          "branch": "refs/heads/author/claude-brainstorm-mvp",
+          "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+          "main_only_commits": 14,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [
+            "docs/mvp/skill-authoring-contract.md",
+            "docs/mvp/templates/shared/handoff.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md"
+          ],
+          "untracked_paths": [
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/reference-regressions.json",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md"
+          ],
+          "working_files": {
+            "docs/mvp/skill-authoring-contract.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 19657,
+              "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+            },
+            "docs/mvp/templates/shared/handoff.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 20207,
+              "sha256": "a5316781cafbe0a68cf0a434a27bbd35ba8761de6205a10caebabed6f16eff8c"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 23649,
+              "sha256": "71f6268f001ea382862019ac93aa726a62453023f9cd44f45a878e55626923cd"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/IDEAS-005.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2209,
+              "sha256": "90d6079871a52d0d8e9f2009f30cbfdd4f475c0a54eef6160e43d8bc3a732c17"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b10/SESSION-077.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 783,
+              "sha256": "67ea8fb6ccea5b0e416b3d688d3fef847d7f45d07c7412d302fe16a4902a5e37"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-006.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1608,
+              "sha256": "69952d6c76815cbdf25d456d8b3a23388c94e139c0b3131e52ee7c391018a9e2"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/IDEAS-007-unsectioned.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 777,
+              "sha256": "5aa37aa3b39e76e897bb78755b9014bff1ae0d2a5b8988a612713b2f5bcaab50"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b12/LOGBOOK-EXPORT.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 555,
+              "sha256": "883155123557fb48fdf942f2b12095ce449c30a42f4e819a590993dab3c71f56"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/CHANGE-003.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1114,
+              "sha256": "ef02bb40dfedcba7af747f2194c1ed6732ed161101ed1c759864f4708b882a3d"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/IDEAS-002.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2702,
+              "sha256": "e97120c3fe588720938414fdded866ba5a347738d1828920459d191821ba62a8"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b6/preserved/CHANGE-003.r1.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 925,
+              "sha256": "219c4c18864eb61aa70ccd10fcde1daa74bcbbc5aad64b969470d012b49617bb"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/reference-regressions.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 3863,
+              "sha256": "09ba7889c199ead07bf9fbe0fcfdd49886a954e784b4affc21b963b4936653d7"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 4493,
+              "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 37125,
+              "sha256": "eafe53ec3e02a7a4c6eda1138916bd34ccbd256ab88e88bd836ea3d8714e3bef"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 9053,
+              "sha256": "6949fc670a5c5e1888eb8dc79532b5187c334178f6d84fae7a855f0b0663ef30"
+            },
+            "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 21702,
+              "sha256": "5b4f47c018d8de7c8976fff62619107e6b25a0fc8fb88b1611e7d044758aa6a3"
+            }
+          }
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context",
+          "is_main_checkout": false,
+          "branch": "refs/heads/author/claude-contribution-context-poc",
+          "head": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+          "main_only_commits": 13,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [
+            "docs/mvp/skill-authoring-contract.md",
+            "docs/mvp/templates/shared/handoff.md"
+          ],
+          "untracked_paths": [
+            "docs/coordination/20260905-contributor-context-evaluation-plan.md",
+            "docs/coordination/20260905-contributor-context-spec.md",
+            "docs/coordination/20260905-contributor-context-specification.receipt.json",
+            "docs/coordination/20260905-contributor-expertise-proposal.md",
+            "docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+            "project-experts/claude/devforgeai-contribution-context/SKILL.md",
+            "project-experts/claude/devforgeai-contribution-context/assets/handoff-template.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/coverage-matrix.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/evals.json",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-01-replacement-architect.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-02-worker-recovery.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-03-selected-revision-drift.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-04-owner-missing-or-conflicting.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-05-valid-prior-delegation.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-06-inaccessible-record.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-07-conflicting-outcomes.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-08-mode-and-checkpoint-integrity.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/assignment/SESSION-900-architect.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/outbox/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/FIND-901.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/REVIEW-900-summary.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/SESSION-901-codex-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/SESSION-902-claude-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/XPKG-901-codex-candidate.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/XPKG-902-claude-candidate.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/assignment/SESSION-911-codex-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/peer/SESSION-912-claude-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/records/FIND-911.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/shared/authoring-rules.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/assignment/SESSION-912-claude-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/peer/SESSION-911-codex-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/records/FIND-912.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/shared/authoring-rules.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/assignment/SESSION-920-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/main/packaging-rule.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/selected/packaging-rule.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/authority/REPORT-AUTHORITY-930.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/candidate/packaging.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/outbox/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/records/records-index.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/records/task-request.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/authority/REPORT-AUTHORITY-931.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/candidate/packaging.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/outbox/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-931-claim.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-932-claim.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/task-request.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/candidate/packaging.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/outbox/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/records-index.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/task-request.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/assignment/SESSION-940-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/records/HANDOFF-940.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/records/task-request.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/assignment/SESSION-941-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/records/HANDOFF-941.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/records/task-request.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/assignment/SESSION-950-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/authority/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/notes/DECISION-950.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/assignment/SESSION-960-architect.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/outbox/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/EVREPORT-960-summary.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/FIND-960.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/RUN-960-manifest.json",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-a-resume/task-request.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/authority/REPORT-AUTHORITY-970.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/outbox/README.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/task-request.md",
+            "project-experts/claude/devforgeai-contribution-context/evals/triggers/triggers.json",
+            "project-experts/claude/devforgeai-contribution-context/evals/withheld/ccx-06-DECISION-950.md",
+            "project-experts/claude/devforgeai-contribution-context/references/checkpoint-transfer.md",
+            "project-experts/claude/devforgeai-contribution-context/references/derivation.json",
+            "project-experts/claude/devforgeai-contribution-context/references/source-selection.md",
+            "project-experts/claude/devforgeai-contribution-context/scripts/check_receipt.py"
+          ],
+          "working_files": {
+            "docs/coordination/20260905-contributor-context-evaluation-plan.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 13852,
+              "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f"
+            },
+            "docs/coordination/20260905-contributor-context-spec.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 17057,
+              "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77"
+            },
+            "docs/coordination/20260905-contributor-context-specification.receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 12659,
+              "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d"
+            },
+            "docs/coordination/20260905-contributor-expertise-proposal.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 20188,
+              "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32"
+            },
+            "docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 20001,
+              "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd"
+            },
+            "docs/mvp/skill-authoring-contract.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 19657,
+              "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+            },
+            "docs/mvp/templates/shared/handoff.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "project-experts/claude/devforgeai-contribution-context/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 13957,
+              "sha256": "fc4da253e610550a39411a703bd04bed1ac6a4be84edc98f24d3043202788d32"
+            },
+            "project-experts/claude/devforgeai-contribution-context/assets/handoff-template.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2584,
+              "sha256": "e2dca9c6ad8ce4e3296f4540534b258716ae72773ac4274924c83a2829b45d6c"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/coverage-matrix.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 7050,
+              "sha256": "2166ed2086b25a35773fd19a7433cc7a33f57cf8d3c621c1959e51e6f0055a7a"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/evals.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 17418,
+              "sha256": "6fd4100d5016ec1813e2dad80db2c014bbe92d1e53315a78c36aca3073c5cdf7"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 720,
+              "sha256": "5e1566f387dcfb56ab8ad2805fff83b7b2fd0216c2d2ef5db4f39b89f685a1d6"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-01-replacement-architect.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1952,
+              "sha256": "3c9f2ca7b771994749c7e1ab740f0615df2a706c851a55681a58be317a47e5fa"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-02-worker-recovery.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1955,
+              "sha256": "cc17be4e8738f7c6ba8ebb35f5efee184511a7f8d95d7056c8fc503a6b9843a8"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-03-selected-revision-drift.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1392,
+              "sha256": "576927a3690d7bc3a1cc75815ac3c74360665c2df8af28cd218d11c2586f0f28"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-04-owner-missing-or-conflicting.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 4721,
+              "sha256": "fb793b1bc0a591eae277b489bfd28feecb60a2ef839ee5cd0d539ce24613cc66"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-05-valid-prior-delegation.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2000,
+              "sha256": "66434aff30427911252addee5f70498f2a5f60335617a73357b1804f4de56f78"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-06-inaccessible-record.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1611,
+              "sha256": "f5d18937d6c96ced8996fa558d4f9c3340c2249d683bd9cd43bbdaf9b7a12241"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-07-conflicting-outcomes.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1812,
+              "sha256": "c6f03642ef239334d5b3d2f7b40ee3fc3da7669538881966cf69ef0c57655608"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-08-mode-and-checkpoint-integrity.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2749,
+              "sha256": "49a2fb181a72436e3e42a08a68d893dd083be5f8d2950416f31532bb39f0db2d"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/assignment/SESSION-900-architect.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1622,
+              "sha256": "438cf0124407e698469e7cf8912b76c8ddcbd3f89b75e29411fc7a9ed710ebdf"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/outbox/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 379,
+              "sha256": "fb82c0e1e97dd166fb122db2aae26da700012f025292417a14b9bd11c33a16c7"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/FIND-901.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 636,
+              "sha256": "49f3d73ae4ff029c01c41e5bb71a81a07d20937267b75c1558ce89cf8a1db782"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/REVIEW-900-summary.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 382,
+              "sha256": "6fc06c7a8eb1d01e80c29b69a57ac82de87dfb515736c1b6b38a34b4762df3d9"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/SESSION-901-codex-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 712,
+              "sha256": "4ac713df942b3a40b1c9658c3118bbe9646e647b7705b9bdec6e5d7192e7426f"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/SESSION-902-claude-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 716,
+              "sha256": "bc7b4469afc5b5a5f252c485fcfedc9b5bcd7035f8e58871a17d9b89a1afbef7"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/XPKG-901-codex-candidate.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 414,
+              "sha256": "758262baeb98d5b9bcf46a799f1daae4d93ee9363844c29d8d71151923135a5a"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/XPKG-902-claude-candidate.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 425,
+              "sha256": "ffb286cca307785963a7068eca662f3cf56c413c7f865357ac93cfb697b68ce5"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/assignment/SESSION-911-codex-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1005,
+              "sha256": "284ed7e91b147e092fb3ac875497c661c1ecfcb860b9d046323af35352c1513d"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/peer/SESSION-912-claude-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 525,
+              "sha256": "4035a7b306799d88873bad7920d9448a3dac11ad90ecf1707f7c815ad98c4205"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/records/FIND-911.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 397,
+              "sha256": "39d70a0d6f78cd11235493bea51dced184de7c08802ffae937b79057ca244d41"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/shared/authoring-rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 659,
+              "sha256": "5ad0c4c33a94a481d4611421ef20f3ad4c145beaf0a3aa3c9d68978c64a1daed"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/assignment/SESSION-912-claude-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1009,
+              "sha256": "8a44e07546c578ec9409e6ce6a350e70a86b832366afe52b64ad73f7d761bb26"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/peer/SESSION-911-codex-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 521,
+              "sha256": "9a2feeaf7cb9cc14dbc9043d020fbbc5789750d72aed3c0e5a7964f05080ba8c"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/records/FIND-912.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 447,
+              "sha256": "cd8b4f51d4201a6f17f9cf856cc600e5105e6938487a74616c97e6867c608607"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/shared/authoring-rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 659,
+              "sha256": "5ad0c4c33a94a481d4611421ef20f3ad4c145beaf0a3aa3c9d68978c64a1daed"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/assignment/SESSION-920-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 996,
+              "sha256": "83caa5181262af8f81c795b7bdfb4227e011cfdda0f5cd4fb72b1983d989abec"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/main/packaging-rule.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 776,
+              "sha256": "07801dc9e6348bb35bcc25ed0420e95c447d4d37e5edc812c78ca1a40ffe2710"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/selected/packaging-rule.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 605,
+              "sha256": "863405bfacd76379039542fdccca8aaf282a95b15a493b6184275e2cf4fb4b60"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/authority/REPORT-AUTHORITY-930.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 483,
+              "sha256": "d754e859c9eafa800deacf2cd780bda542c6623c0446d11f9eb1fae7b0cbc6b0"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/candidate/packaging.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 145,
+              "sha256": "757258788e84c50e32a171f3b73f392be1653b2e3e443f5413fdeec8c0fe40ba"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/outbox/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 170,
+              "sha256": "55f93572073b724fa5ca67f0515a979f9df12cfa19c5a0cc7aaedf7247980349"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/records/records-index.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 397,
+              "sha256": "3385e5a6c94973024c75958920466973baed69260beb9bf3935932972ac98f25"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/records/task-request.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 196,
+              "sha256": "573c84c756468ba8acec0180bc3eaf0c70ededa0bc325ab2ae786b234b3e23ac"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/authority/REPORT-AUTHORITY-931.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 391,
+              "sha256": "3fd88e73b34eeb8e19e37122fc4d863f6c7d46cf4907fd622242b8d64c5b9d43"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/candidate/packaging.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 188,
+              "sha256": "f5bfcd6025708994dc063ac5f46302a6162d4f59466b83a9091d568edcea9729"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/outbox/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 170,
+              "sha256": "9069b9fc630f1d933236b6074f921fa0c407433013d70dc5d2e40cf252435911"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-931-claim.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 386,
+              "sha256": "11d7a449016894979c41c139dfa3088752fd33fe8bd637f96094665dcb1bb062"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-932-claim.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 387,
+              "sha256": "50cf7501d679b5a645c91b6eff7fe3508383e44a981260a39d40009c3452f516"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/task-request.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 177,
+              "sha256": "8daed285c4f33091398d0bcbb071cb999dda77057e3e845cb20a4a2fda6ca459"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 447,
+              "sha256": "e6b096743954eddb4d7a1a3949ea593c486f5ea614e6b181d1eb5769972dee6d"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 909,
+              "sha256": "46e334a103c9d39e9e1f4ae94b5329a58faac5b37bcbe44fe8313a5010611eee"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/candidate/packaging.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 346,
+              "sha256": "0b54973efc466c99b31b9d63ce77c9a630ab1bb44dfc7fb55f5fcdb2bc8f3fd0"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/outbox/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 215,
+              "sha256": "ab4a5733bea39fffc814b01301fd970bf6024edaa6df4a0eea658658add1f00a"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1032,
+              "sha256": "63c3a5b3c6b13b742b3a4c0c11ecc50749371b71e1c461fdbb62c23e3758d49f"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/records-index.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 418,
+              "sha256": "056b1577fc4aa138b8b4eb97721a8fe41078ed08701b760f932bec90ac09f025"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/task-request.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 206,
+              "sha256": "9b50cc4345d875d067f794d9dc8592f91a93ca9e13792df462303b2bd0613bd4"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/assignment/SESSION-940-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 900,
+              "sha256": "6d521993f476370bc9440ed5df6cb91c7a20483d10ca51bcd9cd30d5e0e815c1"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/records/HANDOFF-940.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 407,
+              "sha256": "829d47ce581bc01ac8f235be7b268321f9e80860c818951abdc0efdbea9d61cd"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/records/task-request.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 59,
+              "sha256": "ce9b62573d93230710701c1d2a759de5c5c6008ea3e6ed3ee5e31535100da19a"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/assignment/SESSION-941-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 665,
+              "sha256": "e1b3bb27c2a39f12c7f84a95435213006bcc2e78d27893d96a85d78f2962246d"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/records/HANDOFF-941.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 377,
+              "sha256": "7583b921849ee41adfb7cea7809ca7ef146b8d2f5222d67bf1494107bfe19707"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/records/task-request.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 59,
+              "sha256": "ce9b62573d93230710701c1d2a759de5c5c6008ea3e6ed3ee5e31535100da19a"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/assignment/SESSION-950-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 747,
+              "sha256": "92124074aad8e50fece01cd7192150aaecc5c38d69403926eda273958ea89512"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/authority/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 224,
+              "sha256": "b843fbb99a3c3bcb5bde556aab814503dd302699215f5da88f741a5546cc26a0"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/notes/DECISION-950.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 444,
+              "sha256": "e5fcaad85d5cdcab05e95440124f3f67e274d1483ef0574f47e0a3ba2885d645"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/assignment/SESSION-960-architect.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 583,
+              "sha256": "a004190eb8dbb49c05aeef39bea67cae7a49ebda9a10bcfb1bca3ba395a4d488"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/outbox/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 138,
+              "sha256": "763a789b76e623a3fe53b3fbd4f57b4a42acbb96dc125252bc7cb22689e068bb"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/EVREPORT-960-summary.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 372,
+              "sha256": "7c581362400561729555d34f1bdea171f18ce7be87c75622a5cab18664d48735"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/FIND-960.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 556,
+              "sha256": "97f947ab46d58998c88ee62b17b9366afb57def5e440410b9f95e2e6c8486eed"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/RUN-960-manifest.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 718,
+              "sha256": "b48e564a66a5cc23f81e4a2fd0a0888cd49c22274b64001f301746dfd5e6a198"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1328,
+              "sha256": "c13e56ce410d91fdd2f1eabd296681b8b2a05dceff35da6faf411a9cf1e18db3"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 581,
+              "sha256": "0b160da594b12476d5e89f012d1e8336202431b9df8cdfb72eacd318b00d3fad"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 661,
+              "sha256": "02dd82e4af48469a0d1941591e7094a653769ae40a6f0dd7c817e99528c7c919"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-a-resume/task-request.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 153,
+              "sha256": "cfc1d090ab3adea88d15dbc376a0859ef2be4a63cd321e3e971a910000e42080"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/authority/REPORT-AUTHORITY-970.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 302,
+              "sha256": "729f03467955f9d24d677d6a097f05f540e2b9ea7e870a0dda1a33f57bac3a8e"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/outbox/README.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 117,
+              "sha256": "bb3129908da0cdce8c9c2725314f6b8de1d165826707ea7916d6692803328685"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/task-request.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 159,
+              "sha256": "8ea5e9287179f1fe210c7bccf5aedf0984f09f89ad4053aa9514d54bcac81d22"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/triggers/triggers.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 7021,
+              "sha256": "4beb10eafb0bf40bdd855ca19166d954dfa91bd7b3456d7e99bb14acb2101843"
+            },
+            "project-experts/claude/devforgeai-contribution-context/evals/withheld/ccx-06-DECISION-950.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 590,
+              "sha256": "0586b0b9da4c7e9e908ca61e09f95cf50f4b4cc076533fca7c9f6dd5b082b982"
+            },
+            "project-experts/claude/devforgeai-contribution-context/references/checkpoint-transfer.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 8690,
+              "sha256": "bf308634b49dbec8aafe25f39d423307f4a61bdade091b0c9edf6030b4e56d9e"
+            },
+            "project-experts/claude/devforgeai-contribution-context/references/derivation.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 3797,
+              "sha256": "f7bddb1a3794bf60472f7f52c13c5b8feb5911cb2444cbc856a99ca18a720d8c"
+            },
+            "project-experts/claude/devforgeai-contribution-context/references/source-selection.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 9170,
+              "sha256": "25cd4f62ff4f13f473a147cc91bfd64936b4c50c0851c00b953824c33346ff83"
+            },
+            "project-experts/claude/devforgeai-contribution-context/scripts/check_receipt.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 8040,
+              "sha256": "c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136"
+            }
+          }
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-brainstorm",
+          "is_main_checkout": false,
+          "branch": "refs/heads/author/codex-brainstorm-mvp",
+          "head": "a006b3d91f39776cf3ac4cd06b174d5fa3ed688c",
+          "main_only_commits": 14,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [
+            "docs/mvp/skill-authoring-contract.md",
+            "docs/mvp/templates/shared/handoff.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md"
+          ],
+          "untracked_paths": [
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-001.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-002.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-003.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-004.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/check_anchors.py",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-current.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-r1.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-assignment.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-expectations.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/worker-request.txt",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/proposal-context.txt",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/selected-input.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/installed-resources.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/provenance.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/reference_identity_v4.py",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_anchors.py",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_delivery_check.py",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_reference_identity_v4.py",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/queries.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/artifact-workflow.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/artifact_receipt.py",
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/delivery_check.py"
+          ],
+          "working_files": {
+            "docs/mvp/skill-authoring-contract.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 19657,
+              "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+            },
+            "docs/mvp/templates/shared/handoff.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 7683,
+              "sha256": "efb7296894d3d9873f4e2535a9c34f946816f3ee0de036b3f3ab3e8e99af98a8"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 3324,
+              "sha256": "8c680affd80712e8e38a353ad500190d98729e22437e2d55bc785cc1ec9102f9"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1686,
+              "sha256": "376b73219b13ef0450642bc7b14e71af8c08b88d7dd454421d0b13dc5e49079e"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-001.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 5295,
+              "sha256": "f314c0d9a94d355d58b639638b2b2468e8243e7c76f8565be271382bf258e97a"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-002.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 6324,
+              "sha256": "83a350fb6908e5ab5fdb3cdec94d621f7f43554e41eef2481f7f780862c6e42f"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-003.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 6011,
+              "sha256": "89b74fb7d0b87a7ddc25e68a176d49a4746297c82b913eaf65c88070770326d8"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/assertions-revise-004.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 6411,
+              "sha256": "e6f94665e3b26011c9896e3bd28f2493ecb9c3e8f13267d31591c8802c5799e8"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/check_anchors.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 4609,
+              "sha256": "0eafb40a442460e7c4e4736c0a6cd74ed0923fb73be8a255fec7a27a53ee9ebd"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 7440,
+              "sha256": "9b0a44071c91502b615c5d581050899bd01526b1afe357c54cc259c7a6ffcbca"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-current.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2173,
+              "sha256": "7a8169f7291924f19618e7fd5392bdf3f29739c4ad5074c0e4c6937cd02ba49b"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001-r1.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2188,
+              "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2188,
+              "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1232,
+              "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-assignment.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1237,
+              "sha256": "c4e619e8740bfff8eb695cf5ac5ba247e0feefbeafd88f46165cd57036593d9a"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/operator-expectations.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 830,
+              "sha256": "85b7456fe49e3835278fd7abc2aff1a410b602041cc9acccce2cf18df1798ef4"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/b7/worker-request.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 714,
+              "sha256": "ccbf1e1bac0bb68ed4c54733e74da0cc0e5c6cbca8e46ccf1202da528d6af1bf"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/proposal-context.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 249,
+              "sha256": "1741f5fd122423d425b411838b082392c385be739d4af134f1c84f8371544a39"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/selected-input.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 275,
+              "sha256": "d579ad85f7593f3c54b67ec470fc6fc66a7aed787ab14cc7471e478c6a7b5e6f"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/installed-resources.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2236,
+              "sha256": "3a13a3bdf8e262ee89416d54d4ba7de2d73bf751576c6ab68fb7e8d508f31283"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/provenance.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1479,
+              "sha256": "85c6389ec252577def9b4072af6c05569016574ecc92f5d4a2cc963406afa233"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/reference_identity_v4.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 12608,
+              "sha256": "5dbbc380e05a9104e571c2364a45773fa9eb34f4f7240ac35e2d0b27a6009367"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_anchors.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2916,
+              "sha256": "78b3fb4f7c6c115e0892650dc7ab038b8076f4bd110782f576154768d145f43c"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_delivery_check.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 3256,
+              "sha256": "ffa2b377cfa3e7285efc0940f1ea75c12f3378f831e8804032191d677b944c57"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/test_reference_identity_v4.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 7608,
+              "sha256": "011d212e723c099b82458a4eab47124ac7066ae143d9c71831de781657bb185f"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/queries.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1702,
+              "sha256": "95369f479d979db6c20108abbd3206f6061097c76b80b5276c51c42ced11eb6b"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/artifact-workflow.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 14451,
+              "sha256": "2e9dfb449125733ed42490747b873889c1b80e34713b11ba4fd1b11398c5ba4b"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/derivation.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 28598,
+              "sha256": "9eadaf3ac33f0ab84f5ae1a9c1b7d91b6dcd326e6255f4cfc266d951fdb81c77"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/references/managed-runtime.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 10319,
+              "sha256": "ec94b77a602478b6da104f56fbd422d4d7be95aff79b5fbebdddda4313f371be"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/artifact_receipt.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1750,
+              "sha256": "d190e26c2bdc1aaf8ca869ab01655d98e6827f2c60a5c0b13c9451afa7be1449"
+            },
+            "providers/codex/plugins/devforgeai/skills/devforge-brainstorm/scripts/delivery_check.py": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 4927,
+              "sha256": "8e79640f61d4047f9b6a6e69b1c4e61b80e23e9fa57a71d3a1cdc1012c2fe872"
+            }
+          }
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context",
+          "is_main_checkout": false,
+          "branch": "refs/heads/author/codex-contribution-context-poc",
+          "head": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+          "main_only_commits": 13,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [
+            "docs/mvp/skill-authoring-contract.md",
+            "docs/mvp/templates/shared/handoff.md"
+          ],
+          "untracked_paths": [
+            "docs/coordination/20260905-contributor-context-evaluation-plan.md",
+            "docs/coordination/20260905-contributor-context-spec.md",
+            "docs/coordination/20260905-contributor-context-specification.receipt.json",
+            "docs/coordination/20260905-contributor-expertise-proposal.md",
+            "docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/assets/handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/coverage.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/evals.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-01-replacement.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-claude-worker.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-codex-worker.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-03-selected-versus-new.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-authorized-bootstrap.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-conflicting-owners.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-missing-owner.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-absent.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-present.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-06-inaccessible.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-07-outcome-conflict.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-explicit-transfer.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-unchanged-resume.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-claude.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-codex.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-report.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-report.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/integration-finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-claude/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-codex/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/project-experts/claude/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/main-rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/authority/bootstrap.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/conflicting-assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/elsewhere/required-secret.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/assignment.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/decision.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/observations/worktree.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/packet.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/finding.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/package.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/receipt.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/summary.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/selected/rules.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/old-handoff.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/project-experts/codex/fixture-capability/SKILL.md",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-01-replacement.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-claude-worker.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-codex-worker.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-03-selected-versus-new.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-authorized-bootstrap.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-conflicting-owners.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-missing-owner.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-absent.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-present.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-06-inaccessible.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-07-outcome-conflict.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-explicit-transfer.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-unchanged-resume.txt",
+            "project-experts/codex/devforgeai-contribution-context/evals/triggers/queries.json",
+            "project-experts/codex/devforgeai-contribution-context/evals/visibility.md",
+            "project-experts/codex/devforgeai-contribution-context/references/checkpoint.md",
+            "project-experts/codex/devforgeai-contribution-context/references/derivation.json"
+          ],
+          "working_files": {
+            "docs/coordination/20260905-contributor-context-evaluation-plan.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 13852,
+              "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f"
+            },
+            "docs/coordination/20260905-contributor-context-spec.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 17057,
+              "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77"
+            },
+            "docs/coordination/20260905-contributor-context-specification.receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 12659,
+              "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d"
+            },
+            "docs/coordination/20260905-contributor-expertise-proposal.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 20188,
+              "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32"
+            },
+            "docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 20001,
+              "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd"
+            },
+            "docs/mvp/skill-authoring-contract.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 19657,
+              "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+            },
+            "docs/mvp/templates/shared/handoff.md": {
+              "state": "modified",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "project-experts/codex/devforgeai-contribution-context/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 5724,
+              "sha256": "54f402e1c5a08da4aac4a2ea16f745ca2294a934d5e8129f61413a6fb46b430f"
+            },
+            "project-experts/codex/devforgeai-contribution-context/assets/handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 3342,
+              "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/coverage.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 6090,
+              "sha256": "cc39ff34272529bc2d10c0e142b4e3d22137ecdcbd365b034cd7166b15af8ebd"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/evals.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 15860,
+              "sha256": "2f7db1243659150e5dedc869b257968635d273014d3584a5eed7cff5ca139f32"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-01-replacement.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 955,
+              "sha256": "76dfa3579da271b80baba8732f207f65c1262b296d2493b06f7e063d0779c392"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-claude-worker.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 785,
+              "sha256": "01cc6d6413e0ac074b57da5970387142c6ada536b907a98deb144416c76dd2af"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-codex-worker.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 785,
+              "sha256": "96c2c5c534b384e95a78b8297eadae831e2927b5af5b1e2feb627cd0fb4e5f90"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-03-selected-versus-new.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 837,
+              "sha256": "14f8203dfe1a4a5ac5e731f3cd3f706dcd7851d22039c70679edab76470cb47f"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-authorized-bootstrap.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 955,
+              "sha256": "614932cae64d10fdc2609a02e45b25cc06b7cab2f427a65dc41cfe4306f183e5"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-conflicting-owners.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 926,
+              "sha256": "87d712f8459cdc1c4a58c2ed397d294959ea5a7fee5a76f3f5bc74a72c2922b6"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-missing-owner.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 869,
+              "sha256": "5b7ffd82a0bdf16123c8f9eb75502a6b4f8048dbe60da84a1642cd7ff31935d2"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-absent.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 832,
+              "sha256": "46ad0091bc4f947af8110e1fa99b3a33a3d7dbeae269ed33fec8a79a61578e61"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-present.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 817,
+              "sha256": "19bf4131018ed0f3d30f845a751cbbfa77ef774853df2a96ef5b2100379f910a"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-06-inaccessible.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 859,
+              "sha256": "88e304c4e8b508209cce1f0821c5488a597202101606968fdcb793d72bc1ffbb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-07-outcome-conflict.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 954,
+              "sha256": "6eed293496e9e36ac6db07e3a146970b51e8859c501b121b1d38d4ff8710bf74"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-explicit-transfer.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 856,
+              "sha256": "d83c8234b52e5091c6d70503482b0aaefc84e33ea2cd7f0939fe72b01f3ce7f2"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-unchanged-resume.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 781,
+              "sha256": "212449f5ea6b7a21a6d88543a8cfaa4db29161f40bbdc0fea0b68ffce11a1dc6"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 687,
+              "sha256": "7da649d14186c88eb42437e35cb31285bb1f378b99db0d96fff82247b98a8d09"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 179,
+              "sha256": "c5997c3484fe3b37a79f9c81d82d05e30a552e316cce839b96ec59b4dccdef2c"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-claude.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 376,
+              "sha256": "5960fdb8b83c5e800e837451fbd17f1e21096eb390ccd1392abbb07838bfa9da"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-codex.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 369,
+              "sha256": "ef6b1e0b70ce2879a7cc2f53eef7b9d30e04322cf770e15f5472533c4bb64f46"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 252,
+              "sha256": "e0ef0c19f3260f78f7a42bbd3c22fcbbb32d522782073fd2222c7a9b4e2a8847"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2854,
+              "sha256": "eae6f9b4bc9c764e6697a68e8bca2edf9a177593dbe5f5e347abe27b3e735b36"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 245,
+              "sha256": "0e0c2b70265acfb76d8b5c45850324c0a03668c96f758c3ff78535564ca76d47"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-report.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 213,
+              "sha256": "993dd97f919994fdc7f5ec9e3dcced5a7401ddd9e6b96b539f89bffb78cd31a4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 242,
+              "sha256": "78efa16a7fd360cdda5e4b94137332eb1e1d9166a74eeac4d8c31bf1d0a9b86c"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-report.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 199,
+              "sha256": "c094c83dc0b599aaa9735b4ec21e4d8e2df347f18ccf9d90d14ba5c35b9b7483"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/integration-finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 201,
+              "sha256": "60b2e2f7712d578a12acdd2e3bcd54fb0a76bf387819c74b29e44c47d92baa7e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-claude/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 121,
+              "sha256": "7c044e9125ac7c5cf9977ded5a38c04e39b8158d04a7e033da38880df547bb80"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-codex/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 119,
+              "sha256": "4cef644d5ac76c5f7d5d3b5f64deb9ba5abbdc0593e11ee8bedd972f3f591d1f"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 733,
+              "sha256": "a04205748b191e439ac01460eb67ad2d73e8909287784710307deb395c6daa01"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 381,
+              "sha256": "99e8cb21f74ffd9f731665da0e098fbf7bebbc5f45da29efb79cbc062769b0cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 256,
+              "sha256": "66fc4e0341ffbe739c5cee32237f5313b27b2de7790219753616fbfab4a3aa7f"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2066,
+              "sha256": "f8313532812f022fcec98ffcad8c1b562887c9533ec844f2beb3ba07ffe895f2"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 299,
+              "sha256": "e12d35a071fc805b30ffb8baffc4d3acadf509216707fd693c05e833afa982fd"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 294,
+              "sha256": "97c41f0b7121c26c60029fc3edfa8b1c2f212067c4d9594c6b43f79ba0f2315c"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 286,
+              "sha256": "14486f5732ef2445bb64fef9e1bdab50be342b6b6a7c68a620a9dfc5dce78644"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 222,
+              "sha256": "f1e038356f02344c15f13a1d3a649141cf883c0ed490c3982decaaa6d745a97d"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/project-experts/claude/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 378,
+              "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2063,
+              "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 378,
+              "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/main-rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 114,
+              "sha256": "a6ffb3286685cf47fb2d0ef750433461281968541481fe63ee0f6c9e7a024837"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2225,
+              "sha256": "b5c6d1edf37dba79ac980a5be3468b0e680db967af44bce314567d016bfcfb5e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/authority/bootstrap.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 261,
+              "sha256": "265993d67729b75ba9821539022e57d41bce42ab18e68535fc4747ab77bfc766"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 253,
+              "sha256": "0bdf0ae12124140a0062177671038293b1e5cd2b9f4d706e5133afbb637a7b22"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2134,
+              "sha256": "2d4820a4dbad6083b48d22ddc9394809a9a747f8bdb7e3968a8cf84c559a20f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/conflicting-assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 785,
+              "sha256": "487d2e48d5c09655d623daca7ca60b5e291491e5cb67e346b1162e29b4ce888b"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2331,
+              "sha256": "9c883970544186bcf73024aa4e97439571ff5cc129a69fddc93e475e7ad7a959"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 176,
+              "sha256": "831741163d1e3b5ca93317899d6f09f5e9b020fd07abbabd79f4ca5069f83897"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1974,
+              "sha256": "1bb6eb06794bfce74871d1837fdd0ed6fc92dc288285bb433ccbdd5b8e3fbbd0"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 1904,
+              "sha256": "5f20655763e20b00cbf5703ba7ca86d7956ac12891ae84335a81f9c168d08210"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 378,
+              "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2063,
+              "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 378,
+              "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/elsewhere/required-secret.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 30,
+              "sha256": "fca468b684e222518f0329b18ee08582d3527bc7bd0213c41fc53f058da46c0b"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2459,
+              "sha256": "81cc6c41eef950e6ceb0b0add291b2d5a87d5acda451ba52984dfb918581a7fe"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 378,
+              "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2317,
+              "sha256": "173f5cb5225715e059c02a7cab4ba184471402eb22a1da3f8abfd9838624f784"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "99fbdf615386dbd85e37b1933ee7597d68d23da4f84b13219049de8c6b789622"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 378,
+              "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2317,
+              "sha256": "276c555424456daaf53974b062d00134f47cc00e3095670c4749d2bcb43c1ad6"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/assignment.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 729,
+              "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/decision.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 378,
+              "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/observations/worktree.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 254,
+              "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/packet.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2063,
+              "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/finding.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 297,
+              "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/package.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 291,
+              "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/receipt.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 285,
+              "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/summary.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 221,
+              "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/selected/rules.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 363,
+              "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/old-handoff.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 80,
+              "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/project-experts/codex/fixture-capability/SKILL.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 172,
+              "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-01-replacement.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 65,
+              "sha256": "bf70fc19cc473d63b588c0559e9b0318895874a5cec5ae511177bcdb1eb67e09"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-claude-worker.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 82,
+              "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-codex-worker.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 82,
+              "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-03-selected-versus-new.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 105,
+              "sha256": "806ca3c3ac488d7f60bad8fbb508d399b4c502ea60b3d1ff1276ceb8ba131c8a"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-authorized-bootstrap.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 93,
+              "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-conflicting-owners.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 93,
+              "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-missing-owner.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 93,
+              "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-absent.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 88,
+              "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-present.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 88,
+              "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-06-inaccessible.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 47,
+              "sha256": "b00b9b0252e0593ab9fc6a6d141b2be835ccea32315df68b9b4c18b11fd373d7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-07-outcome-conflict.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 90,
+              "sha256": "c78164b9223e2bd3cf071561caa9488f696c30c5a8dd0368e45087eb91827049"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-explicit-transfer.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 85,
+              "sha256": "2225cd30be9bc574c7eff93fd023bbc48def6864092041c883196c5030b771a9"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-unchanged-resume.txt": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 68,
+              "sha256": "17f5cf231ad4e8a799490e99efa2ffc061866b2e515620ce58a210a3f2b619e6"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/triggers/queries.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2332,
+              "sha256": "508265912ff3d9b3e8f810c78344483ba1c826200e9e6e93895abdd5b571b1f7"
+            },
+            "project-experts/codex/devforgeai-contribution-context/evals/visibility.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2176,
+              "sha256": "8ac93da836cdbc7fe56c1c36b3e367b5ea536b3340969cee24869cdc493b8f39"
+            },
+            "project-experts/codex/devforgeai-contribution-context/references/checkpoint.md": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 3360,
+              "sha256": "e316eb653a95e9156061361418e94b0dd1353bc55687129776ccd4042bf1caae"
+            },
+            "project-experts/codex/devforgeai-contribution-context/references/derivation.json": {
+              "state": "untracked",
+              "exists": true,
+              "size_bytes": 2622,
+              "sha256": "a191de4dbe2666d58423a88688c676dcbc1052d68fbae5e6ce62da5f8b2e409a"
+            }
+          }
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/concise-handoffs-20260909T032242Z",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/concise-handoffs-20260909T032242Z",
+          "head": "d29430beace67a141d4d35c2beb066981060cda4",
+          "main_only_commits": 0,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/expert-foundation-20260908",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/expert-foundation-20260908",
+          "head": "2031bf2e917bb4f2a2c9be717a74641b5801c409",
+          "main_only_commits": 1,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/skill-builder-runtime-alignment-20260907",
+          "head": "9970e92db7d824dea0c49e1a61a122480f2aa8b5",
+          "main_only_commits": 7,
+          "worktree_only_commits": 0,
+          "head_contained_in_main": true,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/skill-validation-policy-20260908T114822309238Z",
+          "is_main_checkout": false,
+          "branch": "refs/heads/proposal/skill-validation-policy-20260908T114822309238Z",
+          "head": "a92c3ec3042d692f9b286d104b25d31bf1124b07",
+          "main_only_commits": 7,
+          "worktree_only_commits": 3,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-builder",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/vpi01-20260908T144631697661Z-builder",
+          "head": "5822e72d705216850eeeddccef93391bfeaad89c",
+          "main_only_commits": 7,
+          "worktree_only_commits": 4,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-contracts",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/vpi01-20260908T144631697661Z-contracts",
+          "head": "75bcba915fd1d5f88477318d4b27db6e6961ca81",
+          "main_only_commits": 7,
+          "worktree_only_commits": 3,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-repair-ai",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/vpi01-20260908T144631697661Z-repair-ai",
+          "head": "22e864951066c71a46873321f9bde2220aba653a",
+          "main_only_commits": 7,
+          "worktree_only_commits": 7,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/vpi01-20260908T144631697661Z-validator",
+          "is_main_checkout": false,
+          "branch": "refs/heads/impl/vpi01-20260908T144631697661Z-validator",
+          "head": "314e4048057e1b5431b4d838ce363d8dd0ce5080",
+          "main_only_commits": 7,
+          "worktree_only_commits": 4,
+          "head_contained_in_main": false,
+          "modified_paths": [],
+          "untracked_paths": [],
+          "working_files": {}
+        }
+      ]
+    }
+  ]
+}

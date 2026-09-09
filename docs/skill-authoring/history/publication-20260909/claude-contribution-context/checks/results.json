@@ -1,0 +1,56 @@
+{
+  "role": "claude-contribution-context",
+  "publication_base": "1c912649e5686701e8204a22173a02c6894df707",
+  "checks": [
+    {
+      "name": "framework",
+      "command": [
+        "python3",
+        "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+        "--framework",
+        "/home/bryan/Projects/DevForge/worktrees/publish-claude-contribution-context-20260909"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/worktrees/publish-claude-contribution-context-20260909",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "started_at_utc": "2026-09-09T13:49:29.289108+00:00",
+      "finished_at_utc": "2026-09-09T13:49:29.587856+00:00",
+      "exit_code": 0,
+      "stdout": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-contribution-context/checks/framework.stdout.log",
+        "sha256": "4eb6710f000be4277d05364c9edda8620a0093ab9fe267c15f6f36fd06bf78d5"
+      },
+      "stderr": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-contribution-context/checks/framework.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "scope": "Existing structural/document check only; no native behavior, installation or qualification."
+    },
+    {
+      "name": "mvp",
+      "command": [
+        "python3",
+        "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_mvp.py",
+        "--mvp",
+        "/home/bryan/Projects/DevForge/worktrees/publish-claude-contribution-context-20260909/docs/mvp"
+      ],
+      "cwd": "/home/bryan/Projects/DevForge/worktrees/publish-claude-contribution-context-20260909",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "started_at_utc": "2026-09-09T13:49:29.588111+00:00",
+      "finished_at_utc": "2026-09-09T13:49:29.629378+00:00",
+      "exit_code": 0,
+      "stdout": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-contribution-context/checks/mvp.stdout.log",
+        "sha256": "d2aa76da4b83b42be8d89cadbc94ee2cfcb126a311f5d591ec610829f5392602"
+      },
+      "stderr": {
+        "path": "docs/skill-authoring/history/publication-20260909/claude-contribution-context/checks/mvp.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "scope": "Existing structural/document check only; no native behavior, installation or qualification."
+    }
+  ]
+}

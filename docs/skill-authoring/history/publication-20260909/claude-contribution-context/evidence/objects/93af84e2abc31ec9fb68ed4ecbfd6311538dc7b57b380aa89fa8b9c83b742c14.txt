@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""Saved before execution: bounded deterministic replay of CCTX-IR-003 and CCTX-IR-004.
+Uses frozen helper bytes and newly authored synthetic inputs only. No model calls or live state.
+"""
+from pathlib import Path
+import hashlib,json,os,shutil,subprocess,datetime
+R=Path('/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z')
+Q=Path('/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z')
+root=Path(__file__).resolve().parent
+inputs=root/'inputs';inputs.mkdir()
+outputs=root/'outputs';outputs.mkdir()
+helpers=root/'helpers';helpers.mkdir()
+def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+pins={
+ 'old-receipt.py':(R/'candidate/scripts/check_receipt.py','50dccb2c9acfb83ab073276ed132945eae5b2913c93b78e6bce0d862161d3dd5'),
+ 'new-receipt.py':(Q/'candidate/scripts/check_receipt.py','c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136'),
+ 'old-package.py':(R/'run/package_checks.py','b12237dc7882055e9b85c40f8a055b5d3ce15ed180c2b1f35e53394d2b30f8e4'),
+ 'new-package.py':(Q/'run/package_checks.py','10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442'),
+}
+for name,(path,pin) in pins.items():
+ assert sha(path)==pin,(path,'pin mismatch')
+ with (helpers/name).open('xb') as handle:handle.write(path.read_bytes())
+records=[]
+def run(name,command,expected_exit,expected_text):
+ expectation={'name':name,'command':command,'expected_exit_status':expected_exit,'required_stdout_text':expected_text}
+ with (outputs/(name+'-expectation.json')).open('x') as handle:json.dump(expectation,handle,indent=2);handle.write('\n')
+ p=subprocess.run(command,cwd=inputs,env={'PATH':'/usr/bin:/bin','LANG':'C.UTF-8','PYTHONDONTWRITEBYTECODE':'1'},capture_output=True,text=True,timeout=10)
+ record={**expectation,'exit_status':p.returncode,'stdout':p.stdout,'stderr':p.stderr,
+         'assertions_pass':p.returncode==expected_exit and expected_text in p.stdout}
+ with (outputs/(name+'.json')).open('x') as handle:json.dump(record,handle,indent=2);handle.write('\n')
+ records.append(record)
+
+# One synthetic package and four spelling/containment variants. All source paths are local.
+base=inputs/'package-control'
+for name in ['references','assets','evals/fixtures','evals/expectations']:(base/name).mkdir(parents=True,exist_ok=True)
+(base/'SKILL.md').write_text('[reference](references/ref.md)\n')
+(base/'references/ref.md').write_text('Harmless runtime reference.\n')
+(base/'assets/handoff.md').write_text('Synthetic asset.\n')
+(base/'evals/fixtures/input.txt').write_text('Raw worker facts.\n')
+(base/'evals/expectations/expected.md').write_text('Held-out expected answer.\n')
+authority=inputs/'authority';authority.mkdir()
+(authority/'handoff.md').write_bytes((base/'assets/handoff.md').read_bytes())
+derivation={'derived_files':[{'destination':'assets/handoff.md','destination_sha256':sha(base/'assets/handoff.md'),'source':{'preserved_store':'authority','preserved_locator':'handoff.md','source_sha256':sha(authority/'handoff.md')},'transformation':'none; byte-identical copy','refresh_triggers':['Source changes']}]}
+(base/'references/derivation.json').write_text(json.dumps(derivation))
+package_cases=[
+ ('control','fixtures/input.txt',0,0,'check=eval_visibility outcome=PASS'),
+ ('canonical','expectations/expected.md',1,1,'check=eval_visibility outcome=FAIL'),
+ ('dot-alias','./expectations/expected.md',0,1,'check=eval_visibility outcome=FAIL'),
+ ('internal-parent-alias','fixtures/../expectations/expected.md',1,1,'check=eval_visibility outcome=FAIL'),
+ ('root-escape','fixtures/../../SKILL.md',1,1,'check=eval_fixture_paths outcome=FAIL'),
+]
+for name,relative,old_exit,new_exit,new_text in package_cases:
+ package=inputs/('package-'+name)
+ if package!=base:shutil.copytree(base,package)
+ (package/'evals/evals.json').write_text(json.dumps({'evals':[{'name':'synthetic-case','files':[relative]}]}))
+ for version,expected,text in [('old',old_exit,'overall=PASS' if old_exit==0 else 'overall=FAIL'),('new',new_exit,new_text)]:
+  run('package-'+name+'-'+version,['python3','-B',str(helpers/(version+'-package.py')),str(package),'--authority-root',str(authority)],expected,text)
+
+# Exact original receipt contrasts, plus a no-digest control and verification-only legitimate case.
+prior=inputs/'prior';prior.mkdir();(prior/'HANDOFF.md').write_text('Preserved prior handoff.\n')
+stale=hashlib.sha256(b'Near-final bytes before inserting a self-receipt.\n').hexdigest()
+receipt_cases=[
+ ('no-digest','A handoff without any digest tokens.\n',0,0),
+ ('same-name-different-path',f'Input: {prior}/HANDOFF.md SHA-256 {sha(prior/"HANDOFF.md")}\n',2,5),
+ ('self-same-line',f'This document receipt: HANDOFF.md SHA-256 {stale}\n',2,5),
+ ('self-multiline',f'This document receipt:\nfile: HANDOFF.md\nsha256: {stale}\n',0,5),
+]
+for name,content,old_exit,new_exit in receipt_cases:
+ directory=inputs/('receipt-'+name);directory.mkdir();file=directory/'HANDOFF.md';file.write_text(content)
+ for version,expected,flag in [('old',old_exit,'--self-digest-check'),('new',new_exit,'--self-receipt-inspection')]:
+  text='overall='+('PASS' if expected==0 else 'FAIL' if expected==2 else 'COULD_NOT_RUN')
+  run('receipt-'+name+'-'+version,['python3','-B',str(helpers/(version+'-receipt.py')),'--file',str(file),'--expected-sha256',sha(file),flag],expected,text)
+ if name=='same-name-different-path':
+  run('receipt-legitimate-verification-only-new',['python3','-B',str(helpers/'new-receipt.py'),'--file',str(file),'--expected-sha256',sha(file)],0,'overall=PASS')
+for _,(path,pin) in pins.items():assert sha(path)==pin
+summary={'recorded_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scratch_root':str(root),
+ 'script_sha256':sha(Path(__file__)),'script_saved_before_execution':True,
+ 'helper_pins':{name:pin for name,(_,pin) in pins.items()},'test_count':len(records),
+ 'all_expected_results_observed':all(row['assertions_pass'] for row in records),
+ 'scope':'Deterministic helpers on synthetic inputs; no native behavior or acceptance evaluated',
+ 'records':records}
+with (root/'summary.json').open('x') as handle:json.dump(summary,handle,indent=2);handle.write('\n')
+print(json.dumps({'scratch_root':str(root),'script_sha256':sha(Path(__file__)),'summary_sha256':sha(root/'summary.json'),'test_count':len(records),'all_expected_results_observed':summary['all_expected_results_observed'],'cases':[{'name':r['name'],'exit_status':r['exit_status'],'assertions_pass':r['assertions_pass']} for r in records]},indent=2))
+raise SystemExit(0 if summary['all_expected_results_observed'] else 1)

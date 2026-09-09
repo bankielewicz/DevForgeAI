@@ -1,0 +1,62 @@
+{
+  "review_type": "root integration review with three scoped reviewers; separate from candidate author, not a cold native evaluation",
+  "reviews": [
+    {
+      "reviewer": "roadmap_identity",
+      "scope": [
+        "CCTX-IR-001",
+        "CCTX-IR-005"
+      ],
+      "disposition": "CLOSED by static review",
+      "material_remaining_findings": [],
+      "nonblocking_notes": [
+        "CCTX-R2-N01",
+        "CCTX-R2-N02"
+      ],
+      "evidence": [
+        "candidate/references/source-selection.md:123-140",
+        "run/HANDOFF-004.md:78-94",
+        "run/XPKG-004.md:138-140",
+        "run/XPKG-004.md:173",
+        "prior review run/XPKG-004.md:151-164"
+      ]
+    },
+    {
+      "reviewer": "claude_output_audit",
+      "scope": [
+        "CCTX-IR-002",
+        "CCTX-IR-006"
+      ],
+      "disposition": "CLOSED by static review",
+      "material_remaining_findings": [],
+      "evidence": [
+        "candidate/evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md:3-17",
+        "candidate/evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md:3-8",
+        "candidate/evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md:3-18",
+        "candidate/evals/expectations/ccx-04-owner-missing-or-conflicting.md:46-75",
+        "candidate/evals/coverage-matrix.md:62-72"
+      ],
+      "observations": "13 cases,26 prospective arms,7 orientation and6 checkpoint;61 memberships over58 distinct visible fixtures; old12 index rows and both negative raw fixtures unchanged; no author expectations claimed independent"
+    },
+    {
+      "reviewer": "claude_activation_audit",
+      "scope": [
+        "CCTX-IR-003",
+        "CCTX-IR-004"
+      ],
+      "disposition": "CLOSED; IR004 by permitted narrowing",
+      "material_remaining_findings": [],
+      "nonblocking_notes": [
+        "CCTX-R2-N03"
+      ],
+      "evidence": [
+        "reviewer-evidence/helper-reproduction/summary.json",
+        "reviewer-evidence/helper-reproduction/reproduce_ir003_ir004.py"
+      ],
+      "expected_results_observed": 19,
+      "script_saved_before_execution": true,
+      "script_exit_status": 0
+    }
+  ],
+  "native_evaluation": "NOT_RUN"
+}

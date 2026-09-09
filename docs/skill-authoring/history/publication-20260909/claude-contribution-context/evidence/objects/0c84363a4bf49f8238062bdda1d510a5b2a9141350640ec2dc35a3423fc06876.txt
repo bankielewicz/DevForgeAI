@@ -1,0 +1,792 @@
+{
+  "files": {
+    "framework-source/.gitignore": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/.gitignore",
+      "sha256": "8b70db31c49744db6ffac6e4de42afd5fc5b27e46a8bc8c0a5559f6cac735dd5"
+    },
+    "framework-source/AGENTS.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/AGENTS.md",
+      "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9"
+    },
+    "framework-source/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/README.md",
+      "sha256": "3b75c87a30d91a1e00fd7f28329062529d1118353171fb9f94e3767484022ebb"
+    },
+    "framework-source/CLAUDE.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/CLAUDE.md",
+      "sha256": "54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931"
+    },
+    "framework-source/docs/POC.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/POC.md",
+      "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568"
+    },
+    "framework-source/docs/coordination/20260905T000653Z-skill-authoring-next-steps.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/coordination/20260905T000653Z-skill-authoring-next-steps.md",
+      "sha256": "76cc7d154b5208038dcda6aafcd7ec1b670bc0f2a160c76afe78e9538844df2d"
+    },
+    "framework-source/docs/coordination/20260905-contributor-context-specification.receipt.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/coordination/20260905-contributor-context-specification.receipt.json",
+      "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d"
+    },
+    "framework-source/docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+      "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd"
+    },
+    "framework-source/docs/coordination/20260905-contributor-context-evaluation-plan.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/coordination/20260905-contributor-context-evaluation-plan.md",
+      "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f"
+    },
+    "framework-source/docs/coordination/20260905-contributor-expertise-proposal.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/coordination/20260905-contributor-expertise-proposal.md",
+      "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32"
+    },
+    "framework-source/docs/coordination/20260905-contributor-context-spec.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/coordination/20260905-contributor-context-spec.md",
+      "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77"
+    },
+    "framework-source/docs/mvp/package-index.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/package-index.json",
+      "sha256": "b4e380646555b389e463a099b87cd180d35166f49c9af38da6150bd3c2444e2d"
+    },
+    "framework-source/docs/mvp/validation.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/validation.json",
+      "sha256": "978a061664ef4123a97ee387a396ef50605ce496f918777cebf3af8286803e40"
+    },
+    "framework-source/docs/mvp/use-case-inventory.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/use-case-inventory.md",
+      "sha256": "fa0086e523771dfa57afeb5f2515a862a5fb38657820365448431a5e38e3b9c0"
+    },
+    "framework-source/docs/mvp/execution-contract.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/execution-contract.md",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8"
+    },
+    "framework-source/docs/mvp/artifact-contract.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    },
+    "framework-source/docs/mvp/roster.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/roster.md",
+      "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9"
+    },
+    "framework-source/docs/mvp/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/README.md",
+      "sha256": "e31147bd9586bd3308551eb192d0c0ae8f3db4d50e85776b94f9e22d75819e08"
+    },
+    "framework-source/docs/mvp/skill-authoring-contract.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/skill-authoring-contract.md",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e"
+    },
+    "framework-source/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb"
+    },
+    "framework-source/docs/mvp/specifications/skill-012-devforge-change.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-012-devforge-change.md",
+      "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774"
+    },
+    "framework-source/docs/mvp/specifications/skill-004-devforge-prototype.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-004-devforge-prototype.md",
+      "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c"
+    },
+    "framework-source/docs/mvp/specifications/skill-002-devforge-define-product.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-002-devforge-define-product.md",
+      "sha256": "3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf"
+    },
+    "framework-source/docs/mvp/specifications/skill-003-devforge-design.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-003-devforge-design.md",
+      "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb"
+    },
+    "framework-source/docs/mvp/specifications/skill-005-devforge-architect.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-005-devforge-architect.md",
+      "sha256": "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b"
+    },
+    "framework-source/docs/mvp/specifications/skill-009-devforge-develop.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-009-devforge-develop.md",
+      "sha256": "c3834796b64d3487bb22aa04db545f126472fac14d043052ecb82127acf8117a"
+    },
+    "framework-source/docs/mvp/specifications/skill-011-devforge-release.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-011-devforge-release.md",
+      "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d"
+    },
+    "framework-source/docs/mvp/specifications/skill-006-devforge-plan.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-006-devforge-plan.md",
+      "sha256": "149a66a375da1bb3447f51b657996883974fec1dac3ce92af866eba94a378e4b"
+    },
+    "framework-source/docs/mvp/specifications/skill-001-devforge-brainstorm.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718"
+    },
+    "framework-source/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+      "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140"
+    },
+    "framework-source/docs/mvp/specifications/skill-010-devforge-review.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/specifications/skill-010-devforge-review.md",
+      "sha256": "1637ac05ff86a16e99cbb8be06a57db27f795eedcc738a560db0f4c40fae2b94"
+    },
+    "framework-source/docs/mvp/research/source-notes.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/source-notes.md",
+      "sha256": "54f414549451c6697b1bacfb9d6efaa2b6f77b4f2da8c73d823d228dba66a0dc"
+    },
+    "framework-source/docs/mvp/research/sources.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/sources.json",
+      "sha256": "747ae96827ef7b101674f30736ac8bbd8ae614201f9a5b029d56db8516b8269e"
+    },
+    "framework-source/docs/mvp/templates/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/README.md",
+      "sha256": "c68b950eaa4a3af0d557fb5e6d82bb1ce4a8715153b4b8a7e54b0ad7853d39cd"
+    },
+    "framework-source/docs/mvp/validation/20260904-initial-authoring.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/validation/20260904-initial-authoring.json",
+      "sha256": "1cf43a5e1227bbb43879cdb0c6fa3020459ebe368ffa994f373743f66523dc94"
+    },
+    "framework-source/docs/mvp/validation/20260905-refresh-first-check.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/validation/20260905-refresh-first-check.json",
+      "sha256": "0a96ca541ae7032b97eb886379dbdc32dbdda3ac365fd980513a31ee1811f696"
+    },
+    "framework-source/docs/mvp/research/agentskills/overview.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/agentskills/overview.json",
+      "sha256": "1a4839a05e4aa1efee62862c7badcb78d7ff65a0606ed2adac9e5978fabfde0b"
+    },
+    "framework-source/docs/mvp/research/agentskills/specification.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/agentskills/specification.json",
+      "sha256": "43dbae1c0d06d75fccd1a277ca250b62465c962a06b31d83ebacd6805a8c304f"
+    },
+    "framework-source/docs/mvp/research/agentskills/optimizing-descriptions.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/agentskills/optimizing-descriptions.json",
+      "sha256": "1d9747a0d976ec6902f603a967ba9288c5858b7e1ac47965cf188878541a0f3c"
+    },
+    "framework-source/docs/mvp/research/agentskills/adding-skills-support.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/agentskills/adding-skills-support.json",
+      "sha256": "59d243b1725853a3fee2ead3eca6c0610744e784a9be39f4149c16f05ea46c0a"
+    },
+    "framework-source/docs/mvp/research/agentskills/best-practices.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/agentskills/best-practices.json",
+      "sha256": "78a9b4843795245cd93cc8c652371eaf0c949d69954d630058a609132238f5c1"
+    },
+    "framework-source/docs/mvp/research/agentskills/using-scripts.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/agentskills/using-scripts.json",
+      "sha256": "cfec41d8098d8548817dad2f80f58a5cbb43b3ed9a67ab419fa1440bf761d285"
+    },
+    "framework-source/docs/mvp/research/agentskills/evaluating-skills.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/research/agentskills/evaluating-skills.json",
+      "sha256": "8341ae2863dbc99a2a629614b06a5d534612104858a8136e0d5bfcb5303dee6a"
+    },
+    "framework-source/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+      "sha256": "3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d"
+    },
+    "framework-source/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-report.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-report.md",
+      "sha256": "b4a43032fcc865a1a348f057876a5623119b90dee4e6287bbd0fe045b105b928"
+    },
+    "framework-source/docs/mvp/templates/devforge-define-product/product-brief.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-define-product/product-brief.md",
+      "sha256": "5a2229a13fba07d0a279f82255a49f57a78be99db8fd8f7991c1f85a12864ddb"
+    },
+    "framework-source/docs/mvp/templates/devforge-design/design-spec.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-design/design-spec.md",
+      "sha256": "5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661"
+    },
+    "framework-source/docs/mvp/templates/devforge-review/review-report.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-review/review-report.md",
+      "sha256": "ceabf390b193eac12ecf384c8e25cbf3c0d7b77127403a0ad95d2c5f3acffb44"
+    },
+    "framework-source/docs/mvp/templates/devforge-develop/development-record.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-develop/development-record.md",
+      "sha256": "9e3004dbb4dc96a2e8768112df73589d74275f65d95b061ec5593d48a95dec7b"
+    },
+    "framework-source/docs/mvp/templates/devforge-plan/epic.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-plan/epic.md",
+      "sha256": "48f8b069f6f57b386d0337a2ef15503dfe234a97f3d7162740b708de75dc35e3"
+    },
+    "framework-source/docs/mvp/templates/devforge-plan/story.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-plan/story.md",
+      "sha256": "a19ccd7f332c895fe6d7713ed8ae1a7e52991c71c846557d3fb29862ebff9daf"
+    },
+    "framework-source/docs/mvp/templates/shared/session-record.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/shared/session-record.md",
+      "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd"
+    },
+    "framework-source/docs/mvp/templates/shared/handoff.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/shared/handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+    },
+    "framework-source/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md",
+      "sha256": "eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36"
+    },
+    "framework-source/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md",
+      "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5"
+    },
+    "framework-source/docs/mvp/templates/devforge-project-expert-creator/expert-package.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-project-expert-creator/expert-package.md",
+      "sha256": "c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629"
+    },
+    "framework-source/docs/mvp/templates/devforge-prototype/prototype-report.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-prototype/prototype-report.md",
+      "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252"
+    },
+    "framework-source/docs/mvp/templates/devforge-prototype/experiment-plan.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-prototype/experiment-plan.md",
+      "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564"
+    },
+    "framework-source/docs/mvp/templates/devforge-change/change-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-change/change-request.md",
+      "sha256": "1b6d4198065153934368079833fa853fc271aacbf7266444765cda7cde7e5b43"
+    },
+    "framework-source/docs/mvp/templates/skill-authoring/run-manifest.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/skill-authoring/run-manifest.json",
+      "sha256": "9f8d7a8eed826dd4ff7e0f64988b6cded6839aca73b5ebc6c04dec543c1e414f"
+    },
+    "framework-source/docs/mvp/templates/skill-authoring/evals.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/skill-authoring/evals.json",
+      "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692"
+    },
+    "framework-source/docs/mvp/templates/skill-authoring/evaluation-report.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/skill-authoring/evaluation-report.md",
+      "sha256": "d4929c36980ff5237ee3e6a3363392d9fa6303ba1f3028b8b184a85fd31b0ddc"
+    },
+    "framework-source/docs/mvp/templates/skill-authoring/trigger-queries.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/skill-authoring/trigger-queries.json",
+      "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4"
+    },
+    "framework-source/docs/mvp/templates/devforge-release/release-record.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-release/release-record.md",
+      "sha256": "90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb"
+    },
+    "framework-source/docs/mvp/templates/devforge-architect/architecture-contract.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-architect/architecture-contract.md",
+      "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218"
+    },
+    "framework-source/docs/mvp/templates/devforge-brainstorm/idea-ledger.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/docs/mvp/templates/devforge-brainstorm/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417"
+    },
+    "framework-source/examples/notes-json/seed/dependencies.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/dependencies.json",
+      "sha256": "0ece2de07209ce1e1912ecc172ed5cf8e8394611ba1dcb0c0f2a362066fe790c"
+    },
+    "framework-source/examples/notes-json/seed/.gitignore": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/.gitignore",
+      "sha256": "72a76564df2a2370c7fc960536aacd6726982851b692dc029304feff4d466462"
+    },
+    "framework-source/examples/notes-json/changes/src/store.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/changes/src/store.py",
+      "sha256": "d3af4accc4b2e35925a3dee4436d77fb5bd4ae30918949d046dd0018fe44ad2a"
+    },
+    "framework-source/examples/notes-json/changes/tests/test_store.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/changes/tests/test_store.py",
+      "sha256": "fe0c936463c16a485ccfcb994de236ebe1f88e8c208aef58e6c26a5fd94d8c60"
+    },
+    "framework-source/examples/notes-json/seed/src/__init__.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "framework-source/examples/notes-json/seed/src/store.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/src/store.py",
+      "sha256": "937b663eb4cf22be36dd94489068eeae61a2e1cc44458881b2fb373b39dcaf3f"
+    },
+    "framework-source/examples/notes-json/seed/tests/__init__.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "framework-source/examples/notes-json/seed/docs/epic.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/docs/epic.md",
+      "sha256": "dc6ed14391644b7f1e458ca8a1867c30d43d64c7aeb9fcf3d803fa35c79f0247"
+    },
+    "framework-source/examples/notes-json/seed/docs/story.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/docs/story.md",
+      "sha256": "0639ceb375dd0cd1558932d2e8460af989021e6476a564450946905edbc5aa45"
+    },
+    "framework-source/examples/notes-json/seed/docs/expert-spec.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/docs/expert-spec.md",
+      "sha256": "7d3b70f2ea908a111fb1e8591d755e351be312529465a6e154c0d48c5b3d8598"
+    },
+    "framework-source/examples/notes-json/seed/docs/idea.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/docs/idea.md",
+      "sha256": "b16cbda47ceb55648bcf06ddfd1585e1f21266bc84cb25fa1b711b7cbd93573d"
+    },
+    "framework-source/examples/notes-json/seed/docs/architecture.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/docs/architecture.md",
+      "sha256": "f3780c8c3ea8e8b640f83d74fa915d900ad05fcb4a9375211582036d164af042"
+    },
+    "framework-source/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md",
+      "sha256": "8a0f94bdf1d6b6d5e4f15d3421a3116d4fed5074774a2eadca7d2ede68b74c1a"
+    },
+    "framework-source/examples/notes-json/seed/experts/notes-json-persistence/references/stack.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-json/seed/experts/notes-json-persistence/references/stack.md",
+      "sha256": "a3a93da3cb2fc4cf9ecece1c5a0a7820227555f0bfa93376fe9b511499cc6fde"
+    },
+    "framework-source/examples/notes-sqlite/seed/dependencies.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/dependencies.json",
+      "sha256": "e8567ab1fda4d0b679f9a8fb9b7328955e3b71bbc4b2f080004fe95191075b05"
+    },
+    "framework-source/examples/notes-sqlite/seed/.gitignore": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/.gitignore",
+      "sha256": "72a76564df2a2370c7fc960536aacd6726982851b692dc029304feff4d466462"
+    },
+    "framework-source/examples/notes-sqlite/changes/src/store.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/changes/src/store.py",
+      "sha256": "604776c9eb68e8112b0db67755a7bab47c33deb4f67d045621891f92e1297b0c"
+    },
+    "framework-source/examples/notes-sqlite/changes/tests/test_store.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/changes/tests/test_store.py",
+      "sha256": "fe0c936463c16a485ccfcb994de236ebe1f88e8c208aef58e6c26a5fd94d8c60"
+    },
+    "framework-source/examples/notes-sqlite/seed/src/__init__.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "framework-source/examples/notes-sqlite/seed/src/store.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/src/store.py",
+      "sha256": "937b663eb4cf22be36dd94489068eeae61a2e1cc44458881b2fb373b39dcaf3f"
+    },
+    "framework-source/examples/notes-sqlite/seed/tests/__init__.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "framework-source/examples/notes-sqlite/seed/docs/epic.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/docs/epic.md",
+      "sha256": "dc6ed14391644b7f1e458ca8a1867c30d43d64c7aeb9fcf3d803fa35c79f0247"
+    },
+    "framework-source/examples/notes-sqlite/seed/docs/story.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/docs/story.md",
+      "sha256": "0639ceb375dd0cd1558932d2e8460af989021e6476a564450946905edbc5aa45"
+    },
+    "framework-source/examples/notes-sqlite/seed/docs/expert-spec.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/docs/expert-spec.md",
+      "sha256": "d85a1d9bcbf695f0bbca3877e939236847f5a505847b593a0fec25041c02087b"
+    },
+    "framework-source/examples/notes-sqlite/seed/docs/idea.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/docs/idea.md",
+      "sha256": "4e898cada31e2f371c90a1ddc1cb827e642daf3eeac3b9af75b8d63eba90d80e"
+    },
+    "framework-source/examples/notes-sqlite/seed/docs/architecture.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/docs/architecture.md",
+      "sha256": "f35dde83f953a6ab2f6a025deda16fbd442cc0fdcd86055b1ada2e1f05fee4bc"
+    },
+    "framework-source/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md",
+      "sha256": "f6e951baafe35e54dfd22c5af995c80d92a21658eeb64fea92a6a64eeb9c9090"
+    },
+    "framework-source/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/references/stack.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/references/stack.md",
+      "sha256": "a82380220eb00a07d3361a362a6fe2743039de80ec718815a106b385b538bc54"
+    },
+    "framework-source/providers/codex/agents/project-expert-author.toml": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/agents/project-expert-author.toml",
+      "sha256": "9fc10f54e0405cf345d0b6bbe42d9da1ebe13543a5eac6c40aff967a6c4689f7"
+    },
+    "framework-source/providers/codex/agents/project-reviewer.toml": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/agents/project-reviewer.toml",
+      "sha256": "6c42b9bd0e79ff59570f57984c5d4c0a625b622514fb116daee3e4cf65926c8c"
+    },
+    "framework-source/providers/codex/plugins/devforgeai/.codex-plugin/plugin.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/plugins/devforgeai/.codex-plugin/plugin.json",
+      "sha256": "ffe4c894aebd79a34a37d5580d8f02acab817d09e277603a67de6b3a83c0875d"
+    },
+    "framework-source/providers/codex/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/plugins/devforgeai/skills/devforge-review/SKILL.md",
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06"
+    },
+    "framework-source/providers/codex/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/plugins/devforgeai/skills/devforge-develop/SKILL.md",
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad"
+    },
+    "framework-source/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10"
+    },
+    "framework-source/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "sha256": "eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0"
+    },
+    "framework-source/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md",
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8"
+    },
+    "framework-source/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md",
+      "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/.claude-plugin/plugin.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/.claude-plugin/plugin.json",
+      "sha256": "cbfd66a0c375a43cb9c36e70aa68075b2de7f736ee6ecfeaeae9dab77ffb02b2"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/agents/project-expert-author.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/agents/project-expert-author.md",
+      "sha256": "79e21a981b818516233948243390d362fef7a991457556545ece2829e278b194"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/agents/project-reviewer.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/agents/project-reviewer.md",
+      "sha256": "db5449975305d2d13ad6ae37b61585e9a950ea1ad1391d4a8dfedb863a349d48"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md",
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md",
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+      "sha256": "31641ddbee8024ca2330c4f89622fe2c62bdda326df06c148340c16fc00d7a6e"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md",
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md",
+      "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+      "sha256": "75e6b045e7265120d2c2e088734517083e19f924dbc8c85bab3407ed48ccfade"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md",
+      "sha256": "0b7056c684b619ac15fe02515d8e3c682a60ad1844393f6245fbc2dcb81a3d1f"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+      "sha256": "d8470178cc647b8f8dad0aba8ea54f3fd094630ce79866372b65e03c959a24cf"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7"
+    },
+    "framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/framework-source/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/SKILL.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/SKILL.md",
+      "sha256": "fc4da253e610550a39411a703bd04bed1ac6a4be84edc98f24d3043202788d32"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/scripts/check_receipt.py": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/scripts/check_receipt.py",
+      "sha256": "c5a63d535b3dada638854c832f41bdccdf7835e4db3cce5f579b9f7c8f537136"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/references/derivation.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/references/derivation.json",
+      "sha256": "f7bddb1a3794bf60472f7f52c13c5b8feb5911cb2444cbc856a99ca18a720d8c"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/references/checkpoint-transfer.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/references/checkpoint-transfer.md",
+      "sha256": "bf308634b49dbec8aafe25f39d423307f4a61bdade091b0c9edf6030b4e56d9e"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/references/source-selection.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/references/source-selection.md",
+      "sha256": "25cd4f62ff4f13f473a147cc91bfd64936b4c50c0851c00b953824c33346ff83"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/assets/handoff-template.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/assets/handoff-template.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/coverage-matrix.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/coverage-matrix.md",
+      "sha256": "2166ed2086b25a35773fd19a7433cc7a33f57cf8d3c621c1959e51e6f0055a7a"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/evals.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/evals.json",
+      "sha256": "6fd4100d5016ec1813e2dad80db2c014bbe92d1e53315a78c36aca3073c5cdf7"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/README.md",
+      "sha256": "e2dca9c6ad8ce4e3296f4540534b258716ae72773ac4274924c83a2829b45d6c"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/triggers/triggers.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/triggers/triggers.json",
+      "sha256": "4beb10eafb0bf40bdd855ca19166d954dfa91bd7b3456d7e99bb14acb2101843"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/withheld/ccx-06-DECISION-950.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/withheld/ccx-06-DECISION-950.md",
+      "sha256": "0586b0b9da4c7e9e908ca61e09f95cf50f4b4cc076533fca7c9f6dd5b082b982"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-06-inaccessible-record.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-06-inaccessible-record.md",
+      "sha256": "f5d18937d6c96ced8996fa558d4f9c3340c2249d683bd9cd43bbdaf9b7a12241"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-02-worker-recovery.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-02-worker-recovery.md",
+      "sha256": "cc17be4e8738f7c6ba8ebb35f5efee184511a7f8d95d7056c8fc503a6b9843a8"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-05-valid-prior-delegation.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-05-valid-prior-delegation.md",
+      "sha256": "66434aff30427911252addee5f70498f2a5f60335617a73357b1804f4de56f78"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-08-mode-and-checkpoint-integrity.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-08-mode-and-checkpoint-integrity.md",
+      "sha256": "49a2fb181a72436e3e42a08a68d893dd083be5f8d2950416f31532bb39f0db2d"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-03-selected-revision-drift.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-03-selected-revision-drift.md",
+      "sha256": "576927a3690d7bc3a1cc75815ac3c74360665c2df8af28cd218d11c2586f0f28"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-07-conflicting-outcomes.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-07-conflicting-outcomes.md",
+      "sha256": "c6f03642ef239334d5b3d2f7b40ee3fc3da7669538881966cf69ef0c57655608"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/README.md",
+      "sha256": "5e1566f387dcfb56ab8ad2805fff83b7b2fd0216c2d2ef5db4f39b89f685a1d6"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-01-replacement-architect.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-01-replacement-architect.md",
+      "sha256": "3c9f2ca7b771994749c7e1ab740f0615df2a706c851a55681a58be317a47e5fa"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/expectations/ccx-04-owner-missing-or-conflicting.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/expectations/ccx-04-owner-missing-or-conflicting.md",
+      "sha256": "fb793b1bc0a591eae277b489bfd28feecb60a2ef839ee5cd0d539ce24613cc66"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/main/packaging-rule.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-03-selected-revision-drift/main/packaging-rule.md",
+      "sha256": "07801dc9e6348bb35bcc25ed0420e95c447d4d37e5edc812c78ca1a40ffe2710"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/selected/packaging-rule.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-03-selected-revision-drift/selected/packaging-rule.md",
+      "sha256": "863405bfacd76379039542fdccca8aaf282a95b15a493b6184275e2cf4fb4b60"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-03-selected-revision-drift/assignment/SESSION-920-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-03-selected-revision-drift/assignment/SESSION-920-worker.md",
+      "sha256": "83caa5181262af8f81c795b7bdfb4227e011cfdda0f5cd4fb72b1983d989abec"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/records/records-index.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04a-missing-owner/records/records-index.md",
+      "sha256": "3385e5a6c94973024c75958920466973baed69260beb9bf3935932972ac98f25"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/records/task-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04a-missing-owner/records/task-request.md",
+      "sha256": "573c84c756468ba8acec0180bc3eaf0c70ededa0bc325ab2ae786b234b3e23ac"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/authority/REPORT-AUTHORITY-930.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04a-missing-owner/authority/REPORT-AUTHORITY-930.md",
+      "sha256": "d754e859c9eafa800deacf2cd780bda542c6623c0446d11f9eb1fae7b0cbc6b0"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/outbox/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04a-missing-owner/outbox/README.md",
+      "sha256": "55f93572073b724fa5ca67f0515a979f9df12cfa19c5a0cc7aaedf7247980349"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04a-missing-owner/candidate/packaging.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04a-missing-owner/candidate/packaging.md",
+      "sha256": "757258788e84c50e32a171f3b73f392be1653b2e3e443f5413fdeec8c0fe40ba"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/records/FIND-912.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02b-claude-worker-recovery/records/FIND-912.md",
+      "sha256": "cd8b4f51d4201a6f17f9cf856cc600e5105e6938487a74616c97e6867c608607"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/shared/authoring-rules.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02b-claude-worker-recovery/shared/authoring-rules.md",
+      "sha256": "5ad0c4c33a94a481d4611421ef20f3ad4c145beaf0a3aa3c9d68978c64a1daed"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/peer/SESSION-911-codex-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02b-claude-worker-recovery/peer/SESSION-911-codex-worker.md",
+      "sha256": "9a2feeaf7cb9cc14dbc9043d020fbbc5789750d72aed3c0e5a7964f05080ba8c"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02b-claude-worker-recovery/assignment/SESSION-912-claude-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02b-claude-worker-recovery/assignment/SESSION-912-claude-worker.md",
+      "sha256": "8a44e07546c578ec9409e6ce6a350e70a86b832366afe52b64ad73f7d761bb26"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/task-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/task-request.md",
+      "sha256": "8ea5e9287179f1fe210c7bccf5aedf0984f09f89ad4053aa9514d54bcac81d22"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json",
+      "sha256": "0b160da594b12476d5e89f012d1e8336202431b9df8cdfb72eacd318b00d3fad"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md",
+      "sha256": "c13e56ce410d91fdd2f1eabd296681b8b2a05dceff35da6faf411a9cf1e18db3"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md",
+      "sha256": "02dd82e4af48469a0d1941591e7094a653769ae40a6f0dd7c817e99528c7c919"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-a-resume/task-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-08-mode-integrity/variant-a-resume/task-request.md",
+      "sha256": "cfc1d090ab3adea88d15dbc376a0859ef2be4a63cd321e3e971a910000e42080"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/authority/REPORT-AUTHORITY-970.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/authority/REPORT-AUTHORITY-970.md",
+      "sha256": "729f03467955f9d24d677d6a097f05f540e2b9ea7e870a0dda1a33f57bac3a8e"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/outbox/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/outbox/README.md",
+      "sha256": "bb3129908da0cdce8c9c2725314f6b8de1d165826707ea7916d6692803328685"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/RUN-960-manifest.json": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-07-conflicting-outcomes/records/RUN-960-manifest.json",
+      "sha256": "b48e564a66a5cc23f81e4a2fd0a0888cd49c22274b64001f301746dfd5e6a198"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/FIND-960.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-07-conflicting-outcomes/records/FIND-960.md",
+      "sha256": "97f947ab46d58998c88ee62b17b9366afb57def5e440410b9f95e2e6c8486eed"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/records/EVREPORT-960-summary.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-07-conflicting-outcomes/records/EVREPORT-960-summary.md",
+      "sha256": "7c581362400561729555d34f1bdea171f18ce7be87c75622a5cab18664d48735"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/outbox/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-07-conflicting-outcomes/outbox/README.md",
+      "sha256": "763a789b76e623a3fe53b3fbd4f57b4a42acbb96dc125252bc7cb22689e068bb"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-07-conflicting-outcomes/assignment/SESSION-960-architect.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-07-conflicting-outcomes/assignment/SESSION-960-architect.md",
+      "sha256": "a004190eb8dbb49c05aeef39bea67cae7a49ebda9a10bcfb1bca3ba395a4d488"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/records-index.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04c-authorized-bootstrap/records/records-index.md",
+      "sha256": "056b1577fc4aa138b8b4eb97721a8fe41078ed08701b760f932bec90ac09f025"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md",
+      "sha256": "63c3a5b3c6b13b742b3a4c0c11ecc50749371b71e1c461fdbb62c23e3758d49f"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/records/task-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04c-authorized-bootstrap/records/task-request.md",
+      "sha256": "9b50cc4345d875d067f794d9dc8592f91a93ca9e13792df462303b2bd0613bd4"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md",
+      "sha256": "e6b096743954eddb4d7a1a3949ea593c486f5ea614e6b181d1eb5769972dee6d"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md",
+      "sha256": "46e334a103c9d39e9e1f4ae94b5329a58faac5b37bcbe44fe8313a5010611eee"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/outbox/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04c-authorized-bootstrap/outbox/README.md",
+      "sha256": "ab4a5733bea39fffc814b01301fd970bf6024edaa6df4a0eea658658add1f00a"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04c-authorized-bootstrap/candidate/packaging.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04c-authorized-bootstrap/candidate/packaging.md",
+      "sha256": "0b54973efc466c99b31b9d63ce77c9a630ab1bb44dfc7fb55f5fcdb2bc8f3fd0"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/SESSION-901-codex-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/records/SESSION-901-codex-worker.md",
+      "sha256": "4ac713df942b3a40b1c9658c3118bbe9646e647b7705b9bdec6e5d7192e7426f"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/FIND-901.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/records/FIND-901.md",
+      "sha256": "49f3d73ae4ff029c01c41e5bb71a81a07d20937267b75c1558ce89cf8a1db782"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/REVIEW-900-summary.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/records/REVIEW-900-summary.md",
+      "sha256": "6fc06c7a8eb1d01e80c29b69a57ac82de87dfb515736c1b6b38a34b4762df3d9"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/SESSION-902-claude-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/records/SESSION-902-claude-worker.md",
+      "sha256": "bc7b4469afc5b5a5f252c485fcfedc9b5bcd7035f8e58871a17d9b89a1afbef7"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/XPKG-902-claude-candidate.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/records/XPKG-902-claude-candidate.md",
+      "sha256": "ffb286cca307785963a7068eca662f3cf56c413c7f865357ac93cfb697b68ce5"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/records/XPKG-901-codex-candidate.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/records/XPKG-901-codex-candidate.md",
+      "sha256": "758262baeb98d5b9bcf46a799f1daae4d93ee9363844c29d8d71151923135a5a"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/outbox/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/outbox/README.md",
+      "sha256": "fb82c0e1e97dd166fb122db2aae26da700012f025292417a14b9bd11c33a16c7"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-01-replacement-architect/assignment/SESSION-900-architect.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-01-replacement-architect/assignment/SESSION-900-architect.md",
+      "sha256": "438cf0124407e698469e7cf8912b76c8ddcbd3f89b75e29411fc7a9ed710ebdf"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/authority/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-06-inaccessible-record/authority/README.md",
+      "sha256": "b843fbb99a3c3bcb5bde556aab814503dd302699215f5da88f741a5546cc26a0"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/assignment/SESSION-950-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-06-inaccessible-record/assignment/SESSION-950-worker.md",
+      "sha256": "92124074aad8e50fece01cd7192150aaecc5c38d69403926eda273958ea89512"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-06-inaccessible-record/notes/DECISION-950.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-06-inaccessible-record/notes/DECISION-950.md",
+      "sha256": "e5fcaad85d5cdcab05e95440124f3f67e274d1483ef0574f47e0a3ba2885d645"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/records/FIND-911.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02a-codex-worker-recovery/records/FIND-911.md",
+      "sha256": "39d70a0d6f78cd11235493bea51dced184de7c08802ffae937b79057ca244d41"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/shared/authoring-rules.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02a-codex-worker-recovery/shared/authoring-rules.md",
+      "sha256": "5ad0c4c33a94a481d4611421ef20f3ad4c145beaf0a3aa3c9d68978c64a1daed"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/peer/SESSION-912-claude-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02a-codex-worker-recovery/peer/SESSION-912-claude-worker.md",
+      "sha256": "4035a7b306799d88873bad7920d9448a3dac11ad90ecf1707f7c815ad98c4205"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-02a-codex-worker-recovery/assignment/SESSION-911-codex-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-02a-codex-worker-recovery/assignment/SESSION-911-codex-worker.md",
+      "sha256": "284ed7e91b147e092fb3ac875497c661c1ecfcb860b9d046323af35352c1513d"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/records/HANDOFF-940.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-05a-valid-delegation/records/HANDOFF-940.md",
+      "sha256": "829d47ce581bc01ac8f235be7b268321f9e80860c818951abdc0efdbea9d61cd"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/records/task-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-05a-valid-delegation/records/task-request.md",
+      "sha256": "ce9b62573d93230710701c1d2a759de5c5c6008ea3e6ed3ee5e31535100da19a"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05a-valid-delegation/assignment/SESSION-940-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-05a-valid-delegation/assignment/SESSION-940-worker.md",
+      "sha256": "6d521993f476370bc9440ed5df6cb91c7a20483d10ca51bcd9cd30d5e0e815c1"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/records/HANDOFF-941.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-05b-delegation-control/records/HANDOFF-941.md",
+      "sha256": "7583b921849ee41adfb7cea7809ca7ef146b8d2f5222d67bf1494107bfe19707"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/records/task-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-05b-delegation-control/records/task-request.md",
+      "sha256": "ce9b62573d93230710701c1d2a759de5c5c6008ea3e6ed3ee5e31535100da19a"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-05b-delegation-control/assignment/SESSION-941-worker.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-05b-delegation-control/assignment/SESSION-941-worker.md",
+      "sha256": "e1b3bb27c2a39f12c7f84a95435213006bcc2e78d27893d96a85d78f2962246d"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-931-claim.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-931-claim.md",
+      "sha256": "11d7a449016894979c41c139dfa3088752fd33fe8bd637f96094665dcb1bb062"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/task-request.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04b-conflicting-owner/records/task-request.md",
+      "sha256": "8daed285c4f33091398d0bcbb071cb999dda77057e3e845cb20a4a2fda6ca459"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-932-claim.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-932-claim.md",
+      "sha256": "50cf7501d679b5a645c91b6eff7fe3508383e44a981260a39d40009c3452f516"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/authority/REPORT-AUTHORITY-931.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04b-conflicting-owner/authority/REPORT-AUTHORITY-931.md",
+      "sha256": "3fd88e73b34eeb8e19e37122fc4d863f6c7d46cf4907fd622242b8d64c5b9d43"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/outbox/README.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04b-conflicting-owner/outbox/README.md",
+      "sha256": "9069b9fc630f1d933236b6074f921fa0c407433013d70dc5d2e40cf252435911"
+    },
+    "framework-source/project-experts/claude/devforgeai-contribution-context/evals/fixtures/ccx-04b-conflicting-owner/candidate/packaging.md": {
+      "source": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate/evals/fixtures/ccx-04b-conflicting-owner/candidate/packaging.md",
+      "sha256": "f5bfcd6025708994dc063ac5f46302a6162d4f59466b83a9091d568edcea9729"
+    }
+  }
+}

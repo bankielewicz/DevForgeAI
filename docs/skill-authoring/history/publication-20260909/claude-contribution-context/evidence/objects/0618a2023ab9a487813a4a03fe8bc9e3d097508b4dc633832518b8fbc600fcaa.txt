@@ -1,0 +1,8 @@
+{
+  "outcome": "PASS",
+  "links_verified": 37,
+  "pinned_table_rows_verified": 15,
+  "review_sections": 6,
+  "next_task_sections": 5,
+  "scope": "operator report and handoff references, formatting and custody only"
+}

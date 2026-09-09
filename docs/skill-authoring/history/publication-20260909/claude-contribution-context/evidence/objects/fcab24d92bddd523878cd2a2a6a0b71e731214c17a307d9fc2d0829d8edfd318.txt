@@ -1,0 +1,398 @@
+{
+  "checked_at_utc": "2026-09-06T02:34:19.713239+00:00",
+  "outcome": "PASS",
+  "records": [
+    {
+      "path": "XSPEC-004.md",
+      "outcome": "PASS",
+      "stable_sections": [
+        "XSPEC-004-S0",
+        "XSPEC-004-S1",
+        "XSPEC-004-S2",
+        "XSPEC-004-S3",
+        "XSPEC-004-S4",
+        "XSPEC-004-S5",
+        "XSPEC-004-S6",
+        "XSPEC-004-S7",
+        "XSPEC-004-S8"
+      ],
+      "verified_upstream": [
+        {
+          "artifact_id": "SESSION-004",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md",
+          "sha256": "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed",
+          "sections": [
+            "S004-001",
+            "S004-002",
+            "S004-003",
+            "S004-004",
+            "S004-005",
+            "S004-006"
+          ]
+        },
+        {
+          "artifact_id": "CCTX-INTEGRATION-REVIEW",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md",
+          "sha256": "98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0",
+          "sections": [
+            "CIR-002",
+            "CIR-003",
+            "CIR-004"
+          ]
+        },
+        {
+          "artifact_id": "XSPEC-004",
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/XSPEC-004.md",
+          "sha256": "c700e4f32eae6413a1e7a3673e4d63434ede8ebe04c0016c1a004346f8634724",
+          "sections": [
+            "XSPEC-004-S1",
+            "XSPEC-004-S3",
+            "XSPEC-004-S5"
+          ]
+        },
+        {
+          "artifact_id": "CC-SPEC",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md",
+          "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77",
+          "sections": [
+            "Inputs and source selection",
+            "Required behavior",
+            "Output contract",
+            "Role-specific application"
+          ]
+        },
+        {
+          "artifact_id": "CC-EVALPLAN",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md",
+          "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f",
+          "sections": [
+            "Case catalogue",
+            "Grading and decision rules"
+          ]
+        },
+        {
+          "artifact_id": "AUTHORING-CONTRACT",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/skill-authoring-contract.md",
+          "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+          "sections": [
+            "Per-skill structure and distribution",
+            "Resource and script paths"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "XPKG-004.md",
+      "outcome": "PASS",
+      "stable_sections": [
+        "XPKG-004-S0",
+        "XPKG-004-S1",
+        "XPKG-004-S2",
+        "XPKG-004-S3",
+        "XPKG-004-S4",
+        "XPKG-004-S5",
+        "XPKG-004-S6",
+        "XPKG-004-S7",
+        "XPKG-004-S8"
+      ],
+      "verified_upstream": [
+        {
+          "artifact_id": "XSPEC-004",
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/XSPEC-004.md",
+          "sha256": "78fa48c8b30d9e51fe194a15069c401bec306411f2a4e73e9bfe48500f404dae",
+          "sections": [
+            "XSPEC-004-S2",
+            "XSPEC-004-S4",
+            "XSPEC-004-S5",
+            "XSPEC-004-S6"
+          ]
+        },
+        {
+          "artifact_id": "SESSION-004",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md",
+          "sha256": "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed",
+          "sections": [
+            "S004-002",
+            "S004-004",
+            "S004-005",
+            "S004-006"
+          ]
+        },
+        {
+          "artifact_id": "CCTX-INTEGRATION-REVIEW",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md",
+          "sha256": "98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0",
+          "sections": [
+            "CIR-003"
+          ]
+        },
+        {
+          "artifact_id": "XPKG-004",
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/XPKG-004.md",
+          "sha256": "6900761195e51b582bd872ac38d3b0f34bb1215529fbab4d3252b37a5a914254",
+          "sections": [
+            "XPKG-004-S2",
+            "XPKG-004-S3",
+            "XPKG-004-S6"
+          ]
+        },
+        {
+          "artifact_id": "CC-SPEC",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md",
+          "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77",
+          "sections": [
+            "Inputs and source selection",
+            "Required behavior",
+            "Role-specific application"
+          ]
+        },
+        {
+          "artifact_id": "TPL-HANDOFF",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/shared/handoff.md",
+          "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+          "sections": [
+            "You are here",
+            "Inputs consumed and outputs produced",
+            "Resume and custody"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "HANDOFF-004.md",
+      "outcome": "PASS",
+      "stable_sections": [
+        "HANDOFF-004-S0",
+        "HANDOFF-004-S1",
+        "HANDOFF-004-S2",
+        "HANDOFF-004-S3",
+        "HANDOFF-004-S4",
+        "HANDOFF-004-S5",
+        "HANDOFF-004-S6",
+        "HANDOFF-004-S7",
+        "HANDOFF-004-S8"
+      ],
+      "verified_upstream": [
+        {
+          "artifact_id": "SESSION-004",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/claude-revision-001/SESSION-004-r2.md",
+          "sha256": "ca72df62ec0abe93b44cb29abcb51dfc75e37b36005653e4d49b49395170caed",
+          "sections": [
+            "S004-001",
+            "S004-002",
+            "S004-004",
+            "S004-005",
+            "S004-006"
+          ]
+        },
+        {
+          "artifact_id": "CCTX-INTEGRATION-REVIEW",
+          "path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/INTEGRATION-REVIEW.md",
+          "sha256": "98aba96aa04e7632ae0ba0da24d03269a43534b5d1c8e88e22cb3da0c86e09f0",
+          "sections": [
+            "CIR-003"
+          ]
+        },
+        {
+          "artifact_id": "XSPEC-004",
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/XSPEC-004.md",
+          "sha256": "78fa48c8b30d9e51fe194a15069c401bec306411f2a4e73e9bfe48500f404dae",
+          "sections": [
+            "XSPEC-004-S2",
+            "XSPEC-004-S4",
+            "XSPEC-004-S6"
+          ]
+        },
+        {
+          "artifact_id": "XPKG-004",
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260906T015903558520Z-claude-revise-001/XPKG-004.md",
+          "sha256": "203b3c19448ada515796e13d043ba8d43de806ac7bbfd27015844eb7de7968c1",
+          "sections": [
+            "XPKG-004-S1",
+            "XPKG-004-S2",
+            "XPKG-004-S3",
+            "XPKG-004-S4",
+            "XPKG-004-S8"
+          ]
+        },
+        {
+          "artifact_id": "HANDOFF-004",
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/.poc/claude/devforgeai-contribution-context-workspace/runs/20260905T205129932751Z-claude-authoring-stage-1/HANDOFF-004.md",
+          "sha256": "736a5f13709cbefbe0e10461ae7f24b4edb32fb2b2814a6af24a006c2c54feb4",
+          "sections": [
+            "You are here",
+            "Observed verification"
+          ]
+        }
+      ]
+    }
+  ],
+  "candidate_delta": {
+    "added": [
+      "evals/fixtures/ccx-04c-authorized-bootstrap/authority/REPORT-AUTHORITY-933.md",
+      "evals/fixtures/ccx-04c-authorized-bootstrap/authority/TARGET-AUTHORIZATION-933.md",
+      "evals/fixtures/ccx-04c-authorized-bootstrap/candidate/packaging.md",
+      "evals/fixtures/ccx-04c-authorized-bootstrap/outbox/README.md",
+      "evals/fixtures/ccx-04c-authorized-bootstrap/records/collision-observation-933.md",
+      "evals/fixtures/ccx-04c-authorized-bootstrap/records/records-index.md",
+      "evals/fixtures/ccx-04c-authorized-bootstrap/records/task-request.md"
+    ],
+    "removed": [],
+    "changed": [
+      "SKILL.md",
+      "evals/coverage-matrix.md",
+      "evals/evals.json",
+      "evals/expectations/ccx-04-owner-missing-or-conflicting.md",
+      "references/checkpoint-transfer.md",
+      "references/source-selection.md",
+      "scripts/check_receipt.py"
+    ],
+    "unchanged": [
+      "assets/handoff-template.md",
+      "evals/README.md",
+      "evals/expectations/README.md",
+      "evals/expectations/ccx-01-replacement-architect.md",
+      "evals/expectations/ccx-02-worker-recovery.md",
+      "evals/expectations/ccx-03-selected-revision-drift.md",
+      "evals/expectations/ccx-05-valid-prior-delegation.md",
+      "evals/expectations/ccx-06-inaccessible-record.md",
+      "evals/expectations/ccx-07-conflicting-outcomes.md",
+      "evals/expectations/ccx-08-mode-and-checkpoint-integrity.md",
+      "evals/fixtures/ccx-01-replacement-architect/assignment/SESSION-900-architect.md",
+      "evals/fixtures/ccx-01-replacement-architect/outbox/README.md",
+      "evals/fixtures/ccx-01-replacement-architect/records/FIND-901.md",
+      "evals/fixtures/ccx-01-replacement-architect/records/REVIEW-900-summary.md",
+      "evals/fixtures/ccx-01-replacement-architect/records/SESSION-901-codex-worker.md",
+      "evals/fixtures/ccx-01-replacement-architect/records/SESSION-902-claude-worker.md",
+      "evals/fixtures/ccx-01-replacement-architect/records/XPKG-901-codex-candidate.md",
+      "evals/fixtures/ccx-01-replacement-architect/records/XPKG-902-claude-candidate.md",
+      "evals/fixtures/ccx-02a-codex-worker-recovery/assignment/SESSION-911-codex-worker.md",
+      "evals/fixtures/ccx-02a-codex-worker-recovery/peer/SESSION-912-claude-worker.md",
+      "evals/fixtures/ccx-02a-codex-worker-recovery/records/FIND-911.md",
+      "evals/fixtures/ccx-02a-codex-worker-recovery/shared/authoring-rules.md",
+      "evals/fixtures/ccx-02b-claude-worker-recovery/assignment/SESSION-912-claude-worker.md",
+      "evals/fixtures/ccx-02b-claude-worker-recovery/peer/SESSION-911-codex-worker.md",
+      "evals/fixtures/ccx-02b-claude-worker-recovery/records/FIND-912.md",
+      "evals/fixtures/ccx-02b-claude-worker-recovery/shared/authoring-rules.md",
+      "evals/fixtures/ccx-03-selected-revision-drift/assignment/SESSION-920-worker.md",
+      "evals/fixtures/ccx-03-selected-revision-drift/main/packaging-rule.md",
+      "evals/fixtures/ccx-03-selected-revision-drift/selected/packaging-rule.md",
+      "evals/fixtures/ccx-04a-missing-owner/authority/REPORT-AUTHORITY-930.md",
+      "evals/fixtures/ccx-04a-missing-owner/candidate/packaging.md",
+      "evals/fixtures/ccx-04a-missing-owner/outbox/README.md",
+      "evals/fixtures/ccx-04a-missing-owner/records/records-index.md",
+      "evals/fixtures/ccx-04a-missing-owner/records/task-request.md",
+      "evals/fixtures/ccx-04b-conflicting-owner/authority/REPORT-AUTHORITY-931.md",
+      "evals/fixtures/ccx-04b-conflicting-owner/candidate/packaging.md",
+      "evals/fixtures/ccx-04b-conflicting-owner/outbox/README.md",
+      "evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-931-claim.md",
+      "evals/fixtures/ccx-04b-conflicting-owner/records/SESSION-932-claim.md",
+      "evals/fixtures/ccx-04b-conflicting-owner/records/task-request.md",
+      "evals/fixtures/ccx-05a-valid-delegation/assignment/SESSION-940-worker.md",
+      "evals/fixtures/ccx-05a-valid-delegation/records/HANDOFF-940.md",
+      "evals/fixtures/ccx-05a-valid-delegation/records/task-request.md",
+      "evals/fixtures/ccx-05b-delegation-control/assignment/SESSION-941-worker.md",
+      "evals/fixtures/ccx-05b-delegation-control/records/HANDOFF-941.md",
+      "evals/fixtures/ccx-05b-delegation-control/records/task-request.md",
+      "evals/fixtures/ccx-06-inaccessible-record/assignment/SESSION-950-worker.md",
+      "evals/fixtures/ccx-06-inaccessible-record/authority/README.md",
+      "evals/fixtures/ccx-06-inaccessible-record/notes/DECISION-950.md",
+      "evals/fixtures/ccx-07-conflicting-outcomes/assignment/SESSION-960-architect.md",
+      "evals/fixtures/ccx-07-conflicting-outcomes/outbox/README.md",
+      "evals/fixtures/ccx-07-conflicting-outcomes/records/EVREPORT-960-summary.md",
+      "evals/fixtures/ccx-07-conflicting-outcomes/records/FIND-960.md",
+      "evals/fixtures/ccx-07-conflicting-outcomes/records/RUN-960-manifest.json",
+      "evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.md",
+      "evals/fixtures/ccx-08-mode-integrity/records/HANDOFF-970.receipt.json",
+      "evals/fixtures/ccx-08-mode-integrity/records/SESSION-970-worker.md",
+      "evals/fixtures/ccx-08-mode-integrity/variant-a-resume/task-request.md",
+      "evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/authority/REPORT-AUTHORITY-970.md",
+      "evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/outbox/README.md",
+      "evals/fixtures/ccx-08-mode-integrity/variant-b-transfer/task-request.md",
+      "evals/triggers/triggers.json",
+      "evals/withheld/ccx-06-DECISION-950.md",
+      "references/derivation.json"
+    ]
+  },
+  "runtime_links": [
+    {
+      "source": "SKILL.md",
+      "target": "references/source-selection.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/source-selection.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/checkpoint-transfer.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "assets/handoff-template.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/checkpoint-transfer.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/source-selection.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/checkpoint-transfer.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "assets/handoff-template.md"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "scripts/check_receipt.py"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "references/derivation.json"
+    }
+  ],
+  "template_derivation": "PASS; shared template bytes unchanged",
+  "old_author_run_full_inventory": "PASS; all 38 preserved files unchanged, no added files",
+  "handoff_current_digest_absent_from_own_bytes": true,
+  "structural_observations": [
+    {
+      "name": "creator-quick-validate",
+      "command": [
+        "python3",
+        "-B",
+        "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/selected/claude-creator/skills/skill-creator/scripts/quick_validate.py",
+        "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/candidate"
+      ],
+      "tool_sha256": "67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365",
+      "exit_status": 0,
+      "stdout": "Skill is valid!\n",
+      "stderr": "",
+      "outcome": "PASS"
+    },
+    {
+      "name": "framework-source-only",
+      "command": [
+        "python3",
+        "-B",
+        "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/companion/scripts/validate_framework.py",
+        "--framework",
+        "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-r2-20260906T023244923666Z/framework-source"
+      ],
+      "tool_sha256": "e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25",
+      "exit_status": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"skills\": 11,\n  \"scope\": \"structure only\",\n  \"behavior\": \"NOT_EVALUATED\"\n}\n",
+      "stderr": "",
+      "outcome": "PASS"
+    }
+  ],
+  "native_evaluation": "NOT_RUN",
+  "limitations": [
+    "Source chronology and native creator discovery remain author reports; no private history inspected.",
+    "Structural and reference checks do not decide native behavior or independent acceptance."
+  ]
+}

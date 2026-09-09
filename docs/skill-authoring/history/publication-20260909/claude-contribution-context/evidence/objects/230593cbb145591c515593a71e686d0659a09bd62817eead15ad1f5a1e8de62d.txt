@@ -1,0 +1,15 @@
+$ python3 -B package_checks.py project-experts/claude/devforgeai-contribution-context --authority-root /home/bryan/Projects/DevForge/framework/DevForge/.poc
+checker: revision 2, this run; sha256 10cb21ece159552395c8830aa730bd025fb675a72fc21b09496103498a4ed442
+the frozen revision-1 checker in the stage-1 run is unchanged at b12237dc...f8e4
+
+package=/home/bryan/Projects/DevForge/worktrees/claude-contribution-context/project-experts/claude/devforgeai-contribution-context
+authority_root=/home/bryan/Projects/DevForge/framework/DevForge/.poc
+check=link_resolution outcome=PASS relative_links_checked=10 broken=none
+check=derivation_bytes outcome=PASS derived_files=1 problems=none could_not_run=none
+check=eval_fixture_paths outcome=PASS file_references=61 problems=none
+check=eval_visibility outcome=PASS held_out_leaked_into_worker_visible_files=none
+check=runtime_hygiene outcome=PASS absolute_path_offenders=none caches=none
+check=runtime_export_set outcome=PASS runtime_files=6 authored_eval_files=72 eval_artifacts_in_runtime_set=none overlap=none
+overall=PASS failed=none
+scope=mechanical structure, byte identity and path containment only; not semantic acceptance
+exit=0

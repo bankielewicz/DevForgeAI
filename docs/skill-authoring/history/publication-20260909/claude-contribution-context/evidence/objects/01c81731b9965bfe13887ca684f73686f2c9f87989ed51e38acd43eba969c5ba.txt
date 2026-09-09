@@ -1,0 +1,24 @@
+Structural validation with the validator SESSION-004@2 S004-005 selects.
+
+validator path:   /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/companion/scripts/validate_framework.py
+validator sha256: e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25
+pinned expectation: e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25
+This is the reviewed corrected revision, not the live companion working copy.
+
+$ python3 -B /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/claude-contributor-context-20260906T002254636139Z/companion/scripts/validate_framework.py --framework /home/bryan/Projects/DevForge/worktrees/claude-contribution-context
+{
+  "status": "PASS",
+  "skills": 11,
+  "scope": "structure only",
+  "behavior": "NOT_EVALUATED"
+}
+exit=0
+
+ACTUAL INPUT SCOPE: the validator walks this worktree. It prunes .git, .poc and
+__pycache__, and the reviewed revision also prunes the real root private runtime
+directory, so neither this run's outputs nor the private client state are inspected.
+It covers project-experts/, so the candidate's JSON must parse, its Python must parse,
+and SKILL.md must carry an unquoted lowercase name matching its directory.
+Its eval-fixture inspection is scoped to providers/*/plugins/devforgeai/skills/*/evals/
+and does NOT cover this project-expert mapping; RCHK-03 and RCHK-04 cover that.
+This structural observation is not native behavior.

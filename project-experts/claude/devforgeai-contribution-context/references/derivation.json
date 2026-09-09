@@ -1,0 +1,50 @@
+{
+  "record_type": "package-local derivation and refresh metadata",
+  "package": "devforgeai-contribution-context",
+  "provider": "claude",
+  "recorded_at_utc": "2026-09-05T23:47:47+00:00",
+  "note": "One maintenance record for every package-local copy of a governing shared source, as required by the skill authoring contract revision 2 'Per-skill structure and distribution'. Digests prove byte identity only; they establish nothing about semantic conformance, authorization, or acceptance.",
+  "derived_files": [
+    {
+      "destination": "assets/handoff-template.md",
+      "destination_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "purpose": "Checkpoint/transfer output template used by this package at runtime, so the installed skill does not depend on the framework docs tree being present.",
+      "source": {
+        "governing_source_path": "docs/mvp/templates/shared/handoff.md",
+        "governing_source_repository": "DevForgeAI framework",
+        "selected_revision": "operator-selected POC bytes at base commit c9298bd34ebb73bf598deec6253068d7f8b0ed59 with the operator's recorded working-tree modification; selected for this authoring assignment and preserved externally",
+        "preserved_locator": "contributor-context-authoring-20260905/inputs/framework/docs/mvp/templates/shared/handoff.md",
+        "source_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+        "copied_from": "preserved_locator",
+        "worktree_copy_path": "docs/mvp/templates/shared/handoff.md",
+        "worktree_copy_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+        "worktree_copy_agrees_with_preserved": true,
+        "preserved_store": "authority",
+        "preserved_store_root_note": "The absolute root of the authority store is an operator-held value recorded in the authoring records for this candidate, deliberately not embedded here: a runtime resource must not hard-code a developer's home directory."
+      },
+      "transformation": "none; byte-identical copy",
+      "governing_meaning_preserved": true,
+      "refresh_triggers": [
+        "The governing shared handoff template changes and its owner selects that revision for this package.",
+        "The shared artifact contract changes the handoff envelope, the required inputs/outputs table, or the rule that an artifact never contains its own complete-byte digest.",
+        "The contributor-context specification changes the facts a checkpoint handoff must make recoverable.",
+        "An observed recovery or delivery failure in a recorded evaluation traces to this template copy."
+      ],
+      "refresh_rule": "Refresh only from the governing source at a revision its owner selected. Preserve governing meaning; a package-local copy may not amend the shared template. Refreshed bytes give this package a new identity and invalidate the affected prior evaluation.",
+      "collision_rule": "If this copy no longer matches its recorded destination_sha256, it was modified locally. Treat that as a collision: preserve the modified bytes, report the discrepancy to the package owner, and do not silently overwrite it during a refresh."
+    }
+  ],
+  "not_derived": {
+    "SKILL.md": "authored for this package",
+    "references/source-selection.md": "authored for this package",
+    "references/checkpoint-transfer.md": "authored for this package",
+    "references/derivation.json": "this record",
+    "scripts/check_receipt.py": "authored for this package",
+    "evals/**": "authored evaluation inputs; excluded from runtime distribution"
+  },
+  "limits": {
+    "behavioral_status": "NOT_EVALUATED",
+    "installation_claimed": false,
+    "note": "Recording a derivation is provenance, not evidence of expert behavior."
+  }
+}
