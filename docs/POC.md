@@ -6,6 +6,12 @@ It also provides a brainstorming workflow and a minimal development/review hando
 
 The example expert skills were authored during this POC implementation using the stated synthetic project contracts and official Python references. The scripted demo copies those authored artifacts; it does not call a terminal model to generate or evaluate them. Use the expert creator in an interactive subscribed session to exercise that separate behavior.
 
+## Development language and legacy status
+
+The [development language policy](development-language-policy.md) requires compiled Rust in the DevForge CLI for framework phases, gates, validators, mutation brokers and acceptance decisions. Skill evaluation must include a Python JSONL runner and deterministic graders as build artifacts. They produce raw outputs and metrics; Rust validates that evidence and controls acceptance. Other framework implementation, including tooling, installers, hooks and executable examples, must use Rust. Declarative documents and configuration remain allowed.
+
+The Python fixture applications and existing Python framework logic described here are legacy/noncompliant and must be ported into Rust; framework logic belongs in the DevForge CLI. Preserve their source, tests and historical evidence. Running unchanged existing checks and tools remains allowed within the assigned scope while migration is outstanding. This documentation task does not perform that migration, weaken acceptance gates, or establish automatic CI/runtime enforcement. The evaluated agent must not be able to modify the trusted Rust binary, source/revision or build inputs; compilation alone does not provide that protection.
+
 ## Repository boundary
 
 | Repository | Owns |

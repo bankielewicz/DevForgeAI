@@ -8,9 +8,13 @@ Intended repository: https://github.com/bankielewicz/DevForgeAI
 
 This directory is a new local POC, not a clone or an overwrite of the existing remote repository. The companion [DevForge](../DevForge/README.md) directory owns the Rust CLI, policy, fixed runner, installation tooling, and GitHub workflows.
 
+## Development language
+
+[The development language policy](docs/development-language-policy.md) requires compiled Rust in the DevForge CLI for framework phases, gates, validators, mutation brokers and acceptance decisions. The skill-evaluation Python JSONL runner and deterministic graders are mandatory build artifacts that produce raw outputs and metrics; Rust validates the evidence and owns acceptance. Other framework implementation must use Rust. Existing Python framework logic and example applications are legacy/noncompliant and require migration to Rust. The policy preserves current evidence and does not claim completed migration or automatic enforcement.
+
 ## Start here
 
-From the sibling DevForge directory:
+The following commands run unchanged existing POC tools, which remains allowed within the assigned scope during migration. Their use does not authorize new Python framework logic or shell implementation. From the sibling DevForge directory:
 
 ```bash
 cargo build --locked
