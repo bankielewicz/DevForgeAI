@@ -1,0 +1,59 @@
+# Companion validator correction: integration review
+
+Reviewed 2026-09-05. Disposition: PASS for this bounded patch review; no material code or regression-evidence findings. The correction resolves the diagnosed traversal problem for the verified revision. The patch remains uncommitted and unpublished. Historical check-05 remains FAIL; native evaluation and independent skill-behavior acceptance remain NOT_RUN.
+
+## VR-001 You are here
+
+| Item | Outcome and scope |
+| --- | --- |
+| Two-file patch and traversal review | PASS; exact patch and current source identities verified |
+| Operator reproduction in isolated review worktree | PASS; all nine focused tests and both preserved-source/synthetic-runtime structural checks |
+| Maintenance session's required checks | PASS in verified raw records: formatting, clippy, build and 47 Python tests; broader checks were not rerun by this reviewer |
+| Original author full-worktree check-05 | FAIL retained unchanged; no historical result replaced |
+| Native C/B/A, independent skill-behavior acceptance and publication | NOT_RUN |
+
+Root integration owns continuation. The Codex contributor-context candidate stays frozen under SESSION-003@1. This local tooling result can support later evaluation preparation when its exact validator revision is selected; it is not a native launch allocation. The separate Claude contributor-context handback still requires its own review before a combined provider evaluation claim.
+
+## VR-002 Exact patch and custody
+
+Base: `6983f1de3e06f9b422546fd6944888dcd34e56a1` in `/home/bryan/Projects/DevForge/framework/DevForge`.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| [Maintenance HANDOFF.md](maintenance/HANDOFF.md) | 0c7e804436db4c75bbd2a5802f0d9b4b11fa0d8b867676107ff56ba8c8cb33bf |
+| [Two-file patch](maintenance/validator-runtime.patch) | 5dcbf0720cb83dff2390a1285aa0e93cbe4ce63104b2d30438b5ba138e60cefc |
+| [Validator before](maintenance/snapshots/validator-before.py) | 5ef17e17d78535b520a0a1e6d8166b7fbb92bb44b7a8804dfb1131b8dce392a2 |
+| [Validator after](maintenance/snapshots/validator-after.py) | e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25 |
+| [Final test file](maintenance/snapshots/test_validation.py) | b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1 |
+| [Prior integration review](prior-review/INTEGRATION-REVIEW.md) | 5fb47ea9dbe416e6393ccf09b7f2c5445f497608f2b10d6692d29961a63d8b87 |
+| [Historical check-05](prior-review/run/check-05.json) | 6daeca2095eb6aa8e56701f95d299022c7bf737b3dd962bf9abea2ad2db0cebb |
+
+The supplied handoff hash matches. All 642 maintenance receipt entries were verified, including the synthetic symlink's target text without dereferencing it. The bundle inventory is complete apart from its explicitly self-excluded receipt. All 944 files in the original contributor-context review archive matched their preserved inventory. All 59 tracked companion files outside the two-file patch were unchanged. The current full diff matches the frozen patch byte for byte, with no index changes or other visible source changes. See [INPUT-CHECKS.json](INPUT-CHECKS.json), [CUSTODY.json](CUSTODY.json) and [EVIDENCE-REFERENCE-CHECKS.json](EVIDENCE-REFERENCE-CHECKS.json).
+
+## VR-003 Code and regression assessment
+
+The revised source_files routine, lines 15-29, enumerates directories explicitly. It rejects a symlink before considering the root-relative runtime exemption. Only an actual directory whose relative path equals `.devforge-runtime` is omitted from the pending traversal. Nested source directories with the same name remain traversed. The original any-depth `.git`, `.poc` and `__pycache__` exclusion scope is retained; the content and required-structure checks remain unchanged.
+
+The tests cover actual filesystem non-enumeration through os.scandir/os.listdir instrumentation, while requiring an ordinary authored nested directory to be visited. They also cover root runtime symlinks to a directory, a file and a missing target; authored symlinks and malformed JSON beneath ordinary and nested runtime-named source directories; existing exclusions; and required framework structure. The optimized-Python regression remains unchanged.
+
+The same final test-file hash is recorded for both historical regression attempts. The old validator failed exactly the runtime enumeration guard: nine tests, one failure. The revised validator passed all nine. The raw broader-suite record supports 47 passing tests; each recorded Cargo check has the stated command and exit 0. Two bounded static reviewers found no material semantic or evidence issue; neither launched additional test or native campaigns.
+
+## VR-004 Operator verification and working state
+
+The maintenance implementation was made directly on main, rather than in the separately isolated worktree advised earlier. Its assignment and handoff explicitly disclose that state. This is a workflow difference, separate from the patch's correctness. The original two modified files were left untouched during review.
+
+The operator created a detached review worktree at:
+
+`/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z`
+
+It starts at the exact base above. The frozen patch passed git apply --check, applied cleanly and reconstructed both expected file hashes. No branch, commit or publication was created. This new review isolation does not retroactively establish isolation for the maintenance implementation. See [WORKTREE-SETUP.json](WORKTREE-SETUP.json).
+
+In that review worktree, the operator reran the nine focused tests and the revised validator against both unchanged copies of the 303-file source and source-plus-synthetic-runtime inputs. All passed; both structural commands reported 26 SKILL.md files, including synthetic fixture snapshots, with behavior NOT_EVALUATED. These are newly recorded structural results, not an original full-worktree rerun. See [OPERATOR-CHECKS.json](OPERATOR-CHECKS.json), [focused-regression.json](focused-regression.json), [preserved-source.json](preserved-source.json) and [synthetic-runtime.json](synthetic-runtime.json).
+
+Closeout verified all 647 copied input entries and their original sources unchanged, both main and review worktree matching the frozen patch, both indexes unchanged/empty, and the selected CLI executable unchanged. No live provider state was inspected and no candidate or author-control file was changed. The main worktree still contains its original two uncommitted modifications; the detached worktree contains the verified review copy. See [CLOSEOUT-CHECKS.json](CLOSEOUT-CHECKS.json).
+
+## VR-005 Continuation
+
+The next integration task is to prepare the contributor-context native evaluation after the relevant provider packages are reviewed. Select this corrected validator by its exact hash, retain the old failed observation, and freeze the candidate/runtime/core-context selection, independent criteria, grader negatives, visibility and client-state boundaries, per-arm counts, timeout, concurrency, deadline and retry policy. A declared Codex-only subset must not claim Claude support. Neither a local patch review nor the 47-test suite establishes native skill recovery, activation or improvement over a baseline.
+
+Any later shared-source integration or publication must use the exact reviewed patch or obtain a new review for changed bytes. No commit, push, merge, native run, cleanup of the original main changes or author-ownership release is performed by this review.

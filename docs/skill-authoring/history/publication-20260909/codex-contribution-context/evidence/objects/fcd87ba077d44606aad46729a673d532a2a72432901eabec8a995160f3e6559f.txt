@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-09-05T23:43:30.031500+00:00",
+  "outcome": "PASS",
+  "handoff_sha256": "0c7e804436db4c75bbd2a5802f0d9b4b11fa0d8b867676107ff56ba8c8cb33bf",
+  "maintenance_receipt_entries_verified": 642,
+  "prior_review_files_unchanged": 944,
+  "unmodified_tracked_companion_files": 59,
+  "companion_base": "6983f1de3e06f9b422546fd6944888dcd34e56a1",
+  "companion_branch": "main",
+  "git_status": " M scripts/validate_framework.py\n M tests/test_validation.py\n",
+  "index_changed": false,
+  "revised_source_sha256": {
+    "scripts/validate_framework.py": "e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25",
+    "tests/test_validation.py": "b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1"
+  },
+  "current_patch_matches_frozen_patch": true,
+  "worktree_isolation_observation": "Implementation was made in main, rather than the earlier advised separate maintenance worktree. Original files are left untouched during review.",
+  "native_evaluation": "NOT_RUN",
+  "publication": "NOT_RUN",
+  "live_private_state_accessed": false
+}

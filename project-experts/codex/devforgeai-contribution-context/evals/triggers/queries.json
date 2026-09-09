@@ -1,0 +1,83 @@
+[
+  {
+    "author_provided": true,
+    "id": "explicit-orient",
+    "kind": "explicit",
+    "observed": "NOT_RUN",
+    "query": "Use $devforgeai-contribution-context to recover my assigned contribution.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "author_provided": true,
+    "id": "explicit-checkpoint",
+    "kind": "explicit",
+    "observed": "NOT_RUN",
+    "query": "Use $devforgeai-contribution-context to prepare my transfer handoff.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "author_provided": true,
+    "id": "natural-resume",
+    "kind": "natural",
+    "observed": "NOT_RUN",
+    "query": "Resume my assigned DevForgeAI contribution from the selected records.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "author_provided": true,
+    "id": "natural-replacement",
+    "kind": "natural",
+    "observed": "NOT_RUN",
+    "query": "I am the replacement contributor. Recover my assignment and what I may do next.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "author_provided": true,
+    "id": "natural-handoff",
+    "kind": "natural",
+    "observed": "NOT_RUN",
+    "query": "Checkpoint this DevForgeAI contribution for its next owner.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "author_provided": true,
+    "id": "negative-code",
+    "kind": "near-miss",
+    "observed": "NOT_RUN",
+    "query": "Explain this Python dictionary comprehension.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "author_provided": true,
+    "id": "negative-complete",
+    "kind": "near-miss",
+    "observed": "NOT_RUN",
+    "query": "Implement the specified typo fix; the assignment, exact inputs and permitted file are already loaded and unchanged.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "author_provided": true,
+    "id": "negative-brainstorm",
+    "kind": "negative",
+    "observed": "NOT_RUN",
+    "query": "Brainstorm features for a recipe application.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "author_provided": true,
+    "id": "negative-acceptance",
+    "kind": "near-miss",
+    "observed": "NOT_RUN",
+    "query": "Independently determine whether this implementation meets its specification.",
+    "should_trigger": false,
+    "split": "validation"
+  }
+]

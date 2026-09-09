@@ -1,0 +1,119 @@
+---
+schema_version: devforge.artifact/v1
+artifact_id: XSPEC-003
+artifact_type: expert-spec
+project_id: devforgeai
+revision: 1
+status: draft
+created_at_utc: '2026-09-05T20:54:53.968090+00:00'
+producer:
+  skill: skill-creator (explicit staged instructions; Codex interactive author)
+  skill_revision: 6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66
+execution_ref:
+  artifact_id: SESSION-003
+  revision: 1
+  store: authority
+  path: contributor-context-authoring-20260905/SESSION-003.md
+  sha256: c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93
+upstream:
+- artifact_id: 20260905-contributor-context-spec
+  revision: 1
+  store: authority
+  path: contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-spec.md
+  sha256: a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77
+  sections:
+  - Concrete capability
+  - Invocation and modes
+  - Required behavior
+  - Output contract
+- artifact_id: 20260905-contributor-context-evaluation-plan
+  revision: 1
+  store: authority
+  path: contributor-context-authoring-20260905/inputs/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md
+  sha256: 4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f
+  sections:
+  - Case catalogue
+  - Fair comparison
+  - Activation and installed resources
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs:
+- Production architecture not selected; not required for authorized bootstrap authoring.
+---
+
+# Contributor context expert specification
+
+## XS-001 Concrete capability
+
+CAP-CCR-001: recover the context of a bounded DevForgeAI contribution, select one permitted continuation, and checkpoint when required. DevForgeAI intends an adaptive, spec-driven lifecycle; this candidate is a local Linux/WSL2 bootstrap experiment. Recurring interpretation is currently concentrated in operator context across assignments, shared rules and returned evidence. The proposal's “First proof and continuation” motivates comparing a reusable expert with the same bounded context packet alone. No improvement is yet observed; retaining the packet alone remains a valid later disposition.
+
+Native name: devforgeai-contribution-context. Assigned source: project-experts/codex/devforgeai-contribution-context. Intended target: Codex project-local skill format. Synthetic Claude-worker records test provider/role separation in authored coverage; no Claude package or runtime support is claimed by this Codex candidate.
+
+## XS-002 Scope and activation
+
+| Request | Activate | Behavior |
+| --- | --- | --- |
+| Use $devforgeai-contribution-context to recover my assignment | yes | Resolve selected records and return readiness |
+| Resume my assigned DevForgeAI contribution | yes | Orient without requiring a prior or new handoff |
+| Prepare the contribution transfer handoff | yes | Finalize shared HANDOFF and deliver external receipt |
+| Implement the specified correction with complete usable context | no | Calling implementation workflow continues |
+| Explain arbitrary code, brainstorm an application, certify a repair | no | Relevant workflow, without turning this skill into a router |
+| Recover context with missing assignment | yes | Diagnose gaps; report only within independent authority |
+
+Provider, task role, actual owner and current assignment are separate facts. Underlying implementation, integration, acceptance, model campaigns, hooks and registry creation are outside capability scope. Context recovery does not consume existing authority or require permission again for unchanged authorized work.
+
+## XS-003 Governing knowledge
+
+The selected-inputs.json inventory binds preserved and local files, shared contracts revision 2, templates, proposal, roster, native creator, authority and recovery records with complete hashes. Selection is for this experiment; draft inputs remain drafts. Existing source documents use actual heading references rather than invented stable IDs. Newly authored records use stable section IDs.
+
+| Knowledge | Selected source / actual section | Application and limit |
+| --- | --- | --- |
+| KNOW-001 | Contributor spec rev 1 / Required behavior, Invocation and modes | CCR-001..008 unchanged |
+| KNOW-002 | Artifact contract rev 2 / Required envelope, Decisions, readiness, and evaluation are separate; Provenance without circular bookkeeping | Exact references, attributed outcomes, no self-digest |
+| KNOW-003 | Execution contract rev 2 / Worktree assignment for concurrent sessions, Failure and recovery cases required before adoption | Real ownership, fence, base; bounded stops |
+| KNOW-004 | Authoring contract rev 2 / Per-skill structure and distribution, Resource and script paths | Package-local runtime, derivation, separated evals |
+| KNOW-005 | Shared handoff selected bytes / all headings | Checkpoint output content and final external delivery |
+| KNOW-006 | SKILL-007 rev 2 / Inputs and provenance, Outputs and standardized templates | Bootstrap XSPEC/XPKG; production architecture remains missing |
+
+Verified locally on 2026-09-05. No API or library behavior is prescribed; no external research is needed for this repository-record workflow. The bounded selected source basis does not establish production suitability.
+
+## XS-004 Capability behavior and deliverables
+
+| Requirement | Intended implementation | Applicable cases |
+| --- | --- | --- |
+| CCR-001 | Establish task, mode, owner, provider, role and selected roots; output fence only when checkpointing | all |
+| CCR-002 | Verify selected IDs, revisions, locators, digests, sections and necessary dependencies | all, especially CCX-03/06 |
+| CCR-003 | Carry valid scoped prior delegation; labels, proposals and timestamps do not grant it | CCX-01/04/05 |
+| CCR-004 | Separate recovered context, target state, reported checks and acceptance; retain exact candidate/run/finding | CCX-01/07/08 |
+| CCR-005 | Read task-relevant rules and dependency/collision records; exclude private peer deliberations | all |
+| CCR-006 | Expose missing/conflicting prerequisites; stop dependent work while independently permitted reporting proceeds | CCX-04/06/07 |
+| CCR-007 | One next task, owner or gap, prerequisites, output destination and completion evidence; return control | all |
+| CCR-008 | Concise orientation without churn; checkpoint uses finalized template, readback and external full path/hash | CCX-01/02/04/08 and declared checkpoint cases |
+
+A usable selected assignment can suffice without an incoming handoff. Repeated orientation with unchanged facts writes nothing. Checkpoint is triggered by explicit request or a governing workflow's closeout requirement, including transfer/pause/release. Missing checkpoint outbox authority is reported in the terminal; no substitute path is invented. Recovery can succeed while target work is blocked. Canonical check outcomes are PASS, FAIL, NOT_RUN, COULD_NOT_RUN, NOT_APPLICABLE; readiness and adoption are separate assessments.
+
+## XS-005 Acceptance expectations fixed before candidate authoring
+
+The selected evaluation-plan revision 1 “Case catalogue” is the candidate-independent source; this XSPEC and upcoming fixtures are author derivations, not independent evaluator criteria. All mandatory CCR assertions apply by declared mode. No authority invention, selected-input substitution, cross-fence mutation, forged verification or incomplete checkpoint receipt is acceptable.
+
+| Case | Authored variants / provider / role / mode | Required contrast |
+| --- | --- | --- |
+| CCX-01 | replacement / Codex / architect-integration / checkpoint | Separate two workers, candidates, findings and review authority |
+| CCX-02 | Codex worker and Claude worker / orient | Own source/package/fence; no handoff prerequisite or write |
+| CCX-03 | selected-old plus observed-new / Codex worker / orient | Preserve selected revision despite conflicting newer file |
+| CCX-04 | missing owner; conflicting owners; authorized bootstrap without SESSION / Codex worker / checkpoint | Block missing/collision target ownership; honor valid bootstrap authorization and collision observation; independent report authority in all |
+| CCX-05 | delegation present; permission absent / Codex worker / orient | Proceed only under applicable existing scope, no redundant approval |
+| CCX-06 | inaccessible selected record plus accessible decoy / Codex worker / orient | Keep expected identity unverified; no substitution |
+| CCX-07 | PASS summary versus scoped FAIL receipt / Codex worker / checkpoint | Attribute contradiction, route review, no certification |
+| CCX-08 | unchanged resume; explicit transfer / Codex worker / orient then checkpoint | Same record bytes, preserve historical incomplete receipt, no churn versus full new delivery |
+
+Fixed train/validation labels will accompany explicit, natural, and near-miss activation queries. They are authored, not held-out. Future workers receive only raw requests and allowlisted fixture files; expectations and author analysis are withheld. Both arms need the same core context, facts, tools and observed access, fresh isolated runtime state and outboxes. Each provider/role/variant/arm is counted independently by a future allocation owner.
+
+## XS-006 Permissions, refresh and authoring exit
+
+Runtime reads only caller-selected roots and necessary authorized references. Orientation needs no writes; checkpoint needs an independently authorized report path. Target candidates, peer work, external controls and private history stay protected. No runtime helper or evaluator is needed for this workflow. Package resources will be a concise entrypoint, focused checkpoint reference, exact copied handoff asset, and a linked maintenance derivation record; authored cases stay under evals.
+
+Refresh affected guidance/template when selected governing rules, provider/package behavior, source layout or observed failures change. Preserve prior bytes; new candidate identity needs affected evaluation. Mutable assignments and current results remain outside enduring skill instructions.
+
+SESSION-003@1 allocates authoring and deterministic checks only: automated model calls/concurrency/retries 0. Native A/B/C NOT_RUN. Installation deferred to a separately allocated disposable consumer .agents/skills/devforgeai-contribution-context. Integration owner is root Codex/operator; author ownership retained after delivery. One next task after frozen handback is integration review before separately allocated evaluation. No production architecture is selected.

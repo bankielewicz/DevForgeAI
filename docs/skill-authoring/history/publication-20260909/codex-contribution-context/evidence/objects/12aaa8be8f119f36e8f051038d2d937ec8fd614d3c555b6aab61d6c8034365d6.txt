@@ -1,0 +1,95 @@
+{
+  "assignment": "authority/assignment.json",
+  "fixture_only": true,
+  "identity": "integrator",
+  "permitted_recovery": "read selected records; return context; no target mutation by recovery skill",
+  "project": "fixture-devforgeai",
+  "provider": "codex",
+  "references": [
+    {
+      "path": "authority/assignment.json",
+      "sections": [],
+      "sha256": "7da649d14186c88eb42437e35cb31285bb1f378b99db0d96fff82247b98a8d09"
+    },
+    {
+      "path": "authority/decision.json",
+      "sections": [],
+      "sha256": "c5997c3484fe3b37a79f9c81d82d05e30a552e316cce839b96ec59b4dccdef2c"
+    },
+    {
+      "path": "authority/worker-claude.json",
+      "sections": [],
+      "sha256": "5960fdb8b83c5e800e837451fbd17f1e21096eb390ccd1392abbb07838bfa9da"
+    },
+    {
+      "path": "authority/worker-codex.json",
+      "sections": [],
+      "sha256": "ef6b1e0b70ce2879a7cc2f53eef7b9d30e04322cf770e15f5472533c4bb64f46"
+    },
+    {
+      "path": "observations/worktree.json",
+      "sections": [],
+      "sha256": "e0ef0c19f3260f78f7a42bbd3c22fcbbb32d522782073fd2222c7a9b4e2a8847"
+    },
+    {
+      "path": "records/claude-package.json",
+      "sections": [],
+      "sha256": "8e3af77c474d0312da720b755f9366734f95820c7f4f19d1fd0e4136de8958d3"
+    },
+    {
+      "path": "records/claude-report.json",
+      "sections": [],
+      "sha256": "993dd97f919994fdc7f5ec9e3dcced5a7401ddd9e6b96b539f89bffb78cd31a4"
+    },
+    {
+      "path": "records/codex-package.json",
+      "sections": [],
+      "sha256": "d38cae8755838f4e11967169f839d16f79453f420709b1fd9d9e746d6a99f9f6"
+    },
+    {
+      "path": "records/codex-report.json",
+      "sections": [],
+      "sha256": "c094c83dc0b599aaa9735b4ec21e4d8e2df347f18ccf9d90d14ba5c35b9b7483"
+    },
+    {
+      "path": "records/integration-finding.json",
+      "sections": [],
+      "sha256": "60b2e2f7712d578a12acdd2e3bcd54fb0a76bf387819c74b29e44c47d92baa7e"
+    },
+    {
+      "path": "selected/rules.md",
+      "sections": [
+        "RULE-1",
+        "RULE-2"
+      ],
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+    },
+    {
+      "path": "target-claude/SKILL.md",
+      "sections": [],
+      "sha256": "c15c1f8e2354ddfba573307dd77f826f3aaf5e177489fe0a0ade4f98dcae1657"
+    },
+    {
+      "path": "target-codex/SKILL.md",
+      "sections": [],
+      "sha256": "3f475538c0c3a56b6fa2bb15a38ff0ca68c1fd42590208e1509ff90cf73f5263"
+    }
+  ],
+  "report_authority": {
+    "output": "outbox/HANDOFF-next.md",
+    "owner": "integrator",
+    "release_ownership": false,
+    "source": "synthetic evaluator report-only allocation, independent of inner assignment",
+    "write_fence": "outbox/**"
+  },
+  "role": "architect-integration",
+  "selected_roots": [
+    "authority",
+    "selected",
+    "records",
+    "observations",
+    "target",
+    "target-codex",
+    "target-claude"
+  ]
+}

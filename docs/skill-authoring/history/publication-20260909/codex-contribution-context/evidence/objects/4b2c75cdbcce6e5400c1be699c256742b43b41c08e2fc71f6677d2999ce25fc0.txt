@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+    "--framework",
+    "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context"
+  ],
+  "cwd": "/home/bryan/Projects/DevForge/worktrees/codex-contribution-context",
+  "exit_status": 2,
+  "stdout": "",
+  "stderr": "BLOCKED: project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/project-experts/codex/fixture-capability/SKILL.md\n",
+  "outcome": "FAIL",
+  "created_at_utc": "2026-09-05T21:06:12.365575+00:00"
+}

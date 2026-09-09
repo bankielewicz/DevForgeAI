@@ -1,0 +1,113 @@
+"""Freeze authoring inventories and handback records; exclusive output creation."""
+from pathlib import Path
+import json,hashlib,datetime,yaml
+R=Path(__file__).resolve().parent;W=R.parents[4];S=W/'project-experts/codex/devforgeai-contribution-context';C=Path('/home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905')
+H=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def save(p,text):
+ with p.open('x') as f:f.write(text)
+def dump(p,x):save(p,json.dumps(x,indent=2,sort_keys=True)+'\n')
+selected=json.loads((R/'selected-inputs.json').read_text())
+for p,d in selected['files_sha256'].items():assert H(Path(p))==d,p
+files={str(p.relative_to(S)):H(p) for p in sorted(S.rglob('*')) if p.is_file()}
+runtime={p:d for p,d in files.items() if not p.startswith('evals/')};ev={p:d for p,d in files.items() if p.startswith('evals/')}
+categories={p:('authored-evaluation' if p.startswith('evals/') else 'runtime-template' if p.startswith('assets/') else 'runtime-maintenance-derivation' if p.endswith('derivation.json') else 'runtime-instructions') for p in files}
+for name,data in [('source-manifest.json',{'source_root':str(S),'files_sha256':files,'categories':categories,'exclusions':['Python caches (none present)','run outputs and private client state outside candidate']}),('runtime-manifest.json',{'source_root':str(S),'provider':'codex','intended_mode':'project-local','intended_destination':'.agents/skills/devforgeai-contribution-context','installation':'NOT_RUN','files_sha256':runtime,'exclusions':['evals/**','run outputs','private client state','provenance sidecars outside candidate'],'linked_derivation_included':True}),('eval-manifest.json',{'source_root':str(S),'files_sha256':ev,'worker_visibility':'evals/evals.json files allowlists; evals/visibility.md','author_provided':True,'native_evaluation':'NOT_RUN'})]:dump(R/name,data)
+for tier in ['A','B','C']:
+ dump(R/('native-'+tier+'-manifest.json'),{'schema_version':'devforge.skill-run/v1','run_id':R.name+'-native-'+tier,'tier':tier,'provider':'codex','client_version':None,'model_configuration':None,'installation_mode':'project-local (intended; not performed)','source_files_sha256':files,'installed_files_sha256':{},'baseline':{'kind':'without_skill','files_sha256':{},'observation':'candidate absent at start; no baseline executed'},'specification_files_sha256':{str(C/'inputs/framework/docs/coordination/20260905-contributor-context-spec.md'):selected['files_sha256'][str(C/'inputs/framework/docs/coordination/20260905-contributor-context-spec.md')],str(R/'XSPEC-003-r2.md'):H(R/'XSPEC-003-r2.md')},'case_files_sha256':{p:d for p,d in ev.items() if not p.startswith('evals/fixtures/')},'fixture_files_sha256':{p:d for p,d in ev.items() if p.startswith('evals/fixtures/')},'execution_ref':{'artifact_id':'SESSION-003','revision':1,'path':str(C/'SESSION-003.md'),'sha256':H(C/'SESSION-003.md')},'context_isolation':'No native evaluation attempted. Resumed author context is not independent evaluation; runtime recovery record concerns author tool startup only.','sibling_availability':{},'output_directory':str(R),'transcript':None,'outcome':'NOT_RUN','cause':'Stage-1 allocation: automated model calls 0, concurrency 0, retries 0. Separate evaluator allocation required.','metrics':{'total_tokens':None,'duration_ms':None},'grading_evidence':[]})
+# Relevant pre-run tool observations, distinct from later captured deterministic command records.
+dump(R/'preflight-command-observations.json',{'scope':'Relevant stdout/exit observations from interactive prewrite commands; author scripts and subsequent check commands are preserved separately. This is a reconstruction of tool observations, not a copied private transcript.','observations':[{'command':'pwd; sha256sum RECOVERY.md CODEX-START.md; cat RECOVERY.md CODEX-START.md (absolute selected paths)','exit_status':0,'outcome':'PASS','stdout_relevant':['387e7ff22f39fffda9a9f4457b5c06cd03633b808deb5c426005dded0826c77b RECOVERY.md','0a64ef392ffed122a33a213923a6f2fb54c0a451aed303df69f7d8fe6e0884af CODEX-START.md','Assignment successfully read in actual resumed author session']},{'command':'git status --short; git branch --show-current; git rev-parse HEAD','exit_status':0,'stdout_relevant':[selected['initial_git_status'],selected['branch'],selected['base']]},{'command':'Python SHA-256 assertions over SESSION, INPUTS, preserved/local selected framework and staged Codex creator; candidate existence check','exit_status':0,'outcome':'PASS','stdout_relevant':'PASS: selected bytes match; candidate absent'},{'command':'Python baseline assertions and exclusive authoring-run creation','exit_status':0,'outcome':'PASS','stdout_relevant':str(R)},{'command':'cat selected spec/evaluation plan/shared contracts/templates/native creator; rg source headings and instruction-file paths','exit_status':2,'outcome':'NOT_APPLICABLE','cause':'Combined discovery command returned 2 for absent pre-candidate project-experts directory; preceding cat reads completed. Large read output was split into narrower subsequent reads. This is not a package failure.'},{'command':'Python XSPEC authoring then explicit corrected revision before candidate creation','exit_status':0,'outcome':'PASS','stdout_relevant':'XSPEC-003@1 preserved; XSPEC-003@2 corrected Required envelope to actual Standard envelope source heading before candidate creation.'},{'command':'python3 author-fixtures.py (initial authoring) and pre-freeze fixture review edits','exit_status':0,'outcome':'PASS','stdout_relevant':'Created exact handoff asset, derivation, 13 variants and 9 fixed-split queries; no models run.'}]})
+checks=[json.loads(p.read_text()) for p in sorted(R.glob('check-*.json'))]
+dump(R/'checks-summary.json',{'checks':[{'record':str(p),'sha256':H(p),'outcome':json.loads(p.read_text())['outcome']} for p in sorted(R.glob('check-*.json'))],'current_package_checks':'PASS','whole_framework_structure':'FAIL','whole_framework_cause':'Required validator traverses active .devforge-runtime and rejects runtime symlink; check-05 preserves actual stderr. Owner: companion validator/runtime integration owner. No source/policy/runtime modification or filtered pass substituted.','historical_failure':'check-02 failed malformed synthetic SKILL snapshots; old candidate retained in failed-structure-source and failed-structure-source-manifest.json; corrected before freeze.','initial_author_startup':'COULD_NOT_RUN; missing /tmp/codex-code-mode-host, twice before verification','recovered_author_read':'PASS','native_A':'NOT_RUN','native_B':'NOT_RUN','native_C':'NOT_RUN','production_suitability':'NOT_EVALUATED','self_review':'Author static review only, not independent acceptance.'})
+def ref(p,id,revision,sections):return {'artifact_id':id,'revision':revision,'store':'project' if p.is_relative_to(W) else 'authority','path':str(p),'sha256':H(p),'sections':sections}
+def envelope(id,type,upstream):
+ return '---\n'+yaml.safe_dump({'schema_version':'devforge.artifact/v1','artifact_id':id,'artifact_type':type,'project_id':'devforgeai','revision':1,'status':'draft','created_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'producer':{'skill':'skill-creator (explicit staged instructions; Codex interactive author)','skill_revision':H(W/'.agents/skills/skill-creator/SKILL.md')},'execution_ref':ref(C/'SESSION-003.md','SESSION-003',1,['Ownership and task','Repository and write fence','Stage and closeout']),'upstream':upstream,'evidence':[],'supersedes':None,'decision_ref':None,'missing_inputs':['Production architecture not selected; independent/native evaluation unallocated.']},sort_keys=False)+'---\n\n'
+pkg=envelope('XPKG-003','expert-package',[ref(R/'XSPEC-003-r2.md','XSPEC-003',2,['XS-001','XS-004','XS-005','XS-006'])])+'# Contributor context candidate package\n\n'
+pkg+='''## XP-001 Candidate identity
+
+Native skill: devforgeai-contribution-context. Expert specification: XSPEC-003@2 (source-heading correction only; revision 1 preserved). This is a native-creator bootstrap, not an invocation of the draft framework expert creator. Candidate revision 1 is frozen by the source manifest below. Behavioral status: NOT_EVALUATED. Structural binding through DevForge expert prepare/bind: NOT_RUN; no policy/ARCH selected for that workflow.
+
+'''
+pkg+='Source directory: '+str(S)+'\n\n'
+pkg+='| Inventory | Absolute path | SHA-256 |\n| --- | --- | --- |\n'
+for n in ['source-manifest.json','runtime-manifest.json','eval-manifest.json','selected-inputs.json']:pkg+=f'| {n} | {R/n} | {H(R/n)} |\n'
+pkg+='\n## XP-002 Package files\n\nThe complete source and eval file tables are the bound manifests; every source file has an explicit category. Runtime files are:\n\n| Relative path | SHA-256 | Purpose | Governing source |\n| --- | --- | --- | --- |\n'
+for p,d in runtime.items():pkg+=f'| {p} | {d} | {categories[p]} | CCR-001..008; selected template/contracts in derivation metadata |\n'
+pkg+='''
+## XP-003 Intended runtime targets
+
+Codex native SKILL.md format; project-local destination in a later disposable consumer: .agents/skills/devforgeai-contribution-context/. Distribute precisely runtime-manifest.json bytes, including the linked derivation record; omit evals and all author/run/private state. No installation or export occurred. This experimental mapping is not supported by a claimed general installer. No metadata/subagent or runtime helper is required. Normal automatic selection is left enabled; actual discovery is NOT_RUN.
+
+## XP-004 Candidate limits
+
+The scope is orient/resume and checkpoint/transfer for DevForgeAI contributions under selected authority, not underlying repair, integration or acceptance. Linux/WSL2 local POC only. Production architecture is missing; production suitability NOT_EVALUATED. No prior package superseded: initial source was absent. Historical pre-freeze malformed fixture source is retained with its failed check, not represented as an accepted prior package. Handoff relationship: HANDOFF-003@1 (not a causal upstream or self-hash).
+
+Native C/B/A are NOT_RUN and separate native manifests record zero allocated calls. No installed-native-resource execution, comparison, activation measurement, independent reviewer acceptance or cross-provider support is claimed. The mandatory whole-framework command remains FAIL because it traverses a private-runtime symlink; the integration owner must resolve that validator/runtime scope interaction. Candidate-local mechanical checks pass. No shared contract, peer work, companion tool, creator copy or Git state was changed.
+
+## XP-005 Authoring and evaluation inputs
+
+Thirteen synthetic variants preserve CCX-01..08 provider/role/mode contrasts, including both workers, three ownership variants, delegation pair and mode pair. Nine fixed train/validation trigger queries are authored, not held-out measurements. Worker visibility is the explicit evals.json files allowlist; expectations are separate and unavailable to future workers. Six retained raw architect-fixture files are author-only and excluded from visibility, as reported by local checks. All authored inputs remain source inventory; none enters runtime distribution.
+
+Source/runtime/eval inventories, selected-inputs.json and package-local derivation metadata bind exact bytes. The handoff asset is copied without transformation from the preserved selected shared template. Refresh affected guidance and tests when selected contracts/templates, provider/package behavior, source layout or observed failures change. Dynamic assignments/results update external records. New candidate bytes require a new identity and affected independent evaluation; old evidence remains bound to old inputs.
+
+## XP-006 Custody and next owner
+
+All package source bytes were read to compute these manifests. The fixtures/assets/derivation regenerated byte-for-byte under the run (check-07). Readbacks and final external receipt follow this immutable record. Root Codex/operator owns integration review and any later evaluation allocation. Author retains ownership pending explicit release; no cleanup, commits, publication or automatic next capability is assigned.
+'''
+save(R/'XPKG-003.md',pkg)
+# Read all completed task outputs before preparing handoff inventory.
+outputs=[R/n for n in ['XSPEC-003.md','XSPEC-003-r2.md','XPKG-003.md','source-manifest.json','runtime-manifest.json','eval-manifest.json','selected-inputs.json','startup.json','checks-summary.json','native-A-manifest.json','native-B-manifest.json','native-C-manifest.json','author-fixtures.py','local-checks.py','preflight-command-observations.json','failed-structure-source-manifest.json']]+sorted(R.glob('check-*.json'))
+for p in outputs:p.read_bytes()
+hand=envelope('HANDOFF-003','handoff',[ref(R/'XPKG-003.md','XPKG-003',1,['XP-001','XP-004','XP-005']),ref(R/'XSPEC-003-r2.md','XSPEC-003',2,['XS-004','XS-005'])])+'# Codex contribution context authoring handoff\n\n'
+hand+='''## HO-001 You are here
+
+Skill/use case: staged native skill-creator instructions applied explicitly by the Codex author to CAP-CCR-001 stage-1 bootstrap authoring. Current phase: candidate frozen for root architect/integration review. Authoring task: complete with a reported whole-framework structural-check failure; underlying native evaluation/adoption remains unstarted. Runtime provider Codex; role contributor author; integration owner root Codex/operator. Recovery of author tool execution succeeded; this does not establish candidate behavior.
+
+'''
+hand+=f'Assignment: {C/"SESSION-003.md"}, SESSION-003@1, SHA-256 {H(C/"SESSION-003.md")}. Worktree: {W}; branch {selected["branch"]}; base {selected["base"]}. Source fence: {S}/**. Output fence: {R}/** within the assigned runs root. Existing authority permits authoring and local deterministic checks; automated model calls/concurrency/retries are 0. Runtime recovery-001 changed the launch method only. Ownership remains retained.\n\n'
+hand+='## HO-002 Inputs consumed and outputs produced\n\nAll rows are finalized readback identities. The selected-input inventory expands every preserved/local framework, Codex creator and protected baseline hash. This handoff is excluded from its own digest inventory.\n\n| Direction | Artifact ID/revision | Store/path | SHA-256 | Relevant sections | Decision/freshness state |\n| --- | --- | --- | --- | --- | --- |\n'
+for p in [C/'SESSION-003.md',C/'INPUTS.json',C/'STAGE-1.md',C/'recovery-001/RECOVERY.md']:
+ hand+=f'| input | {p.name} / selected bytes | {p} | {H(p)} | entire selected record | bootstrap authority; no production adoption |\n'
+for p in outputs:hand+=f'| output | {p.name} | {p} | {H(p)} | complete file; named stable sections where present | finalized author record; not independent acceptance |\n'
+hand+='''
+## HO-003 What changed and what remains open
+
+Added the two-mode Codex project-expert candidate: focused SKILL.md, checkpoint reference, exact shared handoff asset and linked derivation metadata. Runtime has four files. Added 13 authored variants, separate raw requests/expectations/visibility declarations, and nine fixed-split trigger queries. Source inventory has 184 files including evals; runtime export must omit evals and provenance/run sidecars. Source bytes are frozen in source-manifest.json.
+
+Preserved the earlier startup COULD_NOT_RUN: two execution calls failed before verification because /tmp/codex-code-mode-host was missing. After runtime correction 001, the first assignment read succeeded and the supplied recovery/start hashes matched. Selected input pairs, protected baseline, staged Codex creator, branch/base/status and absent candidate were verified before writes. Creator loading was explicit user invocation plus exact staged file read, not measured implicit discovery. No draft framework creator invocation or production architecture is claimed.
+
+XSPEC revision 1 used an inaccurate source heading “Required envelope”; revision 2 corrects it to “Standard envelope” before candidate creation. Both revisions remain preserved. The first structural command failed on malformed synthetic SKILL snapshots (check-02); the exact old source is retained in failed-structure-source. Corrected fixture frontmatter and dependent hashes preserve all case semantics. The subsequent full-worktree check failed on an active .devforge-runtime symlink (check-05). This validator/runtime scope interaction is assigned to integration/companion tooling ownership; no validator, policy, runtime state or protected file was modified to obtain a pass.
+
+Package-local checks pass, including actual digest/path rejection cases and exact fixture regeneration. These establish only the named mechanical properties. No native A/B/C, installation, baseline behavior, activation, semantic recovery test, independent acceptance or production adoption occurred. No peer candidate or private author history was consumed. Existing operator document modifications remain unchanged. No Git staging, refs, commits, reset, merge, push or publication was performed.
+
+## HO-004 Observed verification
+
+| Check | Outcome | Raw evidence / external receipt | Cause or scope limit |
+| --- | --- | --- | --- |
+| Earlier author tool startup | COULD_NOT_RUN | startup.json | Missing code-mode host, two attempts before verification |
+| Resumed actual author assignment read and prewrite pins | PASS | startup.json, selected-inputs.json | Actual tool read; supplied hashes, branch/base and protected inputs match |
+| Native creator quick_validate | PASS | check-01.json | Native frontmatter/naming/basic scaffold scope only |
+| First framework structural check | FAIL | check-02.json, failed-structure-source-manifest.json | Malformed synthetic snapshots; original bytes preserved |
+| Git diff whitespace | PASS | check-03.json | Tracked diff only; new source checked separately |
+| Initial package-local checks | PASS | check-04.json | Named mechanical properties only |
+| Required framework-wide recheck | FAIL | check-05.json | Validator encounters active private-runtime symlink; not changed or bypassed |
+| Corrected package/fixture/protected-state checks | PASS | check-06.json | All selected/protected bytes and Git branch/base/status fence; links, derivation, fixture digests/visibility |
+| Fixture generation reproducibility | PASS | check-07.json | Generated evals/asset/derivation byte-identical; no models |
+| Native installed resources C | NOT_RUN | native-C-manifest.json | Not allocated |
+| Native recovery comparison B | NOT_RUN | native-B-manifest.json | Not allocated |
+| Native discovery/activation A | NOT_RUN | native-A-manifest.json | Not allocated |
+| Production architecture preparation/binding | NOT_RUN | XPKG-003.md | No production ARCH/policy selected; bootstrap only |
+
+## HO-005 Continuation directory
+
+| Order | Task | Owner / skill | Prerequisites | Completion evidence |
+| --- | --- | --- | --- | --- |
+| 1 | Review this exact candidate and authoring evidence for integration disposition, including the framework-validator/runtime scope failure | Root Codex architect/integration operator | Resolve the frozen inventories, SESSION-003@1 and selected draft requirements; preserve author ownership until operator disposition | Saved scoped review and external receipt in an operator-authorized review outbox; explicit disposition and any subsequent evaluation allocation |
+
+## HO-006 Copyable next-session prompt
+
+'''
+hand+=f'Goal: Review the frozen Codex devforgeai-contribution-context stage-1 candidate for integration disposition.\nContext: {R/"XPKG-003.md"} (XP-001 through XP-006); {R/"XSPEC-003-r2.md"} (XS-004 through XS-006); {R/"source-manifest.json"}; {R/"checks-summary.json"}; actual selected assignment {C/"SESSION-003.md"}. Resolve full hashes from HO-002 and manifests.\nOutput: One scoped review record and complete external receipt in your independently authorized review outbox; no review destination is invented here.\nBoundaries: Source {S}; author worktree/branch/base remain as assigned. Preserve shared inputs, peer work, companion controls, Git state and failed attempt bytes. Author still owns the worktree. Native evaluation allocation is zero; this recommendation does not authorize a model campaign.\nVerify: Read frozen source/runtime/eval identities; assess CCR-001..008 and all authored contrasts; disposition the check-05 runtime-symlink failure with its proper owner; distinguish static checks from native and independent acceptance.\n\n'
+hand+='## HO-007 Resume and custody\n\n'
+hand+=f'- Task output readback: all HO-002 output rows read before handoff preparation; candidate files read through the complete source manifest.\n- This handoff location: {R/"HANDOFF-003.md"}.\n- This handoff external receipt: computed only after final save/readback and delivered outside these bytes; do not add its digest here.\n- Worktree ownership disposition: retained under SESSION-003@1 until operator release; no cleanup assigned.\n- External gate state: no expert binding/evaluation/acceptance receipt; check-05 is the actual failed structural observation.\n- Invalidation: changed assignment/authority, selected source/contracts, candidate/runtime/eval bytes, base/branch, relevant runtime setup or findings requires affected reassessment and a distinct preserved revision.\n'
+save(R/'HANDOFF-003.md',hand)
+print('Frozen package, manifests and authoring handoff:',R)

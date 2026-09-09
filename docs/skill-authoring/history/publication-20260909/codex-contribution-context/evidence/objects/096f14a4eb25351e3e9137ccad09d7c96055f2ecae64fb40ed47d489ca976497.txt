@@ -1,0 +1,66 @@
+{
+  "assignment": "authority/assignment.json",
+  "fixture_only": true,
+  "identity": "worker-codex",
+  "permitted_recovery": "read selected records; return context; no target mutation by recovery skill",
+  "project": "fixture-devforgeai",
+  "provider": "codex",
+  "references": [
+    {
+      "path": "authority/assignment.json",
+      "sections": [],
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e"
+    },
+    {
+      "path": "observations/worktree.json",
+      "sections": [],
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560"
+    },
+    {
+      "path": "records/finding.json",
+      "sections": [],
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff"
+    },
+    {
+      "path": "records/package.json",
+      "sections": [],
+      "sha256": "ca188dc8fd135285a4b22466d0b3c365f276706499b09081961b94998bacd19d"
+    },
+    {
+      "path": "records/receipt.json",
+      "sections": [],
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4"
+    },
+    {
+      "path": "records/summary.json",
+      "sections": [],
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb"
+    },
+    {
+      "path": "selected/rules.md",
+      "sections": [
+        "RULE-1",
+        "RULE-2"
+      ],
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361"
+    },
+    {
+      "path": "target/old-handoff.md",
+      "sections": [],
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7"
+    },
+    {
+      "path": "target/project-experts/codex/fixture-capability/SKILL.md",
+      "sections": [],
+      "sha256": "dbb95c174f86b685f12646f496d5638b503b531002990441cc17d03e3aebc470"
+    }
+  ],
+  "role": "worker",
+  "selected_roots": [
+    "authority",
+    "selected",
+    "records",
+    "observations",
+    "target"
+  ]
+}

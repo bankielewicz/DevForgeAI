@@ -1,0 +1,107 @@
+{
+  "outcome": "PASS",
+  "scope": "operator report links, selected digest rows, whitespace, follow-up review pin and final archive readback",
+  "resolved_report_links": [
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "TOOLING-FOLLOWUP.md"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "authority/SESSION-003.md"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "selected/framework/docs/coordination/20260905-contributor-context-spec.md"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "selected/framework/docs/coordination/20260905-contributor-context-evaluation-plan.md"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "run/source-manifest.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "run/runtime-manifest.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "run/eval-manifest.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "run/HANDOFF-003.md"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "run/RECEIPT.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "CUSTODY.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "CLOSEOUT-CHECKS.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "OPERATOR-PACKAGE-CHECKS.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "HANDOFF-ROW-CHECKS.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "candidate/SKILL.md"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "candidate/references/checkpoint.md"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "candidate/references/derivation.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "reviewer-evidence/CURRENT-PAIR-CHECK.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "run/check-05.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "companion/scripts/validate_framework.py"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "framework-source/.gitignore"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "companion/src/main.rs"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "reviewer-evidence/validator/summary.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "run/local-checks.py"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "reviewer-evidence/RESULT.json"
+    },
+    {
+      "source": "INTEGRATION-REVIEW.md",
+      "target": "reviewer-evidence/reproduce-ast-check-reconstructed-001.py"
+    }
+  ],
+  "native_evaluation": "NOT_RUN"
+}

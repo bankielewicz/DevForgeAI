@@ -1,0 +1,11 @@
+{
+  "artifact_id": "PKG-claude",
+  "behavior": "NOT_RUN",
+  "files_sha256": {
+    "SKILL.md": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3"
+  },
+  "installation": "NOT_RUN",
+  "provider": "claude",
+  "revision": 1,
+  "source": "project-experts/claude/fixture-capability"
+}

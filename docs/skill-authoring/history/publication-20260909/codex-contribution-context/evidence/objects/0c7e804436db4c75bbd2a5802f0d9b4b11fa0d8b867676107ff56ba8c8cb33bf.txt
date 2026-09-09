@@ -1,0 +1,42 @@
+# Companion validator maintenance handoff
+
+Completed the bounded companion maintenance assignment `validator-runtime-20260905T222747828425Z`. The change is reviewable locally as two uncommitted files on `main` at base `6983f1de3e06f9b422546fd6944888dcd34e56a1`. No Git ref, index, publication, native evaluation or acceptance state was changed.
+
+The validator now enumerates source directories explicitly and prunes only a real root-relative `.devforge-runtime` directory before descent. A symlink at that root entry still fails, including directory-target, file-target and dangling symlinks. Authored-source symlinks and malformed JSON remain rejected, including beneath nested source directories named `.devforge-runtime`. Existing `.git`, `.poc` and `__pycache__` exclusion scope is retained.
+
+| Source identity | SHA-256 |
+| --- | --- |
+| Base validator, preserved in snapshots/validator-before.py | `5ef17e17d78535b520a0a1e6d8166b7fbb92bb44b7a8804dfb1131b8dce392a2` |
+| Revised /home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py | `e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25` |
+| Revised /home/bryan/Projects/DevForge/framework/DevForge/tests/test_validation.py | `b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1` |
+| Original integration review | `5fb47ea9dbe416e6393ccf09b7f2c5445f497608f2b10d6692d29961a63d8b87` |
+
+All required checks passed: `cargo fmt --check`, `cargo clippy --locked --all-targets -- -D warnings`, `cargo build --locked`, and `python3 -m unittest discover -s tests -p 'test_*.py'` (47 tests). The focused suite contains nine tests: it failed once with the unchanged pinned validator when the enumeration guard detected entry into the runtime directory, then passed unchanged with the revised validator. The same instrumentation also confirms ordinary nested authored directories are entered. Structure negatives cover missing core skills, invalid or missing manifests, retired shared plugin source, wrong eval skill and missing fixture; the original optimized-Python check is unchanged. Raw results and exact tested source identities are in CHECKS.json and its referenced records. A static subagent review found no material issue; it did not independently execute the reported checks.
+
+| New structural observation | Pinned validator | Revised validator |
+| --- | --- | --- |
+| Unchanged copy of the preserved 303-file source | PASS, exit 0, 26 skills | PASS, exit 0, 26 skills |
+| Same source plus a real synthetic root runtime directory, synthetic launcher symlink and malformed operational JSON | FAIL, exit 2; malformed JSON encountered | PASS, exit 0, 26 skills |
+| Instrumented enumeration of the synthetic runtime input | Regression guard detects runtime entry | PASS; runtime and descendants never enumerated; authored eval directory enumerated |
+
+These are new structural observations using the exact copied inputs and frozen validator bytes identified in STRUCTURAL-OBSERVATIONS.json. No candidate code or launcher was executed by the validator. The original full-worktree check-05 remains FAIL, exit 2, at /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-contributor-context-20260905T213708193042Z/run/check-05.json, SHA-256 `6daeca2095eb6aa8e56701f95d299022c7bf737b3dd962bf9abea2ad2db0cebb`. It was neither rewritten nor rerun. Its native-launcher symlink failure and all earlier attempts remain preserved. Neither source-only nor synthetic-runtime results are presented as a pass of the original full worktree. Native C/B/A and independent behavioral acceptance remain NOT_RUN.
+
+Closeout verified all 944 original review archive files unchanged, all 943 review receipt entries matching, and all 59 tracked companion files outside the two-file patch unchanged. The patch applies to the exact base in a disposable copy and reconstructs both current files byte for byte. The source fixtures are unchanged by validation. This task did not access the live author worktree or live provider state; it relied on the preserved source and synthetic fixtures. Rust CLI behavior, policy, candidate source and frozen author ownership were outside the edit scope. No sibling artifacts or gate lifecycle behavior changed, so live sibling validation and the gate demo were not needed.
+
+The root integration operator owns continuation and review of this maintenance change. The Codex author retains candidate ownership under SESSION-003@1. The task stops here before integration publication or native execution. Any future publication or evaluation must have its own authorized scope; changed validator or input bytes require fresh identified observations. CONTINUATION.md provides a saved continuation prompt.
+
+| Artifact, absolute path | SHA-256 |
+| --- | --- |
+| [ASSIGNMENT.md](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/ASSIGNMENT.md) | `0173fa20429a14601091c1ef9e6b30eca48e4ed20f5cbd4cadeb80aeed8bee7c` |
+| [validator-runtime.patch](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/validator-runtime.patch) | `5dcbf0720cb83dff2390a1285aa0e93cbe4ce63104b2d30438b5ba138e60cefc` |
+| [PATCH-CHECK.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/PATCH-CHECK.json) | `48e0c2db4ed63ad0e0735842729e5ca69e185eb3524d9e51e169abfb937af408` |
+| [CHECKS.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/CHECKS.json) | `678d5b11525a9add23de02c34035fe66e8da4804de446d41a6cca9fcfe9dd245` |
+| [STRUCTURAL-OBSERVATIONS.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/STRUCTURAL-OBSERVATIONS.json) | `416458b21c4a8692146cc66e1f83d85b06fd3e53435ec053cc670565c804b40a` |
+| [observation-revised-enumeration.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/observation-revised-enumeration.json) | `3c277f5cea019f82e78306753b9aa84859e4e4fbc2a14381b60eda85cd18a449` |
+| [input-source-only.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/input-source-only.json) | `0d412395ce44bec93375eb3733105c20a24158cfd2e7574ba8cf1f8b6f4195c1` |
+| [input-source-with-runtime.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/input-source-with-runtime.json) | `05bc4e69e41cf58fcba211705a5a4e8dd4453de36c0d5e001415fd18c1fc82a1` |
+| [STATIC-REVIEW.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/STATIC-REVIEW.json) | `2bee0757dbd6a5ea25c6d89d0f8547b3917a8681360b000e40329085a6e98402` |
+| [CLOSEOUT-CHECKS.json](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/CLOSEOUT-CHECKS.json) | `0d9af8fc53832d7fc4b1b0afde1e93d2fc068b05969916a19b1d89804c41ca86` |
+| [CONTINUATION.md](/home/bryan/Projects/DevForge/framework/DevForge/.poc/companion-maintenance/validator-runtime-20260905T222747828425Z/CONTINUATION.md) | `5657c9f364bceea3d2bb10b2545ca2fc520ac65a953fa3f36b7b75d8e519f652` |
+
+This handoff was finalized and read back. Its digest is delivered externally in HANDOFF.receipt.json and in the assistant's final response; no self-digest is embedded here. The receipt inventories the saved evidence and synthetic inputs, including the synthetic symlink target text, and excludes only itself.

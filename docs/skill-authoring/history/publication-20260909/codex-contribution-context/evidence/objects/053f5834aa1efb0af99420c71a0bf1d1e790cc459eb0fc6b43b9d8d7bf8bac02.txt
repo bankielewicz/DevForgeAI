@@ -1,0 +1,64 @@
+# Contributor-context POC: first authoring stage
+
+You are here: the operator has selected draft requirements for two separate native authoring POCs. This stage produces reviewable candidate packages and local validation. It does not complete their evaluation or adopt production expertise.
+
+Read your provider START file, actual SESSION record and INPUTS.json first. Verify the selected hashes against preserved files and local copies. Use only your assigned worktree. The operator prepared these inputs after the base commit; their existing changes are intentional and protected.
+
+## The skill to build
+
+Create `devforgeai-contribution-context` as a reusable workflow for DevForgeAI contributors. Its essential behavior is to identify the assigned task, resolve the selected records, reconstruct the state and return the next permitted action. The native provider and the role in an assignment remain separate facts.
+
+The same skill has two modes:
+
+- **Orient/resume:** retrieve the selected task context and return a concise in-session readiness result. A usable assignment or prior authorization can suffice; no bespoke input handoff is required. Avoid new files when facts are unchanged. Return control so the calling session can continue already authorized work without another permission round.
+- **Checkpoint/transfer:** when requested or required by the governing workflow, save the finalized shared HANDOFF, read it back and deliver its full absolute path and 64-character SHA-256 externally. The handoff never contains its own complete-byte digest.
+
+Implement CCR-001 through CCR-008 from the selected specification. Preserve its activation boundary, source selection, real authority, scoped prior delegation, uncertainty and separation between reported checks and independent acceptance. Resolving context may succeed while correctly finding the underlying contribution blocked. Do not install a registry, hooks, an automatic launcher, a new core workflow or a general acceptance checker.
+
+## Read the selected sources progressively
+
+1. Read the contributor-context specification and evaluation plan revision 1 in `inputs/framework/docs/coordination/` next to this file. They are selected experiment inputs; their draft/production status is preserved.
+2. Read the shared authoring, artifact and execution contracts revision 2. The SKILL-001-specific history in the authoring contract does not become a new requirement for this different capability.
+3. Use the expert-spec, expert-package and native expert templates as needed; use the selected shared handoff template for both the package's checkpoint output and your authoring closeout. Read the creator specification for its bootstrap, artifact and production boundaries.
+4. Read the proposal/roster only for the concrete gap and reuse decision. Do not ingest unrelated repositories, brainstorm worker transcripts or another author's private state.
+
+The native authoring tool is the staged provider `skill-creator`, with exact files in INPUTS.json. Record its actual instruction loading. This allocation chooses its authoring and deterministic-validation stages. Its optional model loops, benchmarking, subagent testing and description optimization are deferred. Do not invoke the repository's current draft `devforge-project-expert-creator` as though a policy/ARCH and full prepare/bind/evaluate workflow were allocated.
+
+## Produce the candidate and reproducible cases
+
+- Before writing the candidate, complete an XSPEC in the new authoring run using the selected content model. Map the unchanged CCR requirements, intended activation, two modes, source limits and acceptance cases. Identify the operator-selected specification and cases by path/hash. Do not silently rewrite their semantics or claim production acceptance. This is an authoring derivation; it is not a new independent evaluator oracle.
+- Create focused `SKILL.md` instructions in the exact provider source directory named by your SESSION. Use an unquoted lowercase `name: devforgeai-contribution-context` frontmatter value to match the current structural validator. Optional resources need a concrete purpose; optional Codex metadata does not create a subagent.
+- Put conditional detail in linked references. Copy the required checkpoint template into package-local assets and record source path, exact preserved locator/revision, full source/destination hashes, transformations and refresh triggers in derivation metadata. Preserve governing meaning. Runtime resources must work from an installed package without this checkout's `docs/` or developer-specific absolute paths.
+- Keep mutable assignment facts, current outcomes and new manifests in the task's records/outbox, not enduring SKILL instructions. Teach source selection and interpretation; do not hard-code these real author worktrees, SESSION IDs or current candidate hashes as universal workflow facts.
+- Author reproducible synthetic inputs and cases under source `evals/`. Cover CCX-01 through CCX-08, preserving every listed provider/role/variant/mode distinction in a coverage matrix. Record each raw request, worker-visible files and expected assertions separately. These are author-provided cases, not held-out independent evaluation. No actual model calls are assigned.
+- Include authored explicit/natural activation queries and near-miss negatives with fixed split labels. Do not claim their selection was observed. Future evaluated workers receive raw task inputs, not the answer/expectation files or your authoring analysis.
+- Helpers are optional. If useful, keep them deterministic and narrowly scoped; document what they verify. Do not create a runtime evaluator or change the external validator/policy. A checker must not imply semantic acceptance from hashes or headings.
+
+## Local validation and package freeze
+
+Use the staged native creator's `scripts/quick_validate.py` with Python against the source package. Resolve all package-local links; check derivation bytes and declared refresh rules. Verify authored eval fixture paths exist and stay under their eval root; the existing general framework checker does not specifically inspect eval fixtures in this new project-expert mapping.
+
+Run the companion structural check read-only:
+
+```text
+python3 /home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py --framework <your-assigned-worktree>
+git -C <your-assigned-worktree> diff --check
+```
+
+The first result covers its actual syntax/structure checks only. Git diff does not cover new untracked files; inspect those for whitespace, missing links and unfinished scaffolding separately. Runtime templates may intentionally contain declared placeholders to fill at invocation; final XSPEC, XPKG and author handoff must not retain unresolved required fields. Do not mark a valid template invalid merely because it has template slots.
+
+Exercise new or changed helper behavior only when helpers are authored. Use discriminating valid/invalid cases for its claimed scope: for example an actual malformed reference or incorrect receipt must fail if that is a check the helper claims to perform. Do not call generated text-matching checks evidence of native context recovery. Do not write tests that merely restate prose.
+
+Record every command, exit status and relevant raw output under your new run. At handback, reverify every protected baseline/input file and the selected creator manifests; report any discrepancy rather than silently restoring it. The Codex creator's local discovery copy is protected by the assignment and checked by hashes, not mounted read-only within the otherwise writable worktree. Use only PASS, FAIL, NOT_RUN, COULD_NOT_RUN and NOT_APPLICABLE for check outcomes. Keep limitations explicit. Report C/B/A as NOT_RUN: no installed-native-resource execution, behavior comparison or activation measurement is allocated here.
+
+Freeze separate inventories for source files, runtime files and authored evaluation inputs. Include all source files by explicit category; exclude caches from candidate inventory and record any exclusions. Runtime distribution must omit evals, run outputs, private client state and provenance sidecars. The package-local derivation reference may remain a runtime resource when linked for maintenance; do not silently omit a linked dependency.
+
+The source mappings are experimental assignments. The existing installer handles core plugins and older portable expert fixtures; do not use those paths as a fallback. Record the selected future project-local destination from your SESSION. Actual candidate installation is deferred; a local source manifest is not an installation receipt.
+
+## Hand back once
+
+Create your SESSION-named XSPEC and XPKG in the new authoring run. The XPKG binds the frozen source/runtime/eval inventories, selected input hashes, intended provider/destination and production limitations. Use truthful producer metadata identifying the actual authoring process; do not claim an uninvoked framework skill produced it. Preserve the selected artifact envelope, stable section IDs for newly authored records, actual source section references and output locations.
+
+Save the SESSION-named HANDOFF using the shared content model. Include the actual authoring result, changed files, local checks, unresolved issues, native tiers NOT_RUN and one next task: root architect/integration review of this exact candidate before a separately allocated baseline/candidate evaluation. Follow the existing assignment without requesting redundant permission for work already allocated. Retain ownership until operator release.
+
+After finalizing all files, read them back, hash them and save an external receipt for the handoff. Deliver the complete paths and full hashes in your final native response. Keep the handoff's own digest out of its bytes. Do not modify frozen output files afterward; corrections need a distinct preserved revision. No model campaign, global installation, integration commit or automatic next capability follows this handback.

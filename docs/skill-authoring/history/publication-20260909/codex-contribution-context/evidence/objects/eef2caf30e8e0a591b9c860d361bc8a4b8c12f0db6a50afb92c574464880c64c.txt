@@ -1,0 +1,84 @@
+---
+schema_version: devforge.artifact/v1
+artifact_id: XPKG-003
+artifact_type: expert-package
+project_id: devforgeai
+revision: 1
+status: draft
+created_at_utc: '2026-09-05T21:26:28.048044+00:00'
+producer:
+  skill: skill-creator (explicit staged instructions; Codex interactive author)
+  skill_revision: 6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66
+execution_ref:
+  artifact_id: SESSION-003
+  revision: 1
+  store: authority
+  path: /home/bryan/Projects/DevForge/framework/DevForge/.poc/contributor-context-authoring-20260905/SESSION-003.md
+  sha256: c3ed3e796bfd0ec1f83c00b2e3391ab9ec1c41c07a0954a65dc243ad461cac93
+  sections:
+  - Ownership and task
+  - Repository and write fence
+  - Stage and closeout
+upstream:
+- artifact_id: XSPEC-003
+  revision: 2
+  store: project
+  path: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/XSPEC-003-r2.md
+  sha256: 408c3213c6e3632234980931e30e5baa6a4f81b3bbabccec954d5e91b8b6a01d
+  sections:
+  - XS-001
+  - XS-004
+  - XS-005
+  - XS-006
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs:
+- Production architecture not selected; independent/native evaluation unallocated.
+---
+
+# Contributor context candidate package
+
+## XP-001 Candidate identity
+
+Native skill: devforgeai-contribution-context. Expert specification: XSPEC-003@2 (source-heading correction only; revision 1 preserved). This is a native-creator bootstrap, not an invocation of the draft framework expert creator. Candidate revision 1 is frozen by the source manifest below. Behavioral status: NOT_EVALUATED. Structural binding through DevForge expert prepare/bind: NOT_RUN; no policy/ARCH selected for that workflow.
+
+Source directory: /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/project-experts/codex/devforgeai-contribution-context
+
+| Inventory | Absolute path | SHA-256 |
+| --- | --- | --- |
+| source-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/source-manifest.json | 625d838acc84c02136e574da165bc686c3855092e66d13aef498b784acc42737 |
+| runtime-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/runtime-manifest.json | 4cf58093a2ef421a6aa6e10eb059cc757208a6dc21e3bc1e693d76dd7d079c21 |
+| eval-manifest.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/eval-manifest.json | 6b758caae5ae57a38d340575cb3a4aa448420e48223d6d3d20211af0ae969ef0 |
+| selected-inputs.json | /home/bryan/Projects/DevForge/worktrees/codex-contribution-context/.poc/codex/devforgeai-contribution-context-workspace/runs/authoring-20260905T205341315216Z/selected-inputs.json | f7ece96d1277b7a2954ab3c3f440db1490fb10f0ece4e32fa965b1398b236d77 |
+
+## XP-002 Package files
+
+The complete source and eval file tables are the bound manifests; every source file has an explicit category. Runtime files are:
+
+| Relative path | SHA-256 | Purpose | Governing source |
+| --- | --- | --- | --- |
+| SKILL.md | 54f402e1c5a08da4aac4a2ea16f745ca2294a934d5e8129f61413a6fb46b430f | runtime-instructions | CCR-001..008; selected template/contracts in derivation metadata |
+| assets/handoff.md | abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206 | runtime-template | CCR-001..008; selected template/contracts in derivation metadata |
+| references/checkpoint.md | e316eb653a95e9156061361418e94b0dd1353bc55687129776ccd4042bf1caae | runtime-instructions | CCR-001..008; selected template/contracts in derivation metadata |
+| references/derivation.json | a191de4dbe2666d58423a88688c676dcbc1052d68fbae5e6ce62da5f8b2e409a | runtime-maintenance-derivation | CCR-001..008; selected template/contracts in derivation metadata |
+
+## XP-003 Intended runtime targets
+
+Codex native SKILL.md format; project-local destination in a later disposable consumer: .agents/skills/devforgeai-contribution-context/. Distribute precisely runtime-manifest.json bytes, including the linked derivation record; omit evals and all author/run/private state. No installation or export occurred. This experimental mapping is not supported by a claimed general installer. No metadata/subagent or runtime helper is required. Normal automatic selection is left enabled; actual discovery is NOT_RUN.
+
+## XP-004 Candidate limits
+
+The scope is orient/resume and checkpoint/transfer for DevForgeAI contributions under selected authority, not underlying repair, integration or acceptance. Linux/WSL2 local POC only. Production architecture is missing; production suitability NOT_EVALUATED. No prior package superseded: initial source was absent. Historical pre-freeze malformed fixture source is retained with its failed check, not represented as an accepted prior package. Handoff relationship: HANDOFF-003@1 (not a causal upstream or self-hash).
+
+Native C/B/A are NOT_RUN and separate native manifests record zero allocated calls. No installed-native-resource execution, comparison, activation measurement, independent reviewer acceptance or cross-provider support is claimed. The mandatory whole-framework command remains FAIL because it traverses a private-runtime symlink; the integration owner must resolve that validator/runtime scope interaction. Candidate-local mechanical checks pass. No shared contract, peer work, companion tool, creator copy or Git state was changed.
+
+## XP-005 Authoring and evaluation inputs
+
+Thirteen synthetic variants preserve CCX-01..08 provider/role/mode contrasts, including both workers, three ownership variants, delegation pair and mode pair. Nine fixed train/validation trigger queries are authored, not held-out measurements. Worker visibility is the explicit evals.json files allowlist; expectations are separate and unavailable to future workers. Six retained raw architect-fixture files are author-only and excluded from visibility, as reported by local checks. All authored inputs remain source inventory; none enters runtime distribution.
+
+Source/runtime/eval inventories, selected-inputs.json and package-local derivation metadata bind exact bytes. The handoff asset is copied without transformation from the preserved selected shared template. Refresh affected guidance and tests when selected contracts/templates, provider/package behavior, source layout or observed failures change. Dynamic assignments/results update external records. New candidate bytes require a new identity and affected independent evaluation; old evidence remains bound to old inputs.
+
+## XP-006 Custody and next owner
+
+All package source bytes were read to compute these manifests. The fixtures/assets/derivation regenerated byte-for-byte under the run (check-07). Readbacks and final external receipt follow this immutable record. Root Codex/operator owns integration review and any later evaluation allocation. Author retains ownership pending explicit release; no cleanup, commits, publication or automatic next capability is assigned.

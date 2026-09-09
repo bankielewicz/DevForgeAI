@@ -1,0 +1,1 @@
+Transfer the same contribution using packet.json; save and deliver a new checkpoint.

@@ -1,0 +1,9 @@
+{
+  "artifact_id": "RECEIPT-1",
+  "candidate": "PKG-claude@1",
+  "cause": "receipt is abbreviated, relative and not a complete final delivery",
+  "check": "final-delivery",
+  "observed_terminal_receipt": "target/old-handoff.md SHA-256 abc123",
+  "outcome": "FAIL",
+  "run": "TRIAL-1"
+}

@@ -1,0 +1,9 @@
+{
+  "artifact_id": "REPORT-claude",
+  "candidate": "PKG-claude@1",
+  "finding": "FIND-CLAUDE-1",
+  "integration_acceptance": false,
+  "native": "NOT_RUN",
+  "reported_structure": "PASS",
+  "run": "TRIAL-claude"
+}

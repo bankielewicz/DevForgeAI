@@ -1,0 +1,20 @@
+# RECONSTRUCTION: exact Python body executed for RESULT.json, with this header added.
+# Saved afterward; this file was not the original execution input.
+# To reproduce, invoke from the frozen review root:
+# /home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/codex-contributor-context-20260905T213708193042Z
+# Execution creates a new /tmp/ccx-fixture-audit-* copy and never mutates the frozen root.
+from pathlib import Path
+import ast,hashlib,json,tempfile,shutil
+R=Path.cwd(); scratch=Path(tempfile.mkdtemp(prefix='ccx-fixture-audit-')); E=scratch/'evals';shutil.copytree(R/'candidate/evals',E)
+source=(R/'run/local-checks.py').read_text();tree=ast.parse(source)
+helpers=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in ('inside','digest')]
+checks=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='checks')
+subset=[n for n in checks.body if 40<=n.lineno<=57]
+namespace={'Path':Path,'json':json,'E':E,'H':lambda p:hashlib.sha256(p.read_bytes()).hexdigest()}
+exec(compile(ast.Module(body=helpers,type_ignores=[]),'copied-local-check-helpers','exec'),namespace)
+compiled=compile(ast.Module(body=subset,type_ignores=[]),'copied-fixture-checks-lines-40-57','exec')
+exec(compiled,namespace)
+p=E/'fixtures/CCX-08-explicit-transfer/packet.json';packet=json.loads(p.read_text());packet['identity']='other-writer';packet['selected_roots']=['records'];p.write_text(json.dumps(packet,indent=2,sort_keys=True)+'\n')
+exec(compiled,namespace)
+result={'scope':'Exact AST statements from run/local-checks.py lines 40-57 plus original inside/digest helpers; not full author check or native grading','baseline':'PASS','mutated_transfer_identity_and_selected_roots':'PASS','effect':'Fixture checker accepts CCX-08 context selection differences beyond the allowed report_authority delta. Frozen original pair independently verified equal apart from report_authority.','scratch':str(scratch)}
+(scratch/'RESULT.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

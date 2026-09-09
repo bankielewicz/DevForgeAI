@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "/home/bryan/Projects/DevForge/framework/DevForge/scripts/validate_framework.py",
+    "--framework",
+    "/tmp/contributor-validator-runtime-repro-v_9dkm18/framework-source"
+  ],
+  "exit_status": 2,
+  "stdout": "",
+  "stderr": "BLOCKED: symlink not accepted: .devforge-runtime/codex/home/tmp/arg0/synthetic-smoke/codex-execve-wrapper\n",
+  "outcome": "FAIL"
+}

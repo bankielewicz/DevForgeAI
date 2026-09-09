@@ -1,0 +1,3955 @@
+{
+  "record_type": "operator-validator-integration-review-receipt",
+  "created_at_utc": "2026-09-05T23:52:28.202941+00:00",
+  "review_path": "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/validator-runtime-20260905T234329495677Z/INTEGRATION-REVIEW.md",
+  "review_sha256": "7bf8e8512c0a8bbef56e710ae6b0ea124132c5e859bab40b73132a34c11d2ef2",
+  "files": {
+    "CLOSEOUT-CHECKS.json": {
+      "type": "file",
+      "sha256": "4fd0680b321218b9cba9f5a8701f76aba648aa741edb35ea21e429b31a0f464c",
+      "bytes": 630,
+      "readback": true
+    },
+    "CUSTODY.json": {
+      "type": "file",
+      "sha256": "6b166d5a46e6b3990e12f780f6bf44da8437ce6fc90dacca5663a7603e008d44",
+      "bytes": 326106,
+      "readback": true
+    },
+    "EVIDENCE-REFERENCE-CHECKS.json": {
+      "type": "file",
+      "sha256": "0baef243df54872a0033462551261ccb08d9ada2e51a4ad113abfe2ab3da96bd",
+      "bytes": 2918,
+      "readback": true
+    },
+    "INPUT-CHECKS.json": {
+      "type": "file",
+      "sha256": "fcd87ba077d44606aad46729a673d532a2a72432901eabec8a995160f3e6559f",
+      "bytes": 1071,
+      "readback": true
+    },
+    "INTEGRATION-REVIEW.md": {
+      "type": "file",
+      "sha256": "7bf8e8512c0a8bbef56e710ae6b0ea124132c5e859bab40b73132a34c11d2ef2",
+      "bytes": 7495,
+      "readback": true
+    },
+    "OPERATOR-CHECKS.json": {
+      "type": "file",
+      "sha256": "032540b928e925920eaa3e3875e0a56575885f3f48c42f90cbe51bc3020eb4f3",
+      "bytes": 679,
+      "readback": true
+    },
+    "WORKTREE-SETUP.json": {
+      "type": "file",
+      "sha256": "32ca1bcb52eb348298e96178924d8fcb8706575e9de9fa6435100dd8e1ac9497",
+      "bytes": 2390,
+      "readback": true
+    },
+    "focused-regression.json": {
+      "type": "file",
+      "sha256": "9bf0d4b31168a407a8b7443a77ed023e667b836641670b00a32da63013c9fd06",
+      "bytes": 1943,
+      "readback": true
+    },
+    "maintenance/ASSIGNMENT.md": {
+      "type": "file",
+      "sha256": "0173fa20429a14601091c1ef9e6b30eca48e4ed20f5cbd4cadeb80aeed8bee7c",
+      "bytes": 2915,
+      "readback": true
+    },
+    "maintenance/CHECKS.json": {
+      "type": "file",
+      "sha256": "678d5b11525a9add23de02c34035fe66e8da4804de446d41a6cca9fcfe9dd245",
+      "bytes": 3132,
+      "readback": true
+    },
+    "maintenance/CLOSEOUT-CHECKS.json": {
+      "type": "file",
+      "sha256": "0d9af8fc53832d7fc4b1b0afde1e93d2fc068b05969916a19b1d89804c41ca86",
+      "bytes": 1249,
+      "readback": true
+    },
+    "maintenance/CONTINUATION.md": {
+      "type": "file",
+      "sha256": "5657c9f364bceea3d2bb10b2545ca2fc520ac65a953fa3f36b7b75d8e519f652",
+      "bytes": 1806,
+      "readback": true
+    },
+    "maintenance/HANDOFF.md": {
+      "type": "file",
+      "sha256": "0c7e804436db4c75bbd2a5802f0d9b4b11fa0d8b867676107ff56ba8c8cb33bf",
+      "bytes": 7705,
+      "readback": true
+    },
+    "maintenance/HANDOFF.receipt.json": {
+      "type": "file",
+      "sha256": "e18ec5eb312f7f59958eb132f9d1edcd191ba735dd70a59a2e60189b4dcc7058",
+      "bytes": 188086,
+      "readback": true
+    },
+    "maintenance/PATCH-CHECK.json": {
+      "type": "file",
+      "sha256": "48e0c2db4ed63ad0e0735842729e5ca69e185eb3524d9e51e169abfb937af408",
+      "bytes": 793,
+      "readback": true
+    },
+    "maintenance/STATIC-REVIEW.json": {
+      "type": "file",
+      "sha256": "2bee0757dbd6a5ea25c6d89d0f8547b3917a8681360b000e40329085a6e98402",
+      "bytes": 918,
+      "readback": true
+    },
+    "maintenance/STRUCTURAL-OBSERVATIONS.json": {
+      "type": "file",
+      "sha256": "416458b21c4a8692146cc66e1f83d85b06fd3e53435ec053cc670565c804b40a",
+      "bytes": 3069,
+      "readback": true
+    },
+    "maintenance/cargo-build.json": {
+      "type": "file",
+      "sha256": "d69df37befb2a2af069a59af96d133b62488a8870ad974b55c56b566993e5cff",
+      "bytes": 760,
+      "readback": true
+    },
+    "maintenance/cargo-clippy.json": {
+      "type": "file",
+      "sha256": "af9c84fbd1dbffee4b5a5a5d685a62b325e8e87aa2d424b6a3c8f863f332ef1a",
+      "bytes": 817,
+      "readback": true
+    },
+    "maintenance/cargo-fmt.json": {
+      "type": "file",
+      "sha256": "8ee33f3582bc18594683f6d61b8c93b1786bb1248ab5a86416d1ddf6a52b660d",
+      "bytes": 684,
+      "readback": true
+    },
+    "maintenance/companion-tracked-before.json": {
+      "type": "file",
+      "sha256": "324fe89f789177f1721333cb20ffa5918c7df4e4425da677cccdd77bc39c897e",
+      "bytes": 9299,
+      "readback": true
+    },
+    "maintenance/input-source-only.json": {
+      "type": "file",
+      "sha256": "0d412395ce44bec93375eb3733105c20a24158cfd2e7574ba8cf1f8b6f4195c1",
+      "bytes": 104657,
+      "readback": true
+    },
+    "maintenance/input-source-with-runtime.json": {
+      "type": "file",
+      "sha256": "05bc4e69e41cf58fcba211705a5a4e8dd4453de36c0d5e001415fd18c1fc82a1",
+      "bytes": 105946,
+      "readback": true
+    },
+    "maintenance/inputs/benign-target": {
+      "type": "file",
+      "sha256": "d6f6249ed682db4700bf28865730d238d07b1479ce3f4fc0f642e5a8a95333ce",
+      "bytes": 65,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/.gitignore": {
+      "type": "file",
+      "sha256": "8b70db31c49744db6ffac6e4de42afd5fc5b27e46a8bc8c0a5559f6cac735dd5",
+      "bytes": 75,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/AGENTS.md": {
+      "type": "file",
+      "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+      "bytes": 2491,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/CLAUDE.md": {
+      "type": "file",
+      "sha256": "54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931",
+      "bytes": 1041,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/README.md": {
+      "type": "file",
+      "sha256": "3b75c87a30d91a1e00fd7f28329062529d1118353171fb9f94e3767484022ebb",
+      "bytes": 3886,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/POC.md": {
+      "type": "file",
+      "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568",
+      "bytes": 3664,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/coordination/20260905-contributor-context-evaluation-plan.md": {
+      "type": "file",
+      "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f",
+      "bytes": 13852,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/coordination/20260905-contributor-context-spec.md": {
+      "type": "file",
+      "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77",
+      "bytes": 17057,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/coordination/20260905-contributor-context-specification.receipt.json": {
+      "type": "file",
+      "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d",
+      "bytes": 12659,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/coordination/20260905-contributor-expertise-proposal.md": {
+      "type": "file",
+      "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32",
+      "bytes": 20188,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+      "type": "file",
+      "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd",
+      "bytes": 20001,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/coordination/20260905T000653Z-skill-authoring-next-steps.md": {
+      "type": "file",
+      "sha256": "76cc7d154b5208038dcda6aafcd7ec1b670bc0f2a160c76afe78e9538844df2d",
+      "bytes": 11657,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/README.md": {
+      "type": "file",
+      "sha256": "e31147bd9586bd3308551eb192d0c0ae8f3db4d50e85776b94f9e22d75819e08",
+      "bytes": 6833,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/artifact-contract.md": {
+      "type": "file",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "bytes": 10482,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/execution-contract.md": {
+      "type": "file",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "bytes": 10720,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/package-index.json": {
+      "type": "file",
+      "sha256": "b4e380646555b389e463a099b87cd180d35166f49c9af38da6150bd3c2444e2d",
+      "bytes": 14120,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/agentskills/adding-skills-support.json": {
+      "type": "file",
+      "sha256": "59d243b1725853a3fee2ead3eca6c0610744e784a9be39f4149c16f05ea46c0a",
+      "bytes": 25484,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/agentskills/best-practices.json": {
+      "type": "file",
+      "sha256": "78a9b4843795245cd93cc8c652371eaf0c949d69954d630058a609132238f5c1",
+      "bytes": 19223,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/agentskills/evaluating-skills.json": {
+      "type": "file",
+      "sha256": "8341ae2863dbc99a2a629614b06a5d534612104858a8136e0d5bfcb5303dee6a",
+      "bytes": 20349,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/agentskills/optimizing-descriptions.json": {
+      "type": "file",
+      "sha256": "1d9747a0d976ec6902f603a967ba9288c5858b7e1ac47965cf188878541a0f3c",
+      "bytes": 15668,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/agentskills/overview.json": {
+      "type": "file",
+      "sha256": "1a4839a05e4aa1efee62862c7badcb78d7ff65a0606ed2adac9e5978fabfde0b",
+      "bytes": 4204,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/agentskills/specification.json": {
+      "type": "file",
+      "sha256": "43dbae1c0d06d75fccd1a277ca250b62465c962a06b31d83ebacd6805a8c304f",
+      "bytes": 10084,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/agentskills/using-scripts.json": {
+      "type": "file",
+      "sha256": "cfec41d8098d8548817dad2f80f58a5cbb43b3ed9a67ab419fa1440bf761d285",
+      "bytes": 14964,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/source-notes.md": {
+      "type": "file",
+      "sha256": "54f414549451c6697b1bacfb9d6efaa2b6f77b4f2da8c73d823d228dba66a0dc",
+      "bytes": 5629,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/research/sources.json": {
+      "type": "file",
+      "sha256": "747ae96827ef7b101674f30736ac8bbd8ae614201f9a5b029d56db8516b8269e",
+      "bytes": 9405,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/roster.md": {
+      "type": "file",
+      "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+      "bytes": 9930,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/skill-authoring-contract.md": {
+      "type": "file",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "bytes": 19657,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-001-devforge-brainstorm.md": {
+      "type": "file",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+      "bytes": 10496,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-002-devforge-define-product.md": {
+      "type": "file",
+      "sha256": "3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf",
+      "bytes": 9364,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-003-devforge-design.md": {
+      "type": "file",
+      "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb",
+      "bytes": 9192,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-004-devforge-prototype.md": {
+      "type": "file",
+      "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+      "bytes": 9466,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-005-devforge-architect.md": {
+      "type": "file",
+      "sha256": "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b",
+      "bytes": 9902,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-006-devforge-plan.md": {
+      "type": "file",
+      "sha256": "149a66a375da1bb3447f51b657996883974fec1dac3ce92af866eba94a378e4b",
+      "bytes": 9565,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md": {
+      "type": "file",
+      "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140",
+      "bytes": 11291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md": {
+      "type": "file",
+      "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb",
+      "bytes": 10603,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-009-devforge-develop.md": {
+      "type": "file",
+      "sha256": "c3834796b64d3487bb22aa04db545f126472fac14d043052ecb82127acf8117a",
+      "bytes": 9698,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-010-devforge-review.md": {
+      "type": "file",
+      "sha256": "1637ac05ff86a16e99cbb8be06a57db27f795eedcc738a560db0f4c40fae2b94",
+      "bytes": 9485,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-011-devforge-release.md": {
+      "type": "file",
+      "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d",
+      "bytes": 9673,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/specifications/skill-012-devforge-change.md": {
+      "type": "file",
+      "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774",
+      "bytes": 9608,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/README.md": {
+      "type": "file",
+      "sha256": "c68b950eaa4a3af0d557fb5e6d82bb1ce4a8715153b4b8a7e54b0ad7853d39cd",
+      "bytes": 3805,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-architect/architecture-contract.md": {
+      "type": "file",
+      "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218",
+      "bytes": 3130,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-brainstorm/idea-ledger.md": {
+      "type": "file",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-change/change-request.md": {
+      "type": "file",
+      "sha256": "1b6d4198065153934368079833fa853fc271aacbf7266444765cda7cde7e5b43",
+      "bytes": 2277,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-define-product/product-brief.md": {
+      "type": "file",
+      "sha256": "5a2229a13fba07d0a279f82255a49f57a78be99db8fd8f7991c1f85a12864ddb",
+      "bytes": 2085,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-design/design-spec.md": {
+      "type": "file",
+      "sha256": "5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661",
+      "bytes": 1911,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-develop/development-record.md": {
+      "type": "file",
+      "sha256": "9e3004dbb4dc96a2e8768112df73589d74275f65d95b061ec5593d48a95dec7b",
+      "bytes": 2112,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md": {
+      "type": "file",
+      "sha256": "3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d",
+      "bytes": 2680,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-report.md": {
+      "type": "file",
+      "sha256": "b4a43032fcc865a1a348f057876a5623119b90dee4e6287bbd0fe045b105b928",
+      "bytes": 2677,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-plan/epic.md": {
+      "type": "file",
+      "sha256": "48f8b069f6f57b386d0337a2ef15503dfe234a97f3d7162740b708de75dc35e3",
+      "bytes": 1704,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-plan/story.md": {
+      "type": "file",
+      "sha256": "a19ccd7f332c895fe6d7713ed8ae1a7e52991c71c846557d3fb29862ebff9daf",
+      "bytes": 2469,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-project-expert-creator/expert-package.md": {
+      "type": "file",
+      "sha256": "c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629",
+      "bytes": 2243,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md": {
+      "type": "file",
+      "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+      "bytes": 1030,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md": {
+      "type": "file",
+      "sha256": "eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36",
+      "bytes": 2343,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-prototype/experiment-plan.md": {
+      "type": "file",
+      "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564",
+      "bytes": 1524,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-prototype/prototype-report.md": {
+      "type": "file",
+      "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252",
+      "bytes": 1602,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-release/release-record.md": {
+      "type": "file",
+      "sha256": "90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb",
+      "bytes": 2353,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/devforge-review/review-report.md": {
+      "type": "file",
+      "sha256": "ceabf390b193eac12ecf384c8e25cbf3c0d7b77127403a0ad95d2c5f3acffb44",
+      "bytes": 2098,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/shared/handoff.md": {
+      "type": "file",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/shared/session-record.md": {
+      "type": "file",
+      "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd",
+      "bytes": 2778,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/skill-authoring/evals.json": {
+      "type": "file",
+      "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692",
+      "bytes": 227,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/skill-authoring/evaluation-report.md": {
+      "type": "file",
+      "sha256": "d4929c36980ff5237ee3e6a3363392d9fa6303ba1f3028b8b184a85fd31b0ddc",
+      "bytes": 1805,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/skill-authoring/run-manifest.json": {
+      "type": "file",
+      "sha256": "9f8d7a8eed826dd4ff7e0f64988b6cded6839aca73b5ebc6c04dec543c1e414f",
+      "bytes": 802,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/templates/skill-authoring/trigger-queries.json": {
+      "type": "file",
+      "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4",
+      "bytes": 129,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/use-case-inventory.md": {
+      "type": "file",
+      "sha256": "fa0086e523771dfa57afeb5f2515a862a5fb38657820365448431a5e38e3b9c0",
+      "bytes": 6137,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/validation.json": {
+      "type": "file",
+      "sha256": "978a061664ef4123a97ee387a396ef50605ce496f918777cebf3af8286803e40",
+      "bytes": 6590,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/validation/20260904-initial-authoring.json": {
+      "type": "file",
+      "sha256": "1cf43a5e1227bbb43879cdb0c6fa3020459ebe368ffa994f373743f66523dc94",
+      "bytes": 5202,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/docs/mvp/validation/20260905-refresh-first-check.json": {
+      "type": "file",
+      "sha256": "0a96ca541ae7032b97eb886379dbdc32dbdda3ac365fd980513a31ee1811f696",
+      "bytes": 6623,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/changes/src/store.py": {
+      "type": "file",
+      "sha256": "d3af4accc4b2e35925a3dee4436d77fb5bd4ae30918949d046dd0018fe44ad2a",
+      "bytes": 236,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/changes/tests/test_store.py": {
+      "type": "file",
+      "sha256": "fe0c936463c16a485ccfcb994de236ebe1f88e8c208aef58e6c26a5fd94d8c60",
+      "bytes": 306,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/.gitignore": {
+      "type": "file",
+      "sha256": "72a76564df2a2370c7fc960536aacd6726982851b692dc029304feff4d466462",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/dependencies.json": {
+      "type": "file",
+      "sha256": "0ece2de07209ce1e1912ecc172ed5cf8e8394611ba1dcb0c0f2a362066fe790c",
+      "bytes": 33,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/docs/architecture.md": {
+      "type": "file",
+      "sha256": "f3780c8c3ea8e8b640f83d74fa915d900ad05fcb4a9375211582036d164af042",
+      "bytes": 548,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/docs/epic.md": {
+      "type": "file",
+      "sha256": "dc6ed14391644b7f1e458ca8a1867c30d43d64c7aeb9fcf3d803fa35c79f0247",
+      "bytes": 206,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/docs/expert-spec.md": {
+      "type": "file",
+      "sha256": "7d3b70f2ea908a111fb1e8591d755e351be312529465a6e154c0d48c5b3d8598",
+      "bytes": 613,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/docs/idea.md": {
+      "type": "file",
+      "sha256": "b16cbda47ceb55648bcf06ddfd1585e1f21266bc84cb25fa1b711b7cbd93573d",
+      "bytes": 448,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/docs/story.md": {
+      "type": "file",
+      "sha256": "0639ceb375dd0cd1558932d2e8460af989021e6476a564450946905edbc5aa45",
+      "bytes": 439,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md": {
+      "type": "file",
+      "sha256": "8a0f94bdf1d6b6d5e4f15d3421a3116d4fed5074774a2eadca7d2ede68b74c1a",
+      "bytes": 1261,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/experts/notes-json-persistence/references/stack.md": {
+      "type": "file",
+      "sha256": "a3a93da3cb2fc4cf9ecece1c5a0a7820227555f0bfa93376fe9b511499cc6fde",
+      "bytes": 507,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/src/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/src/store.py": {
+      "type": "file",
+      "sha256": "937b663eb4cf22be36dd94489068eeae61a2e1cc44458881b2fb373b39dcaf3f",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-json/seed/tests/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/changes/src/store.py": {
+      "type": "file",
+      "sha256": "604776c9eb68e8112b0db67755a7bab47c33deb4f67d045621891f92e1297b0c",
+      "bytes": 353,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/changes/tests/test_store.py": {
+      "type": "file",
+      "sha256": "fe0c936463c16a485ccfcb994de236ebe1f88e8c208aef58e6c26a5fd94d8c60",
+      "bytes": 306,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/.gitignore": {
+      "type": "file",
+      "sha256": "72a76564df2a2370c7fc960536aacd6726982851b692dc029304feff4d466462",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/dependencies.json": {
+      "type": "file",
+      "sha256": "e8567ab1fda4d0b679f9a8fb9b7328955e3b71bbc4b2f080004fe95191075b05",
+      "bytes": 31,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/docs/architecture.md": {
+      "type": "file",
+      "sha256": "f35dde83f953a6ab2f6a025deda16fbd442cc0fdcd86055b1ada2e1f05fee4bc",
+      "bytes": 540,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/docs/epic.md": {
+      "type": "file",
+      "sha256": "dc6ed14391644b7f1e458ca8a1867c30d43d64c7aeb9fcf3d803fa35c79f0247",
+      "bytes": 206,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/docs/expert-spec.md": {
+      "type": "file",
+      "sha256": "d85a1d9bcbf695f0bbca3877e939236847f5a505847b593a0fec25041c02087b",
+      "bytes": 612,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/docs/idea.md": {
+      "type": "file",
+      "sha256": "4e898cada31e2f371c90a1ddc1cb827e642daf3eeac3b9af75b8d63eba90d80e",
+      "bytes": 445,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/docs/story.md": {
+      "type": "file",
+      "sha256": "0639ceb375dd0cd1558932d2e8460af989021e6476a564450946905edbc5aa45",
+      "bytes": 439,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md": {
+      "type": "file",
+      "sha256": "f6e951baafe35e54dfd22c5af995c80d92a21658eeb64fea92a6a64eeb9c9090",
+      "bytes": 1291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/references/stack.md": {
+      "type": "file",
+      "sha256": "a82380220eb00a07d3361a362a6fe2743039de80ec718815a106b385b538bc54",
+      "bytes": 601,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/src/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/src/store.py": {
+      "type": "file",
+      "sha256": "937b663eb4cf22be36dd94489068eeae61a2e1cc44458881b2fb373b39dcaf3f",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/examples/notes-sqlite/seed/tests/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/SKILL.md": {
+      "type": "file",
+      "sha256": "54f402e1c5a08da4aac4a2ea16f745ca2294a934d5e8129f61413a6fb46b430f",
+      "bytes": 5724,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/assets/handoff.md": {
+      "type": "file",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/coverage.json": {
+      "type": "file",
+      "sha256": "cc39ff34272529bc2d10c0e142b4e3d22137ecdcbd365b034cd7166b15af8ebd",
+      "bytes": 6090,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/evals.json": {
+      "type": "file",
+      "sha256": "2f7db1243659150e5dedc869b257968635d273014d3584a5eed7cff5ca139f32",
+      "bytes": 15860,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-01-replacement.json": {
+      "type": "file",
+      "sha256": "76dfa3579da271b80baba8732f207f65c1262b296d2493b06f7e063d0779c392",
+      "bytes": 955,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-claude-worker.json": {
+      "type": "file",
+      "sha256": "01cc6d6413e0ac074b57da5970387142c6ada536b907a98deb144416c76dd2af",
+      "bytes": 785,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-codex-worker.json": {
+      "type": "file",
+      "sha256": "96c2c5c534b384e95a78b8297eadae831e2927b5af5b1e2feb627cd0fb4e5f90",
+      "bytes": 785,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-03-selected-versus-new.json": {
+      "type": "file",
+      "sha256": "14f8203dfe1a4a5ac5e731f3cd3f706dcd7851d22039c70679edab76470cb47f",
+      "bytes": 837,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-authorized-bootstrap.json": {
+      "type": "file",
+      "sha256": "614932cae64d10fdc2609a02e45b25cc06b7cab2f427a65dc41cfe4306f183e5",
+      "bytes": 955,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-conflicting-owners.json": {
+      "type": "file",
+      "sha256": "87d712f8459cdc1c4a58c2ed397d294959ea5a7fee5a76f3f5bc74a72c2922b6",
+      "bytes": 926,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-missing-owner.json": {
+      "type": "file",
+      "sha256": "5b7ffd82a0bdf16123c8f9eb75502a6b4f8048dbe60da84a1642cd7ff31935d2",
+      "bytes": 869,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-absent.json": {
+      "type": "file",
+      "sha256": "46ad0091bc4f947af8110e1fa99b3a33a3d7dbeae269ed33fec8a79a61578e61",
+      "bytes": 832,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-present.json": {
+      "type": "file",
+      "sha256": "19bf4131018ed0f3d30f845a751cbbfa77ef774853df2a96ef5b2100379f910a",
+      "bytes": 817,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-06-inaccessible.json": {
+      "type": "file",
+      "sha256": "88e304c4e8b508209cce1f0821c5488a597202101606968fdcb793d72bc1ffbb",
+      "bytes": 859,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-07-outcome-conflict.json": {
+      "type": "file",
+      "sha256": "6eed293496e9e36ac6db07e3a146970b51e8859c501b121b1d38d4ff8710bf74",
+      "bytes": 954,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-explicit-transfer.json": {
+      "type": "file",
+      "sha256": "d83c8234b52e5091c6d70503482b0aaefc84e33ea2cd7f0939fe72b01f3ce7f2",
+      "bytes": 856,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-unchanged-resume.json": {
+      "type": "file",
+      "sha256": "212449f5ea6b7a21a6d88543a8cfaa4db29161f40bbdc0fea0b68ffce11a1dc6",
+      "bytes": 781,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/assignment.json": {
+      "type": "file",
+      "sha256": "7da649d14186c88eb42437e35cb31285bb1f378b99db0d96fff82247b98a8d09",
+      "bytes": 687,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/decision.json": {
+      "type": "file",
+      "sha256": "c5997c3484fe3b37a79f9c81d82d05e30a552e316cce839b96ec59b4dccdef2c",
+      "bytes": 179,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-claude.json": {
+      "type": "file",
+      "sha256": "5960fdb8b83c5e800e837451fbd17f1e21096eb390ccd1392abbb07838bfa9da",
+      "bytes": 376,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-codex.json": {
+      "type": "file",
+      "sha256": "ef6b1e0b70ce2879a7cc2f53eef7b9d30e04322cf770e15f5472533c4bb64f46",
+      "bytes": 369,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/observations/worktree.json": {
+      "type": "file",
+      "sha256": "e0ef0c19f3260f78f7a42bbd3c22fcbbb32d522782073fd2222c7a9b4e2a8847",
+      "bytes": 252,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/packet.json": {
+      "type": "file",
+      "sha256": "eae6f9b4bc9c764e6697a68e8bca2edf9a177593dbe5f5e347abe27b3e735b36",
+      "bytes": 2854,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-package.json": {
+      "type": "file",
+      "sha256": "0e0c2b70265acfb76d8b5c45850324c0a03668c96f758c3ff78535564ca76d47",
+      "bytes": 245,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-report.json": {
+      "type": "file",
+      "sha256": "993dd97f919994fdc7f5ec9e3dcced5a7401ddd9e6b96b539f89bffb78cd31a4",
+      "bytes": 213,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-package.json": {
+      "type": "file",
+      "sha256": "78efa16a7fd360cdda5e4b94137332eb1e1d9166a74eeac4d8c31bf1d0a9b86c",
+      "bytes": 242,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-report.json": {
+      "type": "file",
+      "sha256": "c094c83dc0b599aaa9735b4ec21e4d8e2df347f18ccf9d90d14ba5c35b9b7483",
+      "bytes": 199,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/integration-finding.json": {
+      "type": "file",
+      "sha256": "60b2e2f7712d578a12acdd2e3bcd54fb0a76bf387819c74b29e44c47d92baa7e",
+      "bytes": 201,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-claude/SKILL.md": {
+      "type": "file",
+      "sha256": "7c044e9125ac7c5cf9977ded5a38c04e39b8158d04a7e033da38880df547bb80",
+      "bytes": 121,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-codex/SKILL.md": {
+      "type": "file",
+      "sha256": "4cef644d5ac76c5f7d5d3b5f64deb9ba5abbdc0593e11ee8bedd972f3f591d1f",
+      "bytes": 119,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/assignment.json": {
+      "type": "file",
+      "sha256": "a04205748b191e439ac01460eb67ad2d73e8909287784710307deb395c6daa01",
+      "bytes": 733,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/decision.json": {
+      "type": "file",
+      "sha256": "99e8cb21f74ffd9f731665da0e098fbf7bebbc5f45da29efb79cbc062769b0cb",
+      "bytes": 381,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/observations/worktree.json": {
+      "type": "file",
+      "sha256": "66fc4e0341ffbe739c5cee32237f5313b27b2de7790219753616fbfab4a3aa7f",
+      "bytes": 256,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/packet.json": {
+      "type": "file",
+      "sha256": "f8313532812f022fcec98ffcad8c1b562887c9533ec844f2beb3ba07ffe895f2",
+      "bytes": 2066,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/finding.json": {
+      "type": "file",
+      "sha256": "e12d35a071fc805b30ffb8baffc4d3acadf509216707fd693c05e833afa982fd",
+      "bytes": 299,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/package.json": {
+      "type": "file",
+      "sha256": "97c41f0b7121c26c60029fc3edfa8b1c2f212067c4d9594c6b43f79ba0f2315c",
+      "bytes": 294,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/receipt.json": {
+      "type": "file",
+      "sha256": "14486f5732ef2445bb64fef9e1bdab50be342b6b6a7c68a620a9dfc5dce78644",
+      "bytes": 286,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/summary.json": {
+      "type": "file",
+      "sha256": "f1e038356f02344c15f13a1d3a649141cf883c0ed490c3982decaaa6d745a97d",
+      "bytes": 222,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/project-experts/claude/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/packet.json": {
+      "type": "file",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "bytes": 2063,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/main-rules.md": {
+      "type": "file",
+      "sha256": "a6ffb3286685cf47fb2d0ef750433461281968541481fe63ee0f6c9e7a024837",
+      "bytes": 114,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/packet.json": {
+      "type": "file",
+      "sha256": "b5c6d1edf37dba79ac980a5be3468b0e680db967af44bce314567d016bfcfb5e",
+      "bytes": 2225,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/authority/bootstrap.json": {
+      "type": "file",
+      "sha256": "265993d67729b75ba9821539022e57d41bce42ab18e68535fc4747ab77bfc766",
+      "bytes": 261,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/observations/worktree.json": {
+      "type": "file",
+      "sha256": "0bdf0ae12124140a0062177671038293b1e5cd2b9f4d706e5133afbb637a7b22",
+      "bytes": 253,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/packet.json": {
+      "type": "file",
+      "sha256": "2d4820a4dbad6083b48d22ddc9394809a9a747f8bdb7e3968a8cf84c559a20f4",
+      "bytes": 2134,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/conflicting-assignment.json": {
+      "type": "file",
+      "sha256": "487d2e48d5c09655d623daca7ca60b5e291491e5cb67e346b1162e29b4ce888b",
+      "bytes": 785,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/packet.json": {
+      "type": "file",
+      "sha256": "9c883970544186bcf73024aa4e97439571ff5cc129a69fddc93e475e7ad7a959",
+      "bytes": 2331,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/observations/worktree.json": {
+      "type": "file",
+      "sha256": "831741163d1e3b5ca93317899d6f09f5e9b020fd07abbabd79f4ca5069f83897",
+      "bytes": 176,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/packet.json": {
+      "type": "file",
+      "sha256": "1bb6eb06794bfce74871d1837fdd0ed6fc92dc288285bb433ccbdd5b8e3fbbd0",
+      "bytes": 1974,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/packet.json": {
+      "type": "file",
+      "sha256": "5f20655763e20b00cbf5703ba7ca86d7956ac12891ae84335a81f9c168d08210",
+      "bytes": 1904,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/packet.json": {
+      "type": "file",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "bytes": 2063,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/elsewhere/required-secret.json": {
+      "type": "file",
+      "sha256": "fca468b684e222518f0329b18ee08582d3527bc7bd0213c41fc53f058da46c0b",
+      "bytes": 30,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/packet.json": {
+      "type": "file",
+      "sha256": "81cc6c41eef950e6ceb0b0add291b2d5a87d5acda451ba52984dfb918581a7fe",
+      "bytes": 2459,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/packet.json": {
+      "type": "file",
+      "sha256": "173f5cb5225715e059c02a7cab4ba184471402eb22a1da3f8abfd9838624f784",
+      "bytes": 2317,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/summary.json": {
+      "type": "file",
+      "sha256": "99fbdf615386dbd85e37b1933ee7597d68d23da4f84b13219049de8c6b789622",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/packet.json": {
+      "type": "file",
+      "sha256": "276c555424456daaf53974b062d00134f47cc00e3095670c4749d2bcb43c1ad6",
+      "bytes": 2317,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/packet.json": {
+      "type": "file",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "bytes": 2063,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-01-replacement.txt": {
+      "type": "file",
+      "sha256": "bf70fc19cc473d63b588c0559e9b0318895874a5cec5ae511177bcdb1eb67e09",
+      "bytes": 65,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-claude-worker.txt": {
+      "type": "file",
+      "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a",
+      "bytes": 82,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-codex-worker.txt": {
+      "type": "file",
+      "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a",
+      "bytes": 82,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-03-selected-versus-new.txt": {
+      "type": "file",
+      "sha256": "806ca3c3ac488d7f60bad8fbb508d399b4c502ea60b3d1ff1276ceb8ba131c8a",
+      "bytes": 105,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-authorized-bootstrap.txt": {
+      "type": "file",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "bytes": 93,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-conflicting-owners.txt": {
+      "type": "file",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "bytes": 93,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-missing-owner.txt": {
+      "type": "file",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "bytes": 93,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-absent.txt": {
+      "type": "file",
+      "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a",
+      "bytes": 88,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-present.txt": {
+      "type": "file",
+      "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a",
+      "bytes": 88,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-06-inaccessible.txt": {
+      "type": "file",
+      "sha256": "b00b9b0252e0593ab9fc6a6d141b2be835ccea32315df68b9b4c18b11fd373d7",
+      "bytes": 47,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-07-outcome-conflict.txt": {
+      "type": "file",
+      "sha256": "c78164b9223e2bd3cf071561caa9488f696c30c5a8dd0368e45087eb91827049",
+      "bytes": 90,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-explicit-transfer.txt": {
+      "type": "file",
+      "sha256": "2225cd30be9bc574c7eff93fd023bbc48def6864092041c883196c5030b771a9",
+      "bytes": 85,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-unchanged-resume.txt": {
+      "type": "file",
+      "sha256": "17f5cf231ad4e8a799490e99efa2ffc061866b2e515620ce58a210a3f2b619e6",
+      "bytes": 68,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/triggers/queries.json": {
+      "type": "file",
+      "sha256": "508265912ff3d9b3e8f810c78344483ba1c826200e9e6e93895abdd5b571b1f7",
+      "bytes": 2332,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/evals/visibility.md": {
+      "type": "file",
+      "sha256": "8ac93da836cdbc7fe56c1c36b3e367b5ea536b3340969cee24869cdc493b8f39",
+      "bytes": 2176,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/references/checkpoint.md": {
+      "type": "file",
+      "sha256": "e316eb653a95e9156061361418e94b0dd1353bc55687129776ccd4042bf1caae",
+      "bytes": 3360,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/project-experts/codex/devforgeai-contribution-context/references/derivation.json": {
+      "type": "file",
+      "sha256": "a191de4dbe2666d58423a88688c676dcbc1052d68fbae5e6ce62da5f8b2e409a",
+      "bytes": 2622,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/.claude-plugin/plugin.json": {
+      "type": "file",
+      "sha256": "cbfd66a0c375a43cb9c36e70aa68075b2de7f736ee6ecfeaeae9dab77ffb02b2",
+      "bytes": 307,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/agents/project-expert-author.md": {
+      "type": "file",
+      "sha256": "79e21a981b818516233948243390d362fef7a991457556545ece2829e278b194",
+      "bytes": 684,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/agents/project-reviewer.md": {
+      "type": "file",
+      "sha256": "db5449975305d2d13ad6ae37b61585e9a950ea1ad1391d4a8dfedb863a349d48",
+      "bytes": 547,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "type": "file",
+      "sha256": "31641ddbee8024ca2330c4f89622fe2c62bdda326df06c148340c16fc00d7a6e",
+      "bytes": 6345,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md": {
+      "type": "file",
+      "sha256": "0b7056c684b619ac15fe02515d8e3c682a60ad1844393f6245fbc2dcb81a3d1f",
+      "bytes": 2711,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md": {
+      "type": "file",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json": {
+      "type": "file",
+      "sha256": "d8470178cc647b8f8dad0aba8ea54f3fd094630ce79866372b65e03c959a24cf",
+      "bytes": 2944,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md": {
+      "type": "file",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "bytes": 2188,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md": {
+      "type": "file",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "bytes": 1232,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md": {
+      "type": "file",
+      "sha256": "75e6b045e7265120d2c2e088734517083e19f924dbc8c85bab3407ed48ccfade",
+      "bytes": 4572,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py": {
+      "type": "file",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+      "bytes": 1874,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "type": "file",
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+      "bytes": 1945,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "type": "file",
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "bytes": 3517,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md": {
+      "type": "file",
+      "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b",
+      "bytes": 1337,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md": {
+      "type": "file",
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8",
+      "bytes": 970,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "type": "file",
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+      "bytes": 1411,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/agents/project-expert-author.toml": {
+      "type": "file",
+      "sha256": "9fc10f54e0405cf345d0b6bbe42d9da1ebe13543a5eac6c40aff967a6c4689f7",
+      "bytes": 469,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/agents/project-reviewer.toml": {
+      "type": "file",
+      "sha256": "6c42b9bd0e79ff59570f57984c5d4c0a625b622514fb116daee3e4cf65926c8c",
+      "bytes": 398,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/plugins/devforgeai/.codex-plugin/plugin.json": {
+      "type": "file",
+      "sha256": "ffe4c894aebd79a34a37d5580d8f02acab817d09e277603a67de6b3a83c0875d",
+      "bytes": 671,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "type": "file",
+      "sha256": "eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0",
+      "bytes": 1939,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "type": "file",
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+      "bytes": 1945,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "type": "file",
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "bytes": 3517,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md": {
+      "type": "file",
+      "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b",
+      "bytes": 1337,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md": {
+      "type": "file",
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8",
+      "bytes": 970,
+      "readback": true
+    },
+    "maintenance/inputs/source-only/providers/codex/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "type": "file",
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+      "bytes": 1411,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/.devforge-runtime/codex/home/tmp/arg0/synthetic/codex-execve-wrapper": {
+      "type": "symlink",
+      "target": "../../../../../../../benign-target"
+    },
+    "maintenance/inputs/source-with-runtime/.devforge-runtime/non-source.json": {
+      "type": "file",
+      "sha256": "3cbd5c8a25bdfd1d398b0d09efcf2b8179bef019953283657041404f4ecf7b2e",
+      "bytes": 38,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/.gitignore": {
+      "type": "file",
+      "sha256": "8b70db31c49744db6ffac6e4de42afd5fc5b27e46a8bc8c0a5559f6cac735dd5",
+      "bytes": 75,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/AGENTS.md": {
+      "type": "file",
+      "sha256": "12e655a0b6bf1b361336cd0d441544847f85f18ac48de5731c56d1ff00675de9",
+      "bytes": 2491,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/CLAUDE.md": {
+      "type": "file",
+      "sha256": "54834c1a49858998c134a7b46da0d4ab2fe90591d48f8122e1b8c82c95964931",
+      "bytes": 1041,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/README.md": {
+      "type": "file",
+      "sha256": "3b75c87a30d91a1e00fd7f28329062529d1118353171fb9f94e3767484022ebb",
+      "bytes": 3886,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/POC.md": {
+      "type": "file",
+      "sha256": "d16013a34d9f6f9fa396949800270e31f952ad4ac42900e73da7a7df4b495568",
+      "bytes": 3664,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/coordination/20260905-contributor-context-evaluation-plan.md": {
+      "type": "file",
+      "sha256": "4dec962fc49cc2acb972b8d5b2bb9b780e8ffbb0f39a86fcead3ede4a786022f",
+      "bytes": 13852,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/coordination/20260905-contributor-context-spec.md": {
+      "type": "file",
+      "sha256": "a7b3cb2b9401db909b9649ee724d64a3f09a098f435e77bf018ec4f285f5ee77",
+      "bytes": 17057,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/coordination/20260905-contributor-context-specification.receipt.json": {
+      "type": "file",
+      "sha256": "2e609d53886bd3b6be69c9df997fad1a2ceea75e915ab68e1f04552f497b510d",
+      "bytes": 12659,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/coordination/20260905-contributor-expertise-proposal.md": {
+      "type": "file",
+      "sha256": "d84d25cbef1656c56c616c8bda22488118a2822ee7a30897a7f2338f94de3e32",
+      "bytes": 20188,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/coordination/20260905-contributor-expertise-proposal.receipt.json": {
+      "type": "file",
+      "sha256": "a303ecdd71ad6270edf9230328920b25c63b733c8d59f0f55c90e0136b7c4abd",
+      "bytes": 20001,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/coordination/20260905T000653Z-skill-authoring-next-steps.md": {
+      "type": "file",
+      "sha256": "76cc7d154b5208038dcda6aafcd7ec1b670bc0f2a160c76afe78e9538844df2d",
+      "bytes": 11657,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/README.md": {
+      "type": "file",
+      "sha256": "e31147bd9586bd3308551eb192d0c0ae8f3db4d50e85776b94f9e22d75819e08",
+      "bytes": 6833,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/artifact-contract.md": {
+      "type": "file",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+      "bytes": 10482,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/execution-contract.md": {
+      "type": "file",
+      "sha256": "a575f9da5ba71e5b92e303b770a2eba7b96bb8f955b491e012ab682b852221b8",
+      "bytes": 10720,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/package-index.json": {
+      "type": "file",
+      "sha256": "b4e380646555b389e463a099b87cd180d35166f49c9af38da6150bd3c2444e2d",
+      "bytes": 14120,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/agentskills/adding-skills-support.json": {
+      "type": "file",
+      "sha256": "59d243b1725853a3fee2ead3eca6c0610744e784a9be39f4149c16f05ea46c0a",
+      "bytes": 25484,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/agentskills/best-practices.json": {
+      "type": "file",
+      "sha256": "78a9b4843795245cd93cc8c652371eaf0c949d69954d630058a609132238f5c1",
+      "bytes": 19223,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/agentskills/evaluating-skills.json": {
+      "type": "file",
+      "sha256": "8341ae2863dbc99a2a629614b06a5d534612104858a8136e0d5bfcb5303dee6a",
+      "bytes": 20349,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/agentskills/optimizing-descriptions.json": {
+      "type": "file",
+      "sha256": "1d9747a0d976ec6902f603a967ba9288c5858b7e1ac47965cf188878541a0f3c",
+      "bytes": 15668,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/agentskills/overview.json": {
+      "type": "file",
+      "sha256": "1a4839a05e4aa1efee62862c7badcb78d7ff65a0606ed2adac9e5978fabfde0b",
+      "bytes": 4204,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/agentskills/specification.json": {
+      "type": "file",
+      "sha256": "43dbae1c0d06d75fccd1a277ca250b62465c962a06b31d83ebacd6805a8c304f",
+      "bytes": 10084,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/agentskills/using-scripts.json": {
+      "type": "file",
+      "sha256": "cfec41d8098d8548817dad2f80f58a5cbb43b3ed9a67ab419fa1440bf761d285",
+      "bytes": 14964,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/source-notes.md": {
+      "type": "file",
+      "sha256": "54f414549451c6697b1bacfb9d6efaa2b6f77b4f2da8c73d823d228dba66a0dc",
+      "bytes": 5629,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/research/sources.json": {
+      "type": "file",
+      "sha256": "747ae96827ef7b101674f30736ac8bbd8ae614201f9a5b029d56db8516b8269e",
+      "bytes": 9405,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/roster.md": {
+      "type": "file",
+      "sha256": "af0fcb8fcf22538f515b197b0e68266a8ed02ec059f48072218ca71c89987ba9",
+      "bytes": 9930,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/skill-authoring-contract.md": {
+      "type": "file",
+      "sha256": "1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e",
+      "bytes": 19657,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-001-devforge-brainstorm.md": {
+      "type": "file",
+      "sha256": "1c856003a6604e099f2a7b958e5bc73af032db81f73f870dd7c1824c0d834718",
+      "bytes": 10496,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-002-devforge-define-product.md": {
+      "type": "file",
+      "sha256": "3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf",
+      "bytes": 9364,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-003-devforge-design.md": {
+      "type": "file",
+      "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb",
+      "bytes": 9192,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-004-devforge-prototype.md": {
+      "type": "file",
+      "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+      "bytes": 9466,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-005-devforge-architect.md": {
+      "type": "file",
+      "sha256": "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b",
+      "bytes": 9902,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-006-devforge-plan.md": {
+      "type": "file",
+      "sha256": "149a66a375da1bb3447f51b657996883974fec1dac3ce92af866eba94a378e4b",
+      "bytes": 9565,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md": {
+      "type": "file",
+      "sha256": "4e65816f56d206e887325b62259ce18dee885bc4d14aaa9a5a6310c00e04e140",
+      "bytes": 11291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md": {
+      "type": "file",
+      "sha256": "8cf6bcdffe1bfe7c88dd34b83153307446344853844e24d8e9d1658a916011cb",
+      "bytes": 10603,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-009-devforge-develop.md": {
+      "type": "file",
+      "sha256": "c3834796b64d3487bb22aa04db545f126472fac14d043052ecb82127acf8117a",
+      "bytes": 9698,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-010-devforge-review.md": {
+      "type": "file",
+      "sha256": "1637ac05ff86a16e99cbb8be06a57db27f795eedcc738a560db0f4c40fae2b94",
+      "bytes": 9485,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-011-devforge-release.md": {
+      "type": "file",
+      "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d",
+      "bytes": 9673,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/specifications/skill-012-devforge-change.md": {
+      "type": "file",
+      "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774",
+      "bytes": 9608,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/README.md": {
+      "type": "file",
+      "sha256": "c68b950eaa4a3af0d557fb5e6d82bb1ce4a8715153b4b8a7e54b0ad7853d39cd",
+      "bytes": 3805,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-architect/architecture-contract.md": {
+      "type": "file",
+      "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218",
+      "bytes": 3130,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-brainstorm/idea-ledger.md": {
+      "type": "file",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-change/change-request.md": {
+      "type": "file",
+      "sha256": "1b6d4198065153934368079833fa853fc271aacbf7266444765cda7cde7e5b43",
+      "bytes": 2277,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-define-product/product-brief.md": {
+      "type": "file",
+      "sha256": "5a2229a13fba07d0a279f82255a49f57a78be99db8fd8f7991c1f85a12864ddb",
+      "bytes": 2085,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-design/design-spec.md": {
+      "type": "file",
+      "sha256": "5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661",
+      "bytes": 1911,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-develop/development-record.md": {
+      "type": "file",
+      "sha256": "9e3004dbb4dc96a2e8768112df73589d74275f65d95b061ec5593d48a95dec7b",
+      "bytes": 2112,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-plan.md": {
+      "type": "file",
+      "sha256": "3d96cf49b409afdd15d9388f7940e8dc225d7f5b9cb6024897afe845981ba68d",
+      "bytes": 2680,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-evaluate-expert/expert-evaluation-report.md": {
+      "type": "file",
+      "sha256": "b4a43032fcc865a1a348f057876a5623119b90dee4e6287bbd0fe045b105b928",
+      "bytes": 2677,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-plan/epic.md": {
+      "type": "file",
+      "sha256": "48f8b069f6f57b386d0337a2ef15503dfe234a97f3d7162740b708de75dc35e3",
+      "bytes": 1704,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-plan/story.md": {
+      "type": "file",
+      "sha256": "a19ccd7f332c895fe6d7713ed8ae1a7e52991c71c846557d3fb29862ebff9daf",
+      "bytes": 2469,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-project-expert-creator/expert-package.md": {
+      "type": "file",
+      "sha256": "c6c95ddeaa8705c0337c08eda75407f6ce7be0c91406c1f33047cacaa00cb629",
+      "bytes": 2243,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-project-expert-creator/expert-skill.md": {
+      "type": "file",
+      "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+      "bytes": 1030,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-project-expert-creator/expert-spec.md": {
+      "type": "file",
+      "sha256": "eaf4a197cad96c36edd412485d654e211941eff2ff5c266862c856fdd7f09c36",
+      "bytes": 2343,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-prototype/experiment-plan.md": {
+      "type": "file",
+      "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564",
+      "bytes": 1524,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-prototype/prototype-report.md": {
+      "type": "file",
+      "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252",
+      "bytes": 1602,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-release/release-record.md": {
+      "type": "file",
+      "sha256": "90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb",
+      "bytes": 2353,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/devforge-review/review-report.md": {
+      "type": "file",
+      "sha256": "ceabf390b193eac12ecf384c8e25cbf3c0d7b77127403a0ad95d2c5f3acffb44",
+      "bytes": 2098,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/shared/handoff.md": {
+      "type": "file",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/shared/session-record.md": {
+      "type": "file",
+      "sha256": "0a83f8eb8c1a43291cc489da3b9db354c815fc9337c2245473fd644d45623fdd",
+      "bytes": 2778,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/skill-authoring/evals.json": {
+      "type": "file",
+      "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692",
+      "bytes": 227,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/skill-authoring/evaluation-report.md": {
+      "type": "file",
+      "sha256": "d4929c36980ff5237ee3e6a3363392d9fa6303ba1f3028b8b184a85fd31b0ddc",
+      "bytes": 1805,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/skill-authoring/run-manifest.json": {
+      "type": "file",
+      "sha256": "9f8d7a8eed826dd4ff7e0f64988b6cded6839aca73b5ebc6c04dec543c1e414f",
+      "bytes": 802,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/templates/skill-authoring/trigger-queries.json": {
+      "type": "file",
+      "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4",
+      "bytes": 129,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/use-case-inventory.md": {
+      "type": "file",
+      "sha256": "fa0086e523771dfa57afeb5f2515a862a5fb38657820365448431a5e38e3b9c0",
+      "bytes": 6137,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/validation.json": {
+      "type": "file",
+      "sha256": "978a061664ef4123a97ee387a396ef50605ce496f918777cebf3af8286803e40",
+      "bytes": 6590,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/validation/20260904-initial-authoring.json": {
+      "type": "file",
+      "sha256": "1cf43a5e1227bbb43879cdb0c6fa3020459ebe368ffa994f373743f66523dc94",
+      "bytes": 5202,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/docs/mvp/validation/20260905-refresh-first-check.json": {
+      "type": "file",
+      "sha256": "0a96ca541ae7032b97eb886379dbdc32dbdda3ac365fd980513a31ee1811f696",
+      "bytes": 6623,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/changes/src/store.py": {
+      "type": "file",
+      "sha256": "d3af4accc4b2e35925a3dee4436d77fb5bd4ae30918949d046dd0018fe44ad2a",
+      "bytes": 236,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/changes/tests/test_store.py": {
+      "type": "file",
+      "sha256": "fe0c936463c16a485ccfcb994de236ebe1f88e8c208aef58e6c26a5fd94d8c60",
+      "bytes": 306,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/.gitignore": {
+      "type": "file",
+      "sha256": "72a76564df2a2370c7fc960536aacd6726982851b692dc029304feff4d466462",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/dependencies.json": {
+      "type": "file",
+      "sha256": "0ece2de07209ce1e1912ecc172ed5cf8e8394611ba1dcb0c0f2a362066fe790c",
+      "bytes": 33,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/docs/architecture.md": {
+      "type": "file",
+      "sha256": "f3780c8c3ea8e8b640f83d74fa915d900ad05fcb4a9375211582036d164af042",
+      "bytes": 548,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/docs/epic.md": {
+      "type": "file",
+      "sha256": "dc6ed14391644b7f1e458ca8a1867c30d43d64c7aeb9fcf3d803fa35c79f0247",
+      "bytes": 206,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/docs/expert-spec.md": {
+      "type": "file",
+      "sha256": "7d3b70f2ea908a111fb1e8591d755e351be312529465a6e154c0d48c5b3d8598",
+      "bytes": 613,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/docs/idea.md": {
+      "type": "file",
+      "sha256": "b16cbda47ceb55648bcf06ddfd1585e1f21266bc84cb25fa1b711b7cbd93573d",
+      "bytes": 448,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/docs/story.md": {
+      "type": "file",
+      "sha256": "0639ceb375dd0cd1558932d2e8460af989021e6476a564450946905edbc5aa45",
+      "bytes": 439,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/experts/notes-json-persistence/SKILL.md": {
+      "type": "file",
+      "sha256": "8a0f94bdf1d6b6d5e4f15d3421a3116d4fed5074774a2eadca7d2ede68b74c1a",
+      "bytes": 1261,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/experts/notes-json-persistence/references/stack.md": {
+      "type": "file",
+      "sha256": "a3a93da3cb2fc4cf9ecece1c5a0a7820227555f0bfa93376fe9b511499cc6fde",
+      "bytes": 507,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/src/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/src/store.py": {
+      "type": "file",
+      "sha256": "937b663eb4cf22be36dd94489068eeae61a2e1cc44458881b2fb373b39dcaf3f",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-json/seed/tests/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/changes/src/store.py": {
+      "type": "file",
+      "sha256": "604776c9eb68e8112b0db67755a7bab47c33deb4f67d045621891f92e1297b0c",
+      "bytes": 353,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/changes/tests/test_store.py": {
+      "type": "file",
+      "sha256": "fe0c936463c16a485ccfcb994de236ebe1f88e8c208aef58e6c26a5fd94d8c60",
+      "bytes": 306,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/.gitignore": {
+      "type": "file",
+      "sha256": "72a76564df2a2370c7fc960536aacd6726982851b692dc029304feff4d466462",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/dependencies.json": {
+      "type": "file",
+      "sha256": "e8567ab1fda4d0b679f9a8fb9b7328955e3b71bbc4b2f080004fe95191075b05",
+      "bytes": 31,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/docs/architecture.md": {
+      "type": "file",
+      "sha256": "f35dde83f953a6ab2f6a025deda16fbd442cc0fdcd86055b1ada2e1f05fee4bc",
+      "bytes": 540,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/docs/epic.md": {
+      "type": "file",
+      "sha256": "dc6ed14391644b7f1e458ca8a1867c30d43d64c7aeb9fcf3d803fa35c79f0247",
+      "bytes": 206,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/docs/expert-spec.md": {
+      "type": "file",
+      "sha256": "d85a1d9bcbf695f0bbca3877e939236847f5a505847b593a0fec25041c02087b",
+      "bytes": 612,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/docs/idea.md": {
+      "type": "file",
+      "sha256": "4e898cada31e2f371c90a1ddc1cb827e642daf3eeac3b9af75b8d63eba90d80e",
+      "bytes": 445,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/docs/story.md": {
+      "type": "file",
+      "sha256": "0639ceb375dd0cd1558932d2e8460af989021e6476a564450946905edbc5aa45",
+      "bytes": 439,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/SKILL.md": {
+      "type": "file",
+      "sha256": "f6e951baafe35e54dfd22c5af995c80d92a21658eeb64fea92a6a64eeb9c9090",
+      "bytes": 1291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/experts/notes-sqlite-persistence/references/stack.md": {
+      "type": "file",
+      "sha256": "a82380220eb00a07d3361a362a6fe2743039de80ec718815a106b385b538bc54",
+      "bytes": 601,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/src/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/src/store.py": {
+      "type": "file",
+      "sha256": "937b663eb4cf22be36dd94489068eeae61a2e1cc44458881b2fb373b39dcaf3f",
+      "bytes": 39,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/examples/notes-sqlite/seed/tests/__init__.py": {
+      "type": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/SKILL.md": {
+      "type": "file",
+      "sha256": "54f402e1c5a08da4aac4a2ea16f745ca2294a934d5e8129f61413a6fb46b430f",
+      "bytes": 5724,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/assets/handoff.md": {
+      "type": "file",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "bytes": 3342,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/coverage.json": {
+      "type": "file",
+      "sha256": "cc39ff34272529bc2d10c0e142b4e3d22137ecdcbd365b034cd7166b15af8ebd",
+      "bytes": 6090,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/evals.json": {
+      "type": "file",
+      "sha256": "2f7db1243659150e5dedc869b257968635d273014d3584a5eed7cff5ca139f32",
+      "bytes": 15860,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-01-replacement.json": {
+      "type": "file",
+      "sha256": "76dfa3579da271b80baba8732f207f65c1262b296d2493b06f7e063d0779c392",
+      "bytes": 955,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-claude-worker.json": {
+      "type": "file",
+      "sha256": "01cc6d6413e0ac074b57da5970387142c6ada536b907a98deb144416c76dd2af",
+      "bytes": 785,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-02-codex-worker.json": {
+      "type": "file",
+      "sha256": "96c2c5c534b384e95a78b8297eadae831e2927b5af5b1e2feb627cd0fb4e5f90",
+      "bytes": 785,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-03-selected-versus-new.json": {
+      "type": "file",
+      "sha256": "14f8203dfe1a4a5ac5e731f3cd3f706dcd7851d22039c70679edab76470cb47f",
+      "bytes": 837,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-authorized-bootstrap.json": {
+      "type": "file",
+      "sha256": "614932cae64d10fdc2609a02e45b25cc06b7cab2f427a65dc41cfe4306f183e5",
+      "bytes": 955,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-conflicting-owners.json": {
+      "type": "file",
+      "sha256": "87d712f8459cdc1c4a58c2ed397d294959ea5a7fee5a76f3f5bc74a72c2922b6",
+      "bytes": 926,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-04-missing-owner.json": {
+      "type": "file",
+      "sha256": "5b7ffd82a0bdf16123c8f9eb75502a6b4f8048dbe60da84a1642cd7ff31935d2",
+      "bytes": 869,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-absent.json": {
+      "type": "file",
+      "sha256": "46ad0091bc4f947af8110e1fa99b3a33a3d7dbeae269ed33fec8a79a61578e61",
+      "bytes": 832,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-05-delegation-present.json": {
+      "type": "file",
+      "sha256": "19bf4131018ed0f3d30f845a751cbbfa77ef774853df2a96ef5b2100379f910a",
+      "bytes": 817,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-06-inaccessible.json": {
+      "type": "file",
+      "sha256": "88e304c4e8b508209cce1f0821c5488a597202101606968fdcb793d72bc1ffbb",
+      "bytes": 859,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-07-outcome-conflict.json": {
+      "type": "file",
+      "sha256": "6eed293496e9e36ac6db07e3a146970b51e8859c501b121b1d38d4ff8710bf74",
+      "bytes": 954,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-explicit-transfer.json": {
+      "type": "file",
+      "sha256": "d83c8234b52e5091c6d70503482b0aaefc84e33ea2cd7f0939fe72b01f3ce7f2",
+      "bytes": 856,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/expectations/CCX-08-unchanged-resume.json": {
+      "type": "file",
+      "sha256": "212449f5ea6b7a21a6d88543a8cfaa4db29161f40bbdc0fea0b68ffce11a1dc6",
+      "bytes": 781,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/assignment.json": {
+      "type": "file",
+      "sha256": "7da649d14186c88eb42437e35cb31285bb1f378b99db0d96fff82247b98a8d09",
+      "bytes": 687,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/decision.json": {
+      "type": "file",
+      "sha256": "c5997c3484fe3b37a79f9c81d82d05e30a552e316cce839b96ec59b4dccdef2c",
+      "bytes": 179,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-claude.json": {
+      "type": "file",
+      "sha256": "5960fdb8b83c5e800e837451fbd17f1e21096eb390ccd1392abbb07838bfa9da",
+      "bytes": 376,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/authority/worker-codex.json": {
+      "type": "file",
+      "sha256": "ef6b1e0b70ce2879a7cc2f53eef7b9d30e04322cf770e15f5472533c4bb64f46",
+      "bytes": 369,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/observations/worktree.json": {
+      "type": "file",
+      "sha256": "e0ef0c19f3260f78f7a42bbd3c22fcbbb32d522782073fd2222c7a9b4e2a8847",
+      "bytes": 252,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/packet.json": {
+      "type": "file",
+      "sha256": "eae6f9b4bc9c764e6697a68e8bca2edf9a177593dbe5f5e347abe27b3e735b36",
+      "bytes": 2854,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-package.json": {
+      "type": "file",
+      "sha256": "0e0c2b70265acfb76d8b5c45850324c0a03668c96f758c3ff78535564ca76d47",
+      "bytes": 245,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/claude-report.json": {
+      "type": "file",
+      "sha256": "993dd97f919994fdc7f5ec9e3dcced5a7401ddd9e6b96b539f89bffb78cd31a4",
+      "bytes": 213,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-package.json": {
+      "type": "file",
+      "sha256": "78efa16a7fd360cdda5e4b94137332eb1e1d9166a74eeac4d8c31bf1d0a9b86c",
+      "bytes": 242,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/codex-report.json": {
+      "type": "file",
+      "sha256": "c094c83dc0b599aaa9735b4ec21e4d8e2df347f18ccf9d90d14ba5c35b9b7483",
+      "bytes": 199,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/integration-finding.json": {
+      "type": "file",
+      "sha256": "60b2e2f7712d578a12acdd2e3bcd54fb0a76bf387819c74b29e44c47d92baa7e",
+      "bytes": 201,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-claude/SKILL.md": {
+      "type": "file",
+      "sha256": "7c044e9125ac7c5cf9977ded5a38c04e39b8158d04a7e033da38880df547bb80",
+      "bytes": 121,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target-codex/SKILL.md": {
+      "type": "file",
+      "sha256": "4cef644d5ac76c5f7d5d3b5f64deb9ba5abbdc0593e11ee8bedd972f3f591d1f",
+      "bytes": 119,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-01-replacement/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/assignment.json": {
+      "type": "file",
+      "sha256": "a04205748b191e439ac01460eb67ad2d73e8909287784710307deb395c6daa01",
+      "bytes": 733,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/authority/decision.json": {
+      "type": "file",
+      "sha256": "99e8cb21f74ffd9f731665da0e098fbf7bebbc5f45da29efb79cbc062769b0cb",
+      "bytes": 381,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/observations/worktree.json": {
+      "type": "file",
+      "sha256": "66fc4e0341ffbe739c5cee32237f5313b27b2de7790219753616fbfab4a3aa7f",
+      "bytes": 256,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/packet.json": {
+      "type": "file",
+      "sha256": "f8313532812f022fcec98ffcad8c1b562887c9533ec844f2beb3ba07ffe895f2",
+      "bytes": 2066,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/finding.json": {
+      "type": "file",
+      "sha256": "e12d35a071fc805b30ffb8baffc4d3acadf509216707fd693c05e833afa982fd",
+      "bytes": 299,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/package.json": {
+      "type": "file",
+      "sha256": "97c41f0b7121c26c60029fc3edfa8b1c2f212067c4d9594c6b43f79ba0f2315c",
+      "bytes": 294,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/receipt.json": {
+      "type": "file",
+      "sha256": "14486f5732ef2445bb64fef9e1bdab50be342b6b6a7c68a620a9dfc5dce78644",
+      "bytes": 286,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/records/summary.json": {
+      "type": "file",
+      "sha256": "f1e038356f02344c15f13a1d3a649141cf883c0ed490c3982decaaa6d745a97d",
+      "bytes": 222,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-claude-worker/target/project-experts/claude/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/packet.json": {
+      "type": "file",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "bytes": 2063,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-02-codex-worker/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/main-rules.md": {
+      "type": "file",
+      "sha256": "a6ffb3286685cf47fb2d0ef750433461281968541481fe63ee0f6c9e7a024837",
+      "bytes": 114,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/packet.json": {
+      "type": "file",
+      "sha256": "b5c6d1edf37dba79ac980a5be3468b0e680db967af44bce314567d016bfcfb5e",
+      "bytes": 2225,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-03-selected-versus-new/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/authority/bootstrap.json": {
+      "type": "file",
+      "sha256": "265993d67729b75ba9821539022e57d41bce42ab18e68535fc4747ab77bfc766",
+      "bytes": 261,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/observations/worktree.json": {
+      "type": "file",
+      "sha256": "0bdf0ae12124140a0062177671038293b1e5cd2b9f4d706e5133afbb637a7b22",
+      "bytes": 253,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/packet.json": {
+      "type": "file",
+      "sha256": "2d4820a4dbad6083b48d22ddc9394809a9a747f8bdb7e3968a8cf84c559a20f4",
+      "bytes": 2134,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-authorized-bootstrap/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/authority/conflicting-assignment.json": {
+      "type": "file",
+      "sha256": "487d2e48d5c09655d623daca7ca60b5e291491e5cb67e346b1162e29b4ce888b",
+      "bytes": 785,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/packet.json": {
+      "type": "file",
+      "sha256": "9c883970544186bcf73024aa4e97439571ff5cc129a69fddc93e475e7ad7a959",
+      "bytes": 2331,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-conflicting-owners/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/observations/worktree.json": {
+      "type": "file",
+      "sha256": "831741163d1e3b5ca93317899d6f09f5e9b020fd07abbabd79f4ca5069f83897",
+      "bytes": 176,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/packet.json": {
+      "type": "file",
+      "sha256": "1bb6eb06794bfce74871d1837fdd0ed6fc92dc288285bb433ccbdd5b8e3fbbd0",
+      "bytes": 1974,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-04-missing-owner/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/packet.json": {
+      "type": "file",
+      "sha256": "5f20655763e20b00cbf5703ba7ca86d7956ac12891ae84335a81f9c168d08210",
+      "bytes": 1904,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-absent/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/packet.json": {
+      "type": "file",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "bytes": 2063,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-05-delegation-present/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/elsewhere/required-secret.json": {
+      "type": "file",
+      "sha256": "fca468b684e222518f0329b18ee08582d3527bc7bd0213c41fc53f058da46c0b",
+      "bytes": 30,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/packet.json": {
+      "type": "file",
+      "sha256": "81cc6c41eef950e6ceb0b0add291b2d5a87d5acda451ba52984dfb918581a7fe",
+      "bytes": 2459,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-06-inaccessible/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/packet.json": {
+      "type": "file",
+      "sha256": "173f5cb5225715e059c02a7cab4ba184471402eb22a1da3f8abfd9838624f784",
+      "bytes": 2317,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/records/summary.json": {
+      "type": "file",
+      "sha256": "99fbdf615386dbd85e37b1933ee7597d68d23da4f84b13219049de8c6b789622",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-07-outcome-conflict/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/packet.json": {
+      "type": "file",
+      "sha256": "276c555424456daaf53974b062d00134f47cc00e3095670c4749d2bcb43c1ad6",
+      "bytes": 2317,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-explicit-transfer/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/assignment.json": {
+      "type": "file",
+      "sha256": "e24355e75debc92cf395b9205510f8e7df19313a39aa773db94bfb61e1e8950e",
+      "bytes": 729,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/authority/decision.json": {
+      "type": "file",
+      "sha256": "83276a7a0e69bc2e3f9847983855bb3a9d911bb3e9026ae042298a9bae518ab4",
+      "bytes": 378,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/observations/worktree.json": {
+      "type": "file",
+      "sha256": "3f963a5a6fab4f02bf2d216d04d0a371d9e019c0eb3bacb3f938329275758560",
+      "bytes": 254,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/packet.json": {
+      "type": "file",
+      "sha256": "98b9b7664937a8ee7739ffaa04d69e9641e8a0c72c04120de0657d96957083ed",
+      "bytes": 2063,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/finding.json": {
+      "type": "file",
+      "sha256": "e88d4f8ffce4e31daf6d5dc26c0acfc7228ff338b8984c4068dd2e72121050ff",
+      "bytes": 297,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/package.json": {
+      "type": "file",
+      "sha256": "5d327692299488472ea7f3df94cf0c4415d93f20cb25ab11149e6656f3508517",
+      "bytes": 291,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/receipt.json": {
+      "type": "file",
+      "sha256": "5020fc28520cfcf17c8a51ab61b5d8bfcc9c6b3dfdcf4dcc89faf4dff95ea1f4",
+      "bytes": 285,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/records/summary.json": {
+      "type": "file",
+      "sha256": "d76755d2e3deee598fc3e0abe6d08400f176c54b325e28cabf98efe9a27a54cb",
+      "bytes": 221,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/selected/rules.md": {
+      "type": "file",
+      "sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+      "bytes": 363,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/old-handoff.md": {
+      "type": "file",
+      "sha256": "54da1bbcbe3a73f835006f010d4d58e5fba7f89b9580bdbd1a51877b8ca1acd7",
+      "bytes": 80,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/fixtures/CCX-08-unchanged-resume/target/project-experts/codex/fixture-capability/SKILL.md": {
+      "type": "file",
+      "sha256": "c7bec4ae0b7c58822cec7478146eeb87aafbc6f98aad6149350c3fdbe11a69b3",
+      "bytes": 172,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-01-replacement.txt": {
+      "type": "file",
+      "sha256": "bf70fc19cc473d63b588c0559e9b0318895874a5cec5ae511177bcdb1eb67e09",
+      "bytes": 65,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-claude-worker.txt": {
+      "type": "file",
+      "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a",
+      "bytes": 82,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-02-codex-worker.txt": {
+      "type": "file",
+      "sha256": "c0f2b151f600f3e72f61e324089d64d2a73bc4bb29aaa34bd921a21638152d5a",
+      "bytes": 82,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-03-selected-versus-new.txt": {
+      "type": "file",
+      "sha256": "806ca3c3ac488d7f60bad8fbb508d399b4c502ea60b3d1ff1276ceb8ba131c8a",
+      "bytes": 105,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-authorized-bootstrap.txt": {
+      "type": "file",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "bytes": 93,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-conflicting-owners.txt": {
+      "type": "file",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "bytes": 93,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-04-missing-owner.txt": {
+      "type": "file",
+      "sha256": "f0f01766028c6bae025261388dbd4dd66ed92ef775f62b8fe31e3b45958ddafd",
+      "bytes": 93,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-absent.txt": {
+      "type": "file",
+      "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a",
+      "bytes": 88,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-05-delegation-present.txt": {
+      "type": "file",
+      "sha256": "aa7639011a15e672026b613b0667be6036e71b8fd9d039d49f7bd49bcdfcf56a",
+      "bytes": 88,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-06-inaccessible.txt": {
+      "type": "file",
+      "sha256": "b00b9b0252e0593ab9fc6a6d141b2be835ccea32315df68b9b4c18b11fd373d7",
+      "bytes": 47,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-07-outcome-conflict.txt": {
+      "type": "file",
+      "sha256": "c78164b9223e2bd3cf071561caa9488f696c30c5a8dd0368e45087eb91827049",
+      "bytes": 90,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-explicit-transfer.txt": {
+      "type": "file",
+      "sha256": "2225cd30be9bc574c7eff93fd023bbc48def6864092041c883196c5030b771a9",
+      "bytes": 85,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/requests/CCX-08-unchanged-resume.txt": {
+      "type": "file",
+      "sha256": "17f5cf231ad4e8a799490e99efa2ffc061866b2e515620ce58a210a3f2b619e6",
+      "bytes": 68,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/triggers/queries.json": {
+      "type": "file",
+      "sha256": "508265912ff3d9b3e8f810c78344483ba1c826200e9e6e93895abdd5b571b1f7",
+      "bytes": 2332,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/evals/visibility.md": {
+      "type": "file",
+      "sha256": "8ac93da836cdbc7fe56c1c36b3e367b5ea536b3340969cee24869cdc493b8f39",
+      "bytes": 2176,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/references/checkpoint.md": {
+      "type": "file",
+      "sha256": "e316eb653a95e9156061361418e94b0dd1353bc55687129776ccd4042bf1caae",
+      "bytes": 3360,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/project-experts/codex/devforgeai-contribution-context/references/derivation.json": {
+      "type": "file",
+      "sha256": "a191de4dbe2666d58423a88688c676dcbc1052d68fbae5e6ce62da5f8b2e409a",
+      "bytes": 2622,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/.claude-plugin/plugin.json": {
+      "type": "file",
+      "sha256": "cbfd66a0c375a43cb9c36e70aa68075b2de7f736ee6ecfeaeae9dab77ffb02b2",
+      "bytes": 307,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/agents/project-expert-author.md": {
+      "type": "file",
+      "sha256": "79e21a981b818516233948243390d362fef7a991457556545ece2829e278b194",
+      "bytes": 684,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/agents/project-reviewer.md": {
+      "type": "file",
+      "sha256": "db5449975305d2d13ad6ae37b61585e9a950ea1ad1391d4a8dfedb863a349d48",
+      "bytes": 547,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "type": "file",
+      "sha256": "31641ddbee8024ca2330c4f89622fe2c62bdda326df06c148340c16fc00d7a6e",
+      "bytes": 6345,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/handoff.md": {
+      "type": "file",
+      "sha256": "0b7056c684b619ac15fe02515d8e3c682a60ad1844393f6245fbc2dcb81a3d1f",
+      "bytes": 2711,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/assets/idea-ledger.md": {
+      "type": "file",
+      "sha256": "46197247715cab9c289f1cf9e8dc25c00afdae51c5bc1f56fb0f95b9cca21417",
+      "bytes": 1598,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json": {
+      "type": "file",
+      "sha256": "d8470178cc647b8f8dad0aba8ea54f3fd094630ce79866372b65e03c959a24cf",
+      "bytes": 2944,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/IDEAS-001.md": {
+      "type": "file",
+      "sha256": "50f68b3e2c53762335d134251f9aff42452f5d1fd11690c5f0927ab6c252d4a7",
+      "bytes": 2188,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/fixtures/STORY-014.md": {
+      "type": "file",
+      "sha256": "8c9baa647231a350cdf2a40263188c05ded1a032a318954417d719d848d3703e",
+      "bytes": 1232,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md": {
+      "type": "file",
+      "sha256": "75e6b045e7265120d2c2e088734517083e19f924dbc8c85bab3407ed48ccfade",
+      "bytes": 4572,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-brainstorm/scripts/check_artifact.py": {
+      "type": "file",
+      "sha256": "536f4b358ebffc2e60dd01672ab7563a10f55b91d3122ff8f28a1a2e2a9d0f3a",
+      "bytes": 1874,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "type": "file",
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+      "bytes": 1945,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "type": "file",
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "bytes": 3517,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md": {
+      "type": "file",
+      "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b",
+      "bytes": 1337,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md": {
+      "type": "file",
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8",
+      "bytes": 970,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/claude/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "type": "file",
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+      "bytes": 1411,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/agents/project-expert-author.toml": {
+      "type": "file",
+      "sha256": "9fc10f54e0405cf345d0b6bbe42d9da1ebe13543a5eac6c40aff967a6c4689f7",
+      "bytes": 469,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/agents/project-reviewer.toml": {
+      "type": "file",
+      "sha256": "6c42b9bd0e79ff59570f57984c5d4c0a625b622514fb116daee3e4cf65926c8c",
+      "bytes": 398,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/plugins/devforgeai/.codex-plugin/plugin.json": {
+      "type": "file",
+      "sha256": "ffe4c894aebd79a34a37d5580d8f02acab817d09e277603a67de6b3a83c0875d",
+      "bytes": 671,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md": {
+      "type": "file",
+      "sha256": "eeeca8d3720ba45d3614ebc22b19bf8f204050418c6f54489367d5701467eca0",
+      "bytes": 1939,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/plugins/devforgeai/skills/devforge-develop/SKILL.md": {
+      "type": "file",
+      "sha256": "127a7196bd5a23083d356a3ad1476d6d2e8f661db97d8c56b3f074c1152b2bad",
+      "bytes": 1945,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md": {
+      "type": "file",
+      "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "bytes": 3517,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md": {
+      "type": "file",
+      "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b",
+      "bytes": 1337,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md": {
+      "type": "file",
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8",
+      "bytes": 970,
+      "readback": true
+    },
+    "maintenance/inputs/source-with-runtime/providers/codex/plugins/devforgeai/skills/devforge-review/SKILL.md": {
+      "type": "file",
+      "sha256": "63c681580332b68b71b678a4f769c16e66820c45b8801e75dbb364279cfa2c06",
+      "bytes": 1411,
+      "readback": true
+    },
+    "maintenance/observation-old-source-only.json": {
+      "type": "file",
+      "sha256": "401e9661b9361061c3468301bf6a20c370a3c91ebd1078a8aafa8d92b45e0408",
+      "bytes": 1122,
+      "readback": true
+    },
+    "maintenance/observation-old-synthetic-runtime.json": {
+      "type": "file",
+      "sha256": "1a0c1ce9eb24b6015524754a890ac3f30e2d1f9673ecde8b91f81b6668d6ce88",
+      "bytes": 1182,
+      "readback": true
+    },
+    "maintenance/observation-revised-enumeration.json": {
+      "type": "file",
+      "sha256": "3c277f5cea019f82e78306753b9aa84859e4e4fbc2a14381b60eda85cd18a449",
+      "bytes": 19404,
+      "readback": true
+    },
+    "maintenance/observation-revised-source-only.json": {
+      "type": "file",
+      "sha256": "7d66512cee97b66ad245203b51c6a010adf68b4753b5c4d26aa7c98b22aecc7a",
+      "bytes": 1121,
+      "readback": true
+    },
+    "maintenance/observation-revised-synthetic-runtime.json": {
+      "type": "file",
+      "sha256": "a72c1464f0bbfeade95d8f40e4759c69faa71e7e101174f269fca66442b9d85b",
+      "bytes": 1214,
+      "readback": true
+    },
+    "maintenance/observe_structure.py": {
+      "type": "file",
+      "sha256": "8cbbebbb4b16198439e0b12ce4801de15aa3b2b8b6c8e2ddf2bf4f3cac08131d",
+      "bytes": 7467,
+      "readback": true
+    },
+    "maintenance/preflight.json": {
+      "type": "file",
+      "sha256": "a6c518b5fb3daebf7d921c30aa8a36a8933bbc08b63af3332f53fbdd5996eb88",
+      "bytes": 854,
+      "readback": true
+    },
+    "maintenance/python-suite.json": {
+      "type": "file",
+      "sha256": "6328600c7bee9ad758d1da9c3224e7567000e0944b00e086b8812a17257e128c",
+      "bytes": 901,
+      "readback": true
+    },
+    "maintenance/record_check.py": {
+      "type": "file",
+      "sha256": "05c446c79546ad349b2fdcd8af1c0b7a351ac8d50e8ec06873838127c7b78f4b",
+      "bytes": 2295,
+      "readback": true
+    },
+    "maintenance/regression-after.json": {
+      "type": "file",
+      "sha256": "c25bd3b21344e61cfd6ebd45715ba6836014a5fa404d490f8e9cc62d2b8b1894",
+      "bytes": 2168,
+      "readback": true
+    },
+    "maintenance/regression-before.json": {
+      "type": "file",
+      "sha256": "1ef6fd025c79b120f2c60ac8385be4e0a485dddec0bdc46c8f4ae9e936a733e2",
+      "bytes": 4239,
+      "readback": true
+    },
+    "maintenance/review-archive-before.json": {
+      "type": "file",
+      "sha256": "eba28e6dc35fd95b26b2db20453a1307846c7d643a74a11f8f49b3a563b4bbf1",
+      "bytes": 200640,
+      "readback": true
+    },
+    "maintenance/snapshots/test_validation-before.py": {
+      "type": "file",
+      "sha256": "9f965dc1949f5a94e763f2deadd361743104651a92f5d46c6925bb085ec03f46",
+      "bytes": 1332,
+      "readback": true
+    },
+    "maintenance/snapshots/test_validation.py": {
+      "type": "file",
+      "sha256": "b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1",
+      "bytes": 8857,
+      "readback": true
+    },
+    "maintenance/snapshots/validator-after.py": {
+      "type": "file",
+      "sha256": "e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25",
+      "bytes": 3637,
+      "readback": true
+    },
+    "maintenance/snapshots/validator-before.py": {
+      "type": "file",
+      "sha256": "5ef17e17d78535b520a0a1e6d8166b7fbb92bb44b7a8804dfb1131b8dce392a2",
+      "bytes": 3272,
+      "readback": true
+    },
+    "maintenance/source-manifest.json": {
+      "type": "file",
+      "sha256": "12f25345ffdd6c5786b45caa92982ec3e56c05da1519504af482d31f30e0dd92",
+      "bytes": 49304,
+      "readback": true
+    },
+    "maintenance/structural-observation-command.json": {
+      "type": "file",
+      "sha256": "832507d98018bfe5fd61d88d4d0b2e0a3bff45d1d9b546a341564f969e5469e2",
+      "bytes": 1009,
+      "readback": true
+    },
+    "maintenance/validator-runtime.patch": {
+      "type": "file",
+      "sha256": "5dcbf0720cb83dff2390a1285aa0e93cbe4ce63104b2d30438b5ba138e60cefc",
+      "bytes": 9586,
+      "readback": true
+    },
+    "preserved-source.json": {
+      "type": "file",
+      "sha256": "20057c3e8c80ca17b2a2482d49f9ef4ac9a998c1e0dbc8b9c87af42b29a02236",
+      "bytes": 760,
+      "readback": true
+    },
+    "prior-review/INTEGRATION-REVIEW.md": {
+      "type": "file",
+      "sha256": "5fb47ea9dbe416e6393ccf09b7f2c5445f497608f2b10d6692d29961a63d8b87",
+      "bytes": 10892,
+      "readback": true
+    },
+    "prior-review/REVIEW.receipt.json": {
+      "type": "file",
+      "sha256": "608164effd48c9b93a191552a766fd494ea1ff6ba89711b308d4733712a1c174",
+      "bytes": 215801,
+      "readback": true
+    },
+    "prior-review/TOOLING-FOLLOWUP.md": {
+      "type": "file",
+      "sha256": "27f82f9bef2073a5d2006aadf9e727b1a010e9f55147666aef46d0802f202596",
+      "bytes": 4599,
+      "readback": true
+    },
+    "prior-review/run/check-05.json": {
+      "type": "file",
+      "sha256": "6daeca2095eb6aa8e56701f95d299022c7bf737b3dd962bf9abea2ad2db0cebb",
+      "bytes": 532,
+      "readback": true
+    },
+    "synthetic-runtime.json": {
+      "type": "file",
+      "sha256": "6444f7c3d9c740b8623d3c59df81cb7799a15591d84a19d2597d7e3f21fc110c",
+      "bytes": 769,
+      "readback": true
+    }
+  },
+  "self_excluded": "REVIEW.receipt.json",
+  "patch_review": "PASS",
+  "operator_focused_tests": "9 PASS",
+  "author_full_suite": "47 PASS, verified saved evidence",
+  "historical_check05": "FAIL",
+  "native_evaluation": "NOT_RUN",
+  "publication": "NOT_RUN"
+}

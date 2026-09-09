@@ -1,0 +1,22 @@
+{
+  "artifact_id": "INNER-SESSION",
+  "authorization": "read both frozen candidates and prepare next review handoff; no merge or acceptance",
+  "base": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "branch": "fixture/worker-codex",
+  "owner": "integrator",
+  "project_id": "fixture-devforgeai",
+  "protected": [
+    "shared/**",
+    "project-experts/claude/**",
+    "companion/**",
+    "git-metadata/**"
+  ],
+  "provider": "codex",
+  "revision": 1,
+  "role": "architect-integration",
+  "selected_rules": "selected/rules.md",
+  "selected_rules_sha256": "6283fe5b0c1f1f1914f7314b43e5da06f8b86ae6b11f66afd6c1cf41b923a361",
+  "state": "active",
+  "worktree": "target",
+  "write_fence": []
+}

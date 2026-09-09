@@ -1,0 +1,17 @@
+{
+  "copied_at_utc": "2026-09-05T21:42:52.580321+00:00",
+  "files": {
+    "RESULT.json": {
+      "source": "/tmp/ccx-fixture-audit-6lrglqcd/RESULT.json",
+      "sha256": "4ba9ee95867e8db4c0bc85c46734e5e16466f8c26b2bd8732d049d208d566963",
+      "readback": true
+    },
+    "reproduce-ast-check-reconstructed-001.py": {
+      "source": "/tmp/ccx-fixture-audit-6lrglqcd/reproduce-ast-check-reconstructed-001.py",
+      "sha256": "fc8966884f8855f22eb03482feaed913a6edc8c5cecdbda5841fa206dbb7292d",
+      "readback": true
+    }
+  },
+  "original_result_attribution": "bounded fixture-review subagent",
+  "script_status": "reconstructed executed body with later provenance header; not rerun"
+}

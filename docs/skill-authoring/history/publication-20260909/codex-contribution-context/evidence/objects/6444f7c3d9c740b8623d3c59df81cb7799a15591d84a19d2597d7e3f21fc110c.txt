@@ -1,0 +1,17 @@
+{
+  "name": "synthetic-runtime",
+  "command": [
+    "python3",
+    "-B",
+    "scripts/validate_framework.py",
+    "--framework",
+    "/home/bryan/Projects/DevForge/framework/DevForge/.poc/integration-reviews/validator-runtime-20260905T234329495677Z/maintenance/inputs/source-with-runtime"
+  ],
+  "cwd": "/home/bryan/Projects/DevForge/worktrees/validator-runtime-review-20260905T234329495677Z",
+  "exit_status": 0,
+  "stdout": "{\n  \"status\": \"PASS\",\n  \"skills\": 26,\n  \"scope\": \"structure only\",\n  \"behavior\": \"NOT_EVALUATED\"\n}\n",
+  "stderr": "",
+  "outcome": "PASS",
+  "validator_sha256": "e1bd36d379dde3eb43d7b1585f828067cf24dc1038ec591da0666462582e2b25",
+  "test_source_sha256": "b762d6df99f3112384a40308ac031ecc7db47b7eaed8cbfda31bb7e1c35595d1"
+}

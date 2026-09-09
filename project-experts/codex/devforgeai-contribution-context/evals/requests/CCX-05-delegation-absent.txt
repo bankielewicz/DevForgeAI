@@ -1,0 +1,1 @@
+Recover the next contribution action from packet.json. Use the existing recorded scope.
