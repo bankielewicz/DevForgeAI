@@ -1,0 +1,174 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "_note": "Focused re-evaluation of devforge-architect at e979de0 against the findings raised in the first scaffold review of 61f6ef06. Scope was authorised as the changed requirements only: F-001, F-002, F-005, plus confirmation that the F-003 and F-004 declines were honoured. Broad checks that were unchanged were deliberately NOT rerun. A closure is recorded only where new matching evidence against the new candidate identity supports it. This record contains no digest of itself.",
+  "run_id": "EVRUN-claude-devforge-architect-recheck-20260910T2202Z",
+  "recorded_at_utc": "2026-09-10T22:05:07Z",
+  "supersedes": {
+    "run_id": "EVRUN-claude-devforge-architect-scaffold-20260910T2123Z",
+    "findings_record": "../scaffold-review/findings.json",
+    "sha256": "18a031130e109e96070fdbb8c65221a12c7603459129d49db901bb1f1dca49e7",
+    "note": "The prior findings record is preserved unchanged and was verified byte-identical at recheck time. No earlier FAIL is overwritten; closures are recorded here as new facts about a new candidate identity."
+  },
+  "candidate": {
+    "skill": "devforge-architect",
+    "provider": "claude",
+    "root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect",
+    "commit": "e979de01419a3990b5e3dda870db0ba62c222b84",
+    "prior_commit": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+    "changed_files": {
+      "SKILL.md": {"sha256_new": "f0f91b2cc18dfcdb5d74f17eee9c3b3f4a2943cf43ea1ed9fdfb1e3ba4b2b3ac", "sha256_prior": "cb51fead7d5bdd8ed6fcee17c3e6ae6a716efc0936108240e535fa0cca04b9e4"},
+      "evals/triggers/trigger-queries.json": {"sha256_new": "3bcd429651d044ead326068e6f69dae0d0677939ee08baa392f202b604fc6354", "sha256_prior": "0caa042650d002dcb5e8fe03067728cbab6842a6fadf81be0a2a42a92085aaf2"}
+    },
+    "unchanged_files": "The other 30 package files are byte-identical to the digests recorded in the first review's manifest, independently recomputed at recheck time. `git diff 61f6ef06 e979de0 --name-only -- providers/` lists exactly the two files above, matching the author's claim.",
+    "worktree_clean": true,
+    "author_manifest_verified": "authoring/file-manifest.json revision 3 - all 32 digests recomputed and matching, no file on disk absent from it, no entry absent from disk, and its supersedes block preserves revision 2's identity including the prior SKILL.md digest."
+  },
+  "closures": [
+    {
+      "finding_id": "F-001",
+      "prior_severity": "MINOR",
+      "prior_type": "defect",
+      "criterion": "R04",
+      "status": "CLOSED",
+      "change_applied": "CHG-001",
+      "evidence": [
+        {"kind": "diff", "locator": "SKILL.md, section 'When something is missing or a check cannot run', new sixth bullet at line 112", "observed": "**The session is interrupted and resumes later.** Preserve the current phase's evidence and the identities you have already frozen instead of discarding them and starting the phase over. Resume only after re-checking those upstream identities and the session assignment - and where an input, the worktree or the active run has changed, re-establish the baseline and open a new revision rather than carrying the interrupted one forward."},
+        {"kind": "requirement_match", "observed": "Both governing sentences are now carried. SKILL-005 'Workflow and phase exits' - 'On interruption, preserve the current phase and evidence' maps to 'Preserve the current phase's evidence and the identities you have already frozen'; 'resume by checking their identities and the session assignment again' maps to 'Resume only after re-checking those upstream identities and the session assignment'. SKILL-005 'Rework, stopping, and recovery' - 'If the worktree or active run changes, re-establish the appropriate baseline and evidence before resuming' maps to the trailing clause naming an input, the worktree or the active run."},
+        {"kind": "second_locus", "locator": "authoring/spec-mapping.md, 'Workflow and phase exits' final row", "observed": "Rewritten to distinguish both halves and name where each is carried, and it preserves revision 1's overstated claim verbatim in an italic sentence rather than deleting it - which is what the change specification asked for."},
+        {"kind": "grep", "observed": "The reproduction command from CHG-001 now returns the new SKILL.md instruction in addition to the handoff template's heading. A resumed session now has an explicit trigger."}
+      ],
+      "regression_check": "The five pre-existing failure bullets are present, unmodified and in their original order; the new bullet is appended sixth. The bullet's form matches its siblings - a bold label plus two sentences - and is within the bound CHG-001 set. No new phase and no new reference file was added. The 'open a new revision' clause is consistent with the stale-upstream bullet and with the Stopping section's change-request paragraph; no contradiction was introduced.",
+      "reason_for_closure": "New matching evidence against the new candidate identity: the omitted required behaviour is now present at the cited file and section, in both loci the finding named."
+    },
+    {
+      "finding_id": "F-002",
+      "prior_severity": "ADVISORY",
+      "prior_type": "enhancement",
+      "criterion": "R01",
+      "status": "CLOSED",
+      "change_applied": "CHG-002",
+      "evidence": [
+        {"kind": "diff", "locator": "SKILL.md line 3, frontmatter description exclusion clause", "observed": "The clause 'or to review a candidate against its acceptance criteria (devforge-review)' was added, and the preceding conjunction was moved so the list stays grammatical."},
+        {"kind": "measurement", "observed": "Description is now 1,370 characters, up from 1,297. The limit measured from the live Claude Code documentation during the first review is 1,536, so 166 characters of headroom remain. The change specification's constraint - stay under the truncation limit or decline - is satisfied with margin."},
+        {"kind": "regression", "observed": "Frontmatter still carries exactly two top-level keys, `name` and `description`. `name` is unchanged at `devforge-architect` and still equals the folder name. SKILL.md is 121 lines, one more than before and far inside the client's 500-line guidance."}
+      ],
+      "regression_check": "The seven pre-existing sibling exclusions and their owning skills are unchanged, and the devforge-change routing sentence that carries the specification's 'Does not activate for' row is intact. The authored negative A12a now has a stated boundary in the description rather than relying on the absence of an attractor.",
+      "reason_for_closure": "The proposed enhancement was applied within the constraint the specification set, with no regression to the frontmatter shape or the existing exclusions."
+    },
+    {
+      "finding_id": "F-005",
+      "prior_severity": "ADVISORY",
+      "prior_type": "enhancement",
+      "criterion": "R09",
+      "status": "CLOSED",
+      "change_applied": "CHG-005",
+      "evidence": [
+        {"kind": "regression_by_id", "observed": "All 22 original entries are present and field-by-field identical - id, category, query, should_trigger and split - compared BY ID. No original entry changed split, none was removed, and no id was reused. NOTE ON METHOD: the nine new entries were inserted in category order, not appended at the end of the array, so a positional comparison reports differences from index 14 onward purely from the position shift. Comparison by id is the correct check and it passes cleanly."},
+        {"kind": "added_entries", "observed": "Nine added: A5b, A6b, A7b, A8b, A9b, A10b, A11b, A12b, A13b. Every one carries should_trigger false. Six are validation-side (A5b, A6b, A8b, A10b, A12b, A13b) and three are train-side (A7b, A9b, A11b) - correctly so, because three of the nine single-entry categories were validation-only and needed their train side filled. Each fills exactly its own category's missing split, which is what the change specification asked for."},
+        {"kind": "near_miss_quality", "observed": "Each new query is a realistic request in a user's voice that a sibling owns, not a paraphrase of its partner. Examples: A8b 'We have the contract now. Turn it into a backlog the two of them can start on Monday.' routes to devforge-plan; A12b 'Go over this pull request and tell me whether it meets the story we agreed.' routes to devforge-review; A11b 'Before we commit to the streaming approach, build something small that proves it can keep up.' routes to devforge-prototype. None names the skill, its directory or a path, so none can be mistaken for explicit-invocation evidence."},
+        {"kind": "coverage", "observed": "Every one of the thirteen categories now carries at least one entry in each split. No category remains single-split. No duplicate ids. Every negative category still has an owner_map entry and every owner_map entry still has a query."},
+        {"kind": "disclosure", "observed": "The author added `split_history` and `split_counts` and extended `split_policy` to record that the original assignment is unchanged and that repair pass 1 added nine entries without re-randomising or moving anything. `schema_note` and `negative_note` are byte-identical to before."}
+      ],
+      "regression_check": "Passes. Nothing was re-randomised, reassigned or moved between splits - verified directly rather than taken from the author's note.",
+      "reason_for_closure": "The coverage gap the finding named is gone and the preserved-behaviour constraint held exactly."
+    },
+    {
+      "finding_id": "F-003",
+      "prior_severity": "ADVISORY",
+      "status": "CONFIRMED_NO_EDIT",
+      "change_applied": "CHG-003 (no target edit)",
+      "evidence": [
+        {"kind": "byte_comparison", "locator": "SKILL.md line 93, 'External checks and what they prove'", "observed": "Byte-identical to the same line at 61f6ef06. The DevForge command list was not touched, which is what the repair specification directed."}
+      ],
+      "reason": "Consistent with the repair specification. The decline was honoured."
+    },
+    {
+      "finding_id": "F-004",
+      "prior_severity": "ADVISORY",
+      "status": "CONFIRMED_NO_EDIT",
+      "change_applied": "CHG-004 (no target edit)",
+      "evidence": [
+        {"kind": "byte_comparison", "locator": "SKILL.md line 87, phase 4 consumers sentence", "observed": "Byte-identical to the same line at 61f6ef06. devforge-evaluate-expert was not added as a consumer, which is what the repair specification directed."}
+      ],
+      "reason": "Consistent with the repair specification. The decline was honoured."
+    },
+    {
+      "finding_id": "F-006",
+      "prior_severity": "MAJOR",
+      "prior_type": "evaluation_gap",
+      "status": "STILL_OPEN",
+      "reason": "Tiers C, B and A remain NOT_RUN. This recheck was authorised as a focused static re-evaluation and allocated no installed copy, no fresh terminal and no isolated workspace. Behaviour remains NOT_EVALUATED. Owned by the coordinator and the DevForge integration owner; no candidate edit closes it."
+    },
+    {
+      "finding_id": "F-007",
+      "prior_severity": "MAJOR",
+      "prior_type": "evaluation_gap",
+      "status": "STILL_OPEN",
+      "reason": "Both missing DevForge CLI capabilities remain unimplemented. Structural rows in this recheck are again manual readings with no gate authority, and the runner and grader identities in the two observation files are again self-reported by the run. Owned by the DevForge integration owner."
+    },
+    {
+      "finding_id": "F-008",
+      "prior_severity": "MINOR",
+      "prior_type": "evaluation_gap",
+      "status": "STILL_OPEN",
+      "reason": "This recheck was performed by the same evaluator context that produced the first review, so it is not independent of that review's conclusions - a narrower independence condition than the first review's, and it is recorded rather than glossed. It is the appropriate arrangement for a focused closure check against cited diffs, where the question is whether specific bytes changed, and it would not be appropriate for a fresh criterion judgement."
+    }
+  ],
+  "new_findings": [
+    {
+      "finding_id": "F-009",
+      "type": "enhancement",
+      "severity": "ADVISORY",
+      "criterion_ids": ["R09"],
+      "requirement_ids": ["skill-authoring-contract.md 'Three separately reported evaluation tiers'"],
+      "affected_revision": "e979de01419a3990b5e3dda870db0ba62c222b84",
+      "location": "evals/triggers/trigger-queries.json, split_counts",
+      "evidence": [
+        {"kind": "measurement", "observed": "Before repair the set was balanced by should_trigger: 7 positive / 7 negative in train, 4 / 4 in validation. Adding nine negatives to close F-005 makes it 7 positive / 10 negative in train and 4 positive / 10 negative in validation. The validation split is now roughly seventy percent negative."}
+      ],
+      "confidence": "High on the counts. No effect is demonstrated, because tier A has never run.",
+      "impact": "None demonstrated, and none likely as the set is specified: each query is graded individually as an activation or a routing observation, and no aggregate accuracy figure is authorised anywhere in this package or in the results contract. The imbalance would matter only to someone who computed a single accuracy number across the set, which the framework's own result vocabulary forbids.",
+      "recommendation": "No target edit. The author followed CHG-005 literally, and inventing positive-side entries to rebalance would have exceeded what the repair specification authorised - declining to do so was correct. If the coordinator wants per-split parity before a tier-A run, that is a new authorised enhancement, not a defect to repair. Recorded because the author disclosed the trade in `split_history.balance_note` and a later reader should see it was checked rather than missed.",
+      "affected_case_ids": []
+    }
+  ],
+  "evaluator_errata": [
+    {
+      "erratum_id": "E-001",
+      "concerns": "This evaluator's own finding F-005 in the first review",
+      "observed": "F-005 stated 'eight of the thirteen categories carry exactly one query' while its own affected_case_ids list enumerated nine of them (A5a, A6a, A7a, A8a, A9a, A10a, A11a, A12a, A13a). A tally over the frozen bytes confirms nine single-entry categories: six train-only and three validation-only. The prose count was off by one; the enumerated list was correct.",
+      "found_by": "The candidate's author, who recorded the correction in trigger-queries.json split_history.count_note and repaired all nine categories rather than the eight the prose named.",
+      "consequence": "None adverse. Because the author acted on the enumerated list rather than the miscount, the repair is complete. The prior findings record is preserved unchanged with its error intact; this erratum is the correction, recorded here rather than by rewriting history.",
+      "note": "Recorded in the evaluator's own ledger, not as a finding against the candidate."
+    }
+  ],
+  "structural_recheck": {
+    "method": "INSPECTION_MANUAL",
+    "authority": "none",
+    "scope_note": "Only the assertions covering a changed file were rerun. ARCH-PKG-001 and EV-ADD-PKG-003 both read SKILL.md, which changed. No assertion in either case file covers trigger-queries.json beyond parsing, which was checked directly. Every other structural check from the first review was left unrerun by design, and its earlier result stands against the 30 files verified byte-identical.",
+    "runs": [
+      {"case_id": "ARCH-PKG-001", "out": "runner-out/recheck-arch-pkg-001.jsonl", "sha256": "2e4e6c35107dae8d4e15269129be750cca724b035e66449565ac021a4269c119", "result": "10 of 10 assertions MATCH. Frontmatter present; exactly name and description populated; name equals folder; SKILL.md still 6 local links and 0 external, all resolving, so the new bullet introduced no link; the four references and both assets unchanged and resolving."},
+      {"case_id": "EV-ADD-PKG-003", "out": "runner-out/recheck-ev-add-pkg-003.jsonl", "sha256": "a0f24792bea6c4644715137abf2f355b276d01fbbeb44fdb8d10b0553ccaafe3", "result": "3 of 3 assertions MATCH. The edited SKILL.md still carries no inline or fenced shell-injection placeholder, no absolute host path, no docs/mvp runtime path and no ${CLAUDE_*} variable."}
+    ],
+    "runner_identity": {
+      "run_cases_py": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+      "graders_py": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+      "note": "Re-verified at recheck time as byte-identical to the blobs at the frozen validator commit e641797. Both invocations exited 0; the exit status describes the program, not the candidate. Identities remain self-reported by the run - see F-007."
+    }
+  },
+  "criteria_rechecked": [
+    {"id": "R04", "prior_outcome": "FAIL", "outcome": "PASS", "reason": "The omitted required behaviour is now present in SKILL.md at the point of use, carrying both halves of the specification's interruption requirement and the worktree-or-active-run clause. The four phases and their exit conditions, the five pre-existing failure branches and the retry bound are all unchanged, so nothing that previously satisfied this criterion was disturbed. No contradiction was introduced between the new bullet and the Stopping section."},
+    {"id": "R01", "prior_outcome": "PASS", "outcome": "PASS", "reason": "Rechecked only because the description changed. Still two frontmatter fields; name still equals the folder; description grew to 1,370 characters and remains 166 under the measured 1,536 truncation point, so no exclusion is lost; the added devforge-review clause closes the one discrimination-margin gap the first review recorded. No FAIL anchor is met."},
+    {"id": "R09", "prior_outcome": "PASS", "outcome": "PASS", "reason": "Rechecked only because the trigger file changed. Every added entry carries should_trigger false, none names the skill or a path, and the split record now documents the original assignment and the repair-pass addition separately. Nothing borrowed a status it had not earned and no aggregate was introduced."},
+    {"id": "R02,R03,R05,R06,R07,R08,R10", "prior_outcome": "PASS", "outcome": "NOT_RERUN", "reason": "Deliberately not rerun, per the authorised focused scope. None of the files these criteria were judged against changed - the 30 unchanged package files were verified byte-identical to the first review's manifest - so the prior PASS records stand on evidence that is still current."}
+  ],
+  "missing_rust_capabilities": [
+    "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.",
+    "Protected-manifest custody for the evaluation runner - binding the selected runner and grader files, the Python and dependency selection, the case inputs and the grading criteria outside evaluated-agent write access, and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI."
+  ],
+  "counts_after_recheck": {"BLOCKER": 0, "MAJOR": 0, "MINOR": 0, "ADVISORY": 1, "evaluation_gap": 3, "closed": 3, "confirmed_no_edit": 2},
+  "validation_disposition": "insufficient_evidence",
+  "prior_disposition": "revise",
+  "disposition_basis": "Adjudicated by hand against the frozen results contract, because evidence reduction is not implemented in the DevForge CLI and no decision receipt exists. The contract's precedence is: any applicable FAIL gives revise; otherwise a missing required observation gives insufficient evidence; only every required observation passing supports suitable for the stated scope. CHK-AI-R04 was the single applicable FAIL and it is now PASS, so revise no longer applies. Tiers C, B and A remain NOT_RUN, so the second rule is reached and the disposition is insufficient evidence. This is exactly the outcome the first report predicted for a repaired candidate with unrun tiers. It is an improvement - the defect is fixed - and it is not an acceptance, and no static evidence could ever have produced one.",
+  "behavior_status": "NOT_EVALUATED"
+}
