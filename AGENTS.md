@@ -4,7 +4,7 @@
 
 DevForgeAI is an adaptive, spec-driven software engineering framework in development. Use the [adaptive design](docs/mvp/roster.md#adaptive-design) to describe its intended identity while preserving current POC and draft status. Adaptation selects relevant workflows and context, creates or refreshes needed expertise, and reevaluates affected work under accepted specifications and recorded authority. Ground capability claims in observed evidence for the relevant scope and provider.
 
-This repository owns conversational workflows, skills, agents, examples, and project expertise. Companion [DevForge](https://github.com/bankielewicz/DevForge) owns the Rust CLI, policy, protected runtime, tests, and GitHub workflows. Keep substantive conversational behavior in skills; protected runtime owns mechanical transitions, checks, and receipts.
+This repository owns conversational workflows, skills, agents, examples, and project expertise. Companion [DevForge](https://github.com/bankielewicz/DevForge) owns the Rust CLI, policy, protected runtime, tests, and GitHub workflows. Keep substantive conversational behavior in skills; protected runtime owns mechanical transitions, checks, and receipts. The [phases, hooks and skill content](docs/development-language-policy.md#phases-hooks-and-skill-content) section of the language policy defines that split: Rust owns phase state, transitions and hook-invoked checks, skills own the reasoning within a phase, and ceremonial enforcement content in skills is prohibited.
 
 ## Implementation language
 
