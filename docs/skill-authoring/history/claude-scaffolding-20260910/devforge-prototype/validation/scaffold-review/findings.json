@@ -1,0 +1,188 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "evaluation": "scaffold review of the Claude devforge-prototype package against SKILL-004",
+  "created_at_utc": "2026-09-10T21:23:19Z",
+  "report": "verification-results.md",
+  "authority": "none - findings are evidence for someone else's decision. This evaluator recommends; it does not accept, adopt, install or release.",
+  "candidate": {
+    "skill": "devforge-prototype",
+    "provider": "claude",
+    "root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-prototype-20260910/providers/claude/plugins/devforgeai/skills/devforge-prototype",
+    "commit": "e199230858d871926fff2d55de8b015fa0ce335e",
+    "manifest": { "path": "candidate-manifest.txt", "sha256": "6bd15a3ead18037682c70168752c66e838b2d536c2130462d8842acc5eb4ee6f", "files": 31 },
+    "installed_copy": null,
+    "installed_copy_reason": "No installation or export was allocated to this assignment; installation was not attempted."
+  },
+  "specification": {
+    "artifact": "SKILL-004",
+    "revision": 2,
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-004-devforge-prototype.md",
+    "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c"
+  },
+  "baseline": {
+    "kind": "without_skill",
+    "basis": "git ls-tree -r --name-only c17e758417da64928a0f47fc2600304465ac3f3c providers/claude/plugins/devforgeai/skills/ returns devforge-brainstorm, devforge-develop, devforge-project-expert-creator, devforge-review and no devforge-prototype.",
+    "executed": false
+  },
+  "validator": {
+    "package": "Claude devforge-evaluate-expert",
+    "commit": "e641797eebf04cd1e8eb9f711549e038e7745407",
+    "loaded_as": "source-loaded, read-only by absolute path; never installed, never invoked as a skill",
+    "skill_md_sha256": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
+    "runner_sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+    "graders_sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+    "qualification": "Draft under bootstrap review and itself unevaluated. E2 independent bootstrap review at e52ac59 returned revise; repairs applied at e101e76; focused recheck at 6916b60 closed F-001..F-009 and opened a new MINOR F-R01; e641797 regenerated its derivation digests. No native evaluation performed."
+  },
+  "disposition": {
+    "value": "revise",
+    "basis": "Adjudicated by hand against the validator's results contract; evidence reduction is not implemented in the DevForge CLI and no decision receipt exists. Any applicable FAIL produces revise. Two applicable FAILs: structure group (F-002) and ai_review group (R08 / F-003). Suitable for the stated scope was unreachable regardless, because tiers C, B and A are NOT_RUN.",
+    "behavioural_status": "NOT_EVALUATED"
+  },
+  "severity_counts": { "BLOCKER": 0, "MAJOR": 1, "MINOR": 4, "ADVISORY": 1 },
+  "findings": [
+    {
+      "id": "F-001",
+      "type": "defect",
+      "severity": "MINOR",
+      "title": "Tier labels in cases.jsonl name the tier the fixture simulates, not an observation of it; no deterministic case observes the candidate package",
+      "criterion_or_requirement": [
+        "skill-authoring-contract, 'Three separately reported evaluation tiers' (tier C = installed resources AND outputs)",
+        "devforge-evaluate-expert references/runner-interface.md"
+      ],
+      "affected_revision": "e199230858d871926fff2d55de8b015fa0ce335e",
+      "affected_files": ["evals/cases.jsonl"],
+      "affected_sections": ["every line: the tier field and candidate_subpath"],
+      "evidence": [
+        { "path": "runner-out/candidate-cases.observations.jsonl", "sha256": "f0e57b1298931e41dcff55dff46f761bc5cb1ff4f16a934f2d9c017b9733ed24", "description": "all 9 cases resolve inside evals/fixtures; none reads the package" },
+        { "path": "runner-out/probe-mode-installed.observations.jsonl", "sha256": "4e9562102b5c7ef866657877d041d9759dcbc1f437cea7ca113ee8d5104e4b29", "description": "--mode installed produces byte-identical results; no case declares a mode, so the file cannot distinguish source from installed" },
+        { "path": "runner-out/evaluator-structural.observations.jsonl", "sha256": "ee64109c2bbd87bd9dad2a9d2e57ca8c817c0bb1f845e85537f9d23abaccca97", "description": "the evaluator-added cases that DO observe the package, demonstrating the graders for this are available and unused" }
+      ],
+      "impact": "Every case's tier field names the tier its fixture simulates. All 9 set candidate_subpath into evals/fixtures/, so no authored deterministic case observes the package or an installed copy. The four tier:'C' cases cover only the 'outputs' half of the contract's tier C and never the 'templates/references resolve inside the installed package' half; the two tier:'A' cases observe synthetic transcripts, not a session. A reader of a completed run can believe C and A have deterministic coverage when neither does.",
+      "confidence": "high",
+      "uncertainty": "Structural inspection is the evaluator's own work under the validator's P2 procedure, and the author's records say tier C 'requires an export or project-local installation that this pass did not perform'. The defect is therefore the labelling and the absent installed-resource half, not a claim that the author owed a full structural suite.",
+      "recommendation": "CHG-001",
+      "affected_cases": ["XP-C-001", "XP-C-002", "XP-C-003", "XP-C-004", "XP-C-005", "XP-C-006", "XP-A-001", "XP-A-002"]
+    },
+    {
+      "id": "F-002",
+      "type": "defect",
+      "severity": "MAJOR",
+      "title": "Eval case XB-8 declares an old_skill baseline arm that does not exist",
+      "criterion_or_requirement": [
+        "SKILL-004 'Additional common cases': a template placeholder remains in a required result field",
+        "skill-authoring-contract, tier B output quality against a baseline",
+        "devforge-evaluate-expert references/results-contract.md, expectation type 'observation'"
+      ],
+      "affected_revision": "e199230858d871926fff2d55de8b015fa0ce335e",
+      "affected_files": ["evals/evals.json"],
+      "affected_sections": ["evals[7] (id 8, placeholder-in-required-field-stays-a-draft), key baseline_comparison"],
+      "evidence": [
+        { "path": "evals/evals.json", "kind": "candidate", "description": "case 8 declares \"baseline_comparison\": \"old_skill\"; the other ten cases declare \"without_skill\"" },
+        { "kind": "command", "description": "git -C <candidate-wt> ls-tree -r --name-only c17e758417da64928a0f47fc2600304465ac3f3c providers/claude/plugins/devforgeai/skills/ -> devforge-brainstorm, devforge-develop, devforge-project-expert-creator, devforge-review. No devforge-prototype. The only devforge-prototype paths at base are the specification and the two docs/mvp templates." },
+        { "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-prototype/authoring/spec-mapping.md", "kind": "author record, untrusted", "description": "states 'No baseline existed' under the Native creator authoring prompt table, contradicting evals.json case 8" },
+        { "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-prototype/authoring/handoff.md", "kind": "author record, untrusted", "description": "line 81 states 'Ten of eleven cases have no old_skill baseline because no prior candidate exists', implying the eleventh does have one" }
+      ],
+      "impact": "old_skill means a preserved previous revision of the skill; none exists at base c17e758. One of the specification's four required common cases therefore has no runnable comparison arm, and a missing arm supports no improvement claim. The author's stated fallback (authoring-notes.md:107, untrusted: 'that arm is NOT_APPLICABLE with the reason recorded') would additionally misuse the fixed vocabulary, since NOT_APPLICABLE is only for a stated scope exclusion and an absent baseline is not one. The correct arm, without_skill, is available.",
+      "confidence": "high",
+      "uncertainty": "none on the fact. The author's rationale (authoring-notes.md:107) is that 'a prior report artifact is the fixture'; that conflates a fixture supplied to a case with a baseline arm of the comparison. Recorded as untrusted explanation, not accepted.",
+      "recommendation": "CHG-002",
+      "affected_cases": ["XB-8"]
+    },
+    {
+      "id": "F-003",
+      "type": "defect",
+      "severity": "MINOR",
+      "title": "SKILL.md overstates what a self-computed plan freeze establishes and routes the correction to a file that does not contain it",
+      "criterion_or_requirement": ["AI-R08", "SKILL-004 phase 1 exit condition"],
+      "affected_revision": "e199230858d871926fff2d55de8b015fa0ce335e",
+      "affected_files": ["SKILL.md", "references/experiment-boundaries.md"],
+      "affected_sections": ["SKILL.md line 50 (phase 1 Exit)", "references/experiment-boundaries.md section 'Measurement before result'"],
+      "evidence": [
+        { "path": "SKILL.md", "line": 50, "description": "\"Freeze it - hash the bytes and record the identity - so that a later reader can tell the plan preceded the evidence. [Experiment boundaries](references/experiment-boundaries.md) explains what a freeze does and does not establish here.\"" },
+        { "path": "references/framework-context.md", "line": 33, "description": "\"Hashing the plan yourself records which bytes you had; it does not establish that they preceded the evidence to anyone who does not already trust you.\"" },
+        { "path": "references/experiment-boundaries.md", "description": "contains no freeze-limit statement; grep for 'preced', 'does not establish', 'self-recorded', 'outside the evaluated' returns no match" },
+        { "path": "references/recording-rules.md", "line": 60, "description": "the correct operative text: 'self-recorded is self-recorded, and no CLI capability currently binds a plan's bytes outside the evaluated agent's reach'" }
+      ],
+      "impact": "A material contradiction between the always-loaded entrypoint and the package's own reference, about the exact act the skill says its value depends on (SKILL.md:10, 'The value is entirely in the ordering'). A session that stops at SKILL.md records a self-computed freeze as though it established ordering. Contained because references/recording-rules.md is linked two lines earlier at SKILL.md:48 and gives the field-level instruction correctly.",
+      "confidence": "high",
+      "uncertainty": "none",
+      "recommendation": "CHG-003",
+      "affected_cases": ["XB-1", "XB-10"]
+    },
+    {
+      "id": "F-004",
+      "type": "defect",
+      "severity": "MINOR",
+      "title": "The recorded runner dependency pins a superseded and since-repaired revision",
+      "criterion_or_requirement": ["skill-authoring-contract, 'Sources, ownership, and runtime copies' - a recorded dependency must identify the bytes it means"],
+      "affected_revision": "e199230858d871926fff2d55de8b015fa0ce335e",
+      "affected_files": ["evals/evals.json"],
+      "affected_sections": ["runner_dependency.commit and runner_dependency.status"],
+      "evidence": [
+        { "path": "evals/evals.json", "description": "runner_dependency.commit = e52ac596cbf790dfa156d883852d392c512fdbcc" },
+        { "kind": "command", "description": "git -C <validator-wt> log --oneline e52ac59..e641797 -> b6a4bf7 (E2 independent bootstrap review, revise), e101e76 (repair pass 1, F-001..F-009), 6916b60 (focused recheck, new MINOR F-R01), e641797 (derivation digests regenerated)" },
+        { "kind": "command", "description": "git -C <validator-wt> diff e52ac59 e641797 --stat -- .../devforge-evaluate-expert/scripts/ -> graders.py and run_cases.py changed, 147 insertions / 16 deletions" },
+        { "path": "runner-out/candidate-cases.observations.jsonl", "sha256": "f0e57b1298931e41dcff55dff46f761bc5cb1ff4f16a934f2d9c017b9733ed24", "description": "the cases still load and behave exactly as authored under the e641797 runner: 13/13 assertions agree with their authored expectations" }
+      ],
+      "impact": "The deterministic arm is pinned to a runner revision a bootstrap review found defective and that has since been repaired twice. Not breakage - verified compatible with e641797 - but the recorded dependency identity and its status sentence no longer describe the runner an evaluator would be given.",
+      "confidence": "high",
+      "uncertainty": "The correct forward pin depends on which revision of the validator the coordinator will supply to the next evaluation. The change below states the value to record rather than guessing a future one.",
+      "recommendation": "CHG-004",
+      "affected_cases": ["XP-C-001", "XP-C-002", "XP-C-003", "XP-C-004", "XP-C-005", "XP-C-006", "XP-A-001", "XP-A-002", "XP-B-001"]
+    },
+    {
+      "id": "F-005",
+      "type": "defect",
+      "severity": "MINOR",
+      "title": "The --candidate root the authored cases require is recorded nowhere, and the natural wrong value fails silently",
+      "criterion_or_requirement": ["devforge-evaluate-expert references/runner-interface.md", "skill-authoring-contract, 'Resource and script paths'"],
+      "affected_revision": "e199230858d871926fff2d55de8b015fa0ce335e",
+      "affected_files": ["evals/evals.json", "evals/cases.jsonl", "evals/fixtures/README.md"],
+      "affected_sections": ["runner_dependency (evals.json); the case file as a whole; the fixtures README"],
+      "evidence": [
+        { "path": "runner-out/probe-candidate-root-is-package.observations.jsonl", "sha256": "2452d3923e7ac8d6c879ede110194c31b41f5e53c38a631f11c2a9b319761237", "description": "--candidate <package root> -> exit 0, complete observations file, all 9 cases COULD_NOT_RUN with cause 'candidate_subpath ... does not resolve to a directory inside the candidate root', zero assertions observed" }
+      ],
+      "impact": "Passing the package root - the natural reading of 'candidate root' - silently produces a complete observations file at exit 0 with zero assertions observed. That is exactly the silent coverage loss the runner's whole-file rejection design exists to prevent, arriving through the invocation instead of the case file.",
+      "confidence": "high",
+      "uncertainty": "The same omission exists in the validator's own package (its cases use the same undocumented convention). That half belongs to the validator's owner and is reported, not fixed here. CHG-005 covers the candidate-side half only.",
+      "recommendation": "CHG-005",
+      "affected_cases": ["XP-C-001", "XP-C-002", "XP-C-003", "XP-C-004", "XP-C-005", "XP-C-006", "XP-A-001", "XP-A-002", "XP-B-001"]
+    },
+    {
+      "id": "F-006",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "Fixture filenames and the artifact IDs inside them use different numbers",
+      "criterion_or_requirement": ["none - readability of the provenance chain"],
+      "affected_revision": "e199230858d871926fff2d55de8b015fa0ce335e",
+      "affected_files": [
+        "evals/fixtures/good/experiments/XPLAN-001.md",
+        "evals/fixtures/good/experiments/XREPORT-001.md",
+        "evals/fixtures/defect-moved-threshold/experiments/XPLAN-004.md",
+        "evals/fixtures/defect-moved-threshold/experiments/XREPORT-004.md"
+      ],
+      "affected_sections": ["frontmatter artifact_id, line 3 of each"],
+      "evidence": [
+        { "description": "XPLAN-001.md carries artifact_id \"XPLAN-006\"; XREPORT-001.md carries \"XREPORT-006\"; XPLAN-004.md carries \"XPLAN-010\"; XREPORT-004.md carries \"XREPORT-010\"" },
+        { "description": "internally consistent: XP-B-001's routed_to correctly cites XPLAN-010@1/XREPORT-010@1, and good/claims/disposition-claim.json correctly cites XPLAN-006@1" }
+      ],
+      "impact": "A reader matching a case's files list to a routed_to reference has to translate between the filename number and the artifact ID number. No behaviour depends on it and no assertion is affected.",
+      "confidence": "high",
+      "uncertainty": "This may be deliberate, to keep fixture filenames stable while the artifact IDs look like realistic project allocations. If so, one sentence in the fixtures README closes it.",
+      "recommendation": "CHG-006",
+      "affected_cases": ["XP-C-001", "XP-C-003", "XP-B-001"]
+    }
+  ],
+  "evaluation_prerequisites_not_defects": [
+    { "id": "PREREQ-001", "statement": "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.", "owner": "DevForge integration owner", "blocks": "any claim that a structural gate ran. Every structural row here is method INSPECTION_MANUAL, authority none." },
+    { "id": "PREREQ-002", "statement": "Protected-manifest custody for the evaluation runner - binding the selected runner and grader files, the Python and dependency selection, the case inputs and the grading criteria outside evaluated-agent write access, and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI.", "owner": "DevForge integration owner", "blocks": "any claim that the runner, grader, runtime and case identities were bound rather than self-reported." },
+    { "id": "PREREQ-003", "statement": "No installed or exported copy of the candidate was allocated.", "owner": "coordinator / DevForge integration owner", "blocks": "tier C entirely, the installed-mode evals/ absence observation, and the installed-identity half of every structural row." },
+    { "id": "PREREQ-004", "statement": "No fresh terminal and no permitted isolated workspace were allocated.", "owner": "coordinator", "blocks": "tier A (discovery and activation) and tier B (output quality against the without_skill baseline)." },
+    { "id": "PREREQ-005", "statement": "No session record exists for this evaluation; execution_ref is null.", "owner": "coordinator", "blocks": "nothing observationally; recorded because its absence establishes no ownership." }
+  ],
+  "tiers": {
+    "C": { "status": "NOT_RUN", "cause": "No installed or exported copy was allocated to this assignment; installation was not attempted." },
+    "B": { "status": "NOT_RUN", "cause": "No fresh terminal and no permitted isolated workspace were allocated; no baseline arm was executed. The 11 authored tier-B cases were read, not run." },
+    "A": { "status": "NOT_RUN", "cause": "No fresh terminal and no installed inventory; discovery and activation cannot be observed by reading. The 22 authored trigger queries were read, not run." }
+  }
+}
