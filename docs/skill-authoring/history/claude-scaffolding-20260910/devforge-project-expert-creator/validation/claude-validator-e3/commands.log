@@ -1,0 +1,119 @@
+# commands.log - worker E3, validator-against-builder run
+# Validator followed (frozen, source-loaded): /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md @ e641797eebf04cd1e8eb9f711549e038e7745407
+# Candidate evaluated (frozen, read-only):    /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator @ 4999f3106565c5e320d1f1a7db066b437e4e94be
+# Date of run: 2026-09-10 (UTC). Every command below was actually executed and its result is cited in verification-results.md.
+# Nothing under the candidate package, the validator package, framework/DevForgeAI or framework/DevForge was written, moved or modified.
+# No git write operation (commit, add, checkout, reset, stash, clean, rebase, merge) was run in any checkout.
+
+## P1 - intake and freeze
+
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse HEAD
+    -> e641797eebf04cd1e8eb9f711549e038e7745407
+find /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert -type f | sort
+    -> 51 files; SKILL.md + assets/ + evals/ + references/ + scripts/
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 rev-parse HEAD
+    -> 8c0bdd0d86c7330d2f7910d63b3511e8df43d20b
+git -C .../claude-scaffold-project-expert-creator-20260910 diff 4999f31 HEAD --stat -- providers/
+    -> empty. Confirms HEAD adds only coordinator evidence commits; the package bytes are those of 4999f31.
+git -C .../claude-scaffold-project-expert-creator-20260910 status --porcelain
+    -> only "?? docs/skill-authoring/.../validation/claude-validator-e3/" (this fence). Candidate tree clean.
+git -C .../claude-scaffold-project-expert-creator-20260910 rev-parse --git-common-dir
+    -> /home/bryan/Projects/DevForge/framework/DevForgeAI/.git
+find /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator -type f | sort ; sha256sum each (package-relative)
+    -> 25 files. Full manifest in verification-results.md section S-01.
+sha256sum on governing inputs under /home/bryan/Projects/DevForge/framework/DevForgeAI
+    -> skill-007 spec 983b5714... (equals the identity named in the assignment packet)
+    -> skill-authoring-contract 37146238..., artifact-contract 00d8c4f4..., execution-contract 73bca87b...
+    -> development-language-policy 3d89f39e..., bounded-delivery 22a0388c..., AGENTS.md 959877c8...
+    -> templates/shared/handoff.md abc7f8e0...
+    -> templates/devforge-project-expert-creator/expert-{spec,package,skill}.md 4b380c26.../678cb912.../16264813...
+    -> templates/skill-authoring/{evals.json,trigger-queries.json} 508b56b6.../8b64b614...
+git -C framework/DevForgeAI show c17e758417da64928a0f47fc2600304465ac3f3c:<baseline paths> | sha256sum
+    -> old_skill baseline, 3 files: SKILL.md 3dc906dd..., assets/evaluation-cases.md 8cb830c9..., assets/expert-spec-template.md 3c8e0b7f...
+sha256sum /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/{SKILL.md,scripts/run_cases.py,scripts/graders.py,references/ai-review-rubric.md,references/runner-interface.md,assets/*,evals/cases.jsonl}
+    -> SKILL.md bdf665c7..., run_cases.py 95ca2abf..., graders.py 1b7a27a3..., rubric 39cdc7bd..., runner-interface 87c8942f...
+    -> assets/verification-results.md e672dd8f..., assets/skill-enhancement-spec.md bdf47f42..., assets/handoff.md abc7f8e0..., evals/cases.jsonl c31a7cb0...
+ls -l /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge ; sha256sum
+    -> 835c32639c0a7df270fe1b9182580f14fc7d0874d3aad1b4037ba7cf420b2b07 (built 2026-09-07)
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --help
+    -> subcommands: delivery, expert, check, init, red, green, accept, verify, status, isolate, help.
+       No skill-package inspection subcommand and no evidence-reduction/decision subcommand.
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert --help
+    -> prepare, bind, status (leaf flags --project/--policy/--state/--expert).
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge check --help
+    -> "Check structural policy and provenance; does not certify semantic behavior".
+WebFetch https://code.claude.com/docs/en/skills   (retrieved 2026-09-10)
+    -> frontmatter fields all optional, description recommended; description+when_to_use capped at 1,536 characters;
+       load locations enterprise/personal/project/nested/--add-dir/plugin/synced/bundled; /skill-name and /plugin-name:skill-name;
+       progressive disclosure (description -> body on invocation -> supporting files on link follow); body recommended under 500 lines.
+
+## P2 - deterministic observation
+
+/usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --help
+    -> interface as documented in references/runner-interface.md.
+/usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py \
+    --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl \
+    --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures \
+    --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/claude-validator-e3/runner-out/validator-graders-selfcheck.jsonl --mode installed
+    -> exit 0; 17 case records. Graders discriminate as documented (conforming fixtures MATCH; one defect per
+       defect fixture MISMATCH; unparseable-YAML and identity-less-transcript fixtures INDETERMINATE;
+       the two semantic fixtures carry no deterministic assertion and return INDETERMINATE with routing).
+       This is a test of the graders, not an evaluation of anything.
+/usr/bin/python3 -B (authored 15 structural cases into /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/claude-validator-e3/runner-out/cases.jsonl)
+    -> the candidate ships no evals/cases.jsonl, so these cases were authored inside this fence, per the
+       validator SKILL.md P2 instruction and references/runner-interface.md. cases.jsonl sha256 3a8cc195...
+/usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py \
+    --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/claude-validator-e3/runner-out/cases.jsonl \
+    --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator \
+    --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/claude-validator-e3/runner-out/observations.jsonl --mode source
+    -> exit 0; 15 case records, all COMPLETED. 44 assertions: 42 MATCH, 0 MISMATCH,
+       2 deliberate INDETERMINATE rows (PEC-C-014 routed to manual inspection, PEC-C-015 routed to native tier C).
+       Exit 0 describes the program, not the candidate. No aggregate verdict exists in the file.
+/usr/bin/python3 -B  (manual structural observations; data parsed, candidate code never imported or executed)
+    - json.load on references/derivation.json, evals/evals.json, evals/triggers/trigger-queries.json -> all parse.
+    - 24 declared destination_sha256 values in derivation.json vs actual bytes -> 24/24 match, 0 drift, 0 missing.
+    - derivation.json's own sha256 (f64e558e...) does not appear anywhere in its own text -> no self-digest.
+    - evals/evals.json: 10 cases, 10 unique ids, all tier B; every file listed in a case exists; spec digest 983b5714... matches.
+    - evals/triggers/trigger-queries.json: 21 queries, 21 unique ids, 10 positive
+      (explicit_invocation 2 / direct_domain 3 / indirect 5), 11 negative across 6 categories, split 12 train / 9 validation
+      -> matches the derivation record's post-repair statement (E1/F-001 regression check).
+    - fixtures/stale reproducibility: preserved ARCH-001.r1 digest 65d99ab5... is cited verbatim inside XPKG-001.md.
+grep for local Markdown destinations across the package
+    -> 16 local links total; SKILL.md carries 11 and each resolves.
+python3 frontmatter measurement on SKILL.md
+    -> frontmatter keys exactly [name, description]; name 'devforge-project-expert-creator'; description 869 characters; body 122 lines.
+grep -rE 'docs/mvp|/home/|\.agents/skills|openai\.yaml|providers/codex|~/.claude' over the package
+    -> matches only inside references/derivation.json, where they are provenance statements about the Codex port source.
+grep for enforcement-ceremony wording
+    -> the only hits are prohibitions (SKILL.md:20, framework-context.md:13, interview-guide.md:68, skill-design-spec.md:140).
+grep -rn 'SEVAL|skill-evaluation-report' framework/DevForgeAI/docs
+    -> artifact-contract.md:107 and skill-authoring-contract.md:115 both route skill evaluation reports to
+       templates/skill-authoring/evaluation-report.md, artifact_type skill-evaluation-report, prefix SEVAL.
+head -20 /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/assets/skill-enhancement-spec.md ; head -20 /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/assets/handoff.md ; head -18 /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/assets/verification-results.md
+    -> the frozen validator emits artifact_type expert-evaluation-report (EVREPORT-###), skill-enhancement-spec (CHGSPEC-###)
+       and handoff (HANDOFF-###). See finding F-001.
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse --abbrev-ref HEAD ; git branch --contains e641797
+    -> author/claude-devforge-evaluate-expert-scaffold-20260910 only. Not merged to main.
+ls framework/DevForgeAI/providers/claude/plugins/devforgeai/skills   (main working tree)
+    -> devforge-brainstorm, devforge-develop, devforge-project-expert-creator, devforge-review. No devforge-evaluate-expert.
+
+## P3 - independent review
+
+No command. Rubric R01-R10 applied by this evaluator context against the frozen candidate bytes,
+SKILL-007 revision 3 and the packaged contracts. Independence limits are recorded in verification-results.md section IR-0.
+
+## P4 - native tiers
+
+No command. Tiers C, B and A are NOT_RUN: no installed copy, no fresh terminal, no isolated workspace and no
+per-attempt context isolation were allocated to this assignment. No fallback to an unconfined run was taken.
+
+## P5/P6
+
+No command. Adjudicated by hand against the validator's references/results-contract.md; no decision receipt exists to produce.
+
+## Reads performed after the runner (regression cross-check only, read-only)
+
+cat docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1/findings.json
+cat docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1-recheck/findings-recheck.json
+    -> E1 recorded F-001..F-004 MINOR (closed at 4999f31 by the E1 recheck) and F-005/F-006 ADVISORY (no target edit).
+       These were read only after the R01-R10 review above was formed; see the independence limits.

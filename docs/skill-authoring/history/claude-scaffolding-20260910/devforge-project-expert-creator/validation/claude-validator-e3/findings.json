@@ -1,0 +1,309 @@
+{
+  "schema_version": "devforge.skill-evaluation-findings/v1",
+  "note": "Machine-readable half of verification-results.md in this directory. The validator's results contract names this half validation-results.json; the assignment fence named findings.json, so the planned-check rows and the per-criterion review records are carried here under checks[] and ai_review[]. Recorded as a deviation, not as an omission.",
+  "report": "verification-results.md",
+  "artifact_id": "EVREPORT-E3-001",
+  "recorded_at_utc": "2026-09-10T21:21:51Z",
+  "producer": "worker E3, independent evaluator; followed the frozen Claude devforge-evaluate-expert package as source-loaded instructions; authored neither utility",
+  "finding_id_namespace": "This report's own F-001..F-007. The prior independent review's findings are referenced as E1/F-00x and are not renumbered, merged or superseded here.",
+
+  "validator_followed": {
+    "skill": "devforge-evaluate-expert",
+    "provider": "claude",
+    "root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert",
+    "commit": "e641797eebf04cd1e8eb9f711549e038e7745407",
+    "branch": "author/claude-devforge-evaluate-expert-scaffold-20260910",
+    "skill_md_sha256": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
+    "run_cases_py_sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+    "graders_py_sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+    "ai_review_rubric_sha256": "39cdc7bdc8bbbc99c2082f4b43e96bf05253cb7f0ef053115a1a7c25ff19507c",
+    "runner_interface_sha256": "87c8942f2faa9c00c8746eeb51001ddccee3802c9f21a6e187d072251d4673e2",
+    "loaded_from": "source, by absolute path; not an installed copy",
+    "status_of_the_validator_itself": "a bootstrap-reviewed draft. Its own record: E2 revise -> repaired -> recheck, nine findings closed; its native tiers are NOT_RUN. It is not itself an accepted or evaluated package, and following it confers no acceptance on this report.",
+    "merged_to_main": false,
+    "installed_anywhere": false
+  },
+
+  "candidate": {
+    "skill": "devforge-project-expert-creator",
+    "provider": "claude",
+    "root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator",
+    "commit": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+    "repository_head": "8c0bdd0d86c7330d2f7910d63b3511e8df43d20b",
+    "package_bytes_equal_head": true,
+    "package_bytes_equal_head_evidence": "git diff 4999f31 HEAD --stat -- providers/ is empty; git status --porcelain shows only this evaluation fence as untracked",
+    "branch": "author/claude-devforge-project-expert-creator-scaffold-20260910",
+    "file_count": 25,
+    "manifest_source": "computed independently by this review; full table in verification-results.md section S-01",
+    "skill_md_sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+    "derivation_json_sha256": "f64e558ee69307054372a890042b228c207a3b545a3491bdd8b75aea128038a7",
+    "installed_copy": null,
+    "installed_copy_reason": "no project-local .claude/skills copy and no exported plugin of this candidate exists in this assignment; none was created"
+  },
+
+  "baseline": {
+    "label": "old_skill",
+    "commit": "c17e758417da64928a0f47fc2600304465ac3f3c",
+    "file_count": 3,
+    "files_sha256": {
+      "SKILL.md": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "assets/evaluation-cases.md": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b",
+      "assets/expert-spec-template.md": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8"
+    },
+    "executed": false,
+    "note": "Frozen for identity only. No baseline arm was run, so no improvement claim is made or supportable."
+  },
+
+  "specification": {
+    "artifact": "SKILL-007",
+    "revision": 3,
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+    "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c",
+    "matches_assignment_packet": true
+  },
+
+  "governing_inputs_sha256": {
+    "docs/mvp/skill-authoring-contract.md": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+    "docs/mvp/artifact-contract.md": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+    "docs/mvp/execution-contract.md": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+    "docs/development-language-policy.md": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+    "docs/learned-behaviors/bounded-delivery.md": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae",
+    "AGENTS.md": "959877c80a2611cde4dbf69ebba6304465fd3feada5cdf328344a8453c6539f0",
+    "docs/mvp/templates/shared/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "docs/mvp/templates/devforge-project-expert-creator/expert-spec.md": "4b380c265c7135b9248740aa1e2fb2adb0d3ff4ec420031945bd159d89706157",
+    "docs/mvp/templates/devforge-project-expert-creator/expert-package.md": "678cb91253a36a2ebf1e370d96858ed6a27206dffedc62cb90658cdcffdf890d",
+    "docs/mvp/templates/devforge-project-expert-creator/expert-skill.md": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+    "devforge_cli_binary": "835c32639c0a7df270fe1b9182580f14fc7d0874d3aad1b4037ba7cf420b2b07"
+  },
+
+  "external_source_check": {
+    "url": "https://code.claude.com/docs/en/skills",
+    "retrieved_utc": "2026-09-10",
+    "outcome": "PASS",
+    "detail": "Every claim references/sources.md relies on is supported by the current page: name/description frontmatter with description driving auto-invocation; description + when_to_use truncated at 1,536 characters; /skill-name and /plugin-name:skill-name; three-phase progressive loading; project, nested, personal, plugin, managed-settings and --add-dir load locations; the recommended sub-500-line body; relative Markdown links for supporting files. The page documents further fields and locations the candidate does not claim; the candidate asserts nothing contrary to them."
+  },
+
+  "checks": [
+    { "check_id": "CHK-INTAKE-01", "group": "intake", "expectation": "pass", "result": "PASS", "observation": "Candidate, baseline, specification, six governing documents, four shared templates, the validator package and the CLI binary frozen by digest before any observation; 4999f31 == HEAD for providers/ confirmed; both worktrees inspected for concurrent writers.", "evidence": "commands.log P1 block; verification-results.md S-01", "method": "INSPECTION_MANUAL", "authority": "none" },
+    { "check_id": "CHK-STRUCT-01", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "SKILL.md frontmatter present; name and description populated scalars; frontmatter name equals folder name (both values recorded; equality asserted only as the DevForgeAI convention); 11 local links in SKILL.md and 16 across the package, all resolving inside it.", "evidence": "runner-out/observations.jsonl PEC-C-001..007", "method": "INSPECTION_MANUAL + authored-case runner", "authority": "none" },
+    { "check_id": "CHK-STRUCT-02", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "All 13 routed assets and references present; all 11 authored eval inputs present; Codex-only members (agents/openai.yaml, agents/, scripts/, references/contracts/) absent.", "evidence": "runner-out/observations.jsonl PEC-C-008..010", "method": "authored-case runner", "authority": "none" },
+    { "check_id": "CHK-STRUCT-03", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "assets/handoff.md carries populated, non-placeholder 'Validation status' and 'Behavioural status' fields, so the transfer's honest status lines are hard-coded rather than fill-in.", "evidence": "runner-out/observations.jsonl PEC-C-011", "method": "authored-case runner", "authority": "none" },
+    { "check_id": "CHK-STRUCT-04", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "The three assets derivation.json calls byte-identical copies still hash to their docs/mvp template digests, as declared sentinels.", "evidence": "runner-out/observations.jsonl PEC-C-012", "method": "authored-case runner", "authority": "none" },
+    { "check_id": "CHK-STRUCT-05", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "SKILL.md contains no docs/mvp path, no developer home directory, no .agents/skills, no agents/openai.yaml, no providers/codex and no ~/.claude. The only such strings in the package are provenance statements inside references/derivation.json.", "evidence": "runner-out/observations.jsonl PEC-C-013; grep record in commands.log", "method": "authored-case runner + INSPECTION_MANUAL", "authority": "none" },
+    { "check_id": "CHK-STRUCT-06", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "24 of 24 destination_sha256 values declared in references/derivation.json match the file they name: zero drift, zero missing. derivation.json's own digest f64e558e... does not appear in its own text, so there is no self-digest.", "evidence": "commands.log P2 manual block; routed from runner row PEC-C-014 (INDETERMINATE by design)", "method": "INSPECTION_MANUAL", "authority": "none" },
+    { "check_id": "CHK-STRUCT-07", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "All three JSON files parse. evals.json: 10 cases, 10 unique ids, all tier B, every files entry resolves inside evals/, cited spec digest matches. trigger-queries.json: 21 queries, 21 unique ids, 10 positive (explicit_invocation 2 / direct_domain 3 / indirect 5), 11 negative across 6 categories, split 12 train / 9 validation - matching the post-repair derivation record. Fixture staleness is reproducible: the preserved ARCH-001 r1 digest 65d99ab5... is cited verbatim inside XPKG-001.md.", "evidence": "commands.log P2 manual block", "method": "INSPECTION_MANUAL, data parsed only; candidate code never imported or executed", "authority": "none" },
+    { "check_id": "CHK-STRUCT-08", "group": "structure", "expectation": "pass", "result": "PASS", "observation": "Frontmatter keys are exactly [name, description]. description is 869 characters against a documented 1,536-character cap. Body is 122 lines against a documented sub-500-line recommendation.", "evidence": "commands.log P2 manual block; external_source_check", "method": "INSPECTION_MANUAL", "authority": "none" },
+    { "check_id": "CHK-STRUCT-09", "group": "structure", "expectation": "excluded", "result": "NOT_APPLICABLE", "observation": "'evals/ absent from an installed copy' applies to installed mode only. No installed copy exists in this assignment, so the row is a stated scope exclusion here rather than a missing required observation. The corresponding required installed-mode observation is carried as CHK-C-01.", "evidence": "runner-out/observations.jsonl PEC-C-015 (INDETERMINATE, routed)", "method": "not applicable", "authority": "none" },
+    { "check_id": "CHK-GRADER-01", "group": "structure", "expectation": "observation", "result": "PASS", "observation": "The validator's graders were exercised against its own known-answer fixtures before being used on the candidate: 17 cases, conforming fixtures MATCH, each single-defect fixture MISMATCH on exactly its defect, unparseable-frontmatter and identity-less-transcript fixtures INDETERMINATE, and the two semantic fixtures carry no deterministic assertion. The graders discriminate as documented. This is a test of the graders, not an evaluation of the candidate.", "evidence": "runner-out/validator-graders-selfcheck.jsonl", "method": "authored-case runner", "authority": "none" },
+    { "check_id": "AI-R01", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": [] },
+    { "check_id": "AI-R02", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": [] },
+    { "check_id": "AI-R03", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": [] },
+    { "check_id": "AI-R04", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": [] },
+    { "check_id": "AI-R05", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": ["F-002"] },
+    { "check_id": "AI-R06", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": [] },
+    { "check_id": "AI-R07", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": ["F-001", "F-005"] },
+    { "check_id": "AI-R08", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": [] },
+    { "check_id": "AI-R09", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": [] },
+    { "check_id": "AI-R10", "group": "ai_review", "expectation": "pass", "result": "PASS", "finding_ids": ["F-001"] },
+    { "check_id": "AI-DISPUTE-01", "group": "ai_review", "expectation": "pass", "result": "COULD_NOT_RUN", "observation": "Whether SKILL-007's Routine/Full manual-promotion policy governs this Claude package is an unresolved consequential interpretation: line 4 says 'Claude scope is unchanged' while line 128 says the policy 'applies to manual mode'. Per the rubric's dispute rule this is COULD_NOT_RUN for the assertion and an open decision for the owner, never a negotiated PASS and never a manufactured FAIL.", "cause": "conflicting governing text; no second fresh reviewer was allocated", "finding_ids": ["F-007"] },
+    { "check_id": "CHK-C-01", "group": "C", "expectation": "pass", "result": "NOT_RUN", "cause": "No installed copy of the candidate, no isolated workspace and no fresh terminal were allocated to this assignment. No unconfined fallback run was taken." },
+    { "check_id": "CHK-B-01", "group": "B", "expectation": "observation", "result": "NOT_RUN", "cause": "No measured native run in either arm. The candidate declares 10 tier-B cases with an old_skill baseline; neither the candidate arm nor the baseline arm was executed. A missing arm supports no improvement claim." },
+    { "check_id": "CHK-A-01", "group": "A", "expectation": "pass", "result": "NOT_RUN", "cause": "Tier A requires a fresh terminal and an installed package, and keeps inventory presence, session selection, instruction loading and task completion as four distinct observations. None was available or attempted." }
+  ],
+
+  "ai_review": {
+    "schema_version": "devforge.skill-ai-review/v1",
+    "input_manifest_ref": "verification-results.md section S-01 (candidate manifest at 4999f31) plus the specification and governing digests above",
+    "reviewer_identity": "worker E3, independently dispatched evaluator context; authored neither the candidate nor the validator; read-only throughout",
+    "client_and_model": "Claude Code session; exact client version and model configuration not observable from inside the session and recorded as unknown rather than inferred",
+    "independence_limits": [
+      "Separated: fresh context window and system prompt; no inheritance of the authoring conversation; no access to the author's preferred grades before reviewing; writes confined to this evidence fence.",
+      "Not separated: filesystem, process space and repository state are shared with other sessions - this is not a sandbox. The reviewer is the same model family as the author.",
+      "Contamination declared: references/derivation.json is part of the candidate and its repair_pass_1 block is the author's own summary of the prior E1 review, including finding IDs, severities and dispositions. It was read during intake, before the criterion review. The E1 review's own files were deliberately not opened until after R01-R10 were formed, so 'no visible previous review' is FALSE and is recorded rather than smoothed away.",
+      "No second fresh reviewer was allocated, so the one unresolved interpretation (AI-DISPUTE-01) stays COULD_NOT_RUN rather than being resolved by comparison.",
+      "This is a static review. A static PASS does not establish that a session will follow the instructions, and no tier result is inferred from it."
+    ],
+    "criteria": [
+      { "id": "R01", "applicable": true, "applicability_reason": "every skill", "outcome": "PASS", "evidence_locator": "SKILL.md:3; SKILL.md:62-98", "required_behaviour_source": "SKILL-007 'User goal and use-case inventory' (direct request, indirect request, does-not-activate-for)", "rationale": "The description names the capability and four activating situations, excludes devforge-evaluate-expert, devforge-develop and devforge-brainstorm by name, and closes with 'a list of role titles is not a capability need', which is the specification's does-not-activate-for row. Body task and deliverables match the Outputs table. Actual selection requires tier A and is not claimed." },
+      { "id": "R02", "applicable": true, "applicability_reason": "every skill", "outcome": "PASS", "evidence_locator": "SKILL.md:30-40; SKILL.md:70,78,90; SKILL.md:116-122; assets/expert-spec.md '## Candidate-independent acceptance expectations' and '## Permissions and refresh'", "required_behaviour_source": "SKILL-007 'Inputs and provenance', 'Outputs and standardized templates', 'Completion handoff'; line 87 (source-grounded version-specific knowledge, declared refresh conditions, reproducible tests)", "rationale": "Required-input table with a stated missing-input rule that neither fabricates nor silently proceeds. All three specified artifacts plus the handoff are routed to shipped templates at the phase that needs them. Completion is observable and distinguishes an authored candidate, a recorded reuse recommendation and a stop-and-hand-back. The shipped XSPEC template carries candidate-independent acceptance expectations and refresh triggers, covering the created package's tests and refresh conditions." },
+      { "id": "R03", "applicable": true, "applicability_reason": "every DevForgeAI skill; the task writes files", "outcome": "PASS", "evidence_locator": "SKILL.md:22,40,48,86,112; references/validator-handoff.md:37,50; references/framework-context.md '## Roles that stay separate'", "required_behaviour_source": "SKILL-007 'State/action boundary'; AGENTS.md concurrent sessions and ownership", "rationale": "Authoring-only boundary stated including the do-not-delegate-it form. Policy shopping and editing a gate to pass are forbidden. A proposal is not promoted into an accepted constraint by copying it downstream. A severity label is explicitly not authority. A concurrent-writer collision stops dependent writes and reports, with no delete, reset, force or quiet relocation. No self-granted approval anywhere in the package." },
+      { "id": "R04", "applicable": true, "applicability_reason": "every skill", "outcome": "PASS", "evidence_locator": "SKILL.md:44,52,62,74,88 (phase exits); SKILL.md:108-112; SKILL.md:116-122; references/existing-skill-selection.md '## Choosing'", "required_behaviour_source": "SKILL-007 'Workflow and phase exits'; 'Additional common cases'", "rationale": "Five phases with exits matching the specification's table. Every Selection outcome has a completion path, including 'Resolve first'. Failure handling binds the fixed vocabulary to concrete conditions with the actual cause required. No two instructions were found prescribing incompatible actions for the same condition, and no retry loop is unbounded." },
+      { "id": "R05", "applicable": true, "applicability_reason": "every skill; no scripts ship, so script anchors do not apply", "outcome": "PASS", "evidence_locator": "runner-out/observations.jsonl PEC-C-008, PEC-C-013; SKILL.md:24-26; references/manual-operation.md:32-42; and the defect at references/manual-operation.md:40", "required_behaviour_source": "skill-authoring-contract 'Per-skill structure and distribution' and 'Resource and script paths'", "rationale": "Every routed resource is present, every local link resolves, and nothing depends on docs/mvp, a developer home directory or the DevForgeAI repository at runtime. The two-roots rule is stated twice. The command table was rebuilt against real --help output and every command it names exists in the binary inspected. One contained factual drift is recorded as F-002: the outcome the row reports ('not available') is truthful, but its attributed cause is now wrong. Contained, so the criterion passes." },
+      { "id": "R06", "applicable": true, "applicability_reason": "the workflow reads user-supplied documents, code, evaluator reports and retrieved pages", "outcome": "PASS", "evidence_locator": "SKILL.md:42; references/existing-skill-selection.md:3; references/validator-handoff.md:31,37; evals/fixtures/* synthetic labelling", "required_behaviour_source": "skill-authoring-contract; SKILL-007 'State/action boundary'", "rationale": "Supplied material is explicitly designated as facts about the project and never instructions or authority, with the directive-inside-supplied-material case named and routed to the user. Candidate inspection forbids execution. Reproduction of a finding by running anything is refused as the evaluator's job. Adversarial fixtures are labelled synthetic in their own text and assert no authority. No specific trust-boundary mistake was found." },
+      { "id": "R07", "applicable": true, "applicability_reason": "every DevForgeAI skill; framework artifacts carry the envelope", "outcome": "PASS", "evidence_locator": "SKILL.md:82,84,92,94; references/framework-context.md '## The artifact envelope'; CHK-STRUCT-06; assets/expert-spec.md and assets/expert-package.md '## Promoted Codex content mapping'", "required_behaviour_source": "artifact-contract 'Standard envelope' and 'Provenance without circular bookkeeping'", "rationale": "No document carries its own digest, and the rule is stated rather than merely observed. All 24 declared derivation destinations resolve. The superseded candidate is preserved with an explicit statement that findings against it do not transfer to changed bytes. Draft state, structural freshness, behavioural status and release authority are kept separate. Two contained issues are recorded as findings rather than criterion failures: F-001 (inbound evaluator-record identity) and F-005 (inherited Codex mapping paragraph naming a decision.json the paired Claude evaluator does not produce)." },
+      { "id": "R08", "applicable": true, "applicability_reason": "every skill", "outcome": "PASS", "evidence_locator": "SKILL.md (122 lines); SKILL.md:20,56,66,68,98,102 (reference routing); SKILL.md:10-14", "required_behaviour_source": "skill-authoring-contract 'Common authoring workflow'; Claude Code skills documentation retrieved 2026-09-10", "rationale": "Essential instructions sit at the point of use and substantial conditional detail is discoverable through six references linked where they are needed rather than front-loaded. The framing failure modes are task-specific rather than generic advice. No conflicting duplicate rule was found between the entrypoint and any reference; the references narrow, they do not contradict. Necessary complexity is retained. No word, line or example count is imposed as a gate here." },
+      { "id": "R09", "applicable": true, "applicability_reason": "every skill; the testing anchors apply only where testing is part of the job, which it is not - this is an authoring-only skill", "outcome": "PASS", "evidence_locator": "SKILL.md:14,94,106,110; assets/evaluation-cases.md:5,32,34; assets/handoff.md 'Validation status: Not performed.'", "required_behaviour_source": "SKILL-007 'Validation and behavioral acceptance'; the project's fixed result vocabulary", "rationale": "Completion claims tie to observable results; the fixed vocabulary is bound to conditions and 'the absence of an error is not a pass' is stated. An authored, hashed and packaged candidate is explicitly still unevaluated, and applying a change explicitly does not close a finding. Structural binding is explicitly not evidence of quality. The proposed-case asset keeps the author's preferred answer and any prior verdict out of the evaluating session and requires separate clean contexts and writable outputs per arm. Refusing to run validation is compliance with the declared scope, which the rubric directs not be failed." },
+      { "id": "R10", "applicable": true, "applicability_reason": "every DevForgeAI skill carries the handoff anchors; enforcement anchors apply because the package proposes an enforcement route", "outcome": "PASS", "evidence_locator": "assets/skill-design-spec.md:123-140; references/interview-guide.md:68; SKILL.md:96,98; assets/handoff.md '## Outputs produced' and '## Copyable next task'", "required_behaviour_source": "development-language-policy 'Phases, hooks and skill content'; skill-authoring-contract handoff requirements", "rationale": "A proposed control records the requirement, protected action, observable evidence, state and freshness, allow/refuse behaviour, error behaviour, recovery, owner and feasibility, and is labelled a design with the status fixed at 'Requirement recorded. No gate is implemented, activated or executed by this skill.' Writing 'must' is nowhere reported as active enforcement. The handoff names the next owner, requires checking what is actually installed before naming it, forbids a slash command for an unconfirmed skill, excludes itself from its own outputs table, and states that preparing it is not invoking the receiver. F-001 records the one place where the inbound record shape this package expects diverges from what the paired evaluator emits." }
+    ]
+  },
+
+  "severity_counts": { "BLOCKER": 0, "MAJOR": 0, "MINOR": 2, "ADVISORY": 5 },
+  "disposition": "insufficient evidence",
+  "disposition_basis": "Adjudicated by hand against the validator's references/results-contract.md. No implemented decision receipt exists and none was produced; evidence reduction is one of the two capabilities the DevForge CLI does not implement. No applicable FAIL was observed in any group, so 'revise' is not indicated. Three required evidence groups (C, B, A) are entirely unobserved, so 'suitable for the stated scope' is unavailable. Missing required observations give 'insufficient evidence'.",
+  "behavioural_status": "NOT_EVALUATED",
+  "tiers": { "A": "NOT_RUN", "B": "NOT_RUN", "C": "NOT_RUN" },
+  "target_changes_justified": "Two MINOR contained defects (F-002, F-003) are justified by the evidence as bounded required repairs. F-001, F-004, F-005, F-006 and F-007 do not authorise a target edit on this evidence.",
+
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "ADVISORY",
+      "type": "evaluation_gap",
+      "subtype": "shared-contract ambiguity; open decision for the integration owner",
+      "criterion_ids": ["R07", "R10"],
+      "requirement_ids": ["artifact-contract.md:107 (skill-evaluation-report, prefix SEVAL)", "skill-authoring-contract.md:115 (report template = templates/skill-authoring/evaluation-report.md)", "SKILL-007 'F01-F08 manual promotion contract' (EVPLAN/EVREPORT)"],
+      "affected_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "file": "references/validator-handoff.md",
+      "section": "'What the handoff should contain', bullets 1-3",
+      "lines": "9-11",
+      "also_present_in": ["assets/skill-design-spec.md:271 (Evaluator repair intake, Evaluation report row)"],
+      "evidence": "references/validator-handoff.md:9-11 states an evaluator's transfer supplies 'An evaluation report. A devforge.artifact/v1 envelope with artifact_type skill-evaluation-report and a SEVAL identity', 'A bounded repair specification' and 'A handoff'. The frozen Claude devforge-evaluate-expert package at e641797 emits assets/verification-results.md with artifact_type 'expert-evaluation-report' and artifact_id 'EVREPORT-{{number}}', assets/skill-enhancement-spec.md with artifact_type 'skill-enhancement-spec' and artifact_id 'CHGSPEC-{{number}}', and assets/handoff.md with artifact_type 'handoff'. Both readings are supported: artifact-contract.md:107 and skill-authoring-contract.md:115 route skill evaluation reports to the SEVAL template, while SKILL-007 and SKILL-008 use EVPLAN/EVREPORT for the expert-evaluation artifacts. The package's own copied governing template (assets/expert-spec.md, 'Promoted Codex content mapping') maps EVREPORT to verification-results.md, so both identities already appear inside the candidate.",
+      "impact": "A rework session recovering a frozen evaluator handoff looks for a SEVAL-identified skill-evaluation-report that the paired Claude evaluator never produces, and records an intake gap instead of recognising the correct record. Bounded: the candidate already hedges at references/validator-handoff.md:18 ('treat the fields above as the minimum a transfer must carry, and record any record shape you had to infer as an intake gap rather than as a settled contract'), which is exactly the correct behaviour under this ambiguity.",
+      "confidence": "high on the observed divergence; the correct resolution is not the evaluator's to make",
+      "uncertainty": "Which envelope identity is canonical for a Claude evaluator report is not settled by any single governing document read here.",
+      "recommendation": "No target edit is authorised on this evidence. Route the ambiguity to the integration owner as an open decision (see CHG-003, a bounded investigation). Once devforge-evaluate-expert merges, the candidate's own refresh_conditions already require revisiting references/validator-handoff.md; at that point naming both accepted identity sets, while keeping the 'stated minimum' rule, is a one-paragraph refresh.",
+      "affected_cases": ["evals.json 10 (rework-from-evaluator-findings)"],
+      "owner": "DevForgeAI integration owner (contract decision); devforge-project-expert-creator author (the later refresh only)"
+    },
+    {
+      "id": "F-002",
+      "severity": "MINOR",
+      "type": "defect",
+      "criterion_ids": ["R05"],
+      "requirement_ids": ["SKILL-007 'Rework, stopping, and recovery' (report missing observations precisely)", "references/derivation.json refresh_conditions[4]"],
+      "affected_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "file": "references/manual-operation.md",
+      "section": "'Command boundaries' table, final row",
+      "lines": "40",
+      "evidence": "The row reads: 'Evaluator inspects a package or reduces evidence | Not available in this environment | These helpers belong to the Claude devforge-evaluate-expert package, which is a separate port. Record the dependency; do not name a path for a helper you have not confirmed exists.' The frozen Claude devforge-evaluate-expert package at e641797 explicitly declines to port them: references/missing-rust-capabilities.md:9-19 records 'Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI', states that the Codex helpers are a validator gate and an acceptance decision which the language policy assigns to compiled Rust, and assigns both to the DevForge integration owner. Independently confirmed against the binary: devforge --help lists delivery, expert, check, init, red, green, accept, verify, status, isolate, with no skill-package inspector and no evidence reducer.",
+      "impact": "The stated outcome ('not available') is truthful, but the attributed cause and therefore the owner and the unblock condition are wrong. A creator following this row tells a user the gap closes when the Claude evaluator package lands. It does not close then, and no evaluator package can close it; it is an unimplemented Rust capability owned by the DevForge integration owner. The user is pointed at the wrong owner for a prerequisite that blocks a structural claim.",
+      "confidence": "high",
+      "uncertainty": "none material. The attribution was reasonable when authored, before the paired package existed.",
+      "recommendation": "See CHG-001. Restate the row's cause as the two unimplemented DevForge CLI capabilities with the DevForge integration owner named, keep the 'do not name a path for a helper you have not confirmed exists' rule, and add the corresponding derivation.json entry. Do not add a path for any helper.",
+      "affected_cases": ["none executed; re-observe evals.json 9 (requested-check-could-not-run) after any change"],
+      "owner": "devforge-project-expert-creator author"
+    },
+    {
+      "id": "F-003",
+      "severity": "MINOR",
+      "type": "defect",
+      "criterion_ids": ["R09"],
+      "requirement_ids": ["SKILL-007 'Validation and behavioral acceptance'", "skill-authoring-contract 'Three separately reported evaluation tiers'"],
+      "affected_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "file": "evals/evals.json",
+      "section": "runner_dependency",
+      "lines": "7-12",
+      "evidence": "runner_dependency.detail states that executing the cases 'requires the Python JSONL runner and deterministic graders supplied by the Claude devforge-evaluate-expert package', and consequence states 'Every case outcome is NOT_RUN until that dependency resolves and an evaluation is actually allocated.' But tier_note at evals/evals.json:5 declares every one of the ten cases tier B, and the validator's own references/runner-interface.md:119 states plainly: 'Nothing here observes discovery, activation, loading or output quality. Those are tiers A, B and C in native evaluation.' The runner emits per-case deterministic assertion rows and no output-quality grading of any kind; this evaluation's own run demonstrates that (44 assertions, all structural).",
+      "impact": "An owner scoping the evaluation reads the dependency as 'port the runner, then the ten cases run' and under-allocates. What the ten tier-B cases actually need is a measured native run per case with the declared old_skill baseline arm, per-attempt context isolation and separate writable outputs - an allocation of a different size and kind. The understatement makes an unobserved evidence group look cheaper to close than it is.",
+      "confidence": "high",
+      "uncertainty": "none material.",
+      "recommendation": "See CHG-002. Amend runner_dependency.detail to say that the JSONL runner and graders cover deterministic assertions only, and that executing these tier-B cases needs a measured native run per attempt with the declared old_skill baseline arm and per-attempt isolation, plus an evaluation allocation. Do not change any case, expectation, fixture or graded observation.",
+      "affected_cases": ["evals.json 1-10"],
+      "owner": "devforge-project-expert-creator author"
+    },
+    {
+      "id": "F-004",
+      "severity": "ADVISORY",
+      "type": "enhancement",
+      "criterion_ids": [],
+      "requirement_ids": [],
+      "affected_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "file": "evals/",
+      "section": "package-level",
+      "evidence": "The package ships evals/evals.json, evals/fixtures/ and evals/triggers/ - exactly the shape skill-authoring-contract.md:42-45 specifies - and no evals/cases.jsonl. The paired evaluator's runner takes a JSONL case file in a different format, so this evaluator authored 15 minimal structural cases inside its own evidence fence (runner-out/cases.jsonl, sha256 3a8cc195...) as the validator's SKILL.md P2 directs.",
+      "impact": "Every evaluator must author its own structural cases before it can use the deterministic runner, which means the deterministic evidence group is re-derived, and can differ, from one evaluation to the next. Explicitly NOT a defect: no accepted requirement asks for cases.jsonl, and the contract-mandated eval inputs are all present and well formed.",
+      "confidence": "high on the observation; the proposal is optional",
+      "uncertainty": "Whether cases.jsonl becomes an expected package member depends on the unresolved status of the paired evaluator package (see F-001).",
+      "recommendation": "Optional, and only if an owner accepts it as a new requirement: add a small tier-C evals/cases.jsonl binding this package's own structural invariants (frontmatter fields, name/folder relation, link resolution, routed-resource presence, absence of Codex-only members, the byte-identity sentinels for the three copied templates). This report's runner-out/cases.jsonl is a working reference. Do not add it as an unrequested package member without that acceptance.",
+      "affected_cases": [],
+      "owner": "DevForgeAI integration owner (accept or decline the requirement); devforge-project-expert-creator author (implementation, if accepted)"
+    },
+    {
+      "id": "F-005",
+      "severity": "ADVISORY",
+      "type": "defect",
+      "criterion_ids": ["R07"],
+      "requirement_ids": ["references/manual-operation.md:5-12 artifact mapping", "artifact-contract 'Provenance without circular bookkeeping'"],
+      "affected_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "file": "assets/expert-spec.md; assets/expert-package.md",
+      "section": "'Promoted Codex content mapping' (final section of each)",
+      "evidence": "Both assets end with an identical inherited paragraph: 'XSPEC maps to skill-design-spec.md; XPKG maps to the candidate file/provenance manifest; EVPLAN maps to validation-plan.json; EVREPORT maps to verification-results.md, validation-results.json and decision.json ... Include actual Routine/Full selection, requested claim, current/qualified lineage ...'. The paired Claude evaluator states at its SKILL.md:133 that it 'produces no such file' as decision.json, because evidence reduction is one of the two unimplemented DevForge CLI capabilities; and the candidate itself marks Routine/Full NOT_APPLICABLE at assets/skill-design-spec.md:350 and references/manual-operation.md:44. The disposition for this section is recorded only in references/derivation.json ('carried_inapplicable_section'), a maintenance record an author filling XSPEC has no reason to open. SKILL.md:70 and :90 route the author straight to these two assets with no note.",
+      "impact": "An author filling XSPEC or XPKG meets Codex-side guidance at the point of use, with nothing in the reading path saying it is NOT_APPLICABLE. Two concrete risks: producing or requesting a decision.json that no Claude evaluator emits, and reopening Routine/Full lineage fields the package has already dispositioned. Contained, because the surrounding guidance is correct and the section is short.",
+      "confidence": "high",
+      "uncertainty": "The prior independent review raised the byte-identity aspect (E1/F-005) and the repair pass correctly declined to edit the templates, since editing a byte-identical governing copy destroys the auditable identity PEC-C-012 verifies. That reasoning is sound and is preserved; the repair proposed here deliberately avoids touching either template.",
+      "recommendation": "See CHG-004, an authorised enhancement. Add one sentence where SKILL.md routes to these assets (or a row in references/framework-context.md's artifact-envelope section) naming the inherited 'Promoted Codex content mapping' section as Codex-side and NOT_APPLICABLE to a Claude package, with the disposition belonging to the integration owner. Do not edit assets/expert-spec.md or assets/expert-package.md - their byte-identity with docs/mvp must survive unchanged.",
+      "affected_cases": ["evals.json 1 (direct-activation)"],
+      "owner": "devforge-project-expert-creator author (the in-package note); DevForgeAI integration owner (the shared template's own disposition)"
+    },
+    {
+      "id": "F-006",
+      "severity": "ADVISORY",
+      "type": "evaluation_gap",
+      "criterion_ids": [],
+      "requirement_ids": ["skill-authoring-contract 'Three separately reported evaluation tiers'"],
+      "affected_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "file": "(whole package)",
+      "section": "package-level",
+      "evidence": "No installation, export, discovery, activation, installed-resource check or case execution was performed or observed by this evaluation, and none was allocated to it. Tiers C, B and A are NOT_RUN with the causes recorded in checks CHK-C-01, CHK-B-01 and CHK-A-01. The declared old_skill baseline was frozen by digest and not executed.",
+      "impact": "No claim about discovery, activation, installed-resource resolution or output quality is supported by any evidence, for this candidate or against its baseline. Behavioural status stays NOT_EVALUATED and the disposition cannot rise above 'insufficient evidence'.",
+      "confidence": "certain",
+      "uncertainty": "none",
+      "recommendation": "This is an evaluation prerequisite for its owner, not a candidate defect. No edit to the candidate produces it, and no edit should be made to compensate for it. Allocate an installed copy, a fresh terminal and an isolated workspace, then run tier C, then B, then A in that order.",
+      "affected_cases": ["all"],
+      "owner": "the coordinator / evaluation owner"
+    },
+    {
+      "id": "F-007",
+      "severity": "ADVISORY",
+      "type": "evaluation_gap",
+      "subtype": "open decision; unresolved consequential interpretation",
+      "criterion_ids": ["AI-DISPUTE-01"],
+      "requirement_ids": ["SKILL-007 'F01-F08 manual promotion contract'"],
+      "affected_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "file": "assets/skill-design-spec.md; references/manual-operation.md",
+      "section": "'Evaluation coverage proposed'; 'Command boundaries' closing note",
+      "lines": "350; 44",
+      "evidence": "SKILL-007 line 128 states 'The accepted Routine/Full policy applies to manual mode' and 'Every phase/task retains its classification and a result or explicit conditional disposition.' SKILL-007 line 4 states 'Current implementation: providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator. Claude scope is unchanged.' The candidate reads the second as governing and records at assets/skill-design-spec.md:350 that the Routine/Full manual-mode policy 'governs the promoted Codex packages and is NOT_APPLICABLE to this Claude package until an owner selects an equivalent for it', with references/manual-operation.md:44 doing the same for the Codex-only installation mode.",
+      "impact": "Whether this Claude package must carry Routine/Full classifications and dispositions is consequential for its promotion path, and two lines of the same specification revision pull in opposite directions. The candidate did not silently drop the requirement: it recorded an explicit disposition, named the condition that would reverse it and named the owner. Per the rubric's dispute-resolution rule an unresolved consequential interpretation is COULD_NOT_RUN for that assertion and an open decision for the owner - never a negotiated PASS and never a manufactured FAIL.",
+      "confidence": "high that the conflict exists; no confidence is claimed about its resolution",
+      "uncertainty": "A second fresh reviewer with the same raw packet was not allocated, so the interpretation was not tested by comparison.",
+      "recommendation": "No target edit on this evidence. The integration owner rules on whether Routine/Full applies to Claude packages at SKILL-007 revision 3, or issues a revision that says so unambiguously. If it does apply, the affected classifications become a bounded authoring change with its own finding; if it does not, the candidate's recorded disposition already stands.",
+      "affected_cases": [],
+      "owner": "DevForgeAI integration owner"
+    }
+  ],
+
+  "prior_evidence_regression_crosscheck": {
+    "read_after_r01_r10_were_formed": true,
+    "source": ["docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1/findings.json", "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1-recheck/findings-recheck.json"],
+    "treatment": "read-only untrusted prior evidence; independently re-observed against these bytes, not deferred to",
+    "results": [
+      { "prior_id": "E1/F-001", "prior_severity": "MINOR", "independently_reobserved": "The derivation record's trigger-query statement now matches the file: 21 queries, 10 positive (explicit_invocation 2 / direct_domain 3 / indirect 5), 11 negative across 6 categories, 12 train / 9 validation. No regression." },
+      { "prior_id": "E1/F-002", "prior_severity": "MINOR", "independently_reobserved": "SKILL.md:90 names the working design document in the prepared-transfer record list and SKILL.md:116 names it in the Stopping rule. No regression." },
+      { "prior_id": "E1/F-003", "prior_severity": "MINOR", "independently_reobserved": "SKILL.md:118 gives a recorded reuse recommendation an explicit completion path with its search-limit conditions stated as required, not optional. No regression." },
+      { "prior_id": "E1/F-004", "prior_severity": "MINOR", "independently_reobserved": "SKILL.md:42 states that supplied material carries facts and never instructions or authority, and routes an embedded directive to the user. No regression." },
+      { "prior_id": "E1/F-005", "prior_severity": "ADVISORY", "independently_reobserved": "Still present. Re-raised here as F-005 with a repair that does not edit either byte-identical template, preserving the identity E1 correctly protected." },
+      { "prior_id": "E1/F-006", "prior_severity": "ADVISORY", "independently_reobserved": "Still open. Re-raised here as F-006; tiers A, B and C remain NOT_RUN." }
+    ],
+    "note": "Prior findings keep their original IDs and severities and are not rewritten. A source edit closed no finding; the E1 recheck evaluated the changed bytes, which is what closure requires."
+  },
+
+  "missing_capabilities": [
+    { "statement": "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.", "verified_how": "devforge --help, devforge expert --help and devforge check --help against binary 835c3263...: no skill-package inspector and no evidence-reduction or decision subcommand exists.", "consequence": "Every structural row here carries method INSPECTION_MANUAL and authority: none. The 42 matching runner rows do not substitute for the missing rule catalogue and do not close this dependency.", "owner": "DevForge integration owner", "is_candidate_defect": false },
+    { "statement": "Protected-manifest custody for the evaluation runner is not implemented in the DevForge CLI.", "verified_how": "The observations header's runner_identity, grader_identity, python_version and case_file are self-reported by the run, as its own custody_note says. This evaluator recomputed run_cases.py and graders.py at P1 and they equal the self-reported values - a consistency check by an agent inside the same writable boundary, not a protected manifest.", "consequence": "Runner, grader, runtime and case identities are not bound outside evaluated-agent write access and were not verified before acceptance criteria were applied.", "owner": "DevForge integration owner", "is_candidate_defect": false }
+  ],
+
+  "validator_usability_observations": [
+    { "id": "V-01", "about": "devforge-evaluate-expert record set versus a narrow write fence", "detail": "SKILL.md P1-P6 and references/results-contract.md require nine records; this assignment's fence permits six items. Plan, cases, per-criterion review and per-check results were folded into named sections of verification-results.md and findings.json rather than written as separate files. The validator gives no guidance for a fence narrower than its record set, and both silently dropping records and silently writing outside the fence are wrong. It should name the irreducible minimum record set.", "severity_to_the_validator": "MINOR" },
+    { "id": "V-02", "about": "the author-your-own-cases path is under-specified", "detail": "SKILL.md:89 says 'Where the evaluation has authored cases, run them' and shows the command, but does not say where an evaluator's own cases should live when the candidate ships none, nor that evals.json - the shape the authoring contract actually mandates - is not the runner's input format. Two different file formats share the word 'cases'. references/runner-interface.md documents the format well; the entrypoint should route to it explicitly for this path.", "severity_to_the_validator": "MINOR" },
+    { "id": "V-03", "about": "small frictions", "detail": "The case-level 'files' key is permitted and documented as resolving relative to the evals directory, but run_cases.py never reads it, so an evaluator can believe fixtures are being staged when nothing is. assets/verification-results.md offers no row for an evaluation whose plan arrived as an assignment packet rather than as an authored validation-plan.json. Positively: the graders behaved exactly as references/runner-interface.md documents on the known-answer fixtures, including every INDETERMINATE case, and the header's authority and custody_note fields made the custody boundary hard to overlook.", "severity_to_the_validator": "ADVISORY" }
+  ],
+
+  "closure": {
+    "validation_status": "Not performed by this document. This is an evaluation report; it grants no acceptance, adoption, installation or release.",
+    "finding_status": "findings recorded; reevaluation required after any change. No finding here is closed, and no prior finding is closed by this report.",
+    "candidate_modified_by_this_evaluation": false,
+    "writes_outside_the_fence": "none",
+    "git_write_operations": "none in any checkout"
+  }
+}
