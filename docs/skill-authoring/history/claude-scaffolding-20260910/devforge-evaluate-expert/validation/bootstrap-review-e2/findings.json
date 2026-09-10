@@ -1,0 +1,428 @@
+{
+  "schema_version": "devforge.skill-validation-findings/v1",
+  "_note": "Findings only. This file records no aggregate verdict, no acceptance and no admission. Severity is chosen from the demonstrated consequence, not from a criterion label. Every finding below was demonstrated on frozen bytes or on an observed run inside this fence.",
+  "run_id": "bootstrap-review-e2",
+  "producer": "independent evaluator (bootstrap, source-loaded rubric), worker E2",
+  "created_at_utc": "2026-09-10T19:30:29Z",
+  "candidate": {
+    "repository_worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910",
+    "commit": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+    "package_root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert",
+    "file_manifest": {
+      "path": "scratch/candidate-manifest-e2.txt",
+      "file_count": 50,
+      "sha256_of_manifest": "2416260f5aa9271bc577726e1b0d12c7562c76a2502b4c7dee7037df4f99998f",
+      "excluded": "scripts/__pycache__/ (gitignored, pre-existing, observed and left in place; see F-005)"
+    },
+    "key_identities": {
+      "SKILL.md": "5f9769ddc394440d63079f699db3f2c23b97821629350658b5b022e360bcd049",
+      "scripts/run_cases.py": "d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d",
+      "scripts/graders.py": "7c03e7b2137787035c995787b232a7bf8d801c88672675bacf4359a8cdb38c13",
+      "references/derivation.json": "39f73a08c88f37198a46ce569c0d0543718fed095bc07c1d9661055a9618fac2"
+    }
+  },
+  "governing_inputs": {
+    "specification": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "sha256": "0b3dbb7fe9f5f683d2022c86390e736346189e1ea4d92730c7234d9de1ecec0d",
+      "verification": "recomputed by this evaluator; equal to the task packet"
+    },
+    "authoring_contract": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md",
+      "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+      "verification": "recomputed by this evaluator; equal to the task packet"
+    },
+    "client_documentation": {
+      "url": "https://code.claude.com/docs/en/skills",
+      "retrieved_utc": "2026-09-10"
+    },
+    "baseline": {
+      "kind": "without_skill",
+      "evidence": "git ls-tree c17e758417da64928a0f47fc2600304465ac3f3c providers/claude/plugins/devforgeai/skills/ lists devforge-brainstorm, devforge-develop, devforge-project-expert-creator, devforge-review only"
+    }
+  },
+  "missing_rust_capabilities": [
+    "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI. Every structural observation in this review is method INSPECTION_MANUAL with authority none.",
+    "Protected-manifest custody for the evaluation runner is not implemented in the DevForge CLI. Runner, grader, runtime and case identities in every observations file are self-reported by the run."
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "type": "defect",
+      "severity": "MAJOR",
+      "requirement_ids": [
+        "skill-authoring-contract: 'Create optional resources only when useful. Link them at the phase that needs them; do not load every reference by default.'",
+        "SKILL-008 Outputs and standardized templates (EVPLAN, EVREPORT)",
+        "SKILL-008 'Only documented, implemented DevForge commands may be named as executable gates'",
+        "AI-R05",
+        "AI-R08"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "SKILL.md (all 13 Markdown links) and 8 unreferenced runtime files",
+      "evidence": [
+        {
+          "kind": "link_graph",
+          "path": "SKILL.md",
+          "description": "SKILL.md links exactly 13 destinations: references/missing-rust-capabilities.md, references/native-evaluation.md, references/runner-interface.md, references/ai-review-rubric.md, references/results-contract.md, assets/validation-plan.json, assets/workspace-allocation.json, assets/environment-setup.json, assets/ai-review.json, assets/validation-results.json, assets/verification-results.md, assets/skill-enhancement-spec.md, assets/handoff.md."
+        },
+        {
+          "kind": "link_graph_closure",
+          "description": "Transitive closure over every Markdown link in every non-evals package file adds only: references/sources.md, references/derivation.json, assets/case-grade.json, assets/run-manifest.json. Nothing links the 8 files below."
+        },
+        {
+          "kind": "unreachable_files",
+          "paths": [
+            "references/evaluation-boundaries.md",
+            "references/framework-context.md",
+            "references/contracts/artifact-contract.md",
+            "references/contracts/execution-contract.md",
+            "references/contracts/skill-authoring-contract.md",
+            "assets/expert-evaluation-plan.md",
+            "assets/expert-evaluation-report.md",
+            "assets/test-cases.json"
+          ],
+          "description": "8 of the 28 runtime files (evals/ excluded; 50 files total, 22 under evals/), reachable from no link and named in no SKILL.md prose (grep for 'framework-context', 'evaluation-boundaries', 'contracts/', 'expert-evaluation', 'test-cases' in SKILL.md returns nothing). Separately observed: the candidate's own package_relative_links grader run over all 17 non-evals Markdown files returns MATCH for all 17 across 35 local destinations - every link that exists resolves; the defect is that eight files are the target of none."
+        },
+        {
+          "kind": "client_documentation",
+          "url": "https://code.claude.com/docs/en/skills",
+          "description": "'Reference supporting files from SKILL.md so Claude knows what each file contains and when to load it.' Supporting files are not automatically loaded into context."
+        },
+        {
+          "kind": "author_claim_checked",
+          "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/spec-mapping.md",
+          "description": "spec-mapping.md routes at least four SKILL-008 elements solely to unreachable files: the artifact contract's revision/hash/section-ID rules, EVPLAN/EVREPORT consumer coverage, per-provider result separation, and the command-boundaries table. The mapping is correct as a file-placement claim and false as a reachability claim."
+        }
+      ],
+      "confidence": "high; established by exhaustive link extraction over every package Markdown file plus a prose grep. Uncertainty: a session that lists the skill directory could still open an unlinked file, but the client documentation states supporting files load when referenced, so this is opportunistic rather than routed.",
+      "impact": "A Claude session following SKILL.md end to end never opens the only statements of: the permission matrix of what this skill may and may not touch; the command-boundaries table that implements SKILL-008's rule that only documented, implemented DevForge commands may be named as executable gates; the EVPLAN/EVREPORT artifact mapping that reconciles the SKILL-008 output names with validation-plan.json and verification-results.md; the Rust-authority ownership split and the bounded-delivery finish line; and the three packaged governing contracts. The two SKILL-008-named output templates are shipped byte-identical to docs/mvp and routed from nowhere.",
+      "recommendation": "Add package-relative links at the phase that needs each file; do not rewrite the files. See CHG-001.",
+      "affected_case_ids": [
+        "eval 1",
+        "eval 6",
+        "eval 8",
+        "eval 12"
+      ]
+    },
+    {
+      "finding_id": "F-002",
+      "type": "defect",
+      "severity": "MAJOR",
+      "requirement_ids": [
+        "SKILL-008 common case: 'A template placeholder remains in a required result field: the result stays a draft and cannot be presented as ready.'",
+        "AI-R09"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "scripts/graders.py, function grade_required_report_fields (the per-field scan over text.split(\"\\n\"))",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "scripts/graders.py",
+          "description": "The field scan iterates every line of the document and breaks on the first line whose lstrip(\"-* \\t\") startswith f\"{name}:\" or f\"**{name}:**\". It has no fence awareness, unlike grade_package_relative_links in the same module, which tracks fences with the FENCE regex and skips their contents."
+        },
+        {
+          "kind": "observed_run",
+          "path": "scratch/out/e2-source.jsonl",
+          "case_id": "E2-RPT-001",
+          "input": "scratch/synthetic/fenced-report/report.md",
+          "description": "The document has no Disposition field. Its only 'Disposition: suitable for the stated scope' line sits inside a ```text fence introduced as illustrative. Observed: result MATCH, observed '1 fields', reason 'every required field is present and populated'. Reproduced identically in --mode installed."
+        }
+      ],
+      "confidence": "high; demonstrated on an input this evaluator authored, reproduced in both modes, with an in-module contrast (grade_package_relative_links) showing the omission is an oversight rather than a design choice.",
+      "impact": "The grader that exists to catch SKILL-008's placeholder common case can be satisfied by an illustrative example. It produces a positive observation - 'present and populated' - about a field the document does not have. The artifact type most likely to contain fenced examples of its own fields is this package's own EVREPORT template, assets/verification-results.md. An evaluator citing the row would report a populated required field where none exists: the 'inventing a pass' failure SKILL.md names first.",
+      "recommendation": "Reuse the module's existing fence tracking and ignore lines inside a fence. See CHG-002.",
+      "affected_case_ids": [
+        "EX-GOOD-002",
+        "eval 8"
+      ]
+    },
+    {
+      "finding_id": "F-003",
+      "type": "defect",
+      "severity": "MAJOR",
+      "requirement_ids": [
+        "SKILL-008 'Do not claim implicit activation from a run explicitly supplied SKILL.md'",
+        "SKILL-008 'Explicit invocation, direct domain requests, and implicit activation are distinct observations'",
+        "SKILL.md line 111: 'keep four things separate: the target appearing in the inventory, the session selecting it, the instructions actually loading, and the task completing'",
+        "AI-R09"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "scripts/graders.py, function grade_transcript_completion, the `consulted` computation",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "scripts/graders.py",
+          "description": "consulted = any(isinstance(event, dict) and target_name in json.dumps(event, sort_keys=True) for event in events). The needle is matched against the entire serialized event, including free-text prompt and message fields."
+        },
+        {
+          "kind": "observed_run",
+          "path": "scratch/out/e2-source.jsonl",
+          "case_id": "E2-NEG-002",
+          "input": "scratch/synthetic/mention-only/transcript.json",
+          "description": "Events: a prompt reading 'Do not use devforge-evaluate-expert for this; just answer from memory.', an assistant message, and a completion. Nothing was selected, loaded or consulted. Observed: MATCH, observed 'completed consulted=True', reason \"the run completed and consulted 'devforge-evaluate-expert'\". Reproduced identically in --mode installed."
+        }
+      ],
+      "confidence": "high; demonstrated on an input this evaluator authored. Uncertainty: the grader's docstring correctly scopes it to a synthetic fixture shape, so the blast radius is authored fixture cases rather than real client transcripts - but those authored cases are exactly the tier-A-shaped assertions the package ships.",
+      "impact": "A positive activation assertion can be established from a textual mention alone, collapsing the mention/selection/loading distinction the skill exists to enforce. The realistic case is stronger than the synthetic one: an explicit-invocation transcript necessarily contains the skill name in its own prompt (/devforge-evaluate-expert ...), so a run that invoked the skill and then failed to load it still reports consulted=True - the grader cannot distinguish 'named in the request' from 'instructions actually loaded', which is precisely the separation SKILL.md line 111 requires. Symmetrically, a negative-activation case whose implicit prompt happens to contain the target name reports a false MISMATCH, converting a clean negative run into an apparent failure. Both directions produce an observation the evidence does not support.",
+      "recommendation": "Match the target only in declared consultation-bearing fields, never in free text, and document the field contract. See CHG-003.",
+      "affected_case_ids": [
+        "EX-GOOD-003",
+        "EX-DEF-007",
+        "eval 9"
+      ]
+    },
+    {
+      "finding_id": "F-004",
+      "type": "defect",
+      "severity": "MINOR",
+      "requirement_ids": [
+        "AI-R09",
+        "references/runner-interface.md section 'Case file'"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "scripts/run_cases.py, function load_cases; references/runner-interface.md, section 'Case file'",
+      "evidence": [
+        {
+          "kind": "documentation_claim",
+          "path": "references/runner-interface.md",
+          "description": "'Unknown keys and duplicate keys within a line are rejected, as are duplicate case_id values.'"
+        },
+        {
+          "kind": "source",
+          "path": "scripts/run_cases.py",
+          "description": "load_cases rejects duplicate JSON keys (no_duplicates), non-object lines, missing or duplicate case_id, non-list assertions and unknown grader names. There is no unknown-key check of any kind."
+        },
+        {
+          "kind": "observed_run",
+          "path": "scratch/out/typo.jsonl",
+          "input": "scratch/cases/typo.jsonl",
+          "description": "A case using the key \"assertion\" instead of \"assertions\" is accepted. Exit 0. Output: {\"record\":\"case\",\"case_id\":\"TYPO-001\",\"tier\":\"C\",\"execution_status\":\"COMPLETED\",\"assertions\":[],\"metrics\":{...}}. A separate probe embedding an unknown key \"bogus_unknown_key\" in a valid case was likewise accepted at exit 0."
+        }
+      ],
+      "confidence": "high; both the documentation sentence and the observed contradiction are exact.",
+      "impact": "A single-character mistake in a case key yields an observations file that satisfies every integrity property the package advertises - exit 0, no aggregate field, correct vocabulary, preserved case identity - while observing nothing at all, and labels the case COMPLETED rather than COULD_NOT_RUN. Silent coverage loss is the specific failure this runner's design is meant to make impossible.",
+      "recommendation": "Implement the documented rejection, or correct the sentence. Implementing it is preferred and is about four lines. See CHG-004.",
+      "affected_case_ids": []
+    },
+    {
+      "finding_id": "F-005",
+      "type": "defect",
+      "severity": "MINOR",
+      "requirement_ids": [
+        "AI-R09",
+        "run_cases.py module docstring",
+        "references/runner-interface.md section 'Prerequisites'"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "scripts/run_cases.py, the sys.path.insert / import graders pair and the module docstring; references/runner-interface.md",
+      "evidence": [
+        {
+          "kind": "documentation_claim",
+          "description": "run_cases.py docstring: 'This program writes exactly one new file, at --out, and never writes inside the candidate tree.' references/runner-interface.md: 'Exactly one file is written, at --out; nothing inside the candidate tree is ever written.'"
+        },
+        {
+          "kind": "source",
+          "path": "scripts/run_cases.py",
+          "description": "sys.path.insert(0, str(Path(__file__).resolve().parent)) followed by import graders. With the documented invocation form (no -B, no PYTHONDONTWRITEBYTECODE), CPython caches the imported module as bytecode beside it."
+        },
+        {
+          "kind": "observed_run",
+          "path": "scratch/scripts-copy/",
+          "description": "scripts/ was copied to scratch/scripts-copy/ (0 pycache directories before). The documented form, /usr/bin/python3 <copy>/run_cases.py --cases ... --candidate ... --out ..., exited 0 and created scratch/scripts-copy/__pycache__/graders.cpython-312.pyc."
+        },
+        {
+          "kind": "pre_existing_artifact",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/__pycache__/graders.cpython-312.pyc",
+          "description": "Already present in the frozen worktree, dated 2026-09-10 15:10, gitignored via .gitignore line 2. It is the residue of the author's own runs and is direct evidence that the documented form writes into the package. Observed and left in place; not deleted."
+        }
+      ],
+      "confidence": "high; the guarantee is explicit and the counterexample was produced under the documented invocation. Uncertainty: the practical blast radius is one gitignored cache file, which is why this is MINOR rather than MAJOR.",
+      "impact": "An explicit written guarantee is false. In this bootstrap the write lands inside the tree being measured; more generally an evaluator that hashes its own installed package before and after a run observes drift it was told could not happen, and a read-only or plugin installation would surface an unexpected write attempt.",
+      "recommendation": "Set sys.dont_write_bytecode = True immediately before the import, and show -B in the documented invocation. See CHG-005.",
+      "affected_case_ids": []
+    },
+    {
+      "finding_id": "F-006",
+      "type": "defect",
+      "severity": "MINOR",
+      "requirement_ids": [
+        "SKILL-008 'A no-skill baseline must not discover the candidate from another installation'",
+        "AI-R05"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "references/sources.md, the Claude Code skills documentation row; references/native-evaluation.md, the discovery-location inventory step",
+      "evidence": [
+        {
+          "kind": "package_claim",
+          "path": "references/sources.md",
+          "description": "'the discovery locations and their precedence (managed settings, ~/.claude/skills/, the project's .claude/skills/ and each parent to the repository root, nested <subdir>/.claude/skills/, plugin skills/, --add-dir)'. references/native-evaluation.md repeats the same enumeration and requires that a without_skill arm lack the target in every one of them."
+        },
+        {
+          "kind": "client_documentation",
+          "url": "https://code.claude.com/docs/en/skills",
+          "retrieved_utc": "2026-09-10",
+          "description": "Documented precedence, highest first: Enterprise managed settings (1), Personal ~/.claude/skills (2), Project .claude/skills (3), Nested <subdir>/.claude/skills (4), Additional directory via --add-dir (5), Plugin <plugin>/skills (6), claude.ai account-synced skills (7), Bundled skills (8, overridable)."
+        }
+      ],
+      "confidence": "high for the two omitted locations and for the inverted pair; both are read directly from the documentation retrieved the same day the author retrieved it.",
+      "impact": "native-evaluation.md requires a without_skill arm to lack the target in every visible discovery location, then supplies an enumeration missing two real ones (claude.ai account-synced and bundled). A baseline arm could be declared clean while two locations were never inspected, which is the exact contamination SKILL-008 forbids. The stated plugin-before---add-dir order also predicts the wrong winner when an old_skill copy and a candidate copy occupy those two locations.",
+      "recommendation": "Add the two missing locations and correct the order in both files, carrying the retrieval date. See CHG-006.",
+      "affected_case_ids": [
+        "eval 2"
+      ]
+    },
+    {
+      "finding_id": "F-007",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "requirement_ids": [
+        "AI-R09"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "scripts/graders.py, read_frontmatter (the '- ' top-level sequence branch); references/runner-interface.md, the frontmatter_fields row",
+      "evidence": [
+        {
+          "kind": "observed_run",
+          "path": "scratch/out/e2-source.jsonl",
+          "case_id": "E2-FM-003",
+          "input": "scratch/synthetic/fm-non-mapping/SKILL.md",
+          "description": "Frontmatter is a top-level YAML sequence ('- name: ...', '- description: ...'). Observed: frontmatter_fields INDETERMINATE, observed 'unparsed', reason 'a top-level sequence is outside the supported scalar subset; a YAML parser is required and this grader does not use one'. name_folder_relation likewise INDETERMINATE."
+        },
+        {
+          "kind": "documentation_gap",
+          "path": "references/runner-interface.md",
+          "description": "The disclosed INDETERMINATE causes are 'block scalars, nested maps, flow collections, anchors and merge keys'. Top-level sequences are not listed."
+        }
+      ],
+      "confidence": "medium-high on the classification question, high on the disclosure gap. A top-level sequence definitionally cannot carry a mapping key, so 'name and description are populated' is determinably false; but the conservative answer never invents a defect and the reason string is accurate, which is defensible design.",
+      "impact": "A determinable structural defect is reported as a gap in the observation rather than as a defect, and the reader is not told from the disclosed limits list that sequences behave this way. Contained: no wrong positive is produced and the reason is honest.",
+      "recommendation": "Coordinator decision. Either return MISMATCH for a top-level sequence, or add 'top-level sequences' to the disclosed list and leave the classification alone. See CHG-007.",
+      "affected_case_ids": [
+        "EX-DEF-003"
+      ]
+    },
+    {
+      "finding_id": "F-008",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "requirement_ids": [
+        "AI-R07"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "four locations, listed in sub_items",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "scripts/graders.py",
+          "description": "(a) read_frontmatter docstring: \"status is 'parsed', 'absent' or 'unsupported'\". The function also returns 'duplicate', which grade_frontmatter_fields handles explicitly."
+        },
+        {
+          "kind": "source",
+          "path": "scripts/run_cases.py",
+          "description": "(b) Module docstring: results 'deliberately disjoint from the framework's PASS / FAIL / NOT_RUN / COULD_NOT_RUN / NOT_APPLICABLE vocabulary'. True of assertion results; the case-level execution_status field uses COULD_NOT_RUN and SKIPPED. The coordinator required COULD_NOT_RUN there, so the field is correct and the sentence is over-broad."
+        },
+        {
+          "kind": "provenance_gap",
+          "path": "references/derivation.json",
+          "description": "(c) references/sources.md is a runtime file declared in neither derivations[] nor new_in_this_package[] (14 entries). references/derivation.json's own absence is explained by self_digest_note; sources.md's is not. All 16 declared destination digests and all 18 declared source digests were independently recomputed and match."
+        },
+        {
+          "kind": "shipped_template_text",
+          "path": "assets/expert-evaluation-plan.md and assets/expert-evaluation-report.md",
+          "description": "(d) Both carry a verbatim 'Promoted Codex content mapping' paragraph stating 'EVREPORT maps to verification-results.md, validation-results.json and decision.json', while SKILL.md and results-contract.md state that no decision.json exists and that no decision receipt is produced. The bytes are a faithful copy of docs/mvp, so the contradiction is inherited, not authored."
+        }
+      ],
+      "confidence": "high on all four; each is a direct byte comparison.",
+      "impact": "Four contained inaccuracies. (a) and (b) are docstring drift with no behavioural effect. (c) leaves one runtime file without a provenance record in an otherwise complete and verified derivation record. (d) ships a statement inside the installed package that contradicts the package's own decision-receipt position, reachable only if F-001 is repaired by routing those templates.",
+      "recommendation": "Four one-line corrections; (d) is settled by whichever routing decision CHG-001 takes. See CHG-008.",
+      "affected_case_ids": []
+    },
+    {
+      "finding_id": "F-009",
+      "type": "evaluation_gap",
+      "severity": "ADVISORY",
+      "requirement_ids": [
+        "coordinator decision: run-manifest = shared v1 + four native extensions, no VPR-2 fields",
+        "coordinator decision: the two missing-Rust capabilities named in package and handoff",
+        "AI-R07"
+      ],
+      "affected_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "location": "assets/run-manifest.json and references/results-contract.md; docs/skill-authoring/.../authoring/handoff.md",
+      "evidence": [
+        {
+          "kind": "structural_diff",
+          "path": "assets/run-manifest.json",
+          "description": "docs/mvp/templates/skill-authoring/run-manifest.json has 22 top-level keys; the package copy has 39. 17 added, 0 removed. The four named native extensions (case_id, attempt_id, arm, transcript_sha256) are present. The other 13 are _note plus installation_path, boundary_refs, client_state_observation_ref, authentication_observation_ref, process_ownership_ref, worker_visible_input_refs, operator_only_input_refs, environment_setup_ref, workspace_allocation_ref, workspace_id, validation_plan_ref and deviations. Most trace to skill-authoring-contract requirements (installation mode/path; distinguishing source inventory from files actually visible to a worker), so the fields themselves are defensible."
+        },
+        {
+          "kind": "documentation_mismatch",
+          "path": "references/results-contract.md",
+          "description": "'Run manifests use devforge.skill-run/v1 with the extensions case_id, attempt_id, arm and transcript_sha256.' The shipped template carries 17 additions, so the sentence understates the package's own record shape."
+        },
+        {
+          "kind": "scan",
+          "description": "grep -rniE 'routine|vpr|qualified_lineage|adoption_evidence|manual_evidence|manual-experts-only' over assets/*.json returns NONE. The no-VPR-2 half of the decision is fully honored."
+        },
+        {
+          "kind": "author_evidence",
+          "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/handoff.md",
+          "description": "grep -c 'not implemented in the DevForge CLI' -> 0. The handoff refers to 'the two missing-DevForge-CLI-capability statements' (in the copyable next task) and 'the two missing CLI capabilities becoming available' (in the invalidation conditions) without ever stating which two. A reader of the handoff alone cannot learn what is missing."
+        }
+      ],
+      "confidence": "high; both halves are direct byte comparisons against the coordinator decisions quoted in the task packet.",
+      "impact": "Neither sub-item affects behaviour. (a) A receiver reading results-contract.md would under-populate a run manifest relative to the template the same package ships, and the 'four native extensions' framing understates a 17-key extension for anyone auditing the decision. (b) The handoff, which is the entry point into this evidence, does not itself name the two evaluation prerequisites, so the dependency is discoverable only by opening the package.",
+      "recommendation": "(a) Reconcile results-contract.md with the shipped template, or trim the template to what the decision named - a coordinator call, since the extra fields are contract-grounded. (b) State both capability sentences verbatim in the handoff. The handoff is author evidence outside the candidate fence; no candidate edit is implied. See CHG-009.",
+      "affected_case_ids": []
+    }
+  ],
+  "severity_counts": {
+    "BLOCKER": 0,
+    "MAJOR": 3,
+    "MINOR": 3,
+    "ADVISORY": 3
+  },
+  "rubric_outcomes": {
+    "R01": "PASS",
+    "R02": "PASS",
+    "R03": "PASS",
+    "R04": "PASS",
+    "R05": "FAIL",
+    "R06": "PASS",
+    "R07": "PASS",
+    "R08": "FAIL",
+    "R09": "FAIL",
+    "R10": "PASS",
+    "_note": "Source-loaded rubric, single reviewer, independent of authorship but not blinded and not separated from this report's deterministic observations. No average, weighted score or percentage is computed."
+  },
+  "tiers": {
+    "A": {
+      "outcome": "NOT_RUN",
+      "cause": "No installed copy, no fresh Claude session and no permitted native workspace in this assignment. The bootstrap route is source-loaded review."
+    },
+    "B": {
+      "outcome": "NOT_RUN",
+      "cause": "As A; no baseline arm was run against the without_skill baseline."
+    },
+    "C": {
+      "outcome": "NOT_RUN",
+      "cause": "No installation was performed. The synthetic runner exercise is a test of the graders in a scratch directory: local evidence, not isolated native evidence."
+    }
+  },
+  "behavior_status": "NOT_EVALUATED",
+  "validation_disposition": "revise",
+  "disposition_basis": "Adjudicated by hand against references/results-contract.md: any applicable FAIL produces revise. R05, R08 and R09 FAIL on F-001, F-002, F-003 and F-004. No implemented decision receipt exists; evidence reduction is one of the two missing DevForge CLI capabilities.",
+  "report_completion": "complete for the stated scope (source inspection, deterministic runner/grader exercise, single-reviewer semantic review); native tiers A/B/C not obtained, each with its cause recorded",
+  "adoption_reference": null,
+  "next_owner": "devforge-project-expert-creator (the validator's author), under coordinator dispatch",
+  "evaluator_boundary": "This evaluator did not author the candidate, made no edit to it, and recommends rather than accepts. The candidate byte manifest is identical before and after every run performed here.",
+  "coordinator_decisions_checked": {
+    "run_manifest_shared_v1_plus_four_extensions_no_vpr2": "PARTIAL - no VPR-2 field exists; 17 keys added where four were named (F-009a)",
+    "grader_records_name_and_folder_equality_on_request": "YES",
+    "p3_manual_fresh_session_two_field_frontmatter_no_agents": "YES",
+    "f01_f08_vpr2_local_baseline_one_historical_paragraph": "YES",
+    "default_install_project_local_plugin_alternative_labeled": "YES",
+    "two_missing_capabilities_named_in_package_and_handoff": "PARTIAL - verbatim in five package locations; referred to by count only in the author handoff (F-009b)",
+    "no_bang_shell_injection_syntax_text_fences": "YES - no ! form of any kind; 4 ```text openers and 4 bare closers, i.e. every fenced block opens as ```text"
+  },
+  "out_of_fence_writes": "One transient: /tmp/claude-1000/final.txt (duplicate byte manifest) created by a shell fallback and removed in the next command. Nothing else was written outside this fence."
+}

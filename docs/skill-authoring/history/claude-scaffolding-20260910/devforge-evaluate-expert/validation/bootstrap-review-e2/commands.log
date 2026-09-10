@@ -1,0 +1,119 @@
+== python identity ==
+Python 3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --help
+usage: run_cases.py [-h] --cases CASES --candidate CANDIDATE --out OUT
+                    [--mode {source,installed}] [--case-id CASE_IDS]
+
+Run authored skill-evaluation cases and emit per-case observations. Produces
+evidence only: no aggregate verdict, no admission, no acceptance. The exit
+status describes this program, not the candidate.
+
+options:
+  -h, --help            show this help message and exit
+  --cases CASES         Absolute path to the JSONL case file.
+  --candidate CANDIDATE
+                        Absolute path to the candidate or output root (never
+                        written to).
+  --out OUT             Absolute path for a new observations JSONL file; must
+                        not exist.
+  --mode {source,installed}
+                        Evaluation mode a case may condition on. Default:
+                        source.
+  --case-id CASE_IDS    Run only this case_id. Repeatable. Default: every
+                        case.
+
+Exit 0: this program wrote a complete observations file (regardless of any
+assertion result). Exit 1: invalid invocation or unusable input. Exit 2:
+unexpected internal error.
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/e2-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/e2-source.jsonl --mode source
+wrote 14 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/e2-source.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/e2-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/e2-installed.jsonl --mode installed
+wrote 14 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/e2-installed.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/e2-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic/NOPE --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/p1.jsonl
+run_cases.py: unusable input: candidate root is not a readable directory: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic/NOPE
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/e2-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic/good/inside.jsonl
+run_cases.py: unusable input: output must be outside the candidate tree
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/malformed.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/p3.jsonl
+run_cases.py: unusable input: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/malformed.jsonl:2: malformed JSON line: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/MISSING.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/p4.jsonl
+run_cases.py: unusable input: case file is not a readable file: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/MISSING.jsonl
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/e2-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/e2-source.jsonl
+run_cases.py: unusable input: output already exists and is never overwritten: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/e2-source.jsonl
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/unknown-grader.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/p6.jsonl
+run_cases.py: unusable input: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/unknown-grader.jsonl:1: unknown grader 'no_such_grader'
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/typo.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/typo.jsonl
+wrote 1 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/typo.jsonl
+exit=0
+
+### DOCUMENTED INVOCATION FORM (no -B), against a copy of scripts/
+### /usr/bin/python3 /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/scripts-copy/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/e2-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/copy-run.jsonl
+wrote 14 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/copy-run.jsonl
+exit=0
+
+### pycache written by the documented invocation form:
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/scripts-copy
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/scripts-copy/__pycache__
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/scripts-copy/__pycache__/graders.cpython-312.pyc
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/scripts-copy/graders.py
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/scripts-copy/run_cases.py
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/author-source.jsonl --mode source
+wrote 13 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/author-source.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/author-installed.jsonl --mode installed
+wrote 13 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/author-installed.jsonl
+exit=0
+
+### LEGACY (non-authoritative) codex inspect_skill.py --mode source
+PASS: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/legacy-inspect-source.json
+exit=0
+
+### link-resolution sweep: candidate's own package_relative_links grader over every non-evals .md
+wrote 17 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/out/link-resolution.jsonl
+exit=0
+
+########################################################################
+# Non-runner checks (recorded after the fact; these were not driven
+# through the run() wrapper above, so no captured exit code is claimed).
+########################################################################
+git -C <wt> rev-parse HEAD                      -> e52ac596cbf790dfa156d883852d392c512fdbcc
+git -C <wt> rev-parse --git-common-dir          -> framework/DevForgeAI/.git
+git -C <wt> status --porcelain                  -> only this fence, untracked
+git -C <wt> ls-tree c17e7584... providers/claude/plugins/devforgeai/skills/
+                                                -> brainstorm, develop, project-expert-creator, review (no evaluator: baseline = without_skill)
+git -C <wt> diff --stat c17e7584... e52ac596...  -> 56 files, 4576 insertions, 0 deletions
+sha256sum docs/mvp/specifications/skill-008-...  -> 0b3dbb7f... (equals packet)
+sha256sum docs/mvp/skill-authoring-contract.md   -> 371462385b4e... (equals packet)
+sha256sum on the 3 verbatim template copies vs docs/mvp sources -> byte-identical
+derivation.json verification (python, recompute) -> 16/16 destinations, 18/18 sources, 13/14 new_in_this_package
+package link-graph extraction (grep -oE + closure) -> 8 runtime files unreachable from SKILL.md
+find <pkg> -type f | xargs sha256sum (before/after/final) -> IDENTICAL, 51 paths
+grep -rnE '(^|[[:space:]])!`|^```[[:space:]]*!' <pkg>  -> NONE
+grep -rn '/home/bryan|$HOME' <pkg>                        -> NONE
+grep -rho '^```[a-zA-Z]*' <pkg> --include='*.md' | sort | uniq -c -> 4 "```text" opens, 4 bare closes
+python3 diff of docs/mvp/templates/skill-authoring/run-manifest.json vs assets/run-manifest.json
+                                                 -> 22 shared keys, 39 package keys, 17 added, 0 removed
+grep -rniE 'routine|vpr|qualified_lineage|adoption_evidence|manual-experts-only' <pkg>/assets/*.json -> NONE
+grep -c 'not implemented in the DevForge CLI' <authoring>/handoff.md -> 0 (referenced by count only)
+ls -d <pkg>/agents                                -> absent
+<DevForge>/target/debug/devforge --help           -> every command named in the package exists
+WebFetch https://code.claude.com/docs/en/skills   -> retrieved 2026-09-10

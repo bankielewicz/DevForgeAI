@@ -1,0 +1,1 @@
+{"case_id":"TYPO-001","tier":"C","candidate_subpath":"fm-no-close","assertion":[{"assertion_id":"A1","grader":"frontmatter_present","args":{}}]}
