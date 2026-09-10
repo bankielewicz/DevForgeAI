@@ -1,0 +1,38 @@
+{
+  "skill_name": "devforge-project-expert-creator",
+  "provider": "claude",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults this skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomised per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "runner_dependency": "Executing these queries requires the evaluation harness supplied by the Claude devforge-evaluate-expert package, which is not present at this revision. No query below has been run; every outcome is NOT_RUN.",
+  "negative_note": "A negative query passes only on a successful terminal result with no consultation of this skill. A timeout, error, truncated stream or premature EOF is COULD_NOT_RUN. Observing a different skill being selected during an incomplete run does not complete the negative assertion.",
+  "queries": [
+    { "id": "A1a", "category": "explicit_invocation", "query": "Use the devforge-project-expert-creator skill to build the persistence expert for this project.", "should_trigger": true, "split": "train" },
+    { "id": "A1b", "category": "explicit_invocation", "query": "Run devforge-project-expert-creator for me.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A2a", "category": "direct_domain", "query": "I want to create a project expert skill for how this codebase handles database migrations.", "should_trigger": true, "split": "train" },
+    { "id": "A2b", "category": "direct_domain", "query": "Can you build us an expert skill for our payments module? It keeps getting the idempotency rules wrong.", "should_trigger": true, "split": "train" },
+    { "id": "A2c", "category": "direct_domain", "query": "We need a dedicated expert for the reporting service. Set one up against our accepted architecture.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A3a", "category": "indirect", "query": "Our next story needs someone who actually knows this codebase's data access rules and the versions we pinned. Nobody here has that loaded.", "should_trigger": true, "split": "train" },
+    { "id": "A3b", "category": "indirect", "query": "Every time we touch the scheduler, whoever picks it up rediscovers the same three constraints and gets one of them wrong. Can we stop that happening?", "should_trigger": true, "split": "train" },
+    { "id": "A3c", "category": "indirect", "query": "We upgraded to the 3.x client and the guidance we wrote for the old one is now wrong in a couple of places. What do we do about that?", "should_trigger": true, "split": "train" },
+    { "id": "A3d", "category": "indirect", "query": "The knowledge about our event schema lives in one person's head and they are on leave next sprint.", "should_trigger": true, "split": "validation" },
+    { "id": "A3e", "category": "indirect", "query": "The evaluator sent back findings on the storage expert we wrote. Two are required repairs and one is just a suggestion. Can you work through them?", "should_trigger": true, "split": "validation" },
+
+    { "id": "A4a", "category": "negative_evaluate_existing", "query": "Here is our notes-storage expert skill. Test it against these cases and tell me whether it is any good.", "should_trigger": false, "split": "train" },
+    { "id": "A4b", "category": "negative_evaluate_existing", "query": "Grade this skill's output quality against the version we had before and give me the results.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A5a", "category": "negative_implement_story", "query": "STORY-031 is accepted and ready. Implement it - preserve unknown fields when a note is edited.", "should_trigger": false, "split": "train" },
+    { "id": "A5b", "category": "negative_implement_story", "query": "The story is signed off and the expert already exists. Write the code and its tests.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A6a", "category": "negative_org_chart", "query": "List the roles a team building this product would normally need.", "should_trigger": false, "split": "train" },
+    { "id": "A6b", "category": "negative_org_chart", "query": "Who should we hire first, a backend engineer or a data engineer?", "should_trigger": false, "split": "validation" },
+
+    { "id": "A7a", "category": "negative_near_miss_expert", "query": "Can you act as a Postgres expert for a minute and tell me why this query is slow?", "should_trigger": false, "split": "train" },
+    { "id": "A7b", "category": "negative_near_miss_expert", "query": "Explain how connection pooling works in SQLAlchemy.", "should_trigger": false, "split": "train" },
+    { "id": "A7c", "category": "negative_near_miss_expert", "query": "Write me a short internal guide explaining our deploy process to new joiners.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A8a", "category": "negative_early_exploration", "query": "I have three product ideas and I cannot decide which problem is worth solving.", "should_trigger": false, "split": "train" },
+    { "id": "A8b", "category": "negative_ordinary_task", "query": "Fix the failing test in test_store.py.", "should_trigger": false, "split": "validation" }
+  ]
+}

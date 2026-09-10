@@ -1,0 +1,292 @@
+{
+  "schema_version": "devforge.package-derivation/v1",
+  "skill": "devforge-project-expert-creator",
+  "provider": "claude",
+  "recorded_at_utc": "2026-09-10T18:33:02Z",
+  "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
+
+  "authoring_route": {
+    "mode": "operator-author bootstrap",
+    "detail": "The authoring contract permits a native creator or an operator to run this process before devforge-evaluate-expert itself is implemented. No Claude builder skill exists to invoke, so the Codex creator's process was read by absolute path and followed as source-loaded instructions by the operator-author.",
+    "claims_not_made": "No builder skill and no validator or evaluator was invoked. No thirteenth runtime skill was created. This bootstrap does not fabricate an evaluator invocation.",
+    "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+    "worktree_branch": "author/claude-devforge-project-expert-creator-scaffold-20260910"
+  },
+
+  "selected_inputs": [
+    { "artifact": "SKILL-007", "revision": 3, "store": "project", "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md", "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c" },
+    { "artifact": "skill-authoring-contract", "revision": 3, "store": "project", "path": "docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53" },
+    { "artifact": "artifact-contract", "revision": 2, "store": "project", "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5" },
+    { "artifact": "execution-contract", "revision": 3, "store": "project", "path": "docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b" },
+    { "artifact": "development-language-policy", "revision": "2026-09-09 owner decision with the 2026-09-10 phase/hook clarification", "store": "project", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f" },
+    { "artifact": "bounded-delivery", "revision": "unnumbered working guidance", "store": "project", "path": "docs/learned-behaviors/bounded-delivery.md", "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae" }
+  ],
+
+  "port_source": {
+    "note": "The Codex package at base revision c17e758417da64928a0f47fc2600304465ac3f3c was read read-only as the port source. It was not modified.",
+    "root": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator",
+    "files_sha256": {
+      "SKILL.md": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423",
+      "agents/openai.yaml": "f278b26bdf70811b7e91ac62a7ba960898be542e0d334f900999bd3b2fabf0e7",
+      "assets/handoff.md": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4",
+      "assets/skill-design-spec.md": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead",
+      "evals/evals.json": "2ea166e360676154b58f36fd659e47c9ca8d25315443285e339f53603cac6484",
+      "evals/fixtures/project.md": "e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26",
+      "references/contracts/artifact-contract.md": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+      "references/contracts/execution-contract.md": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8",
+      "references/contracts/skill-authoring-contract.md": "d05cc75d8f049c854a91500ff3224f85fd06ffb08b257aed5db38cc9e35dd0fe",
+      "references/derivation.json": "aca7ee649acb5d31638d8650542a6405341692b63e1ce57975c94eecba7ac41b",
+      "references/existing-skill-selection.md": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+      "references/framework-context.md": "c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13",
+      "references/interview-guide.md": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+      "references/managed-authoring.md": "4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e",
+      "references/manual-operation.md": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72",
+      "references/results-contract.md": "a63c83b3107166b9388bde4b0f10ce611cb79ab5c10578011c56c1e266f287b3",
+      "references/sources.md": "7e44a8b04e1a5a52ea65b785613ca7960147f0d555f687465c6e90f822757bad",
+      "references/validator-handoff.md": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60"
+    }
+  },
+
+  "claude_baseline_superseded": {
+    "note": "The Claude package existing at base c17e758417da64928a0f47fc2600304465ac3f3c. Its bytes remain reachable at that commit; nothing was overwritten without this record.",
+    "files_sha256": {
+      "SKILL.md": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10",
+      "assets/evaluation-cases.md": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b",
+      "assets/expert-spec-template.md": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8"
+    },
+    "preserved_behaviors": [
+      "Grounding through devforge expert prepare and the named upstream documents, actual code and approved dependencies.",
+      "Version-specific research recorded with source URL, retrieval date, package version and actual verification; a newer version is a proposal, not permission.",
+      "Expert-specification-first authoring, with independently stated expected outcomes written before the candidate.",
+      "Reuse of existing expertise when it covers the work.",
+      "Skills grant no tool permissions; executable control logic stays in the external DevForge CLI and a local reference may explain a gate but must not redefine it.",
+      "Staleness handling: a policy, upstream or expert-file change means review, update, repeat the affected evaluation and rebind; prior evidence is not carried forward silently.",
+      "Closing with specification and skill paths, sources, structural status, behavioural status, remaining gaps and the next human-owned decision; structural validation never presented as proven expertise."
+    ],
+    "reassigned_behavior": {
+      "what": "The baseline had the creator itself run `devforge expert bind` and `devforge check`.",
+      "now": "Those commands are retained in the package's knowledge with their owners reassigned to the operator and integration owner, per SKILL-007 revision 3 and the Codex creator's PreparedTransfer boundary. They are documented in references/manual-operation.md; they were not deleted from the package.",
+      "basis": "SKILL-007 revision 3 Workflow table, Authoring exit: 'no target tests, binding or installation by creator'."
+    },
+    "removed_file": {
+      "path": "assets/expert-spec-template.md",
+      "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8",
+      "reason": "Superseded by the governing shared template copied to assets/expert-spec.md. Two competing expert-specification templates in one package conflict with the artifact mapping rule against maintaining a second independent design.",
+      "content_preserved_at": [
+        { "store": "git", "locator": "commit c17e758417da64928a0f47fc2600304465ac3f3c, providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md" },
+        { "store": "package", "locator": "references/interview-guide.md, section 'The expert specification's content checklist'", "note": "Its eight contract rows - Responsibility, Activation, Knowledge, Inputs, Decisions, Output, Evaluation, Refresh - and its AI-proposal-versus-user-decision rule were carried forward verbatim in substance." }
+      ]
+    }
+  },
+
+  "derivations": [
+    {
+      "destination": "SKILL.md",
+      "destination_sha256": "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e",
+      "kind": "instructions: authored in-package as an enhancement of the Claude baseline; not a copy",
+      "sources": [
+        { "artifact": "SKILL-007", "revision": 3, "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md", "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c", "sections_used": ["User goal and use-case inventory", "Inputs and provenance", "Workflow and phase exits", "Outputs and standardized templates", "Rework, stopping, and recovery", "Completion handoff"] },
+        { "artifact": "Codex devforge-project-expert-creator SKILL.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md", "sha256": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423", "role": "port source, read as source-loaded instructions" },
+        { "artifact": "Claude baseline SKILL.md", "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md", "sha256": "3dc906ddb1427bbc6cdb820490262e51cb95f9f7f51e494258b711d4fcfcbe10", "role": "enhanced baseline; see claude_baseline_superseded.preserved_behaviors" },
+        { "artifact": "development-language-policy", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f", "sections_used": ["Phases, hooks and skill content"] }
+      ],
+      "transformation": "Rewrote the Codex creator's five-phase workflow as Claude-facing prose, keeping Intake, Selection, Design, Authoring and PreparedTransfer as workflow content rather than CLI ceremony. Added the framing failure modes (inventing the project, producing a persona, grading your own work), the two-roots path rule, the required-inputs table, and an explicit finite stopping condition. Removed every Codex-only concept: the $skill invocation syntax, agents/openai.yaml, Codex hook events, the managed v1 advance/resume/complete helper chain as an operative instruction, and .agents/skills paths. Replaced the hook-proposal section with routing an enforcement requirement to the integration owner, per the language policy's phases/hooks/skill-content clarification.",
+      "preserved": "Author-and-evaluator separation, the authoring-only boundary, search-before-create, specification-before-candidate, focused Q&A that does not replay settled decisions, source-grounded version-specific knowledge, the concise actionable handoff, the fixed result vocabulary, and 'Validation status: Not performed.'",
+      "claims_not_made": "No native activation, discovery, installation, binding, hook registration or evaluation is asserted. Authored only."
+    },
+    {
+      "destination": "references/framework-context.md",
+      "destination_sha256": "884d915f6b65f11540283ee3ed241d2e33cd54c24d22d93e51e3496d49501c66",
+      "kind": "distilled reference: not a copy; a narrowed restatement of shared contract rules for this skill's situations",
+      "sources": [
+        { "artifact": "skill-authoring-contract", "revision": 3, "path": "docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53", "sections_used": ["Scope and sources", "Sources, ownership, and runtime copies", "Per-skill structure and distribution", "Resource and script paths", "Common authoring workflow", "Three separately reported evaluation tiers"] },
+        { "artifact": "artifact-contract", "revision": 2, "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5", "sections_used": ["Standard envelope", "Provenance without circular bookkeeping", "Output storage and stable candidate snapshots", "Skill authoring evidence"] },
+        { "artifact": "execution-contract", "revision": 3, "path": "docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b", "sections_used": ["Provider authoring and bootstrap evaluation"] },
+        { "artifact": "development-language-policy", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f", "sections_used": ["Rust framework authority and required Python evaluation", "Phases, hooks and skill content"] },
+        { "artifact": "bounded-delivery", "path": "docs/learned-behaviors/bounded-delivery.md", "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae", "sections_used": ["Establish a finish line that matches the request", "Apply the lesson in DevForgeAI"] },
+        { "artifact": "Codex references/framework-context.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/framework-context.md", "sha256": "c4d0c377d5902df2eee0ad73a8f49fd422a363738f11fa6a3b24552e02d30e13", "role": "port precedent for the ownership and path-resolution framing" }
+      ],
+      "transformation": "Selected and rewritten for this skill's actual conditions. It restates; it does not extend or waive the contracts, and where they differ the contracts govern. Chosen deliberately over shipping references/contracts/ copies as the Codex package does, so that the package carries only what SKILL.md actually needs at runtime.",
+      "claims_not_made": "Restating a contract is not evidence of conformance to it."
+    },
+    {
+      "destination": "references/existing-skill-selection.md",
+      "destination_sha256": "89a070c3fbee10a8bce513101a0dd50bbfaec431fd3056fddc8d3113e5b933df",
+      "kind": "bounded adaptation of a port-source reference",
+      "sources": [
+        { "artifact": "Codex references/existing-skill-selection.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/existing-skill-selection.md", "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464" },
+        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-10", "claims_used": ["skill load locations and their scopes", "nested and parent discovery", "plugin namespacing", "symlink resolution"] }
+      ],
+      "transformation": "Replaced the Codex inventory (.agents/skills, Codex plugin locations) with the documented Claude locations: project .claude/skills with parent and child discovery, nested subdirectory skills, personal ~/.claude/skills, plugin skills/, the managed settings directory and an --add-dir directory. Added a project-expert-specific comparison note: overlapping subject matter with a superseded architecture rule is a refresh candidate, not a reuse candidate. Kept the comparison dimensions, the reuse/enhance/create/resolve decision, the durable-source rule, the collision rule and the bounded-repair section.",
+      "claims_not_made": "No client discovery behaviour was observed for this package; the location table restates published documentation."
+    },
+    {
+      "destination": "references/interview-guide.md",
+      "destination_sha256": "0157e51472cbf206b73d818e0243708906496ab8d72a9b1cbefd7cfab3134d76",
+      "kind": "bounded adaptation of a port-source reference, merged with a superseded package asset",
+      "sources": [
+        { "artifact": "Codex references/interview-guide.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/interview-guide.md", "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e" },
+        { "artifact": "Claude baseline assets/expert-spec-template.md", "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md", "sha256": "3c8e0b7fcc1f84f0c5c8461fc08ea27001074b459bd31f489c38bfb8d71736a8", "role": "its eight contract rows became the expert-specification content checklist" },
+        { "artifact": "development-language-policy", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f", "sections_used": ["Phases, hooks and skill content"] }
+      ],
+      "transformation": "Kept the recover-before-asking rule, the section-to-question mapping, the one-to-three-questions-per-round rule, the settled-answer preservation and the stopping condition. Replaced the Codex hook-proposal question set with recording an enforcement requirement and routing it to the integration owner, stating explicitly that a classification is design input rather than evidence that anything enforces it, and prohibiting enforcement theatre in the authored skill. Carried the baseline's expert-specification contract rows in as a checklist so removing assets/expert-spec-template.md loses no content.",
+      "claims_not_made": "Recording a required classification asserts no runtime interception and no client hook support."
+    },
+    {
+      "destination": "references/validator-handoff.md",
+      "destination_sha256": "0cb2975c440d5df14e14d3b5f875393254eeeb72537684e421a5b740d0945f7f",
+      "kind": "bounded adaptation of a port-source reference, absorbing the minimum record shapes",
+      "sources": [
+        { "artifact": "Codex references/validator-handoff.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/validator-handoff.md", "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60" },
+        { "artifact": "Codex references/results-contract.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/results-contract.md", "sha256": "a63c83b3107166b9388bde4b0f10ce611cb79ab5c10578011c56c1e266f287b3", "role": "identity and storage rules only: {path, sha256} locators, relative resolution, freeze before hashing, no self-digest" },
+        { "artifact": "artifact-contract", "revision": 2, "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5", "sections_used": ["Skill authoring evidence"] }
+      ],
+      "transformation": "Kept the frozen-baseline recovery list, severity preservation, the four change types, the evaluation-prerequisite rule and the change-record fields. Absorbed the minimum record shapes rather than shipping a separate results-contract.md, and recorded that the definitive paired contract belongs to the Claude devforge-evaluate-expert package, which does not exist at this revision. Replaced 'Hook status: Design only' with 'Enforcement status: requirements recorded; no gate implemented by this skill.' Removed the managed-authoring pointer, which has no Claude counterpart.",
+      "claims_not_made": "The paired evaluator package is not present; the record shapes here are a stated minimum, not an agreed contract."
+    },
+    {
+      "destination": "references/manual-operation.md",
+      "destination_sha256": "3b3eb092033239bd8f20f0eb1d087b810cbd87fd641225531b15abc02b3b572c",
+      "kind": "bounded adaptation of a port-source reference, with a command table rebuilt against observed help output",
+      "sources": [
+        { "artifact": "Codex references/manual-operation.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md", "sha256": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72" },
+        { "artifact": "DevForge CLI help output", "store": "observation", "observed_utc": "2026-09-10", "detail": "devforge --help, devforge expert --help, devforge check --help, devforge expert prepare|bind|status --help were run against the companion repository's debug build. Every command named in the table appears in that output, and the leaf subcommands accept --project/--policy/--state/--expert." },
+        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-10", "claims_used": ["/skill-name and /plugin-name:skill-name invocation forms"] }
+      ],
+      "transformation": "Rebuilt the command table for Claude with owners reassigned: expert prepare is read-only grounding the creator may run; expert bind, expert status and check belong to the operator or integration owner; the companion repository's installer script covers --provider claude install and --export-plugin and is labelled legacy Python awaiting the required Rust migration. The two Codex evaluator helper rows became a recorded dependency on the Claude devforge-evaluate-expert package with no path asserted. The Codex --manual-experts-only --manual-evidence mode and the local-unqualified-baseline record catalogue are marked NOT_APPLICABLE. The $skill receiving syntax was replaced with Claude invocation forms labelled illustrative. The managed v1 IDs and the advance/resume/complete chain are retained only under a 'Historical identities' heading.",
+      "claims_not_made": "Naming a command is not evidence it was run here, and no command in the table was executed against any project during this authoring."
+    },
+    {
+      "destination": "references/sources.md",
+      "destination_sha256": "c4b749085a2187ca97f188debdb47e9b720182b28fc6d592fafb9d84cdf11eac",
+      "kind": "authored in-package",
+      "sources": [
+        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-10" },
+        { "artifact": "Claude Code subagents documentation", "store": "web", "url": "https://code.claude.com/docs/en/sub-agents", "retrieved_utc": "2026-09-10" },
+        { "artifact": "Codex references/sources.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/sources.md", "sha256": "7e44a8b04e1a5a52ea65b785613ca7960147f0d555f687465c6e90f822757bad", "role": "table shape and refresh-sequence precedent only" }
+      ],
+      "transformation": "Records the two Claude documentation pages actually fetched on 2026-09-10 with the specific claims relied on, and states explicitly that the Codex creator's OpenAI sources are not carried over. The Agent Skills specification is recorded as referenced through the framework authoring contract rather than fetched at this revision.",
+      "claims_not_made": "Documentation claims are not observations of client behaviour for this package."
+    },
+    {
+      "destination": "assets/skill-design-spec.md",
+      "destination_sha256": "715ef3bdf9082ace4c3b3eeda27e8bf9e4663355bcebed2f5d997fefc5a26ef9",
+      "kind": "asset: bounded adaptation of a port-source template",
+      "source": { "artifact": "Codex assets/skill-design-spec.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/skill-design-spec.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead" },
+      "governing_source_note": "docs/mvp has no shared skill-design-spec template; the Codex package asset is the only existing version and is therefore the source of record for this copy.",
+      "transformation": "Sections 1-5 and 7-12 retained with Codex client references replaced by Claude. Section 6's 'Hook proposals for enforced items' became 'Enforcement route for required items - requirement only': the same fields for requirement, protected action, observable evidence, state and freshness, allow/refuse behaviour, missing evidence, recovery and feasibility, with the owner named as the integration owner and the status fixed at 'Requirement recorded. No gate is implemented, activated or executed by this skill.' The Codex hook documentation link was removed. Section 10's canonical path is providers/claude/... and the installed copy is the project's .claude/skills/<name>. 'Hook status' became 'Enforcement status' throughout. The Codex Routine/Full manual-promotion trailer was replaced with a proposed-coverage note marking that policy NOT_APPLICABLE to this package. Added a near-miss exclusions prompt to section 2.",
+      "refresh_condition": "The Codex source asset changes, a shared skill-design-spec template is issued in docs/mvp, or the enforcement-route framing is superseded by an integration-owner decision."
+    },
+    {
+      "destination": "assets/handoff.md",
+      "destination_sha256": "d741d4dfadbb37353f5542dbb825ab7df9bbdb7be10e4380e262f54e0f663790",
+      "kind": "asset: bounded adaptation of the governing shared template",
+      "source": { "artifact": "shared handoff template", "store": "project", "path": "docs/mvp/templates/shared/handoff.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206" },
+      "adaptation_precedent": { "artifact": "Codex assets/handoff.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md", "sha256": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4" },
+      "transformation": "Kept the devforge.artifact/v1 envelope field-for-field and every substantive rule of the shared template: outputs table excluding the handoff itself, hash-after-final-bytes, the external receipt for the handoff's own digest, the continuation task, and the resume-and-custody block. Narrowed it to this skill's transfer by adding a result-and-next-action brief, an evidence reading order, fixed Validation/behavioural/Enforcement status lines, and the proposed-evaluation-cases table. The shared template's meaning is unchanged; this is a concise instance of it, not a competing template.",
+      "refresh_condition": "docs/mvp/templates/shared/handoff.md changes; re-derive and update this entry."
+    },
+    {
+      "destination": "assets/expert-spec.md",
+      "destination_sha256": "4b380c265c7135b9248740aa1e2fb2adb0d3ff4ec420031945bd159d89706157",
+      "kind": "asset: governing output template copied into the package",
+      "source": { "artifact": "expert-spec template", "store": "project", "path": "docs/mvp/templates/devforge-project-expert-creator/expert-spec.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "4b380c265c7135b9248740aa1e2fb2adb0d3ff4ec420031945bd159d89706157" },
+      "transformation": "none; byte-identical copy",
+      "verified": "destination_sha256 == source sha256",
+      "carried_inapplicable_section": "Its 'Promoted Codex content mapping' section is Codex-side guidance inherited verbatim. It is NOT_APPLICABLE to a Claude package. It was left untouched because editing a shared template copy would change that template's governing meaning; the disposition belongs to the integration owner."
+    },
+    {
+      "destination": "assets/expert-package.md",
+      "destination_sha256": "678cb91253a36a2ebf1e370d96858ed6a27206dffedc62cb90658cdcffdf890d",
+      "kind": "asset: governing output template copied into the package",
+      "source": { "artifact": "expert-package template", "store": "project", "path": "docs/mvp/templates/devforge-project-expert-creator/expert-package.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "678cb91253a36a2ebf1e370d96858ed6a27206dffedc62cb90658cdcffdf890d" },
+      "transformation": "none; byte-identical copy",
+      "verified": "destination_sha256 == source sha256",
+      "carried_inapplicable_section": "Same 'Promoted Codex content mapping' disposition as assets/expert-spec.md."
+    },
+    {
+      "destination": "assets/expert-skill.md",
+      "destination_sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+      "kind": "asset: governing output template copied into the package",
+      "source": { "artifact": "expert-skill template", "store": "project", "path": "docs/mvp/templates/devforge-project-expert-creator/expert-skill.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5" },
+      "transformation": "none; byte-identical copy",
+      "verified": "destination_sha256 == source sha256"
+    },
+    {
+      "destination": "assets/evaluation-cases.md",
+      "destination_sha256": "46439049d859c65245c26f7427a99f97277b05f6244d7fcae8f25a4c12ff4e99",
+      "kind": "asset: enhancement of the Claude baseline asset",
+      "source": { "artifact": "Claude baseline assets/evaluation-cases.md", "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md", "sha256": "8cb830c91b643e4fe0ea0861aab549f60299ac440ec28149baeb98e3cde7c11b" },
+      "transformation": "All seven baseline cases retained with their meaning intact. Reframed as proposed cases for the generated expert, explicitly distinct from evals/ which tests this creator skill, with the routing into the expert specification's acceptance-expectation rows and the evaluator handoff made explicit. Added the write-before-the-candidate rule, NOT_APPLICABLE handling for a case that cannot be made concrete, two optional cases (reuse over creation; boundary of authority), and separate behaviour/delivery/overall grading.",
+      "preserved": "The seven original cases, the recording requirements (task, client version, skill and source digests, artifacts, violations, human corrections, conclusion), the comparison guidance and the warning that one example is not a general measurement.",
+      "packaging_note": "This is a runtime resource and ships with installed copies and exports. The tests of this skill under evals/ do not."
+    },
+    {
+      "destination": "evals/evals.json",
+      "destination_sha256": "64de1a96299fd36da983f4aed320c349776a976422bda69c917497544223b1f4",
+      "kind": "authored eval cases; source-only, excluded from installed copies and runtime exports",
+      "sources": [
+        { "artifact": "evals template", "store": "project", "path": "docs/mvp/templates/skill-authoring/evals.json", "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692", "role": "base field shape" },
+        { "artifact": "SKILL-007", "revision": 3, "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md", "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c", "sections_used": ["Validation and behavioural acceptance", "Additional common cases", "Rework, stopping, and recovery"] },
+        { "artifact": "Codex evals/evals.json", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/evals/evals.json", "sha256": "2ea166e360676154b58f36fd659e47c9ca8d25315443285e339f53603cac6484", "role": "case-set precedent" }
+      ],
+      "transformation": "Ten tier-B cases: the five SKILL-007 acceptance rows, the four additional common cases (ownership collision, stale upstream, leftover placeholder, COULD_NOT_RUN) which the Codex set did not materialise as cases, and one rework case for the evaluator-findings path. Each carries graded observations, explicit fixture staging and a spec_case back-reference. Records the runner and grader dependency on the Claude devforge-evaluate-expert package as an authoring-time dependency.",
+      "status": "No case has been executed. Every outcome is NOT_RUN."
+    },
+    {
+      "destination": "evals/triggers/trigger-queries.json",
+      "destination_sha256": "29a4fe7f9b93394c47942f794a70025dd9ea2a4d27557b0f8b5682cdd4972d39",
+      "kind": "authored tier-A trigger queries; source-only",
+      "sources": [
+        { "artifact": "trigger-queries template", "store": "project", "path": "docs/mvp/templates/skill-authoring/trigger-queries.json", "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4", "role": "base field shape" },
+        { "artifact": "devforge-brainstorm trigger queries", "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json", "role": "Claude package convention: category field, fixed stratified train/validation split, explicit-invocation entries recorded separately" }
+      ],
+      "transformation": "Twenty-two queries across explicit_invocation, direct_domain and indirect positives and five negative categories: evaluating an existing skill, implementing an accepted story, an org chart of roles, a near-miss request for ad-hoc subject expertise, and early-stage exploration or an ordinary task. Split fixed and stratified at authoring time.",
+      "status": "No query has been run. Every outcome is NOT_RUN."
+    },
+    {
+      "destination": "evals/fixtures/",
+      "kind": "authored synthetic fixtures; source-only, reproducible from source",
+      "source_precedent": { "artifact": "Codex evals/fixtures/project.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/evals/fixtures/project.md", "sha256": "e4a871134477ae158b4e0987c676a1f8493e08893d8d8a67ca27062c55de6e26" },
+      "destination_sha256_map": {
+        "evals/fixtures/project.md": "99c9c082a4354dccd9112fc412af8c89e9e94a28bfe93b7de9d579d54bea514b",
+        "evals/fixtures/expertise-map.md": "79a03a25ec27af5bc36a66f6a4560a6da793bbb1c5a3148d128037f5eb375974",
+        "evals/fixtures/existing-expert/SKILL.md": "14615e93f9cf02ec4b643a2d8bd5b4441c35dfd06b8323e1fd71c5e8ab2289ad",
+        "evals/fixtures/assignment-record.md": "9bf426d2a3758db50a434c30b750eb041ae6f7f263e808d7407d79b0f5a0391e",
+        "evals/fixtures/evaluator-handoff.md": "79d046d82889f77fda7b99ce0f3e718565ccd5c0019f9c1b6db8a243c85d6275",
+        "evals/fixtures/draft-xspec-with-placeholder.md": "935ab781ff6b144a1843982933c2df867273c87363288487bba9bfca47671694",
+        "evals/fixtures/stale/ARCH-001.md": "d30ce790d5be2d5c493672c5e5568f4eeecc824e52d71e9b68ef9103ef33648b",
+        "evals/fixtures/stale/preserved/ARCH-001.r1.md": "65d99ab516b5fb2bca9e0d45dc5587c27d692fc426957329173a6d357ad70314",
+        "evals/fixtures/stale/XPKG-001.md": "a437f858371ec2d10c0a98845456b7133ac2155f385b41a2f4f448cf2a6f6c52"
+      },
+      "transformation": "project.md adapts the Codex synthetic notes project, with the installation target changed to the consuming project's .claude/skills/notes-storage. The other eight are new, authored for the common cases the Codex set did not cover. All are labelled synthetic in their own text, describe no real project and create no authority. All paths are package-relative and stay inside the evals directory.",
+      "reproducibility_note": "fixtures/stale/XPKG-001.md cites ARCH-001 revision 1 at 65d99ab5..., which is the real digest of fixtures/stale/preserved/ARCH-001.r1.md, while the file at the cited path is revision 2 at d30ce790.... The staleness mismatch is therefore verifiable from these bytes rather than asserted. Changing either file invalidates that case until the record is re-derived.",
+      "not_external": "No fixture points at an external evidence store or an absolute path; nothing outside this package is required to stage them."
+    }
+  ],
+
+  "not_carried_from_port_source": [
+    { "path": "agents/openai.yaml", "sha256": "f278b26bdf70811b7e91ac62a7ba960898be542e0d334f900999bd3b2fabf0e7", "reason": "Per-skill Codex metadata. Explicitly not a subagent and has no Claude counterpart; the authoring contract scopes it to Codex packages." },
+    { "path": "references/managed-authoring.md", "sha256": "4ffdd58e59bfa7a9e73d92567d88087bc7f51b237134d8cc49f7b6bfe2421d0e", "reason": "Governs the managed v1 builder protocol whose workflow IDs are skill-builder and skill-validator. That protocol admits no adapter under this package name and has no Claude counterpart. Its historical identities are noted in references/manual-operation.md instead." },
+    { "path": "references/results-contract.md", "sha256": "a63c83b3107166b9388bde4b0f10ce611cb79ab5c10578011c56c1e266f287b3", "reason": "Describes the Codex paired-utility record shapes and its bundled helper's fields. The minimum identity and storage rules were absorbed into references/validator-handoff.md; the definitive Claude contract belongs to the devforge-evaluate-expert port." },
+    { "path": "references/contracts/skill-authoring-contract.md", "sha256": "d05cc75d8f049c854a91500ff3224f85fd06ffb08b257aed5db38cc9e35dd0fe", "reason": "SKILL.md does not need the full contract at runtime. The operative rules were distilled into references/framework-context.md with sources and sections recorded." },
+    { "path": "references/contracts/artifact-contract.md", "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53", "reason": "As above; the envelope and digest rules were distilled into references/framework-context.md." },
+    { "path": "references/contracts/execution-contract.md", "sha256": "6add607e80ee98a075ca708ddab88e4b965d015d18698b4bed17457e5e7085f8", "reason": "As above; the worktree, ownership and bootstrap rules were distilled into references/framework-context.md." },
+    { "concept": "scripts/", "reason": "No deterministic evaluation-only helper is required by this package, and framework logic may not be added in Python or shell. None was authored." }
+  ],
+
+  "refresh_conditions": [
+    "Any source digest above changes in a newly selected input set: re-read the distilled and adapted files against the new bytes and update this record.",
+    "A destination digest here stops matching the file in the package: that is drift, and the package copy is stale until reconciled.",
+    "docs/mvp/templates/devforge-project-expert-creator/*.md or docs/mvp/templates/shared/handoff.md changes: re-copy or re-derive the affected asset and update its entry.",
+    "The Claude devforge-evaluate-expert package lands: revisit references/validator-handoff.md's stated minimum record shapes, references/manual-operation.md's unavailable-helper row, and the runner and grader dependency recorded in evals/evals.json.",
+    "The DevForge CLI's command surface changes: re-check references/manual-operation.md against actual --help output before relying on any row.",
+    "Either Claude documentation page cited in references/sources.md changes materially: re-check the claims relied on and update the retrieval date.",
+    "The integration owner rules on the inapplicable 'Promoted Codex content mapping' sections carried verbatim in assets/expert-spec.md and assets/expert-package.md.",
+    "This record is maintained by the skill author inside the skill's source fence. It records derivation only and modifies, reinterprets or waives no shared template or contract."
+  ],
+
+  "self_reference_note": "This file does not carry its own digest. It is hashed by the candidate's file manifest like every other package file, and no entry above records a digest of this record.",
+
+  "claims_not_made": "Authored only. No native admission, discovery, activation, installation, binding, hook registration, execution or evaluation is asserted for any file in this package. A derivation record identifies which bytes were referenced; it is not evidence about behaviour. Validation status: Not performed."
+}
