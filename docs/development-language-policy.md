@@ -1,6 +1,6 @@
 # Development language policy
 
-Owner decision: 2026-09-09. This policy applies to framework-owned implementation in DevForge and DevForgeAI. It is the approved framework architecture, not a claim that Claude, Codex or their tools universally require Python.
+Owner decision: 2026-09-09, with the phase/hook clarification of 2026-09-10 recorded below. This policy applies to framework-owned implementation in DevForge and DevForgeAI. It is the approved framework architecture, not a claim that Claude, Codex or their tools universally require Python.
 
 ## Rust framework authority and required Python evaluation
 
@@ -13,6 +13,18 @@ Bind the exact Python runner and grader files, Python/runtime and dependency sel
 Conversational instructions, documentation, data and declarative configuration may use Markdown, JSON, YAML and TOML. These formats do not permit hiding non-Rust framework logic in code blocks, command strings, hook declarations or configuration. Reading another project's source, describing an external technology stack, or retaining historical source/evidence does not turn that material into framework-owned implementation.
 
 Standard command invocations that run existing tools are operational use. Invoking Cargo or an unchanged existing check is allowed within the task's authority. This does not permit implementing framework logic in shell commands, Python snippets or another language under the label of an invocation.
+
+## Phases, hooks and skill content
+
+Owner clarification: 2026-09-10. "Rust implements phases" means that Rust owns phase state, phase transitions and the mechanical checks required before a dependent action is permitted. The skill performs the reasoning inside a phase: questions and answers, context selection, authoring, and semantic review of the result. AI judgments are evidence for a Rust decision. Rust checking a review record's identity, format and required coverage validates evidence; it does not make Rust a semantic reviewer.
+
+The integration chain is: a supported provider hook event (Claude or Codex) or a GitHub event invokes the selected Rust CLI, the CLI executes the check, and its result allows or refuses the dependent operation. Provider hook declarations and direct command invocations are wiring; the logic they invoke must be Rust. GitHub workflow checks run on GitHub events and block a merge only where a branch rule requires them. Local Git hooks run on a developer machine, are not distributed through the repository, and can be bypassed; name each surface accurately. A hook declaration alone does not show that a client supports, enables or honors the event. Verify each provider's actual interception and blocking behavior before describing it as enforcement, and report an unavailable integration as unavailable. A suggested command or an ignored exit status is not a gate.
+
+Prompt instructions guide behavior and can be missed or overridden by other context, so they are not a dependable enforcement boundary on their own. This is not a claim that models always ignore instructions. Skills therefore must not contain ceremonial enforcement: repetitive mandatory status narration, simulated advance/complete sequences, self-attested PASS labels, or instructions presented as enforcement without an actual blocking mechanism behind them.
+
+Preserve useful skill content: task instructions, accepted requirements, scope, user decisions, source grounding, output formats, explanations, decision criteria, the relevant command, and real handoffs. The requirement is to move real enforcement into code, not to turn every sentence, optional task or administrative convention into a Rust gate. A gate is added only to protect a concrete accepted requirement at an actual transition; name the action it controls, the input or evidence it checks, and its observable allow/refuse behavior, and use the smallest existing mechanism. Event-triggered checks are within MVP scope. Scheduling, automatic receiver invocation and background repair or orchestration remain post-MVP.
+
+The language boundary above is unchanged: the Python JSONL runner and deterministic graders remain required evaluation artifacts that produce evidence and metrics, framework authority remains Rust, and existing nonconforming framework Python remains a scoped migration obligation. This section records the approved architecture; it does not claim that every provider hook or phase interception is implemented or observed.
 
 ## Protect the trusted implementation
 
