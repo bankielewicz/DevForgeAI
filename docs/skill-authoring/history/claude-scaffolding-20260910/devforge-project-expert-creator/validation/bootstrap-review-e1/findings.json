@@ -1,0 +1,179 @@
+{
+  "schema_version": "devforge.skill-evaluation-findings/v1",
+  "report": "evaluation-report.md",
+  "artifact_id": "SEVAL-E1-001",
+  "recorded_at_utc": "2026-09-10T14:55:00Z",
+  "producer": "independent evaluator (bootstrap, source-loaded rubric)",
+  "candidate": {
+    "skill": "devforge-project-expert-creator",
+    "provider": "claude",
+    "root": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator",
+    "commit": "69b6090bde458f48cae0f5751035be65fdb4593c",
+    "branch": "author/claude-devforge-project-expert-creator-scaffold-20260910",
+    "file_count": 25,
+    "manifest_source": "computed independently by this review; see evaluation-report.md",
+    "skill_md_sha256": "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e",
+    "derivation_json_sha256": "06f951797e720415c7fdc085ab7682067e21edd6f0cf6ff03b524cbf4b595b01"
+  },
+  "baseline": {
+    "label": "old_skill",
+    "commit": "c17e758417da64928a0f47fc2600304465ac3f3c",
+    "file_count": 3,
+    "executed": false
+  },
+  "specification": {
+    "artifact": "SKILL-007",
+    "revision": 3,
+    "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+    "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+  },
+  "severity_counts": {
+    "BLOCKER": 0,
+    "MAJOR": 0,
+    "MINOR": 4,
+    "ADVISORY": 2
+  },
+  "behavioural_status": "NOT_EVALUATED",
+  "tiers": {
+    "A": "NOT_RUN",
+    "B": "NOT_RUN",
+    "C": "NOT_RUN"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "MINOR",
+      "type": "defect",
+      "requirement_ids": [
+        "skill-authoring-contract: package-local derivation records",
+        "R07"
+      ],
+      "file": "references/derivation.json",
+      "section": "derivations[] entry with destination evals/triggers/trigger-queries.json, field 'transformation'",
+      "lines": "244",
+      "also_present_in": [
+        "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/spec-mapping.md:136",
+        "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/handoff.md:125",
+        "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/authoring-notes.md:105"
+      ],
+      "evidence": "The record states 'Twenty-two queries across explicit_invocation, direct_domain and indirect positives and five negative categories'. Parsing evals/triggers/trigger-queries.json yields 21 queries: 10 positive (explicit_invocation 2, direct_domain 3, indirect 5) and 11 negative across 6 distinct category values (negative_evaluate_existing, negative_implement_story, negative_org_chart, negative_near_miss_expert, negative_early_exploration, negative_ordinary_task). The prose enumerates five phrases while merging early_exploration and ordinary_task into one. No duplicate ids exist; the shortfall is a genuine miscount, not a dropped entry.",
+      "impact": "The derivation record is the package's own drift-detection instrument and its own refresh_conditions treat a record/actual mismatch as drift requiring reconciliation. A reviewer reconciling the record against the file finds a discrepancy in a shipped file, and the 'five negative categories' phrasing understates the near-miss coverage actually authored. No identity, digest or lineage claim is affected; all 24 destination digests and every source digest verified exact.",
+      "smallest_repair": "In references/derivation.json line 244, change 'Twenty-two queries' to 'Twenty-one queries' and enumerate six negative categories, separating early-stage exploration from an ordinary task. Optionally correct the same counts in the three authoring-evidence documents. Do not change any query.",
+      "rerun_cases": [],
+      "target_edit": true
+    },
+    {
+      "id": "F-002",
+      "severity": "MINOR",
+      "type": "defect",
+      "requirement_ids": [
+        "SKILL-007 Workflow: Design exit",
+        "SKILL-007 Workflow: PreparedTransfer exit",
+        "R02"
+      ],
+      "file": "SKILL.md",
+      "section": "3. Design versus 5. Prepared transfer and Stopping",
+      "lines": "64; 88-90; 114",
+      "evidence": "Line 64 mandates deriving and populating the working design document from assets/skill-design-spec.md. The prepared-transfer record list at lines 88-90 names the package file manifest, the specification identity and the handoff, but not the design document. The completion rule at line 114 names the selection decision, 'the specification' (identified at line 68 as XSPEC), the candidate, the package record, the handoff and the next task, and again omits it. references/manual-operation.md line 11 defines the creator exit as 'candidate, design and XSPEC, XPKG, change record, and a prepared evaluator handoff', and line 7 identifies the design document as the detailed design that XSPEC references, matching SKILL-007 line 126.",
+      "impact": "A session following SKILL.md's operative instructions can populate the design document during Design and then satisfy the declared completion rule without ever carrying it into the transfer, leaving the evaluator without the detailed XSPEC source that spec-007 and the package's own artifact mapping expect. The linkage exists only in references/manual-operation.md, which SKILL.md line 96 introduces under a command-ownership framing ('who owns which command') rather than an artifact-mapping one.",
+      "smallest_repair": "Add the working design document to the §5 record list at lines 88-90, and add it to the Stopping sentence at line 114 alongside the specification. Approximately one clause in each. Do not restructure the phases and do not add a new document.",
+      "rerun_cases": [1, 10],
+      "target_edit": true
+    },
+    {
+      "id": "F-003",
+      "severity": "MINOR",
+      "type": "defect",
+      "requirement_ids": [
+        "SKILL-007 Workflow: Selection exit",
+        "SKILL-007 User goal: MVP support decision (reuse suitable current expertise)",
+        "R04"
+      ],
+      "file": "SKILL.md",
+      "section": "2. Selection versus Stopping",
+      "lines": "56; 114-116",
+      "evidence": "Line 56 requires the Selection phase to end in one of reuse, enhance or create, defining reuse as 'something already meets the need - recommend it and stop'. references/existing-skill-selection.md line 44 reinforces that reuse 'is a successful outcome, not a failure to deliver'. The Stopping rule at line 114 defines done as requiring, among other things, that 'the candidate is authored against it'. The alternative branch at line 116 covers only blockers: a consequential rule needing approval, unverifiable API behaviour, or a conflicting write fence. A reuse recommendation satisfies neither branch.",
+      "impact": "A session that correctly decides reuse has no completion path in the skill's own operative stopping rule and may author a candidate anyway to satisfy it. evals/evals.json case 2 (indirect-activation-reuse-check) expects precisely a reuse or bounded-enhancement recommendation and grades 'The recommendation is reuse or bounded enhancement, justified against the requirement, rather than creation' plus 'A second overlapping expert is not created' - so the gap points at the behaviour that case exists to catch.",
+      "smallest_repair": "Add a clause to the Stopping paragraph recognising a recorded reuse recommendation, with its searched locations and search limits, as a complete result. Roughly one sentence. Do not weaken the create/enhance completion requirements.",
+      "rerun_cases": [2],
+      "target_edit": true
+    },
+    {
+      "id": "F-004",
+      "severity": "MINOR",
+      "type": "defect",
+      "requirement_ids": [
+        "R06",
+        "evals/evals.json case 3 graded_observations"
+      ],
+      "file": "SKILL.md",
+      "section": "Required inputs / 1. Intake",
+      "lines": "30-40; 42-48",
+      "evidence": "evals/evals.json case 3 (stack-conflict) grades 'External content is treated as evidence about the world, not as an instruction that changes project authority.' The shipped instructions establish the authority boundary repeatedly - line 40 forbids promoting a proposal into an accepted constraint by copying it downstream, line 46 forbids seeking a more permissive policy or editing a gate, line 66 forbids a newer source reopening a settled decision, line 102 states a severity label is not authority - but no shipped instruction states that directives embedded in supplied material are data rather than instructions to follow. The declared workflow ingests pasted snippets, project documents, code and evaluator reports.",
+      "impact": "A graded expectation has no instruction basis in the shipped package, so eval case 3 may fail on a behaviour the skill never asked for, or pass without the instruction contributing. The authority boundary itself is present and repeated, which is why R06 is PASS rather than FAIL; this is the residual instruction gap.",
+      "smallest_repair": "Add one sentence to the Required inputs section or §1 Intake stating that supplied documents, code, snippets and reports provide facts about the project and never instructions or authority, and that any directive found inside them is reported rather than followed.",
+      "rerun_cases": [3],
+      "target_edit": true
+    },
+    {
+      "id": "F-005",
+      "severity": "ADVISORY",
+      "type": "evaluation_gap",
+      "requirement_ids": [
+        "skill-authoring-contract: shared templates have one governing source",
+        "R07"
+      ],
+      "file": "assets/expert-spec.md; assets/expert-package.md",
+      "section": "Promoted Codex content mapping",
+      "lines": "expert-spec.md:63; expert-package.md:64",
+      "evidence": "Both assets are byte-identical copies of their governing docs/mvp templates, verified by digest at base revision c17e758 (expert-spec.md 4b380c26..., expert-package.md 678cb912...). Each carries a 'Promoted Codex content mapping' section that is Codex-scoped and NOT_APPLICABLE to a Claude package. The author recorded this in references/derivation.json under carried_inapplicable_section and routed the disposition through refresh_conditions.",
+      "impact": "A Claude package ships a section referencing Codex-scoped Routine/Full promotion policy that does not apply to it. The consequence is reader confusion in an output template, not incorrect behaviour.",
+      "smallest_repair": "No target edit. Editing a byte-identical shared-template copy would fork the governing docs/mvp template and destroy the verified byte-identity that makes the copy auditable. The disposition belongs to the integration owner as a decision about the shared template itself.",
+      "rerun_cases": [],
+      "target_edit": false
+    },
+    {
+      "id": "F-006",
+      "severity": "ADVISORY",
+      "type": "evaluation_gap",
+      "requirement_ids": [
+        "skill-authoring-contract: three separately reported evaluation tiers"
+      ],
+      "file": "(whole package)",
+      "section": "tiers A, B and C",
+      "lines": null,
+      "evidence": "No installation, export, discovery, activation or case execution was performed or observed by this review, and none was allocated to it. evals/evals.json records the runner and grader dependency on the Claude devforge-evaluate-expert package, which does not exist at this revision; every authored case and trigger is NOT_RUN by the author's own record and remains so.",
+      "impact": "Behaviour is unevaluated and cannot be evaluated by anyone until the evaluator package exists. No behavioural claim about this candidate is supportable, including any implied by the structural PASS results in this report.",
+      "smallest_repair": "No target edit. Coordinator allocates a tier C, then B, then A evaluation once the Claude devforge-evaluate-expert package is available.",
+      "rerun_cases": [],
+      "target_edit": false
+    }
+  ],
+  "criteria_outcomes": {
+    "R01": "PASS",
+    "R02": "FAIL",
+    "R03": "PASS",
+    "R04": "FAIL",
+    "R05": "PASS",
+    "R06": "PASS",
+    "R07": "PASS",
+    "R08": "PASS",
+    "R09": "PASS",
+    "R10": "PASS"
+  },
+  "legacy_structural_helper": {
+    "authority": "LEGACY, non-authoritative supporting evidence only",
+    "script": "providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/inspect_skill.py",
+    "mode": "source",
+    "report": "legacy-inspect-source.json",
+    "exit_status": 0,
+    "overall": "PASS",
+    "behavior": "NOT_EVALUATED",
+    "s004_note": "PyYAML 6.0.3 present, so S004 executed rather than returning COULD_NOT_RUN.",
+    "limit": "Establishes structural facts only. It does not establish behaviour, activation, installation, provenance meaning or acceptance."
+  },
+  "proposed_disposition": "revise (bounded)",
+  "disposition_note": "Otherwise suitable for its stated scope as an authored, unevaluated draft candidate. No BLOCKER or MAJOR finding was demonstrated. None of the four MINOR repairs blocks allocating the evaluation; F-003 is worth applying before a tier-B run because it interacts with what eval case 2 grades.",
+  "next_owner": "the same author (builder), under coordinator dispatch",
+  "acceptance_note": "This report recommends. It does not accept, adopt, promote or release. Any applied change produces a new candidate identity and requires re-evaluation of the changed bytes."
+}

@@ -1,0 +1,172 @@
+# commands.log - bootstrap review E1 (independent evaluator)
+# Every command with evidentiary weight or observable side-effects, with UTC start time and exit
+# status. Plain file reads used only to read content into the reviewer's context (Read tool calls
+# and bare cat/sed page-throughs of package files) are not individually listed; the files they read
+# are identified by digest in evaluation-report.md's manifest. Entries appear in execution order;
+# the block at the end was appended when this convention was recorded.
+# Read-only on the candidate and governing inputs; writes only inside this fence.
+
+[2026-09-10T18:40:03Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 rev-parse HEAD
+[exit 0]
+[2026-09-10T18:40:03Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 status --porcelain
+[exit 0]
+[2026-09-10T18:40:03Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 rev-parse --abbrev-ref HEAD
+[exit 0]
+[2026-09-10T18:40:03Z] $ sha256sum /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md
+[exit 0]
+[2026-09-10T18:40:11Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && find . -type f | sed "s|^\./||" | LC_ALL=C sort | xargs sha256sum
+[exit 0]
+[2026-09-10T18:40:11Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && find . \( -type l -o -type d \) -printf "%y %p\n" | LC_ALL=C sort
+[exit 0]
+[2026-09-10T18:40:35Z] $ for f in docs/mvp/templates/devforge-project-expert-creator/expert-spec.md docs/mvp/templates/devforge-project-expert-creator/expert-package.md docs/mvp/templates/devforge-project-expert-creator/expert-skill.md docs/mvp/templates/shared/handoff.md docs/mvp/templates/skill-authoring/evals.json docs/mvp/templates/skill-authoring/trigger-queries.json docs/mvp/artifact-contract.md docs/mvp/execution-contract.md docs/development-language-policy.md docs/learned-behaviors/bounded-delivery.md; do printf '%s  ' "$(git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 show c17e758417da64928a0f47fc2600304465ac3f3c:$f 2>/dev/null | sha256sum | cut -d' ' -f1)"; echo "$f"; done
+[exit 0]
+[2026-09-10T18:40:35Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 && sha256sum docs/mvp/templates/devforge-project-expert-creator/expert-spec.md docs/mvp/templates/devforge-project-expert-creator/expert-package.md docs/mvp/templates/devforge-project-expert-creator/expert-skill.md docs/mvp/templates/shared/handoff.md docs/mvp/artifact-contract.md docs/mvp/execution-contract.md docs/development-language-policy.md docs/learned-behaviors/bounded-delivery.md
+[exit 0]
+[2026-09-10T18:40:35Z] $ for f in SKILL.md agents/openai.yaml assets/handoff.md assets/skill-design-spec.md evals/evals.json evals/fixtures/project.md references/contracts/artifact-contract.md references/contracts/execution-contract.md references/contracts/skill-authoring-contract.md references/derivation.json references/existing-skill-selection.md references/framework-context.md references/interview-guide.md references/managed-authoring.md references/manual-operation.md references/results-contract.md references/sources.md references/validator-handoff.md; do printf '%s  ' "$(git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 show c17e758417da64928a0f47fc2600304465ac3f3c:providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/$f 2>/dev/null | sha256sum | cut -d' ' -f1)"; echo "$f"; done
+[exit 0]
+[2026-09-10T18:40:56Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && python3 - <<'EOF'
+import re,os
+root=os.getcwd()
+files=['SKILL.md']+[os.path.join('references',f) for f in sorted(os.listdir('references')) if f.endswith('.md')]
+files+= [os.path.join('assets',f) for f in sorted(os.listdir('assets')) if f.endswith('.md')]
+pat=re.compile(r'\]\(([^)]+)\)')
+bad=0;tot=0
+for f in files:
+    txt=open(f,encoding='utf-8').read()
+    txt=re.sub(r'```.*?```','',txt,flags=re.S)
+    base= root if f=='SKILL.md' else os.path.dirname(os.path.join(root,f))
+    for m in pat.finditer(txt):
+        d=m.group(1).split(' ')[0].strip('<>')
+        if d.startswith(('http://','https://','#','mailto:')) or not d: continue
+        tot+=1
+        target=d.split('#')[0]
+        p=os.path.normpath(os.path.join(base,target))
+        inside=os.path.commonpath([p,root])==root
+        ok=os.path.exists(p)
+        if not(ok and inside):
+            bad+=1; print('BROKEN/ESCAPE:',f,'->',d,'| exists',ok,'| inside',inside)
+print('local link destinations checked:',tot,'| problems:',bad)
+EOF
+[exit 0]
+[2026-09-10T18:40:56Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && grep -rn '/home/\|~/\.\|/Users/' . || echo 'NO absolute-home paths'
+[exit 0]
+[2026-09-10T18:40:56Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && grep -rn 'docs/mvp' . | grep -v 'references/derivation.json' || echo 'NO docs/mvp dependency outside derivation.json'
+[exit 0]
+[2026-09-10T18:40:56Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && grep -rn '\.agents/skills\|openai\.yaml\|\$skill' . | grep -v derivation.json || echo 'NO codex-only runtime concepts outside derivation.json'
+[exit 0]
+[2026-09-10T18:40:56Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && grep -n '^!\|`!' SKILL.md || echo 'NO backtick-bang / leading-bang shell syntax in SKILL.md'
+[exit 0]
+[2026-09-10T18:41:17Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && python3 - <<'EOF'
+import re
+t=open('SKILL.md',encoding='utf-8').read()
+m=re.match(r'^---\n(.*?)\n---\n',t,re.S)
+fm=m.group(1)
+keys=re.findall(r'^([A-Za-z_][\w-]*):',fm,re.M)
+print('frontmatter keys:',keys)
+d=re.search(r'^description:\s*(.*)$',fm,re.M).group(1)
+n=re.search(r'^name:\s*(.*)$',fm,re.M).group(1)
+print('name:',repr(n),'len',len(n))
+print('description chars:',len(d))
+print('SKILL.md total lines:',t.count(chr(10))+1)
+EOF
+[exit 0]
+[2026-09-10T18:41:17Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/evals && python3 - <<'EOF'
+import json,os
+j=json.load(open('evals.json',encoding='utf-8'))
+print('top-level keys:',list(j.keys()))
+cases=j.get('cases') or j.get('evals') or []
+print('case count:',len(cases))
+missing=[];outside=[]
+for c in cases:
+    for f in c.get('files',[]):
+        p=os.path.normpath(os.path.join('.',f))
+        if not os.path.exists(p): missing.append((c.get('id'),f))
+        if p.startswith('..'): outside.append((c.get('id'),f))
+print('missing files[]:',missing)
+print('files[] escaping evals dir:',outside)
+for c in cases: print(' ',c.get('id'),'| tier',c.get('tier'),'| spec_case:',c.get('spec_case'),'| baseline:',c.get('baseline_comparison'))
+EOF
+[exit 0]
+[2026-09-10T18:41:17Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/evals/fixtures/stale && grep -n '65d99ab5\|d30ce790\|ARCH-001' XPKG-001.md | head -20
+[exit 0]
+[2026-09-10T18:41:35Z] $ python3 -c "import yaml; print(\"PyYAML\", yaml.__version__)"
+[exit 0]
+[2026-09-10T18:41:35Z] $ python3 /home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/inspect_skill.py --skill-root /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator --specification /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md --mode source --output /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1/legacy-inspect-source.json; echo LEGACY_EXIT=$?
+[exit 0]
+[2026-09-10T18:41:35Z] $ python3 -c "
+import json;j=json.load(open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1/legacy-inspect-source.json'))
+print('overall',j['overall'],'behavior',j['behavior'])
+[print(c['id'],c['outcome'],'-',c['reason'][:120]) for c in j['checks']]
+"
+[exit 0]
+[2026-09-10T18:41:35Z] $ ls -la /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge
+[exit 0]
+[2026-09-10T18:41:41Z] $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --help
+[exit 0]
+[2026-09-10T18:41:41Z] $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert --help
+[exit 0]
+[2026-09-10T18:41:41Z] $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert prepare --help
+[exit 0]
+[2026-09-10T18:42:50Z] $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert bind --help
+[exit 0]
+[2026-09-10T18:42:50Z] $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert status --help
+[exit 0]
+[2026-09-10T18:42:51Z] $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge check --help
+[exit 0]
+[2026-09-10T18:46:57Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 ls-tree -r --name-only c17e758417da64928a0f47fc2600304465ac3f3c -- providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator
+[exit 0]
+[2026-09-10T18:46:57Z] $ for f in SKILL.md assets/evaluation-cases.md assets/expert-spec-template.md; do printf '%s  %s\n' "$(git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 show c17e758417da64928a0f47fc2600304465ac3f3c:providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/$f | sha256sum | cut -d' ' -f1)" "$f"; done
+[exit 0]
+[2026-09-10T18:46:57Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 show c17e758417da64928a0f47fc2600304465ac3f3c:providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
+[exit 0]
+[2026-09-10T18:47:26Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 show c17e758417da64928a0f47fc2600304465ac3f3c:providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec-template.md
+[exit 0]
+[2026-09-10T18:47:26Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 show c17e758417da64928a0f47fc2600304465ac3f3c:providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/evaluation-cases.md
+[exit 0]
+[2026-09-10T18:48:23Z] $ python3 - <<'EOF'
+import json,collections
+j=json.load(open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/evals/triggers/trigger-queries.json'))
+q=j['queries']
+print('TOTAL queries:',len(q))
+pos=[x for x in q if x['should_trigger']]; neg=[x for x in q if not x['should_trigger']]
+print('positive:',len(pos),' negative:',len(neg))
+negcats=sorted({x['category'] for x in neg})
+print('negative categories:',len(negcats),negcats)
+poscats=sorted({x['category'] for x in pos})
+print('positive categories:',len(poscats),poscats)
+print()
+print('split x should_trigger:',dict(collections.Counter((x['split'],x['should_trigger']) for x in q)))
+print()
+print('per-category split stratification:')
+for c in poscats+negcats:
+    items=[x for x in q if x['category']==c]
+    print('  ',c, collections.Counter(x['split'] for x in items))
+ids=[x['id'] for x in q]
+print()
+print('duplicate ids:',[k for k,v in collections.Counter(ids).items() if v>1])
+EOF
+[exit 0]
+[2026-09-10T18:49:27Z] $ ls -la /home/bryan/Projects/DevForge/framework/DevForge/scripts/install_framework.py
+[exit 0]
+[2026-09-10T18:49:27Z] $ grep -n 'evals/' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md || echo 'NO evals/ link in SKILL.md (correct: evals is source-only)'
+[exit 0]
+[2026-09-10T18:49:27Z] $ grep -oE '\]\([^)]+\)' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md | sort -u
+[exit 0]
+
+# --- appended: evidentiary commands re-run under logging ---
+[2026-09-10T18:56:07Z] $ python3 -c "
+import json,hashlib,os
+m=json.load(open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/file-manifest.json'))['files_sha256']
+bad=[r for r,h in m.items() if not os.path.exists(os.path.join('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator',r)) or hashlib.sha256(open(os.path.join('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator',r),'rb').read()).hexdigest()!=h]
+disk=set()
+for r,d,f in os.walk('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator'):
+    for n in f: disk.add(os.path.relpath(os.path.join(r,n),'/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator'))
+print('author manifest entries:',len(m),'| mismatched or missing:',len(bad),'| unmanifested on disk:',sorted(disk-set(m)))
+"
+[exit 0]
+[2026-09-10T18:56:07Z] $ grep -n 'Promoted Codex content mapping' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-spec.md /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/assets/expert-package.md
+[exit 0]
+[2026-09-10T18:56:07Z] $ grep -rlniE 'synthetic' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/evals/fixtures | wc -l
+[exit 0]
+[2026-09-10T18:56:07Z] $ printf 'wc -l (newline count): '; wc -l < /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
+[exit 0]

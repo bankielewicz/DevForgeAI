@@ -1,0 +1,214 @@
+{
+  "schema_version": "devforge.skill-structure/v1",
+  "created_at_utc": "2026-09-10T18:41:35.246413Z",
+  "skill_root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator",
+  "mode": "source",
+  "specification": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+    "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+  },
+  "files_sha256": {
+    "SKILL.md": "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e",
+    "assets/evaluation-cases.md": "46439049d859c65245c26f7427a99f97277b05f6244d7fcae8f25a4c12ff4e99",
+    "assets/expert-package.md": "678cb91253a36a2ebf1e370d96858ed6a27206dffedc62cb90658cdcffdf890d",
+    "assets/expert-skill.md": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+    "assets/expert-spec.md": "4b380c265c7135b9248740aa1e2fb2adb0d3ff4ec420031945bd159d89706157",
+    "assets/handoff.md": "d741d4dfadbb37353f5542dbb825ab7df9bbdb7be10e4380e262f54e0f663790",
+    "assets/skill-design-spec.md": "715ef3bdf9082ace4c3b3eeda27e8bf9e4663355bcebed2f5d997fefc5a26ef9",
+    "evals/evals.json": "64de1a96299fd36da983f4aed320c349776a976422bda69c917497544223b1f4",
+    "evals/fixtures/assignment-record.md": "9bf426d2a3758db50a434c30b750eb041ae6f7f263e808d7407d79b0f5a0391e",
+    "evals/fixtures/draft-xspec-with-placeholder.md": "935ab781ff6b144a1843982933c2df867273c87363288487bba9bfca47671694",
+    "evals/fixtures/evaluator-handoff.md": "79d046d82889f77fda7b99ce0f3e718565ccd5c0019f9c1b6db8a243c85d6275",
+    "evals/fixtures/existing-expert/SKILL.md": "14615e93f9cf02ec4b643a2d8bd5b4441c35dfd06b8323e1fd71c5e8ab2289ad",
+    "evals/fixtures/expertise-map.md": "79a03a25ec27af5bc36a66f6a4560a6da793bbb1c5a3148d128037f5eb375974",
+    "evals/fixtures/project.md": "99c9c082a4354dccd9112fc412af8c89e9e94a28bfe93b7de9d579d54bea514b",
+    "evals/fixtures/stale/ARCH-001.md": "d30ce790d5be2d5c493672c5e5568f4eeecc824e52d71e9b68ef9103ef33648b",
+    "evals/fixtures/stale/XPKG-001.md": "a437f858371ec2d10c0a98845456b7133ac2155f385b41a2f4f448cf2a6f6c52",
+    "evals/fixtures/stale/preserved/ARCH-001.r1.md": "65d99ab516b5fb2bca9e0d45dc5587c27d692fc426957329173a6d357ad70314",
+    "evals/triggers/trigger-queries.json": "29a4fe7f9b93394c47942f794a70025dd9ea2a4d27557b0f8b5682cdd4972d39",
+    "references/derivation.json": "06f951797e720415c7fdc085ab7682067e21edd6f0cf6ff03b524cbf4b595b01",
+    "references/existing-skill-selection.md": "89a070c3fbee10a8bce513101a0dd50bbfaec431fd3056fddc8d3113e5b933df",
+    "references/framework-context.md": "884d915f6b65f11540283ee3ed241d2e33cd54c24d22d93e51e3496d49501c66",
+    "references/interview-guide.md": "0157e51472cbf206b73d818e0243708906496ab8d72a9b1cbefd7cfab3134d76",
+    "references/manual-operation.md": "3b3eb092033239bd8f20f0eb1d087b810cbd87fd641225531b15abc02b3b572c",
+    "references/sources.md": "c4b749085a2187ca97f188debdb47e9b720182b28fc6d592fafb9d84cdf11eac",
+    "references/validator-handoff.md": "0cb2975c440d5df14e14d3b5f875393254eeeb72537684e421a5b740d0945f7f"
+  },
+  "checks": [
+    {
+      "id": "S001",
+      "outcome": "PASS",
+      "reason": "Directory found.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator"
+        }
+      ]
+    },
+    {
+      "id": "S002",
+      "outcome": "PASS",
+      "reason": "Hashed 25 files; read 174455 package bytes. Limits: 4096 entries, depth 32, 16777216 bytes/file, 134217728 total bytes.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator"
+        }
+      ]
+    },
+    {
+      "id": "S003",
+      "outcome": "PASS",
+      "reason": "SKILL.md decoded as UTF-8 (an optional BOM is accepted).",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S004",
+      "outcome": "PASS",
+      "reason": "Parsed with PyYAML 6.0.3; safe loader and duplicate-key rejection.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S005",
+      "outcome": "PASS",
+      "reason": "Additional frontmatter fields are permitted; their semantics are not evaluated.",
+      "evidence": []
+    },
+    {
+      "id": "S006",
+      "outcome": "PASS",
+      "reason": "Name format and exact folder match satisfied.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S007",
+      "outcome": "PASS",
+      "reason": "Examined 16 local links; ignored 3 external URLs and 0 empty/anchor-only destinations. Anchor existence is not checked.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 20
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 54
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 64
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 66
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 68
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 76
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 88
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 96
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "line": 100
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/interview-guide.md",
+          "line": 7
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/interview-guide.md",
+          "line": 11
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/sources.md",
+          "line": 3
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/validator-handoff.md",
+          "line": 54
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/validator-handoff.md",
+          "line": 86
+        }
+      ]
+    },
+    {
+      "id": "S008",
+      "outcome": "PASS",
+      "reason": "Package symlinks are resolvable and remain inside the package.",
+      "evidence": []
+    },
+    {
+      "id": "S009",
+      "outcome": "PASS",
+      "reason": "Source mode permits evals; absent evals is not a structural defect.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator"
+        }
+      ]
+    },
+    {
+      "id": "S010",
+      "outcome": "PASS",
+      "reason": "Parsed 3 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/evals/evals.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/evals/triggers/trigger-queries.json"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json"
+        }
+      ]
+    },
+    {
+      "id": "S011",
+      "outcome": "PASS",
+      "reason": "Parsed 0 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": []
+    },
+    {
+      "id": "S012",
+      "outcome": "PASS",
+      "reason": "Parsed 0 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": []
+    },
+    {
+      "id": "S013",
+      "outcome": "PASS",
+      "reason": "Specification bytes hashed; specification meaning is not evaluated.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-007-devforge-project-expert-creator.md"
+        }
+      ]
+    }
+  ],
+  "overall": "PASS",
+  "behavior": "NOT_EVALUATED"
+}
