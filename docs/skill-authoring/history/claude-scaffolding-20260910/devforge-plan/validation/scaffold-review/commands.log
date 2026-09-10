@@ -1,0 +1,190 @@
+# commands.log — scaffold review of devforge-plan (SKILL-006)
+
+Evaluator: separately dispatched Claude evaluator context under a coordinator.
+Session window: 2026-09-10T21:29:59Z (first observed `date -u`) to 2026-09-10T21:40:15Z and later.
+All timestamps are observed `date -u` output, never placeholders.
+Every command below was actually executed. Nothing was installed, built, committed or edited outside
+the output fence.
+
+Abbreviations used only in this log (each expanded on first use):
+  WT_CAND = /home/bryan/Projects/DevForge/worktrees/claude-scaffold-plan-20260910
+  WT_VAL  = /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910
+  PKG     = $WT_CAND/providers/claude/plugins/devforgeai/skills/devforge-plan
+  VALSKILL= $WT_VAL/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert
+  FENCE   = $WT_CAND/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-plan/validation/scaffold-review
+  DFAI    = /home/bryan/Projects/DevForge/framework/DevForgeAI
+
+## P1 — intake and freeze
+
+date -u
+  -> Thu Sep 10 21:29:59 UTC 2026
+
+git -C $WT_VAL rev-parse HEAD
+  -> e641797eebf04cd1e8eb9f711549e038e7745407   (validator worktree HEAD == the frozen validator revision)
+
+git -C $WT_VAL log --oneline -3
+  -> e641797 fix(claude): devforge-evaluate-expert derivation digests regenerated after repair pass 1 (F-R01)
+     6916b60 docs(claude): E2 focused recheck of devforge-evaluate-expert at e101e76 (F-001..F-009 closed; F-R01 new MINOR)
+     e101e76 fix(claude): devforge-evaluate-expert repair pass 1 from E2 bootstrap review (F-001..F-009)
+
+git -C $WT_VAL ls-tree -r --name-only e641797... <VALSKILL path>
+  -> 53 files listed; validator read from this revision (source-loaded, not installed)
+
+git -C $WT_VAL show e641797...:<VALSKILL>/SKILL.md
+git -C $WT_VAL show e641797...:<VALSKILL>/references/ai-review-rubric.md
+git -C $WT_VAL show e641797...:<VALSKILL>/references/runner-interface.md
+git -C $WT_VAL show e641797...:<VALSKILL>/references/missing-rust-capabilities.md
+git -C $WT_VAL show e641797...:<VALSKILL>/assets/verification-results.md
+git -C $WT_VAL show e641797...:<VALSKILL>/assets/skill-enhancement-spec.md
+git -C $WT_VAL show e641797...:<VALSKILL>/assets/handoff.md
+  -> validator workflow, rubric R01-R10, runner contract, missing-capability procedure and the three
+     P6 templates read at the frozen revision
+
+git -C $WT_CAND rev-parse HEAD
+  -> 03dc1a605acfb3ff80577f244d1a60f52244fb36   (equals the packet's frozen candidate commit)
+
+git -C $WT_CAND log --oneline -5
+  -> 03dc1a6 feat(claude): scaffold devforge-plan (SKILL-006)
+     c17e758 Merge pull request #10 ... (the recorded base revision)
+
+git -C $WT_CAND diff 03dc1a60... HEAD --stat -- providers/
+  -> empty; the package bytes at HEAD are the frozen bytes
+
+git -C $WT_CAND ls-tree -r --name-only HEAD <PKG path>
+  -> 30 files
+
+sha256sum $DFAI/docs/mvp/specifications/skill-006-devforge-plan.md
+  -> 149a66a375da1bb3447f51b657996883974fec1dac3ce92af866eba94a378e4b   (matches the packet pin)
+
+find $PKG -type f | sort | xargs sha256sum
+  -> the 30-file candidate manifest reproduced in verification-results.md §Identity and scope
+
+sha256sum $DFAI/docs/mvp/templates/devforge-plan/epic.md \
+          $DFAI/docs/mvp/templates/devforge-plan/story.md \
+          $DFAI/docs/mvp/templates/shared/handoff.md \
+          $DFAI/docs/mvp/skill-authoring-contract.md $DFAI/docs/mvp/artifact-contract.md \
+          $DFAI/docs/mvp/execution-contract.md $DFAI/docs/mvp/roster.md \
+          $DFAI/docs/development-language-policy.md $DFAI/docs/learned-behaviors/bounded-delivery.md \
+          $DFAI/docs/mvp/templates/skill-authoring/evals.json \
+          $DFAI/docs/mvp/templates/skill-authoring/trigger-queries.json
+git -C $WT_CAND show c17e758...:<each of the first nine paths> | sha256sum
+  -> every governing-input digest equals the value derivation.json records, and the base-revision
+     bytes equal the current bytes for all nine, so no governing input moved after authoring
+
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --help
+  -> observed command surface: delivery, expert, check, init, red, green, accept, verify, status,
+     isolate. `check` self-describes as "Check structural policy and provenance; does not certify
+     semantic behavior". No subcommand accepts an epic, a story, a requirement graph or an artifact
+     envelope. Run at 2026-09-10, read-only.
+
+WebFetch https://code.claude.com/docs/en/skills
+  retrieval date: 2026-09-10T21:53Z (observed `date -u`: Thu Sep 10 21:53:13 UTC 2026)
+  -> the packet's Claude client-facts input, fetched so the provider facts are verified independently
+     of the candidate's own references/sources.md rather than taken from it. The page states: all
+     frontmatter fields are optional and only `description` is recommended; `name` "Defaults to the
+     directory name", and in a plugin skill sets the last segment of the command; "the combined
+     `description` and `when_to_use` text is truncated at 1,536 characters in the skill listing";
+     "Keep `SKILL.md` under 500 lines"; supporting files are referenced by relative Markdown links and
+     load only when needed; invocation is `/skill-name`, and a plugin skill becomes `/plugin:name`.
+     Every claim the candidate's references/sources.md attributes to this page holds. No finding.
+     Documentation claims only; no client behaviour was observed.
+
+## P2 — deterministic observation
+
+Runner and grader identity actually used (self-reported; no protected manifest exists):
+sha256sum $VALSKILL/scripts/run_cases.py $VALSKILL/scripts/graders.py
+  -> 95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2  run_cases.py
+     1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f  graders.py
+
+Runner-drift check (derivation.json pins these files at e52ac59):
+git -C $WT_VAL diff e52ac596cbf790dfa156d883852d392c512fdbcc e641797... --stat -- <scripts, runner-interface, cases>
+  -> graders.py +108/-…, run_cases.py +55/-…, runner-interface.md +32, cases.jsonl +4
+git -C $WT_VAL show e52ac59...:<scripts/run_cases.py>|sha256sum -> d1fb1868...  (equals derivation.json's pin)
+git -C $WT_VAL show e52ac59...:<scripts/graders.py>|sha256sum   -> 7c03e7b2...  (equals derivation.json's pin)
+git -C $WT_VAL show e641797...:<scripts/graders.py> | grep -n '^GRADERS' -A20
+git -C $WT_VAL show e52ac59...:<scripts/graders.py> | grep -n '^GRADERS' -A20
+  -> the ten-entry grader registry is identical across the two revisions
+/usr/bin/python3 -B -c "<key-set check of $PKG/evals/cases.jsonl against CASE_KEYS/ASSERTION_KEYS>"
+  -> case keys used: assertions, candidate_subpath, case_id, expectations, files, mode, prompt, tier, title
+     assertion keys used: args, assertion_id, expect, grader, routed_to
+     unknown case keys: none; unknown assertion keys: none
+
+Runner invocations (all with /usr/bin/python3 -B, absolute paths, --out inside the fence):
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $PKG/evals/cases.jsonl --candidate $PKG \
+  --out $FENCE/runner-out/pkg-source.jsonl --mode source \
+  --case-id PL-PKG-001 --case-id PL-PKG-002
+  -> exit 0; "wrote 17 case record(s)"
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $PKG/evals/cases.jsonl --candidate $PKG \
+  --out $FENCE/runner-out/pkg-installed-mode.jsonl --mode installed \
+  --case-id PL-PKG-001 --case-id PL-PKG-002
+  -> exit 0; "wrote 17 case record(s)"
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $PKG/evals/cases.jsonl --candidate $PKG/evals/fixtures \
+  --out $FENCE/runner-out/fixtures-source.jsonl --mode source \
+  --case-id PL-C-001 ... PL-C-006 --case-id PL-B-001 ... PL-B-009
+  -> exit 0; "wrote 17 case record(s)"
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $FENCE/runner-out/evaluator-added-cases.jsonl --candidate $PKG \
+  --out $FENCE/runner-out/evaluator-added-source.jsonl --mode source
+  -> exit 0; "wrote 2 case record(s)"
+
+Exit status describes the program, never the candidate. No aggregate was computed from any row.
+
+Manual structural observations (method: INSPECTION_MANUAL, authority: none):
+
+/usr/bin/python3 -B -c "<verify every derivation.json destination_sha256 against the file bytes>"
+  -> 11 destinations OK, 1 skipped (evals/fixtures/ carries a null digest by design)
+grep -n '](' $PKG/SKILL.md ; grep -rn '](' $PKG/references/*.md $PKG/assets/*.md
+grep -rn '!`' $PKG/SKILL.md $PKG/references/ $PKG/assets/          -> no matches
+grep -rn '/home/\|/Users/' $PKG/                                    -> no matches
+grep -rn 'docs/mvp' $PKG/SKILL.md $PKG/assets/ $PKG/references/{readiness-check,recording-rules,upstream-resolution}.md
+                                                                    -> no matches
+grep -rni 'codex\|openai\|\$skill\|\.agents/skills\|AGENTS.md' <same set>
+                                                                    -> one match: SKILL.md:68 lists AGENTS.md as a
+                                                                       project artifact-map file (provider-neutral)
+/usr/bin/python3 -B -c "<parse SKILL.md frontmatter>"
+  -> frontmatter keys exactly [name, description]; description 897 characters; SKILL.md 249 lines
+/usr/bin/python3 -B -c "<walk evals/fixtures, hash every file, resolve every 64-hex string>"
+  -> 22 in-fixture digest strings resolve to real sibling fixture bytes; the single non-resolving
+     string is the deliberate all-zero placeholder in could-not-run/STORY-007.md
+/usr/bin/python3 -B -c "<check every files[] entry in evals.json and cases.jsonl exists>"
+  -> none missing; evals/fixtures/README.md is not staged by any case
+/usr/bin/python3 -B -c "<trigger split stratification and verbatim leakage into SKILL.md>"
+  -> 27 queries, 9 categories, every category carries both splits; train 8 positive / 7 negative,
+     validation 6 positive / 6 negative; zero validation queries appear verbatim in SKILL.md
+diff $DFAI/docs/mvp/templates/shared/handoff.md $PKG/assets/handoff.md
+  -> bounded adaptation; envelope, no-self-digest rule and copyable-task constraints preserved;
+     "Current phase" and "Exact candidate or artifact scope" rows removed (see F-001, F-007)
+grep -n 'skill_revision' $DFAI/docs/mvp/artifact-contract.md   -> no matches (see F-006)
+grep -rn 'HANDOFF-' $DFAI/docs/mvp/artifact-contract.md $DFAI/docs/mvp/templates/shared/handoff.md
+  -> the HANDOFF- prefix comes from the shared template; the package's use of it is consistent
+sed -n '/## Output storage/,/^## /p' $DFAI/docs/mvp/artifact-contract.md
+  -> the suggested map includes docs/devforge/epics, stories and handoffs; SKILL.md's stated defaults agree
+grep -ni 'interrupt\|resum\|re-establish' $PKG/SKILL.md $PKG/references/*.md $PKG/assets/*.md
+  -> the only match is assets/handoff.md:90 "## Resume and custody" (see F-001)
+grep -n 'brainstorm\|define-product\|devforge-develop' $PKG/SKILL.md
+  -> line 3 (frontmatter description) only; zero body matches (see F-002)
+
+## P3 — independent review
+
+No further commands. The rubric criteria R01-R10 were applied by reading the frozen bytes named in
+each criterion row of verification-results.md. Independence limits are recorded there.
+
+## P4 — native tiers
+
+No commands. Tiers C, B and A are NOT_RUN with the cause recorded in verification-results.md. No
+install, export, build or terminal launch was attempted, as the packet directs.
+
+## P6 — writes
+
+All writes are inside $FENCE and nowhere else:
+  verification-results.md, findings.json, skill-enhancement-spec.md, handoff.md, commands.log,
+  runner-out/{pkg-source.jsonl, pkg-installed-mode.jsonl, fixtures-source.jsonl,
+               evaluator-added-cases.jsonl, evaluator-added-source.jsonl}
+No commit was made. Nothing under providers/, docs/mvp/ or the DevForge repository was modified.
