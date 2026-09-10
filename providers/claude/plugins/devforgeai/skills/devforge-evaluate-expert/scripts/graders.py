@@ -33,6 +33,12 @@ MAX_FILE_BYTES = 4 * 1024 * 1024
 MAX_FRONTMATTER_BYTES = 128 * 1024
 MAX_LINKS = 2048
 
+# The synthetic transcript shape's consultation contract. An event counts as a
+# consultation only when its `type` is one of these AND one of the identity
+# fields below holds the target's exact name. Free-text fields are never read.
+CONSULTATION_EVENT_TYPES = ("skill_loaded", "skill_read", "resource_read", "skill_consulted")
+IDENTITY_FIELDS = ("skill", "resource", "loaded", "target")
+
 # Top-level `key: value` in the restricted frontmatter subset.
 KEY_LINE = re.compile(r"^([A-Za-z0-9_.-]+):[ \t]*(.*)$")
 # Inline Markdown link or image with a non-nested destination.
@@ -95,12 +101,42 @@ def resolve_in(root: Path, relative: str):
 # --------------------------------------------------------------------------
 
 
+def fenced_lines(text: str) -> set[int]:
+    """Return the 1-based line numbers that sit inside a fenced code block.
+
+    Content inside a fence is illustrative. A grader that reads it as though it
+    were the document's own data reports a fact the document does not state.
+    """
+    inside: set[int] = set()
+    in_fence = False
+    marker = ""
+    for number, line in enumerate(text.split("\n"), 1):
+        fence = FENCE.match(line)
+        if fence:
+            found = fence.group(1)
+            if not in_fence:
+                in_fence, marker = True, found[0]
+            elif found[0] == marker:
+                in_fence, marker = False, ""
+            inside.add(number)
+            continue
+        if in_fence:
+            inside.add(number)
+    return inside
+
+
 def read_frontmatter(text: str):
     """Return (status, fields, reason).
 
-    status is 'parsed', 'absent' or 'unsupported'. 'unsupported' means the block
-    uses YAML the restricted subset does not interpret: the caller reports
-    INDETERMINATE rather than guessing a value or inventing a defect.
+    status is one of:
+      'parsed'      - a mapping of top-level scalars was read;
+      'duplicate'   - a mapping was read but a top-level key repeats;
+      'absent'      - no delimited frontmatter block is present;
+      'non_mapping' - the root is definitely a sequence or a bare scalar, so no
+                      mapping key can exist and the caller reports MISMATCH;
+      'unsupported' - the block uses YAML the restricted subset does not
+                      interpret, so the caller reports INDETERMINATE rather than
+                      guessing a value or inventing a defect.
     """
     lines = text.split("\n")
     if not lines or lines[0].strip() != "---":
@@ -120,14 +156,25 @@ def read_frontmatter(text: str):
 
     fields = {}
     duplicates = []
+    first_content = True
     for raw in lines[1:closing]:
         if not raw.strip() or raw.lstrip().startswith("#"):
             continue
         if raw[:1] in (" ", "\t"):
             return "unsupported", {}, "indented continuation or nested mapping is outside the supported scalar subset"
-        if raw.startswith("- "):
-            return "unsupported", {}, "a top-level sequence is outside the supported scalar subset"
         match = KEY_LINE.match(raw)
+        # The root's own shape is decidable from its first content line. A
+        # sequence or a bare scalar there cannot carry a mapping key at all, so
+        # "name and description are populated" is determinably false rather than
+        # merely unreadable. A later unmatched line could still be a continuation
+        # of a construct this subset does not parse, so it stays INDETERMINATE.
+        if first_content and (raw.startswith("- ") or raw.strip() == "-"):
+            return "non_mapping", {}, "the frontmatter root is a YAML sequence, which cannot carry mapping keys"
+        if first_content and not match and ":" not in raw:
+            return "non_mapping", {}, "the frontmatter root is a bare scalar, which cannot carry mapping keys"
+        first_content = False
+        if raw.startswith("- "):
+            return "unsupported", {}, "a nested or trailing sequence entry is outside the supported scalar subset"
         if not match:
             return "unsupported", {}, f"line {raw!r} is not a supported top-level 'key: value' entry"
         key, value = match.group(1), match.group(2).strip()
@@ -183,6 +230,8 @@ def grade_frontmatter_fields(root, args, budget, case):
     evidence = {"path": str(target), "line": 1}
     if status == "absent":
         return result(MISMATCH, "absent", reason, evidence)
+    if status == "non_mapping":
+        return result(MISMATCH, "non-mapping-root", reason, evidence)
     if status == "unsupported":
         return result(
             INDETERMINATE,
@@ -215,6 +264,11 @@ def grade_name_folder_relation(root, args, budget, case):
         return result(INDETERMINATE, "unreadable", f"could not read the file: {exc}", blocks_case=True)
     status, fields, reason = read_frontmatter(text)
     folder = target.parent.name
+    if status == "non_mapping":
+        observed = f"name=<none> folder={folder!r}"
+        if args.get("expect_equal", False):
+            return result(MISMATCH, observed, "no frontmatter name can exist: " + reason)
+        return result(INDETERMINATE, observed, "no frontmatter name can exist: " + reason)
     if status in ("absent", "unsupported"):
         return result(INDETERMINATE, f"folder={folder}", "no frontmatter name is available: " + reason)
     name = fields.get("name", "")
@@ -345,10 +399,16 @@ def grade_required_report_fields(root, args, budget, case):
     except (ReadLimit, UnicodeError, OSError) as exc:
         return result(INDETERMINATE, "unreadable", f"could not read the file: {exc}", blocks_case=True)
 
+    # A field named only inside a fenced example is an illustration, not the
+    # document's own value. Reading one as a populated field reports a fact the
+    # document does not state.
+    skip = fenced_lines(text)
     missing, placeholder = [], []
     for name in fields:
         found = None
         for number, line in enumerate(text.split("\n"), 1):
+            if number in skip:
+                continue
             stripped = line.lstrip("-* \t")
             if stripped.startswith(f"{name}:") or stripped.startswith(f"**{name}:**"):
                 found = (number, stripped.split(":", 1)[1].strip().strip("*").strip())
@@ -476,10 +536,40 @@ def grade_transcript_completion(root, args, budget, case):
     if not target_name:
         return result(MATCH, "completed", "a terminal completion event is present", {"path": str(target)})
 
-    consulted = any(
-        isinstance(event, dict) and target_name in json.dumps(event, sort_keys=True)
-        for event in events
-    )
+    # Consultation is read only from structured fields of events whose type says
+    # a resource was actually reached. Free text is never searched: a prompt that
+    # names the skill - including the explicit-invocation form, and including one
+    # that says NOT to use it - is a mention, not a consultation. Collapsing the
+    # two would erase the mention / selection / load distinction that tier A
+    # exists to observe.
+    consult_types = set(args.get("consultation_event_types", CONSULTATION_EVENT_TYPES))
+    identity_fields = set(args.get("identity_fields", IDENTITY_FIELDS))
+    consulted = False
+    undecidable = []
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        kind = event.get("type")
+        if kind not in consult_types:
+            continue
+        named = [event.get(field) for field in identity_fields if isinstance(event.get(field), str)]
+        if not named:
+            undecidable.append(str(kind))
+            continue
+        if any(value == target_name for value in named):
+            consulted = True
+
+    if undecidable and not consulted:
+        return result(
+            INDETERMINATE,
+            f"completed consultation-undecidable events=[{','.join(undecidable)}]",
+            "a consultation-bearing event carries no identity field "
+            f"({', '.join(sorted(identity_fields))}), so consultation of {target_name!r} "
+            "can be neither established nor excluded",
+            {"path": str(target)},
+            blocks_case=True,
+        )
+
     observed = f"completed consulted={consulted}"
     if args.get("expect") == "no_target_consultation":
         if consulted:

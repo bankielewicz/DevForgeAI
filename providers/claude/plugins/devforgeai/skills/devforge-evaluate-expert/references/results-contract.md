@@ -54,7 +54,18 @@ A document's status - draft, in review, accepted - external adoption, structural
 
 ## Native grade binding
 
-Run manifests use `devforge.skill-run/v1` with the extensions `case_id`, `attempt_id`, `arm` and `transcript_sha256`. Keep the original client output intact and reference it rather than rewriting it into a tidier transcript. Source, installed, baseline, case and fixture identities, runtime, context isolation and the execution reference stay populated for observed runs.
+Run manifests use `devforge.skill-run/v1`. The shared template's fields are carried unchanged, with `provider` fixed to `claude`, and the shipped `assets/run-manifest.json` adds these:
+
+| Group | Fields | Why |
+| --- | --- | --- |
+| Native case binding | `case_id`, `attempt_id`, `arm`, `transcript_sha256` | The four extensions that let one manifest identify one attempt of one arm of one case |
+| Installation identity | `installation_path` | The authoring contract requires the installation mode **and** path; mode alone does not identify what was installed |
+| Observed boundaries | `boundary_refs`, `client_state_observation_ref`, `authentication_observation_ref`, `process_ownership_ref` | Each boundary is observed separately and referenced rather than asserted inline |
+| Input visibility | `worker_visible_input_refs`, `operator_only_input_refs` | The contract requires distinguishing the source inventory from what a worker could actually see |
+| Plan and workspace binding | `validation_plan_ref`, `environment_setup_ref`, `workspace_allocation_ref`, `workspace_id` | Ties an attempt to its frozen plan and its one-use workspace |
+| Deviations | `deviations` | Unscripted answers and departures, recorded rather than smoothed away |
+
+No VPR-2, Routine/Full, lineage or adoption-evidence field exists anywhere in this package. Keep the original client output intact and reference it rather than rewriting it into a tidier transcript. Source, installed, baseline, case and fixture identities, runtime, context isolation and the execution reference stay populated for observed runs.
 
 Case grades use `devforge.skill-case-grade/v1`. The manifest's `outcome` and the grade's `overall` are the final observed case outcome, distinct from the terminal's raw exit status. The observation fields record raw completion and exit, target selection, actual resource consultation and its evidence. A successful process is not a case `PASS`.
 

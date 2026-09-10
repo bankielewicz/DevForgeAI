@@ -3,12 +3,12 @@ schema_version: "devforge.artifact/v1"
 artifact_id: "HANDOFF-CLAUDE-EVALUATE-EXPERT-20260910"
 artifact_type: "handoff"
 project_id: "DevForgeAI"
-revision: 1
+revision: 2
 status: draft
 created_at_utc: "2026-09-10T00:00:00Z"
 producer:
   skill: "devforge-project-expert-creator (source-loaded, not installed or discovered)"
-  skill_revision: "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9"
+  skill_revision: "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e"
 execution_ref: null
 upstream:
   - artifact: "SKILL-008 specification"
@@ -28,7 +28,7 @@ upstream:
 evidence:
   - kind: "candidate file manifest"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/file-manifest.json"
-    sha256: "c882eaa12f72f1cde2034260890a6125e489f7c69fc8c9715daade4db5928caa"
+    sha256: "8a05cf4af9d19f8a9fd67455b0ce085aa9349c50c3875e1f3dc775e319ec994e"
   - kind: "working design specification"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/design/skill-design-spec.md"
     sha256: "b4f7772ead4bac67bcc654e1fad3241410c417d6a3aa58911de19755e13c20dd"
@@ -37,11 +37,14 @@ evidence:
     sha256: "182a131838f2241ad36e46c5a61b0ad4afa712179004b059898e101759aa87a3"
   - kind: "specification mapping"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/spec-mapping.md"
-    sha256: "f76cb45204e5dbed5b805e77a36d9e17744c93e60b94539c0d2ef338c9559cf9"
+    sha256: "61617eb3f9783f1ff7c687fb3267477188cc834cbea51b0903e1e46457bae6ca"
   - kind: "authoring notes and local runner observations"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/authoring-notes.md"
-    sha256: "95003627c8abe64c3a05eac4c8744f9e775a82dc96ec5191646b4e94fad06bc8"
-supersedes: null
+    sha256: "335d5a6bc2e29ec4b2579fa4012fdc1d12e251d71d94e32f16b9cbfa811339db"
+supersedes:
+  candidate_commit: "e52ac596cbf790dfa156d883852d392c512fdbcc"
+  revision: 1
+  note: "Candidate 1 and handoff revision 1. The E2 bootstrap review observed those bytes; its findings do not transfer to the repaired ones."
 decision_ref: null
 missing_inputs:
   - "No consuming project or policy file was assigned, so devforge expert prepare had no input and was not run."
@@ -52,8 +55,13 @@ missing_inputs:
 
 ## Result and next action
 
-- **Result:** A new Claude package for SKILL-008 was authored at `providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert`, ported from the Codex implementation. 50 files: 28 runtime, 22 authored evals. The candidate identity is the file manifest cited in `evidence`.
-- **Why it matters for what happens next:** two capabilities the Codex evaluator relied on were deliberately **not** ported, because they are a validator gate and an acceptance decision that the language policy assigns to compiled Rust. The package names them as dependencies and works without them. Whether that substitution is adequate is the first thing an evaluator should form a view on.
+- **Result:** A Claude package for SKILL-008 at `providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert`, ported from the Codex implementation and now at **candidate 2** after repair pass 1. 54 files: 28 runtime, 26 authored evals. The candidate identity is the file manifest cited in `evidence`.
+- **Repair pass 1:** all nine findings from the independent E2 bootstrap review of candidate 1 were applied, none declined. Three MAJOR: eight runtime files were unreachable from `SKILL.md` and are now linked at the phase that needs each; the report-field grader counted fields named inside fenced examples; the transcript grader counted a textual mention as a consultation. Four regression fixtures were added. Every finding was reproduced on the frozen bytes first, and F-006 was confirmed by re-fetching the client documentation independently rather than trusting the report.
+- **Why it matters for what happens next:** two capabilities the Codex evaluator relied on were deliberately **not** ported, because they are a validator gate and an acceptance decision that the language policy assigns to compiled Rust. Stated in full, because a reader of this handoff alone should not have to open the package to learn what is missing:
+  1. **Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.**
+  2. **Protected-manifest custody for the evaluation runner - binding the runner, graders, runtime and case inputs outside evaluated-agent write access, and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI.**
+
+  Both are evaluation prerequisites owned by the DevForge integration owner, not defects in anything here. The package works without them by gathering structural facts through reading, labelled `INSPECTION_MANUAL` with `authority: none`, and names both in five places. Whether that substitution is adequate is the first thing an evaluator should form a view on.
 - **Limits and blockers:** nothing about this candidate's behaviour has been observed. The builder followed for the authoring is itself unvalidated.
 - **Next:** an independent evaluation by E2. See the copyable task below.
 - **Readiness:** prepared. E2 needs an assigned evaluation output directory; everything else resolves from the paths below.
@@ -67,12 +75,12 @@ This handoff is excluded from the table: it carries no digest of itself and does
 
 | Direction | Artifact | Path | SHA-256 | State |
 | --- | --- | --- | --- | --- |
-| output | Candidate package (50 files) | `providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/` | per-file map in the manifest below | authored, unevaluated |
-| output | Candidate file manifest | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/file-manifest.json` | `c882eaa12f72f1cde2034260890a6125e489f7c69fc8c9715daade4db5928caa` | frozen |
+| output | Candidate package (54 files) | `providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/` | per-file map in the manifest below | authored, unevaluated |
+| output | Candidate file manifest | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/file-manifest.json` | `8a05cf4af9d19f8a9fd67455b0ce085aa9349c50c3875e1f3dc775e319ec994e` | frozen |
 | output | Working design specification | `.../authoring/design/skill-design-spec.md` | `b4f7772ead4bac67bcc654e1fad3241410c417d6a3aa58911de19755e13c20dd` | revision 1 |
 | output | Port analysis (phase 1) | `.../authoring/port-analysis.md` | `182a131838f2241ad36e46c5a61b0ad4afa712179004b059898e101759aa87a3` | frozen |
-| output | Specification mapping | `.../authoring/spec-mapping.md` | `f76cb45204e5dbed5b805e77a36d9e17744c93e60b94539c0d2ef338c9559cf9` | frozen |
-| output | Authoring notes | `.../authoring/authoring-notes.md` | `95003627c8abe64c3a05eac4c8744f9e775a82dc96ec5191646b4e94fad06bc8` | frozen |
+| output | Specification mapping | `.../authoring/spec-mapping.md` | `61617eb3f9783f1ff7c687fb3267477188cc834cbea51b0903e1e46457bae6ca` | frozen |
+| output | Authoring notes | `.../authoring/authoring-notes.md` | `335d5a6bc2e29ec4b2579fa4012fdc1d12e251d71d94e32f16b9cbfa811339db` | frozen |
 | input | SKILL-008 specification | `docs/mvp/specifications/skill-008-devforge-evaluate-expert.md` | `0b3dbb7f…` | accepted, unchanged |
 | input | Codex port source | `providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/` | per-file digests in the port analysis §1 | read-only; unchanged |
 
@@ -96,7 +104,8 @@ Captured, not executed. Twelve tier-B acceptance cases in `evals/evals.json`, tw
 | Tier B output quality against a baseline | NOT_RUN | none | Requires a baseline arm and an observed boundary |
 | Tier C installed resources | NOT_RUN | none | Requires an actual installed copy in a consuming project |
 | Independent review R01–R10 | NOT_RUN | none | An author cannot supply it |
-| Runner and grader discrimination on synthetic fixtures | observed | `authoring-notes.md` §Runner and grader observations | **Author observation, not validation.** Synthetic inputs only; says nothing about the skill's behaviour |
+| Runner and grader discrimination on synthetic fixtures | observed | `authoring-notes.md` §Runner and grader observations, §Repair pass 1 | **Author observation, not validation.** Synthetic inputs only; says nothing about the skill's behaviour |
+| Repair pass 1 reruns: 17 author cases both modes, E2's 14 cases both modes, 8 error probes | observed | `authoring-notes.md` §Repair pass 1 | **Author observation, not validation.** All 13 original outcomes preserved; the three repaired behaviours confirmed on E2's own inputs |
 
 ## Copyable next task
 
@@ -114,9 +123,14 @@ Context:
 
 Task: Evaluate this candidate read-only. Confirm the manifest digests before reading anything
   else; a mismatch means the bytes drifted and the evaluation targets a different candidate.
+  This is candidate 2. Repair pass 1 changed SKILL.md, both scripts, four references and the
+  case file; treat the E2 findings as open until re-observed against these bytes.
   Cover at minimum:
     - the two missing-DevForge-CLI-capability statements and whether the manual procedure that
       replaces them is honest and sufficient for the claims the package makes;
+    - whether the repaired graders now over-reach: the consultation contract reads only
+      structured event fields, and the frontmatter reader now calls a non-mapping root a
+      defect rather than a gap - both widen what the parser is willing to assert;
     - whether scripts/run_cases.py and scripts/graders.py stay inside the language policy's
       evaluation exception, or amount to a gate under another name;
     - requirement coverage against spec-mapping.md;
@@ -139,8 +153,8 @@ Stop at: an honest terminal status or missing-evidence cause for every required 
 
 - **Output readback:** every path in the outputs table was written and its digest computed after its bytes were final. This handoff is excluded from that table.
 - **This handoff's location:** the path given in the copyable task. It carries no digest of itself; compute and deliver that externally.
-- **Worktree ownership:** retained by worker A2's branch `author/claude-devforge-evaluate-expert-scaffold-20260910`, base `c17e758417da64928a0f47fc2600304465ac3f3c`. Committed, not pushed.
+- **Worktree ownership:** retained by worker A2's branch `author/claude-devforge-evaluate-expert-scaffold-20260910`, base `c17e758417da64928a0f47fc2600304465ac3f3c`. Committed, not pushed. Candidate 1 is preserved at `e52ac59` and the E2 review at `b6a4bf7`; neither was modified.
 - **External gate state:** none. No DevForge command was run against this candidate, and none of the six workflow phases is intercepted by any command.
-- **Conditions invalidating this handoff:** any change to the candidate bytes, to SKILL-008, to the packaged contracts' governing sources, or to the two missing CLI capabilities becoming available. Also: the parallel bootstrap review E1 finding a defect in the builder followed for this authoring.
+- **Conditions invalidating this handoff:** any change to the candidate bytes, to SKILL-008, to the packaged contracts' governing sources, or to the two missing CLI capabilities becoming available. E1 has since completed: its repair produced builder revision `4999f31`, whose diff was read and assessed as requiring no re-authoring here (see `authoring-notes.md`). The builder digest recorded in revision 1 of this handoff was corrected in repair pass 1 - the bytes followed were `69b6090`'s.
 
 A prepared transfer is not receiving execution and not acceptance. This document authorises no evaluation, installation, activation or automatic invocation.

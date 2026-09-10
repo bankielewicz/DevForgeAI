@@ -83,7 +83,20 @@ For each case, arm and retry, separately:
 2. Stage the same underlying raw facts into the candidate and baseline projects. Differences are limited to the declared skill treatment and any recorded unavoidable runtime difference.
 3. Install the exact frozen package through the selected supported mechanism, using its actual documented command surface. Do not invent a command, flag or slash command. Authored `evals/` stay out of runtime installations.
 4. Verify the installation path, relative file inventory and digests, provider, mode and entrypoint identity. A partial installation is retained as failed evidence; a retry uses a new destination.
-5. Inventory every visible discovery location and check for duplicate copies of the target. Claude loads skills from the managed settings directory, `~/.claude/skills/`, the project's `.claude/skills/` and every parent up to the repository root, nested `<subdir>/.claude/skills/`, enabled plugins and any `--add-dir` directory, with a defined precedence. A `without_skill` arm must lack the target in **every** one of them; an `old_skill` arm must expose only the selected preserved copy.
+5. Inventory every visible discovery location and check for duplicate copies of the target. Claude loads skills from eight places, in this documented override precedence (highest first, retrieved 2026-09-10):
+
+   | # | Location |
+   | --- | --- |
+   | 1 | Enterprise managed settings directory |
+   | 2 | Personal `~/.claude/skills/` |
+   | 3 | Project `.claude/skills/`, from the starting directory up to the repository root |
+   | 4 | Nested `<subdir>/.claude/skills/` |
+   | 5 | An `--add-dir` additional directory's `.claude/skills/` |
+   | 6 | An enabled plugin's `<plugin>/skills/` |
+   | 7 | claude.ai account-synced skills |
+   | 8 | Bundled skills |
+
+   A `without_skill` arm must lack the target in **every** one of them - including 7 and 8, which are easy to forget precisely because nobody put them there deliberately; an `old_skill` arm must expose only the selected preserved copy. Note that plugin skills are namespaced (`/plugin-name:skill-name`), so a plugin copy coexists with a same-named copy elsewhere rather than replacing it: for a discovery run that means two reachable copies, not one winner.
 6. Record the actual client version from the client's own version surface, and the model configuration if the session exposes it. A version observation identifies the client and proves no behaviour.
 7. Launch a fresh subscribed session inside the verified boundary. Do not resume or fork an earlier task or reuse its writable memory.
 8. Confirm transcript capture and output collection work without revealing held-out expectations to the worker. Save the manifest before the measured request.

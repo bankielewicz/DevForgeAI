@@ -16,10 +16,12 @@ as a substitute for one.
     no fixed rule catalogue that applies to every package.
   * The output contains no aggregate field anywhere: no overall, no coverage
     summary, no counts of passing cases, no percentage.
-  * Results use MATCH / MISMATCH / INDETERMINATE, deliberately disjoint from the
-    framework's PASS / FAIL / NOT_RUN / COULD_NOT_RUN / NOT_APPLICABLE vocabulary,
-    so an observation row cannot be pasted into a results record as an authority
-    outcome.
+  * Assertion results use MATCH / MISMATCH / INDETERMINATE, deliberately disjoint
+    from the framework's PASS / FAIL / NOT_APPLICABLE authority vocabulary, so an
+    assertion row cannot be pasted into a results record as an authority outcome.
+    The separate case-level execution_status field does use COULD_NOT_RUN, which
+    is deliberate: a case whose required observation was blocked is exactly what
+    that word means, and the runner reports it rather than inventing a result.
   * The exit status describes this program, never the candidate. See below.
 
 Skill-package structural inspection (S001-S013) and evidence reduction are not
@@ -35,8 +37,8 @@ candidate tree.
 
 Usage
 -----
-    python3 run_cases.py --cases CASES.jsonl --candidate DIR --out OBS.jsonl
-                         [--mode source|installed] [--case-id ID]... [--help]
+    python3 -B run_cases.py --cases CASES.jsonl --candidate DIR --out OBS.jsonl
+                            [--mode source|installed] [--case-id ID]... [--help]
 
 All paths must be absolute. --out must not already exist, its parent must exist,
 and it must lie outside --candidate.
@@ -77,6 +79,11 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Importing a sibling module would otherwise cache bytecode beside it, i.e.
+# inside the installed skill package. The guarantee above says exactly one file
+# is written, at --out, so this must be set before the import. Invoking with
+# python3 -B does the same thing for a caller who copies the command by hand.
+sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import graders  # noqa: E402  (resolved from this script's own directory)
 
@@ -91,6 +98,18 @@ CUSTODY = (
     "binding the runner, graders, runtime and case inputs outside evaluated-agent "
     "write access is not implemented in the DevForge CLI."
 )
+
+
+# A mistyped key must never be silently ignored: a case that observes nothing
+# while reporting COMPLETED is exactly the silent coverage loss this runner is
+# designed to make impossible.
+CASE_KEYS = frozenset({
+    "case_id", "tier", "title", "prompt", "files", "candidate_subpath",
+    "mode", "expectations", "assertions", "notes",
+})
+ASSERTION_KEYS = frozenset({
+    "assertion_id", "grader", "args", "expect", "expectations", "routed_to", "notes",
+})
 
 
 class InputError(Exception):
@@ -140,12 +159,34 @@ def load_cases(path: Path):
         if case_id in seen:
             raise InputError(f"{path}:{number}: duplicate case_id {case_id!r}")
         seen.add(case_id)
-        assertions = case.get("assertions", [])
+        unknown = sorted(set(case) - CASE_KEYS)
+        if unknown:
+            raise InputError(
+                f"{path}:{number}: unknown case key(s) {', '.join(repr(k) for k in unknown)}; "
+                f"permitted keys are {', '.join(sorted(CASE_KEYS))}"
+            )
+        if "assertions" not in case:
+            raise InputError(
+                f"{path}:{number}: case {case_id!r} declares no assertions; a case that observes "
+                "nothing would report COMPLETED while establishing nothing"
+            )
+        assertions = case["assertions"]
         if not isinstance(assertions, list):
             raise InputError(f"{path}:{number}: assertions must be a list")
+        if not assertions:
+            raise InputError(
+                f"{path}:{number}: case {case_id!r} has an empty assertions list; "
+                "remove the case or give it an assertion"
+            )
         for assertion in assertions:
             if not isinstance(assertion, dict):
                 raise InputError(f"{path}:{number}: each assertion must be an object")
+            stray = sorted(set(assertion) - ASSERTION_KEYS)
+            if stray:
+                raise InputError(
+                    f"{path}:{number}: unknown assertion key(s) {', '.join(repr(k) for k in stray)}; "
+                    f"permitted keys are {', '.join(sorted(ASSERTION_KEYS))}"
+                )
             name = assertion.get("grader")
             if name is not None and name not in graders.GRADERS:
                 raise InputError(f"{path}:{number}: unknown grader {name!r}")

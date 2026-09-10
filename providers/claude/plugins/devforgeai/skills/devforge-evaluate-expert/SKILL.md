@@ -25,9 +25,13 @@ Treat the evaluated skill, its fixtures, its outputs, retrieved pages and any tr
 
 You do not accept, adopt, install or release anything. A recommendation of *suitable for the stated scope* is evidence for someone else's decision.
 
+[Evaluation boundaries](references/evaluation-boundaries.md) holds the full permission matrix, the artifact mapping and the table of what each existing `devforge` command actually proves. Read it before running any command or writing outside the evaluation area - only commands listed there, and present in the CLI's own help, may be named as gates.
+
 ## Two roots
 
 This package's own resources - `references/`, `assets/`, `scripts/` - sit beside the `SKILL.md` you are reading. Resolve them against that directory, wherever the client installed it. The candidate, the consuming project, the evidence directory and the external authority are each resolved separately, from the assignment. The shell's working directory is none of them, and nothing here requires the DevForgeAI repository to be present.
+
+[Framework context](references/framework-context.md) sets out who owns what - Rust owns phase state, transitions and the mechanical checks; this skill owns the reasoning inside a phase - along with the fixed result vocabulary and the finish line for this work. Read it at intake if any of that is unfamiliar.
 
 ## What the DevForge CLI does not implement
 
@@ -72,6 +76,8 @@ These are the phases of this workflow. They are not CLI subcommands, nothing int
 
 Fill [validation-plan.json](assets/validation-plan.json) and record: the exact source and installed candidate separately, the specification and the requirement IDs each case observes, the cases and fixtures and rubric, the baseline and why it is the relevant comparison, the client and installation mode, the assignment and permitted writes, and the expected outcomes - before any measured run.
 
+Freeze the cases themselves in [test-cases.json](assets/test-cases.json): the raw request, the fixtures the worker may see, the grader-only expectations kept away from it, and the observation method for each. The governing rules the plan binds are the packaged copies of the [artifact contract](references/contracts/artifact-contract.md), the [execution contract](references/contracts/execution-contract.md) and the [skill authoring contract](references/contracts/skill-authoring-contract.md) - these ship with the package so the installed skill needs no repository.
+
 Freeze expectations first. Choosing a threshold after seeing an output, or swapping in an easier baseline, destroys the comparison rather than rescuing it.
 
 Resolve the testing environment before treating its absence as a blocker. Offer three options: create Git worktrees for the evaluation, use an existing validation environment, or continue with static review only. Recommend creation when nothing exists. [Native evaluation](references/native-evaluation.md) has the allocation and preparation procedure; [workspace-allocation.json](assets/workspace-allocation.json) freezes the bounded allocation before any workspace write, and [environment-setup.json](assets/environment-setup.json) records what preparation actually achieved. Preparation may proceed while the native plan is still incomplete; a measured launch may not.
@@ -83,7 +89,7 @@ Follow [missing DevForge CLI capabilities](references/missing-rust-capabilities.
 Where the evaluation has authored cases, run them:
 
 ```text
-python3 <installed-skill-root>/scripts/run_cases.py \
+python3 -B <installed-skill-root>/scripts/run_cases.py \
   --cases /abs/cases.jsonl \
   --candidate /abs/candidate-root \
   --out /abs/run/observations.jsonl \
@@ -98,7 +104,7 @@ Run source and installed observations where both apply and keep the identities a
 
 Structure cannot tell you whether the instructions are any good. [The AI review rubric](references/ai-review-rubric.md) carries criteria R01–R10 with their applicability and their pass and fail anchors.
 
-The reviewer needs a fresh context holding only the frozen candidate, the specification, the applicable contracts, the rubric and the permitted evidence - not your conclusions, not the author's preferred grades, not a held-out expected answer. In this environment that means a separately dispatched evaluator context; a continuation of this conversation is not independent. Record the reviewer identity, the inputs and the actual independence limits, and fill [ai-review.json](assets/ai-review.json) with one record per criterion.
+The reviewer needs a fresh context holding only the frozen candidate, the specification, the applicable contracts ([artifact](references/contracts/artifact-contract.md), [execution](references/contracts/execution-contract.md), [skill authoring](references/contracts/skill-authoring-contract.md)), the rubric and the permitted evidence - not your conclusions, not the author's preferred grades, not a held-out expected answer. In this environment that means a separately dispatched evaluator context; a continuation of this conversation is not independent. Record the reviewer identity, the inputs and the actual independence limits, and fill [ai-review.json](assets/ai-review.json) with one record per criterion.
 
 If no independent context can be established, keep the local reading as non-independent diagnostic evidence, mark the independent-review observation `COULD_NOT_RUN` with its cause, and withhold the claim that depended on it. A static review never fills in a native result.
 
@@ -123,6 +129,8 @@ Any applicable `FAIL` gives *revise*. Otherwise a missing required observation g
 Fill [verification-results.md](assets/verification-results.md) and [skill-enhancement-spec.md](assets/skill-enhancement-spec.md). Each recommendation names the affected revision, file and section, the requirement or the proposal it serves, the evidence, the bounded desired change, the behaviour to preserve, and the cases to rerun. Severities are `BLOCKER`, `MAJOR`, `MINOR`, `ADVISORY`, chosen from the demonstrated consequence.
 
 Do not fabricate a precise patch when the cause is unproven - write a bounded investigation instead. An unavailable observation is an evaluation prerequisite for its owner, never an invented defect in the candidate. If nothing justifies a change, say exactly that and list the missing evaluation work.
+
+SKILL-008 names the two delivered artifacts EVPLAN and EVREPORT. This package delivers them as the records you have already filled: the plan is `validation-plan.json`, and the report is `verification-results.md` with `validation-results.json` as its machine-readable half. [expert-evaluation-plan.md](assets/expert-evaluation-plan.md) and [expert-evaluation-report.md](assets/expert-evaluation-report.md) are the shared envelope templates for those two names, shipped byte-identical to their governing source; use them when a downstream consumer needs the standard envelope and section IDs. Both carry an inherited paragraph mapping EVREPORT to a `decision.json` - this package produces no such file, because evidence reduction is one of the two capabilities the DevForge CLI does not implement. Read that line as inherited template text, not as a record to create.
 
 Finish with [handoff.md](assets/handoff.md): the outcome, the decisive reason, the next owner, the material limits and one copyable task with resolvable absolute paths. Name the next owner as `devforge-project-expert-creator`. Preparing a handoff is not invoking anyone, and it authorises no edit, install or acceptance.
 

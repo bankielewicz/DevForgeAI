@@ -332,6 +332,11 @@
    "path": "assets/skill-enhancement-spec.md",
    "sha256": "bdf47f42002b6bf6fc88a9ac41cd26ef9308be734f6ddc2d679529c8fae90578",
    "rationale": "Port of the Codex builder-return asset, with Codex command references removed."
+  },
+  {
+   "path": "references/sources.md",
+   "sha256": "d4bb9bb57aea8cc6185092a148204a7ac91dc7354952ce1018ea9230f4bc4f37",
+   "rationale": "Authored for this package: the external documentation actually consulted, the specific claims taken from each, the retrieval date and the refresh sequence. It replaces the Codex package's OpenAI-and-Codex source rows rather than deriving from them, so it is new content rather than a derivation. Added in repair pass 1 (E2 F-008c), which observed it was the one runtime file declared in neither list."
   }
  ],
  "not_ported": [
@@ -373,5 +378,135 @@
   }
  ],
  "preservation_note": "Nothing in the Codex package was edited, moved or deleted by this port. Its bytes and evidence remain as they were.",
- "self_digest_note": "This record does not contain its own digest. The authoring file manifest records it after its bytes are final."
+ "self_digest_note": "This record does not contain its own digest. The authoring file manifest records it after its bytes are final.",
+ "repair_pass_1": {
+  "recorded_at_utc": "2026-09-10T00:00:00Z",
+  "supersedes_candidate": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+  "input": {
+   "artifact": "independent bootstrap review E2",
+   "store": "project",
+   "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/",
+   "note": "Read-only untrusted evidence. Every finding was reproduced against the candidate bytes at e52ac59 before its change was applied; the review directory was not modified."
+  },
+  "changes": [
+   {
+    "change_id": "CHG-001",
+    "finding_id": "F-001",
+    "severity": "MAJOR",
+    "disposition": "applied",
+    "files": [
+     "SKILL.md"
+    ],
+    "verified": "Transitive Markdown-link closure from SKILL.md reached 18 of 28 runtime files; 8 Markdown/JSON resources were the target of no link and named in no SKILL.md prose (the two scripts are reached by the P2 command block, not a link).",
+    "change": "Added package-relative links at the phase that needs each: evaluation-boundaries in Non-negotiable boundaries, framework-context in Two roots, the three contracts in P1 and P3, test-cases.json in P1, and the two EVPLAN/EVREPORT envelope templates in P6 with the SKILL-008 name mapping. No existing sentence was rewritten and no file was removed."
+   },
+   {
+    "change_id": "CHG-002",
+    "finding_id": "F-002",
+    "severity": "MAJOR",
+    "disposition": "applied",
+    "files": [
+     "scripts/graders.py"
+    ],
+    "verified": "E2 case E2-RPT-001 over their fenced-report fixture returned MATCH '1 fields' for a Disposition field the document does not have outside a ```text fence.",
+    "change": "Added fenced_lines() using the module's existing FENCE regex and open/close discipline; grade_required_report_fields now skips fenced lines. Placeholder, stripping, **field:** and first-match-wins rules unchanged."
+   },
+   {
+    "change_id": "CHG-003",
+    "finding_id": "F-003",
+    "severity": "MAJOR",
+    "disposition": "applied",
+    "files": [
+     "scripts/graders.py",
+     "references/runner-interface.md"
+    ],
+    "verified": "E2 case E2-NEG-002 over their mention-only transcript returned consulted=True from a prompt that said NOT to use the target.",
+    "change": "Consultation is now read only from events whose type is in CONSULTATION_EVENT_TYPES and whose identity field holds the exact target name. Free text is never searched. A consultation-bearing event with no identity field yields INDETERMINATE and blocks the case. The field contract is documented in runner-interface.md."
+   },
+   {
+    "change_id": "CHG-004",
+    "finding_id": "F-004",
+    "severity": "MINOR",
+    "disposition": "applied",
+    "files": [
+     "scripts/run_cases.py",
+     "references/runner-interface.md"
+    ],
+    "verified": "E2's typo.jsonl, using 'assertion' for 'assertions', was accepted at exit 0 and emitted a COMPLETED case with zero assertions.",
+    "change": "Added case-level and assertion-level key allowlists and a required non-empty assertions list, each raising InputError naming file, line and key. Both allowlists are documented."
+   },
+   {
+    "change_id": "CHG-005",
+    "finding_id": "F-005",
+    "severity": "MINOR",
+    "disposition": "applied",
+    "files": [
+     "scripts/run_cases.py",
+     "references/runner-interface.md",
+     "SKILL.md"
+    ],
+    "verified": "Running the documented form against a fresh copy of scripts/ created __pycache__/graders.cpython-312.pyc beside it, contradicting the written one-file guarantee.",
+    "change": "sys.dont_write_bytecode = True is set before the grader import, and -B is shown in both documented invocations. Re-verified: a fresh copy run without -B now creates no __pycache__."
+   },
+   {
+    "change_id": "CHG-006",
+    "finding_id": "F-006",
+    "severity": "MINOR",
+    "disposition": "applied",
+    "files": [
+     "references/sources.md",
+     "references/native-evaluation.md"
+    ],
+    "verified": "Independently re-fetched https://code.claude.com/docs/en/skills on 2026-09-10. Documented precedence is Enterprise > Personal > Project > Nested > --add-dir > Plugin > Synced > Bundled. The package omitted synced and bundled and placed plugin before --add-dir.",
+    "change": "Both enumerations now list all eight in the documented order, as a table in native-evaluation.md, with the plugin-namespacing nuance recorded."
+   },
+   {
+    "change_id": "CHG-007",
+    "finding_id": "F-007",
+    "severity": "ADVISORY",
+    "disposition": "applied",
+    "files": [
+     "scripts/graders.py",
+     "references/runner-interface.md"
+    ],
+    "verified": "E2 case E2-FM-003 over a top-level YAML sequence returned INDETERMINATE, though a sequence root cannot carry a mapping key.",
+    "change": "read_frontmatter gained a 'non_mapping' status for a first content line that is a sequence entry or a bare scalar; both callers report MISMATCH. INDETERMINATE is retained for constructs genuinely unreadable without a YAML parser, and the disclosed limits list now matches the implementation."
+   },
+   {
+    "change_id": "CHG-008",
+    "finding_id": "F-008",
+    "severity": "ADVISORY",
+    "disposition": "applied",
+    "files": [
+     "scripts/graders.py",
+     "scripts/run_cases.py",
+     "references/derivation.json",
+     "SKILL.md"
+    ],
+    "change": "(a) read_frontmatter docstring now lists every returned status including 'duplicate' and 'non_mapping'. (b) The run_cases docstring scopes the disjointness claim to assertion results and explains why case-level execution_status uses COULD_NOT_RUN. (c) references/sources.md added to new_in_this_package above. (d) The P6 link to the two envelope templates states that their inherited Codex-mapping paragraph names a decision.json this package does not produce, and why. Template bytes untouched."
+   },
+   {
+    "change_id": "CHG-009",
+    "finding_id": "F-009",
+    "severity": "ADVISORY",
+    "disposition": "applied",
+    "files": [
+     "references/results-contract.md"
+    ],
+    "change": "(a) results-contract.md now describes the shipped run-manifest extension set in six grouped rows with the contract requirement each serves, instead of naming only the four native extensions. The template is kept: the extra fields are contract-grounded. (b) The handoff half is author evidence outside the package fence and is handled there."
+   }
+  ],
+  "preserved": [
+   "No aggregate verdict field anywhere in any runner output.",
+   "Exit status describes the program, never the candidate.",
+   "MATCH / MISMATCH / INDETERMINATE assertion vocabulary, disjoint from the authority vocabulary.",
+   "Nothing is written inside --candidate; --out must be new and outside it.",
+   "Standard library only, no PyYAML, no subprocess, no network, no candidate code executed.",
+   "graders.py still has no command interface; run_cases.py remains the only executable.",
+   "Both missing-DevForge-CLI-capability statements, unchanged and still unclosed by any run.",
+   "The three verbatim docs/mvp template copies, byte-identical and unedited.",
+   "All 13 original runner cases keep their prior outcomes exactly."
+  ],
+  "status": "Repair pass 1 applied. The candidate is a new evaluation identity; the E2 findings close only against new matching evidence. Validation status: Not performed. Behavioural status: NOT_EVALUATED."
+ }
 }

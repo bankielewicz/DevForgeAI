@@ -32,7 +32,7 @@ Because installation does not preserve executable bits, invoke through the inter
 ## Interface
 
 ```text
-python3 <installed-skill-root>/scripts/run_cases.py \
+python3 -B <installed-skill-root>/scripts/run_cases.py \
   --cases      /abs/path/cases.jsonl \
   --candidate  /abs/path/candidate-or-output-root \
   --out        /abs/path/run/observations.jsonl \
@@ -40,6 +40,8 @@ python3 <installed-skill-root>/scripts/run_cases.py \
   [--case-id ID]... \
   [--help]
 ```
+
+`-B` suppresses bytecode caching. The runner also sets `sys.dont_write_bytecode` before importing its grader module, so the guarantee holds either way; `-B` protects a caller who copies the command and edits it.
 
 All paths absolute. `--out` must not exist, its parent must exist, and it must lie outside `--candidate`. `--mode` defaults to `source` and affects only assertions in cases that declare a mode. `--case-id` may be repeated to run a subset; unselected cases still appear as `SKIPPED` rows and the header records the selection, so a partial run cannot be mistaken for full coverage.
 
@@ -51,7 +53,14 @@ All paths absolute. `--out` must not exist, its parent must exist, and it must l
 
 ## Case file
 
-One JSON object per line. Unknown keys and duplicate keys within a line are rejected, as are duplicate `case_id` values.
+One JSON object per line. Duplicate JSON keys within a line, duplicate `case_id` values, and unknown keys at either level are rejected, naming the file, the line and the offending key.
+
+| Level | Permitted keys |
+| --- | --- |
+| Case | `case_id`, `tier`, `title`, `prompt`, `files`, `candidate_subpath`, `mode`, `expectations`, `assertions`, `notes` |
+| Assertion | `assertion_id`, `grader`, `args`, `expect`, `expectations`, `routed_to`, `notes` |
+
+A case must carry a non-empty `assertions` list. A mistyped `assertions` key would otherwise produce a case that reports `COMPLETED` while observing nothing, which is the silent coverage loss this runner exists to prevent. Rejection is whole-file: one bad line means no observations file, so a partial run can never be mistaken for a complete one.
 
 ```text
 {"case_id":"EX-C-003","tier":"C","title":"...","prompt":"...",
@@ -79,14 +88,27 @@ Each case record carries `case_id`, `tier`, `execution_status` (`COMPLETED`, `CO
 | Grader | Establishes | Boundary it holds |
 | --- | --- | --- |
 | `frontmatter_present` | Opening and closing `---` delimiters | A missing closing delimiter is `MISMATCH`, not a crash |
-| `frontmatter_fields` | Required fields are populated scalars | **Restricted parser, no PyYAML.** Duplicate top-level key is `MISMATCH`; block scalars, nested maps, flow collections, anchors and merge keys are `INDETERMINATE` with the reason. It never guesses a value and never invents a defect it cannot establish |
+| `frontmatter_fields` | Required fields are populated scalars | **Restricted parser, no PyYAML.** `MISMATCH` for a duplicate top-level key, and for a non-mapping root - a frontmatter block whose first content line is a sequence entry or a bare scalar cannot carry a mapping key at all, so the fields are determinably absent. `INDETERMINATE` for constructs that are genuinely unreadable without a YAML parser: block scalars, nested maps, flow collections, anchors, merge keys, indented continuations, and any later line outside the `key: value` subset. It never guesses a value and never invents a defect it cannot establish |
 | `name_folder_relation` | The frontmatter `name` and the folder name | Records both. Asserts equality only when the case sets `expect_equal`, because Claude's own naming rules make a difference legitimate |
 | `package_relative_links` | Local Markdown destinations resolve inside the package | Supported subset only: inline links without nesting, entities or HTML. Anything outside it is `INDETERMINATE` per link, with the line number. External URLs are counted, never fetched |
 | `path_present` / `path_absent` | A package-relative path exists or does not | Used for `evals` absence in installed mode and for referenced resources |
-| `required_report_fields` | Named fields are present and populated | A field still holding a `{{placeholder}}` is `MISMATCH`, not a match |
+| `required_report_fields` | Named fields are present and populated **outside fenced code blocks** | A field still holding a `{{placeholder}}` is `MISMATCH`, not a match. Lines inside a fence are skipped: a field named only in an illustrative example is an illustration, and counting it would report a populated field the document does not have |
 | `claim_evidence_binding` | A self-reported outcome **and**, separately, whether its declared evidence resolves and hashes | Emits two facts. A file claiming `PASS` with null manifest, null transcript and empty evidence yields `observed: claimed='PASS' evidence=none` and `MISMATCH`. The claim is never adopted as the result |
-| `transcript_completion` | A terminal completion event in the synthetic transcript shape, and whether a named target was consulted | No terminal completion sets the case to `COULD_NOT_RUN`; a negative-activation assertion can never match on an incomplete transcript. A real client transcript does not match this fixture shape and is `INDETERMINATE`, not an inference |
+| `transcript_completion` | A terminal completion event in the synthetic transcript shape, and whether a named target was **consulted** - see the field contract below | No terminal completion sets the case to `COULD_NOT_RUN`; a negative-activation assertion can never match on an incomplete transcript. A real client transcript does not match this fixture shape and is `INDETERMINATE`, not an inference |
 | `artifact_side_effect` | Declared sentinels still hash as expected; forbidden strings absent from a named artifact | Observes bytes. It does **not** judge whether a model resisted an embedded instruction - that reading is criterion R06 |
+
+## The consultation field contract
+
+`transcript_completion` decides "was the target consulted?" from **structured event fields only**. It never searches free text.
+
+An event counts as a consultation when both hold:
+
+1. its `type` is one of `skill_loaded`, `skill_read`, `resource_read`, `skill_consulted` (override with the `consultation_event_types` arg); **and**
+2. one of its identity fields - `skill`, `resource`, `loaded`, `target` (override with `identity_fields`) - holds the target's **exact** name.
+
+Everything else is a mention. A `prompt` naming the skill is a mention, including the explicit-invocation form `/devforge-evaluate-expert ...`, and including a prompt that says *not* to use it. This separation is the whole point: tier A requires the target appearing in the inventory, the session selecting it, the instructions actually loading, and the task completing to stay four distinct observations, and a substring search collapses all four into one.
+
+If a consultation-bearing event carries no identity field, consultation can be neither established nor excluded: the assertion is `INDETERMINATE` and the case becomes `COULD_NOT_RUN`. That is the honest answer for a transcript whose shape cannot settle the question.
 
 ## Limits worth stating in a report
 

@@ -38,12 +38,12 @@ All phases P1–P6 and tasks T01–T12 preserved as Enforced accepted requiremen
 | P1 / T01 identify target, provider, authority, specification, fence | `SKILL.md` §P1; `assets/validation-plan.json` `assignment` | eval 1 |
 | P1 / T02 freeze candidate, specification, cases, rubric, baseline | `SKILL.md` §P1; `assets/validation-plan.json` `criteria_freeze_record` | eval 1, eval 7 |
 | P1 bounded workspace allocation when selected | `assets/workspace-allocation.json`; `references/native-evaluation.md` §1 | eval 1 |
-| P2 / T03 inspect structure, references, source and installed identity | `SKILL.md` §P2; `references/missing-rust-capabilities.md`; `scripts/run_cases.py` | eval 12; EX-GOOD-001, EX-DEF-001…008 |
+| P2 / T03 inspect structure, references, source and installed identity | `SKILL.md` §P2; `references/missing-rust-capabilities.md`; `scripts/run_cases.py` | eval 12; EX-GOOD-001, EX-DEF-001…011 |
 | P3 / T04 independent prompt and compliance review against the rubric | `SKILL.md` §P3; `references/ai-review-rubric.md`; `assets/ai-review.json` | eval 4 |
 | P4 / T05 establish isolated runtime and fixtures | `references/native-evaluation.md` §3; `assets/environment-setup.json` | eval 3 |
 | P4 / T06 tier C installed resources | `references/native-evaluation.md` §5 | EX-GOOD-001, EX-DEF-008 |
 | P4 / T07 tier B candidate versus baseline output quality | `references/native-evaluation.md` §6 | eval 2 |
-| P4 / T08 tier A discovery and activation | `references/native-evaluation.md` §7; `evals/triggers/trigger-queries.json` | eval 9; EX-GOOD-003, EX-DEF-007 |
+| P4 / T08 tier A discovery and activation | `references/native-evaluation.md` §7; `evals/triggers/trigger-queries.json` | eval 9; EX-GOOD-003, EX-GOOD-004, EX-DEF-007, EX-DEF-010 |
 | P5 / T09 adjudicate evidence, applicability, coverage, freshness | `SKILL.md` §P5; `references/results-contract.md`; `assets/validation-results.json` | eval 11, eval 12 |
 | P6 / T10 write verification results | `assets/verification-results.md` | eval 1 |
 | P6 / T11 bounded repair specification and rerun plan | `assets/skill-enhancement-spec.md` | eval 1 |
@@ -71,7 +71,7 @@ All phases P1–P6 and tasks T01–T12 preserved as Enforced accepted requiremen
 | Out of scope → source-code QA routes to review | `SKILL.md` `description` | eval 5; A5a–A5b |
 | Common: concurrent writer claims worktree or branch | `SKILL.md` §When a check cannot run; `references/contracts/execution-contract.md` | eval 6 |
 | Common: upstream revision or candidate changes → mark prior evidence stale | `references/results-contract.md`; `SKILL.md` §Stopping | eval 7 |
-| Common: template placeholder in a required field → stays a draft | `references/contracts/artifact-contract.md`; grader `required_report_fields` | eval 8; EX-GOOD-002 |
+| Common: template placeholder in a required field → stays a draft | `references/contracts/artifact-contract.md`; grader `required_report_fields` | eval 8; EX-GOOD-002, EX-DEF-009 |
 | Common: a requested check cannot execute → `COULD_NOT_RUN`, not PASS | `SKILL.md` §When a check cannot run | eval 9; EX-DEF-007 |
 | Report A, B and C independently; explicit and implicit are distinct | `references/native-evaluation.md`; `assets/validation-results.json` | eval 1 |
 | A no-skill baseline must not discover the candidate from another installation | `references/native-evaluation.md` §4 step 5 | eval 2 |
@@ -102,3 +102,16 @@ All phases P1–P6 and tasks T01–T12 preserved as Enforced accepted requiremen
 | Skill-package structural inspection (S001–S013) and evidence reduction are not implemented in the DevForge CLI | `SKILL.md`, `references/framework-context.md`, `references/missing-rust-capabilities.md`, `assets/validation-results.json`, `assets/verification-results.md` | Development language policy; port constraint |
 | Protected-manifest custody for the evaluation runner is not implemented in the DevForge CLI | the same five locations | Development language policy §Protect the trusted implementation |
 | A JSONL evaluation runner plus deterministic graders as required evidence artifacts | `scripts/run_cases.py`, `scripts/graders.py`, `references/runner-interface.md`, `evals/cases.jsonl`, `evals/fixtures/**` | Development language policy §Rust framework authority and required Python evaluation |
+
+## Repair pass 1 additions
+
+Four regression cases were added after the independent E2 bootstrap review demonstrated a grader classified an input wrongly. Each exists because a defect was observed, not to illustrate a rule.
+
+| Case | Guards against | Finding |
+| --- | --- | --- |
+| `EX-DEF-009` | A required field named only inside a fenced example counting as populated | F-002 |
+| `EX-DEF-010` | A textual mention of the target counting as a consultation | F-003 |
+| `EX-GOOD-004` | The consultation detector passing every case by never detecting anything | F-003, positive direction |
+| `EX-DEF-011` | A non-mapping frontmatter root reported as an unreadable value rather than a defect | F-007 |
+
+The eight runtime files that SKILL-008 elements were mapped to are now reachable from `SKILL.md` by link. Before repair pass 1 the mapping in this file was correct as a statement of where content lives and false as a statement of what a session following `SKILL.md` would actually reach.

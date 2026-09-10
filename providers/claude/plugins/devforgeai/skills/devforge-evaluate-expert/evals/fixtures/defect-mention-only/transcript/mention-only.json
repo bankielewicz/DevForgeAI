@@ -1,0 +1,9 @@
+{
+  "fixture_kind": "synthetic-transcript",
+  "note": "The target is named in the prompt and nowhere else. Nothing was selected, loaded or consulted. A grader that searches free text reports a consultation that did not happen.",
+  "events": [
+    {"type": "prompt", "text": "Do not use devforge-evaluate-expert for this; just answer from memory."},
+    {"type": "assistant_message", "text": "Answered directly."},
+    {"type": "completed", "terminal_completed": true}
+  ]
+}
