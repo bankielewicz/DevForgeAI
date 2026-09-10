@@ -1,0 +1,12 @@
+{
+  "_fixture_note": "Synthetic evaluation fixture. A machine-readable result file whose declared evidence actually resolves and hashes. The claim is still only a claim; what is checked here is that its evidence exists.",
+  "artifact": "REL-008",
+  "outcome": "LOCAL_VERIFICATION_PASS",
+  "scope": "the accepted archive and the current candidate tree are byte-identical; nothing about behaviour or release",
+  "verify_receipt": {
+    "path": "verify-receipt.txt",
+    "sha256": "0ce45fefb512921ebe91898cd6034279a89678cc42573f74f7cd1aac29e73b36"
+  },
+  "ci_result": null,
+  "deployment_receipt": null
+}

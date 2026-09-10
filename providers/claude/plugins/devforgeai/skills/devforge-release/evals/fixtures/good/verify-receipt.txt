@@ -1,0 +1,12 @@
+Synthetic evaluation fixture: a local verification receipt.
+
+2026-09-04T14:19:02Z
+devforge verify --project /srv/foldbench/wt/release-041 \
+  --policy /srv/foldbench/authority/policies/foldbench.json \
+  --state /srv/foldbench/authority/state/story-041
+
+accepted archive and current candidate agree: 214 files, byte and mode identical.
+
+What this proves: those two local trees are the same bytes.
+What it does not prove: that QA-014 reviewed these bytes, that any test
+passed, that any behaviour is correct, or that anything was released.
