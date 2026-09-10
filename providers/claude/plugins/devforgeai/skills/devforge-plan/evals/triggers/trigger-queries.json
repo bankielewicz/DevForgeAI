@@ -1,0 +1,198 @@
+{
+  "skill_name": "devforge-plan",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration. No held-out query appears in SKILL.md.",
+  "negative_note": "Each negative names the sibling that owns the request. Several of those siblings are specified but not implemented, which does not weaken the negative: the requirement is that devforge-plan is not consulted, and it can be observed independently of whether a routing target exists. Do not install a stub to obtain a routing result.",
+  "status_note": "NOT_RUN. Authored queries only; no terminal observation exists for this package.",
+  "queries": [
+    {
+      "id": "T1a",
+      "category": "explicit_invocation",
+      "query": "Use the devforge-plan skill on the product brief in docs/devforge/product/.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T1b",
+      "category": "explicit_invocation",
+      "query": "Run devforge-plan for me.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "T2a",
+      "category": "direct_domain",
+      "query": "Use DevForgeAI to turn this product brief into epics and stories.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T2b",
+      "category": "direct_domain",
+      "query": "Can you break the adopted scope into epics and stories with acceptance criteria?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T2c",
+      "category": "direct_domain",
+      "query": "I need a backlog out of this - epics, then stories a developer could actually pick up.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T2d",
+      "category": "direct_domain",
+      "query": "Split this epic into stories, with the dependencies between them written down.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "T2e",
+      "category": "direct_domain",
+      "query": "Write the stories for the requirements we adopted last week, with acceptance criteria for each.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "T3a",
+      "category": "indirect",
+      "query": "What should we implement first, and what does done mean for each change?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T3b",
+      "category": "indirect",
+      "query": "We've got the architecture signed off. What's the actual order of work from here?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T3c",
+      "category": "indirect",
+      "query": "This chunk of work is too big for one go. How would you cut it up so each piece is worth shipping?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T3d",
+      "category": "indirect",
+      "query": "The change request was accepted. Which pieces of work does it affect and what has to change in them?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "T3e",
+      "category": "indirect",
+      "query": "How do I know when this one is finished? Nobody wrote down what counts as done.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "T3f",
+      "category": "indirect",
+      "query": "I can't tell which of these depend on each other, so I don't know what to start on Monday.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "T3g",
+      "category": "indirect",
+      "query": "Half of these tickets say things like 'make it fast'. Can we get them into a state someone could build against?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "T4a",
+      "category": "negative_execute_ready_story",
+      "query": "STORY-014 is accepted and ready. Implement it.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "T4b",
+      "category": "negative_execute_ready_story",
+      "query": "Take the story in docs/devforge/stories/STORY-002.md and write the failing test first, then make it pass.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "T5a",
+      "category": "negative_product_value",
+      "query": "Who is this actually for, and is the problem worth solving at all?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "T5b",
+      "category": "negative_product_value",
+      "query": "Help me decide which requirements belong in the first release and which we should cut.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "T5c",
+      "category": "negative_product_value",
+      "query": "What should the success measure be for this outcome?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "T6a",
+      "category": "negative_unscoped_exploration",
+      "query": "Let's brainstorm some alternatives - I haven't decided what we're building yet.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "T6b",
+      "category": "negative_unscoped_exploration",
+      "query": "I have three ideas and I keep going back and forth on which one is worth doing.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "T7a",
+      "category": "negative_architecture",
+      "query": "Pick the database and write up the source-tree rules for this project.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "T7b",
+      "category": "negative_architecture",
+      "query": "What test policy should we adopt, and which runner?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "T8a",
+      "category": "negative_expert_creation",
+      "query": "STORY-003 says it needs someone who knows our persistence rules. Build me that expert skill.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "T8b",
+      "category": "negative_expert_creation",
+      "query": "Grade this expert package against its specification and give me the findings.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "T9a",
+      "category": "negative_unrelated",
+      "query": "Why is this SQLite query slow?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "T9b",
+      "category": "negative_unrelated",
+      "query": "Rename this function and update its callers.",
+      "should_trigger": false,
+      "split": "validation"
+    }
+  ]
+}
