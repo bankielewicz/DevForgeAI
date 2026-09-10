@@ -1,7 +1,7 @@
 {
   "skill_name": "devforge-architect",
   "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
-  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomised per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomised per run. Every category now carries at least one entry in each split, so each near-miss routing has a held-out check as well as a train-side one. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
   "negative_note": "Every negative names the sibling that owns the request, so a near miss can be graded as correct routing rather than as mere non-activation. Several of those siblings are specified but not implemented, which does not weaken the negative: non-activation is observable without installing a routing target, and no stub may be installed to obtain a routing result.",
   "owner_map": {
     "negative_new_release": "devforge-change (SKILL-012; a new release or an advisory is a proposal, never authorisation to change an approved stack)",
@@ -115,11 +115,25 @@
       "split": "train"
     },
     {
+      "id": "A5b",
+      "category": "negative_accepted_story",
+      "query": "The story is signed off and the acceptance criteria are agreed. Go build it.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
       "id": "A6a",
       "category": "negative_early_exploration",
       "query": "I want to build something for people who foster rescue dogs, but I have not worked out what the actual problem is yet.",
       "should_trigger": false,
       "split": "train"
+    },
+    {
+      "id": "A6b",
+      "category": "negative_early_exploration",
+      "query": "I keep coming back to this vague idea about scheduling for hairdressers and I cannot tell whether it is worth anything.",
+      "should_trigger": false,
+      "split": "validation"
     },
     {
       "id": "A7a",
@@ -129,11 +143,25 @@
       "split": "validation"
     },
     {
+      "id": "A7b",
+      "category": "negative_scope_definition",
+      "query": "Help me work out what goes in the first release and what waits - I keep trying to ship everything at once.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
       "id": "A8a",
       "category": "negative_story_breakdown",
       "query": "Break the accepted architecture into epics and stories the team can pick up.",
       "should_trigger": false,
       "split": "train"
+    },
+    {
+      "id": "A8b",
+      "category": "negative_story_breakdown",
+      "query": "We have the contract now. Turn it into a backlog the two of them can start on Monday.",
+      "should_trigger": false,
+      "split": "validation"
     },
     {
       "id": "A9a",
@@ -143,11 +171,25 @@
       "split": "validation"
     },
     {
+      "id": "A9b",
+      "category": "negative_expert_authoring",
+      "query": "Can you package up what you know about this codebase as a skill the next session can load?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
       "id": "A10a",
       "category": "negative_ux_design",
       "query": "Design the screens for the shift-claiming flow and show me the states.",
       "should_trigger": false,
       "split": "train"
+    },
+    {
+      "id": "A10b",
+      "category": "negative_ux_design",
+      "query": "Mock up what the coordinator sees when two carers try to claim the same shift.",
+      "should_trigger": false,
+      "split": "validation"
     },
     {
       "id": "A11a",
@@ -157,6 +199,13 @@
       "split": "validation"
     },
     {
+      "id": "A11b",
+      "category": "negative_prototype",
+      "query": "Before we commit to the streaming approach, build something small that proves it can keep up.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
       "id": "A12a",
       "category": "negative_review",
       "query": "Review this candidate against the story's acceptance criteria and tell me if it is ready.",
@@ -164,11 +213,42 @@
       "split": "train"
     },
     {
+      "id": "A12b",
+      "category": "negative_review",
+      "query": "Go over this pull request and tell me whether it meets the story we agreed.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
       "id": "A13a",
       "category": "negative_copy_edit",
       "query": "There is a typo in docs/getting-started.md - 'will installs'. Fix that line, nothing else.",
       "should_trigger": false,
       "split": "train"
+    },
+    {
+      "id": "A13b",
+      "category": "negative_copy_edit",
+      "query": "Change 'sign in' to 'log in' in the two places it appears in the README.",
+      "should_trigger": false,
+      "split": "validation"
     }
-  ]
+  ],
+  "split_history": {
+    "original_22": "Assigned at authoring time and unchanged: the 22 entries A1a-A4b, A5a, A6a, A7a, A8a, A9a, A10a, A11a, A12a and A13a keep their exact ids, queries, should_trigger values and split assignments.",
+    "repair_pass_1": "CHG-005 from the independent scaffold review appended 9 negative entries - A5b, A6b, A7b, A8b, A9b, A10b, A11b, A12b, A13b - to give the nine single-entry negative categories coverage on their thinner side. Nothing was re-randomised, reassigned or moved between splits.",
+    "count_note": "The finding recorded 'eight of the thirteen categories carry exactly one query' while enumerating nine of them. A tally over the bytes confirms nine single-entry categories: six train-only and three validation-only. All nine were given their missing side.",
+    "balance_note": "Adding held-out negatives deliberately trades should_trigger balance for per-category coverage. The resulting counts are recorded in split_counts; a positive-side rebalance was not authorised by the repair specification and was not invented."
+  },
+  "split_counts": {
+    "train": {
+      "positive": 7,
+      "negative": 10
+    },
+    "validation": {
+      "positive": 4,
+      "negative": 10
+    },
+    "total": 31
+  }
 }

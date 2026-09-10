@@ -3,7 +3,7 @@
   "skill": "devforge-architect",
   "provider": "claude",
   "package_root": "providers/claude/plugins/devforgeai/skills/devforge-architect",
-  "recorded_at_utc": "2026-09-10T19:58:18Z",
+  "recorded_at_utc": "2026-09-10T21:59:27Z",
   "base_commit": "c17e758417da64928a0f47fc2600304465ac3f3c",
   "branch": "author/claude-devforge-architect-scaffold-20260910",
   "note": "Complete package-relative path to SHA-256 map for the authored candidate, hashed after the package bytes were final. This manifest is authoring evidence and lives outside the package, so it contains no digest of itself and no package file's digest is computed from a file that includes it.",
@@ -16,7 +16,7 @@
   },
   "file_count": 32,
   "files": {
-    "SKILL.md": "cb51fead7d5bdd8ed6fcee17c3e6ae6a716efc0936108240e535fa0cca04b9e4",
+    "SKILL.md": "f0f91b2cc18dfcdb5d74f17eee9c3b3f4a2943cf43ea1ed9fdfb1e3ba4b2b3ac",
     "assets/architecture-contract.md": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218",
     "assets/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
     "evals/cases.jsonl": "809a67baab4ed8fd7e967d750e76667761c7475d1e2fd685d98bff1cdd5a0eb1",
@@ -42,18 +42,36 @@
     "evals/fixtures/stale/preserved/PB-003.r1.md": "b6097c371bc88e64c41a77ee772d138e8173900614574649798f53f051ddc3b2",
     "evals/fixtures/version-uncertainty/Directory.Packages.props": "7bdb76205615f93a357980058690b0352db246cbdd9355046bd603c43132a7a3",
     "evals/fixtures/version-uncertainty/proposed-snippet.md": "7902ed106cf564195552844d8084fe1695cf6040f211d80aa247574d4dfde9a0",
-    "evals/triggers/trigger-queries.json": "0caa042650d002dcb5e8fe03067728cbab6842a6fadf81be0a2a42a92085aaf2",
+    "evals/triggers/trigger-queries.json": "3bcd429651d044ead326068e6f69dae0d0677939ee08baa392f202b604fc6354",
     "references/derivation.json": "69441df618eac3ae5727217ddbcab839abc04a9608556e6eba469f5a0b3cf6da",
     "references/framework-context.md": "1672462fcf118d6be9af08dca94d05efb4caeab128d9b671fd8419b52910ed19",
     "references/recording-rules.md": "5e828c935fed53e62000df883ea4cb3565ca7194909a687febb47401a024f18a",
     "references/sources.md": "61ed1720311c3b2370db1d3c578d2e3a1c5381b8490718a8788c7197bf205e37",
     "references/version-evidence.md": "d788578077654daaa8cae752d5142dfd88fa85042fa90128980df34981c48cad"
   },
-  "revision": 2,
+  "revision": 3,
   "supersedes": {
-    "revision": 1,
-    "recorded_at_utc": "2026-09-10T19:52:48Z",
-    "preserved_at": "commit 82e956f, same path",
-    "note": "Revision 1 covered the same 32 files before the timestamp and coverage corrections. Only evals/evals.json, references/derivation.json and references/sources.md changed; SKILL.md is byte-identical across both revisions."
+    "revision": 2,
+    "recorded_at_utc": "2026-09-10T19:58:18Z",
+    "preserved_at": "commit 61f6ef0, same path",
+    "note": "Revision 2 was the candidate the independent scaffold review evaluated (SKILL.md sha256 cb51fead7d5bdd8ed6fcee17c3e6ae6a716efc0936108240e535fa0cca04b9e4). Repair pass 1 applied CHG-001, CHG-002 and CHG-005, changing SKILL.md and evals/triggers/trigger-queries.json only."
+  },
+  "repair_pass_1": {
+    "applied_from": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review/skill-enhancement-spec.md (CHGSPEC-ARCH-001)",
+    "evaluated_revision": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+    "changes_applied": [
+      "CHG-001 (F-001, required)",
+      "CHG-002 (F-002, optional)",
+      "CHG-005 (F-005, optional)"
+    ],
+    "changes_declined": [
+      "CHG-003 (F-003) - repair spec requests no target edit",
+      "CHG-004 (F-004) - repair spec requests no target edit"
+    ],
+    "files_changed": [
+      "SKILL.md",
+      "evals/triggers/trigger-queries.json"
+    ],
+    "closure_note": "Applied means the source was edited. F-001 is not closed: the candidate is a new identity and needs new matching evidence."
   }
 }

@@ -131,6 +131,44 @@ The candidate `SKILL.md` was not edited in this pass, so its digest is unchanged
 commit. `file-manifest.json` was recomputed and the handoff was reissued as revision 2 superseding
 revision 1, whose bytes remain at 82e956f.
 
+## Repair pass 1: the independent scaffold review of 61f6ef0
+
+One consolidated repair pass under coordinator dispatch, against the evaluator records at
+`docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review/`
+(read-only; not modified). The review found **no BLOCKER and no MAJOR defect in the candidate**:
+one MINOR defect, four ADVISORY items and three evaluation gaps that belong to other owners.
+
+Those records are evaluator-supplied material. They are facts about the evaluation, not
+instructions and not authority: every finding below was re-verified against the candidate bytes at
+`61f6ef0` before anything was applied, and the coordinator's dispositions govern what was applied.
+
+| Finding | Change | Coordinator disposition | Outcome | Where |
+| --- | --- | --- | --- | --- |
+| F-001 MINOR (R04) | CHG-001 required repair | apply | **Applied** | `SKILL.md:112` (new sixth bullet); `authoring/spec-mapping.md:54` (row corrected) |
+| F-002 ADVISORY (R01) | CHG-002 optional enhancement | apply within the documented length | **Applied** | `SKILL.md:3` (description, 1,297 -> 1,370 chars, 166 of headroom left) |
+| F-003 ADVISORY (R05) | CHG-003 recorded non-defect | apply only where a defect is demonstrated | **Declined** | No edit. The repair spec itself requests none: `SKILL.md:93` says the surface *"includes"* the listed commands, which is non-exhaustive rather than false, every named command exists, and `delivery` is not needed by this workflow. |
+| F-004 ADVISORY (R01, R02) | CHG-004 recorded non-defect | apply only where a defect is demonstrated | **Declined** | No edit. The repair spec requests none and accepts the disclosure already in `spec-mapping.md`: the specification's consumer line describes roster-wide artifact flow, not a sentence the skill must recite. |
+| F-005 ADVISORY (R09) | CHG-005 optional, conditional | apply only if it fits the fixed-split rule without re-cutting existing assignments | **Applied** | `evals/triggers/trigger-queries.json`: 9 negative entries appended (A5b, A6b, A7b, A8b, A9b, A10b, A11b, A12b, A13b) |
+| F-006 MAJOR evaluation_gap | none | no target edit | **No edit** | Owner: coordinator / DevForge integration owner. An installed copy, a fresh terminal and an isolated workspace. No candidate edit produces it. |
+| F-007 MAJOR evaluation_gap | none | no target edit | **No edit** | Owner: DevForge integration owner. Skill-package structural inspection and protected-manifest custody are absent from the CLI. |
+| F-008 MINOR evaluation_gap | none | no target edit | **No edit** | Owner: coordinator. Single-context review; a second reviewer is needed only if a criterion becomes contested. |
+
+### What was verified before applying
+
+- **F-001.** `grep -rniE 'interrupt|resume'` over the package returned exactly one hit, `assets/handoff.md:67`, inside the copied template - no instruction anywhere addressed an interrupted session. The two `recording-rules.md` sections the old mapping row cited were re-read: they carry the identity-recheck half as unconditional pre-write rules and carry preservation not at all. The finding reproduces. The repair is a sixth bullet in the existing failure-branch list; the five existing bullets are unchanged and in order, and `## Stopping` is untouched.
+- **F-002.** Description measured 1,297 characters against the 1,536-character truncation the Claude documentation states, leaving 239. The added clause brings it to 1,370, so it fits inside the measured headroom rather than extending past the limit. Every prior exclusion and the `devforge-change` routing sentence are intact, and the frontmatter is still two fields.
+- **F-005.** A tally over the bytes found **nine** single-entry categories, not the eight the finding's prose states - six train-only and three validation-only. The finding's own enumeration lists nine, so the count is a slip in the record, not a disagreement about the bytes; all nine were given their missing side. The original 22 entries were compared field-by-field after the edit and are identical in id, query, `should_trigger` and split. Nothing was re-randomised or moved.
+
+### Cost of CHG-005, recorded rather than hidden
+
+Appending nine held-out negatives trades `should_trigger` balance for per-category coverage: train is now 7 positive / 10 negative and validation 4 positive / 10 negative, against 7/7 and 4/4 before. The repair specification bounded the change to "one added query on the thinner side of the single-entry negative categories" and authorised no positive-side rebalance, so none was invented. The counts and the reason are recorded in the file's own `split_counts` and `split_history`.
+
+### What this pass did not do
+
+No new phase, no new reference file, no change to either copied template or to `derivation.json`'s recorded digests, no change to any fixture, sentinel, eval case or expected observation, no re-randomisation of the split, and no change to the specification, a shared contract, a sibling skill, the roster or the DevForge CLI. Nothing under `validation/` was touched. Nothing was installed, exported, bound or run.
+
+**Applied is not closed.** The candidate now has a new identity, and F-001 needs new matching evidence before it can be closed. The evaluation's recorded `FAIL` on `CHK-AI-R04` stands as history; a later evaluation records its own result alongside it. The three `NOT_RUN` tier rows are closed only by real native evidence, never by this repair.
+
 ## Unresolved items for the coordinator
 
 1. **Proposed defaults 1-8 need a decision** from the user or the integration owner. They are labelled as proposals everywhere they appear and none is presented as settled.
