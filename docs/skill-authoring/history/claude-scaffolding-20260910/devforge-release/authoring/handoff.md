@@ -5,7 +5,7 @@ artifact_type: "handoff"
 project_id: "devforgeai"
 revision: 1
 status: draft
-created_at_utc: "2026-09-10T20:06:37Z"
+created_at_utc: "2026-09-10T20:18:59Z"
 producer:
   skill: "devforge-project-expert-creator (source-loaded at 4999f3106565c5e320d1f1a7db066b437e4e94be; not installed and not invoked as a skill)"
   skill_revision: "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9 (SHA-256 of that package's SKILL.md file bytes at that commit)"
@@ -70,8 +70,8 @@ This handoff is excluded: it cannot contain its own digest and does not list its
 | input | builder `SKILL.md` at `4999f31` | git, `providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md` | `342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9` | all five phases | source-loaded; draft under independent review |
 | output | devforge-release package, 24 files | worktree, `providers/claude/plugins/devforgeai/skills/devforge-release/` | see `file-manifest.json` | — | authored candidate; NOT_EVALUATED |
 | output | working design specification, revision 1 | worktree, `.../devforge-release/authoring/design/skill-design-spec.md` | `81cffb23d176008c929f0648094aecafd841376f2efca4042b5654671e476c17` | sections 5, 7, 9, 10, 12 | filled; expectations written before the candidate |
-| output | package file manifest | worktree, `.../devforge-release/authoring/file-manifest.json` | `dd1c22ccb1cf1a64d07a70747b780702e034744d1b5bb7ab0cb07bf85bc68ac3` | `files_sha256` | complete; excludes its own digest |
-| output | authoring notes | worktree, `.../devforge-release/authoring/authoring-notes.md` | `7c4ee6ba863105118514bf2f70c664c601f10584de7cac909c1f93b8506a144e` | "Commands actually run", "Unresolved items" | complete |
+| output | package file manifest | worktree, `.../devforge-release/authoring/file-manifest.json` | `1757e215832dbf0f725111ea002c343d8e3d669179e077e9d8adfaa1dbd9f46e` | `files_sha256` | complete; excludes its own digest |
+| output | authoring notes | worktree, `.../devforge-release/authoring/authoring-notes.md` | `ecd6b49b7f283a3f92cdbe73ab310be2320cdd2ba6b256113123ce581f942797` | "Commands actually run", "Unresolved items" | complete |
 | output | specification mapping | worktree, `.../devforge-release/authoring/spec-mapping.md` | `599a6eba6d910385145f3dbf844b32c6ab1d4c0a2c364352d9cf165e816fb1bb` | "Validation and behavioral acceptance", "Gaps in this mapping" | complete |
 
 The package's own `SKILL.md` digest is `7b7796d4cfef18f9c7734f6cb8219d627c61abd7f5ce1fab0da642919411a51f`. That is the value an artifact this skill later produces would carry as `producer.skill_revision` - the digest of one file, not of the package and not a plugin version.

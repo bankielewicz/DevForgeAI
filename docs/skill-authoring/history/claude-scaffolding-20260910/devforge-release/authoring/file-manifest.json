@@ -2,7 +2,7 @@
   "schema_version": "devforge.package-manifest/v1",
   "skill": "devforge-release",
   "provider": "claude",
-  "recorded_at_utc": "2026-09-10T20:03:08Z",
+  "recorded_at_utc": "2026-09-10T20:18:59Z",
   "package_root": "providers/claude/plugins/devforgeai/skills/devforge-release",
   "worktree_branch": "author/claude-devforge-release-scaffold-20260910",
   "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
@@ -32,7 +32,7 @@
     "evals/fixtures/unsupported-claim/deployment-claim.json": "5057ddcffc8189df0982400a8328f9ef8436bf7879a4a5bb37d5d8b64e6ac792",
     "evals/triggers/trigger-queries.json": "a031958175823d985117b3cae65d5e2988559803db30b49a8e69c60ba8361ab5",
     "references/delivery-actions.md": "20f5e450c71fdf960ec9b344cd0056bc35a9b2f594d7a970c5f26b7f75f1ba70",
-    "references/derivation.json": "c0fe398ad6e8f45f3b5e4cffe5bdb2e771554dd85802f3a51029b991c4e823c0",
+    "references/derivation.json": "9bc835eff901217c0a071cd2ccf9c6a1c504f0a6fead12830d5022c9bd977b6b",
     "references/recording-rules.md": "43dcf6c27e61a3d5dea009606cb0354485ada2ea6a7633649ce9b12303429408",
     "references/sources.md": "79ff05226e099c6f067a660a775a648b98692c554f0611283c6111252fe4acdc"
   },

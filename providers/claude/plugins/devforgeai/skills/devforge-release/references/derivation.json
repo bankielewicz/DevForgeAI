@@ -2,7 +2,7 @@
   "schema_version": "devforge.package-derivation/v1",
   "skill": "devforge-release",
   "provider": "claude",
-  "recorded_at_utc": "2026-09-10T20:05:00Z",
+  "recorded_at_utc": "2026-09-10T20:18:15Z",
   "path_convention": "Every framework path in this record is relative to the DevForge workspace root that holds the framework/ and worktrees/ trees. No developer home directory appears in this package; the absolute paths used during authoring are recorded only in the authoring evidence outside it.",
   "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'. This record contains no digest of itself.",
 
@@ -68,7 +68,7 @@
         "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
       },
       "transformation": "bounded adaptation. producer.skill set to devforge-release; the generic 'Observed verification' table replaced by the release-specific delivery table carrying the five delivery rows plus hosted CI; filling directions rewritten for this workflow; a 'Published' line added to the result block so the prepared-versus-published distinction survives a skim. The shared rules are preserved verbatim in substance: no self-digest, the handoff does not list itself among its outputs, hash only after bytes are final, the fixed result vocabulary, and the requirement to name only an installed skill or a plain task in the copyable prompt.",
-      "meaning_preserved": "Every section of the shared template is present and carries the same obligation. Nothing was dropped, and no obligation was weakened.",
+      "meaning_preserved": "Every obligation of the shared template survives, but not every heading does. Two sections were folded rather than copied: 'What changed and what remains open' into the Result, Why and Limits lines, and 'Continuation directory' into the Next line and the copyable task. One section not in the shared template was added: 'Evidence and reading order', following the builder package's own handoff shape, so a receiver gets a reading order into the detailed records instead of a second copy of them. Nothing was dropped and no obligation was weakened; the mapping is stated here so a reader comparing the two files can see why the headings differ.",
       "refresh_condition": "docs/mvp/templates/shared/handoff.md changes. Owner: the shared template owner selects the refresh; this package's author reconciles the adaptation against it and records the new source digest here."
     },
     {
