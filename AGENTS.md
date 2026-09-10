@@ -6,6 +6,10 @@ DevForgeAI is an adaptive, spec-driven software engineering framework in develop
 
 This repository owns conversational workflows, skills, agents, examples, and project expertise. Companion [DevForge](https://github.com/bankielewicz/DevForge) owns the Rust CLI, policy, protected runtime, tests, and GitHub workflows. Keep substantive conversational behavior in skills; protected runtime owns mechanical transitions, checks, and receipts.
 
+## Implementation language
+
+Follow the [development language policy](docs/development-language-policy.md): compiled Rust in the DevForge CLI owns all framework phases, gates, validators, mutation brokers and acceptance decisions. The skill-evaluation Python JSONL runner and deterministic graders are mandatory build artifacts, limited to raw outputs and metrics; Rust validates their evidence and owns acceptance. Other framework implementation must use Rust. Protect and pin the selected Rust binary, source identity and build inputs outside evaluated-agent write access. Existing Python framework logic requires migration to Rust; this documentation task does not perform it or change frozen acceptance inputs.
+
 ## Decisions and canonical sources
 
 Work from the user's task and applicable skill. Capture brainstorming suggestions as proposals; preserve human-accepted project decisions and their source revisions. Use project-specific facts and verified library references when authoring expert skills. Provenance does not prove expert behavior.
