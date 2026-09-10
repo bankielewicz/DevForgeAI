@@ -1,0 +1,99 @@
+# commands.log - bootstrap review E1 RECHECK (independent evaluator)
+# Focused re-evaluation of F-001..F-004 only, on candidate 4999f310.
+# Every command with evidentiary weight or observable side-effects, with UTC start time and exit
+# status. Plain file reads into the reviewer context are not individually listed.
+# Read-only on the candidate; writes only inside this recheck fence.
+
+[2026-09-10T19:04:25Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 rev-parse HEAD
+[exit 0]
+[2026-09-10T19:04:25Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 log --oneline -4
+[exit 0]
+[2026-09-10T19:04:25Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 show 4999f3106565c5e320d1f1a7db066b437e4e94be --stat
+[exit 0]
+[2026-09-10T19:04:26Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 diff 4999f3106565c5e320d1f1a7db066b437e4e94be HEAD --stat -- providers/
+[exit 0]
+[2026-09-10T19:04:26Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 status --porcelain
+[exit 0]
+[2026-09-10T19:04:43Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 diff 69b6090bde458f48cae0f5751035be65fdb4593c 4999f3106565c5e320d1f1a7db066b437e4e94be --stat -- providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator
+[exit 0]
+[2026-09-10T19:04:43Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator && find . -type f | sed 's|^\./||' | LC_ALL=C sort | xargs sha256sum
+[exit 0]
+[2026-09-10T19:04:58Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 diff 69b6090bde458f48cae0f5751035be65fdb4593c 4999f3106565c5e320d1f1a7db066b437e4e94be -U3 -- providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
+[exit 0]
+[2026-09-10T19:04:58Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 diff 69b6090bde458f48cae0f5751035be65fdb4593c 4999f3106565c5e320d1f1a7db066b437e4e94be -U2 -- providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json
+[exit 0]
+[2026-09-10T19:05:43Z] $ python3 -c "
+import json,collections
+q=json.load(open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/evals/triggers/trigger-queries.json'))['queries']
+pos=[x for x in q if x['should_trigger']]; neg=[x for x in q if not x['should_trigger']]
+print('total',len(q),'positive',len(pos),'negative',len(neg))
+print('positive by cat',dict(collections.Counter(x['category'] for x in pos)))
+print('negative categories',len({x['category'] for x in neg}))
+print('split',dict(collections.Counter(x['split'] for x in q)))
+"
+[exit 0]
+[2026-09-10T19:05:43Z] $ python3 -c "
+import json,hashlib
+raw=open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json','rb').read()
+def nodup(p):
+    d={}
+    for k,v in p:
+        if k in d: raise ValueError('duplicate key '+k)
+        d[k]=v
+    return d
+j=json.loads(raw,object_pairs_hook=nodup)
+own=hashlib.sha256(raw).hexdigest()
+print('parses OK, no duplicate keys')
+print('own digest',own)
+print('own digest appears in own bytes:', own.encode() in raw)
+actual=hashlib.sha256(open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md','rb').read()).hexdigest()
+for d in j['derivations']:
+    if d.get('destination')=='SKILL.md':
+        print('recorded SKILL.md digest',d['destination_sha256'])
+        print('matches actual bytes:', d['destination_sha256']==actual)
+        print('prior chain preserved:',[p['sha256'][:12] for p in d.get('prior_destination_sha256_chain',[])])
+"
+[exit 0]
+[2026-09-10T19:05:43Z] $ python3 -c "
+import re,os
+t=open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md',encoding='utf-8').read()
+fm=re.match(r'^---\n(.*?)\n---\n',t,re.S).group(1)
+print('frontmatter keys',re.findall(r'^([A-Za-z_][\w-]*):',fm,re.M))
+print('description chars',len(re.search(r'^description:\s*(.*)$',fm,re.M).group(1)))
+body=re.sub(r'```.*?```','',t,flags=re.S)
+bad=0;tot=0
+for m in re.finditer(r'\]\(([^)]+)\)',body):
+    d=m.group(1).split(' ')[0]
+    if d.startswith(('http','#')): continue
+    tot+=1
+    p=os.path.normpath(os.path.join('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator',d.split('#')[0]))
+    if not(os.path.exists(p) and os.path.commonpath([p,'/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator'])=='/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator'): bad+=1;print('BROKEN',d)
+print('local links',tot,'broken',bad)
+import subprocess
+print('lines (wc -l):',subprocess.run(['wc','-l'],stdin=open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md'),capture_output=True,text=True).stdout.strip())
+"
+[exit 0]
+[2026-09-10T19:05:43Z] $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1 && sha256sum evaluation-report.md findings.json repair-spec.md commands.log legacy-inspect-source.json
+[exit 0]
+[2026-09-10T19:06:15Z] $ python3 /tmp/lnk.py /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator
+[exit 0]
+[2026-09-10T19:06:15Z] $ grep -rn 'Twenty-two\|twenty-two\|22 tier-A\|five negative\|five near-miss' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring || echo 'NO stale twenty-two/five-category claims remain in authoring docs'
+[exit 0]
+[2026-09-10T19:06:15Z] $ grep -rn 'Twenty-one\|twenty-one\|21 tier-A\|six negative\|six near-miss' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring
+[exit 0]
+[2026-09-10T19:06:15Z] $ python3 -c "
+import json,hashlib,os
+m=json.load(open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/file-manifest.json'))['files_sha256']
+bad=[r for r,h in m.items() if not os.path.exists(os.path.join('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator',r)) or hashlib.sha256(open(os.path.join('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator',r),'rb').read()).hexdigest()!=h]
+disk=set()
+for r,d,f in os.walk('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator'):
+    for n in f: disk.add(os.path.relpath(os.path.join(r,n),'/home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator'))
+print('entries',len(m),'| mismatched/missing',len(bad),bad,'| unmanifested',sorted(disk-set(m)))
+"
+[exit 0]
+[2026-09-10T19:06:16Z] $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910 diff 69b6090bde458f48cae0f5751035be65fdb4593c 4999f3106565c5e320d1f1a7db066b437e4e94be --name-only -- providers/ | sed 's|.*/devforge-project-expert-creator/||'
+[exit 0]
+[2026-09-10T19:06:37Z] $ grep -n 'second design document\|Stop and hand back instead\|recommend it and stop\|Validation status\|NOT_EVALUATED' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
+[exit 0]
+[2026-09-10T19:06:37Z] $ sed -n '40,44p;113,122p' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-project-expert-creator-20260910/providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md
+[exit 0]
