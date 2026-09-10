@@ -72,8 +72,11 @@ git rev-parse HEAD / git status --porcelain / git branch --show-current   (this 
 git ls-tree / git show <commit>:<path>                                    (frozen builder blobs, read-only)
 sha256sum                                                                 (governing inputs, package files)
 <devforge-binary> --help                                                  (observed subcommand surface)
+date -u +%Y-%m-%dT%H:%M:%SZ                                               (actual UTC creation time)
 python3 (stdlib)                                                          (JSON validity, Markdown link resolution, manifest hashing)
 ```
+
+`date -u` was observed as `2026-09-10T19:28:11Z`. The first commit, `f3049e4`, carried `2026-09-10T00:00:00Z` in three records - `references/derivation.json`, `file-manifest.json` and `handoff.md`. Midnight is a date-only placeholder, not an observed clock, and this package's own `references/recording-rules.md` forbids exactly that. The three were corrected to the observed time in the follow-up commit, the dependent digests were recomputed in write order, and the handoff was reissued as revision 2 superseding the revision-1 bytes preserved at `f3049e4`. Synthetic fixture timestamps are unaffected: they are invented content, labelled as such, and were never claims about a real clock.
 
 The `devforge --help` output listed exactly `delivery`, `expert`, `check`, `init`, `red`, `green`, `accept`, `verify`, `status`, `isolate`. No subcommand reads a design-spec, resolves its upstream references, or verifies a mockup digest, so `SKILL.md` names that as a missing integration instead of borrowing authority from a command.
 
@@ -117,6 +120,7 @@ Evals are source-only authoring inputs. They are excluded from installed copies 
 5. **Package index not updated.** `docs/mvp/package-index.json` is outside the fence. Recording `devforge-design`'s readiness state there is the integration owner's action.
 6. **Claude client version not observed.** No version probe was run, so the client identity in the design spec is `unknown; not observed`. A tier A or C run must record its own.
 7. **Non-UI "design" exclusion is the author's proposal**, not something SKILL-003 states. If an owner disagrees, both the description and four trigger negatives change together.
+8. **Trigger `A7b` is mislabelled.** "Change the accepted requirement that says out-of-area postcodes are rejected at signup" sits in `negative_define_product`, but the description routes a change to an accepted requirement to `devforge-change`. Its `should_trigger: false` value is right; its category is not. Because the split is stratified by category, correcting the label moves the entry, so it is left as authored and named here rather than silently re-cut. An owner or evaluator decides whether to add a `negative_change` category before any run.
 
 ## What this authoring does not claim
 

@@ -3,7 +3,7 @@
   "skill": "devforge-design",
   "provider": "claude",
   "roster_id": "SKILL-003",
-  "recorded_at_utc": "2026-09-10T00:00:00Z",
+  "recorded_at_utc": "2026-09-10T19:28:11Z",
   "canonical_source_root": "providers/claude/plugins/devforgeai/skills/devforge-design",
   "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
   "worktree_branch": "author/claude-devforge-design-scaffold-20260910",
@@ -31,7 +31,7 @@
     "evals/fixtures/unverified-inspection/UX-008.md": "76aeae951d84a0f180c79b73cfe061b3ab9dbf5b71744db6e14214f47e9a52f5",
     "evals/fixtures/unverified-inspection/inspection-claim.json": "eef760803c139af7ed52f72b3fbad5b442b99671600653fec2fc362d5f8d8b36",
     "evals/triggers/trigger-queries.json": "fb3bdabb9c914c8583c4c81b4463d2d5c172e03f0b8ef6f891974b59bd58026d",
-    "references/derivation.json": "b0d673e46477090dded6003faa91736dc49fd41e86b63675cb5977f36419c7fc",
+    "references/derivation.json": "cc537e9c2aa85d2d80381306265cb2080243fc783ec5de9de4af72a9b15e77a7",
     "references/mockups-and-preview.md": "0524a76f59c627a852c93600f1e5c612a1c3963265aeacb8931ad96a10f0b33a",
     "references/recording-rules.md": "5173699973f8a9d32b3cedf0724ee9d6cd27fb1e3cbe3e7ef2393df205c09c0f",
     "references/sources.md": "2ae704a8d2d9bcb5b58ce09652a289b9465232b71e6816e22873e13cb01076fa"

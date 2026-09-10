@@ -2,7 +2,7 @@
   "schema_version": "devforge.package-derivation/v1",
   "skill": "devforge-design",
   "provider": "claude",
-  "recorded_at_utc": "2026-09-10T00:00:00Z",
+  "recorded_at_utc": "2026-09-10T19:28:11Z",
   "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
 
   "authoring_route": {

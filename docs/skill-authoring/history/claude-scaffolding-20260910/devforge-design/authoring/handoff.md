@@ -3,9 +3,9 @@ schema_version: "devforge.artifact/v1"
 artifact_id: "HANDOFF-devforge-design-scaffold-20260910"
 artifact_type: "handoff"
 project_id: "devforgeai"
-revision: 1
+revision: 2
 status: draft
-created_at_utc: "2026-09-10T00:00:00Z"
+created_at_utc: "2026-09-10T19:28:11Z"
 producer:
   skill: "devforge-project-expert-creator (source-loaded, not installed)"
   skill_revision: "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9 (sha256 of that package's SKILL.md blob at commit 4999f3106565c5e320d1f1a7db066b437e4e94be; its bytes were read with git show, not loaded by a client)"
@@ -24,7 +24,12 @@ upstream:
       - "Validation and behavioral acceptance"
       - "Rework, stopping, and recovery"
 evidence: []
-supersedes: null
+supersedes:
+  artifact_id: "HANDOFF-devforge-design-scaffold-20260910"
+  revision: 1
+  sha256: "3107ebbe8855f337d55a0614847c123e208d62f7a2c67a3c15bc7dddf5c273d3"
+  preserved_location: "git show f3049e4423ff57a826650def1c038cf8cdefb895:docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/handoff.md"
+  reason: "Revision 1 recorded created_at_utc as 2026-09-10T00:00:00Z, a date-only placeholder rather than an observed clock, and the same value appeared in references/derivation.json and file-manifest.json. All three were corrected to the observed 2026-09-10T19:28:11Z and the dependent digests recomputed. The revision-1 bytes remain reachable at that commit."
 decision_ref: null
 missing_inputs:
   - "Session assignment record: none exists. The authoring scope came from the operator task packet at /home/bryan/Projects/DevForge/tmp/claude-remaining-skills-scaffolding-20260910/packets/author-devforge-design.md, which is not a devforge.artifact session record, so execution_ref is null."
@@ -54,9 +59,9 @@ All paths are relative to the worktree root `/home/bryan/Projects/DevForge/workt
 | Direction | Artifact | Path | SHA-256 | State |
 | --- | --- | --- | --- | --- |
 | output | Skill package, 23 files | `providers/claude/plugins/devforgeai/skills/devforge-design/` | per-file digests in the manifest below | authored; unevaluated |
-| output | Package file manifest | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/file-manifest.json` | `375c7ae2f3ff986298d4416e14d9064b02f2a1ba18ae13d79946229ef4d06dd5` | final |
+| output | Package file manifest | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/file-manifest.json` | `3bee05cf053e62c2b510da756dfc553abbe1253245de46f4c792f26e9236e184` | final |
 | output | Working design specification | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/design/skill-design-spec.md` | `3b99c9cf3dc69efb2b838c79041bd25e6c5e57058dcb0cf398aab2dd29d91655` | final |
-| output | Authoring notes | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/authoring-notes.md` | `ee0d37cb44c6a9f56e9f39cc3ea13e1af7a43d521df207ef3d4df5768fb702c2` | final |
+| output | Authoring notes | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/authoring-notes.md` | `e2580a481589d12d4a014c7028de73c24474968cc48f9ddcf06bf98035810dd1` | final |
 | output | Specification mapping | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/spec-mapping.md` | `9bb70be54b345a80ab40c35b2687c892bf40228755f1e81db08261cc9adc4e16` | final |
 | input | SKILL-003 specification | `docs/mvp/specifications/skill-003-devforge-design.md` | `4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb` | governing |
 | input | design-spec template | `docs/mvp/templates/devforge-design/design-spec.md` | `5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661` | copied byte-exact to `assets/design-spec.md` |
@@ -127,6 +132,7 @@ Stop at: tier C. It needs an installed or exported copy that does not exist yet;
 ## Retention and continuation limits
 
 - **Output readback:** the five output rows above were hashed after their bytes were final and re-read at those paths. This handoff is excluded.
+- **Revision 2 correction:** revision 1 recorded a date-only placeholder as its creation time, and the same value sat in `references/derivation.json` and `file-manifest.json`. All three now carry the observed `2026-09-10T19:28:11Z`, and the digests that depend on them - `references/derivation.json`, then `file-manifest.json`, then `authoring-notes.md`, then the rows above - were recomputed in that write order. Revision 1's bytes are preserved at commit `f3049e4423ff57a826650def1c038cf8cdefb895` and are cited in `supersedes`; nothing was rewritten in place.
 - **This handoff's location:** `/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/handoff.md`. No self-digest.
 - **This handoff's receipt:** its digest is computed after saving and reading it back, and delivered in the terminal report. It is not written into this document.
 - **Worktree ownership:** retained by this authoring session at handoff time, on branch `author/claude-devforge-design-scaffold-20260910` from base `c17e758417da64928a0f47fc2600304465ac3f3c`. The commit is local; nothing was pushed.
