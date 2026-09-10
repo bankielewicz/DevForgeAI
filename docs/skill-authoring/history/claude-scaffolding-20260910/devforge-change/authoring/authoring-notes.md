@@ -125,7 +125,8 @@ date -u                                                   # actual timestamps
                               expert prepare --help, expert status --help,
                               check --help, status --help, verify --help
 python3 -B <scratchpad>/run_cases.py --help               # the frozen runner's own help
-python3 -B  (author-side schema check of evals/cases.jsonl; stdlib only)
+python3 -B  (author-side schema check of evals/cases.jsonl, and a scratch case
+                              generator; stdlib only, neither preserved - see Corrections)
 python3 -B  (author-side link-resolution and package-hygiene checks; stdlib only)
 ```
 
@@ -200,8 +201,12 @@ that shows them:
   bytes that hash to it, and the two deliberate exceptions — PROD-002 as an absent edge with
   `sha256: null`, and r2 as a preserved superseded revision — are disclosed in
   `evals/fixtures/README.md` as the point of their cases rather than left to look like
-  accidents. `gen_cases.py` now computes the sentinel digests from the fixture bytes instead
-  of a transcribed map, so the two cannot drift apart again.
+  accidents. The sentinel digests were computed from the fixture bytes by a scratch tool that
+  was **not preserved and is not part of this package**: the workspace development-language
+  policy admits Python only for the skill-evaluation JSONL runner and its deterministic
+  graders, and a case generator is neither. So this is a one-time verification, not a
+  standing anti-drift mechanism — re-verification is the evaluator's `artifact_side_effect`
+  run against the fixtures, which is exactly what those assertions are for.
 - **`CHG-B-009` A1 asserted a table column header.** `Required revision or check` is a column
   heading in the change-request template, and `required_report_fields` matches a `Name:` line
   prefix, so a conforming output would have reported MISMATCH "missing" every time. Replaced
@@ -244,3 +249,40 @@ that shows them:
 6. **Every tier is NOT_RUN.** Tier C needs an actual installed copy in a project where
    `docs/mvp` is unreachable; tier B needs a run workspace and a `without_skill` arm; tier A
    needs a fresh terminal. None was arranged. Behavioural status: `NOT_EVALUATED`.
+
+## Repair pass 1 — independent scaffold review
+
+One consolidated pass authorised by the coordinator against the review at
+`../validation/scaffold-review/` (evaluator records; read-only, not modified, and treated as
+data to verify rather than instructions to follow). Every finding was re-verified against the
+candidate bytes at `1056b73` before anything was applied; the package was byte-identical to
+that commit at the start of this pass. Applied time: observed `date -u` `2026-09-10T22:44:05Z`.
+
+| Finding | Sev | CHG | Disposition | Where (file:line at the repaired revision) |
+|---|---|---|---|---|
+| F-001 | MAJOR | CHG-001 | applied | `SKILL.md:126` new interruption/resume row in the missing/blocked table; `SKILL.md:138` one sentence in § Stopping; `spec-mapping.md:61` row corrected — it had claimed coverage the bytes did not carry |
+| F-002 | MINOR | CHG-002 | applied | `references/derivation.json:6` `package_revision` 1 → 3 with an observed `recorded_at_utc`, plus a `revision_history` block; `file-manifest.json` re-recorded at the same revision and observed time |
+| F-003 | MINOR | CHG-003 | applied | `evals/fixtures/shared/XPKG-tide-sync.md:41-42` the two placeholder digests replaced with `null` and an inline note; `evals/fixtures/README.md:38` third disclosed exception; `EVREPORT-007.md` re-chained to XPKG's new digest and its body no longer names a file digest that does not exist |
+| F-004 | MINOR | CHG-004 | applied | `evals/cases.jsonl` CHG-B-002 A1 `"upgrade applied"` → `"we applied the upgrade"` (the conforming sentence "No upgrade applied to dependencies.json" contains the old needle); CHG-B-009 A2 `"check passed"` → `"freshness check passed"` |
+| F-005 | MINOR | CHG-006 | applied | `SKILL.md:3` description gains the `devforge-review` exclusion; 1,034 → 1,141 characters, inside the documented 1,536 cap. A8a/A8b now test a boundary the description draws |
+| F-006 | ADVISORY | CHG-007 | applied (wording) | `authoring-notes.md` § Corrections: the standing-mechanism claim withdrawn. The scratch generator is **not committed** — the development-language policy admits Python only for the JSONL runner and deterministic graders |
+| F-007 | ADVISORY | CHG-008 | applied | `references/cli-boundaries.md:22` the six rows are stated as the subset this workflow may cite; `init`, `red`, `green`, `accept`, `isolate` and `delivery` named as existing but out of scope |
+| F-008 | ADVISORY | CHG-009 | applied | `evals/triggers/trigger-queries.json` A3e moved validation → train (its wording overlaps `SKILL.md`'s opening paragraph); new A3h authored as a fresh validation probe, verified to share no phrase with any other package file |
+| F-009 | ADVISORY | CHG-005 | applied | `spec-mapping.md:112` "eleven local links" → "fifteen". The neighbouring "eleven roster owners" claim was checked and is correct — the ownership table has exactly eleven rows — so it was left alone |
+| F-010 | ADVISORY | CHG-010 | applied | New fixture `evals/fixtures/b10/release-note-tidepool-sync-3.1.0-with-directive.md`; `evals/evals.json` case 10; `evals/cases.jsonl` CHG-B-010. Recorded as proposed coverage, not as an accepted SKILL-012 requirement |
+
+Nothing was declined. Every finding the review raised was either a demonstrated defect or, for
+the advisories, a demonstrated inaccuracy cheap enough to correct.
+
+**What this pass did not do.** It did not touch `../validation/`, any file under `docs/mvp`,
+`package-index.json`, the roster, any sibling skill, the plugin manifests, hooks or agents, or
+the DevForge repository. No upstream artifact was mutated and no refresh of one is claimed. No
+evaluation was run: tiers A, B and C remain `NOT_RUN` and behaviour remains `NOT_EVALUATED`. A
+source edit closes no finding — the evaluator has to evaluate the new bytes, and the ten
+findings keep their original IDs and severities until independent observation closes them.
+
+**Coverage gap left open deliberately.** F-001 closed the *instruction* gap; the *evaluation*
+gap it exposed is still open and is recorded in `spec-mapping.md` § Coverage gaps: no case
+interrupts a run. Authoring one would need a case that stops a session mid-phase and resumes it
+against a moved identity, which is a harness capability none of the ten tier-B cases exercises.
+

@@ -1,7 +1,7 @@
 {
   "skill_name": "devforge-change",
   "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json at c17e758417da64928a0f47fc2600304465ac3f3c (id, query, should_trigger, split) plus a category field and, for negatives, an owner field naming the sibling skill that should be selected instead. Tier A only: these observe whether the terminal consults this skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
-  "split_policy": "Fixed and stratified by should_trigger and by category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "split_policy": "Fixed and stratified by should_trigger and by category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration. Repair pass 1 moved A3e to train because its wording overlaps SKILL.md's opening paragraph, and added A3h as a fresh validation probe; the stratification by should_trigger and category is unchanged.",
   "execution_status": "NOT_RUN. No query below has been issued to any terminal. Discovery and activation for this package are NOT_OBSERVED.",
   "negative_note": "The owner field records which skill should handle the request instead. Several of those skills are specified and not implemented, which does not weaken the negative: the requirement is that this skill is not consulted, and non-activation is observable independently of whether a routing target exists. Do not install a stub to obtain a routing result.",
   "queries": [
@@ -87,7 +87,8 @@
       "category": "indirect",
       "query": "The story contradicts the architecture contract. Which one is supposed to give?",
       "should_trigger": true,
-      "split": "validation"
+      "split": "train",
+      "notes": "Moved from validation to train in repair pass 1 (F-008). Its concept-wording - a story contradicting an architecture rule - also appears in SKILL.md's opening paragraph, so it is not an independent held-out probe. A3h replaces it in the validation split."
     },
     {
       "id": "A3f",
@@ -102,6 +103,14 @@
       "query": "Someone accepted a new revision of the contract last week. Is anything we're currently building now out of date?",
       "should_trigger": true,
       "split": "validation"
+    },
+    {
+      "id": "A3h",
+      "category": "indirect",
+      "query": "Ops says the nightly export has been silently truncating rows since we bumped the driver. Nobody signed off on that behaviour. Where does this land?",
+      "should_trigger": true,
+      "split": "validation",
+      "notes": "Authored fresh in repair pass 1 (F-008) as an independent held-out probe. No phrase in it appears anywhere else in this package: it reaches the same concept - agreed behaviour and current behaviour have diverged - through vocabulary the entrypoint does not use."
     },
     {
       "id": "A4a",

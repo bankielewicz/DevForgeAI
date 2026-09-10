@@ -30,11 +30,15 @@ order so that every citation resolves to bytes that actually hash to it:
 sound — which is what most of the cases need, because an accidentally broken edge everywhere
 would drown the one case that is about a broken edge.
 
-Two deliberate exceptions, and they are the point of their cases:
+Three deliberate exceptions, and they are the point of their cases:
 
 - **`ARCH-002` cites `PROD-002` with `sha256: null`.** PROD-002 is not in this fixture set.
   This is a deliberately unresolvable upstream edge: a correct assessment discloses it as a
   coverage limit rather than omitting it or inventing the dependency.
+- **`XPKG-tide-sync.md`'s file manifest records `null` for the expert's own two files.**
+  The expert package itself is not reproduced in this fixture set. An assessment that reaches
+  that manifest can say the expert source is affected and must say it cannot verify the
+  expert's file bytes; inventing a plausible hash there is the failure.
 - **`b7/ARCH-002.r2.md` is a preserved superseded revision.** The B7 candidate cites
   revision 2 while revision 3 is current. Both files are real and both hash correctly; the
   case is about noticing which one the candidate is built against, not about a broken hash.

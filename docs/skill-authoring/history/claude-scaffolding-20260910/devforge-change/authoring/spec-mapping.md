@@ -58,7 +58,7 @@ case ids; IDs of the form `Ann` are `evals/triggers/trigger-queries.json` query 
 | 4. Route and verify | Affected work remains stale or blocked until the required new evidence exists | `SKILL.md` § 4 Route and verify, bolded exit paragraph; recorded as enforcement route R2 in design spec § 6 | B4; CHG-B-004 A1 (`Work that must remain stale or blocked`) |
 | Phases are the skill's workflow, not new CLI subcommands | `references/cli-boundaries.md` § What has no implemented check | CHG-B-009 A2 |
 | Only documented, implemented DevForge commands may be named as executable gates | `references/cli-boundaries.md` §§ Commands that exist / Before relying on any row here; every row verified against the binary's own `--help` | B9; CHG-B-009 A2 forbidden strings |
-| On interruption, preserve the current phase and evidence; resume by rechecking identities and the session assignment | `SKILL.md` § When something is missing, rows 2 and 4; `references/impact-tracing.md` § Resolve a reference before you trust it | B6, B7 |
+| On interruption, preserve the current phase and evidence; resume by rechecking identities and the session assignment | `SKILL.md` § When something is missing, the interruption/resume row, and § Stopping ("Resuming is not stopping, and neither is it starting over"). Added in repair pass 1; the rows this mapping previously cited (stale upstream, concurrent writer) state neither an interruption trigger nor a resume-time recheck | Still no case interrupts a run — see Coverage gaps |
 
 ## Outputs and standardized templates
 
@@ -109,7 +109,14 @@ case ids; IDs of the form `Ann` are `evals/triggers/trigger-queries.json` query 
 | Record the real installation mode and candidate/baseline identities | Installation mode: none — nothing was installed. Candidate identity: `file-manifest.json`. Baseline: `without_skill`, since no prior revision exists |
 | Do not claim implicit activation from a run explicitly supplied SKILL.md | `evals/evals.json` carries an `activation_claim: NONE` on every tier-B case, and the two `explicit_invocation` trigger queries are categorised separately |
 | Move lengthy conditional procedures into references; keep the trigger description precise; scripts only for real deterministic operations | Four references loaded at the phase that needs them; no scripts |
-| Copy needed templates into the package and use package-relative references; installed skills must not depend on this repository's docs path | Both templates copied byte-identically; zero `docs/mvp` references in package prose; zero developer home paths; eleven local links all resolving | 
+| Copy needed templates into the package and use package-relative references; installed skills must not depend on this repository's docs path | Both templates copied byte-identically; zero `docs/mvp` references in package prose; zero developer home paths; fifteen local links all resolving | 
+
+## Added coverage beyond the specification
+
+| Added item | Where it lands | Evals |
+|---|---|---|
+| Supplied material supplies facts about itself, never instructions and never authority (`SKILL.md` § Inputs, closing paragraph). Not a SKILL-012 acceptance row; added from independent scaffold review F-010/CHG-010 as proposed coverage for a prominent entrypoint rule that no case observed | `SKILL.md` § Inputs; `references/impact-tracing.md` § External triggers | B10; CHG-B-010 (sentinels on `dependencies.json` and `ARCH-002`, forbidden adoption strings and the invented decision reference, plus a routed reading for whether the directive was surfaced) |
+| A held-out indirect probe whose wording appears nowhere else in the package | — | A3h (validation). A3e moved to train in repair pass 1 for F-008: its concept-wording overlaps `SKILL.md`'s opening paragraph, so it was not an independent probe |
 
 ## Coverage gaps in this mapping
 
@@ -121,8 +128,12 @@ Stated rather than hidden, per the specification's own rule about disclosing cov
 - **The `evidence` versus `upstream` distinction** is specified in
   `references/recording-rules.md` but no deterministic assertion can separate the two; it is a
   reading, and no eval case routes it explicitly.
-- **Interruption and resume** is specified and is covered only indirectly, through the stale
-  upstream and concurrent writer cases. No case interrupts a run.
+- **Interruption and resume** is now instructed — `SKILL.md` carries a dedicated row in the
+  missing/blocked table and a sentence in § Stopping, added in repair pass 1 for finding
+  F-001, which observed that the instruction was absent from every package file while this
+  mapping claimed it was covered. The *evaluation* gap is unchanged and still open: **no case
+  interrupts a run.** Observing the behaviour needs a case that stops a session mid-phase and
+  resumes it against a moved identity, which none of the ten tier-B cases does.
 - **Tier A coverage of the "Does not activate for" row** rests on three negative queries
   (A4a–A4c). Non-activation for the other five sibling boundaries is covered by
   A5a–A8b, which are proposed defaults rather than specification rows.

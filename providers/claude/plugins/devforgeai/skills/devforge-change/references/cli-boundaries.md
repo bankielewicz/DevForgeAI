@@ -19,6 +19,8 @@ These are illustrations of an operator's invocation, not something this skill ru
 
 ## Commands that exist
 
+This is the subset a change assessment has any reason to cite. The binary exposes others - `init`, `red`, `green`, `accept`, `isolate` and the `delivery` group - which belong to the TDD gate and the managed runtime and are not part of this workflow. Their absence from this table means they are out of scope here, never that they do not exist.
+
 | Owner and action | Command | What it proves, and what it does not |
 | --- | --- | --- |
 | Operator or worker recovers grounding context | `devforge expert prepare --project <abs-project> --policy <abs-policy>` | Loads the external policy and project and returns grounding inputs. Read-only. Invalid or missing input refuses. It is not proof that any phase completed and it reports nothing about a change. |

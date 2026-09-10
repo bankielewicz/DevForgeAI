@@ -15,7 +15,7 @@ upstream:
     revision: 2
     store: "project"
     path: "docs/devforge/experts/XPKG-tide-sync.md"
-    sha256: "5ac49203f4044a838d4e4c0a1041ef31703d369d68b2e148ba6b45885a60570c"
+    sha256: "e303cdd634471409e5f4817dea4a02be3c2251998276598ca5f0f0adf177a39e"
     sections: ["File manifest"]
 evidence: []
 supersedes: null
@@ -29,8 +29,9 @@ Synthetic fixture.
 
 ## Bound candidate
 
-The exact bytes examined were the XPKG-004 revision-2 manifest above, specifically
-`SKILL.md` at `a1b2c3d4…8f90`. This report is evidence about those bytes and no others.
+The exact bytes examined were the XPKG-004 revision-2 manifest above. That manifest records no
+digest for the expert's own files - they are not reproduced in this fixture set - so this report
+names the manifest it bound and cannot name the candidate file digests behind it.
 
 ## Observations
 

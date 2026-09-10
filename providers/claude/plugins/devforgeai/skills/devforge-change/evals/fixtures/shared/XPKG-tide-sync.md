@@ -38,8 +38,14 @@ Synthetic fixture.
 
 | Package-relative path | SHA-256 |
 | --- | --- |
-| `SKILL.md` | `a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90` |
-| `references/reconciliation.md` | `112233445566778899aabbccddeeff00112233445566778899aabbccddeeff00` |
+| `SKILL.md` | null - see note |
+| `references/reconciliation.md` | null - see note |
+
+Note: the expert package's own files are **not reproduced in this fixture set**, so this
+manifest records no digest for them. This is deliberate and is the third disclosed
+unresolvable edge in `fixtures/README.md`. An assessment that reaches this manifest can say
+the expert source is affected; it cannot verify the expert's file bytes, and saying so is the
+correct result rather than a gap to fill with a plausible hash.
 
 ## Carried decisions
 

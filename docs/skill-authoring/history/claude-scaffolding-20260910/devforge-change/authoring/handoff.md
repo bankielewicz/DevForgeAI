@@ -3,9 +3,9 @@ schema_version: "devforge.artifact/v1"
 artifact_id: "HANDOFF-devforge-change-scaffold-20260910"
 artifact_type: "handoff"
 project_id: "DevForgeAI"
-revision: 1
+revision: 2
 status: draft
-created_at_utc: "2026-09-10T20:23:16Z"
+created_at_utc: "2026-09-10T22:46:44Z"
 producer:
   skill: "devforge-project-expert-creator"
   skill_revision: "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9 (SHA-256 of the builder SKILL.md file's bytes at 4999f3106565c5e320d1f1a7db066b437e4e94be; source-loaded from git object storage, not installed)"
@@ -21,8 +21,12 @@ evidence:
   - kind: "authoring evidence"
     store: "project"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-change/authoring/file-manifest.json"
-    sha256: "8cc1c747417ead19d872072c38ed1dabdb9579e4c64c4f24db26d4bcee260c87"
-supersedes: null
+    sha256: "733c428bb555e25e6b50692ebbf7d9af3ceffad23071489eb30a621e03e006f2"
+supersedes:
+  artifact_id: "HANDOFF-devforge-change-scaffold-20260910"
+  revision: 1
+  sha256: "e91801faa62bb704ce24e69b06724de2c3cc857adf8142fb87fd7955e38bce29"
+  note: "Revision 1 described the package at commit 1056b73. Its bytes are preserved in that commit; this revision describes the package after repair pass 1."
 decision_ref: null
 missing_inputs:
   - "No session record artifact was supplied for this assignment, so execution_ref is null. The coordinator packet at tmp/claude-remaining-skills-scaffolding-20260910/packets/author-devforge-change.md is the assignment; its absence as a devforge.artifact/v1 record does not establish ownership."
@@ -36,13 +40,15 @@ missing_inputs:
 - **Result:** A new Claude package was created at
   `providers/claude/plugins/devforgeai/skills/devforge-change/` — 26 files: `SKILL.md`, two
   byte-identical output template copies in `assets/`, four references plus a derivation record,
-  nine tier-B eval cases, twelve runner cases, thirty trigger queries, and fifteen synthetic
-  fixtures. Complete as a scaffold. The candidate identity is the manifest in the evidence
-  table below. Package revision 2 repaired four eval defects found in review — the fixture
-  reference digests are now a real hash chain and the runner sentinels are computed from
-  those bytes; `authoring-notes.md` § Corrections has the detail. No instruction, asset or
-  reference byte changed between revisions 1 and 2: nineteen of the twenty-six files are
-  byte-identical, and the seven that changed are all under `evals/`.
+  ten tier-B eval cases, thirteen runner cases, thirty-one trigger queries, and sixteen
+  synthetic fixtures. Complete as a scaffold. The candidate identity is the manifest in the evidence
+  table below. **Package revision 3.** Revision 2 repaired four eval defects found in
+  self-review. Revision 3 applied repair pass 1 against an independent scaffold review of the
+  revision-2 bytes (`../validation/scaffold-review/`, disposition `revise`: one MAJOR, four
+  MINOR, five ADVISORY) — all ten applied, none declined. The MAJOR was F-001: SKILL-012's
+  interruption/resume requirement was instructed in no package file while the mapping claimed
+  coverage. `authoring-notes.md` § Repair pass 1 carries the F→CHG→disposition table with
+  file:line. Seventeen of the twenty-seven files are byte-identical to revision 2.
 - **Why:** The selection decision was **create**, from a bounded search of the Claude provider
   inventory at base `c17e758417da64928a0f47fc2600304465ac3f3c`: four skills exist and none
   activates on "what does this change invalidate" or owns the impact graph and the routing
@@ -81,11 +87,11 @@ itself among its own outputs. Each file below was hashed after its bytes were fi
 | input | shared handoff template | project · `docs/mvp/templates/shared/handoff.md` | `abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206` | whole file | unchanged |
 | input | skill-authoring-contract @ 3 | project · `docs/mvp/skill-authoring-contract.md` | `371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53` | packaging, tiers | unchanged |
 | input | builder package | project · `providers/claude/.../devforge-project-expert-creator/SKILL.md` @ `4999f31` | `342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9` | five phases | draft under independent review; source-loaded |
-| output | devforge-change package @ 2 | project · `providers/claude/plugins/devforgeai/skills/devforge-change/` | see `file-manifest.json` (26 entries) | whole package | authored; NOT_EVALUATED |
-| output | package manifest | project · `.../devforge-change/authoring/file-manifest.json` | `8cc1c747417ead19d872072c38ed1dabdb9579e4c64c4f24db26d4bcee260c87` | `files` | final |
-| output | skill design specification @ 1 | project · `.../devforge-change/authoring/design/skill-design-spec.md` | `6cd09714a75f4027bb0f69d0bb32282ad639b8d1867cd2bc8bd5be95490ab25a` | §§ 1–12 | draft |
-| output | authoring notes | project · `.../devforge-change/authoring/authoring-notes.md` | `1b88f0441c8690858c09c4dce93e2fc54fb093ba18662c1e5d09c780c7bf1671` | whole file | final |
-| output | specification mapping | project · `.../devforge-change/authoring/spec-mapping.md` | `a3c60ce1b51a70752783fbf35d68cd35b891e44c81f006012f03edaf6f87c760` | whole file | final |
+| output | devforge-change package @ 3 | project · `providers/claude/plugins/devforgeai/skills/devforge-change/` | see `file-manifest.json` (27 entries) | whole package | authored; NOT_EVALUATED |
+| output | package manifest | project · `.../devforge-change/authoring/file-manifest.json` | `733c428bb555e25e6b50692ebbf7d9af3ceffad23071489eb30a621e03e006f2` | `files` | final |
+| output | skill design specification @ 1 | project · `.../devforge-change/authoring/design/skill-design-spec.md` | `9d49900e8f1c7a7d08093af47095075a56cda1214f3db0f0bc5aa0d551c1d30a` | §§ 1–12 | draft |
+| output | authoring notes | project · `.../devforge-change/authoring/authoring-notes.md` | `8c84908b2bbbd791deb325cda989c9970f5fa28e9287e6a76ec022054ba21384` | whole file | final |
+| output | specification mapping | project · `.../devforge-change/authoring/spec-mapping.md` | `327645a06da03b22dd846cda14f2d11f32e6839c5732d2de22db30575a10c703` | whole file | final |
 
 Package-relative digests are in `file-manifest.json` rather than repeated here; a digest
 repeated in two records is a digest that can go stale in one of them. The package's own
@@ -96,7 +102,7 @@ those were verified against the actual bytes after the last write to each.
 
 | Read when | Record and relevant sections | Purpose |
 | --- | --- | --- |
-| First | `file-manifest.json`, then the package's `SKILL.md` | Bind the exact 26 candidate files, then read the entrypoint you are evaluating |
+| First | `file-manifest.json`, then the package's `SKILL.md` | Bind the exact 27 candidate files, then read the entrypoint you are evaluating |
 | Before acting | `design/skill-design-spec.md` §§ 2, 3, 4, 7, 9 | The independently stated expectations, the search scope and its limits, and every proposed default — written before the candidate, so they are not a description of what got written |
 | Before grading a requirement | `spec-mapping.md` | Every specification row mapped to a file, a section and an eval ID, plus the four coverage gaps this author could not close |
 | For method, dependencies and repairs | `authoring-notes.md` | Which builder files were loaded and from where, every command actually run, and the three corrections made during authoring |
@@ -105,12 +111,13 @@ those were verified against the actual bytes after the last write to each.
 ## Proposed evaluation cases
 
 The cases proposed for this candidate, with their independently stated expectations, live in
-the package's `evals/evals.json` (nine tier-B cases), `evals/cases.jsonl` (twelve runner cases,
-three tier C and nine tier B) and `evals/triggers/trigger-queries.json` (thirty tier-A queries
+the package's `evals/evals.json` (ten tier-B cases), `evals/cases.jsonl` (thirteen runner cases,
+three tier C and ten tier B) and `evals/triggers/trigger-queries.json` (thirty tier-A queries
 on a fixed stratified split). They were captured, not executed.
 
 | Check | Outcome | Evidence or receipt | Cause or scope limit |
 | --- | --- | --- | --- |
+| Independent scaffold review of the revision-2 bytes | Observed | `../validation/scaffold-review/` (evaluator records; disposition `revise`) | A structural and requirement-mapping review. It is not a behavioural evaluation and establishes no tier. All ten findings were applied in revision 3; a source edit closes no finding, so they keep their IDs and severities until the evaluator observes the new bytes |
 | Tier C: installed resources resolve | NOT_RUN | none | Requires an actual installed copy in a project where `docs/mvp` is unreachable. Nothing was installed |
 | Tier B: output quality against a `without_skill` baseline | NOT_RUN | none | Requires a run workspace, separate clean contexts and a baseline arm. None was arranged |
 | Tier A: discovery and activation | NOT_RUN | none | Requires a fresh terminal with the installed package. Discovery and activation are NOT_OBSERVED |
@@ -145,13 +152,15 @@ Governing specification (do not edit):
 Runner and graders, pinned at e641797eebf04cd1e8eb9f711549e038e7745407 in:
   /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910
 
-Task: Verify the 26 candidate files still hash to the manifest before anything else;
+Task: Verify the 27 candidate files still hash to the manifest before anything else;
 if they do not, stop and report the drift. Then judge the candidate against the
 specification and against the design spec's independently stated expectations.
 Run tier C first, then B, then A, and report the three separately. Where a tier
 cannot be run, record COULD_NOT_RUN with the actual cause.
 
-Preserve: this handoff and every record it names, byte for byte. Keep the author's
+Preserve: this handoff and every record it names, byte for byte, and the frozen
+review records under validation/scaffold-review/ - those are a prior evaluator's
+evidence and are not yours to edit or re-dispose. Keep the author's
 proposed defaults labelled as proposals. Do not edit the candidate, the governing
 specification, the shared templates, the contracts, the roster, package-index.json,
 any sibling skill, or the DevForge repository's gates and policies.

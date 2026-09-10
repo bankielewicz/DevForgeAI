@@ -33,7 +33,9 @@ activating conditions in direct and indirect phrasing drawn from the specificati
 use-case inventory, and the near-miss exclusions each naming the sibling that owns them.
 Claude uses this text to decide automatic invocation, and the combined `description` and
 `when_to_use` text is truncated at 1,536 characters in the skill listing; the authored
-description is 1,034 characters and carries the key use case first.
+description is 1,141 characters and carries the key use case first. It names all five sibling
+exclusions; `devforge-review` was added in repair pass 1 for finding F-005, which observed that two of
+the package's own tier-A negatives tested a boundary the description never drew.
 
 **Intended users or role:**
 Anyone holding a change trigger against a project with accepted DevForgeAI artifacts. Not a
@@ -408,7 +410,11 @@ separate worktree and is itself an unevaluated scaffold; `evals/cases.jsonl` is 
 against its schema and was not executed.
 
 **Validation status:**
-Not performed.
+Not performed. An independent scaffold review of the revision-2 bytes was recorded at
+`../../validation/scaffold-review/` and returned `revise` with one MAJOR, four MINOR and five
+ADVISORY findings, all applied in repair pass 1. A structural review is not a behavioural
+evaluation: tiers A, B and C remain `NOT_RUN` and behaviour remains `NOT_EVALUATED`, and a source
+edit closes no finding.
 
 **Enforcement status:**
 Requirements recorded; no gate implemented by this skill.
