@@ -1,0 +1,4 @@
+{"session":"rc-2","events":[
+ {"type":"prompt","text":"Evaluate this package."},
+ {"type":"skill_loaded","note":"a consultation-bearing event with no identity field"},
+ {"type":"completed","exit":0}]}

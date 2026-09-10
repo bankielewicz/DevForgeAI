@@ -1,0 +1,55 @@
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/cases/e2-cases-original.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/orig.jsonl --mode source
+run_cases.py: unusable input: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/cases/e2-cases-original.jsonl:5: unknown case key(s) 'bogus_unknown_key'; permitted keys are assertions, candidate_subpath, case_id, expectations, files, mode, notes, prompt, tier, title
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/cases/e2-cases-stripped.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/e2-source.jsonl --mode source
+wrote 14 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/e2-source.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/cases/e2-cases-stripped.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/e2-installed.jsonl --mode installed
+wrote 14 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/e2-installed.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/typo.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/typo.jsonl
+run_cases.py: unusable input: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/cases/typo.jsonl:1: unknown case key(s) 'assertion'; permitted keys are assertions, candidate_subpath, case_id, expectations, files, mode, notes, prompt, tier, title
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/cases/empty.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/synthetic --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/empty.jsonl
+run_cases.py: unusable input: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/cases/empty.jsonl:1: case 'EMPTY-001' has an empty assertions list; remove the case or give it an assertion
+exit=1
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/author-source.jsonl --mode source
+wrote 17 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/author-source.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/author-installed.jsonl --mode installed
+wrote 17 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/author-installed.jsonl
+exit=0
+
+### F-003 overshoot probes
+wrote 3 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/rc-consultation.jsonl
+exit=0
+### F-005 probe: invoke WITHOUT -B against a copy (sys.dont_write_bytecode must prevent the cache)
+wrote 14 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2-recheck/scratch/out/copy-run.jsonl
+exit=0
+
+########################################################################
+# Non-runner checks (recorded after the fact; no captured exit code claimed).
+########################################################################
+git -C <wt> rev-parse HEAD                        -> e101e76162976f2414035bbe542f0a34f8cc51be
+git -C <wt> log --oneline e52ac59..HEAD           -> e101e76 (repair pass 1), b6a4bf7 (E2 review dir)
+git -C <wt> diff --name-status e52ac59 b6a4bf7    -> nothing under providers/ (scope confirmed)
+git -C <wt> diff --stat e52ac59 e101e76 -- providers/ -> 14 files, 422 insertions, 27 deletions, 0 deletions of files
+git -C <wt> diff e52ac59 e101e76 -- <SKILL.md|graders.py|run_cases.py|sources.md|native-evaluation.md|results-contract.md>
+python3 link-closure from SKILL.md                -> 26/28 runtime files reachable (was 18); 8 previously-unreachable now linked
+sha256sum on 14 changed files                     -> scratch/changed-files-e101e76.txt
+derivation.json verification                      -> 18/18 SOURCE digests OK; 7 STALE destination digests (F-R01); sources.md newly declared, digest correct
+repair_pass_1 scan for 'digest|sha256'            -> 0 occurrences (undisclosed staleness)
+author file-manifest.json vs bytes                -> 54/54 current
+grep -c 'not implemented in the DevForge CLI' <authoring>/handoff.md -> 2 (was 0)
+git -C <builder-wt> show 69b6090:.../devforge-project-expert-creator/SKILL.md | sha256sum
+                                                  -> 1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e (matches the corrected record)
+git -C <builder-wt> show 4999f31:... | sha256sum  -> 342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9 (matches the originally-recorded wrong value)
+find <pkg> -name __pycache__                      -> 0 dirs, after every run
+find <pkg> -type f | xargs sha256sum (before/after) -> IDENTICAL, 54 files
+git -C <wt> status --porcelain                    -> only bootstrap-review-e2-recheck/ untracked
