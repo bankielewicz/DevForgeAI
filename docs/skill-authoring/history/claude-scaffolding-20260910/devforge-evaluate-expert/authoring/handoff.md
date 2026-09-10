@@ -28,7 +28,7 @@ upstream:
 evidence:
   - kind: "candidate file manifest"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/file-manifest.json"
-    sha256: "8a05cf4af9d19f8a9fd67455b0ce085aa9349c50c3875e1f3dc775e319ec994e"
+    sha256: "fb62f69788444cdaeb6798349c25b5178c93defd072c7ca2dde7a076b6e2c4cd"
   - kind: "working design specification"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/design/skill-design-spec.md"
     sha256: "b4f7772ead4bac67bcc654e1fad3241410c417d6a3aa58911de19755e13c20dd"
@@ -40,7 +40,7 @@ evidence:
     sha256: "61617eb3f9783f1ff7c687fb3267477188cc834cbea51b0903e1e46457bae6ca"
   - kind: "authoring notes and local runner observations"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/authoring-notes.md"
-    sha256: "335d5a6bc2e29ec4b2579fa4012fdc1d12e251d71d94e32f16b9cbfa811339db"
+    sha256: "98d4921c8ef6b14c8fbb4d1797f665838ce134fa6d0e8ac245c8d31837efa2c9"
 supersedes:
   candidate_commit: "e52ac596cbf790dfa156d883852d392c512fdbcc"
   revision: 1
@@ -76,11 +76,11 @@ This handoff is excluded from the table: it carries no digest of itself and does
 | Direction | Artifact | Path | SHA-256 | State |
 | --- | --- | --- | --- | --- |
 | output | Candidate package (54 files) | `providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/` | per-file map in the manifest below | authored, unevaluated |
-| output | Candidate file manifest | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/file-manifest.json` | `8a05cf4af9d19f8a9fd67455b0ce085aa9349c50c3875e1f3dc775e319ec994e` | frozen |
+| output | Candidate file manifest | `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/file-manifest.json` | `fb62f69788444cdaeb6798349c25b5178c93defd072c7ca2dde7a076b6e2c4cd` | frozen |
 | output | Working design specification | `.../authoring/design/skill-design-spec.md` | `b4f7772ead4bac67bcc654e1fad3241410c417d6a3aa58911de19755e13c20dd` | revision 1 |
 | output | Port analysis (phase 1) | `.../authoring/port-analysis.md` | `182a131838f2241ad36e46c5a61b0ad4afa712179004b059898e101759aa87a3` | frozen |
 | output | Specification mapping | `.../authoring/spec-mapping.md` | `61617eb3f9783f1ff7c687fb3267477188cc834cbea51b0903e1e46457bae6ca` | frozen |
-| output | Authoring notes | `.../authoring/authoring-notes.md` | `335d5a6bc2e29ec4b2579fa4012fdc1d12e251d71d94e32f16b9cbfa811339db` | frozen |
+| output | Authoring notes | `.../authoring/authoring-notes.md` | `98d4921c8ef6b14c8fbb4d1797f665838ce134fa6d0e8ac245c8d31837efa2c9` | frozen |
 | input | SKILL-008 specification | `docs/mvp/specifications/skill-008-devforge-evaluate-expert.md` | `0b3dbb7f…` | accepted, unchanged |
 | input | Codex port source | `providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert/` | per-file digests in the port analysis §1 | read-only; unchanged |
 

@@ -42,7 +42,7 @@
   "references/contracts/artifact-contract.md": "b8c9131c1007371eb01f2f7a7a069f85ccc318093872d53649ed41726098fc36",
   "references/contracts/execution-contract.md": "5c09da2e4849f9a7567d9e8cc6b0ee401c1ab8b39e386c6d05a3765c8fef1d9e",
   "references/contracts/skill-authoring-contract.md": "1d59e32f283c635276cc47ac138905936cf80e3ed0d7c3f89a0fab649ae37cc5",
-  "references/derivation.json": "0c79f568af1be499a2eea8c99bb5e46f692e273876bc8691ac179508b338df04",
+  "references/derivation.json": "a7ed08a748254d043bd440826da530b48f5d8d02d6899699b5d1af8280d2a4d3",
   "references/evaluation-boundaries.md": "1c36e08823eab2b41189f5229dd6f2b7f42f5c5dd5077ea3576265542bb4cb4f",
   "references/framework-context.md": "10062533f06513bad5bce101a8f736e2e4831ceb839b5ead91d0bdd94421a7f6",
   "references/missing-rust-capabilities.md": "82e6fcd808aa1fa1005ec0be45d8a77231226372423fc39b27c54d9917060e2a",
@@ -85,7 +85,7 @@
  "authoring_records_sha256": {
   "port-analysis.md": "182a131838f2241ad36e46c5a61b0ad4afa712179004b059898e101759aa87a3",
   "spec-mapping.md": "61617eb3f9783f1ff7c687fb3267477188cc834cbea51b0903e1e46457bae6ca",
-  "authoring-notes.md": "335d5a6bc2e29ec4b2579fa4012fdc1d12e251d71d94e32f16b9cbfa811339db",
+  "authoring-notes.md": "98d4921c8ef6b14c8fbb4d1797f665838ce134fa6d0e8ac245c8d31837efa2c9",
   "design/skill-design-spec.md": "b4f7772ead4bac67bcc654e1fad3241410c417d6a3aa58911de19755e13c20dd"
  },
  "repair_pass_1": {
@@ -124,7 +124,8 @@
   "files_removed": [
    "scripts/__pycache__/ (untracked build residue; git ls-files reported 0 tracked files)"
   ],
-  "preserved": "All 13 original runner cases keep their prior outcomes in both modes. No aggregate verdict field, no gate, no decision receipt, no third-party dependency, no candidate write."
+  "preserved": "All 13 original runner cases keep their prior outcomes in both modes. No aggregate verdict field, no gate, no decision receipt, no third-party dependency, no candidate write.",
+  "provenance_correction": "E2 recheck F-R01: repair pass 1 changed bytes without regenerating the seven destination_sha256 values recording them. All 30 recorded digests in references/derivation.json were recomputed; the seven stale ones were updated, each prior value preserved in that entry's prior-digest chain, and the repair_pass_1 record now discloses the transitions. derivation.json was the only package byte changed."
  },
  "governing_inputs_sha256": {
   "docs/mvp/specifications/skill-008-devforge-evaluate-expert.md": "0b3dbb7fe9f5f683d2022c86390e736346189e1ea4d92730c7234d9de1ecec0d",

@@ -235,3 +235,27 @@ E2 uses `expectations` as an *assertion*-level key, which my first allowlist omi
 ## Declined
 
 Nothing was declined. All nine changes were applied, F-009(b) in the handoff rather than the package because the handoff is author evidence outside the candidate fence.
+
+## Repair pass 1 — provenance correction
+
+E2's focused recheck of `e101e76` closed F-001 through F-009 and raised one new MINOR, **F-R01**: repair pass 1 changed bytes without regenerating the digests that record them. Seven `destination_sha256` values in `references/derivation.json` still carried candidate-1 values, and the `repair_pass_1` record did not disclose that they had moved.
+
+The finding is correct, and it is the same class of defect the pass was fixing — a record asserting an identity its bytes no longer have. A derivation record whose digests are stale cannot distinguish a deliberate refresh from silent drift, which is the only reason it exists.
+
+Audited independently: every recorded digest in the file was recomputed from current bytes. Exactly the seven E2 named were stale; the other 23 were already current.
+
+| Destination | Candidate 1 | Candidate 2 |
+| --- | --- | --- |
+| `SKILL.md` | `5f9769dd…` | `bdf665c7…` |
+| `references/native-evaluation.md` | `b43680f9…` | `7d4a8bda…` |
+| `references/results-contract.md` | `6e99ade1…` | `ebac4e4c…` |
+| `references/runner-interface.md` | `a58c35da…` | `87c8942f…` |
+| `scripts/run_cases.py` | `d1fb1868…` | `95ca2abf…` |
+| `scripts/graders.py` | `7c03e7b2…` | `1b7a27a3…` |
+| `evals/cases.jsonl` | `b4b0c931…` | `c31a7cb0…` |
+
+Each prior value is preserved in that entry's prior-digest chain, in the shape the sibling package's derivation record already uses, and stays reachable at commit `e52ac59`. The `repair_pass_1` record now carries a `destination_digest_regeneration` sentence listing all seven transitions.
+
+Scope: `references/derivation.json` was the only package byte changed. No source digest was recomputed or altered, no behaviour changed, and the three verbatim `docs/mvp` template copies were re-verified byte-identical to their governing sources. This is a mechanical provenance correction, not a second repair pass, and it establishes nothing new about the candidate's behaviour.
+
+**One consequence beyond the instruction, disclosed rather than done silently.** Regenerating `file-manifest.json` — authorised, since `derivation.json`'s entry in it changed — moves the manifest's own digest, and `handoff.md` cites that digest in two places. Leaving those would recreate F-R01's exact shape one level up, so both citations were updated to the new value. Nothing else in the handoff changed, and it remains revision 2. The same applied to its `authoring-notes.md` citation, which this very section moved.

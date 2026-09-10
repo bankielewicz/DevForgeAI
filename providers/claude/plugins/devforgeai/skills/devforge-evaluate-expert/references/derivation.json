@@ -146,7 +146,7 @@
   },
   {
    "destination": "SKILL.md",
-   "destination_sha256": "5f9769ddc394440d63079f699db3f2c23b97821629350658b5b022e360bcd049",
+   "destination_sha256": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
    "kind": "content ported from the Codex implementation of SKILL-008",
    "source": {
     "store": "project",
@@ -155,11 +155,22 @@
     "sha256": "6ed2a5d7e91711a2f18a86e3131a81f23d36eafddcfa5f3e06af76cc303d1340"
    },
    "transformation": "Provider transformation and reduction. The P1-P6 / T01-T12 workflow, the read-only and untrusted-evidence boundaries, the evaluate-and-hand-off-only rule and the phase content are preserved. Codex invocation syntax, CODEX_HOME, Codex hook events and per-skill openai.yaml are removed; Claude discovery locations and invocation surfaces replace them. The two helper invocation blocks are replaced by the missing-capability statements and the case runner. The managed-v1 paragraph and the F01-F08 / local-baseline sections are dropped.",
-   "refresh_condition": "The Codex package is a sibling implementation, not an upstream. A change there does not oblige a change here; it is a signal to compare. Refresh only on an integration-owner decision."
+   "refresh_condition": "The Codex package is a sibling implementation, not an upstream. A change there does not oblige a change here; it is a signal to compare. Refresh only on an integration-owner decision.",
+   "prior_destination_sha256_chain": [
+    {
+     "sha256": "5f9769ddc394440d63079f699db3f2c23b97821629350658b5b022e360bcd049",
+     "revision": "candidate 1",
+     "preserved_at": {
+      "store": "git",
+      "locator": "commit e52ac596cbf790dfa156d883852d392c512fdbcc"
+     },
+     "note": "The bytes the E2 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+    }
+   ]
   },
   {
    "destination": "references/native-evaluation.md",
-   "destination_sha256": "b43680f963d54758d5364b9f8e858b76a759f45678c4324c50d11f0bda47be9c",
+   "destination_sha256": "7d4a8bda731c318dbbaf61127578bf84e02fc1970be9fe4015bfaa6d0adc7e6f",
    "kind": "content ported from the Codex implementation of SKILL-008",
    "source": {
     "store": "project",
@@ -168,7 +179,18 @@
     "sha256": "0a31fbb952e83b8455bf06ef456b40d5eca42b5d2a01d6b41db0ea873ac7a4ab"
    },
    "transformation": "Provider transformation. Tier order, the boundary table, the harmless probes, per-attempt isolation and the four tier-A observations are preserved. Codex terminal and CODEX_HOME references become Claude Code sessions and observed client state; the Claude discovery-location precedence is added to the duplicate-copy check; the reduced worktree-environment procedure is merged in as its environment section; dated Codex supervisor observations are dropped as not applicable.",
-   "refresh_condition": "The Codex package is a sibling implementation, not an upstream. A change there does not oblige a change here; it is a signal to compare. Refresh only on an integration-owner decision."
+   "refresh_condition": "The Codex package is a sibling implementation, not an upstream. A change there does not oblige a change here; it is a signal to compare. Refresh only on an integration-owner decision.",
+   "prior_destination_sha256_chain": [
+    {
+     "sha256": "b43680f963d54758d5364b9f8e858b76a759f45678c4324c50d11f0bda47be9c",
+     "revision": "candidate 1",
+     "preserved_at": {
+      "store": "git",
+      "locator": "commit e52ac596cbf790dfa156d883852d392c512fdbcc"
+     },
+     "note": "The bytes the E2 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+    }
+   ]
   },
   {
    "destination": "references/ai-review-rubric.md",
@@ -185,7 +207,7 @@
   },
   {
    "destination": "references/results-contract.md",
-   "destination_sha256": "6e99ade182e4a84b66b8c0c1e8bdc00c32a55732314c5a2dddd59eee99dd3342",
+   "destination_sha256": "ebac4e4c53f9a5d525e5edb1d331c4ee4c5736c26f18845090e7e3fd2d2c6af6",
    "kind": "content ported from the Codex implementation of SKILL-008",
    "source": {
     "store": "project",
@@ -194,7 +216,18 @@
     "sha256": "14f75142bcb941231c0aed5a2bb9bffba3a2b81d795fea357630c3d583a67524"
    },
    "transformation": "Port with reduction. The outcome vocabulary, evidence groups, file sequence, native grade binding, findings and severity, the builder remediation contract and required closure are preserved. The deterministic-helper interface section and the legacy v1 / v2 record selection are removed, and the decision-receipt step is replaced by hand adjudication because evidence reduction is not implemented in the DevForge CLI.",
-   "refresh_condition": "The Codex package is a sibling implementation, not an upstream. A change there does not oblige a change here; it is a signal to compare. Refresh only on an integration-owner decision."
+   "refresh_condition": "The Codex package is a sibling implementation, not an upstream. A change there does not oblige a change here; it is a signal to compare. Refresh only on an integration-owner decision.",
+   "prior_destination_sha256_chain": [
+    {
+     "sha256": "6e99ade182e4a84b66b8c0c1e8bdc00c32a55732314c5a2dddd59eee99dd3342",
+     "revision": "candidate 1",
+     "preserved_at": {
+      "store": "git",
+      "locator": "commit e52ac596cbf790dfa156d883852d392c512fdbcc"
+     },
+     "note": "The bytes the E2 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+    }
+   ]
   },
   {
    "destination": "references/evaluation-boundaries.md",
@@ -265,23 +298,67 @@
  "new_in_this_package": [
   {
    "path": "scripts/run_cases.py",
-   "sha256": "d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d",
-   "rationale": "The JSONL evaluation runner required as a build artifact by the development language policy. Produces per-case observations and metrics with no aggregate verdict; its exit status describes the program, not the candidate. Interface documented in references/runner-interface.md."
+   "sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+   "rationale": "The JSONL evaluation runner required as a build artifact by the development language policy. Produces per-case observations and metrics with no aggregate verdict; its exit status describes the program, not the candidate. Interface documented in references/runner-interface.md.",
+   "prior_sha256_chain": [
+    {
+     "sha256": "d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d",
+     "revision": "candidate 1",
+     "preserved_at": {
+      "store": "git",
+      "locator": "commit e52ac596cbf790dfa156d883852d392c512fdbcc"
+     },
+     "note": "The bytes the E2 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+    }
+   ]
   },
   {
    "path": "scripts/graders.py",
-   "sha256": "7c03e7b2137787035c995787b232a7bf8d801c88672675bacf4359a8cdb38c13",
-   "rationale": "The deterministic graders the runner dispatches to. No command interface by design, so there is no second executable that could be mistaken for a gate. Standard library only; no PyYAML."
+   "sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+   "rationale": "The deterministic graders the runner dispatches to. No command interface by design, so there is no second executable that could be mistaken for a gate. Standard library only; no PyYAML.",
+   "prior_sha256_chain": [
+    {
+     "sha256": "7c03e7b2137787035c995787b232a7bf8d801c88672675bacf4359a8cdb38c13",
+     "revision": "candidate 1",
+     "preserved_at": {
+      "store": "git",
+      "locator": "commit e52ac596cbf790dfa156d883852d392c512fdbcc"
+     },
+     "note": "The bytes the E2 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+    }
+   ]
   },
   {
    "path": "references/runner-interface.md",
-   "sha256": "a58c35dab0fdb68d3a7dea92bf761a1e4ac25bee89fb49320fb09e247557170b",
-   "rationale": "Declares the helper's prerequisites, arguments, exit meanings, schemas and limits as the authoring contract requires, and states the discriminator that keeps the graders evidence rather than a gate."
+   "sha256": "87c8942f2faa9c00c8746eeb51001ddccee3802c9f21a6e187d072251d4673e2",
+   "rationale": "Declares the helper's prerequisites, arguments, exit meanings, schemas and limits as the authoring contract requires, and states the discriminator that keeps the graders evidence rather than a gate.",
+   "prior_sha256_chain": [
+    {
+     "sha256": "a58c35dab0fdb68d3a7dea92bf761a1e4ac25bee89fb49320fb09e247557170b",
+     "revision": "candidate 1",
+     "preserved_at": {
+      "store": "git",
+      "locator": "commit e52ac596cbf790dfa156d883852d392c512fdbcc"
+     },
+     "note": "The bytes the E2 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+    }
+   ]
   },
   {
    "path": "evals/cases.jsonl",
-   "sha256": "b4b0c9314f43aa4aebaeee7f25c4d5e4b81fc2b0e628d98e3505c91679cb1f83",
-   "rationale": "Machine-readable cases for the runner, distinct from the human-frozen case definitions in assets/test-cases.json."
+   "sha256": "c31a7cb0a98fd33941fadb23c0fc63b1f274f07df15f850348acdf3b310f6be8",
+   "rationale": "Machine-readable cases for the runner, distinct from the human-frozen case definitions in assets/test-cases.json.",
+   "prior_sha256_chain": [
+    {
+     "sha256": "b4b0c9314f43aa4aebaeee7f25c4d5e4b81fc2b0e628d98e3505c91679cb1f83",
+     "revision": "candidate 1",
+     "preserved_at": {
+      "store": "git",
+      "locator": "commit e52ac596cbf790dfa156d883852d392c512fdbcc"
+     },
+     "note": "The bytes the E2 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+    }
+   ]
   },
   {
    "path": "evals/fixtures/",
@@ -507,6 +584,7 @@
    "The three verbatim docs/mvp template copies, byte-identical and unedited.",
    "All 13 original runner cases keep their prior outcomes exactly."
   ],
-  "status": "Repair pass 1 applied. The candidate is a new evaluation identity; the E2 findings close only against new matching evidence. Validation status: Not performed. Behavioural status: NOT_EVALUATED."
+  "status": "Repair pass 1 applied. The candidate is a new evaluation identity; the E2 findings close only against new matching evidence. Validation status: Not performed. Behavioural status: NOT_EVALUATED.",
+  "destination_digest_regeneration": "Repair pass 1 changed bytes without regenerating the digests recording them, so seven destinations carried candidate-1 values until this mechanical correction (E2 recheck F-R01): SKILL.md 5f9769ddc394…->bdf665c7e180…; references/native-evaluation.md b43680f963d5…->7d4a8bda731c…; references/results-contract.md 6e99ade182e4…->ebac4e4c53f9…; scripts/run_cases.py d1fb18689eee…->95ca2abf77a5…; scripts/graders.py 7c03e7b21377…->1b7a27a37e1f…; references/runner-interface.md a58c35dab0fd…->87c8942f2faa…; evals/cases.jsonl b4b0c9314f43…->c31a7cb0a98f…. Each prior value is preserved in that entry's prior-digest chain and remains reachable at commit e52ac59. The remaining 23 recorded digests were recomputed and were already current; no other package byte changed, and no source digest was touched."
  }
 }
