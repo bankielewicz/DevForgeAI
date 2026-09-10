@@ -133,7 +133,7 @@ Every specification case is materialised. These are authoring acceptance require
 - 5 of 5 specification acceptance cases materialised as evals: IDs 1-5.
 - 4 of 4 additional common cases materialised as evals: IDs 6-9.
 - Rework path materialised as eval 10.
-- 22 tier-A trigger queries: 10 positive across explicit, direct and indirect; 12 negative across five near-miss categories; fixed stratified train/validation split.
+- 21 tier-A trigger queries: 10 positive across explicit invocation (2), direct domain (3) and indirect (5); 11 negative across six near-miss categories; fixed stratified train/validation split (12 train, 9 validation).
 - 9 synthetic fixtures, all package-relative, with the stale-upstream mismatch bound to real reproducible digests.
 - Rows recorded `NOT_APPLICABLE` with a reason rather than omitted: 5 (the Codex-scoped promotion, Routine/Full, local-baseline, managed-adapter and per-skill-metadata rows).
 - Executed: nothing. All tiers `NOT_RUN`; behavioural status `NOT_EVALUATED`; Validation status: Not performed.

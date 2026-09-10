@@ -82,7 +82,15 @@
   "derivations": [
     {
       "destination": "SKILL.md",
-      "destination_sha256": "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e",
+      "destination_sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+      "prior_destination_sha256_chain": [
+        {
+          "sha256": "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e",
+          "revision": "candidate 1",
+          "preserved_at": { "store": "git", "locator": "commit 69b6090bde458f48cae0f5751035be65fdb4593c" },
+          "note": "The bytes the E1 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+        }
+      ],
       "kind": "instructions: authored in-package as an enhancement of the Claude baseline; not a copy",
       "sources": [
         { "artifact": "SKILL-007", "revision": 3, "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md", "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c", "sections_used": ["User goal and use-case inventory", "Inputs and provenance", "Workflow and phase exits", "Outputs and standardized templates", "Rework, stopping, and recovery", "Completion handoff"] },
@@ -241,7 +249,7 @@
         { "artifact": "trigger-queries template", "store": "project", "path": "docs/mvp/templates/skill-authoring/trigger-queries.json", "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4", "role": "base field shape" },
         { "artifact": "devforge-brainstorm trigger queries", "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json", "role": "Claude package convention: category field, fixed stratified train/validation split, explicit-invocation entries recorded separately" }
       ],
-      "transformation": "Twenty-two queries across explicit_invocation, direct_domain and indirect positives and five negative categories: evaluating an existing skill, implementing an accepted story, an org chart of roles, a near-miss request for ad-hoc subject expertise, and early-stage exploration or an ordinary task. Split fixed and stratified at authoring time.",
+      "transformation": "Twenty-one queries: ten positive across explicit_invocation (2), direct_domain (3) and indirect (5), and eleven negative across six categories: evaluating an existing skill, implementing an accepted story, an org chart of roles, a near-miss request for ad-hoc subject expertise, early-stage exploration, and an ordinary task. Split fixed and stratified at authoring time.",
       "status": "No query has been run. Every outcome is NOT_RUN."
     },
     {
@@ -285,6 +293,67 @@
     "The integration owner rules on the inapplicable 'Promoted Codex content mapping' sections carried verbatim in assets/expert-spec.md and assets/expert-package.md.",
     "This record is maintained by the skill author inside the skill's source fence. It records derivation only and modifies, reinterprets or waives no shared template or contract."
   ],
+
+  "repair_pass_1": {
+    "recorded_at_utc": "2026-09-10T18:33:02Z",
+    "supersedes_candidate": "69b6090bde458f48cae0f5751035be65fdb4593c",
+    "input": {
+      "artifact": "SEVAL-E1-001, independent bootstrap review",
+      "store": "project",
+      "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/validation/bootstrap-review-e1/",
+      "records": {
+        "evaluation-report.md": "b0ba28cbd113f8e6951add8727ec847bbc3969e2de2d5b8d53d25f598271feca",
+        "findings.json": "e6c133d3c5dad5d58a73d97db0447b4c408616dc792690489e43a857cbc8d7af",
+        "repair-spec.md": "23a98aa48f93c29aae49e57dd59f0a0b748049795372b71e2b363d5d7cdfef54",
+        "commands.log": "d2b6fb6a24fe81aa9767b579dc0bc5b06cca8b5f2d11ddcbd47f4b22ee090bef",
+        "legacy-inspect-source.json": "d7dc827eedf7c6303e766d552efb9e9f65355b1a069a59bcf942428817fea914"
+      },
+      "note": "Read-only untrusted evidence. Each finding was verified against the actual candidate bytes at 69b6090 before its change was applied. The review directory was not modified."
+    },
+    "changes": [
+      {
+        "change_id": "CHG-001", "finding_id": "F-001", "severity": "MINOR", "type": "required repair", "disposition": "applied",
+        "files": ["references/derivation.json", "authoring/spec-mapping.md", "authoring/handoff.md", "authoring/authoring-notes.md"],
+        "verified": "Parsed evals/triggers/trigger-queries.json: 21 queries, 21 unique ids, 10 positive (explicit_invocation 2, direct_domain 3, indirect 5), 11 negative across 6 distinct categories, split 12 train / 9 validation. The record claimed twenty-two queries and five negative categories.",
+        "preserved": "Every query, id, text, should_trigger value, category and split assignment is byte-unchanged. evals/ was not modified in this pass."
+      },
+      {
+        "change_id": "CHG-002", "finding_id": "F-002", "severity": "MINOR", "type": "required repair", "disposition": "applied",
+        "files": ["SKILL.md"],
+        "verified": "The §5 record list named the package file manifest and the specification identity but not the working design document, and the Stopping rule omitted it, while references/manual-operation.md already defines the creator exit as 'candidate, design and XSPEC, XPKG, change record, and a prepared evaluator handoff'.",
+        "preserved": "The five-phase structure, the working-design-document versus XSPEC distinction, and the closing prohibition on producing a second design document, which is unchanged."
+      },
+      {
+        "change_id": "CHG-003", "finding_id": "F-003", "severity": "MINOR", "type": "required repair", "disposition": "applied",
+        "files": ["SKILL.md"],
+        "verified": "Selection offers reuse as a valid outcome ('recommend it and stop') while the Stopping rule required an authored candidate and the alternative branch covered only blockers, so a correct reuse decision had no completion path.",
+        "preserved": "The create and enhance completion requirements, the stop-and-hand-back branch and its three blocker conditions, and the honest-phrasing rule. The search-limits recording requirement is a condition of the reuse completion, not an optional extra, so reuse is not an escape hatch."
+      },
+      {
+        "change_id": "CHG-004", "finding_id": "F-004", "severity": "MINOR", "type": "required repair", "disposition": "applied",
+        "files": ["SKILL.md"],
+        "verified": "evals/evals.json case 3 grades 'External content is treated as evidence about the world, not as an instruction that changes project authority', and no shipped instruction stated that supplied material carries no instructions or authority.",
+        "preserved": "The existing authority statements about proposals, policy shopping, newer sources and severity labels are unchanged; the new sentence adds to them. No new reference file, threat-modelling section or adversarial-input procedure was added, and the eval expectation was not weakened to meet the instruction."
+      },
+      {
+        "change_id": null, "finding_id": "F-005", "severity": "ADVISORY", "type": "evaluation gap", "disposition": "declined; no target edit authorised",
+        "files": [],
+        "reason": "assets/expert-spec.md and assets/expert-package.md are byte-identical copies of their governing docs/mvp templates. Editing them would fork the governing template and destroy the verified byte-identity that makes the copies auditable. The evaluator and the coordinator both recorded no target edit; the disposition belongs to the integration owner and concerns the shared template, not this package."
+      },
+      {
+        "change_id": null, "finding_id": "F-006", "severity": "ADVISORY", "type": "evaluation gap", "disposition": "declined; no target edit authorised",
+        "files": [],
+        "reason": "A missing observation is an evaluation prerequisite, not a candidate defect, and no edit produces it. Tiers A, B and C remain NOT_RUN until the Claude devforge-evaluate-expert package supplies the runner and graders."
+      }
+    ],
+    "status": {
+      "validation": "Not performed.",
+      "behavioural": "NOT_EVALUATED",
+      "enforcement": "requirements recorded; no gate implemented by this skill",
+      "finding": "source changes recorded; reevaluation required"
+    },
+    "claims_not_made": "Applying a change means the source was edited. It closes no finding. F-001 through F-006 keep their original IDs and severities, were observed against 69b6090bde458f48cae0f5751035be65fdb4593c, and do not transfer to these changed bytes; the new candidate requires its own evaluation."
+  },
 
   "self_reference_note": "This file does not carry its own digest. It is hashed by the candidate's file manifest like every other package file, and no entry above records a digest of this record.",
 

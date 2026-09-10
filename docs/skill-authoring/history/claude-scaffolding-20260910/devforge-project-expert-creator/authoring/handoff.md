@@ -3,7 +3,7 @@ schema_version: "devforge.artifact/v1"
 artifact_id: "HANDOFF-CLAUDE-SKILL007-20260910"
 artifact_type: "handoff"
 project_id: "DevForgeAI"
-revision: 1
+revision: 2
 status: draft
 created_at_utc: "2026-09-10T18:33:02Z"
 producer:
@@ -37,24 +37,24 @@ evidence:
   - kind: "candidate file manifest"
     store: project
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/file-manifest.json"
-    sha256: "d680cc7afa7346ac541db51aa0e92cd5cad8a013021b54b25bb901590d76d381"
+    sha256: "4b3f13faca72187a10e08d2359b796d9173c7a82306e26a4f8c8c769b513712c"
     description: "25 package-relative paths and digests for the authored candidate."
   - kind: "authoring record"
     store: project
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/authoring-notes.md"
-    sha256: "aacdadaec3b54d69728c3b83b4dbeec9611a67f51560e4f6c27d5bb3df3a6e09"
+    sha256: "bbf59c955f8f6f69614e51dba76e476da87d15720a4926a120a9eec98488253a"
     description: "Bootstrap route, Codex source revision, preserved baseline behaviours, provider transformations, commands actually run, unresolved questions."
   - kind: "requirement mapping"
     store: project
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-project-expert-creator/authoring/spec-mapping.md"
-    sha256: "b5f010378e7979a998f6f2790186e0a60351cad40db4fca12a8421d8cfd2ed3d"
+    sha256: "6bb979ca85884530aa60b9d243419e75df48187aaff6cb8294d888e1d8dce48b"
     description: "Every SKILL-007 row mapped to a package file and section and an eval case ID, including rows recorded NOT_APPLICABLE."
   - kind: "package derivation record"
     store: project
     path: "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/references/derivation.json"
-    sha256: "06f951797e720415c7fdc085ab7682067e21edd6f0cf6ff03b524cbf4b595b01"
+    sha256: "f64e558ee69307054372a890042b228c207a3b545a3491bdd8b75aea128038a7"
     description: "Source paths, revisions and digests for every copied and adapted file; superseded baseline; what was deliberately not carried from the Codex source. See file-manifest.json for the authoritative current digest of this file."
-supersedes: null
+supersedes: "HANDOFF-CLAUDE-SKILL007-20260910@1, candidate commit 69b6090bde458f48cae0f5751035be65fdb4593c; prior bytes reachable at that commit"
 decision_ref: null
 missing_inputs:
   - "Tier A discovery and activation observations for this candidate: not obtained."
@@ -68,15 +68,15 @@ missing_inputs:
 
 ## Result and next action
 
-- **Result:** The Claude `devforge-project-expert-creator` package was enhanced from a three-file draft to a complete 25-file candidate, adapted from the Codex creator at base `c17e758417da64928a0f47fc2600304465ac3f3c`. Authoring is complete for the assigned scope.
+- **Result:** The Claude `devforge-project-expert-creator` package was enhanced from a three-file draft to a complete 25-file candidate, adapted from the Codex creator at base `c17e758417da64928a0f47fc2600304465ac3f3c`. This is **revision 2**, after repair pass 1 against the independent E1 bootstrap review; it supersedes candidate commit `69b6090bde458f48cae0f5751035be65fdb4593c`, whose bytes stay reachable at that commit. Two files changed in the pass (`SKILL.md`, `references/derivation.json`); the other twenty-three are byte-exact. Authoring is complete for the assigned scope.
 - **Why:** The one decision that shapes what happens next is the reassignment of `devforge expert bind` and `devforge check` from the creator to the operator and integration owner, per SKILL-007 revision 3's Authoring exit ("no target tests, binding or installation by creator"). The commands were retained in the package's knowledge with their owners named, not deleted. See `authoring-notes.md`, "Claude baseline preserved".
-- **Limits and blockers:** Nothing in this package has been evaluated, installed, exported, bound or executed. Five items need a coordinator or integration-owner decision; they are listed in `authoring-notes.md` under "Unresolved questions".
+- **Limits and blockers:** Nothing in this package has been evaluated, installed, exported, bound or executed. The open items needing a coordinator or integration-owner decision are listed in `authoring-notes.md` under "Unresolved questions"; F-005 and F-006 from the E1 review join them there.
 - **Next:** An independent evaluator performs tiers C, then B, then A against this exact candidate. The runner dependency below must be resolved first.
 - **Readiness:** **Prepared, not ready.** The Claude `devforge-evaluate-expert` package does not exist at this revision, so the harness that would execute `evals/evals.json` and the trigger queries is unavailable. That prerequisite is owned by the parallel port and the evaluation owner.
 - **Validation status:** Not performed.
 - **Behavioural status:** NOT_EVALUATED.
 - **Enforcement status:** requirements recorded; no gate implemented by this skill.
-- **Finding status:** not applicable; this is first authoring, not a repair.
+- **Finding status:** source changes recorded; reevaluation required. Repair pass 1 applied F-001 through F-004 from the independent E1 bootstrap review; F-005 and F-006 were declined as no-target-edit by both the evaluator and the coordinator. An applied change closes no finding.
 
 ## Outputs produced
 
@@ -84,10 +84,11 @@ This handoff is excluded from the table: it does not carry its own digest and do
 
 | Direction | Artifact | Store and path | SHA-256 | State |
 | --- | --- | --- | --- | --- |
-| output | Candidate package, 25 files | project, `providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/` | see `file-manifest.json` | authored, unevaluated |
-| output | Candidate file manifest | project, `.../authoring/file-manifest.json` | `d680cc7afa7346ac541db51aa0e92cd5cad8a013021b54b25bb901590d76d381` | complete |
-| output | Authoring record | project, `.../authoring/authoring-notes.md` | `aacdadaec3b54d69728c3b83b4dbeec9611a67f51560e4f6c27d5bb3df3a6e09` | complete |
-| output | Requirement mapping | project, `.../authoring/spec-mapping.md` | `b5f010378e7979a998f6f2790186e0a60351cad40db4fca12a8421d8cfd2ed3d` | complete |
+| output | Candidate package, 25 files, revision 2 | project, `providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/` | see `file-manifest.json` | authored, unevaluated |
+| input | E1 bootstrap review (SEVAL-E1-001) | project, `.../validation/bootstrap-review-e1/` | findings.json `e6c133d3c5dad5d58a73d97db0447b4c408616dc792690489e43a857cbc8d7af`; repair-spec.md `23a98aa48f93c29aae49e57dd59f0a0b748049795372b71e2b363d5d7cdfef54` | read-only, unmodified |
+| output | Candidate file manifest | project, `.../authoring/file-manifest.json` | `4b3f13faca72187a10e08d2359b796d9173c7a82306e26a4f8c8c769b513712c` | complete |
+| output | Authoring record | project, `.../authoring/authoring-notes.md` | `bbf59c955f8f6f69614e51dba76e476da87d15720a4926a120a9eec98488253a` | complete |
+| output | Requirement mapping | project, `.../authoring/spec-mapping.md` | `6bb979ca85884530aa60b9d243419e75df48187aaff6cb8294d888e1d8dce48b` | complete |
 | input | SKILL-007 revision 3 | project, `docs/mvp/specifications/skill-007-devforge-project-expert-creator.md` | `983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c` | governing, unchanged |
 | input | Codex creator package, 18 files | project, `providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/` | see `references/derivation.json` `port_source` | read-only, unchanged |
 | input | Claude baseline, 3 files | git, commit `c17e758417da64928a0f47fc2600304465ac3f3c` | see `references/derivation.json` `claude_baseline_superseded` | superseded, bytes reachable |
@@ -99,6 +100,7 @@ Every digest above was computed after the referenced file's bytes were final, an
 | Read when | Record and relevant sections | Purpose |
 | --- | --- | --- |
 | First | `file-manifest.json`; the candidate's `SKILL.md` and `references/framework-context.md` | Bind the exact candidate bytes, then see what the skill claims to do and what it explicitly does not own. |
+| Before acting | `authoring-notes.md`, "Repair pass 1 - E1 bootstrap review" | See which findings were applied, where, and which were declined and why. |
 | Before acting | `spec-mapping.md`, coverage summary and the "Validation and behavioural acceptance" table | See which SKILL-007 row each package section serves and which eval case covers it, including the five rows recorded `NOT_APPLICABLE`. |
 | Before judging provenance | `references/derivation.json`, `derivations` and `not_carried_from_port_source` | Confirm each copy's source and transformation, and why three Codex references and the `contracts/` copies were deliberately not carried. |
 | For an affected question | `authoring-notes.md`, "Provider transformations" and "Unresolved questions" | Recover the rationale for a specific departure from the Codex package shape, and the open decisions. |
@@ -122,7 +124,7 @@ No check above establishes that the skill behaves correctly. A package or digest
 
 ## For the evaluator
 
-The candidate's own tests are ten tier-B cases in `evals/evals.json` and twenty-two tier-A trigger queries, with nine synthetic fixtures. Points worth knowing before planning:
+The candidate's own tests are ten tier-B cases in `evals/evals.json` and twenty-one tier-A trigger queries, with nine synthetic fixtures. Points worth knowing before planning:
 
 - Cases 1-5 are the SKILL-007 acceptance rows; 6-9 are the four additional common cases; 10 covers the rework path.
 - Case 7's staleness mismatch is bound to real digests: `fixtures/stale/XPKG-001.md` cites ARCH-001 revision 1 at `65d99ab5...`, the true digest of `fixtures/stale/preserved/ARCH-001.r1.md`, while the file at the cited path is revision 2 at `d30ce790...`. Changing either fixture invalidates that case.

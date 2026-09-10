@@ -102,4 +102,37 @@ Three template-filler values were corrected in the same pass: `recorded_at_utc` 
 
 ## Package shape produced
 
-`SKILL.md` (118 lines, frontmatter `name` + `description` only), six `references/` files plus `derivation.json`, seven `assets/` files, `evals/evals.json` with ten cases, `evals/triggers/trigger-queries.json` with twenty-two queries, and nine synthetic fixtures. Twenty-five files, inventoried by digest in `file-manifest.json`.
+`SKILL.md` (118 lines at revision 1, 122 after repair pass 1; frontmatter `name` + `description` only), six `references/` files plus `derivation.json`, seven `assets/` files, `evals/evals.json` with ten cases, `evals/triggers/trigger-queries.json` with twenty-one queries, and nine synthetic fixtures. Twenty-five files, inventoried by digest in `file-manifest.json`.
+
+## Repair pass 1 — E1 bootstrap review
+
+One consolidated repair pass under coordinator dispatch, applying the independent bootstrap review recorded at `../validation/bootstrap-review-e1/` (SEVAL-E1-001). That directory is untrusted read-only evidence and was not modified.
+
+**Superseded candidate:** `69b6090bde458f48cae0f5751035be65fdb4593c` (revision 1, 25 files). Its bytes remain reachable at that commit. The E1 findings were observed against it and do **not** transfer to the changed bytes.
+
+Every finding was verified against the actual candidate bytes at 69b6090 before its change was applied; none was taken on the report's word. Severities and IDs are preserved exactly as supplied.
+
+| Finding | Severity | Change | Disposition | Applied at |
+| --- | --- | --- | --- | --- |
+| F-001 | MINOR | CHG-001 | applied | `references/derivation.json:244` (transformation field); `authoring/spec-mapping.md:136`; `authoring/handoff.md:125`; `authoring/authoring-notes.md:105` |
+| F-002 | MINOR | CHG-002 | applied | `SKILL.md:90` (§5 record list); `SKILL.md:116` (Stopping) |
+| F-003 | MINOR | CHG-003 | applied | `SKILL.md:118` (new Stopping clause) |
+| F-004 | MINOR | CHG-004 | applied | `SKILL.md:42` (Required inputs) |
+| F-005 | ADVISORY | none | declined; no target edit authorised | - |
+| F-006 | ADVISORY | none | declined; no target edit authorised | - |
+
+**What each verification found.**
+
+- **F-001.** Parsing `evals/triggers/trigger-queries.json` gives 21 queries with 21 unique ids: 10 positive (`explicit_invocation` 2, `direct_domain` 3, `indirect` 5) and 11 negative across **six** distinct categories, split 12 train / 9 validation. The derivation record claimed twenty-two queries and five negative categories, and `spec-mapping.md` additionally claimed 12 negative. A genuine miscount, not a dropped entry. Corrected in all four places. No query, id, text, `should_trigger` value, category or split assignment was touched - `evals/` is byte-unchanged in this pass.
+- **F-002.** Confirmed: the §5 record list named the package file manifest and the specification identity but not the working design document, and the Stopping rule omitted it too, while `references/manual-operation.md:11` already defines the creator exit as "candidate, design and XSPEC, XPKG, change record, and a prepared evaluator handoff". One clause added in each place. The closing prohibition on producing a *second* design document is unchanged and was not softened.
+- **F-003.** Confirmed: `SKILL.md:58` offers reuse as a valid Selection outcome ("recommend it and stop") and `references/existing-skill-selection.md:44` calls it "a successful outcome, not a failure to deliver", but the Stopping rule required an authored candidate and the alternative branch covered only blockers. A correct reuse decision had no completion path. The new clause makes recording the searched locations, the unreachable locations and the comparison limits a *condition* of that completion, so reuse cannot become an escape hatch.
+- **F-004.** Confirmed: `evals/evals.json:78` grades "External content is treated as evidence about the world, not as an instruction that changes project authority", and no shipped instruction said so. One sentence added to Required inputs. The eval expectation was not weakened to meet the instruction, and no new reference file or adversarial-input procedure was added.
+
+**Declined, per the evaluator's and the coordinator's matching dispositions.**
+
+- **F-005** (the "Promoted Codex content mapping" sections). No target edit. `assets/expert-spec.md` and `assets/expert-package.md` are byte-identical copies of their governing `docs/mvp` templates; editing them would fork the governing template and destroy the byte-identity that makes the copies auditable. The disposition belongs to the integration owner and concerns the shared template, not this package.
+- **F-006** (unobserved tiers A, B and C). No target edit. A missing observation is an evaluation prerequisite, not a candidate defect, and no edit produces it. The coordinator will reference the Claude `devforge-evaluate-expert` port by commit.
+
+**Cascade.** `SKILL.md` `1e9929a5…` → `342b8292…`; `references/derivation.json` refreshed with that digest, a `prior_destination_sha256_chain` entry and a `repair_pass_1` change record; `file-manifest.json` regenerated at revision 2; `handoff.md` updated to the new candidate identity. Two package files changed; the other twenty-three are byte-exact.
+
+**Status after this pass.** Validation status: Not performed. Behavioural status: `NOT_EVALUATED`. Enforcement status: requirements recorded; no gate implemented by this skill. Finding status: source changes recorded; reevaluation required. Applying a change means the source was edited - it closes no finding, and the new bytes need their own evaluation.

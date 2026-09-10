@@ -2,14 +2,22 @@
   "schema_version": "devforge.package-manifest/v1",
   "skill": "devforge-project-expert-creator",
   "provider": "claude",
-  "candidate": "authored candidate, revision 1 of the Claude enhancement",
+  "candidate": "authored candidate, revision 2 after repair pass 1 (E1 bootstrap review, F-001..F-004)",
+  "supersedes_candidate": {
+    "commit": "69b6090bde458f48cae0f5751035be65fdb4593c",
+    "note": "Revision 1. Its bytes remain reachable at that commit; the E1 findings were observed against it and do not transfer to these bytes."
+  },
   "source_root": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator",
   "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
   "recorded_at_utc": "2026-09-10T18:33:02Z",
   "hash_algorithm": "sha256, complete file bytes",
   "file_count": 25,
+  "changed_in_repair_pass_1": [
+    "SKILL.md",
+    "references/derivation.json"
+  ],
   "files_sha256": {
-    "SKILL.md": "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e",
+    "SKILL.md": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
     "assets/evaluation-cases.md": "46439049d859c65245c26f7427a99f97277b05f6244d7fcae8f25a4c12ff4e99",
     "assets/expert-package.md": "678cb91253a36a2ebf1e370d96858ed6a27206dffedc62cb90658cdcffdf890d",
     "assets/expert-skill.md": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
@@ -27,7 +35,7 @@
     "evals/fixtures/stale/XPKG-001.md": "a437f858371ec2d10c0a98845456b7133ac2155f385b41a2f4f448cf2a6f6c52",
     "evals/fixtures/stale/preserved/ARCH-001.r1.md": "65d99ab516b5fb2bca9e0d45dc5587c27d692fc426957329173a6d357ad70314",
     "evals/triggers/trigger-queries.json": "29a4fe7f9b93394c47942f794a70025dd9ea2a4d27557b0f8b5682cdd4972d39",
-    "references/derivation.json": "06f951797e720415c7fdc085ab7682067e21edd6f0cf6ff03b524cbf4b595b01",
+    "references/derivation.json": "f64e558ee69307054372a890042b228c207a3b545a3491bdd8b75aea128038a7",
     "references/existing-skill-selection.md": "89a070c3fbee10a8bce513101a0dd50bbfaec431fd3056fddc8d3113e5b933df",
     "references/framework-context.md": "884d915f6b65f11540283ee3ed241d2e33cd54c24d22d93e51e3496d49501c66",
     "references/interview-guide.md": "0157e51472cbf206b73d818e0243708906496ab8d72a9b1cbefd7cfab3134d76",
@@ -36,6 +44,6 @@
     "references/validator-handoff.md": "0cb2975c440d5df14e14d3b5f875393254eeeb72537684e421a5b740d0945f7f"
   },
   "self_reference_note": "This manifest lists the candidate package only. It does not contain its own digest, and it does not list itself or any other file in this authoring evidence directory.",
-  "status_note": "Authored source inventory. A manifest identifies which bytes exist; it is not evidence of installation, activation, evaluation or acceptance. Validation status: Not performed.",
+  "status_note": "Authored source inventory. A manifest identifies which bytes exist; it is not evidence of installation, activation, evaluation or acceptance. Validation status: Not performed. Behavioural status: NOT_EVALUATED. Finding status: source changes recorded; reevaluation required.",
   "packaging_note": "evals/ is authored source and is excluded from installed copies and runtime exports; assets/ and references/ ship. This manifest covers the source package, not any generated copy."
 }
