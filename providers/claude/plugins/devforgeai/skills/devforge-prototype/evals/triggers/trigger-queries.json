@@ -1,0 +1,38 @@
+{
+  "skill_name": "devforge-prototype",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field, matching the Claude devforge-brainstorm convention. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "negative_note": "The negatives are the near misses the specification and roster actually name. Four route to a sibling skill (develop, design, change, brainstorm); two should route nowhere, because an uncertainty that inspection settles needs no experiment and an unrelated use of the word 'prototype' is not this skill's domain. A negative passes only on a completed run with no consultation of this skill; an incomplete run is COULD_NOT_RUN.",
+  "queries": [
+    { "id": "A1a", "category": "explicit_invocation", "query": "Use the devforge-prototype skill on the vessel-position latency question.", "should_trigger": true, "split": "train" },
+    { "id": "A1b", "category": "explicit_invocation", "query": "Run devforge-prototype for this.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A2a", "category": "direct_domain", "query": "Use DevForgeAI to prototype the risky part of this before we commit to it.", "should_trigger": true, "split": "train" },
+    { "id": "A2b", "category": "direct_domain", "query": "I want to spike the sync engine for a day before we design around it. Can you set that up properly so we actually learn something?", "should_trigger": true, "split": "train" },
+    { "id": "A2c", "category": "direct_domain", "query": "Let's run a bounded experiment on whether the vector index approach is viable, before I write it into the architecture.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A3a", "category": "indirect", "query": "Can this approach support the interaction we need?", "should_trigger": true, "split": "train" },
+    { "id": "A3b", "category": "indirect", "query": "Is a quarter of a second realistic at 400 concurrent viewers, or am I kidding myself?", "should_trigger": true, "split": "train" },
+    { "id": "A3c", "category": "indirect", "query": "The whole plan rests on the assumption that we can do the transcode on-device. Nobody has checked. I would rather find out now than in month three.", "should_trigger": true, "split": "train" },
+    { "id": "A3d", "category": "indirect", "query": "We are about to commit to Postgres full-text search instead of a separate search service, and the only thing I am unsure about is whether it holds up at our document count. How would we find out?", "should_trigger": true, "split": "validation" },
+    { "id": "A3e", "category": "indirect", "query": "Before I sign off this design, is there any way to actually check that the offline merge behaves the way the doc claims?", "should_trigger": true, "split": "validation" },
+
+    { "id": "A4a", "category": "negative_specified_story_develop", "query": "STORY-031 is accepted and ready. Add the DELETE /routes/{id} endpoint with soft-delete semantics, exactly as the story specifies, plus its tests.", "should_trigger": false, "split": "train" },
+    { "id": "A4b", "category": "negative_specified_story_develop", "query": "The story is signed off and the acceptance criteria are unambiguous. Implement it.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A5a", "category": "negative_ui_prototype_design", "query": "Can you put together a clickable prototype of the settings screen so I can show it to two users on Thursday?", "should_trigger": false, "split": "train" },
+    { "id": "A5b", "category": "negative_ui_prototype_design", "query": "I want to prototype the onboarding flow - three screens, just enough to see whether the ordering makes sense.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A6a", "category": "negative_unrelated_prototype_word", "query": "Something is patching Array.prototype somewhere in this bundle and it is breaking the date parser. Find it.", "should_trigger": false, "split": "train" },
+    { "id": "A6b", "category": "negative_unrelated_prototype_word", "query": "Explain how prototypal inheritance differs from classical inheritance in JavaScript.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A7a", "category": "negative_resolvable_by_inspection", "query": "Does the current uploader retry on a 503, or does it give up? I just need to know what the code does today.", "should_trigger": false, "split": "train" },
+    { "id": "A7b", "category": "negative_resolvable_by_inspection", "query": "We already load-tested this exact path last quarter and the numbers are in the wiki. What did it come out at?", "should_trigger": false, "split": "validation" },
+
+    { "id": "A8a", "category": "negative_change_accepted_decision", "query": "I want to revisit the accepted decision that Postgres is our only datastore, now that we know the write volume.", "should_trigger": false, "split": "train" },
+    { "id": "A8b", "category": "negative_change_accepted_decision", "query": "Amend the architecture contract so the 250 ms budget becomes 900 ms.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A9a", "category": "negative_early_exploration_brainstorm", "query": "I have three ideas for what this product could be and I cannot decide which problem is worth solving.", "should_trigger": false, "split": "train" },
+    { "id": "A9b", "category": "negative_early_exploration_brainstorm", "query": "I want to build something for people who run community darkrooms. That is as far as I have got.", "should_trigger": false, "split": "validation" }
+  ]
+}

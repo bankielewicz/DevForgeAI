@@ -1,0 +1,10 @@
+{
+  "fixture": "synthetic",
+  "note": "Stands in for a prototype file manifest. Digests are illustrative placeholders in a fixture, not real digests of real files, and no case asserts them.",
+  "fence": "experiments/XPLAN-006/",
+  "files": [
+    { "path": "experiments/XPLAN-006/NOTES.md", "role": "experiment notes" },
+    { "path": "experiments/XPLAN-006/RUN.md", "role": "reproduction steps" }
+  ],
+  "outside_fence_writes": []
+}

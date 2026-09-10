@@ -1,0 +1,20 @@
+{
+  "fixture": "synthetic",
+  "note": "Stands in for a result record whose declared evidence actually resolves. The digests below are the real digests of the sibling fixture files, so the binding is verifiable from these bytes rather than asserted.",
+  "artifact": "XREPORT-006",
+  "outcome": "threshold missed - p95 412 ms against the 250 ms recorded in XPLAN-006@1",
+  "plan_reference": {
+    "path": "experiments/XPLAN-001.md",
+    "sha256": "f20184b2ffc6970fda994951ea23dd53a0cee6510cd706e2caf19407330c7f5b"
+  },
+  "raw_observations": [
+    {
+      "path": "evidence/measurements.txt",
+      "sha256": "f1a759471ba53f856f41b1e60ef5ab90513d88104e892b45e94f2f51ab1e25b7"
+    }
+  ],
+  "prototype_manifest": {
+    "path": "fence/prototype/manifest.json",
+    "sha256": "574dc4817ec91184d012e000dcc869420c0baab29bf5ff699dbd160ddbd779e0"
+  }
+}

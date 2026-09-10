@@ -1,0 +1,9 @@
+{
+  "fixture_kind": "synthetic-transcript",
+  "note": "Synthetic event shape authored for the deterministic graders in the Claude devforge-evaluate-expert package. Not a client transcript.",
+  "events": [
+    {"type": "prompt", "text": "STORY-031 is accepted and ready. Add the DELETE /routes/{id} endpoint and its tests, exactly as the story specifies."},
+    {"type": "selection_requested", "skill": "devforge-develop"},
+    {"type": "completed", "terminal_completed": true}
+  ]
+}

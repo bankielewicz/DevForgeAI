@@ -1,0 +1,10 @@
+{
+  "fixture_kind": "synthetic-transcript",
+  "note": "Synthetic event shape. The run timed out with no terminal completion event, so nothing can be established from it.",
+  "events": [
+    {"type": "prompt", "text": "Can this approach hit the 250 ms update budget at 400 viewers?"},
+    {"type": "selection_requested", "skill": "devforge-prototype"},
+    {"type": "tool_error", "text": "load generator exited: EMFILE"},
+    {"type": "stream_truncated", "text": "no further output"}
+  ]
+}
