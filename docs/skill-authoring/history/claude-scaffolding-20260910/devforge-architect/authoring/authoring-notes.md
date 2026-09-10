@@ -98,6 +98,39 @@ A link-resolution pass and a scan for `!`-prefixed shell-injection syntax were r
 - `references/derivation.json` was first written with two placeholder digests and one guessed digest for `docs/development-language-policy.md`. All three were replaced with values observed from `sha256sum`. No `PENDING` or invented digest remains.
 - The same file initially embedded two developer home paths. Both were removed; the package now contains none.
 
+## Correction pass after the first commit (82e956f)
+
+A review pass over the committed scaffold found three defects. They were corrected in a second
+commit rather than an amend, so the revision-1 evidence the revision-2 handoff cites stays
+reachable at 82e956f.
+
+1. **Date-only stamps, which the assignment forbids.** Three fields recorded a bare date where an
+   observed UTC timestamp was required: `evals/evals.json` `authored_on_utc`,
+   `references/derivation.json` `external_sources.retrieved_utc`, and the `references/sources.md`
+   header. No exact timestamp was observed for either event, so rather than invent one - which is
+   precisely what the rule forbids - each now records the **observed bounding window** from the
+   two nearest `date -u` readings: the documentation fetch falls between 19:30:39Z and 19:37:14Z,
+   and `evals.json` was authored between 19:37:14Z and 19:47:56Z. A bounded window is an honest
+   record of what was actually observed.
+
+2. **A held-out trigger query quoted in an authored document.** The design document's section 2
+   "Example activating requests" carried a truncation of A3d, which is a **validation**-split
+   query. It was not verbatim, and the design document is authoring evidence rather than an
+   author-loop or task-worker context, so the leak was marginal - but the fixed split is only
+   worth having if it is respected without argument. The example was replaced with A3c (train),
+   and the section now states that all three examples are train-split. A scan confirms no
+   validation query appears in `SKILL.md`, `evals.json`, `cases.jsonl`, the design document,
+   `spec-mapping.md` or these notes.
+
+3. **An overstated coverage row.** `spec-mapping.md` claimed the specification's six-consumer line
+   was carried by `SKILL.md` phase 4. Phase 4 names four consumers, and the description names
+   `devforge-change`; `devforge-evaluate-expert` is named nowhere in the package. That row now
+   records a deliberate partial with the reason, rather than full coverage.
+
+The candidate `SKILL.md` was not edited in this pass, so its digest is unchanged from the first
+commit. `file-manifest.json` was recomputed and the handoff was reissued as revision 2 superseding
+revision 1, whose bytes remain at 82e956f.
+
 ## Unresolved items for the coordinator
 
 1. **Proposed defaults 1-8 need a decision** from the user or the integration owner. They are labelled as proposals everywhere they appear and none is presented as settled.

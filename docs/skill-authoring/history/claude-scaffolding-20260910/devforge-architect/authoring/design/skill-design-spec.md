@@ -46,7 +46,7 @@ Establishing a project's architecture and stack contract; settling the stack bef
 
 - "Use DevForgeAI to establish this project's architecture and stack contract." (specification direct request)
 - "How should we structure this SaaS so later sessions do not introduce incompatible libraries?" (specification indirect request)
-- "What do we actually depend on in here, and at what versions? I inherited this."
+- "A new person is joining next week and nothing about how this repo is organised is written down anywhere. Where do I even start?"
 
 **Near-miss requests that must not activate it:**
 
@@ -54,7 +54,7 @@ Establishing a project's architecture and stack contract; settling the stack bef
 - "STORY-014 is accepted and ready. Implement it."
 - "There is a typo in docs/getting-started.md. Fix that line, nothing else."
 
-The full positive and negative set with its fixed split is in the package's `evals/triggers/trigger-queries.json`.
+The three examples above are all drawn from the **train** split. The full positive and negative set with its fixed split is in the package's `evals/triggers/trigger-queries.json`; no validation-split query is quoted in this document or anywhere else this author wrote, so the held-out set stays held out.
 
 **How it should be invoked:**
 Automatically when relevant, and explicitly by name. **Proposed default:** the package sets neither `disable-model-invocation` nor `user-invocable`, matching the two-field frontmatter rule the authoring contract applies to these packages. The client's defaults then permit both paths.

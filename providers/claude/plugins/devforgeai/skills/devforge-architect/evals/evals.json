@@ -4,7 +4,13 @@
   "tier_note": "Every case here is tier B: output quality and boundaries, with the skill path supplied. Tier B observes behaviour after loading and can never evidence discovery or activation. Tier A queries live in triggers/trigger-queries.json. The deterministic assertions a runner can execute live in cases.jsonl, and runner_case names the case that carries each one.",
   "authoring_status": "AUTHORED_NOT_EXECUTED",
   "execution_status": "NOT_RUN",
-  "authored_on_utc": "2026-09-10",
+  "authored_utc": {
+    "observed_between": [
+      "2026-09-10T19:37:14Z",
+      "2026-09-10T19:47:56Z"
+    ],
+    "note": "The two nearest observed `date -u` readings that bound this file's authoring. No exact write timestamp was observed for it, and none is invented."
+  },
   "execution_boundary": {
     "run_now": false,
     "instruction": "These are acceptance cases for a later authorised evaluation of this skill by an independent evaluator. Authoring them is not permission to run them, and the author cannot supply the independent judgement of its own candidate.",

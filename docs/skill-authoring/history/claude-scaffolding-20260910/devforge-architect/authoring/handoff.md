@@ -3,19 +3,21 @@ schema_version: "devforge.artifact/v1"
 artifact_id: "HANDOFF-ARCH-SCAFFOLD-001"
 artifact_type: "handoff"
 project_id: "DevForgeAI"
-revision: 1
+revision: 2
 status: draft
-created_at_utc: "2026-09-10T19:52:54Z"
+created_at_utc: "2026-09-10T19:58:18Z"
 producer:
   skill: "devforge-architect authoring assignment (no installed skill produced these bytes)"
   skill_revision: "not applicable; authored directly under the coordinator packet, not by an installed skill"
 execution_ref: null
 upstream:
   - artifact_id: "SKILL-005"
-    revision: "c17e758417da64928a0f47fc2600304465ac3f3c"
+    revision: 2
     store: "project"
     path: "docs/mvp/specifications/skill-005-devforge-architect.md"
     sha256: "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b"
+    selected_commit: "c17e758417da64928a0f47fc2600304465ac3f3c"
+    revision_note: "revision 2 is the specification document's own recorded revision; the commit above is where those exact bytes were read."
     sections:
       - "User goal and use-case inventory"
       - "Inputs and provenance"
@@ -24,7 +26,13 @@ upstream:
       - "Validation and behavioral acceptance"
       - "Rework, stopping, and recovery"
 evidence: []
-supersedes: null
+supersedes:
+  artifact_id: "HANDOFF-ARCH-SCAFFOLD-001"
+  revision: 1
+  store: "project"
+  path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/authoring/handoff.md"
+  sha256: "11c38f11c314cac1118f9bd346335fb08edd5b28cd8c7bef27b46f1afed4837e"
+  preserved_at: "commit 82e956f in this worktree; those bytes remain reachable there"
 decision_ref: null
 missing_inputs:
   - "No session-record artifact exists for this assignment; execution_ref is null rather than an invented ID. The authorising record is the coordinator packet at tmp/claude-remaining-skills-scaffolding-20260910/packets/author-devforge-architect.md."
@@ -33,6 +41,13 @@ missing_inputs:
 ---
 
 # Authoring handoff: devforge-architect (SKILL-005), Claude scaffold
+
+**Revision 2.** Revision 1 was issued at commit `82e956f` and is superseded by this one after a
+correction pass: three date-only stamps became observed bounding windows, a held-out
+validation-split trigger query was removed from the design document, and one overstated
+coverage row in `spec-mapping.md` was corrected to a deliberate partial. Revision 1's bytes stay
+reachable at `82e956f` at this same path, and its digest is in the `supersedes` entry above. The
+candidate `SKILL.md` is byte-identical across both revisions; three package files changed.
 
 ## Result and next action
 
@@ -54,10 +69,10 @@ This handoff is excluded from the table: it cannot contain its own digest and do
 | input | SKILL-005 @ c17e758 | project / `docs/mvp/specifications/skill-005-devforge-architect.md` | `b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b` | all | governing; unchanged |
 | input | architecture-contract template @ c17e758 | project / `docs/mvp/templates/devforge-architect/architecture-contract.md` | `38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218` | whole template | copied byte-identically; unchanged |
 | input | shared handoff template @ c17e758 | project / `docs/mvp/templates/shared/handoff.md` | `abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206` | whole template | copied byte-identically; unchanged |
-| output | package file manifest, revision 1 | project / `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/authoring/file-manifest.json` | `23ede2e7232d526a2b81f88a6406eeb4ebfd132f609f572fa3ec80ed4a1fc683` | `files` (32 entries) | authored; the candidate's complete identity |
-| output | working design specification, revision 1 | project / `.../authoring/design/skill-design-spec.md` | `e7dc51820f31b845d946c7e518a8c04f951874d52250a75862ba0d3e8c18bce8` | 2, 4, 6, 7, 9, 10, 12 | authored |
-| output | specification mapping, revision 1 | project / `.../authoring/spec-mapping.md` | `d8746fdcc1d7bed9b9af24409daf6261beeb97c78dc98cdd3ed3fadb9c81cc17` | all | authored |
-| output | authoring notes, revision 1 | project / `.../authoring/authoring-notes.md` | `3925515167151736edcf490ce6d927e28c9b43ea359de96816286c08a8fdbf17` | all | authored |
+| output | package file manifest, revision 2 | project / `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/authoring/file-manifest.json` | `52e4f76dcdb5ddb163bb05432643cd933bb6b7c573aab5c8861aa9383ee19b18` | `files` (32 entries) | authored; the candidate's complete identity |
+| output | working design specification, revision 1 (edited in the correction pass) | project / `.../authoring/design/skill-design-spec.md` | `a3d4511c50d65946af5c6d42a55e0fa62cf7b9b77f351015bb68336125cdcc73` | 2, 4, 6, 7, 9, 10, 12 | authored |
+| output | specification mapping, revision 1 (edited in the correction pass) | project / `.../authoring/spec-mapping.md` | `5ac05d99c119f1be54d416e9cc2974977189657ec96880842099acd8f4ea269a` | all | authored |
+| output | authoring notes, revision 1 (correction pass appended) | project / `.../authoring/authoring-notes.md` | `e520f6313e610faaae529e7e5971758b2303e3db808388a6d776dfe34dfa02bc` | all | authored |
 | output | candidate `SKILL.md` | project / `providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md` | `cb51fead7d5bdd8ed6fcee17c3e6ae6a716efc0936108240e535fa0cca04b9e4` | frontmatter; phases 1-4 | authored; unevaluated |
 
 The remaining 31 package files and their digests are in `file-manifest.json`; they are not repeated here.
@@ -67,7 +82,7 @@ The remaining 31 package files and their digests are in `file-manifest.json`; th
 | Read when | Record and relevant sections or IDs | Purpose |
 | --- | --- | --- |
 | First | `file-manifest.json`, then `design/skill-design-spec.md` sections 1-7 | Bind the exact candidate bytes, then read the expectations that were stated before it was authored. |
-| Before acting | `design/skill-design-spec.md` sections 9, 10 and 12; `authoring-notes.md` | Recover the proposed defaults, the search limits, the preserved boundaries, what was actually run, and the two corrections made during authoring. |
+| Before acting | `design/skill-design-spec.md` sections 9, 10 and 12; `authoring-notes.md` | Recover the proposed defaults, the search limits, the preserved boundaries, what was actually run, the two corrections made during authoring, and the post-commit correction pass. |
 | For coverage questions | `spec-mapping.md` | Every SKILL-005 requirement and acceptance row mapped to a file, a section and an eval case ID. It also lists what was deliberately not carried into the package, with reasons. |
 | Before running anything | `providers/claude/.../devforge-architect/evals/fixtures/README.md` | The two runner invocations, the sentinel policy, and the statement that every fixture is synthetic. |
 
@@ -135,7 +150,7 @@ Stop at: The report and handoff exist, or the stated missing prerequisite - an a
 
 ## Retention and continuation limits
 
-- **Output readback:** The seven output paths and digests in the table above were read back after their bytes were final. This handoff is excluded.
+- **Output readback:** The seven output paths and digests in the table above were read back after their bytes were final, following the correction pass. This handoff is excluded. Revision 1 of this handoff is preserved at commit `82e956f`.
 - **This handoff's location:** `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/authoring/handoff.md` in the worktree named above. No self-digest.
 - **This handoff's receipt:** compute its digest after saving and reading it back, then deliver the path and digest in the permitted outbox or the terminal response. That digest is not written into this document.
 - **Worktree ownership:** Retained by this authoring session until the coordinator releases it. The branch is `author/claude-devforge-architect-scaffold-20260910` on base `c17e758417da64928a0f47fc2600304465ac3f3c`. Nothing was pushed.

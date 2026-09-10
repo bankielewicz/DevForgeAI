@@ -17,12 +17,12 @@
     "note": "Not copied into the package. The specification governs authoring; the installed skill does not need it at runtime."
   },
   "external_sources": {
-    "retrieved_utc": "2026-09-10",
+    "retrieved_observed_between": ["2026-09-10T19:30:39Z", "2026-09-10T19:37:14Z"],
     "documents": [
       "https://code.claude.com/docs/en/skills"
     ],
     "recorded_in": "references/sources.md",
-    "note": "Claims used from it are recorded in that file with their applicability and refresh conditions. Retrieved by a single page fetch; no running client was observed."
+    "note": "Claims used from it are recorded in that file with their applicability and refresh conditions. Retrieved by a single page fetch; no running client was observed. The retrieval falls between the two observed `date -u` readings above; no exact fetch timestamp was observed and none is invented."
   },
   "derivations": [
     {
