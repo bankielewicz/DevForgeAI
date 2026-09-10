@@ -114,3 +114,62 @@ Every command below is authoring hygiene against files this author wrote. **None
 3. Tiers A, B and C are `NOT_RUN`. The deterministic arm additionally depends on `devforge-evaluate-expert` at `e52ac59`, which is itself unevaluated and not installed.
 4. The four missing CLI integrations are open. Until they exist, the fence, the plan freeze, the promotion boundary and threshold immutability are observed by whoever does the work, not enforced.
 5. No client was observed loading this package, so tier A is unobserved rather than negative, and no claim of discovery or activation appears anywhere in the package or this record.
+
+---
+
+# Repair pass 1 — from the independent scaffold review
+
+Recorded 2026-09-10T21:46:05Z UTC. Supersedes candidate `e199230858d871926fff2d55de8b015fa0ce335e`.
+
+Input: `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-prototype/validation/scaffold-review/` — disposition **revise**, 0 BLOCKER / 1 MAJOR / 4 MINOR / 1 ADVISORY. Read-only untrusted evidence. The review directory was not modified. Every finding was verified against the actual candidate bytes at `e199230` before its change was applied; the verification command and its result are in the table below.
+
+One consolidated pass, authorised by the coordinator. The next-owner substitution — this scaffold's author under coordinator dispatch, rather than the validator's default `devforge-project-expert-creator` — is confirmed and is recorded here so it stays visible.
+
+## F → CHG → disposition
+
+| Finding | Sev | CHG | Verified at `e199230` (file:line) | Disposition | Files changed |
+|---|---|---|---|---|---|
+| F-001 | MINOR | CHG-001 | `evals/cases.jsonl` — all 9 cases set `candidate_subpath` into `evals/fixtures/`; none reads the package. `--mode installed` was byte-identical because no case declared a mode. | **applied** | `evals/cases.jsonl` |
+| F-002 | MAJOR | CHG-002 | `evals/evals.json` `evals[7]` (id 8) `baseline_comparison: "old_skill"`; the other ten say `without_skill`. `git ls-tree c17e758 providers/claude/plugins/devforgeai/skills/` returns four skills and no `devforge-prototype`. | **applied** | `evals/evals.json` |
+| F-003 | MINOR | CHG-003 | `SKILL.md:50` claimed the freeze exists "so that a later reader can tell the plan preceded the evidence"; `references/framework-context.md:33` denies exactly that; grep of `references/experiment-boundaries.md` for `preced` / `does not establish` / `self-recorded` / `outside the evaluated` returned **no match**, so the routed file did not carry the limit. | **applied** | `SKILL.md`, `references/experiment-boundaries.md` |
+| F-004 | MINOR | CHG-004 | `evals/evals.json` `runner_dependency.commit = e52ac59…`. `git log e52ac59..e641797` shows `b6a4bf7` → `e101e76` → `6916b60` → `e641797`; both scripts changed. | **applied** | `evals/evals.json`, `references/derivation.json` |
+| F-005 | MINOR | CHG-005 | `grep -rn -- "--candidate" evals/` returned **no match**. Reproduced the failure mode: `--candidate <package root>` exits 0 with all nine cases `COULD_NOT_RUN` and zero assertions observed. | **applied** | `evals/evals.json`, `evals/cases.jsonl`, `evals/fixtures/README.md` |
+| F-006 | ADVISORY | CHG-006 | Line 3 of each: `XPLAN-001.md` → `XPLAN-006`, `XREPORT-001.md` → `XREPORT-006`, `XPLAN-004.md` → `XPLAN-010`, `XREPORT-004.md` → `XREPORT-010`. Demonstrated. | **applied — README option** | `evals/fixtures/README.md` |
+
+F-006 was ADVISORY and conditional on being demonstrated. It is: the four filenames and their `artifact_id` values genuinely diverge. The review offered renaming or a README statement and named the README the lower-risk option; renaming would touch every `files` entry, every `args.file`/`args.path` and would churn the XP-C-002 and XP-C-006 sentinel digests for a readability gain no assertion depends on. The divergence is deliberate — stable fixture slots versus realistic project allocations — and is now stated with a mapping table rather than left to be inferred.
+
+## What was deliberately not copied
+
+The review's `evaluator-structural-cases.jsonl` was copied **in substance** as the starting point for CHG-001 and is not referenced by the package: it is evaluation evidence and must not become a package dependency.
+
+Its `EV-S-007` asserted `required_report_fields` against `assets/experiment-plan.md` and `assets/prototype-report.md` and observed `MISMATCH placeholder`. Those are unfilled templates; placeholders in them are correct. Authoring that case would record a healthy package as defective. `XP-PKG-003` asserts their presence instead, and its `notes` says why — placeholder detection belongs on a produced artifact, which is what `XP-C-004` covers.
+
+## Verification of this pass
+
+| Check | Result |
+|---|---|
+| Nine existing cases unchanged | Field-level comparison against the pre-repair file: only `tier` and `notes` differ; `assertions`, `candidate_subpath` and `expectations` byte-identical |
+| Nine existing rows still reproduce | Re-ran with `--candidate <package>/evals/fixtures --mode source` against the `e641797` runner: all nine rows identical to the review's `candidate-cases.observations.jsonl` in `execution_status`, `result` and `observed` text |
+| New cases observe what they claim | `--candidate <package> --mode source`: XP-PKG-001..004 all MATCH; XP-PKG-005 all INDETERMINATE with reason `mode=source`, which is the honest result with no installed copy allocated |
+| CHG-003 acceptance | `grep -rn "preceded the evidence"` over the package returns exactly two occurrences, both of which **deny** the claim (`framework-context.md:33`, `experiment-boundaries.md:21`) |
+| CHG-004 acceptance | `run_cases.py` at `e641797` hashes to `95ca2abf…` and `graders.py` to `1b7a27a3…`, matching the values recorded beside the pin and those the coordinator supplied |
+| Links | 9 local links resolve inside the package; 0 broken; 0 escape |
+| Frontmatter | `parsed` under the restricted top-level scalar reader; `name` and `description` populated; description 1,129 characters |
+| Digest chain | 31 manifest entries match the package on disk; 30 derivation destination digests match the manifest; no package file lacks a derivation entry; superseded digests preserved with their `e199230` locator |
+
+Both runner invocations are **authoring hygiene over this author's own files**. They establish that the case file loads, that the nine prior rows are unchanged, and that the new cases observe what they claim. They are not an evaluation of this skill.
+
+## Status after repair pass 1
+
+**Validation status:** Not performed. **Behavioural status:** `NOT_EVALUATED`. **Tiers A, B and C:** `NOT_RUN`. **Enforcement status:** requirements recorded; no gate implemented by this skill. **Finding status:** source changes recorded; reevaluation required.
+
+Applying a change means the source was edited. It closes no finding. F-001 through F-006 keep their original IDs and severities, were observed against `e199230`, and do not transfer to these bytes.
+
+## Corrections to earlier entries in this file
+
+- The fallback proposed above under "Decisions worth flagging" — that XB-8's arm becomes `NOT_APPLICABLE` if no earlier candidate exists — is **withdrawn**. F-002 is right that this misuses the fixed vocabulary: `NOT_APPLICABLE` is reserved for a stated scope exclusion and an absent baseline is not one. The arm is `without_skill`.
+- The runner dependency recorded above as `e52ac59` is superseded by `e641797`; see CHG-004. The earlier entry is left in place rather than rewritten, because it records what was true when it was written.
+
+## Still open after this pass
+
+Unchanged from the list above, plus: the `--candidate` convention remains undocumented in the `devforge-evaluate-expert` package's own cases. That is a defect in a sibling package, reported to its owner and not edited around. Its one open MINOR (F-R01) also remains that package's own.

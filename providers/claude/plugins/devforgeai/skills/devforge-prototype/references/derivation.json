@@ -3,9 +3,8 @@
   "skill": "devforge-prototype",
   "provider": "claude",
   "spec": "SKILL-004",
-  "recorded_at_utc": "2026-09-10T19:38:44Z",
+  "recorded_at_utc": "2026-09-10T21:46:05Z",
   "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
-
   "authoring_route": {
     "mode": "scaffold authored by following a source-loaded builder skill",
     "detail": "The Claude devforge-project-expert-creator package was read by absolute path from its own worktree and followed as source-loaded instructions - Intake, Selection, Design, Authoring, PreparedTransfer. It was not installed, not invoked as a skill, and not run.",
@@ -15,17 +14,59 @@
     "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
     "worktree_branch": "author/claude-devforge-prototype-scaffold-20260910"
   },
-
   "governing_inputs": [
-    { "artifact": "SKILL-004", "revision": 2, "store": "project", "path": "docs/mvp/specifications/skill-004-devforge-prototype.md", "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c", "role": "governing specification" },
-    { "artifact": "skill-authoring-contract", "revision": 3, "store": "project", "path": "docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53" },
-    { "artifact": "artifact-contract", "revision": 2, "store": "project", "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5" },
-    { "artifact": "execution-contract", "revision": 3, "store": "project", "path": "docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b" },
-    { "artifact": "development-language-policy", "store": "project", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f" },
-    { "artifact": "bounded-delivery", "store": "project", "path": "docs/learned-behaviors/bounded-delivery.md", "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae" },
-    { "artifact": "roster", "store": "project", "path": "docs/mvp/roster.md", "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc", "sections_used": ["Roster", "Provenance flow"] }
+    {
+      "artifact": "SKILL-004",
+      "revision": 2,
+      "store": "project",
+      "path": "docs/mvp/specifications/skill-004-devforge-prototype.md",
+      "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+      "role": "governing specification"
+    },
+    {
+      "artifact": "skill-authoring-contract",
+      "revision": 3,
+      "store": "project",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+    },
+    {
+      "artifact": "artifact-contract",
+      "revision": 2,
+      "store": "project",
+      "path": "docs/mvp/artifact-contract.md",
+      "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5"
+    },
+    {
+      "artifact": "execution-contract",
+      "revision": 3,
+      "store": "project",
+      "path": "docs/mvp/execution-contract.md",
+      "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+    },
+    {
+      "artifact": "development-language-policy",
+      "store": "project",
+      "path": "docs/development-language-policy.md",
+      "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f"
+    },
+    {
+      "artifact": "bounded-delivery",
+      "store": "project",
+      "path": "docs/learned-behaviors/bounded-delivery.md",
+      "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae"
+    },
+    {
+      "artifact": "roster",
+      "store": "project",
+      "path": "docs/mvp/roster.md",
+      "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc",
+      "sections_used": [
+        "Roster",
+        "Provenance flow"
+      ]
+    }
   ],
-
   "builder_files_loaded": {
     "note": "Read read-only from providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/ in an operator-assigned checkout of this repository. That checkout's HEAD at authoring time was 8c0bdd0d86c7330d2f7910d63b3511e8df43d20b; the diff from 4999f31 to that HEAD touches only docs/validation/, so the package bytes read are the bytes at 4999f31. The digests below were taken from git at 4999f31. The operator's filesystem locations are recorded in the authoring evidence, not in this package.",
     "files_sha256": {
@@ -45,13 +86,21 @@
       "references/validator-handoff.md": "Covers the builder's evaluator-repair intake. This is a first scaffold with no evaluator findings to intake."
     }
   },
-
   "selection_record": {
     "phase": "Selection, per the builder's step 2",
     "searched": [
-      { "location": "providers/claude/plugins/devforgeai/skills/ at base c17e758", "result": "devforge-brainstorm, devforge-develop, devforge-project-expert-creator, devforge-review. No devforge-prototype." },
-      { "location": "providers/codex/plugins/devforgeai/skills/ at base c17e758", "result": "devforge-brainstorm, devforge-develop, devforge-evaluate-expert, devforge-project-expert-creator, devforge-review. No devforge-prototype in either provider, so there is no port source for this skill." },
-      { "location": "docs/mvp/roster.md", "result": "SKILL-004 devforge-prototype is listed with current source 'Proposed'." }
+      {
+        "location": "providers/claude/plugins/devforgeai/skills/ at base c17e758",
+        "result": "devforge-brainstorm, devforge-develop, devforge-project-expert-creator, devforge-review. No devforge-prototype."
+      },
+      {
+        "location": "providers/codex/plugins/devforgeai/skills/ at base c17e758",
+        "result": "devforge-brainstorm, devforge-develop, devforge-evaluate-expert, devforge-project-expert-creator, devforge-review. No devforge-prototype in either provider, so there is no port source for this skill."
+      },
+      {
+        "location": "docs/mvp/roster.md",
+        "result": "SKILL-004 devforge-prototype is listed with current source 'Proposed'."
+      }
     ],
     "not_searched": [
       "The user's ~/.claude/skills, any managed settings directory, and any --add-dir directory. An installed personal or organisation-wide copy would not be visible from this worktree.",
@@ -68,26 +117,73 @@
     "limits": "This is a bounded search of two provider source inventories at one commit plus the roster. 'No suitable skill found in the searched inventory' is what it establishes. It does not establish that no such skill exists anywhere.",
     "destination_collision": "providers/claude/plugins/devforgeai/skills/devforge-prototype did not exist at base c17e758. Nothing was overwritten."
   },
-
   "derivations": [
     {
       "destination": "SKILL.md",
-      "destination_sha256": "1c348077723e693e0a5a4bba997c501f3ed683f1ef834e9538e069cb193a00e2",
+      "destination_sha256": "127ded6c18429e87de34fec216f0d6389c4d3bd5dfb6db4b316507de40a3085d",
       "kind": "instructions: authored in-package from the specification; not a copy and not a port",
       "sources": [
-        { "artifact": "SKILL-004", "revision": 2, "path": "docs/mvp/specifications/skill-004-devforge-prototype.md", "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c", "sections_used": ["User goal and use-case inventory", "Inputs and provenance", "Workflow and phase exits", "Outputs and standardized templates", "Validation and behavioral acceptance", "Rework, stopping, and recovery", "Completion handoff"] },
-        { "artifact": "Claude devforge-project-expert-creator SKILL.md", "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be", "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md", "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9", "role": "builder followed as source-loaded instructions; structural precedent for the framing failure modes, the two-roots rule, the required-inputs table, the missing-check vocabulary section and the finite stopping condition" },
-        { "artifact": "Claude devforge-brainstorm SKILL.md", "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md", "role": "Claude voice and description-shape exemplar. Its managed-runtime section was deliberately not carried: SKILL-004 describes no managed operation." },
-        { "artifact": "development-language-policy", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f", "sections_used": ["Phases, hooks and skill content"] }
+        {
+          "artifact": "SKILL-004",
+          "revision": 2,
+          "path": "docs/mvp/specifications/skill-004-devforge-prototype.md",
+          "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+          "sections_used": [
+            "User goal and use-case inventory",
+            "Inputs and provenance",
+            "Workflow and phase exits",
+            "Outputs and standardized templates",
+            "Validation and behavioral acceptance",
+            "Rework, stopping, and recovery",
+            "Completion handoff"
+          ]
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator SKILL.md",
+          "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "role": "builder followed as source-loaded instructions; structural precedent for the framing failure modes, the two-roots rule, the required-inputs table, the missing-check vocabulary section and the finite stopping condition"
+        },
+        {
+          "artifact": "Claude devforge-brainstorm SKILL.md",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/SKILL.md",
+          "role": "Claude voice and description-shape exemplar. Its managed-runtime section was deliberately not carried: SKILL-004 describes no managed operation."
+        },
+        {
+          "artifact": "development-language-policy",
+          "path": "docs/development-language-policy.md",
+          "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+          "sections_used": [
+            "Phases, hooks and skill content"
+          ]
+        }
       ],
       "transformation": "The specification's four phases became workflow prose with explicit exit conditions rather than CLI ceremony. Added the three framing failure modes drawn from the specification's own acceptance rows (moving the threshold, prototype becoming production, claiming an unobserved measurement), the required-inputs table from the Inputs and provenance table, the destination-selection rule, the five common-case behaviours, and a finite stopping condition that treats a failed hypothesis and a blocked experiment as complete results.",
-      "claims_not_made": "No Rust command is presented as gating any phase. The only command named in the package is devforge isolate, with its actual limit stated; the missing integrations are listed as open requirements in references/framework-context.md."
+      "claims_not_made": "No Rust command is presented as gating any phase. The only command named in the package is devforge isolate, with its actual limit stated; the missing integrations are listed as open requirements in references/framework-context.md.",
+      "prior_destination_sha256_chain": [
+        {
+          "sha256": "1c348077723e693e0a5a4bba997c501f3ed683f1ef834e9538e069cb193a00e2",
+          "revision": "scaffold candidate 1",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit e199230858d871926fff2d55de8b015fa0ce335e"
+          },
+          "note": "The bytes the independent scaffold review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+        }
+      ]
     },
     {
       "destination": "assets/experiment-plan.md",
       "destination_sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564",
       "kind": "asset: governing output template copied into the package",
-      "source": { "artifact": "experiment-plan template", "store": "project", "path": "docs/mvp/templates/devforge-prototype/experiment-plan.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564" },
+      "source": {
+        "artifact": "experiment-plan template",
+        "store": "project",
+        "path": "docs/mvp/templates/devforge-prototype/experiment-plan.md",
+        "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c",
+        "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564"
+      },
       "transformation": "none; byte-identical copy",
       "verified": "destination_sha256 == source sha256",
       "fill_guidance_location": "references/recording-rules.md, section 'Filling the plan'. Guidance was deliberately not appended to the copy, because editing it would fork the governing template and destroy the byte identity that makes this copy auditable."
@@ -96,7 +192,13 @@
       "destination": "assets/prototype-report.md",
       "destination_sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252",
       "kind": "asset: governing output template copied into the package",
-      "source": { "artifact": "prototype-report template", "store": "project", "path": "docs/mvp/templates/devforge-prototype/prototype-report.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252" },
+      "source": {
+        "artifact": "prototype-report template",
+        "store": "project",
+        "path": "docs/mvp/templates/devforge-prototype/prototype-report.md",
+        "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c",
+        "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252"
+      },
       "transformation": "none; byte-identical copy",
       "verified": "destination_sha256 == source sha256",
       "fill_guidance_location": "references/recording-rules.md, section 'Filling the report'."
@@ -105,8 +207,19 @@
       "destination": "assets/handoff.md",
       "destination_sha256": "eab442b522fa801583676869f692996fb8e8513c557632640b3f0d5853eefbb1",
       "kind": "asset: bounded adaptation of the governing shared template",
-      "source": { "artifact": "shared handoff template", "store": "project", "path": "docs/mvp/templates/shared/handoff.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206" },
-      "adaptation_precedent": { "artifact": "Claude devforge-project-expert-creator assets/handoff.md", "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be", "sha256": "d741d4dfadbb37353f5542dbb825ab7df9bbdb7be10e4380e262f54e0f663790", "role": "shows how the shared template is narrowed to one skill's transfer without competing with it" },
+      "source": {
+        "artifact": "shared handoff template",
+        "store": "project",
+        "path": "docs/mvp/templates/shared/handoff.md",
+        "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c",
+        "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+      },
+      "adaptation_precedent": {
+        "artifact": "Claude devforge-project-expert-creator assets/handoff.md",
+        "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+        "sha256": "d741d4dfadbb37353f5542dbb825ab7df9bbdb7be10e4380e262f54e0f663790",
+        "role": "shows how the shared template is narrowed to one skill's transfer without competing with it"
+      },
       "transformation": "Kept the devforge.artifact/v1 envelope field-for-field and every substantive rule of the shared template: the outputs table that excludes the handoff itself, hash-after-final-bytes, the external receipt for the handoff's own digest, the continuation directory, the copyable next task and the resume-and-custody block. Narrowed it to this skill by adding a result-and-next-action brief that separates the observed result from the recommendation, a prototype-identity block naming the fence actually used, and an observed-checks table whose vocabulary note is the framework's fixed one. The producer is fixed to devforge-prototype and the continuation names the roster's actual consumers with the caveat that none of them is installed.",
       "refresh_condition": "docs/mvp/templates/shared/handoff.md changes; re-derive and update this entry."
     },
@@ -115,13 +228,63 @@
       "destination_sha256": "7b205797dc0609f809f3f8a7aa34e1d5113fcc9ddf45f66735dc7e72fe865a97",
       "kind": "distilled reference: a narrowed restatement of shared contract rules for this skill's situations; not a copy",
       "sources": [
-        { "artifact": "skill-authoring-contract", "revision": 3, "path": "docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53", "sections_used": ["Sources, ownership, and runtime copies", "Per-skill structure and distribution", "Resource and script paths", "Three separately reported evaluation tiers"] },
-        { "artifact": "artifact-contract", "revision": 2, "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5", "sections_used": ["Standard envelope", "Provenance without circular bookkeeping"] },
-        { "artifact": "execution-contract", "revision": 3, "path": "docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b", "sections_used": ["Provider authoring and bootstrap evaluation"] },
-        { "artifact": "development-language-policy", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f", "sections_used": ["Rust framework authority and required Python evaluation", "Phases, hooks and skill content"] },
-        { "artifact": "bounded-delivery", "path": "docs/learned-behaviors/bounded-delivery.md", "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae" },
-        { "artifact": "Claude devforge-project-expert-creator references/framework-context.md", "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be", "sha256": "884d915f6b65f11540283ee3ed241d2e33cd54c24d22d93e51e3496d49501c66", "role": "precedent for the ownership, path-resolution and vocabulary framing" },
-        { "artifact": "DevForge CLI help output", "store": "observation", "observed_utc": "2026-09-10", "detail": "devforge --help, devforge isolate --help and devforge expert --help were run against the companion DevForge repository's debug build in an operator-assigned checkout. Every command named in this reference appears in that output: delivery, expert, check, init, red, green, accept, verify, status, isolate. isolate --help confirms --project, --runtime with possible values codex and claude, and a trailing -- <COMMAND>; expert --help confirms the prepare, bind and status subcommands. No command was run against any project." }
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+          "sections_used": [
+            "Sources, ownership, and runtime copies",
+            "Per-skill structure and distribution",
+            "Resource and script paths",
+            "Three separately reported evaluation tiers"
+          ]
+        },
+        {
+          "artifact": "artifact-contract",
+          "revision": 2,
+          "path": "docs/mvp/artifact-contract.md",
+          "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+          "sections_used": [
+            "Standard envelope",
+            "Provenance without circular bookkeeping"
+          ]
+        },
+        {
+          "artifact": "execution-contract",
+          "revision": 3,
+          "path": "docs/mvp/execution-contract.md",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "sections_used": [
+            "Provider authoring and bootstrap evaluation"
+          ]
+        },
+        {
+          "artifact": "development-language-policy",
+          "path": "docs/development-language-policy.md",
+          "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+          "sections_used": [
+            "Rust framework authority and required Python evaluation",
+            "Phases, hooks and skill content"
+          ]
+        },
+        {
+          "artifact": "bounded-delivery",
+          "path": "docs/learned-behaviors/bounded-delivery.md",
+          "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae"
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator references/framework-context.md",
+          "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+          "sha256": "884d915f6b65f11540283ee3ed241d2e33cd54c24d22d93e51e3496d49501c66",
+          "role": "precedent for the ownership, path-resolution and vocabulary framing"
+        },
+        {
+          "artifact": "DevForge CLI help output",
+          "store": "observation",
+          "observed_utc": "2026-09-10",
+          "detail": "devforge --help, devforge isolate --help and devforge expert --help were run against the companion DevForge repository's debug build in an operator-assigned checkout. Every command named in this reference appears in that output: delivery, expert, check, init, red, green, accept, verify, status, isolate. isolate --help confirms --project, --runtime with possible values codex and claude, and a trailing -- <COMMAND>; expert --help confirms the prepare, bind and status subcommands. No command was run against any project."
+        }
       ],
       "transformation": "Selected and rewritten for this skill's actual conditions. The CLI table was rebuilt for an experiment workflow: isolate is named with its real limit (it bounds the project, not a subpath, so it is not an experiment fence), check and the RED/GREEN gate are named as belonging to other workflows, and four integrations this workflow would need are recorded as open requirements with no implementation claimed.",
       "claims_not_made": "Restating a contract is not evidence of conformance to it, and naming a command is not evidence it was run here."
@@ -131,73 +294,250 @@
       "destination_sha256": "dd97a2b9e5fd085911af9a6a2a8af4a4a4f6a7a3da7d05993fc6c10162c10849",
       "kind": "distilled reference: envelope, upstream-reference and digest rules narrowed to XPLAN and XREPORT",
       "sources": [
-        { "artifact": "artifact-contract", "revision": 2, "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5", "sections_used": ["Standard envelope", "Provenance without circular bookkeeping", "Output storage and stable candidate snapshots"] },
-        { "artifact": "SKILL-004", "revision": 2, "path": "docs/mvp/specifications/skill-004-devforge-prototype.md", "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c", "sections_used": ["Inputs and provenance", "Outputs and standardized templates"] },
-        { "artifact": "experiment-plan template", "path": "docs/mvp/templates/devforge-prototype/experiment-plan.md", "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564", "role": "the fields the 'Filling the plan' section explains" },
-        { "artifact": "prototype-report template", "path": "docs/mvp/templates/devforge-prototype/prototype-report.md", "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252", "role": "the fields the 'Filling the report' section explains" },
-        { "artifact": "Claude devforge-brainstorm references/recording-rules.md", "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md", "role": "Claude package precedent for a recording-rules reference and its digest-ordering section" }
+        {
+          "artifact": "artifact-contract",
+          "revision": 2,
+          "path": "docs/mvp/artifact-contract.md",
+          "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+          "sections_used": [
+            "Standard envelope",
+            "Provenance without circular bookkeeping",
+            "Output storage and stable candidate snapshots"
+          ]
+        },
+        {
+          "artifact": "SKILL-004",
+          "revision": 2,
+          "path": "docs/mvp/specifications/skill-004-devforge-prototype.md",
+          "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+          "sections_used": [
+            "Inputs and provenance",
+            "Outputs and standardized templates"
+          ]
+        },
+        {
+          "artifact": "experiment-plan template",
+          "path": "docs/mvp/templates/devforge-prototype/experiment-plan.md",
+          "sha256": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564",
+          "role": "the fields the 'Filling the plan' section explains"
+        },
+        {
+          "artifact": "prototype-report template",
+          "path": "docs/mvp/templates/devforge-prototype/prototype-report.md",
+          "sha256": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252",
+          "role": "the fields the 'Filling the report' section explains"
+        },
+        {
+          "artifact": "Claude devforge-brainstorm references/recording-rules.md",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/references/recording-rules.md",
+          "role": "Claude package precedent for a recording-rules reference and its digest-ordering section"
+        }
       ],
       "transformation": "The envelope table was rewritten with per-field meanings specific to an experiment artifact - what an XPLAN's freeze means, why an XREPORT's decision_ref stays null, what belongs in missing_inputs for a blocked measurement. The digest ordering is stated as a numbered write order ending in a read-back of every repeated reference. The draft-versus-accepted rule from the specification's Inputs and provenance section is carried in as an upstream-reference rule, with the repair-versus-adopt distinction taken from the brainstorm precedent.",
       "claims_not_made": "Nothing here establishes that any artifact was produced, hashed or checked."
     },
     {
       "destination": "references/experiment-boundaries.md",
-      "destination_sha256": "9647f61f3f12f2f81a23643e6494694eb047fb2249e52478db84a0563b7f6ad9",
+      "destination_sha256": "7c0163534f27ae31f3dc6a9294637579025173353d08a957f8ab4934396867a0",
       "kind": "authored in-package: the conditional procedure the workflow phases link to",
       "sources": [
-        { "artifact": "SKILL-004", "revision": 2, "path": "docs/mvp/specifications/skill-004-devforge-prototype.md", "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c", "sections_used": ["User goal and use-case inventory (State/action boundary)", "Workflow and phase exits", "Validation and behavioral acceptance", "Additional common cases", "Rework, stopping, and recovery"] },
-        { "artifact": "execution-contract", "revision": 3, "path": "docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b", "sections_used": ["worktree ownership and concurrent writers"] },
-        { "artifact": "roster", "path": "docs/mvp/roster.md", "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc", "sections_used": ["Worktree and concurrency requirement"] }
+        {
+          "artifact": "SKILL-004",
+          "revision": 2,
+          "path": "docs/mvp/specifications/skill-004-devforge-prototype.md",
+          "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+          "sections_used": [
+            "User goal and use-case inventory (State/action boundary)",
+            "Workflow and phase exits",
+            "Validation and behavioral acceptance",
+            "Additional common cases",
+            "Rework, stopping, and recovery"
+          ]
+        },
+        {
+          "artifact": "execution-contract",
+          "revision": 3,
+          "path": "docs/mvp/execution-contract.md",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "sections_used": [
+            "worktree ownership and concurrent writers"
+          ]
+        },
+        {
+          "artifact": "roster",
+          "path": "docs/mvp/roster.md",
+          "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc",
+          "sections_used": [
+            "Worktree and concurrency requirement"
+          ]
+        }
       ],
       "transformation": "Written to hold the conditional material that would otherwise bloat SKILL.md: the three properties of a fence, the measurement-before-result discipline, the four ways a blocked measurement is misreported, the three readings of a result, the disposition table with what each does not authorise, the concurrency-collision procedure, and the stopping conditions. The specification's 'cannot silently become production code or override an accepted architecture decision' boundary is the spine of the disposition section.",
-      "claims_not_made": "No fence is enforced by anything in this package; the enforcement gap is recorded in references/framework-context.md."
+      "claims_not_made": "No fence is enforced by anything in this package; the enforcement gap is recorded in references/framework-context.md.",
+      "prior_destination_sha256_chain": [
+        {
+          "sha256": "9647f61f3f12f2f81a23643e6494694eb047fb2249e52478db84a0563b7f6ad9",
+          "revision": "scaffold candidate 1",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit e199230858d871926fff2d55de8b015fa0ce335e"
+          },
+          "note": "The bytes the independent scaffold review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+        }
+      ]
     },
     {
       "destination": "references/sources.md",
       "destination_sha256": "852fa6472e2c97a6cfee0672ef5538532160a94376d8719b391a948b47a9c284",
       "kind": "authored in-package",
       "sources": [
-        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-10", "claims_used": ["frontmatter fields and the 1,536-character description budget", "description-based discovery and progressive disclosure of linked files", "skill load locations", "invocation forms", "the allowed-tools and disallowed-tools fields"] },
-        { "artifact": "Claude devforge-project-expert-creator references/sources.md", "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be", "role": "table shape and refresh-sequence precedent; its subagents-documentation row is carried as not-re-verified rather than restated as this pass's own retrieval" }
+        {
+          "artifact": "Claude Code skills documentation",
+          "store": "web",
+          "url": "https://code.claude.com/docs/en/skills",
+          "retrieved_utc": "2026-09-10",
+          "claims_used": [
+            "frontmatter fields and the 1,536-character description budget",
+            "description-based discovery and progressive disclosure of linked files",
+            "skill load locations",
+            "invocation forms",
+            "the allowed-tools and disallowed-tools fields"
+          ]
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator references/sources.md",
+          "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+          "role": "table shape and refresh-sequence precedent; its subagents-documentation row is carried as not-re-verified rather than restated as this pass's own retrieval"
+        }
       ],
       "transformation": "Records the one page actually fetched during this pass with the specific claims relied on. Two details are stated precisely because a loose reading would be wrong: the client does support tool-permission frontmatter fields, and this package grants no tool permissions only because its frontmatter omits them; and the description budget is a documented client limit this description sits well inside.",
       "claims_not_made": "Documentation claims are not observations of client behaviour for this package."
     },
     {
       "destination": "evals/evals.json",
-      "destination_sha256": "5b23791bf8531c3e0c28968d2c0760a9a54021e2be2df8cadfcb1f605a691809",
+      "destination_sha256": "e364ec174524a06634c1ff634812d8e5bbca4a6f4d9c26bc4f9e933f6dc6d1e6",
       "kind": "authored tier-B eval cases; source-only, excluded from installed copies and runtime exports",
       "sources": [
-        { "artifact": "evals template", "store": "project", "path": "docs/mvp/templates/skill-authoring/evals.json", "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692", "role": "base field shape" },
-        { "artifact": "SKILL-004", "revision": 2, "path": "docs/mvp/specifications/skill-004-devforge-prototype.md", "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c", "sections_used": ["Validation and behavioral acceptance", "Additional common cases", "Rework, stopping, and recovery"] },
-        { "artifact": "Claude devforge-evaluate-expert evals/evals.json", "revision": "e52ac596cbf790dfa156d883852d392c512fdbcc", "role": "authoring-metadata precedent: authoring_status, execution_status, execution_boundary and grading_note" },
-        { "artifact": "Claude devforge-brainstorm evals/evals.json", "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json", "role": "graded_observations and baseline_comparison precedent" }
+        {
+          "artifact": "evals template",
+          "store": "project",
+          "path": "docs/mvp/templates/skill-authoring/evals.json",
+          "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692",
+          "role": "base field shape"
+        },
+        {
+          "artifact": "SKILL-004",
+          "revision": 2,
+          "path": "docs/mvp/specifications/skill-004-devforge-prototype.md",
+          "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+          "sections_used": [
+            "Validation and behavioral acceptance",
+            "Additional common cases",
+            "Rework, stopping, and recovery"
+          ]
+        },
+        {
+          "artifact": "Claude devforge-evaluate-expert evals/evals.json",
+          "revision_read": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+          "revision_note": "Read at e52ac59 during the first scaffold pass and not re-read at e641797, so no claim is made about that file at the current pin. This is a historical read of a precedent, not a live dependency; the live runner pin is recorded in evals/evals.json under runner_dependency.",
+          "role": "authoring-metadata precedent: authoring_status, execution_status, execution_boundary and grading_note"
+        },
+        {
+          "artifact": "Claude devforge-brainstorm evals/evals.json",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/evals.json",
+          "role": "graded_observations and baseline_comparison precedent"
+        }
       ],
       "transformation": "Eleven tier-B cases: the five SKILL-004 acceptance rows, the four additional common cases (ownership collision, stale upstream, leftover placeholder, blocked check), one rework case for a changed threshold, and one stopping case for authority beyond the fence. Several prompts carry a plausible-sounding pressure to move a threshold, close out early or widen the fence, because that is where the specification's boundaries are actually tested. Each case names its requirement row and carries graded observations rather than an expected transcript.",
-      "status": "No case has been executed. Every outcome is NOT_RUN."
+      "status": "No case has been executed. Every outcome is NOT_RUN.",
+      "prior_destination_sha256_chain": [
+        {
+          "sha256": "5b23791bf8531c3e0c28968d2c0760a9a54021e2be2df8cadfcb1f605a691809",
+          "revision": "scaffold candidate 1",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit e199230858d871926fff2d55de8b015fa0ce335e"
+          },
+          "note": "The bytes the independent scaffold review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+        }
+      ]
     },
     {
       "destination": "evals/cases.jsonl",
-      "destination_sha256": "586cd3bf0e1840ed1fdb52aa34e1ddb2658c19986aa2f8b1529b424d2a53a5f3",
+      "destination_sha256": "f71168da5718d7ac12f823df9c3dd407575ce325c8a43eba650addc33e1e5d8b",
       "kind": "authored deterministic runner cases; source-only",
       "sources": [
-        { "artifact": "Claude devforge-evaluate-expert scripts/run_cases.py", "revision": "e52ac596cbf790dfa156d883852d392c512fdbcc", "sha256": "d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d", "role": "the runner these cases are authored against; its --help output and JSONL case schema were read" },
-        { "artifact": "Claude devforge-evaluate-expert scripts/graders.py", "revision": "e52ac596cbf790dfa156d883852d392c512fdbcc", "sha256": "7c03e7b2137787035c995787b232a7bf8d801c88672675bacf4359a8cdb38c13", "role": "the ten deterministic graders and their argument shapes" },
-        { "artifact": "Claude devforge-evaluate-expert references/runner-interface.md", "revision": "e52ac596cbf790dfa156d883852d392c512fdbcc", "sha256": "a58c35dab0fdb68d3a7dea92bf761a1e4ac25bee89fb49320fb09e247557170b", "role": "the interface contract and the gate-versus-evidence boundary" },
-        { "artifact": "Claude devforge-evaluate-expert evals/cases.jsonl", "revision": "e52ac596cbf790dfa156d883852d392c512fdbcc", "sha256": "b4b0c9314f43aa4aebaeee7f25c4d5e4b81fc2b0e628d98e3505c91679cb1f83", "role": "case-shape precedent" }
+        {
+          "artifact": "Claude devforge-evaluate-expert scripts/run_cases.py",
+          "revision": "e641797eebf04cd1e8eb9f711549e038e7745407",
+          "sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+          "role": "the runner these cases are authored against; its --help output and JSONL case schema were read",
+          "superseded_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc"
+        },
+        {
+          "artifact": "Claude devforge-evaluate-expert scripts/graders.py",
+          "revision": "e641797eebf04cd1e8eb9f711549e038e7745407",
+          "sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+          "role": "the ten deterministic graders and their argument shapes",
+          "superseded_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc"
+        },
+        {
+          "artifact": "Claude devforge-evaluate-expert references/runner-interface.md",
+          "revision": "e641797eebf04cd1e8eb9f711549e038e7745407",
+          "sha256": "87c8942f2faa9c00c8746eeb51001ddccee3802c9f21a6e187d072251d4673e2",
+          "role": "the interface contract and the gate-versus-evidence boundary",
+          "superseded_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc"
+        },
+        {
+          "artifact": "Claude devforge-evaluate-expert evals/cases.jsonl",
+          "revision": "e641797eebf04cd1e8eb9f711549e038e7745407",
+          "role": "case-shape precedent",
+          "superseded_revision": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+          "note": "case-shape precedent read at e52ac59; not re-read at e641797, so no digest is asserted for the new revision"
+        }
       ],
       "transformation": "Nine cases whose --candidate is a synthetic experiment output root rather than a skill package: four expected to match against fixtures/good, four expected to fail or block against the defect fixtures, and one where every deterministic assertion matches and the real defect is routed to independent review with grader null. The graders used are path_present, required_report_fields, artifact_side_effect, claim_evidence_binding and transcript_completion.",
       "dependency": "This file is authored against a runner in a package that is source-only, under independent review and not installed. The dependency is recorded in evals/evals.json under runner_dependency. Nothing about that package's own evaluation transfers here.",
-      "status": "A case-file loadability and fixture-discrimination check was run during authoring; see the authoring notes. No evaluation of this skill has been performed. Every tier is NOT_RUN."
+      "status": "A case-file loadability and fixture-discrimination check was run during authoring; see the authoring notes. No evaluation of this skill has been performed. Every tier is NOT_RUN.",
+      "prior_destination_sha256_chain": [
+        {
+          "sha256": "586cd3bf0e1840ed1fdb52aa34e1ddb2658c19986aa2f8b1529b424d2a53a5f3",
+          "revision": "scaffold candidate 1",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit e199230858d871926fff2d55de8b015fa0ce335e"
+          },
+          "note": "The bytes the independent scaffold review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+        }
+      ]
     },
     {
       "destination": "evals/triggers/trigger-queries.json",
       "destination_sha256": "95a203352658a4dae61e78909a773a6a294e3219262e48bfdcf76c0587243505",
       "kind": "authored tier-A trigger queries; source-only",
       "sources": [
-        { "artifact": "trigger-queries template", "store": "project", "path": "docs/mvp/templates/skill-authoring/trigger-queries.json", "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4", "role": "base field shape" },
-        { "artifact": "Claude devforge-brainstorm evals/triggers/trigger-queries.json", "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json", "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8", "role": "Claude package convention: category field, fixed stratified train/validation split, explicit-invocation entries recorded separately" },
-        { "artifact": "SKILL-004", "revision": 2, "path": "docs/mvp/specifications/skill-004-devforge-prototype.md", "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c", "sections_used": ["User goal and use-case inventory"] }
+        {
+          "artifact": "trigger-queries template",
+          "store": "project",
+          "path": "docs/mvp/templates/skill-authoring/trigger-queries.json",
+          "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4",
+          "role": "base field shape"
+        },
+        {
+          "artifact": "Claude devforge-brainstorm evals/triggers/trigger-queries.json",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm/evals/triggers/trigger-queries.json",
+          "sha256": "62387c01a65ea033961c177bbf66d35d262d0e2c2a00b7285dac0af5d169e8d8",
+          "role": "Claude package convention: category field, fixed stratified train/validation split, explicit-invocation entries recorded separately"
+        },
+        {
+          "artifact": "SKILL-004",
+          "revision": 2,
+          "path": "docs/mvp/specifications/skill-004-devforge-prototype.md",
+          "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c",
+          "sections_used": [
+            "User goal and use-case inventory"
+          ]
+        }
       ],
       "transformation": "Twenty-two queries: ten positive across explicit_invocation (2), direct_domain (3) and indirect (5), and twelve negative across six categories - a fully specified story routing to develop, a clickable UI mock routing to design, an unrelated use of the word 'prototype' in the JavaScript sense, a question resolvable by inspection or existing evidence, reopening an accepted decision routing to change, and early exploration routing to brainstorm. The split is fixed and stratified at authoring time, twelve train and ten validation, with at least one of each split in every category.",
       "status": "No query has been run. Every outcome is NOT_RUN."
@@ -206,7 +546,7 @@
       "destination": "evals/fixtures/",
       "kind": "authored synthetic fixtures; source-only, reproducible from source",
       "destination_sha256_map": {
-        "evals/fixtures/README.md": "85d75e12ac4a39f0b9454cdcf0cc4c2c50bf191186f9dc34dae8ab48afc3e470",
+        "evals/fixtures/README.md": "8b9e8ba432d10a8e0439b9af5699e08bead70eb83400f30fc54077912774e650",
         "evals/fixtures/shared/uncertainty-brief.md": "69790f2c9088bbf73faff175a56a8c175c354df5c309d26135e87ad31f523496",
         "evals/fixtures/shared/experiment-constraints.md": "e6e1d2b516216a663cc2bbe6d9fde005897d5971347a1a824e3359537bf7dc3d",
         "evals/fixtures/good/experiments/XPLAN-001.md": "f20184b2ffc6970fda994951ea23dd53a0cee6510cd706e2caf19407330c7f5b",
@@ -229,39 +569,179 @@
       "transformation": "All nineteen files are new and were authored for this package. They describe an invented project ('Ferrymap') with invented decisions and invented measurements, are labelled synthetic in their own text and in fixtures/README.md, describe no real system and create no authority.",
       "reproducibility_note": "defect-fence-breach/preserved/service-notes.baseline.md holds the pre-experiment bytes of defect-fence-breach/source/service-notes.md, and cases.jsonl declares the preserved copy's digest f9138601... as the sentinel while the live file hashes to eccebbaf.... The fence breach is therefore verifiable from these bytes rather than asserted. good/claims/disposition-claim.json cites the real digests of three sibling fixture files, so the resolving-evidence case is verifiable the same way. Changing any of those files invalidates the affected case until cases.jsonl is re-derived.",
       "not_external": "No fixture points at an external evidence store or an absolute path; nothing outside this package is required to stage them.",
-      "untrusted_content_note": "defect-fence-breach/experiments/XREPORT-003.md and defect-unsupported-claim/untrusted/disposition-claim.json contain deliberately persuasive text. It is fixture data. A case that reads it is observing bytes."
+      "untrusted_content_note": "defect-fence-breach/experiments/XREPORT-003.md and defect-unsupported-claim/untrusted/disposition-claim.json contain deliberately persuasive text. It is fixture data. A case that reads it is observing bytes.",
+      "readme_revision_note": "evals/fixtures/README.md was extended in repair pass 1 (CHG-005, CHG-006). The other eighteen fixture files are byte-unchanged from e199230, including the sentinel f9138601... and the preserved baseline that XP-C-006's verifiability depends on."
     }
   ],
-
   "proposed_defaults": {
     "note": "SKILL-004 is silent on these. Each is this package's proposal, labelled as a proposal in SKILL.md and in the authoring record, and none is a project decision.",
     "items": [
-      { "item": "XPLAN and XREPORT destination when none is selected", "proposal": "docs/devforge/experiments/", "basis": "the devforge-brainstorm precedent of a docs/devforge/<kind>/ default, deferring to the project's own artifact map wherever it has one" },
-      { "item": "Handoff destination when none is selected", "proposal": "docs/devforge/handoffs/", "basis": "matches the installed devforge-brainstorm default so a project does not acquire two handoff locations" },
-      { "item": "Experiment fence path when the user supplies none", "proposal": "experiments/<XPLAN-ID>/", "basis": "keeps the prototype identifiable and outside any policy source root; SKILL-004 requires a declared fence but names no path" },
-      { "item": "A missing time or resource bound", "proposal": "not a default - it is a missing required input that stops the experiment", "basis": "SKILL-004's Inputs table makes the bound part of the required experiment constraints, and an unbounded experiment is not the thing the specification describes" }
+      {
+        "item": "XPLAN and XREPORT destination when none is selected",
+        "proposal": "docs/devforge/experiments/",
+        "basis": "the devforge-brainstorm precedent of a docs/devforge/<kind>/ default, deferring to the project's own artifact map wherever it has one"
+      },
+      {
+        "item": "Handoff destination when none is selected",
+        "proposal": "docs/devforge/handoffs/",
+        "basis": "matches the installed devforge-brainstorm default so a project does not acquire two handoff locations"
+      },
+      {
+        "item": "Experiment fence path when the user supplies none",
+        "proposal": "experiments/<XPLAN-ID>/",
+        "basis": "keeps the prototype identifiable and outside any policy source root; SKILL-004 requires a declared fence but names no path"
+      },
+      {
+        "item": "A missing time or resource bound",
+        "proposal": "not a default - it is a missing required input that stops the experiment",
+        "basis": "SKILL-004's Inputs table makes the bound part of the required experiment constraints, and an unbounded experiment is not the thing the specification describes"
+      }
     ]
   },
-
   "not_included": [
-    { "concept": "scripts/", "reason": "No deterministic evaluation-only helper is required by this package. The JSONL runner and graders this skill's cases.jsonl targets belong to the Claude devforge-evaluate-expert package and are not duplicated here. Framework logic may not be added in Python or shell, and none was authored." },
-    { "concept": "agents/openai.yaml", "reason": "Per-skill Codex metadata with no Claude counterpart; the authoring contract scopes it to Codex packages." },
-    { "concept": "a managed-runtime section", "reason": "The devforge-brainstorm Claude package carries one. SKILL-004 describes no managed operation, so carrying it would add a runtime concept the specification does not require." },
-    { "concept": "references/contracts/ copies", "reason": "SKILL.md does not need the full contracts at runtime. The operative rules were distilled into references/framework-context.md and references/recording-rules.md with their sources and sections recorded above." }
+    {
+      "concept": "scripts/",
+      "reason": "No deterministic evaluation-only helper is required by this package. The JSONL runner and graders this skill's cases.jsonl targets belong to the Claude devforge-evaluate-expert package and are not duplicated here. Framework logic may not be added in Python or shell, and none was authored."
+    },
+    {
+      "concept": "agents/openai.yaml",
+      "reason": "Per-skill Codex metadata with no Claude counterpart; the authoring contract scopes it to Codex packages."
+    },
+    {
+      "concept": "a managed-runtime section",
+      "reason": "The devforge-brainstorm Claude package carries one. SKILL-004 describes no managed operation, so carrying it would add a runtime concept the specification does not require."
+    },
+    {
+      "concept": "references/contracts/ copies",
+      "reason": "SKILL.md does not need the full contracts at runtime. The operative rules were distilled into references/framework-context.md and references/recording-rules.md with their sources and sections recorded above."
+    }
   ],
-
   "refresh_conditions": [
     "Any source digest above changes in a newly selected input set: re-read the distilled and adapted files against the new bytes and update this record.",
     "A destination digest here stops matching the file in the package: that is drift, and the package copy is stale until reconciled.",
     "docs/mvp/templates/devforge-prototype/*.md or docs/mvp/templates/shared/handoff.md changes: re-copy or re-derive the affected asset and update its entry.",
+    "The devforge-evaluate-expert package moves past e641797: re-check the pin, both script digests and the invocation record in evals/evals.json before relying on the deterministic arm.",
     "The Claude devforge-evaluate-expert package changes its runner interface, its grader set or its case schema: re-derive evals/cases.jsonl against the new interface before relying on any row.",
     "The DevForge CLI's command surface changes: re-check references/framework-context.md against actual --help output, particularly the isolate row and the four open integration requirements.",
     "https://code.claude.com/docs/en/skills changes materially: re-check the claims relied on in references/sources.md and update the retrieval date.",
     "A sibling roster skill named in the description's exclusions is implemented, renamed or retired: re-check the near-miss exclusions and the trigger negatives.",
     "This record is maintained by the skill author inside the skill's source fence. It records derivation only and modifies, reinterprets or waives no shared template or contract."
   ],
-
   "self_reference_note": "This file does not carry its own digest. It is hashed by the candidate's file manifest like every other package file, and no entry above records a digest of this record.",
-
-  "claims_not_made": "Authored only. No native admission, discovery, activation, installation, binding, hook registration, execution or evaluation is asserted for any file in this package. A derivation record identifies which bytes were referenced; it is not evidence about behaviour. Validation status: Not performed. Behavioural status: NOT_EVALUATED. Tiers A, B and C: NOT_RUN."
+  "claims_not_made": "Authored only. No native admission, discovery, activation, installation, binding, hook registration, execution or evaluation is asserted for any file in this package. A derivation record identifies which bytes were referenced; it is not evidence about behaviour. Validation status: Not performed. Behavioural status: NOT_EVALUATED. Tiers A, B and C: NOT_RUN.",
+  "repair_pass_1": {
+    "recorded_at_utc": "2026-09-10T21:46:05Z",
+    "supersedes_candidate": "e199230858d871926fff2d55de8b015fa0ce335e",
+    "input": {
+      "artifact": "independent scaffold review of this package",
+      "store": "project",
+      "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-prototype/validation/scaffold-review/",
+      "disposition": "revise",
+      "severity_counts": {
+        "BLOCKER": 0,
+        "MAJOR": 1,
+        "MINOR": 4,
+        "ADVISORY": 1
+      },
+      "note": "Read-only untrusted evidence. Every finding was verified against the actual candidate bytes at e199230 before its change was applied. The review directory was not modified."
+    },
+    "changes": [
+      {
+        "change_id": "CHG-001",
+        "finding_id": "F-001",
+        "severity": "MINOR",
+        "type": "required repair",
+        "disposition": "applied",
+        "files": [
+          "evals/cases.jsonl"
+        ],
+        "verified": "All 9 cases set candidate_subpath into evals/fixtures, so none observed the package; --mode installed produced byte-identical results because no case declared a mode. Confirmed by re-reading the case file and by the review's own probe observations.",
+        "change": "Added XP-PKG-001..005, which omit candidate_subpath and read --candidate directly: frontmatter presence and fields on SKILL.md, name/folder equality asserted as the DevForgeAI convention, package-relative links on SKILL.md and all four references, presence of the six routed resources plus both maintenance records, absence of scripts/ and agents/, and one mode:installed case asserting evals/ is stripped while assets/ and references/ ship. Relabelled the eight simulated-tier cases to tier B and gave every existing case a notes field stating what its tier refers to and that the case_id letter is historical. Copied in substance from the review's evaluator-structural-cases.jsonl, which is evidence and is deliberately NOT referenced as a package dependency.",
+        "not_copied": "The review's EV-S-007 asserted required_report_fields against assets/experiment-plan.md and assets/prototype-report.md and observed MISMATCH 'placeholder'. That is the correct state of an unfilled template, so authoring it would record a healthy package as defective. XP-PKG-003 asserts their presence instead and its notes say why.",
+        "preserved": "All nine existing cases keep their candidate_subpath, assertions and expectations byte-identical. Verified twice: field-level comparison against the pre-repair file, and re-execution against the e641797 runner reproducing all nine rows identically to the review's recorded candidate-cases.observations.jsonl (execution_status, result and observed text)."
+      },
+      {
+        "change_id": "CHG-002",
+        "finding_id": "F-002",
+        "severity": "MAJOR",
+        "type": "required repair",
+        "disposition": "applied",
+        "files": [
+          "evals/evals.json"
+        ],
+        "verified": "Case id 8 declared baseline_comparison 'old_skill' while the other ten declared 'without_skill'. No devforge-prototype exists at base c17e758, so old_skill had nothing to resolve to.",
+        "change": "baseline_comparison is now 'without_skill'. A fixture_note records that the case's fixture is a prior report artifact supplied TO the case, which is an input and not a baseline arm - the conflation the review identified. The NOT_APPLICABLE fallback previously proposed in the authoring notes is withdrawn: that word is reserved for a stated scope exclusion and an absent baseline is not one.",
+        "preserved": "The case's prompt, files, expected_output and all five graded_observations are byte-unchanged."
+      },
+      {
+        "change_id": "CHG-003",
+        "finding_id": "F-003",
+        "severity": "MINOR",
+        "type": "required repair",
+        "disposition": "applied",
+        "files": [
+          "SKILL.md",
+          "references/experiment-boundaries.md"
+        ],
+        "verified": "SKILL.md:50 asserted the freeze exists 'so that a later reader can tell the plan preceded the evidence', which references/framework-context.md:33 denies; and grepping references/experiment-boundaries.md for 'preced', 'does not establish', 'self-recorded' and 'outside the evaluated' returned nothing, so the file SKILL.md routed the reader to did not carry the limit.",
+        "change": "SKILL.md phase 1 Exit now says a self-computed hash records which bytes you had, that whether anything outside your reach holds it is a separate fact no current DevForge command supplies, and links recording-rules.md for the field that distinguishes them alongside experiment-boundaries.md. A paragraph was added to 'Measurement before result' carrying the limit explicitly and pointing at the open integration requirement.",
+        "preserved": "The freeze instruction itself, the write ordering in recording-rules.md, the already-correct guidance at recording-rules.md:60, and framework-context.md:33 - the sentence the other two now agree with. No other sentence of SKILL.md was touched.",
+        "acceptance_check": "grep for 'preceded the evidence' across the package returns exactly two occurrences, both of which deny the claim."
+      },
+      {
+        "change_id": "CHG-004",
+        "finding_id": "F-004",
+        "severity": "MINOR",
+        "type": "required repair",
+        "disposition": "applied",
+        "files": [
+          "evals/evals.json",
+          "references/derivation.json"
+        ],
+        "verified": "The pin was e52ac59. git log e52ac59..e641797 in the validator worktree shows b6a4bf7 (E2 bootstrap review, revise), e101e76 (repair pass 1, F-001..F-009), 6916b60 (focused recheck, new MINOR F-R01), e641797 (derivation digests regenerated). Both scripts changed across the range.",
+        "change": "Repinned to e641797eebf04cd1e8eb9f711549e038e7745407, with run_cases.py 95ca2abf... and graders.py 1b7a27a3... recorded beside it - both recomputed from that commit and matching the values the coordinator supplied. The superseded pin and the review history are retained rather than erased, and the status sentence now states the runner's real condition including its one open MINOR.",
+        "preserved": "runner_dependency.boundary verbatim, plus supplies, source_location and package."
+      },
+      {
+        "change_id": "CHG-005",
+        "finding_id": "F-005",
+        "severity": "MINOR",
+        "type": "required repair",
+        "disposition": "applied",
+        "files": [
+          "evals/evals.json",
+          "evals/cases.jsonl",
+          "evals/fixtures/README.md"
+        ],
+        "verified": "The review's probe observations show --candidate <package root> exits 0, writes a complete observations file, and reports all nine cases COULD_NOT_RUN with zero assertions observed. Confirmed independently here by running both roots.",
+        "change": "runner_dependency.invocation records both case groups, the exact --candidate value each needs, the mode, a full command line, the --out constraints, and plainly that a wrong root yields COULD_NOT_RUN rows at exit 0 rather than an error. A // header in cases.jsonl carries the same split at the point of use, and evals/fixtures/README.md gained a 'Running the cases against these fixtures' section.",
+        "preserved": "Every case's candidate_subpath. The fixture tree was not restructured to make one root serve both.",
+        "reported_not_fixed": "The same convention is undocumented in the devforge-evaluate-expert package's own cases. That is a defect in a sibling package and belongs to its owner; it is recorded here and in evals.json and that package was not edited."
+      },
+      {
+        "change_id": "CHG-006",
+        "finding_id": "F-006",
+        "severity": "ADVISORY",
+        "type": "unapproved proposal",
+        "disposition": "applied - README option",
+        "files": [
+          "evals/fixtures/README.md"
+        ],
+        "verified": "XPLAN-001.md carries artifact_id XPLAN-006, XREPORT-001.md carries XREPORT-006, XPLAN-004.md carries XPLAN-010, XREPORT-004.md carries XREPORT-010. Confirmed by reading line 3 of each.",
+        "change": "The divergence is deliberate and is now stated: a table in evals/fixtures/README.md maps each filename to its artifact_id and explains that filenames are stable fixture slots while artifact_id values are realistic project allocations, and that references use the artifact_id while case files and assertion args use the path.",
+        "why_this_option": "The review offered renaming or a README sentence and called the README the lower-risk option. Renaming would touch every files entry, every args.file and args.path, and would put the XP-C-002 and XP-C-006 sentinel digests through an avoidable churn for a readability gain. No assertion depends on the numbering.",
+        "preserved": "All four fixture files byte-unchanged."
+      }
+    ],
+    "status": {
+      "validation": "Not performed.",
+      "behavioural": "NOT_EVALUATED",
+      "tier_a": "NOT_RUN",
+      "tier_b": "NOT_RUN",
+      "tier_c": "NOT_RUN",
+      "enforcement": "requirements recorded; no gate implemented by this skill",
+      "finding": "source changes recorded; reevaluation required"
+    },
+    "claims_not_made": "Applying a change means the source was edited. It closes no finding. F-001 through F-006 keep their original IDs and severities, were observed against e199230858d871926fff2d55de8b015fa0ce335e, and do not transfer to these changed bytes; the new candidate requires its own evaluation. The two runner invocations executed during this pass are authoring hygiene over this author's own files - they establish that the case file loads, that the nine prior rows are unchanged and that the new cases observe what they claim to observe. They are not an evaluation of this skill and no tier label changed."
+  }
 }

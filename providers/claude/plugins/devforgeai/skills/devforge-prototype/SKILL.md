@@ -47,7 +47,7 @@ State the hypothesis so that it can fail: a claim about the world with a thresho
 
 Write it from [assets/experiment-plan.md](assets/experiment-plan.md) as an XPLAN artifact. [Recording rules](references/recording-rules.md) covers the envelope, upstream references and where the artifact goes.
 
-**Exit:** the plan exists, and it exists before its measurements and its result are known. Freeze it - hash the bytes and record the identity - so that a later reader can tell the plan preceded the evidence. [Experiment boundaries](references/experiment-boundaries.md) explains what a freeze does and does not establish here.
+**Exit:** the plan exists, and it exists before its measurements and its result are known. Freeze it - hash the final bytes, and record both the digest and where that identity is held. A hash you computed yourself records which bytes you had; whether anything outside your own reach holds it is a separate fact, and one no current DevForge command supplies. [Recording rules](references/recording-rules.md) has the field that says which of the two you actually have, and [experiment boundaries](references/experiment-boundaries.md) covers why the ordering still matters when nothing external attests to it.
 
 ## 2. Build
 

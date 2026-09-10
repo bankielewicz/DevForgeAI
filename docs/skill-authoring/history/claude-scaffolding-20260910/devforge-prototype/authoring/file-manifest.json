@@ -6,19 +6,19 @@
   "canonical_source_root": "providers/claude/plugins/devforgeai/skills/devforge-prototype",
   "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
   "branch": "author/claude-devforge-prototype-scaffold-20260910",
-  "recorded_at_utc": "2026-09-10T19:38:44Z",
+  "recorded_at_utc": "2026-09-10T21:46:05Z",
   "note": "Package-relative path to SHA-256 of the file's complete bytes, taken after the last write. Paths are relative to canonical_source_root. This manifest records which bytes exist; it is not evidence about behaviour.",
   "self_reference_note": "This manifest lives outside the package and carries no digest of itself. references/derivation.json is listed here like every other package file and contains no digest of itself either.",
   "installed_copy_note": "evals/ is source-only and is omitted from installed copies and runtime exports. An installed manifest would therefore differ from this one; no installed copy was generated.",
   "file_count": 31,
   "files_sha256": {
-    "SKILL.md": "1c348077723e693e0a5a4bba997c501f3ed683f1ef834e9538e069cb193a00e2",
+    "SKILL.md": "127ded6c18429e87de34fec216f0d6389c4d3bd5dfb6db4b316507de40a3085d",
     "assets/experiment-plan.md": "70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564",
     "assets/handoff.md": "eab442b522fa801583676869f692996fb8e8513c557632640b3f0d5853eefbb1",
     "assets/prototype-report.md": "9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252",
-    "evals/cases.jsonl": "586cd3bf0e1840ed1fdb52aa34e1ddb2658c19986aa2f8b1529b424d2a53a5f3",
-    "evals/evals.json": "5b23791bf8531c3e0c28968d2c0760a9a54021e2be2df8cadfcb1f605a691809",
-    "evals/fixtures/README.md": "85d75e12ac4a39f0b9454cdcf0cc4c2c50bf191186f9dc34dae8ab48afc3e470",
+    "evals/cases.jsonl": "f71168da5718d7ac12f823df9c3dd407575ce325c8a43eba650addc33e1e5d8b",
+    "evals/evals.json": "e364ec174524a06634c1ff634812d8e5bbca4a6f4d9c26bc4f9e933f6dc6d1e6",
+    "evals/fixtures/README.md": "8b9e8ba432d10a8e0439b9af5699e08bead70eb83400f30fc54077912774e650",
     "evals/fixtures/defect-fence-breach/experiments/XREPORT-003.md": "6763b82fcdd10041be53f88a8228decd4a2b9239e2d363b1510fe8445a96366e",
     "evals/fixtures/defect-fence-breach/preserved/service-notes.baseline.md": "f9138601783d24d2a3dd8170db7b510c557ec22d906b76afc7707aa5be8e223f",
     "evals/fixtures/defect-fence-breach/source/service-notes.md": "eccebbaf05767d28272ce58695a8eae2183ae0447c55b83a80588cab3a381e99",
@@ -38,8 +38,8 @@
     "evals/fixtures/shared/experiment-constraints.md": "e6e1d2b516216a663cc2bbe6d9fde005897d5971347a1a824e3359537bf7dc3d",
     "evals/fixtures/shared/uncertainty-brief.md": "69790f2c9088bbf73faff175a56a8c175c354df5c309d26135e87ad31f523496",
     "evals/triggers/trigger-queries.json": "95a203352658a4dae61e78909a773a6a294e3219262e48bfdcf76c0587243505",
-    "references/derivation.json": "8dc73e8f354f839410d1753fcbb1437a60c7198fd3cd6f7a370a858c208fbb8d",
-    "references/experiment-boundaries.md": "9647f61f3f12f2f81a23643e6494694eb047fb2249e52478db84a0563b7f6ad9",
+    "references/derivation.json": "ad6f43b1411ffe041a60d247a9c9ac7300bc98cfd7d5cb1761e8b64132a85dfb",
+    "references/experiment-boundaries.md": "7c0163534f27ae31f3dc6a9294637579025173353d08a957f8ab4934396867a0",
     "references/framework-context.md": "7b205797dc0609f809f3f8a7aa34e1d5113fcc9ddf45f66735dc7e72fe865a97",
     "references/recording-rules.md": "dd97a2b9e5fd085911af9a6a2a8af4a4a4f6a7a3da7d05993fc6c10162c10849",
     "references/sources.md": "852fa6472e2c97a6cfee0672ef5538532160a94376d8719b391a948b47a9c284"
@@ -51,5 +51,19 @@
     "tier_b": "NOT_RUN",
     "tier_c": "NOT_RUN",
     "enforcement": "requirements recorded; no gate implemented by this skill"
-  }
+  },
+  "revision": 2,
+  "supersedes": {
+    "commit": "e199230858d871926fff2d55de8b015fa0ce335e",
+    "file_count": 31,
+    "note": "Repair pass 1 from the independent scaffold review. The prior bytes stay reachable at that commit; five files changed and no file was added or removed from the package."
+  },
+  "changed_in_repair_pass_1": [
+    "SKILL.md",
+    "evals/cases.jsonl",
+    "evals/evals.json",
+    "evals/fixtures/README.md",
+    "references/derivation.json",
+    "references/experiment-boundaries.md"
+  ]
 }

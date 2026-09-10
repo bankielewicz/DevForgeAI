@@ -105,8 +105,24 @@ A mapping shows which requirement was addressed where. It is not evidence that t
 | Completion means the specified artifacts exist, declared inputs resolve, required observations are recorded, the next task is explicit | `SKILL.md` "Stopping" |
 | A document's accepted status and an external gate's passing result are separate facts | `references/framework-context.md` "Result vocabulary"; `references/recording-rules.md` `status` and `decision_ref` rows |
 
+## Package-observing deterministic cases (added in repair pass 1)
+
+These carry no SKILL-004 requirement row. They exist because the skill-authoring contract's tier C has two halves — "templates/references/helper resolve inside the installed package" **and** "outputs land in the consuming project's map" — and the fixture-backed cases only ever reach the second. Finding F-001 demonstrated that no authored case observed the package at all.
+
+| Case | Observes | Contract half |
+|---|---|---|
+| XP-PKG-001 | `SKILL.md` frontmatter presence, `name` and `description` populated, `name` equals folder by DevForgeAI convention | installed resources |
+| XP-PKG-002 | Every local link in `SKILL.md` and all four references resolves inside the package | installed resources |
+| XP-PKG-003 | The six routed resources plus `derivation.json` and `sources.md` are present | installed resources |
+| XP-PKG-004 | No `scripts/` and no `agents/` — the language policy and the Claude/Codex split, as absences | installed resources |
+| XP-PKG-005 | `mode: installed` — `evals/` stripped while `assets/` and `references/` still ship | installed resources; observable only against a real installed copy |
+
+The eight previously mislabelled cases are now tier B and each carries a `notes` field saying which tier its fixture *simulates*. The letter in a `case_id` is historical and preserved so the review's recorded observations still map; the `tier` field is authoritative.
+
 ## Coverage summary
 
-Every SKILL-004 acceptance row and every additional common case has a tier-B eval case. Nine of the eleven cases also have at least one deterministic assertion, and two spec behaviours — threshold integrity (XP-B-001) and the semantic reading of an untrusted embedded instruction — are deliberately left with no deterministic grader and routed to independent review rather than approximated by one.
+Every SKILL-004 acceptance row and every additional common case has a tier-B eval case. Nine of the eleven cases also have at least one deterministic assertion, and two spec behaviours — threshold integrity (XP-B-001) and the semantic reading of an untrusted embedded instruction — are deliberately left with no deterministic grader and routed to independent review rather than approximated by one. Five further cases observe the package itself.
 
-No case has been executed. Tiers A, B and C are `NOT_RUN`.
+**No baseline of this skill exists.** No `devforge-prototype` is present at base `c17e758417da64928a0f47fc2600304465ac3f3c`, so every tier-B case declares `without_skill`. Case XB-8 declared `old_skill` at the first scaffold revision; finding F-002 demonstrated that arm had nothing to resolve to and it was corrected in repair pass 1. A fixture supplied *to* a case is an input, not a baseline arm.
+
+No case has been executed against this skill. Tiers A, B and C are `NOT_RUN`, and applying repair pass 1 changed none of those labels.

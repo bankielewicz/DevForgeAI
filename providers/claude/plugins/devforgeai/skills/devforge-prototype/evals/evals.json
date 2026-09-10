@@ -1,17 +1,49 @@
 {
   "skill_name": "devforge-prototype",
   "schema_note": "Base fields (id, name, prompt, expected_output, files) follow docs/mvp/templates/skill-authoring/evals.json. The additional tier, requirement, graded_observations, baseline_comparison and fixture_set fields are DevForgeAI authoring metadata; a consumer reading only the base fields is unaffected. Paths in files resolve relative to this evals directory and stay within it.",
-  "tier_note": "Every case here is tier B: output quality and boundaries, with the skill path supplied. Tier B observes behaviour after loading and can never evidence discovery or activation. Tier A queries live in triggers/trigger-queries.json. The deterministic assertions a runner can execute live in cases.jsonl; they observe artifacts, never intent.",
+  "tier_note": "evals/cases.jsonl now holds two groups. Fixture-backed cases (XP-C-*, XP-A-*, XP-B-*) are all tier B: they observe synthetic artifacts and transcripts, and the letter in their case_id names the tier their fixture simulates, not a tier they establish. Each carries a notes field saying so. Package-observing cases (XP-PKG-*) are tier C and read the package or an installed copy directly, covering the 'templates and references resolve inside the installed package' half of tier C that the fixture-backed cases cannot reach. Tier A queries live in triggers/trigger-queries.json and need a fresh terminal; no deterministic case can evidence discovery or activation. The cases in evals.json below are all tier B: output quality and boundaries, with the skill supplied.",
   "authoring_status": "AUTHORED_NOT_EXECUTED",
   "execution_status": "NOT_RUN",
   "authored_on": "2026-09-10",
   "runner_dependency": {
     "package": "Claude devforge-evaluate-expert",
-    "commit": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+    "commit": "e641797eebf04cd1e8eb9f711549e038e7745407",
     "supplies": "scripts/run_cases.py (JSONL case runner) and scripts/graders.py (deterministic graders), which cases.jsonl is authored against.",
-    "status": "That package is source-only, under independent review, and not installed anywhere. Its own evaluation is NOT_RUN. Depending on it for the deterministic arm is an authoring-time dependency and does not transfer any evidence to this package.",
+    "status": "Source-only, not installed anywhere, and its own evaluation is NOT_RUN. Its bootstrap review history is part of its identity: revise at e52ac59, repaired at e101e76, rechecked at 6916b60 with one MINOR (F-R01) still open. Depending on it for the deterministic arm is an authoring-time dependency; nothing about that package's state transfers to this one. Confirm the revision the next evaluation will actually be given rather than assuming this pin, because that package is still moving.",
     "boundary": "The runner produces MATCH / MISMATCH / INDETERMINATE observations with no aggregate. Those words are deliberately disjoint from PASS / FAIL / NOT_RUN / COULD_NOT_RUN / NOT_APPLICABLE, and a row must never be copied into a results record as an outcome.",
-    "source_location": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/ at that commit, in an operator-assigned checkout of this repository. The operator's filesystem locations are recorded in the authoring evidence, not in this package."
+    "source_location": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/ at that commit, in an operator-assigned checkout of this repository. The operator's filesystem locations are recorded in the authoring evidence, not in this package.",
+    "scripts_sha256": {
+      "scripts/run_cases.py": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+      "scripts/graders.py": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f"
+    },
+    "superseded_pin": "e52ac596cbf790dfa156d883852d392c512fdbcc, recorded at the first scaffold revision. Repinned because that revision was superseded: b6a4bf7 (E2 independent bootstrap review at e52ac59, disposition revise) -> e101e76 (repair pass 1, F-001..F-009) -> 6916b60 (focused recheck, F-001..F-009 closed, one new MINOR F-R01 open) -> e641797 (derivation digests regenerated). Both scripts changed across that range.",
+    "invocation": {
+      "why_this_matters": "A wrong --candidate does not error. The runner exits 0 and writes a complete observations file in which the affected cases are COULD_NOT_RUN with cause \"candidate_subpath ... does not resolve to a directory inside the candidate root\" and zero assertions are observed. A clean-looking run can therefore contain no coverage at all. Check the execution_status of every row.",
+      "two_groups": "evals/cases.jsonl holds two groups needing two different --candidate roots. Fixture-backed cases (XP-C-*, XP-A-*, XP-B-*) declare candidate_subpath and resolve against the fixtures root. Package-observing cases (XP-PKG-*) declare none and read --candidate directly.",
+      "fixture_backed": {
+        "cases": "XP-C-001..006, XP-A-001..002, XP-B-001",
+        "candidate": "<package>/evals/fixtures",
+        "mode": "source",
+        "command": "python3 <validator>/scripts/run_cases.py --cases <package>/evals/cases.jsonl --candidate <package>/evals/fixtures --out <workspace>/fixtures.observations.jsonl --mode source",
+        "note": "Under this root the XP-PKG-* cases correctly MISMATCH, because the fixtures root has no SKILL.md. That is the two-root split showing, not a package defect."
+      },
+      "package_observing": {
+        "cases": "XP-PKG-001..004",
+        "candidate": "the package root, or an installed/exported root",
+        "mode": "source",
+        "command": "python3 <validator>/scripts/run_cases.py --cases <package>/evals/cases.jsonl --candidate <package> --out <workspace>/package.observations.jsonl --mode source",
+        "note": "Under this root the fixture-backed cases are COULD_NOT_RUN by design. Use --case-id to select the XP-PKG-* group if a cleaner record is wanted; unselected cases still appear as SKIPPED rows, so a partial run cannot be mistaken for full coverage."
+      },
+      "installed_only": {
+        "cases": "XP-PKG-005",
+        "candidate": "a genuine installed or exported copy, never the authoring source",
+        "mode": "installed",
+        "command": "python3 <validator>/scripts/run_cases.py --cases <package>/evals/cases.jsonl --candidate <installed-root> --out <workspace>/installed.observations.jsonl --mode installed",
+        "note": "Under --mode source every assertion in this case returns INDETERMINATE with the mode mismatch as its reason. That is the honest result: no installed or exported copy was allocated at authoring time."
+      },
+      "out": "--out must not exist, its parent must exist, and it must lie outside --candidate. Never write it inside this package.",
+      "sibling_gap_reported_not_fixed": "The same --candidate convention is undocumented in the devforge-evaluate-expert package's own cases. That is a defect in a sibling package and belongs to its owner; it was reported, not edited around."
+    }
   },
   "execution_boundary": {
     "run_now": false,
@@ -184,8 +216,9 @@
         "The distinction between a missing fact and template filler is stated or acted on.",
         "The user's framing that it is ready to circulate does not change the assessment."
       ],
-      "baseline_comparison": "old_skill",
-      "fixture_set": "defect-placeholder-report"
+      "baseline_comparison": "without_skill",
+      "fixture_set": "defect-placeholder-report",
+      "fixture_note": "The fixture is a prior *report artifact* supplied to the case. That is an input to the case, not a baseline arm of the comparison. No previous revision of this skill exists at base c17e758417da64928a0f47fc2600304465ac3f3c, so old_skill has nothing to resolve to and the arm is without_skill like every other case."
     },
     {
       "id": 9,

@@ -289,7 +289,9 @@ Not applicable. This is a first scaffold with no evaluator handoff to intake.
 
 ## Evaluation coverage proposed
 
-Accepted baseline: none — this is a first candidate, so tier B has no `old_skill` baseline for ten of the eleven cases and uses `without_skill`. Case 8 names `old_skill` only because a prior report artifact is supplied as the fixture; if no earlier candidate exists at evaluation time, that arm is `NOT_APPLICABLE` with the reason, not a silent `without_skill` substitution.
+Accepted baseline: none — this is a first candidate, so **every one of the eleven tier-B cases uses `without_skill`**.
+
+*Corrected in repair pass 1 (finding F-002, CHG-002).* This paragraph previously said case 8 named `old_skill` because a prior report artifact is supplied as its fixture, and that the arm would become `NOT_APPLICABLE` if no earlier candidate existed. Both halves were wrong and are withdrawn. A fixture supplied *to* a case is an input to that case, not a baseline arm of the comparison; and `NOT_APPLICABLE` is reserved for a stated scope exclusion, which an absent baseline is not. No `devforge-prototype` exists at base `c17e758417da64928a0f47fc2600304465ac3f3c`, so `old_skill` had nothing to resolve to. The original text is preserved at commit `e199230858d871926fff2d55de8b015fa0ce335e`.
 
 Proposed coverage: tier A from `evals/triggers/trigger-queries.json` in a fresh terminal against an actual installation, reporting the explicit-invocation entries separately and never as implicit activation evidence; tier B from `evals/evals.json` with the skill path supplied; tier C from an actual export or project-local installation in a project where `docs/mvp` is absent, checking that `assets/` and `references/` resolve inside the installed package and that `evals/` is absent from the installed copy.
 

@@ -18,6 +18,8 @@ Three properties matter.
 
 The plan's threshold exists so that the result can disagree with someone's hope. Write it before the measurement exists, freeze the plan, and do not touch the threshold afterwards.
 
+Be exact about what that freeze establishes, because it is easy to overstate. A digest you computed yourself records which bytes you had when you computed it. It does not establish to anyone else that those bytes preceded the evidence, because nothing stopped you computing it afterwards - and no current DevForge command binds a plan's bytes outside the evaluated agent's reach, which is the second of the open integration requirements in [framework context](framework-context.md). Where something external does hold the identity - a commit in an authorised experiment worktree, an operator-held receipt - name it, and the ordering becomes checkable. Where nothing does, say that plainly and keep freezing anyway: a self-recorded freeze still fixes the threshold in front of you before the number arrives, which is the discipline the rest of this section depends on. What it does not do is prove that discipline to a reader who has no reason to take your word.
+
 If a threshold turns out to have been wrong - the wrong metric, an impossible target, a condition nobody can observe - that is a real finding and it needs a **new plan revision** stating what changed and why, with the earlier revision preserved. What it is not is permission to edit the number in place. Editing in place destroys the only evidence that the original expectation existed, and the report then shows an experiment that met its target.
 
 Related discipline while observing:
