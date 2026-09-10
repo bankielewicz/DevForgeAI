@@ -1,0 +1,25 @@
+{
+  "schema_version": "devforge.skill-workspace-allocation/v1",
+  "_note": "Freeze this before any workspace write. It is a preparation bound, not an attempt or time budget. Additional workspaces need a new bounded allocation; prior allocations and their observations are preserved rather than amended.",
+  "allocation_id": "{{unique identity}}",
+  "owner": "{{actual owner}}",
+  "authorization_source": "{{the actual authorisation, not an inferred one}}",
+  "execution_ref": null,
+  "mode": "{{create-worktrees/existing-environment}}",
+  "selection_source": "{{where the environment choice was recorded}}",
+  "repository": {
+    "root": "{{absolute path}}",
+    "common_dir": "{{git common directory identity}}",
+    "base_commit": "{{resolved base commit}}"
+  },
+  "workspace_count": null,
+  "workspace_parent": "{{absolute destination parent}}",
+  "workspaces": [
+    {"workspace_id": "{{identity}}", "path": "{{absolute path}}", "branch_or_detached": "{{state}}", "reserved_for": null}
+  ],
+  "permitted_writes": [],
+  "protected_roots": [],
+  "preflight_refs": [],
+  "missing_allocation_inputs": [],
+  "scope_note": "A prepared workspace is not native readiness, and worktrees do not isolate credentials, client state or acceptance."
+}

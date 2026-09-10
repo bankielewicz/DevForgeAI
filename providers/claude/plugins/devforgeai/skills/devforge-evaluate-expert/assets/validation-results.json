@@ -1,0 +1,50 @@
+{
+  "schema_version": "devforge.skill-validation-results/v1",
+  "_note": "One result per planned check. Report structure, ai_review, C, B and A separately and never blend them. There is no decision receipt: evidence reduction is not implemented in the DevForge CLI, so the disposition below is adjudicated by hand against references/results-contract.md.",
+  "run_id": "{{run identity}}",
+  "plan": {"path": "{{absolute path}}", "sha256": "{{digest}}"},
+  "structural_observations": {
+    "method": "INSPECTION_MANUAL",
+    "authority": "none",
+    "rows": [
+      {"observation": "{{what was read}}", "outcome": "NOT_RUN", "evidence": [], "reason": null}
+    ],
+    "runner_observations_ref": null,
+    "legacy_helper_results": []
+  },
+  "ai_review": {"path": "{{absolute path}}", "sha256": "{{digest}}"},
+  "results": [
+    {
+      "check_id": "{{matching the plan}}",
+      "group": "{{intake/structure/ai_review/C/B/A}}",
+      "outcome": "NOT_RUN",
+      "cause": null,
+      "evidence": [],
+      "case_grade_ref": null
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "type": "{{defect/enhancement/evaluation_gap}}",
+      "severity": "{{BLOCKER/MAJOR/MINOR/ADVISORY}}",
+      "requirement_ids": [],
+      "affected_revision": "{{candidate identity}}",
+      "location": "{{file and section or line span}}",
+      "evidence": [],
+      "confidence": "{{stated with its uncertainty}}",
+      "impact": "{{demonstrated consequence}}",
+      "recommendation": "{{bounded}}",
+      "affected_case_ids": []
+    }
+  ],
+  "missing_rust_capabilities": [
+    "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.",
+    "Protected-manifest custody for the evaluation runner is not implemented in the DevForge CLI."
+  ],
+  "evaluation_prerequisites": [],
+  "report_completion": "{{complete/partial, with the reason}}",
+  "validation_disposition": "{{revise / insufficient_evidence / suitable_for_stated_scope}}",
+  "disposition_basis": "Adjudicated against references/results-contract.md; no implemented decision receipt exists.",
+  "behavior_status": "NOT_EVALUATED"
+}

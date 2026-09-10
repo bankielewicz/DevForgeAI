@@ -1,0 +1,10 @@
+{
+  "fixture_kind": "synthetic-transcript-for-rejection-only",
+  "note": "No terminal completion event. Nothing about activation can be concluded from this.",
+  "events": [
+    {"type": "prompt", "text": "Fix the failing test in test_feed.py."},
+    {"type": "selection_requested", "skill": "unrelated-skill"},
+    {"type": "timeout", "terminal_completed": false}
+  ],
+  "target_consultation_observable": false
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "devforge.skill-validation-cases/v1",
+  "_note": "The frozen, human-authored case definitions for the skill being evaluated. Freeze before measuring. This is distinct from the runner's machine-readable cases.jsonl: these carry the intent, the operator answer schedule and the grader-only expectations.",
+  "instructions": "Derive every case from an accepted requirement. Keep worker-visible fixtures separate from grader-only expectations, and never place a held-out expected answer where a task worker can see it. A case added after observing a failure is labelled diagnostic and does not improve the measured result.",
+  "cases": [
+    {
+      "case_id": "{{stable identity}}",
+      "tier": "{{A/B/C}}",
+      "purpose": "{{positive/negative}}",
+      "requirement_ids": [],
+      "raw_request": "{{the exact frozen user request}}",
+      "worker_visible_fixtures": [],
+      "grader_only_expectations": [],
+      "answer_schedule": "{{operator answer policy for an interactive case, or not applicable}}",
+      "allowed_outputs_and_side_effects": [],
+      "expected_behavior": "{{observable}}",
+      "artifact_assertions": [],
+      "observation_method": "{{how the outcome will actually be observed}}",
+      "baseline_treatment": "{{arms scheduled for this case}}",
+      "repetitions": null,
+      "held_out": false
+    }
+  ]
+}

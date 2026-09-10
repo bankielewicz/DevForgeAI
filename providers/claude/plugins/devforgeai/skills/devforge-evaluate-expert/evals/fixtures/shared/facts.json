@@ -1,0 +1,6 @@
+{
+  "goal": "Document the local-only MVP scope",
+  "included_work": ["Read supplied project facts", "Write a scope note"],
+  "excluded_work": ["Hosted deployment", "Changing framework policy"],
+  "open_questions": ["Who owns adoption of the note?"]
+}

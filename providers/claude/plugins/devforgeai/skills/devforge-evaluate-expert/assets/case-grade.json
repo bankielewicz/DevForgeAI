@@ -1,0 +1,34 @@
+{
+  "schema_version": "devforge.skill-case-grade/v1",
+  "_note": "One record per completed or unavailable case, per arm and attempt. Grade each dimension separately; never average a failed requirement away. overall is the observed case outcome and is distinct from the terminal's exit status.",
+  "run_id": "{{run identity}}",
+  "case_id": "{{frozen case identity}}",
+  "attempt_id": "{{attempt identity}}",
+  "arm": "{{candidate/baseline}}",
+  "run_manifest": {"path": "{{absolute path}}", "sha256": "{{digest}}"},
+  "case_definition": {"path": "{{absolute path}}", "sha256": "{{digest}}"},
+  "grader": {
+    "identity": "{{actual grader identity}}",
+    "method": "{{deterministic observation / semantic review / both, stated separately}}",
+    "independence_limits": "{{what was and was not separated}}"
+  },
+  "observation": {
+    "terminal_completed": null,
+    "raw_exit": null,
+    "target_selected": null,
+    "target_loaded": null,
+    "resource_consultation": [],
+    "evidence": []
+  },
+  "dimensions": {
+    "resource_loading": {"outcome": "NOT_RUN", "reason": null, "evidence": []},
+    "named_behavior": {"outcome": "NOT_RUN", "reason": null, "evidence": []},
+    "artifact_delivery": {"outcome": "NOT_RUN", "reason": null, "evidence": []},
+    "constraints": {"outcome": "NOT_RUN", "reason": null, "evidence": []},
+    "activation": {"outcome": "NOT_RUN", "reason": null, "evidence": []}
+  },
+  "overall": "NOT_RUN",
+  "cause": null,
+  "finding_ids": [],
+  "limitations": []
+}

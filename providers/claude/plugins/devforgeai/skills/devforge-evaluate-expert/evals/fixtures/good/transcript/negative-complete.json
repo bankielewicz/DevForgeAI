@@ -1,0 +1,9 @@
+{
+  "fixture_kind": "synthetic-transcript",
+  "note": "Synthetic event shape authored for these graders; not a client transcript.",
+  "events": [
+    {"type": "prompt", "text": "Summarise this meeting transcript into bullet points."},
+    {"type": "selection_requested", "skill": "unrelated-note-taker"},
+    {"type": "completed", "terminal_completed": true}
+  ]
+}
