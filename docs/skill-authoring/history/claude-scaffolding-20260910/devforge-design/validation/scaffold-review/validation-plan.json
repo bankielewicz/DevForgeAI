@@ -1,0 +1,107 @@
+{
+  "schema_version": "devforge.skill-validation-plan/v1",
+  "plan_id": "EVPLAN-devforge-design-scaffold-20260910",
+  "recorded_at_utc": "2026-09-10T20:18:54Z",
+  "sequencing_deviation": "The results contract asks that the plan be frozen before anything is measured. The assignment's scope, the frozen candidate and validator commits, the governing inputs and the write fence were fixed by the operator task packet before any observation, and the input identities were recorded contemporaneously at the top of commands.log before the first check. This JSON was serialized from that record after the deterministic runs. No expectation was chosen or changed after seeing an outcome; the check list below is the packet's 'Evaluate' list. Recorded as a deviation rather than presented as a pre-frozen plan.",
+  "scope": {
+    "covers": [
+      "P1 intake and freeze of input identities",
+      "P2 deterministic observation: manual structural reading plus authored and evaluator-added runner cases",
+      "P3 independent semantic review against rubric criteria R01-R10",
+      "P5 adjudication by hand against the results contract",
+      "P6 results, bounded repair specification and builder-return handoff"
+    ],
+    "excludes": [
+      "P4 tiers C, B and A: no installed or exported copy, no fresh terminal, no isolated workspace allocated. NOT_RUN, cause recorded as F-012. No install was attempted.",
+      "Acceptance, adoption, installation, export and release. This evaluation recommends only.",
+      "Any edit to the candidate, its specification, its cases or its expectations."
+    ]
+  },
+  "owner_and_fence": {
+    "evaluator": "independently dispatched Claude Code evaluator context; did not author the candidate",
+    "permitted_writes": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/scaffold-review/ only",
+    "commit_permitted": false,
+    "candidate_access": "read-only"
+  },
+  "frozen_inputs": {
+    "candidate": {
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910",
+      "commit": "9ad38de25a9941eb8ed67e9650430879f62032e4",
+      "head_matched_packet": true,
+      "package_root": "providers/claude/plugins/devforgeai/skills/devforge-design",
+      "file_count": 23,
+      "manifest": "commands.log, 'candidate package manifest' block - computed independently by this evaluator, 23/23 identical to the author's file-manifest.json"
+    },
+    "installed_candidate": null,
+    "installed_candidate_cause": "no installation or export exists; none was to be attempted under this assignment",
+    "specification": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-003-devforge-design.md",
+      "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb",
+      "matches_packet_digest": true
+    },
+    "validator": {
+      "package": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert",
+      "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910",
+      "commit": "e641797eebf04cd1e8eb9f711549e038e7745407",
+      "skill_md_sha256": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
+      "loaded_how": "source-loaded by absolute path; not installed, not discovered, not invoked by a client",
+      "status": "draft under bootstrap review (E2: revise -> repaired at e101e76 -> recheck pending). Its rubric anchors and runner interface may change."
+    },
+    "governing_inputs_verified_at_revision_c17e758": [
+      "docs/mvp/skill-authoring-contract.md 371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+      "docs/mvp/artifact-contract.md 00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+      "docs/mvp/execution-contract.md 73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+      "docs/mvp/roster.md ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc",
+      "docs/mvp/templates/devforge-design/design-spec.md 5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661",
+      "docs/mvp/templates/shared/handoff.md abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "docs/mvp/templates/skill-authoring/evals.json 508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692",
+      "docs/mvp/templates/skill-authoring/trigger-queries.json 8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4",
+      "docs/development-language-policy.md 3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+      "docs/learned-behaviors/bounded-delivery.md 22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae"
+    ],
+    "note_on_framework_checkout": "framework/DevForgeAI HEAD is 69d707b921550752d98a45afa60b7d4fcd4b5eb8, ahead of the candidate's base c17e758. All ten docs/mvp inputs above are byte-identical between the two, so reading the working tree was equivalent. AGENTS.md and CLAUDE.md differ between the revisions; the candidate's derivation record pins the c17e758 bytes and those digests verify at that revision.",
+    "cases": {
+      "authored_by_candidate": "providers/claude/plugins/devforgeai/skills/devforge-design/evals/cases.jsonl sha256 b4e0fdb91177b593b2a52a778c769049d4a2154782e12e8442de4b554d1f39ac (10 cases, 18 assertions)",
+      "added_by_evaluator": "runner-out/evaluator-supplementary-cases.jsonl (6 cases) and runner-out/evaluator-nested-field-probe.jsonl (1 case), authored because the candidate's deterministic layer covers only one tier-C case"
+    },
+    "rubric": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/references/ai-review-rubric.md at e641797",
+    "baseline": {
+      "arm": "without_skill",
+      "reason": "no Claude devforge-design existed at the base revision c17e758417da64928a0f47fc2600304465ac3f3c, so there is no preserved previous revision to compare against",
+      "status": "NOT_RUN - the baseline arm requires a native run, which was not allocated"
+    },
+    "client_facts": "https://code.claude.com/docs/en/skills, retrieved by this evaluator 2026-09-10 UTC",
+    "devforge_cli": "/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge, own --help observed 2026-09-10T20:05:35Z"
+  },
+  "runtime": {
+    "python": "/usr/bin/python3 3.12.3, standard library only, invoked with -B",
+    "isolation": "none. Every run happened in the evaluator's ordinary session on the host filesystem. These are local, non-isolated observations and are not native evidence.",
+    "custody": "self-reported. Protected-manifest custody for the runner is not implemented in the DevForge CLI."
+  },
+  "planned_checks": [
+    {"check_id": "CHK-INTAKE-01", "group": "intake", "expectation": "pass", "statement": "Candidate HEAD equals the packet's frozen commit and the package bytes are unchanged."},
+    {"check_id": "CHK-STRUCT-01", "group": "structure", "expectation": "pass", "statement": "Frontmatter carries name and description only; name equals the folder name."},
+    {"check_id": "CHK-STRUCT-02", "group": "structure", "expectation": "pass", "statement": "Every package-relative link resolves inside the package."},
+    {"check_id": "CHK-STRUCT-03", "group": "structure", "expectation": "pass", "statement": "No runtime dependency on docs/mvp, on another skill package, or on a developer home path; no Claude shell-injection syntax."},
+    {"check_id": "CHK-STRUCT-04", "group": "structure", "expectation": "pass", "statement": "derivation.json sources and destinations match bytes; at least five declared sources spot-checked including both template copies."},
+    {"check_id": "CHK-STRUCT-05", "group": "structure", "expectation": "pass", "statement": "Every evals files[] entry and fixture path exists inside evals/; every deterministic_cases id exists in cases.jsonl."},
+    {"check_id": "CHK-STRUCT-06", "group": "structure", "expectation": "pass", "statement": "The trigger split is fixed and stratified, and no held-out answer or validation-split fixture content appears in SKILL.md or the shipped references."},
+    {"check_id": "CHK-STRUCT-07", "group": "structure", "expectation": "pass", "statement": "cases.jsonl loads in the committed runner and every grader and argument name is valid."},
+    {"check_id": "CHK-SPEC-01", "group": "structure", "expectation": "pass", "statement": "Every SKILL-003 row - use-case inventory, inputs, four phases and exits, outputs, five acceptance cases, four common cases, rework, stopping, completion - is addressed, and spec-mapping.md's claims verify against bytes."},
+    {"check_id": "CHK-AUTH-01", "group": "structure", "expectation": "pass", "statement": "DevForge CLI references name only existing commands; missing integrations are named and routed; no self-issued PASS or simulated gate."},
+    {"check_id": "AI-R01", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R02", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R03", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R04", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R05", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R06", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R07", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R08", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R09", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "AI-R10", "group": "ai_review", "expectation": "pass"},
+    {"check_id": "CHK-C-01", "group": "C", "expectation": "pass", "statement": "Installed resources resolve from an installed or exported copy in a consuming project where the DevForgeAI docs tree is unavailable."},
+    {"check_id": "CHK-B-01", "group": "B", "expectation": "observation", "statement": "Candidate output quality against a without_skill baseline on the same raw facts, covering evals.json ids 2-10."},
+    {"check_id": "CHK-A-01", "group": "A", "expectation": "pass", "statement": "Discovery and activation from the installed package in a fresh terminal, across the 23 trigger queries with explicit and implicit kept separate."}
+  ],
+  "expected_outcomes_note": "Expectations were set from the specification and the contracts before running anything. Two outcomes were predicted and are recorded here so they are not read as candidate defects: DX-C-001 declares mode 'installed' and asserts that evals/ is absent, so against the source tree that assertion is expected to MISMATCH; and both shipped templates are blank source templates, so a required-field assertion against them is expected to observe placeholders."
+}

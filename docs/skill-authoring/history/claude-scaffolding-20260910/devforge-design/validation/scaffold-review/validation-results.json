@@ -1,0 +1,66 @@
+{
+  "schema_version": "devforge.skill-validation-results/v1",
+  "results_id": "EVRESULTS-devforge-design-scaffold-20260910",
+  "plan_ref": {"path": "validation-plan.json", "note": "same directory"},
+  "ai_review_ref": {"path": "ai-review.json", "note": "same directory"},
+  "findings_ref": {"path": "findings.json", "note": "same directory"},
+  "recorded_at_utc": "2026-09-10T20:18:54Z",
+  "candidate": {
+    "commit": "9ad38de25a9941eb8ed67e9650430879f62032e4",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-design",
+    "skill_md_sha256": "65dbb586ab78a43fa2b83a7e9c35f20272b3d4181ba08e6cc7519876de0e4c83"
+  },
+  "authority_note": "No implemented decision receipt exists. Evidence reduction is one of the two capabilities the DevForge CLI does not implement, so every outcome below was adjudicated by hand against the results contract. Structural rows carry method INSPECTION_MANUAL and authority: none. Runner rows are cited as evidence and are never copied into an outcome.",
+  "results": [
+    {"check_id": "CHK-INTAKE-01", "group": "intake", "outcome": "PASS", "method": "INSPECTION_MANUAL", "evidence": "commands.log: git rev-parse HEAD = 9ad38de...; git diff 9ad38de HEAD -- providers/ empty; 23-file sha256 manifest computed independently and identical to the author's file-manifest.json 23/23", "note": "The only untracked path in the worktree is this evaluation's own output fence."},
+
+    {"check_id": "CHK-STRUCT-01", "group": "structure", "outcome": "PASS", "method": "INSPECTION_MANUAL + runner", "evidence": "run3 DX-C-001 A1 MATCH (delimiters present), A2 MATCH (description,name populated); run4 SUP-S-001 MATCH (name='devforge-design' folder='devforge-design'); commands.log: frontmatter keys are exactly name and description; description 950 chars, inside the 1,536-char listing truncation confirmed against the Claude skills documentation retrieved 2026-09-10."},
+
+    {"check_id": "CHK-STRUCT-02", "group": "structure", "outcome": "PASS", "method": "runner", "evidence": "run3 DX-C-001 A3 (SKILL.md, 4 local, all resolve), A4 (recording-rules.md, 1 local, resolves), A5 (mockups-and-preview.md, 0 local - see F-010), A6/A7 assets present; run4 SUP-S-002 A1-A4 all MATCH; SUP-S-003 A1-A8 all MATCH."},
+
+    {"check_id": "CHK-STRUCT-03", "group": "structure", "outcome": "PASS", "method": "INSPECTION_MANUAL + runner", "evidence": "run4 SUP-S-005 A1-A3 MATCH: no backtick-bang or bang-fence syntax, no docs/mvp path, no /home/ path in SKILL.md or either reference. commands.log greps: the only docs/mvp strings in the package are provenance records in references/derivation.json, references/sources.md and evals/evals.json; the only home-directory string documents Claude's own personal-skill location in references/sources.md:13. No Codex-only concept, no agents/openai.yaml, no .agents path."},
+
+    {"check_id": "CHK-STRUCT-04", "group": "structure", "outcome": "PASS", "method": "INSPECTION_MANUAL", "evidence": "cmp exit 0 for assets/design-spec.md vs docs/mvp/templates/devforge-design/design-spec.md and assets/handoff.md vs docs/mvp/templates/shared/handoff.md. All thirteen declared selected_inputs and derivation sources verified by hashing the git objects at the pinned revision c17e758: 13/13 identical to the digests derivation.json records. run4 SUP-S-006 MATCH: both destination assets hash to the digests derivation.json declares.", "note": "One derivation entry declares an unpinned, uncommitted source (F-007). That is recorded as an enhancement, not a failure of this check: the four template derivations all verify."},
+
+    {"check_id": "CHK-STRUCT-05", "group": "structure", "outcome": "PASS", "method": "INSPECTION_MANUAL", "evidence": "commands.log: all 24 files[] entries (12 in evals.json, 12 in cases.jsonl) exist and stay inside evals/; all nine candidate_subpath directories exist under evals/fixtures; all ten deterministic_cases ids resolve in cases.jsonl with no orphans."},
+
+    {"check_id": "CHK-STRUCT-06", "group": "structure", "outcome": "PASS", "method": "INSPECTION_MANUAL", "evidence": "commands.log: 23 queries, no duplicate ids, split fixed at authoring time and stratified - every one of the eight categories has at least one train and one validation entry; 13 train / 10 validation; 11 positive / 12 negative. No fixture token (Havenlist, shedkit, RULE-0, REQ-0, STORY-021, SESSION-042, UX-00) and no validation-split-distinctive phrase appears in SKILL.md or either shipped reference; the PROD-001 and REQ-004 strings that do appear are illustrative artifact IDs in the envelope guidance.", "note": "Category label F-011 (A7b) is ADVISORY and does not change any activation expectation."},
+
+    {"check_id": "CHK-STRUCT-07", "group": "structure", "outcome": "PASS", "method": "runner", "evidence": "All four invocations of the candidate's cases.jsonl against the committed runner exited 0 and wrote complete observations files. Every grader name and every argument key used by the candidate is valid against scripts/graders.py at e641797 (the runner rejects the whole file on an unknown grader or an unknown case/assertion key, so a completed run establishes this).", "note": "The file cannot be run as a single unit because it needs two different --candidate roots (F-005). That is a usability defect recorded separately; it does not make the file invalid."},
+
+    {"check_id": "CHK-SPEC-01", "group": "structure", "outcome": "FAIL", "method": "INSPECTION_MANUAL", "evidence": "Coverage is complete for the use-case inventory (nine rows), the inputs table (all four specification rows carried with identical Requirement and Consume-only values, plus two rows derived from the 'Required context' line), all four phases with their exit conditions carried faithfully, the outputs table with the UX prefix and both package-relative templates, all five acceptance-case rows and all four additional common cases (evals.json ids 2-10 plus DX-* counterparts), the stopping conditions and the completion handoff. Two specification rows are not addressed: the product-scope-conflict rework route (F-001) and the interruption-and-resume rule (F-003). spec-mapping.md claims both are addressed; the cited bytes do not carry them (F-004).", "findings": ["F-001", "F-003", "F-004"]},
+
+    {"check_id": "CHK-AUTH-01", "group": "structure", "outcome": "PASS", "method": "INSPECTION_MANUAL", "evidence": "SKILL.md:24 lists delivery, expert, check, init, red, green, accept, verify, status and isolate - exactly the surface the binary's own help reports - and states that none of them reads a design-spec, resolves its upstream references or verifies a mockup digest, routing that gap to the integration owner and adding that recording the requirement is design input rather than evidence a check exists. `devforge check --help` reads 'Check structural policy and provenance; does not certify semantic behavior', consistent with SKILL.md's description of it. No self-issued PASS, no simulated transition, no invented subcommand or flag, no deployment or release implied as automatic. Prompt-injection posture is explicit at SKILL.md:55 and references/recording-rules.md:101-103."},
+
+    {"check_id": "AI-R01", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R01]"},
+    {"check_id": "AI-R02", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R02]"},
+    {"check_id": "AI-R03", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R03]"},
+    {"check_id": "AI-R04", "group": "ai_review", "outcome": "FAIL", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R04]", "findings": ["F-001"]},
+    {"check_id": "AI-R05", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R05]"},
+    {"check_id": "AI-R06", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R06]"},
+    {"check_id": "AI-R07", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R07]", "findings": ["F-002"]},
+    {"check_id": "AI-R08", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R08]"},
+    {"check_id": "AI-R09", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R09]"},
+    {"check_id": "AI-R10", "group": "ai_review", "outcome": "PASS", "method": "AI_REVIEW", "evidence": "ai-review.json criteria[R10]"},
+
+    {"check_id": "CHK-C-01", "group": "C", "outcome": "NOT_RUN", "method": null, "cause": "No installed or exported copy exists (file-manifest.json records installed_copy and plugin_export as 'not generated') and no install was to be attempted under this assignment. No consuming project with the DevForgeAI docs tree made unavailable was allocated.", "findings": ["F-012"], "note": "run3's DX-C-001 rows were produced against the SOURCE tree with --mode installed. They are structural evidence about the source package. They are not tier C and do not substitute for it. A8's MISMATCH ('evals is present') is the expected and correct state of a source tree - the authoring contract keeps evals/ in source and strips it on install - and is not a candidate defect."},
+
+    {"check_id": "CHK-B-01", "group": "B", "outcome": "NOT_RUN", "method": null, "cause": "No native run was allocated for either arm. The without_skill baseline arm was not executed. A missing arm supports no improvement claim.", "findings": ["F-012"]},
+
+    {"check_id": "CHK-A-01", "group": "A", "outcome": "NOT_RUN", "method": null, "cause": "No fresh terminal, no installed package to discover and no per-attempt client-state isolation were allocated. Discovery, selection, loading and task completion remain four unobserved facts.", "findings": ["F-012"]}
+  ],
+  "behavioural_status": "NOT_EVALUATED",
+  "coverage": {
+    "complete_groups": ["intake", "structure", "ai_review"],
+    "incomplete_groups": ["C", "B", "A"],
+    "blended": false,
+    "note": "No score, percentage or aggregate is computed. structure carries one FAIL alongside nine PASS rows; a consumer must read every row."
+  },
+  "adjudication": {
+    "rule_applied": "Any applicable FAIL produces revise; otherwise missing or unavailable required observations produce insufficient evidence; all required observations passing supports only suitable for the stated scope.",
+    "applicable_fails": ["CHK-SPEC-01", "AI-R04"],
+    "disposition": "revise",
+    "secondary_statement": "Even after the recorded repairs, this evaluation cannot reach 'suitable for the stated scope'. Three required evidence groups - C, B and A - are NOT_RUN, so the candidate's standing after repair would be 'insufficient evidence' until a native evaluation is allocated.",
+    "decision_receipt": "none produced; evidence reduction is not implemented in the DevForge CLI"
+  }
+}

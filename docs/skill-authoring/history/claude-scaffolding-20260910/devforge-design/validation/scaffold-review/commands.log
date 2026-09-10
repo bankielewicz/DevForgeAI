@@ -1,0 +1,437 @@
+# commands.log - scaffold evaluation of devforge-design (SKILL-003)
+# All commands run by the evaluator. Local, non-isolated evidence.
+# Session start (host clock, UTC): 2026-09-10T20:03:21Z
+
+$ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910 rev-parse HEAD
+9ad38de25a9941eb8ed67e9650430879f62032e4
+[exit 0]
+
+$ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910 status --porcelain
+?? docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/
+[exit 0]
+
+$ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse HEAD
+e641797eebf04cd1e8eb9f711549e038e7745407
+[exit 0]
+
+$ sha256sum /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-003-devforge-design.md
+4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-003-devforge-design.md
+[exit 0]
+
+$ git -C <validator-wt> show e641797...:SKILL.md | sha256sum
+bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac  -
+
+$ (candidate package manifest) find ... -type f | sort | xargs sha256sum
+65dbb586ab78a43fa2b83a7e9c35f20272b3d4181ba08e6cc7519876de0e4c83  ./SKILL.md
+5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661  ./assets/design-spec.md
+abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206  ./assets/handoff.md
+b4e0fdb91177b593b2a52a778c769049d4a2154782e12e8442de4b554d1f39ac  ./evals/cases.jsonl
+0837b11154cb6b86cd4941e1f1acc972e137e4a6ea9d667cbc869ec14d8c1150  ./evals/evals.json
+4ed1064a668748194438d139d7bc828dc9d7d69dea3689312bd012e961fed5e6  ./evals/fixtures/README.md
+6a63e2dc786059097063d940d524776461d0bec64a2257551b46fc8609ba9545  ./evals/fixtures/backend-only/STORY-021.md
+32afb60d54c96333a2f25af1d41a460bfe368e16a0b6a44f902f0cbafb618154  ./evals/fixtures/blocked-check/UX-007.md
+64c6e811a75b8b59619c5e95a995570a01cd8e9f215f26e4d98753c8f6b315f0  ./evals/fixtures/ownership-collision/SESSION-042.md
+cf0e9f8da091ae53b9588194bacf98524755e84e2fff6abae4d26a09b316a06c  ./evals/fixtures/ownership-collision/sentinel/UX-004.md
+a64d0322b7e31ae0be7e7f0cd3489935bad1d89fdf1dd979544edd841e814b67  ./evals/fixtures/placeholder/UX-006.md
+aac6d007c628f579aacad1aed843a70699313fa3f2983d90a316a82f57c5838f  ./evals/fixtures/shared/ARCH-001.md
+b863996bf1804f08980e5f051e9f568fa5e3187c1a70faa3f45f6e3e0f43e8f9  ./evals/fixtures/shared/PROD-001.md
+532b1d715022c646179e6735e3cf3275adcc53c57fdfe49a6340fc18174a6e8f  ./evals/fixtures/stale/PROD-001.md
+dbf39c5941390a0c49ef5e511e798f8df91c419d0efa1b11597288fdd34ed043  ./evals/fixtures/stale/UX-005.md
+b863996bf1804f08980e5f051e9f568fa5e3187c1a70faa3f45f6e3e0f43e8f9  ./evals/fixtures/stale/preserved/PROD-001.r2.md
+76aeae951d84a0f180c79b73cfe061b3ab9dbf5b71744db6e14214f47e9a52f5  ./evals/fixtures/unverified-inspection/UX-008.md
+eef760803c139af7ed52f72b3fbad5b442b99671600653fec2fc362d5f8d8b36  ./evals/fixtures/unverified-inspection/inspection-claim.json
+fb3bdabb9c914c8583c4c81b4463d2d5c172e03f0b8ef6f891974b59bd58026d  ./evals/triggers/trigger-queries.json
+cc537e9c2aa85d2d80381306265cb2080243fc783ec5de9de4af72a9b15e77a7  ./references/derivation.json
+0524a76f59c627a852c93600f1e5c612a1c3963265aeacb8931ad96a10f0b33a  ./references/mockups-and-preview.md
+5173699973f8a9d32b3cedf0724ee9d6cd27fb1e3cbe3e7ef2393df205c09c0f  ./references/recording-rules.md
+2ae704a8d2d9bcb5b58ce09652a289b9465232b71e6816e22873e13cb01076fa  ./references/sources.md
+
+## P2 deterministic checks: derivation source/destination byte comparison
+$ cmp /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/assets/design-spec.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-design/design-spec.md
+[exit 0]
+
+$ cmp /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/assets/handoff.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md
+[exit 0]
+
+$ sha256sum /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-design/design-spec.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/evals.json /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/trigger-queries.json /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/development-language-policy.md /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/learned-behaviors/bounded-delivery.md /home/bryan/Projects/DevForge/framework/DevForgeAI/AGENTS.md /home/bryan/Projects/DevForge/framework/DevForgeAI/CLAUDE.md
+5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-design/design-spec.md
+abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md
+508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/evals.json
+8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/trigger-queries.json
+371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md
+00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md
+73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md
+ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md
+3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/development-language-policy.md
+22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae  /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/learned-behaviors/bounded-delivery.md
+959877c80a2611cde4dbf69ebba6304465fd3feada5cdf328344a8453c6539f0  /home/bryan/Projects/DevForge/framework/DevForgeAI/AGENTS.md
+34b546db115af82c2b72cbf508eb8fb7807d3256ab3a6f567633576b39d87931  /home/bryan/Projects/DevForge/framework/DevForgeAI/CLAUDE.md
+[exit 0]
+
+## Declared derivation sources verified at pinned revision c17e758 (git object bytes)
+$ git -C <candidate-wt> rev-parse c17e758417da64928a0f47fc2600304465ac3f3c
+c17e758417da64928a0f47fc2600304465ac3f3c
+
+4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb  c17e758:docs/mvp/specifications/skill-003-devforge-design.md
+5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661  c17e758:docs/mvp/templates/devforge-design/design-spec.md
+abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206  c17e758:docs/mvp/templates/shared/handoff.md
+508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692  c17e758:docs/mvp/templates/skill-authoring/evals.json
+8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4  c17e758:docs/mvp/templates/skill-authoring/trigger-queries.json
+371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53  c17e758:docs/mvp/skill-authoring-contract.md
+00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5  c17e758:docs/mvp/artifact-contract.md
+73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b  c17e758:docs/mvp/execution-contract.md
+ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc  c17e758:docs/mvp/roster.md
+3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f  c17e758:docs/development-language-policy.md
+22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae  c17e758:docs/learned-behaviors/bounded-delivery.md
+25c4e85059f15cf6c1c86a41896564e9abd79599943f6f0ba4f9840d14bf34da  c17e758:AGENTS.md
+62ae72b79afd1e69f39225b9823bf12d5cf1089acc9cbd4255140cd3c7eb60b4  c17e758:CLAUDE.md
+
+$ (working-tree framework/DevForgeAI HEAD)
+69d707b921550752d98a45afa60b7d4fcd4b5eb8
+
+## Runtime-independence and provider-correctness greps (candidate package)
+$ grep -rn 'docs/mvp' $PKG --include='*' (excluding references/derivation.json, references/sources.md provenance records)
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:29:| `docs/mvp/specifications/skill-003-devforge-design.md` | The governing specification: user goal, use-case inventory, inputs and provenance, the four workflow phases and their exits, the output artifact and its template, the acceptance cases and common cases, rework and stopping conditions. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:30:| `docs/mvp/templates/devforge-design/design-spec.md` | The design-spec output shape, copied unchanged into `assets/`. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:31:| `docs/mvp/templates/shared/handoff.md` | The handoff shape, copied unchanged into `assets/`. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:32:| `docs/mvp/skill-authoring-contract.md` | Package structure, the `evals/` packaging decision, derivation records, the three separately reported evaluation tiers and their vocabulary. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:33:| `docs/mvp/artifact-contract.md` | The `devforge.artifact/v1` envelope, upstream reference resolution, the no-self-digest rule, and the separation of document status from readiness and behavioural evaluation. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:34:| `docs/mvp/execution-contract.md` | Worktree and ownership behaviour on a concurrent-writer collision, and the rule that a handoff names an actual installed skill or a plain-language task. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:35:| `docs/mvp/roster.md` | The provenance flow: this skill consumes the product-brief (and optionally the architecture-contract, an existing design-spec, and a prototype-report or change-request), and its design-spec is read by prototype, architect, plan, review and change. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/evals/evals.json:3:  "schema_note": "Extends docs/mvp/templates/skill-authoring/evals.json (id, name, prompt, expected_output, files) with tier, spec_case, graded_observations, artifact_assertions, baseline_comparison and deterministic_cases. All files paths resolve relative to this evals directory and stay within it, per the artifact contract. Every fixture is synthetic and operator-authored; see fixtures/README.md.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/evals/evals.json:15:      "expected_output": "The run resolves assets/design-spec.md, assets/handoff.md and the two references from the installed skill directory, and writes its outputs into the consuming project's artifact map. No path under the DevForgeAI repository, no docs/mvp path, and no developer home directory appears in any produced artifact or in the transcript's resource lookups.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:24:    { "artifact": "SKILL-003", "role": "governing specification", "store": "project", "path": "docs/mvp/specifications/skill-003-devforge-design.md", "revision": "c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb" },
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:25:    { "artifact": "skill-authoring-contract", "role": "packaging, evals and tier vocabulary", "store": "project", "path": "docs/mvp/skill-authoring-contract.md", "revision": "c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53" },
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:26:    { "artifact": "artifact-contract", "role": "envelope, upstream resolution, no-self-digest", "store": "project", "path": "docs/mvp/artifact-contract.md", "revision": "c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5" },
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:27:    { "artifact": "execution-contract", "role": "ownership collision behaviour and handoff command honesty", "store": "project", "path": "docs/mvp/execution-contract.md", "revision": "c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b" },
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:28:    { "artifact": "roster", "role": "provenance flow: upstream producers and downstream consumers of design-spec", "store": "project", "path": "docs/mvp/roster.md", "revision": "c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc" },
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:37:      "source_path": "docs/mvp/templates/devforge-design/design-spec.md",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:43:      "refresh_condition": "The governing template at docs/mvp/templates/devforge-design/design-spec.md changes. Refresh is a bounded copy inside this skill's fence; it does not authorise redesigning the shared template.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:47:      "source_path": "docs/mvp/templates/shared/handoff.md",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:57:      "source_path": "docs/mvp/templates/skill-authoring/evals.json",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:67:      "source_path": "docs/mvp/templates/skill-authoring/trigger-queries.json",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:88:  "runtime_independence": "No file in this package reads anything under docs/mvp at runtime, and no developer home directory appears in any package file. The paths above are provenance records of what was read while authoring. Package resources resolve against the loaded SKILL.md directory; project inputs and outputs resolve against the project root supplied for the task.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/evals/triggers/trigger-queries.json:3:  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+
+$ grep -rn '/home/\|~/\|$HOME' $PKG
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:13:| Skills load from enterprise, personal (`~/.claude/skills/<name>/`), project (`.claude/skills/<name>/`), nested subdirectory, and plugin (`<plugin>/skills/<name>/`) locations. | The package resolves its own resources against the loaded `SKILL.md` directory rather than any fixed path, so it works from any of these. |
+
+$ grep -rn '^!\|(\!`\|`!' $PKG   # Claude dynamic shell-injection syntax
+(no match)
+
+$ grep -rn 'devforge-\(brainstorm\|develop\|review\|project-expert-creator\|evaluate-expert\|prototype\|define-product\|change\|architect\|plan\)' $PKG/SKILL.md $PKG/references $PKG/assets
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:17:| `producer` | `skill: devforge-design`, and `skill_revision` = the SHA-256 of the installed `SKILL.md` file's bytes - one file. Not a package digest and not the plugin version, which can be identical across two different drafts and therefore identifies nothing. Say which one you have; where nothing observable gives you the value, `unknown` is the honest entry. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:53:`devforge-define-product` is specified and not implemented, so the usual situation is that no `PROD` artifact exists. Do not invent one to fill the upstream slot - a fabricated `PROD-001@1` with a plausible digest is unrecoverable for the next reader.
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/SKILL.md:2:name: devforge-design
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/SKILL.md:3:description: Turn accepted requirements into a reviewable user experience - journeys, screen states, and local browser-viewable mockups - recorded in a durable design-spec that links every flow back to the requirement it serves. Use it when someone asks for mockups, wireframes, screen designs or a UI flow for something already scoped, and equally when they never say "design" but ask what a screen should look like, how a user gets through signup, or what happens on the error, loading and empty paths. Do not use it to resolve a technical uncertainty that needs running code (that is devforge-prototype), to implement or patch an accepted story (that is devforge-develop), to work out what to build or what is in scope (that is devforge-define-product), or to change an accepted requirement (that is devforge-change). "Design" here means the user experience: a database schema, an API surface, a class structure or a choice of design pattern is not this skill.
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/SKILL.md:53:**When the product-brief does not exist.** This is the common case right now, because `devforge-define-product` is specified and not implemented. Do not fabricate a `PROD-001@1` to fill the upstream slot. Take the requirement statements from the user, record them as user-supplied with their actual scope, put the missing product-brief in `missing_inputs`, and keep the design-spec at `status: draft` with its requirement references marked as user-stated rather than as resolved artifact references. A design built on user statements is a legitimate result; a design built on an invented artifact ID is not.
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/SKILL.md:102:Downstream, a design-spec is read by prototype, architect, plan, review and change. Of those, none is installed as a Claude skill at the time of writing; `devforge-develop` and `devforge-review` exist as drafts. So keep three things separate in the handoff and in what you tell the user: what you **suggest** as a continuation, what is **installed**, and what you **actually invoked**. Where the natural next step has no installed skill, say so as a capability gap and give a task the user can act on in plain language with resolvable absolute paths. Never write a slash command for a skill you have not confirmed is installed.
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:3:  "skill": "devforge-design",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:10:    "detail": "The Claude devforge-project-expert-creator package was read by absolute path at a frozen commit and its workflow (Intake, Selection, Design, Authoring, Prepared transfer) was followed. It was source-loaded, not installed: no builder skill was discovered or invoked by a client, and no evaluator was invoked.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:14:      "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:20:    "worktree_branch": "author/claude-devforge-design-scaffold-20260910"
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:24:    { "artifact": "SKILL-003", "role": "governing specification", "store": "project", "path": "docs/mvp/specifications/skill-003-devforge-design.md", "revision": "c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb" },
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:37:      "source_path": "docs/mvp/templates/devforge-design/design-spec.md",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:43:      "refresh_condition": "The governing template at docs/mvp/templates/devforge-design/design-spec.md changes. Refresh is a bounded copy inside this skill's fence; it does not authorise redesigning the shared template.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:52:      "transformation": "Exact byte copy, including the {{producing-skill}} placeholder, which the run fills with devforge-design.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:77:      "source_path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/authoring/port-analysis.md",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:83:      "refresh_condition": "The devforge-evaluate-expert runner and graders are committed and their actual --help and case schema differ from section 4.4 or 4.6. This dependency is PENDING; see references/sources.md and the authoring notes for the open items.",
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json:84:      "owner": "skill author, with the runner's schema owned by the devforge-evaluate-expert package"
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/assets/design-spec.md:10:  skill: "devforge-design"
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:14:| Plugin skills are invoked as `/plugin-name:skill-name`; for a plugin skill the frontmatter `name` sets the command's final segment. | `name: devforge-design` matches the directory name, so the invocation form is stable whichever installation mode is used. This package still does not assert an invocation form in a handoff without confirming what is installed. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:19:| A skill folder must not be named `synced`. | Not applicable; the folder is `devforge-design`. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:29:| `docs/mvp/specifications/skill-003-devforge-design.md` | The governing specification: user goal, use-case inventory, inputs and provenance, the four workflow phases and their exits, the output artifact and its template, the acceptance cases and common cases, rework and stopping conditions. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:30:| `docs/mvp/templates/devforge-design/design-spec.md` | The design-spec output shape, copied unchanged into `assets/`. |
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/sources.md:44:<devforge-binary> --help
+
+$ grep -rniE 'codex|openai|agents\.md subagent|AGENTS\.toml|\.agents/' $PKG
+(no match)
+
+$ wc -c on SKILL.md description (frontmatter description value)
+name='devforge-design' len=15
+description length (chars) = 950
+frontmatter keys = ['name', 'description']
+SKILL.md total lines = 132
+SKILL.md bytes = 15828
+
+## DevForge CLI command surface (observed 2026-09-10T20:05:35Z)
+$ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --help
+External project-expertise and development gates (Linux POC)
+
+Usage: devforge [OPTIONS] <COMMAND>
+
+Commands:
+  delivery  Manage external mechanical delivery state and protected worker sessions
+  expert    Prepare expertise context, inspect freshness, or bind an AI-authored skill
+  check     Check structural policy and provenance; does not certify semantic behavior
+  init      Record baseline in an external, human-controlled state directory
+  red       Observe a test-only assertion failure
+  green     Observe passing tests with exactly the tests evaluated at RED
+  accept    Preserve the exact GREEN candidate as an accepted local snapshot
+  verify    Verify accepted archive and current candidate integrity
+  status    Inspect durable phase state
+  isolate   Run with only the project writable; no unconfined fallback
+  help      Print this message or the help of the given subcommand(s)
+
+Options:
+      --project <PROJECT>  
+      --policy <POLICY>    
+      --state <STATE>      
+      --expert <EXPERT>    
+  -h, --help               Print help
+  -V, --version            Print version
+
+$ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge check --help
+Check structural policy and provenance; does not certify semantic behavior
+
+Usage: devforge check [OPTIONS]
+
+Options:
+      --project <PROJECT>  
+      --policy <POLICY>    
+      --state <STATE>      
+      --expert <EXPERT>    
+  -h, --help               Print help
+
+$ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert --help
+Prepare expertise context, inspect freshness, or bind an AI-authored skill
+
+Usage: devforge expert [OPTIONS] <COMMAND>
+
+Commands:
+  prepare  
+  bind     
+  status   
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+      --project <PROJECT>  
+      --policy <POLICY>    
+      --state <STATE>      
+      --expert <EXPERT>    
+  -h, --help               Print help
+
+## Claude client facts (WebFetch https://code.claude.com/docs/en/skills, retrieved 2026-09-10 UTC)
+Verified against references/sources.md: description+when_to_use truncated at 1,536 chars in the listing;
+locations ~/.claude/skills/<name>/, .claude/skills/<name>/, <plugin>/skills/<name>/, enterprise managed dir;
+plugin invocation /plugin-name:skill-name with frontmatter name replacing the directory name in the last segment;
+recommended SKILL.md under 500 lines; dynamic injection syntax is backtick-bang inline and a bang-fenced block;
+reserved folder name 'synced'. All seven sources.md client claims match the retrieved page.
+Observed: candidate description = 950 chars; SKILL.md = 132 lines; frontmatter keys = name, description only.
+
+## evals files[] and fixture resolution
+evals.json evals[].files:
+  eval id=1: files=[] (no fixture)
+  eval id=2: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  eval id=2: 'fixtures/shared/ARCH-001.md' -> exists=True inside_evals=True
+  eval id=3: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  eval id=4: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  eval id=4: 'fixtures/unverified-inspection/UX-008.md' -> exists=True inside_evals=True
+  eval id=5: 'fixtures/shared/ARCH-001.md' -> exists=True inside_evals=True
+  eval id=5: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  eval id=6: 'fixtures/backend-only/STORY-021.md' -> exists=True inside_evals=True
+  eval id=7: 'fixtures/ownership-collision/' -> exists=True inside_evals=True
+  eval id=8: 'fixtures/stale/' -> exists=True inside_evals=True
+  eval id=9: 'fixtures/placeholder/UX-006.md' -> exists=True inside_evals=True
+  eval id=10: 'fixtures/blocked-check/UX-007.md' -> exists=True inside_evals=True
+cases.jsonl files[] and candidate_subpath:
+  case DX-B-002: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  case DX-B-002: 'fixtures/shared/ARCH-001.md' -> exists=True inside_evals=True
+  case DX-B-002: candidate_subpath 'shared' -> dir_exists=True (relative to evals/fixtures)
+  case DX-B-003: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  case DX-B-003: candidate_subpath 'shared' -> dir_exists=True (relative to evals/fixtures)
+  case DX-B-004: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  case DX-B-004: 'fixtures/unverified-inspection/' -> exists=True inside_evals=True
+  case DX-B-004: candidate_subpath 'unverified-inspection' -> dir_exists=True (relative to evals/fixtures)
+  case DX-B-005: 'fixtures/shared/ARCH-001.md' -> exists=True inside_evals=True
+  case DX-B-005: 'fixtures/shared/PROD-001.md' -> exists=True inside_evals=True
+  case DX-B-005: candidate_subpath 'shared' -> dir_exists=True (relative to evals/fixtures)
+  case DX-B-006: 'fixtures/backend-only/STORY-021.md' -> exists=True inside_evals=True
+  case DX-B-006: candidate_subpath 'backend-only' -> dir_exists=True (relative to evals/fixtures)
+  case DX-B-007: 'fixtures/ownership-collision/' -> exists=True inside_evals=True
+  case DX-B-007: candidate_subpath 'ownership-collision' -> dir_exists=True (relative to evals/fixtures)
+  case DX-B-008: 'fixtures/stale/' -> exists=True inside_evals=True
+  case DX-B-008: candidate_subpath 'stale' -> dir_exists=True (relative to evals/fixtures)
+  case DX-C-009: 'fixtures/placeholder/UX-006.md' -> exists=True inside_evals=True
+  case DX-C-009: candidate_subpath 'placeholder' -> dir_exists=True (relative to evals/fixtures)
+  case DX-B-010: 'fixtures/blocked-check/UX-007.md' -> exists=True inside_evals=True
+  case DX-B-010: candidate_subpath 'blocked-check' -> dir_exists=True (relative to evals/fixtures)
+deterministic_cases cross-reference:
+  eval id=1 -> DX-C-001: present_in_cases_jsonl=True
+  eval id=2 -> DX-B-002: present_in_cases_jsonl=True
+  eval id=3 -> DX-B-003: present_in_cases_jsonl=True
+  eval id=4 -> DX-B-004: present_in_cases_jsonl=True
+  eval id=5 -> DX-B-005: present_in_cases_jsonl=True
+  eval id=6 -> DX-B-006: present_in_cases_jsonl=True
+  eval id=7 -> DX-B-007: present_in_cases_jsonl=True
+  eval id=8 -> DX-B-008: present_in_cases_jsonl=True
+  eval id=9 -> DX-C-009: present_in_cases_jsonl=True
+  eval id=10 -> DX-B-010: present_in_cases_jsonl=True
+orphan case ids (in cases.jsonl, not referenced by evals.json): []
+BAD: []
+## P2 runner runs (validator scripts/run_cases.py at e641797; local, non-isolated evidence)
+$ /usr/bin/python3 -B $R --cases $PKG/evals/cases.jsonl --candidate $PKG --out $OUT/run1-packageroot-source.jsonl --mode source
+wrote 10 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/scaffold-review/runner-out/run1-packageroot-source.jsonl
+[exit 0]
+
+$ ... --candidate $PKG/evals/fixtures --out $OUT/run2-fixtures-source.jsonl --mode source --case-id DX-B-002..DX-B-010
+wrote 10 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/scaffold-review/runner-out/run2-fixtures-source.jsonl
+[exit 0]
+
+$ ... --candidate $PKG --out $OUT/run3-packageroot-installedmode.jsonl --mode installed --case-id DX-C-001
+wrote 10 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/scaffold-review/runner-out/run3-packageroot-installedmode.jsonl
+[exit 0]
+
+$ /usr/bin/python3 -B $R --cases $OUT/evaluator-supplementary-cases.jsonl --candidate $PKG --out $OUT/run4-supplementary-source.jsonl --mode source
+wrote 6 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/scaffold-review/runner-out/run4-supplementary-source.jsonl
+[exit 0]
+
+## Held-out leakage check: fixture/validation-split tokens in runtime-shipped files
+$ grep -rniE 'havenlist|shedkit|REQ-0|RULE-0|STORY-021|SESSION-042|UX-00|PROD-001|waiting-list|borrow-history|drop off|notification dispatcher|reconciliation|date picker|confirmation banner' $PKG/SKILL.md $PKG/references $PKG/assets
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/SKILL.md:53:**When the product-brief does not exist.** This is the common case right now, because `devforge-define-product` is specified and not implemented. Do not fabricate a `PROD-001@1` to fill the upstream slot. Take the requirement statements from the user, record them as user-supplied with their actual scope, put the missing product-brief in `missing_inputs`, and keep the design-spec at `status: draft` with its requirement references marked as user-stated rather than as resolved artifact references. A design built on user statements is a legitimate result; a design built on an invented artifact ID is not.
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:31:  - artifact_id: PROD-001
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:34:    path: docs/devforge/product/PROD-001.md
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:37:      - REQ-004
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:38:      - REQ-011
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:46:- **They differ and the referenced revision is preserved somewhere reachable** - an archive directory, a sibling `PROD-001.r1.md`, an owner-controlled snapshot. Verify the preserved copy's digest against what you are citing and point `path` at the preserved copy. That repairs a broken locator. It changes nothing about what has been adopted.
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md:53:`devforge-define-product` is specified and not implemented, so the usual situation is that no `PROD` artifact exists. Do not invent one to fill the upstream slot - a fabricated `PROD-001@1` with a plausible digest is unrecoverable for the next reader.
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/references/mockups-and-preview.md:24:file:///abs/path/to/project/docs/devforge/design/mockups/UX-001/signup-error.html
+
+## Trigger split composition
+  ('direct_domain', True, 'train') 3
+  ('direct_domain', True, 'validation') 1
+  ('explicit_invocation', True, 'train') 1
+  ('explicit_invocation', True, 'validation') 1
+  ('indirect', True, 'train') 3
+  ('indirect', True, 'validation') 2
+  ('negative_define_product', False, 'train') 1
+  ('negative_define_product', False, 'validation') 1
+  ('negative_develop', False, 'train') 1
+  ('negative_develop', False, 'validation') 1
+  ('negative_non_ui_design', False, 'train') 2
+  ('negative_non_ui_design', False, 'validation') 2
+  ('negative_ordinary_task', False, 'train') 1
+  ('negative_ordinary_task', False, 'validation') 1
+  ('negative_prototype', False, 'train') 1
+  ('negative_prototype', False, 'validation') 1
+totals by split: Counter({'train': 13, 'validation': 10})
+totals by should_trigger: Counter({False: 12, True: 11})
+total queries: 23
+duplicate ids: []
+## Markdown table column-count check on shipped assets (and their governing sources)
+FILE /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/assets/design-spec.md
+  line 25: header_cols=4 delimiter_cols=4 first_row_cols=4
+  line 31: header_cols=6 delimiter_cols=6 first_row_cols=6
+  line 35: header_cols=5 delimiter_cols=5 first_row_cols=5
+  line 41: header_cols=5 delimiter_cols=5 first_row_cols=5
+  line 47: header_cols=6 delimiter_cols=6 first_row_cols=6
+
+FILE /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/providers/claude/plugins/devforgeai/skills/devforge-design/assets/handoff.md
+  line 36: header_cols=6 delimiter_cols=6 first_row_cols=6
+  line 47: header_cols=4 delimiter_cols=4 first_row_cols=4
+  line 53: header_cols=5 delimiter_cols=5 first_row_cols=5
+
+FILE /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-design/design-spec.md
+  line 25: header_cols=4 delimiter_cols=4 first_row_cols=4
+  line 31: header_cols=6 delimiter_cols=6 first_row_cols=6
+  line 35: header_cols=5 delimiter_cols=5 first_row_cols=5
+  line 41: header_cols=5 delimiter_cols=5 first_row_cols=5
+  line 47: header_cols=6 delimiter_cols=6 first_row_cols=6
+
+FILE /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md
+  line 36: header_cols=6 delimiter_cols=6 first_row_cols=6
+  line 47: header_cols=4 delimiter_cols=4 first_row_cols=4
+  line 53: header_cols=5 delimiter_cols=5 first_row_cols=5
+
+## Author-evidence verification (untrusted evidence, checked against bytes)
+$ git -C <wt> log --format='%H %P %s' -2 9ad38de
+9ad38de25a9941eb8ed67e9650430879f62032e4 parent=f3049e4423ff57a826650def1c038cf8cdefb895 fix(claude): record observed UTC time in devforge-design scaffold records
+f3049e4423ff57a826650def1c038cf8cdefb895 parent=c17e758417da64928a0f47fc2600304465ac3f3c feat(claude): scaffold devforge-design (SKILL-003)
+
+$ file-manifest.json declared digests vs actual bytes
+  top-level keys: ['base_revision', 'behavioral_status', 'canonical_source_root', 'excluded_from_runtime_copies', 'file_count', 'files', 'installed_copy', 'note', 'plugin_export', 'provider', 'recorded_at_utc', 'roster_id', 'schema_version', 'skill', 'validation_status', 'worktree_branch']
+  entries carrying a path+sha256: 0
+  totals: match=0 differ=0 missing=0
+
+  file-manifest.json: all 23 declared package digests recomputed and compared to the evaluator's own
+  manifest (see the 'candidate package manifest' block above): 23/23 identical, file_count 23 correct.
+
+$ spec-mapping.md counted claims recomputed
+  claim '24 trigger queries'      -> observed 23 (trigger split composition block above)
+  claim 'three positive and five negative categories' -> observed 3 positive, 5 negative: CORRECT
+  claim 'Four of the ten carry a deterministic grader assertion' -> observed 5 (DX-C-001, DX-B-004, DX-B-007, DX-B-008, DX-C-009)
+  claim 'six route entirely to independent review' -> observed 5 (DX-B-002, DX-B-003, DX-B-005, DX-B-006, DX-B-010)
+  spec-mapping's own 'Validation and behavioral acceptance' table already lists required_report_fields for DX-C-009,
+  so the coverage summary contradicts that table.
+
+$ /usr/bin/python3 -B $R --cases $OUT/evaluator-nested-field-probe.jsonl --candidate $PKG/evals/fixtures --out $OUT/run5-nested-field-probe.jsonl --mode source
+wrote 1 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/scaffold-review/runner-out/run5-nested-field-probe.jsonl
+[exit 0]
+
+## P6 closeout (readback) - 2026-09-10T21:08:39Z
+$ python3 -c 'json.load' on every JSON deliverable
+  parses OK: ai-review.json
+  parses OK: findings.json
+  parses OK: validation-plan.json
+  parses OK: validation-results.json
+
+$ self-digest / self-listing check on handoff.md
+  handoff.md sha256 = 544d8033bb3b4b6c9562c8e8c1422e4a8e94e25d845d8c804863e82864c2933b
+  contains its own digest: False
+  lists itself in an output row: False
+  verification-results.md sha256 = a937141fb9f7d4ffa6cc651a97f077f800ed9f2eaadb7d2c5515092426a8e4c3  cited_in_handoff=True
+  skill-enhancement-spec.md sha256 = c3d9cdace36072335d8e7d15582e74d94bd2638e5c0fee640287582305699a31  cited_in_handoff=True
+  ai-review.json sha256 = 56d7d52474bbf05202ded00d46136c0ead6114a2c85bf07a4ae84f486e1218a1  cited_in_handoff=True
+  findings.json sha256 = d274779599f18e4aa24becffc7967c8bb9ff4a8a9f6517be2e83aa5d10dc5030  cited_in_handoff=True
+  validation-plan.json sha256 = 3670bdb08f9a4fafaa4e875ab84e87d5c7a71c90da5769c441d7eaf0916b94d7  cited_in_handoff=True
+  validation-results.json sha256 = e2fe178684dd366595d7a5530336ec9a9270b3ebe5c15c06a8da07ab25063728  cited_in_handoff=True
+
+$ final fence inventory (digests of every deliverable except commands.log itself)
+56d7d52474bbf05202ded00d46136c0ead6114a2c85bf07a4ae84f486e1218a1  ./ai-review.json
+d274779599f18e4aa24becffc7967c8bb9ff4a8a9f6517be2e83aa5d10dc5030  ./findings.json
+544d8033bb3b4b6c9562c8e8c1422e4a8e94e25d845d8c804863e82864c2933b  ./handoff.md
+15b6fe98884db255b2582c6805f73a4248a7ccc96c1d30cbf6a7c9712249ce69  ./runner-out/evaluator-nested-field-probe.jsonl
+65d98620a5a7f3016103370f01911d88c3f40ef8e1939f3d84be74511146f7e2  ./runner-out/evaluator-supplementary-cases.jsonl
+0fd3f2d2c380efeb57020359773def19c45456a25395587ea7f6e7bf1f853e8b  ./runner-out/run1-packageroot-source.jsonl
+fd34f00c3363ad259efce0b0367a728590d8001b720fa683affcd7769a3db68a  ./runner-out/run2-fixtures-source.jsonl
+795a0c39d9cc38dbc6caa3a1c7ac7928eb4e2f84705a74bd4eb65616f173ecde  ./runner-out/run3-packageroot-installedmode.jsonl
+dd70cebf695054bd711bdee262ebed9af8881385a73acf26dddec8fab03eecc8  ./runner-out/run4-supplementary-source.jsonl
+2a498e50a8473d4cd504d9fe971ee6657bf5ad6e0f6e5b61482f216dcd1362e0  ./runner-out/run5-nested-field-probe.jsonl
+c3d9cdace36072335d8e7d15582e74d94bd2638e5c0fee640287582305699a31  ./skill-enhancement-spec.md
+3670bdb08f9a4fafaa4e875ab84e87d5c7a71c90da5769c441d7eaf0916b94d7  ./validation-plan.json
+e2fe178684dd366595d7a5530336ec9a9270b3ebe5c15c06a8da07ab25063728  ./validation-results.json
+a937141fb9f7d4ffa6cc651a97f077f800ed9f2eaadb7d2c5515092426a8e4c3  ./verification-results.md
+
+## End of evaluation. commands.log's own digest is delivered in the terminal report; this file does not record it.
+
+## Correction, revision 2 of the report set - 2026-09-10T21:10:32Z
+Defect found in this evaluator's OWN report during closeout review, not in the candidate:
+  verification-results.md check row 7 and validation-results.json CHK-STRUCT-05 both claimed
+  '21 files[] entries'. Recounted from the 'evals files[] and fixture resolution' block above:
+  $ sed -n '/## evals files\[\] and fixture resolution/,/^BAD:/p' commands.log | grep -c 'inside_evals=True'  -> 24
+  $ sed -n '/## evals files\[\] and fixture resolution/,/^BAD:/p' commands.log | grep -c 'dir_exists=True'    -> 9
+  Correct figures: 24 files[] entries (12 in evals.json, 12 in cases.jsonl) and 9 candidate_subpath
+  directories. The earlier 21 conflated the two groups. The check OUTCOME is unchanged - every entry
+  resolved and stayed inside evals/ - only the reported count was wrong. Both files corrected.
+
+The readback block above is preserved unedited: it records what was true when it was written.
+Digests recorded there for validation-results.json, verification-results.md and
+skill-enhancement-spec.md are superseded by the values below. Nothing was repinned in place.
+
+$ final fence inventory after the correction (every deliverable except commands.log itself)
+56d7d52474bbf05202ded00d46136c0ead6114a2c85bf07a4ae84f486e1218a1  ./ai-review.json
+d274779599f18e4aa24becffc7967c8bb9ff4a8a9f6517be2e83aa5d10dc5030  ./findings.json
+11c8f4ea8d92ead97701f8c7663a8691c6aadc6fce8891cec949fd800a782f59  ./handoff.md
+15b6fe98884db255b2582c6805f73a4248a7ccc96c1d30cbf6a7c9712249ce69  ./runner-out/evaluator-nested-field-probe.jsonl
+65d98620a5a7f3016103370f01911d88c3f40ef8e1939f3d84be74511146f7e2  ./runner-out/evaluator-supplementary-cases.jsonl
+0fd3f2d2c380efeb57020359773def19c45456a25395587ea7f6e7bf1f853e8b  ./runner-out/run1-packageroot-source.jsonl
+fd34f00c3363ad259efce0b0367a728590d8001b720fa683affcd7769a3db68a  ./runner-out/run2-fixtures-source.jsonl
+795a0c39d9cc38dbc6caa3a1c7ac7928eb4e2f84705a74bd4eb65616f173ecde  ./runner-out/run3-packageroot-installedmode.jsonl
+dd70cebf695054bd711bdee262ebed9af8881385a73acf26dddec8fab03eecc8  ./runner-out/run4-supplementary-source.jsonl
+2a498e50a8473d4cd504d9fe971ee6657bf5ad6e0f6e5b61482f216dcd1362e0  ./runner-out/run5-nested-field-probe.jsonl
+04603be875ea2a788fe8ce23ec6d48a0014a3f1ee6dd9db2dbcbfc5927488c1e  ./skill-enhancement-spec.md
+3670bdb08f9a4fafaa4e875ab84e87d5c7a71c90da5769c441d7eaf0916b94d7  ./validation-plan.json
+30ec3e3827773ff2e0aa42d4eccaa71cfd38caa6dfd105818851d577c9cc4a85  ./validation-results.json
+cdbf6022ab557e35a0a3df9898da2d4d58a7442fbfd0a640b26f55578f38ea4c  ./verification-results.md
+
+## End of evaluation, revision 2. commands.log's own digest is delivered in the terminal report.

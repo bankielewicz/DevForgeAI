@@ -1,0 +1,306 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "evaluation_id": "SCAFFOLD-REVIEW-devforge-design-20260910",
+  "recorded_at_utc": "2026-09-10T20:18:54Z",
+  "candidate": {
+    "skill": "devforge-design",
+    "provider": "claude",
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910",
+    "commit": "9ad38de25a9941eb8ed67e9650430879f62032e4",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-design",
+    "skill_md_sha256": "65dbb586ab78a43fa2b83a7e9c35f20272b3d4181ba08e6cc7519876de0e4c83",
+    "file_count": 23
+  },
+  "specification": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-003-devforge-design.md",
+    "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb"
+  },
+  "severity_counts_candidate_findings_only": {
+    "BLOCKER": 0,
+    "MAJOR": 1,
+    "MINOR": 6,
+    "ADVISORY": 4
+  },
+  "note_on_counts": "Evaluation-gap findings (F-012, F-013) are prerequisites owned outside the candidate. They are listed with a severity that describes their consequence for the evaluation, and they are deliberately excluded from the candidate severity counts above.",
+  "findings": [
+    {
+      "id": "F-001",
+      "type": "defect",
+      "severity": "MAJOR",
+      "criteria": ["R04"],
+      "requirement": "SKILL-003, 'Rework, stopping, and recovery': \"Product-scope conflicts return to define-product via change; uncertain behavior becomes a bounded prototype.\"",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/SKILL.md"],
+      "affected_sections": ["4. Iterate (SKILL.md:85-91)", "When something is missing or a check cannot run (SKILL.md:106-115)", "Stopping (SKILL.md:123-131)"],
+      "evidence": [
+        "SKILL.md:89 routes an unresolved technical question to a bounded prototype - the second of the two rework routes - and nothing routes the first.",
+        "grep over SKILL.md, references/recording-rules.md and references/mockups-and-preview.md for 'product-scope', 'change-request' and 'define-product' (commands.log): the only devforge-change reference anywhere in the package is the frontmatter exclusion at SKILL.md:3, and the only devforge-define-product references are the frontmatter exclusion and the missing-product-brief procedure at SKILL.md:53 and references/recording-rules.md:53, which handle a different condition.",
+        "The author's own docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/spec-mapping.md maps this specification row to 'SKILL.md description (near-miss owners) and 4. Iterate' plus trigger negatives A5a/A5b/A7a/A7b. The description line tells the skill not to perform the change work, and should_trigger:false trigger entries are activation negatives; neither is a transition out of a session that is already running."
+      ],
+      "impact": "A session that discovers during Model or Iterate that a requested flow contradicts an accepted requirement in the brief has no stated successor. The skill is correctly told not to change the requirement itself, so the only instructions that fit are the generic stop-and-hand-back conditions, which do not name the owning skill or the artifact the conflict should become. The likely observable failures are (a) the conflict is absorbed into the design as a silent reinterpretation of the requirement, or (b) the session stops with an unrouted blocker.",
+      "confidence": "high",
+      "uncertainty": "The instruction may have been considered redundant with the frontmatter exclusion. That reading does not survive the distinction between activation scope and in-workflow rework routing, which is why the specification states them in two different sections.",
+      "recommendation": "CHG-001",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["a new case is required; no existing evals.json or cases.jsonl entry exercises this transition"]
+    },
+    {
+      "id": "F-002",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": ["R07"],
+      "requirement": "artifact-contract, 'Standard envelope': missing_inputs is \"Explicit unresolved required information\"; producer is \"Native skill name and exact installed skill revision/digest\".",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/references/recording-rules.md"],
+      "affected_sections": ["The envelope, producer row (references/recording-rules.md:17)"],
+      "evidence": [
+        "references/recording-rules.md:17 - \"where nothing observable gives you the value, `unknown` is the honest entry\" - permits `unknown` in producer.skill_revision with no requirement to also record it in missing_inputs.",
+        "The same file's missing_inputs row (references/recording-rules.md:23) states the general rule: \"Every unresolved required input, named.\"",
+        "docs/mvp/artifact-contract.md sha256 00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5, 'Standard envelope' table."
+      ],
+      "impact": "A design-spec produced when the skill revision is unobservable carries `unknown` in a required producer field and an empty missing_inputs list. A consumer scanning missing_inputs to decide whether the artifact is complete sees nothing unresolved, so the gap does not propagate. `unknown` is honest but it is not routed.",
+      "confidence": "high",
+      "uncertainty": "None material. This did not raise R07 to FAIL because the required behaviour - an honest, non-fabricated entry - is preserved and only the routing is incomplete.",
+      "recommendation": "CHG-002",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-C-009 after CHG-008 adds skill_revision to its fields"]
+    },
+    {
+      "id": "F-003",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": ["R04", "R02"],
+      "requirement": "SKILL-003, 'Workflow and phase exits': \"On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.\" And 'Rework, stopping, and recovery': \"If the worktree or active run changes, re-establish the appropriate baseline and evidence before resuming.\"",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/SKILL.md"],
+      "affected_sections": ["When something is missing or a check cannot run (SKILL.md:106-115)", "Stopping (SKILL.md:123-131)"],
+      "evidence": [
+        "The words 'interrupt' and 'interruption' do not appear anywhere in SKILL.md, references/recording-rules.md or references/mockups-and-preview.md (grep recorded in commands.log). 'resume' appears twice: references/recording-rules.md:78 in the read-back list, and assets/handoff.md:67 as a template heading.",
+        "The two nearest bullets - the changed-upstream bullet (SKILL.md:110) and the concurrent-writer bullet (SKILL.md:112) - are conditions observed while working, not a resume procedure.",
+        "spec-mapping.md maps this specification row to exactly those two bullets plus references/recording-rules.md read-back step 4; none of the cited text preserves the current phase or re-checks the session assignment on resume."
+      ],
+      "impact": "A session interrupted mid-Render and resumed later can continue against upstream bytes that changed in the interval, because the only staleness check the package states is triggered by noticing a difference rather than by resuming. The resulting design-spec's upstream digests would have been verified against superseded bytes. The read-back rule at references/recording-rules.md:71-80 limits the blast radius to references written before the interruption, which is why this is MINOR rather than MAJOR.",
+      "confidence": "high",
+      "uncertainty": "assets/handoff.md's 'Resume and custody' section and its 'Conditions invalidating this handoff' row cover the artifact side of the same concern; the workflow-side instruction is what is absent.",
+      "recommendation": "CHG-003",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-B-008 could be extended, or a new case added"]
+    },
+    {
+      "id": "F-004",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": ["R09"],
+      "requirement": "skill-authoring-contract, 'Common authoring workflow' step 5: \"Record actual results, limitations, human feedback, and the package identity.\" Author evidence must be checkable against bytes.",
+      "affected_revision": "9ad38de",
+      "affected_files": [
+        "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/spec-mapping.md",
+        "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/handoff.md"
+      ],
+      "affected_sections": ["spec-mapping.md 'Rework, stopping, and recovery' table", "spec-mapping.md 'Workflow and phase exits' table, last row", "spec-mapping.md 'Coverage summary'", "spec-mapping.md 'Native creator authoring prompt' table", "authoring/handoff.md 'Result and next action'"],
+      "evidence": [
+        "Claim: the product-scope-conflict rework route is addressed. Verified against bytes: it is not - see F-001.",
+        "Claim: the interruption-and-resume row is addressed. Verified against bytes: it is not - see F-003.",
+        "Claim: '24 trigger queries' (spec-mapping.md 'Native creator authoring prompt' table and authoring/handoff.md 'Result'). Observed: 23 (commands.log, trigger split composition block). The accompanying claim of three positive and five negative categories is correct.",
+        "Claim: 'Four of the ten carry a deterministic grader assertion ... six route entirely to independent review' (spec-mapping.md 'Coverage summary'). Observed: five carry a grader (DX-C-001, DX-B-004, DX-B-007, DX-B-008, DX-C-009) and five route entirely to review (DX-B-002, DX-B-003, DX-B-005, DX-B-006, DX-B-010). spec-mapping.md's own 'Validation and behavioral acceptance' table already lists required_report_fields for DX-C-009, so the summary contradicts the table two sections above it.",
+        "Everything else checked in spec-mapping.md verified: the specification digest, both byte-exact template copies, the 950-character description, the absence of scripts/, the eval-case-to-specification-row mapping (all five acceptance rows and all four common cases), and all 23 digests in file-manifest.json (23/23 identical to this evaluator's independently computed manifest, file_count correct)."
+      ],
+      "impact": "spec-mapping.md is the coverage claim a later reader uses to decide what has been addressed. Two specification rows are marked addressed when the cited bytes do not carry them, which is exactly the kind of claim that turns an open gap into an assumed-closed one. The two count errors are small but they are the numbers a reader would quote.",
+      "confidence": "high",
+      "uncertainty": "None. Every claim above was recomputed from bytes.",
+      "recommendation": "CHG-004",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": []
+    },
+    {
+      "id": "F-005",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": ["R09"],
+      "requirement": "skill-authoring-contract: \"Define cases from requirements, keep fixtures reproducible\"; artifact-contract: \"In evals.json, files paths resolve relative to the containing evals directory and must stay within it.\"",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/evals/cases.jsonl", "providers/claude/plugins/devforgeai/skills/devforge-design/evals/fixtures/README.md", "providers/claude/plugins/devforgeai/skills/devforge-design/evals/evals.json"],
+      "affected_sections": ["cases.jsonl candidate_subpath values", "fixtures/README.md", "evals.json schema_note"],
+      "evidence": [
+        "DX-C-001 declares candidate_subpath \".\" and asserts assets/, references/ and evals under it, so its --candidate must be the package root. The other nine cases declare candidate_subpath values ('shared', 'unverified-inspection', 'ownership-collision', 'stale', 'placeholder', 'backend-only', 'blocked-check') that resolve only under evals/fixtures. The runner takes exactly one --candidate per invocation.",
+        "Demonstrated: runner-out/run1-packageroot-source.jsonl - a single invocation over the whole case file with --candidate = package root returned COULD_NOT_RUN for nine of ten cases, each with cause \"candidate_subpath '<name>' does not resolve to a directory inside the candidate root\".",
+        "The nine fixture cases run correctly with --candidate = <package>/evals/fixtures (runner-out/run2-fixtures-source.jsonl) and DX-C-001 runs correctly with --candidate = <package> and --mode installed (runner-out/run3-packageroot-installedmode.jsonl).",
+        "Neither evals/evals.json, evals/fixtures/README.md nor cases.jsonl states that two invocations with different roots are required."
+      ],
+      "impact": "An evaluator who runs the authored case file the obvious way records nine COULD_NOT_RUN rows. The runner names the cause clearly, so the error is recoverable rather than silent - which is why this is MINOR - but the case file cannot be executed as a unit without out-of-band knowledge, and a reader skimming the observations could mistake an invocation error for candidate defects.",
+      "confidence": "high",
+      "uncertainty": "None. Demonstrated by execution.",
+      "recommendation": "CHG-005",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-C-001", "DX-B-002", "DX-B-003", "DX-B-004", "DX-B-005", "DX-B-006", "DX-B-007", "DX-B-008", "DX-C-009", "DX-B-010"]
+    },
+    {
+      "id": "F-006",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": ["R09"],
+      "requirement": "skill-authoring-contract, 'Three separately reported evaluation tiers': C is \"installed resources and outputs ... Actual exported/plugin or project-local installation in a consuming project where source docs are unavailable\"; B is \"output quality and boundaries ... Same underlying raw facts and task for candidate and appropriate baseline\". Also: \"Required C observations must pass before B or A admission for that candidate.\"",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/evals/evals.json", "providers/claude/plugins/devforgeai/skills/devforge-design/evals/cases.jsonl"],
+      "affected_sections": ["evals.json evals[] id 9 (\"placeholder-in-required-field-stays-a-draft\")", "cases.jsonl DX-C-009"],
+      "evidence": [
+        "evals.json id 9 declares \"tier\": \"C\" and, in the same object, \"baseline_comparison\": \"without_skill\". A baseline comparison is the defining condition of tier B; evals.json id 1, the package's genuine tier C case, correctly declares \"baseline_comparison\": \"not_applicable\".",
+        "The case's own prompt (\"fixtures/placeholder/UX-006.md is our finished signup design. Confirm it is ready to hand to engineering.\") exercises readiness judgement under user pressure, which is output quality and boundaries, not installed-resource resolution.",
+        "cases.jsonl DX-C-009 carries the same \"C\" tier and the C prefix in its case_id."
+      ],
+      "impact": "The authoring contract gates tier C before B and A for a candidate. A B-shaped case labelled C either has to pass before B may begin - blocking on the wrong condition - or gets excused, weakening the gate. It also puts a without_skill arm inside the tier whose reporting shape has no baseline, so the two tiers stop being separately reportable, which the contract requires.",
+      "confidence": "high",
+      "uncertainty": "The tier label may have been chosen because the assertion is deterministic. Deterministic assertions are not a tier; the runner's rows are evidence cited across tiers.",
+      "recommendation": "CHG-006",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-C-009", "evals.json id 9"]
+    },
+    {
+      "id": "F-007",
+      "type": "enhancement",
+      "severity": "MINOR",
+      "criteria": ["R07"],
+      "requirement": "skill-authoring-contract, 'Package-local template copies and their derivation records': \"For each copy, record the source path, exact source revision or preserved location and SHA-256.\"",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/references/derivation.json", "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/authoring/authoring-notes.md"],
+      "affected_sections": ["derivation.json derivations[4] (destination evals/cases.jsonl)", "authoring-notes.md 'Evaluation-runner dependency: PENDING'"],
+      "evidence": [
+        "derivation.json derivations[4] declares source_revision \"uncommitted working tree of worktree claude-scaffold-evaluate-expert-20260910, observed 2026-09-10; its scaffold commit did not exist at authoring time\" and source_sha256 \"not pinned\". Nobody else can re-verify that derivation.",
+        "That commit now exists. The Claude devforge-evaluate-expert package is committed at claude-scaffold-evaluate-expert-20260910 @ e641797eebf04cd1e8eb9f711549e038e7745407, with scripts/run_cases.py and scripts/graders.py.",
+        "All five consequences the author listed as needing re-checking are settled against the committed interface: (1) routed_to IS an accepted assertion key (run_cases.py ASSERTION_KEYS) - no rewrite needed; (2) the name_folder_relation flag is expect_equal, not expect_name_matches_folder (graders.py grade_name_folder_relation), and this evaluator's SUP-S-001 asserted it and observed MATCH; (3) candidate_subpath \".\" IS accepted (run3, DX-C-001 COMPLETED); (4) claim_evidence_binding's arg shape (file, claim_field, evidence_fields) is exactly as assumed, and it addresses structured files only, so the JSON-sidecar fixture convention stands; (5) required_report_fields addresses a nested envelope key by its LEAF name but not by a dotted path - this evaluator's SUP-P-001 observed skill_revision found at line 11 of the placeholder fixture, and producer.skill_revision reported as a missing field.",
+        "Every one of the four candidate cases-file runs completed with exit 0 and no invocation error, so the authored schema is valid against the committed runner."
+      ],
+      "impact": "The package's provenance record points at bytes that no longer have a checkable identity, and the authoring notes carry five open questions that are now answerable. Left as is, a later reader re-opens work that is already settled.",
+      "confidence": "high",
+      "uncertainty": "None for the five schema questions. The e641797 devforge-evaluate-expert package is itself a draft under bootstrap review, so its interface could still change; that is a refresh condition, not a reason to leave the entry unpinned.",
+      "recommendation": "CHG-007",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": []
+    },
+    {
+      "id": "F-008",
+      "type": "enhancement",
+      "severity": "ADVISORY",
+      "criteria": ["R09"],
+      "requirement": "missing-rust-capabilities.md: structural facts are gathered by reading and by authored cases; a fact nobody wrote a case for is simply not observed.",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/evals/cases.jsonl"],
+      "affected_sections": ["DX-C-001", "DX-C-009"],
+      "evidence": [
+        "Of 18 assertions across the ten cases, ten carry \"grader\": null and route to independent review. That is legitimate and explicitly supported by the runner, but it leaves the deterministic layer thin.",
+        "Facts no candidate case asserts, all of which this evaluator asserted and observed: frontmatter name equals the folder name (SUP-S-001, MATCH); local links in references/sources.md, assets/design-spec.md, assets/handoff.md and evals/fixtures/README.md (SUP-S-002, all MATCH); presence of references/derivation.json, references/sources.md and the three evals files (SUP-S-003, all MATCH); absence of the Claude backtick-bang shell-injection syntax, a docs/mvp runtime path and a home path from SKILL.md and both references (SUP-S-005, all MATCH); the two shipped template assets hashing to the digests derivation.json declares (SUP-S-006, MATCH).",
+        "DX-C-009 asserts created_at_utc and execution_ref only. SUP-P-001 established that skill_revision is addressable by leaf name, and the placeholder fixture holds a placeholder there too - a fact the case currently does not observe."
+      ],
+      "impact": "No demonstrated defect. Adding these makes the package's own deterministic layer discriminate the facts an evaluator otherwise has to add by hand, and closes the author's open item 2 in the same edit.",
+      "confidence": "high",
+      "uncertainty": "None.",
+      "recommendation": "CHG-008",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-C-001", "DX-C-009"]
+    },
+    {
+      "id": "F-009",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "criteria": ["R09"],
+      "requirement": "Internal consistency of the authored case file.",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/evals/cases.jsonl"],
+      "affected_sections": ["DX-C-009 assertion A1"],
+      "evidence": [
+        "DX-C-009 A1 declares \"expect\": \"complete\" while the same case's expectations.summary reads \"A field whose value is a placeholder is a mismatch, not a match.\"",
+        "Observed row: MISMATCH, observed 'placeholder', reason \"required field(s) still hold a template placeholder: created_at_utc (line 8), execution_ref (line 12)\" (runner-out/run2-fixtures-source.jsonl).",
+        "The reference package uses \"incomplete\" for the same situation in its EX-DEF-009 case. It also uses the condition-style value in EX-DEF-008, so its own convention is not uniform; the candidate is not diverging from a settled rule."
+      ],
+      "impact": "The runner never reads expect, so nothing observable changes. A reader comparing the MISMATCH row against \"expect\": \"complete\" would read the correct discriminating result as a failure.",
+      "confidence": "high",
+      "uncertainty": "The reference package's own inconsistency means this is a readability improvement, not a rule violation.",
+      "recommendation": "CHG-009",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-C-009"]
+    },
+    {
+      "id": "F-010",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "criteria": ["R09"],
+      "requirement": "Internal consistency of the authored case file.",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/evals/cases.jsonl"],
+      "affected_sections": ["DX-C-001 assertion A5"],
+      "evidence": [
+        "DX-C-001 A5 applies package_relative_links to references/mockups-and-preview.md. Observed: MATCH, \"0 local, 0 external\" (runner-out/run3-packageroot-installedmode.jsonl).",
+        "references/mockups-and-preview.md contains no inline Markdown links at all, so the assertion cannot distinguish a package where the file resolves its links from one where it does not."
+      ],
+      "impact": "A vacuous MATCH row. It is not wrong, but it reads as coverage that it does not provide.",
+      "confidence": "high",
+      "uncertainty": "None.",
+      "recommendation": "CHG-010",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-C-001"]
+    },
+    {
+      "id": "F-011",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "criteria": ["R01"],
+      "requirement": "skill-authoring-contract: \"Use realistic positive and near-miss negative trigger queries. For description optimization, preserve a fixed train/validation split.\"",
+      "affected_revision": "9ad38de",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/evals/triggers/trigger-queries.json"],
+      "affected_sections": ["query A7b"],
+      "evidence": [
+        "A7b - \"Change the accepted requirement that says out-of-area postcodes are rejected at signup.\" - is categorised negative_define_product, while the frontmatter description routes changing an accepted requirement to devforge-change.",
+        "Independently confirmed; the author disclosed it in authoring-notes.md 'Unresolved items for the coordinator' item 8 and left it as authored rather than silently re-cutting a stratified split.",
+        "should_trigger:false is correct either way, so no activation expectation is wrong."
+      ],
+      "impact": "None on any activation observation. If the split is later reported per category, one negative sits under a category that does not describe it.",
+      "confidence": "high",
+      "uncertainty": "Adding a negative_change category re-cuts a split that is fixed at authoring time. That is a coordinator decision, not an author correction.",
+      "recommendation": "CHG-011",
+      "owner": "coordinator decides; the scaffold author implements the chosen option",
+      "affected_cases": ["trigger A7b"]
+    },
+    {
+      "id": "F-012",
+      "type": "evaluation_gap",
+      "severity": "MAJOR",
+      "criteria": [],
+      "requirement": "skill-authoring-contract, 'Three separately reported evaluation tiers'; SKILL-003, 'Acceptance requires real outputs from representative requests in each terminal for which support is claimed.'",
+      "affected_revision": "9ad38de",
+      "affected_files": [],
+      "affected_sections": [],
+      "evidence": [
+        "No installed or exported copy of devforge-design exists: file-manifest.json records installed_copy 'not generated' and plugin_export 'not generated', independently consistent with the absence of any .claude/skills or exported devforgeai tree bound to this candidate.",
+        "No fresh terminal, no isolated workspace and no per-attempt client-state isolation were allocated to this evaluation assignment. Per the packet, no install was to be attempted.",
+        "Consequently tiers C, B and A are NOT_RUN, and behavioural status is NOT_EVALUATED."
+      ],
+      "impact": "Every claim about discovery, activation, installed-resource resolution and output quality is unavailable. Nothing in this report establishes that the skill helps. This is a prerequisite owned by the coordinator and the integration owner; it is not a defect in the candidate and no edit to the candidate produces it.",
+      "confidence": "high",
+      "uncertainty": "None.",
+      "recommendation": "no target edit",
+      "owner": "coordinator / DevForgeAI integration owner",
+      "affected_cases": ["all tier A, B and C cases"]
+    },
+    {
+      "id": "F-013",
+      "type": "evaluation_gap",
+      "severity": "MAJOR",
+      "criteria": [],
+      "requirement": "devforge-evaluate-expert references/missing-rust-capabilities.md, both statements.",
+      "affected_revision": "9ad38de",
+      "affected_files": [],
+      "affected_sections": [],
+      "evidence": [
+        "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI. Verified against the binary's own help at /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge on 2026-09-10T20:05:35Z: the subcommands are delivery, expert, check, init, red, green, accept, verify, status and isolate, and `devforge check --help` reads 'Check structural policy and provenance; does not certify semantic behavior' - a project gate, not a skill-package inspector.",
+        "Protected-manifest custody for the evaluation runner - binding the runner, graders, runtime and case inputs outside evaluated-agent write access and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI. The observations files' runner_identity, grader_identity and case_file digests are self-reported by the run.",
+        "Every structural row in this report is therefore method INSPECTION_MANUAL, authority: none, and no decision.json was produced."
+      ],
+      "impact": "The deterministic evidence group was obtained by reading and by an unprotected runner rather than from an implemented gate, and the disposition was adjudicated by hand against the results contract. A complete set of matching rows does not close either dependency. Neither is a defect in the candidate.",
+      "confidence": "high",
+      "uncertainty": "A future CLI revision could add either capability; re-inspect the binary's own help rather than assuming this state persists.",
+      "recommendation": "no target edit",
+      "owner": "DevForge integration owner",
+      "affected_cases": []
+    }
+  ]
+}

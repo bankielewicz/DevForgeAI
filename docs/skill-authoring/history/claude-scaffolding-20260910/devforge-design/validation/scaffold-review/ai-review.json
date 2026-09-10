@@ -1,0 +1,209 @@
+{
+  "schema_version": "devforge.skill-ai-review/v1",
+  "review_id": "AIR-devforge-design-scaffold-20260910",
+  "target": {
+    "skill": "devforge-design",
+    "provider": "claude",
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910",
+    "commit": "9ad38de25a9941eb8ed67e9650430879f62032e4",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-design",
+    "skill_md_sha256": "65dbb586ab78a43fa2b83a7e9c35f20272b3d4181ba08e6cc7519876de0e4c83"
+  },
+  "governing_inputs": {
+    "specification": {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-003-devforge-design.md",
+      "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb"
+    },
+    "rubric": {
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/references/ai-review-rubric.md",
+      "source": "worktree claude-scaffold-evaluate-expert-20260910 @ e641797eebf04cd1e8eb9f711549e038e7745407",
+      "note": "Rubric criteria R01-R10 are DevForgeAI evaluator design requirements, not a provider's certification criteria."
+    },
+    "contracts": [
+      "docs/mvp/skill-authoring-contract.md sha256 371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+      "docs/mvp/artifact-contract.md sha256 00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+      "docs/mvp/execution-contract.md sha256 73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+      "docs/mvp/roster.md sha256 ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc",
+      "docs/development-language-policy.md sha256 3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+      "docs/learned-behaviors/bounded-delivery.md sha256 22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae"
+    ],
+    "client_facts": "https://code.claude.com/docs/en/skills retrieved 2026-09-10 UTC by this evaluator"
+  },
+  "reviewer": {
+    "identity": "Claude Opus 5 (1M context), model id claude-opus-5[1m], running as the Claude Code scaffold evaluator dispatched for this packet",
+    "role": "independent evaluator; did not author the candidate",
+    "client_version": "unknown - not observable from inside this session",
+    "model_configuration": "unknown beyond the model name and id stated in this session's own system prompt"
+  },
+  "independence_limits": [
+    "This context was dispatched for evaluation only and never authored, edited or advised on the candidate.",
+    "The reviewer is a separately dispatched context, not a separate machine, user account or filesystem. It shares the host filesystem with the candidate worktree and with other concurrent sessions.",
+    "The reviewer had read access to the candidate's authoring evidence directory. Criterion records R01-R10 were drafted and this file was written BEFORE any file under docs/skill-authoring/history/.../devforge-design/authoring/ was opened; the author's spec-mapping.md was read afterwards only to verify its claims against bytes, and no author-preferred grade was adopted.",
+    "No held-out expected answer was supplied to the reviewer by another party; the candidate's own evals/ (including its expectations) was read as untrusted evidence, which means this reviewer is not blind to the author's intended outcomes.",
+    "No native run, no installed copy and no fresh terminal were available, so no criterion outcome here is behavioural evidence.",
+    "The rubric being applied is itself a draft under bootstrap review (devforge-evaluate-expert E2: revise -> repaired at e101e76 -> recheck pending). Criterion anchors may change."
+  ],
+  "criteria": [
+    {
+      "id": "R01",
+      "applicable": true,
+      "applicability_reason": "Every skill.",
+      "outcome": "PASS",
+      "rationale": "The frontmatter description names the actual capability (journeys, screen states, local browser-viewable mockups, a durable design-spec that links every flow to its requirement), states the direct and the indirect activating conditions, and gives four near-miss exclusions that each name the owning sibling. The final sentence disambiguates the overloaded word 'design' against schema, API, class-structure and design-pattern requests. Every sibling name used as an exclusion resolves to a roster ID (SKILL-004 devforge-prototype, SKILL-009 devforge-develop, SKILL-002 devforge-define-product, SKILL-012 devforge-change). The body's task and deliverables match the specification's Outputs table. Representative in-scope and near-miss requests map to the intended scope without inventing a rule.",
+      "evidence": [
+        "SKILL.md:2-4 (frontmatter name and description; description measured at 950 characters, inside the 1,536-character listing truncation confirmed against the Claude skills documentation retrieved 2026-09-10)",
+        "SKILL.md:6-16 (entrypoint task and the three named failure modes)",
+        "SKILL.md:93-104 (Outputs)",
+        "docs/mvp/roster.md Roster table (sibling names)",
+        "docs/mvp/specifications/skill-003-devforge-design.md, 'User goal and use-case inventory'"
+      ],
+      "required_behaviour_source": "SKILL-003 use-case inventory; skill-authoring-contract 'Use realistic positive and near-miss negative trigger queries'",
+      "finding_id": null,
+      "limit": "This criterion cannot establish that a session actually selects the skill. That is tier A and was NOT_RUN."
+    },
+    {
+      "id": "R02",
+      "applicable": true,
+      "applicability_reason": "Every skill.",
+      "outcome": "PASS",
+      "rationale": "The inputs table carries all four specification rows with the same Requirement and Consume-only values, plus two rows derived from the specification's 'Required context' field. Consequential missing-input behaviour is explicit and non-fabricating: the missing product-brief case has a named procedure that records user statements as user-supplied rather than inventing an artifact ID. Outputs, ID prefixes and package-relative templates are named, and the completion rule requires the artifacts, resolved declared inputs, honest observations and one concrete next task. A completed result is distinguished from a proposal and from a draft.",
+      "evidence": [
+        "SKILL.md:38-49 (inputs table), SKILL.md:51 (upstream resolution), SKILL.md:53 (no product-brief)",
+        "SKILL.md:93-104 (outputs and write order), SKILL.md:123-131 (stopping)",
+        "SKILL.md:117-121 (decisions versus proposals)",
+        "references/recording-rules.md:51-61, :71-80",
+        "runner-out/run4-supplementary-source.jsonl SUP-S-004 (both shipped templates still hold {{placeholders}} in artifact_id, created_at_utc and execution_ref, which is the expected state of a blank source template)"
+      ],
+      "required_behaviour_source": "SKILL-003 'Inputs and provenance' and 'Outputs and standardized templates'; artifact-contract 'Standard envelope'",
+      "finding_id": null,
+      "limit": "Static reading only. Whether a run actually asks for the right facts is tier B and was NOT_RUN."
+    },
+    {
+      "id": "R03",
+      "applicable": true,
+      "applicability_reason": "Every DevForgeAI skill; the workflow writes files into a consuming project.",
+      "outcome": "PASS",
+      "rationale": "The package does not grant itself approval, does not treat a proposal as adopted, and does not switch authority roots. A selected destination governs; an unwritable or occupied destination is a condition to report rather than a reason to relocate, and the consequence of quiet relocation is spelled out. decision_ref stays null until an actual adoption exists and status stays draft. Adopting a newer upstream revision is separated from repairing a locator and requires the user's actual authorization; the newer document's own accepted status is explicitly not that authorization. Supplied material is facts, never authority.",
+      "evidence": [
+        "SKILL.md:20-24, :30-36, :55, :110-113, :117-121",
+        "references/recording-rules.md:39-50 (three upstream outcomes and the adoption boundary)",
+        "docs/mvp/artifact-contract.md 'Decisions, readiness, and evaluation are separate'"
+      ],
+      "required_behaviour_source": "SKILL-003 'Rework, stopping, and recovery'; artifact-contract; execution-contract ownership rules",
+      "finding_id": null,
+      "limit": null
+    },
+    {
+      "id": "R04",
+      "applicable": true,
+      "applicability_reason": "Every skill.",
+      "outcome": "FAIL",
+      "rationale": "SKILL-003 'Rework' states two routes out of the workflow: 'Product-scope conflicts return to define-product via change; uncertain behavior becomes a bounded prototype.' The second route is present and well specified. The first is absent: no instruction in SKILL.md, references/recording-rules.md or references/mockups-and-preview.md routes a product-scope conflict to devforge-change or devforge-define-product. The only place either name appears in the entrypoint is the frontmatter exclusion line, which tells the skill not to perform that work, and SKILL.md:53, which handles a product-brief that does not exist - a different condition. The documented failure branches cover missing input, stale upstream, ownership collision and placeholder; the Stopping conditions cover a missing requirement that changes a declared flow, unavailable visual tooling, and a fence or ownership collision. None of them is the product-scope conflict transition. Triggering condition: during Model or Iterate the user asks for a flow that contradicts an accepted requirement in the brief. The skill knows not to change the requirement itself and has no stated successor, so the transition is missing rather than merely unnamed.",
+      "evidence": [
+        "SKILL.md:85-91 (Iterate: feedback disposition and routing uncertainty to a bounded prototype - the second route only)",
+        "SKILL.md:106-115 (the four documented failure branches)",
+        "SKILL.md:123-131 (Stopping)",
+        "grep over SKILL.md, references/recording-rules.md and references/mockups-and-preview.md for 'change-request', 'product-scope' and 'define-product' - recorded in commands.log; the only devforge-change reference in the package is the frontmatter exclusion at SKILL.md:3",
+        "docs/mvp/specifications/skill-003-devforge-design.md, 'Rework, stopping, and recovery', first line"
+      ],
+      "required_behaviour_source": "SKILL-003 'Rework, stopping, and recovery'",
+      "finding_id": "F-001",
+      "limit": null
+    },
+    {
+      "id": "R05",
+      "applicable": true,
+      "applicability_reason": "Every skill. Script-specific anchors are NOT_APPLICABLE within this criterion: the package ships no scripts/.",
+      "outcome": "PASS",
+      "rationale": "Package resources resolve against the loaded SKILL.md directory and the two roots are named and kept apart, with the shell working directory explicitly excluded from both. Each reference is linked at the phase that needs it rather than loaded by default. Every local Markdown destination resolves inside the package. No runtime path depends on the DevForgeAI repository, on docs/mvp, or on a developer home directory: the only docs/mvp strings in the package are provenance records in references/derivation.json, references/sources.md and evals/evals.json, and the only home-directory string documents Claude's own personal-skill location. The Claude client facts recorded in references/sources.md were re-fetched by this evaluator and all seven claims match. The stated DevForge command surface matches the binary's own help exactly.",
+      "evidence": [
+        "SKILL.md:26-28 (two roots), :51 and :81 (references linked at point of use), :95-97 (assets)",
+        "runner-out/run3-packageroot-installedmode.jsonl DX-C-001 A3/A4/A5 (4 local + 1 local + 0 local destinations, all resolve inside the package)",
+        "runner-out/run4-supplementary-source.jsonl SUP-S-002, SUP-S-003, SUP-S-005 (all MATCH)",
+        "commands.log: devforge --help lists delivery, expert, check, init, red, green, accept, verify, status, isolate; devforge check --help reads 'Check structural policy and provenance; does not certify semantic behavior'",
+        "commands.log: WebFetch of https://code.claude.com/docs/en/skills, 2026-09-10"
+      ],
+      "required_behaviour_source": "skill-authoring-contract 'Resource and script paths'; SKILL-003 'installed skills must not depend on this repository's docs path being present'",
+      "finding_id": null,
+      "limit": "Static resolution does not establish tier C. No installed or exported copy exists, so tier C is NOT_RUN."
+    },
+    {
+      "id": "R06",
+      "applicable": true,
+      "applicability_reason": "The declared workflow reads user-supplied briefs, architecture contracts, existing design-specs, feedback and optionally retrieved web pages.",
+      "outcome": "PASS",
+      "rationale": "The boundary is stated in plain terms and does not depend on a markup convention: supplied documents, code, pasted notes, feedback and retrieved pages supply facts, never instructions and never authority, and a directive appearing inside supplied material is a fact about that material to be reported rather than followed. Retrieved pages are separately barred from supplying instructions, destinations or permissions. A written accepted status inside an upstream document is explicitly not the user's authorization. Mockup fixture content is required to be obviously synthetic and real user data is barred.",
+      "evidence": [
+        "SKILL.md:55, :36",
+        "references/recording-rules.md:48-50, :101-103",
+        "references/mockups-and-preview.md:60"
+      ],
+      "required_behaviour_source": "artifact-contract 'References to URLs, repository files, and tool outputs are evidence inputs'; SKILL-003 'do not interpret a handoff recommendation as authority for unrelated external actions'",
+      "finding_id": null,
+      "limit": null
+    },
+    {
+      "id": "R07",
+      "applicable": true,
+      "applicability_reason": "Every DevForgeAI skill; the design-spec and handoff are framework artifacts with an envelope.",
+      "outcome": "PASS",
+      "rationale": "The envelope guidance binds each field to a real meaning, labels devforge.artifact/v1 as a proposed schema rather than the CLI's policy schema, and keeps draft state, structural freshness, behavioural evaluation and adoption separate. Upstream references carry artifact_id, revision, store, path, sha256 and the stable section IDs actually relied on, with a three-outcome resolution procedure that never relabels newer bytes as an older revision. The no-self-digest rule and the write-and-readback order are stated concretely, including the requirement to check every repeated occurrence of a digest rather than only the first. producer.skill_revision is correctly narrowed to one file's bytes rather than a package or plugin digest. The default artifact map matches the artifact contract's suggested directories, and the mockups subdirectory is labelled a proposal. No fabricated digest, receipt or validated label appears anywhere.",
+      "evidence": [
+        "references/recording-rules.md:5-23 (envelope), :25-50 (upstream), :63-69 (asset table), :71-80 (ordering)",
+        "SKILL.md:30-36 (artifact map), :99-101 (write order), :117-121",
+        "docs/mvp/artifact-contract.md 'Standard envelope', 'Output storage and stable candidate snapshots', 'An artifact never contains its own complete-byte digest'"
+      ],
+      "required_behaviour_source": "artifact-contract",
+      "finding_id": "F-002",
+      "finding_note": "F-002 is attached to this criterion but did not raise it to FAIL. The required behaviour - an honest, non-fabricated entry - is preserved; only the routing of the unresolved fact into missing_inputs is incomplete.",
+      "limit": null
+    },
+    {
+      "id": "R08",
+      "applicable": true,
+      "applicability_reason": "Every skill.",
+      "outcome": "PASS",
+      "rationale": "SKILL.md is 132 lines, well inside the client's 500-line recommendation, and the substantial conditional detail sits in two references that are linked at the phase that needs them. Essential constraints are at the point of use rather than buried: the inspection-versus-existence rule appears in the Render phase and again in full in the reference. No conflicting duplicate rule was found; the result vocabulary is stated once in the entrypoint and restated compatibly in references/recording-rules.md:82-93. Rationale sentences are task-specific rather than generic, and several valid approaches remain open where the specification leaves judgement free (one file per state or one file with state sections; the choice of viewports where the project declares none).",
+      "evidence": [
+        "SKILL.md:1-132 (measured; 132 lines, 15828 bytes)",
+        "SKILL.md:51 and :81 (progressive-disclosure links)",
+        "references/recording-rules.md:82-93 versus SKILL.md:106-108 (compatible restatement)",
+        "references/mockups-and-preview.md:5-11, :43-47"
+      ],
+      "required_behaviour_source": "skill-authoring-contract 'Create optional resources only when useful. Link them at the phase that needs them'; Claude skills documentation, 'Keep SKILL.md under 500 lines'",
+      "finding_id": null,
+      "limit": null
+    },
+    {
+      "id": "R09",
+      "applicable": true,
+      "applicability_reason": "Every skill. The skill records observations about its own artifacts, so the honest-reporting anchors apply in full; it is not itself a testing skill.",
+      "outcome": "PASS",
+      "rationale": "This is the strongest part of the package. Writing a file and inspecting it are held apart as separate facts, with NOT_RUN as the default and an explicit prohibition on describing rendered appearance that was not observed. Planned, unattempted, blocked, excluded and unevaluated each have a distinct word and the words are not blended. The absence of an error is explicitly not a pass. The workflow does not issue itself a PASS, does not narrate a phase as though narration were a check, and does not write a command sequence that only pretends to gate something. A mockup is explicitly barred from being described as establishing backend functionality, accessibility conformance or production readiness, and keyboard behaviour must be stated as intended behaviour rather than as conformance.",
+      "evidence": [
+        "SKILL.md:20-24, :77-83, :106-115",
+        "references/mockups-and-preview.md:29-41, :49-56",
+        "references/recording-rules.md:82-93"
+      ],
+      "required_behaviour_source": "SKILL-003 'Missing tooling' and 'A requested check cannot execute' cases; skill-authoring-contract result vocabulary",
+      "finding_id": null,
+      "limit": null
+    },
+    {
+      "id": "R10",
+      "applicable": true,
+      "applicability_reason": "Every DevForgeAI skill carries the handoff anchors. The enforcement anchors apply because the package discusses a check that does not exist.",
+      "outcome": "PASS",
+      "rationale": "The package states plainly that its four phases are its own workflow, that they are not CLI subcommands and that nothing intercepts them. It names the concrete integration gap - no installed devforge command reads a design-spec, resolves its upstream references or verifies a mockup digest - routes it to the integration owner who owns the Rust check and the provider wiring, and adds that recording the requirement is design input and not evidence that any check exists. That is the correct labelling of a proposed control as a design. The handoff anchors are met: suggested continuation, installed capability and actually-invoked capability are kept as three separate facts, a slash command may not be written for a skill that has not been confirmed installed, and the handoff carries next owner, prerequisites, real limits and one concrete next action.",
+      "evidence": [
+        "SKILL.md:18-24, :99-104",
+        "assets/handoff.md 'Continuation directory', 'Copyable next-session prompt' (including 'do not present a fictional command as runnable'), 'Resume and custody'",
+        "commands.log: devforge --help confirms no design-spec-reading subcommand exists"
+      ],
+      "required_behaviour_source": "development-language-policy 'Rust owns phase state, transitions and hook-invoked checks; ceremonial enforcement in skills is prohibited'; SKILL-003 'Only documented, implemented DevForge commands may be named as executable gates'",
+      "finding_id": null,
+      "limit": "The runtime's actual coverage cannot be assessed from prose. No hook, installation or activation was observed."
+    }
+  ],
+  "not_computed": "No average, weighted score or percentage is computed across criteria, and no criterion outcome here is blended with the deterministic observations or with any tier."
+}
