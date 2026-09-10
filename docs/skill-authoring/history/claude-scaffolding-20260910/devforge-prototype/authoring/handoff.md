@@ -5,7 +5,7 @@ artifact_type: "handoff"
 project_id: "devforgeai"
 revision: 1
 status: draft
-created_at_utc: "2026-09-10T00:00:00Z"
+created_at_utc: "2026-09-10T19:38:44Z"
 producer:
   skill: "not a skill run - operator-author following devforge-project-expert-creator at 4999f3106565c5e320d1f1a7db066b437e4e94be as source-loaded instructions"
   skill_revision: "not applicable - no skill was loaded or invoked"
@@ -54,10 +54,10 @@ This handoff is excluded from the table: it cannot contain its own digest and do
 | input | builder `SKILL.md` at `4999f31` | git / `providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md` | `342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9` | all five phases | draft under independent review |
 | input | evaluate-expert `scripts/run_cases.py` at `e52ac59` | git / `providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py` | `d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d` | `--help`, case schema | source-only, unevaluated |
 | output | candidate package (31 files) | project / `providers/claude/plugins/devforgeai/skills/devforge-prototype/` | see the manifest | authored, unevaluated |
-| output | package file manifest | project / `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-prototype/authoring/file-manifest.json` | `9069322f961e66600f28343c7d1a6bbf98d6327bbd2d30f80c48b2ff69b04109` | all | frozen |
+| output | package file manifest | project / `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-prototype/authoring/file-manifest.json` | `8373cca56f69423c9265f3d1e483f83971608c0d53a93796334f458b7bd480a7` | all | frozen |
 | output | working design specification | project / `.../authoring/design/skill-design-spec.md` | `0a4f91fdaec82fa459caa360fb32034226a244b1b841836c1159745e49e8293c` | §2, §6 routes, §7, §9 | frozen |
 | output | requirement mapping | project / `.../authoring/spec-mapping.md` | `a74a3097cdcae41df9010ec05821e1b806d0b3f6b4cce34277f7c299d13181f7` | all | frozen |
-| output | authoring notes | project / `.../authoring/authoring-notes.md` | `a73f8d57be889a085f235696330d7268267185ca560eb3a9544f84d69f63e816` | commands run; decisions flagged | frozen |
+| output | authoring notes | project / `.../authoring/authoring-notes.md` | `ba2e0a36e8e7afbd05ac3d83ae3e42a3ee69fd558604559ba1e786b66a8e9447` | commands run; decisions flagged | frozen |
 
 The candidate's `SKILL.md` hashes to `1c348077723e693e0a5a4bba997c501f3ed683f1ef834e9538e069cb193a00e2`. That is the source file's digest. An installed copy's `producer.skill_revision` must be the digest of the **installed** `SKILL.md`, which is the same bytes only if installation copies them unchanged — verify rather than assume.
 

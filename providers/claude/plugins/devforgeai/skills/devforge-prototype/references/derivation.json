@@ -3,7 +3,7 @@
   "skill": "devforge-prototype",
   "provider": "claude",
   "spec": "SKILL-004",
-  "recorded_at_utc": "2026-09-10T00:00:00Z",
+  "recorded_at_utc": "2026-09-10T19:38:44Z",
   "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
 
   "authoring_route": {
@@ -121,7 +121,7 @@
         { "artifact": "development-language-policy", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f", "sections_used": ["Rust framework authority and required Python evaluation", "Phases, hooks and skill content"] },
         { "artifact": "bounded-delivery", "path": "docs/learned-behaviors/bounded-delivery.md", "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae" },
         { "artifact": "Claude devforge-project-expert-creator references/framework-context.md", "revision": "4999f3106565c5e320d1f1a7db066b437e4e94be", "sha256": "884d915f6b65f11540283ee3ed241d2e33cd54c24d22d93e51e3496d49501c66", "role": "precedent for the ownership, path-resolution and vocabulary framing" },
-        { "artifact": "DevForge CLI help output", "store": "observation", "observed_utc": "2026-09-10", "detail": "devforge --help was run against the companion DevForge repository's debug build in an operator-assigned checkout. Every command named in this reference appears in that output: delivery, expert, check, init, red, green, accept, verify, status, isolate. No command was run against any project." }
+        { "artifact": "DevForge CLI help output", "store": "observation", "observed_utc": "2026-09-10", "detail": "devforge --help, devforge isolate --help and devforge expert --help were run against the companion DevForge repository's debug build in an operator-assigned checkout. Every command named in this reference appears in that output: delivery, expert, check, init, red, green, accept, verify, status, isolate. isolate --help confirms --project, --runtime with possible values codex and claude, and a trailing -- <COMMAND>; expert --help confirms the prepare, bind and status subcommands. No command was run against any project." }
       ],
       "transformation": "Selected and rewritten for this skill's actual conditions. The CLI table was rebuilt for an experiment workflow: isolate is named with its real limit (it bounds the project, not a subpath, so it is not an experiment fence), check and the RED/GREEN gate are named as belonging to other workflows, and four integrations this workflow would need are recorded as open requirements with no implementation claimed.",
       "claims_not_made": "Restating a contract is not evidence of conformance to it, and naming a command is not evidence it was run here."
