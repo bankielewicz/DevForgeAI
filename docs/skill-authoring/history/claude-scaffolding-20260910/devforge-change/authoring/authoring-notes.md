@@ -36,7 +36,7 @@ review was revise-bounded and its repairs are applied at `4999f31`; it has had *
 evaluation**. Following it is a recorded dependency of this work, not a validation of either
 package. Nothing about this scaffold is stronger because the builder was followed.
 
-Two builder assets were deliberately **not** used: `assets/expert-spec.md`,
+Three builder assets were deliberately **not** used: `assets/expert-spec.md`,
 `assets/expert-package.md` and `assets/evaluation-cases.md` are shapes for a *project expert*
 package. This assignment authors a *framework roster skill*, whose specification (SKILL-012)
 already states the requirements those documents would otherwise capture, and whose acceptance
@@ -187,6 +187,34 @@ that shows them:
 - **A fenced `text` command example was added to `references/cli-boundaries.md`.** Commands
   otherwise appear only as inline code identifiers inside table cells, which cannot carry a
   fence.
+
+- **The fixture reference digests were rebuilt as a real hash chain (second commit).** The
+  first pass wrote prose stand-ins — `sha256: "recompute from fixtures/shared/ARCH-002.md"` —
+  into the fixture artifacts' `upstream` entries, and all zeros for PROD-002. That is exactly
+  the "a stand-in word is worse than omitting the key" defect this package's own
+  `references/recording-rules.md` warns about, and against those fixtures every case would
+  have forced the skill into an unresolvable-digest reading on every edge — including B1, the
+  clean direct-activation case, which is not what B1 tests. The fixtures are now hashed in
+  dependency order (`b7/ARCH-002.r2.md` → `shared/ARCH-002.md`, whose `supersedes` cites r2 →
+  `STORY-031`, `STORY-033`, `XPKG-tide-sync` → `EVREPORT-007`), every citation resolves to
+  bytes that hash to it, and the two deliberate exceptions — PROD-002 as an absent edge with
+  `sha256: null`, and r2 as a preserved superseded revision — are disclosed in
+  `evals/fixtures/README.md` as the point of their cases rather than left to look like
+  accidents. `gen_cases.py` now computes the sentinel digests from the fixture bytes instead
+  of a transcribed map, so the two cannot drift apart again.
+- **`CHG-B-009` A1 asserted a table column header.** `Required revision or check` is a column
+  heading in the change-request template, and `required_report_fields` matches a `Name:` line
+  prefix, so a conforming output would have reported MISMATCH "missing" every time. Replaced
+  with `Work that must remain stale or blocked`, which is a real bullet field. An author-side
+  check now verifies that every name passed to `required_report_fields` exists as a field line
+  in `assets/change-request.md`; it reports none missing.
+- **`CHG-B-003`'s case-level note contradicted its own assertion.** The note claimed A1 would
+  report an absent output file; A1 carries `scan_file: null` and reads no output at all. The
+  note now says what A1 actually observes.
+- **`"status: accepted"` was dropped as a forbidden string** in `CHG-B-002` and `CHG-B-008`. It
+  would false-positive whenever the output legitimately describes an upstream artifact's own
+  status. `Decision state: accepted` and `Decision state: adopted` already carry the intent,
+  which is detecting silent adoption of the proposal.
 
 ## Unresolved items for the coordinator
 

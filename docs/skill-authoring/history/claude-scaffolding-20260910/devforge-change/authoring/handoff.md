@@ -21,7 +21,7 @@ evidence:
   - kind: "authoring evidence"
     store: "project"
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-change/authoring/file-manifest.json"
-    sha256: "b2341cbd58653e310ae0ee79fa470297f05d55ebbfe4dc3a38fa88d5005cdb83"
+    sha256: "8cc1c747417ead19d872072c38ed1dabdb9579e4c64c4f24db26d4bcee260c87"
 supersedes: null
 decision_ref: null
 missing_inputs:
@@ -38,7 +38,11 @@ missing_inputs:
   byte-identical output template copies in `assets/`, four references plus a derivation record,
   nine tier-B eval cases, twelve runner cases, thirty trigger queries, and fifteen synthetic
   fixtures. Complete as a scaffold. The candidate identity is the manifest in the evidence
-  table below.
+  table below. Package revision 2 repaired four eval defects found in review — the fixture
+  reference digests are now a real hash chain and the runner sentinels are computed from
+  those bytes; `authoring-notes.md` § Corrections has the detail. No instruction, asset or
+  reference byte changed between revisions 1 and 2: nineteen of the twenty-six files are
+  byte-identical, and the seven that changed are all under `evals/`.
 - **Why:** The selection decision was **create**, from a bounded search of the Claude provider
   inventory at base `c17e758417da64928a0f47fc2600304465ac3f3c`: four skills exist and none
   activates on "what does this change invalidate" or owns the impact graph and the routing
@@ -77,10 +81,10 @@ itself among its own outputs. Each file below was hashed after its bytes were fi
 | input | shared handoff template | project · `docs/mvp/templates/shared/handoff.md` | `abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206` | whole file | unchanged |
 | input | skill-authoring-contract @ 3 | project · `docs/mvp/skill-authoring-contract.md` | `371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53` | packaging, tiers | unchanged |
 | input | builder package | project · `providers/claude/.../devforge-project-expert-creator/SKILL.md` @ `4999f31` | `342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9` | five phases | draft under independent review; source-loaded |
-| output | devforge-change package @ 1 | project · `providers/claude/plugins/devforgeai/skills/devforge-change/` | see `file-manifest.json` (26 entries) | whole package | authored; NOT_EVALUATED |
-| output | package manifest | project · `.../devforge-change/authoring/file-manifest.json` | `b2341cbd58653e310ae0ee79fa470297f05d55ebbfe4dc3a38fa88d5005cdb83` | `files` | final |
+| output | devforge-change package @ 2 | project · `providers/claude/plugins/devforgeai/skills/devforge-change/` | see `file-manifest.json` (26 entries) | whole package | authored; NOT_EVALUATED |
+| output | package manifest | project · `.../devforge-change/authoring/file-manifest.json` | `8cc1c747417ead19d872072c38ed1dabdb9579e4c64c4f24db26d4bcee260c87` | `files` | final |
 | output | skill design specification @ 1 | project · `.../devforge-change/authoring/design/skill-design-spec.md` | `6cd09714a75f4027bb0f69d0bb32282ad639b8d1867cd2bc8bd5be95490ab25a` | §§ 1–12 | draft |
-| output | authoring notes | project · `.../devforge-change/authoring/authoring-notes.md` | `aec92475cc1be45c77d1bf8624ae9364da2bbd2b0e54684feda5b84412355cf8` | whole file | final |
+| output | authoring notes | project · `.../devforge-change/authoring/authoring-notes.md` | `1b88f0441c8690858c09c4dce93e2fc54fb093ba18662c1e5d09c780c7bf1671` | whole file | final |
 | output | specification mapping | project · `.../devforge-change/authoring/spec-mapping.md` | `a3c60ce1b51a70752783fbf35d68cd35b891e44c81f006012f03edaf6f87c760` | whole file | final |
 
 Package-relative digests are in `file-manifest.json` rather than repeated here; a digest

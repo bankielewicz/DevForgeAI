@@ -15,13 +15,15 @@ upstream:
     revision: 4
     store: "project"
     path: "docs/devforge/product/PROD-002.md"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    sha256: null
     sections: ["PR-02", "PR-09"]
+    note: "Deliberately unresolvable edge: PROD-002 is not present in this fixture set. See fixtures/README.md."
 evidence: []
 supersedes:
   artifact_id: "ARCH-002"
   revision: 2
-  sha256: "see fixtures/b7/ARCH-002.r2.md"
+  sha256: "d43758c6ffcaed2ad634dee3bb0549c7b9fcfb862c65c127d8d6b64a7f130b7a"
+  preserved_at: "fixtures/b7/ARCH-002.r2.md"
 decision_ref: "USER-ADOPTION-2026-07-14"
 missing_inputs: []
 ---

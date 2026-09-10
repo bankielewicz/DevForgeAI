@@ -15,7 +15,7 @@ upstream:
     revision: 2
     store: "project"
     path: "docs/devforge/experts/XPKG-tide-sync.md"
-    sha256: "recompute from fixtures/shared/XPKG-tide-sync.md"
+    sha256: "5ac49203f4044a838d4e4c0a1041ef31703d369d68b2e148ba6b45885a60570c"
     sections: ["File manifest"]
 evidence: []
 supersedes: null

@@ -15,7 +15,7 @@ upstream:
     revision: 3
     store: "project"
     path: "docs/devforge/architecture/ARCH-002.md"
-    sha256: "recompute from fixtures/shared/ARCH-002.md"
+    sha256: "548cd935bac43bc868c5da880988a0f43051c18d0fd1c94612259df4e8e8f94e"
     sections: ["AR-03", "AR-04"]
 evidence: []
 supersedes: null
