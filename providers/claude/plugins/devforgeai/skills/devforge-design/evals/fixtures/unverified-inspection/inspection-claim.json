@@ -1,0 +1,11 @@
+{
+  "_fixture_note": "Synthetic. The machine-readable inspection record that UX-008.md's mockup row summarises. It asserts an outcome and carries nothing behind it: no tool, no viewport, no evidence locator. Present in field form so a deterministic grader can address the claim and its evidence separately.",
+  "artifact": "UX-008",
+  "asset": "mockups/UX-008/history-empty.html",
+  "inspection_result": "PASS",
+  "tool": null,
+  "viewport": null,
+  "observed_at_utc": null,
+  "evidence": [],
+  "producer": "candidate-self-report"
+}
