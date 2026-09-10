@@ -50,7 +50,7 @@ Worktrees give separate checked-out files. They share Git metadata, configuratio
 Creating a worktree does not:
 
 - grant model, authentication or budget authority, or establish native readiness;
-- authorize installation into any project other than the test worktree itself;
+- authorize installation into any project, including the test worktree; installation must be covered by existing task authorization and applicable checks;
 - authorize deleting or pruning the worktree, another worktree or the original checkout afterward.
 
 Preserve original checkouts, existing worktrees and recorded evidence. Retain task-owned test work until the applicable cleanup decision; completion of a test never authorizes cleanup on its own.
