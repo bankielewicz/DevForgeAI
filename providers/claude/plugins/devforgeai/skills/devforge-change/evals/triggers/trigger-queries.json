@@ -1,0 +1,235 @@
+{
+  "skill_name": "devforge-change",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json at c17e758417da64928a0f47fc2600304465ac3f3c (id, query, should_trigger, split) plus a category field and, for negatives, an owner field naming the sibling skill that should be selected instead. Tier A only: these observe whether the terminal consults this skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "split_policy": "Fixed and stratified by should_trigger and by category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "execution_status": "NOT_RUN. No query below has been issued to any terminal. Discovery and activation for this package are NOT_OBSERVED.",
+  "negative_note": "The owner field records which skill should handle the request instead. Several of those skills are specified and not implemented, which does not weaken the negative: the requirement is that this skill is not consulted, and non-activation is observable independently of whether a routing target exists. Do not install a stub to obtain a routing result.",
+  "queries": [
+    {
+      "id": "A1a",
+      "category": "explicit_invocation",
+      "query": "Use the devforge-change skill to assess the reconciliation amendment we've been asked for.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A1b",
+      "category": "explicit_invocation",
+      "query": "Run devforge-change on this.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A2a",
+      "category": "direct_domain",
+      "query": "Use DevForgeAI to assess this change and identify what must be updated.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2b",
+      "category": "direct_domain",
+      "query": "We want to amend the accepted architecture rule that says conflicts are resolved server-side. What's the impact?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2c",
+      "category": "direct_domain",
+      "query": "Can you do an impact assessment before we change this? I want to know what it breaks before anyone touches it.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2d",
+      "category": "direct_domain",
+      "query": "Work out the blast radius of changing our timestamp comparison rule and tell me which stories and experts are affected.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A2e",
+      "category": "direct_domain",
+      "query": "Write up a change request for the offline-merge proposal, with what has to be refreshed.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A3a",
+      "category": "indirect",
+      "query": "A new library version changes our assumptions. What does that invalidate?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3b",
+      "category": "indirect",
+      "query": "tidepool-sync 3.0.0 is out and it drops the API we're using. We're pinned to 2.4.1.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3c",
+      "category": "indirect",
+      "query": "The customer says the export has to include cancelled orders now. I don't think that's what we agreed to build.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3d",
+      "category": "indirect",
+      "query": "This expert was written against the old architecture rule and I think half of it is wrong now. What else is in that state?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3e",
+      "category": "indirect",
+      "query": "The story contradicts the architecture contract. Which one is supposed to give?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A3f",
+      "category": "indirect",
+      "query": "We shipped it and the feedback says we solved the wrong half of the problem. Where does that land?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A3g",
+      "category": "indirect",
+      "query": "Someone accepted a new revision of the contract last week. Is anything we're currently building now out of date?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A4a",
+      "category": "negative_accepted_story",
+      "owner": "devforge-develop",
+      "query": "STORY-033 is accepted and ready and nothing upstream has moved. Implement the site list pagination.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A4b",
+      "category": "negative_accepted_story",
+      "owner": "devforge-develop",
+      "query": "The story is signed off and the criteria haven't changed. Write the query builder change and its tests.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A4c",
+      "category": "negative_accepted_story",
+      "owner": "devforge-develop",
+      "query": "Pick up the next ready story and build it.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A5a",
+      "category": "negative_early_exploration",
+      "owner": "devforge-brainstorm",
+      "query": "I want to build something for people who foster rescue dogs but I haven't worked out what the problem actually is.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A5b",
+      "category": "negative_early_exploration",
+      "owner": "devforge-brainstorm",
+      "query": "I have three ideas and I cannot decide which problem is worth solving.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A6a",
+      "category": "negative_expert_authoring",
+      "owner": "devforge-project-expert-creator",
+      "query": "We agreed the expert needs updating for the new API. Go ahead and rewrite it.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A6b",
+      "category": "negative_expert_authoring",
+      "owner": "devforge-project-expert-creator",
+      "query": "Create an expert skill for our sync subsystem - the next story needs someone who knows these rules.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A7a",
+      "category": "negative_evaluation",
+      "owner": "devforge-evaluate-expert",
+      "query": "Grade this expert package against its acceptance cases and tell me whether it's any good.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A7b",
+      "category": "negative_evaluation",
+      "owner": "devforge-evaluate-expert",
+      "query": "Run the evaluation for the tide-sync skill and write up the report.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A8a",
+      "category": "negative_review",
+      "owner": "devforge-review",
+      "query": "Review this candidate for correctness and readiness against its acceptance criteria.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A8b",
+      "category": "negative_review",
+      "owner": "devforge-review",
+      "query": "Check whether this diff does what the story says it should.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A9a",
+      "category": "negative_near_miss_change_wording",
+      "owner": "ordinary assistance; no DevForgeAI skill",
+      "query": "Change the timeout in the config from 30 seconds to 60.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A9b",
+      "category": "negative_near_miss_change_wording",
+      "owner": "ordinary assistance; no DevForgeAI skill",
+      "query": "What changed in this file since last week?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A9c",
+      "category": "negative_near_miss_change_wording",
+      "owner": "ordinary assistance; no DevForgeAI skill",
+      "query": "Write a changelog entry for the release.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A10a",
+      "category": "negative_ordinary_task",
+      "owner": "ordinary assistance; no DevForgeAI skill",
+      "query": "Fix the failing test in test_feed.py.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A10b",
+      "category": "negative_ordinary_task",
+      "owner": "ordinary assistance; no DevForgeAI skill",
+      "query": "Summarize this meeting transcript into bullet points.",
+      "should_trigger": false,
+      "split": "validation"
+    }
+  ]
+}
