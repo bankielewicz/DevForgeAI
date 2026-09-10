@@ -2,35 +2,153 @@
   "skill_name": "devforge-define-product",
   "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
   "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
-  "leakage_note": "No validation-split query text appears anywhere in SKILL.md. The two train-split queries P2a and P3a are the specification's own Direct and Indirect request phrasings, which the description was deliberately written to cover; they are marked train for exactly that reason and must not be read as held-out evidence.",
+  "leakage_note": "Two kinds of leakage are disclosed here, because a verbatim-text check alone is not enough. (1) Verbatim: no validation-split query text appears anywhere in SKILL.md. (2) Concept-level: a query that paraphrases a clause the description enumerates measures whether the description matches its own examples rather than whether the skill is discovered from a request phrased outside them. The two train-split entries P2a and P3a are the specification's own Direct and Indirect request phrasings, which the description was deliberately written to cover; they are marked train for exactly that reason and must not be read as held-out evidence. As of revision 2 no validation-split positive paraphrases an enumerated description clause: P2c, P3c and P3d were rewritten to describe situations the description does not enumerate, and none of them uses MVP, scope, requirements, release, product brief, accepted brief, cut, non-goals, or 'worth shipping'. P1b remains explicit invocation and is never counted as implicit-activation evidence.",
   "negative_note": "Every negative names the sibling that owns the request. Sibling presence in the installed inventory varies: at base commit c17e758417da64928a0f47fc2600304465ac3f3c the Claude provider source contains devforge-brainstorm, devforge-develop, devforge-project-expert-creator and devforge-review only. devforge-design, devforge-architect, devforge-release and devforge-change are specified and absent, so a negative here is scored on non-activation of devforge-define-product alone; observing another skill's selection is a separate, optional observation and its absence is not a failure.",
   "status": "NOT_RUN. Authored, not executed. No terminal has been observed against these queries.",
   "queries": [
-    { "id": "P1a", "category": "explicit_invocation", "query": "Use the devforge-define-product skill on my idea ledger at docs/devforge/ideas/IDEAS-001.md.", "should_trigger": true, "split": "train" },
-    { "id": "P1b", "category": "explicit_invocation", "query": "Run devforge-define-product for the tool library project.", "should_trigger": true, "split": "validation" },
-
-    { "id": "P2a", "category": "direct_domain", "query": "Use DevForgeAI to define the MVP from these ideas.", "should_trigger": true, "split": "train" },
-    { "id": "P2b", "category": "direct_domain", "query": "I need a product brief for the first release - requirements, success measures, and what we are explicitly not doing.", "should_trigger": true, "split": "train" },
-    { "id": "P2c", "category": "direct_domain", "query": "Can you work out the scope for release two? We have the accepted brief and one change request to fold into it.", "should_trigger": true, "split": "validation" },
-
-    { "id": "P3a", "category": "indirect", "query": "What is the smallest version worth shipping, and how would we know it helped?", "should_trigger": true, "split": "train" },
-    { "id": "P3b", "category": "indirect", "query": "We have twenty things on the list, one volunteer developer and about six weekends. What actually goes in the first version?", "should_trigger": true, "split": "train" },
-    { "id": "P3c", "category": "indirect", "query": "This has grown into something we cannot build. Help me work out what to cut and what is genuinely out.", "should_trigger": true, "split": "validation" },
-    { "id": "P3d", "category": "indirect", "query": "How would I tell, six months from now, whether this thing was worth building? I want that written down before we start.", "should_trigger": true, "split": "validation" },
-
-    { "id": "N4a", "category": "negative_early_exploration", "query": "I want to build something. I have not really worked out what yet.", "should_trigger": false, "split": "train" },
-    { "id": "N4b", "category": "negative_early_exploration", "query": "My co-founder and I disagree about which problem we should be solving first. Can you help us think it through?", "should_trigger": false, "split": "validation" },
-
-    { "id": "N5a", "category": "negative_visual_design", "query": "The session list screen is already accepted - can you restyle it so the cancelled sessions are easier to spot?", "should_trigger": false, "split": "train" },
-    { "id": "N5b", "category": "negative_visual_design", "query": "Redo the spacing and typography on the checkout page mockup.", "should_trigger": false, "split": "validation" },
-
-    { "id": "N6a", "category": "negative_implementation", "query": "The architecture contract is signed off. Write the borrow and return endpoint and its tests.", "should_trigger": false, "split": "train" },
-    { "id": "N6b", "category": "negative_implementation", "query": "Which database should we use for this - Postgres or SQLite?", "should_trigger": false, "split": "validation" },
-
-    { "id": "N7a", "category": "negative_release", "query": "PROD-001 is accepted and the build passed review. Push it live and tell the members it is up.", "should_trigger": false, "split": "train" },
-    { "id": "N7b", "category": "negative_release", "query": "Cut the 1.2 tag and write the release notes for it.", "should_trigger": false, "split": "validation" },
-
-    { "id": "N8a", "category": "negative_ordinary_task", "query": "Summarise this meeting transcript into bullet points.", "should_trigger": false, "split": "train" },
-    { "id": "N8b", "category": "negative_ordinary_task", "query": "Fix the failing test in test_feed.py.", "should_trigger": false, "split": "validation" }
-  ]
+    {
+      "id": "P1a",
+      "category": "explicit_invocation",
+      "query": "Use the devforge-define-product skill on my idea ledger at docs/devforge/ideas/IDEAS-001.md.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "P1b",
+      "category": "explicit_invocation",
+      "query": "Run devforge-define-product for the tool library project.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "P2a",
+      "category": "direct_domain",
+      "query": "Use DevForgeAI to define the MVP from these ideas.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "P2b",
+      "category": "direct_domain",
+      "query": "I need a product brief for the first release - requirements, success measures, and what we are explicitly not doing.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "P2c",
+      "category": "direct_domain",
+      "query": "The team keeps arguing about what goes in the first version. Can you settle it and write it down so everyone is building the same thing?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "P3a",
+      "category": "indirect",
+      "query": "What is the smallest version worth shipping, and how would we know it helped?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "P3b",
+      "category": "indirect",
+      "query": "We have twenty things on the list, one volunteer developer and about six weekends. What actually goes in the first version?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "P3c",
+      "category": "indirect",
+      "query": "Every meeting someone adds another must-have before we can launch, and now nobody can tell me what we are actually building first. I need a line drawn and written down.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "P3d",
+      "category": "indirect",
+      "query": "I am hiring a contractor for eight weeks and I need to hand them something that says exactly what they are building and how we will know it is done. Right now it is all in my head.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "N4a",
+      "category": "negative_early_exploration",
+      "query": "I want to build something. I have not really worked out what yet.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "N4b",
+      "category": "negative_early_exploration",
+      "query": "My co-founder and I disagree about which problem we should be solving first. Can you help us think it through?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "N5a",
+      "category": "negative_visual_design",
+      "query": "The session list screen is already accepted - can you restyle it so the cancelled sessions are easier to spot?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "N5b",
+      "category": "negative_visual_design",
+      "query": "Redo the spacing and typography on the checkout page mockup.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "N6a",
+      "category": "negative_implementation",
+      "query": "The architecture contract is signed off. Write the borrow and return endpoint and its tests.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "N6b",
+      "category": "negative_implementation",
+      "query": "Which database should we use for this - Postgres or SQLite?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "N7a",
+      "category": "negative_release",
+      "query": "PROD-001 is accepted and the build passed review. Push it live and tell the members it is up.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "N7b",
+      "category": "negative_release",
+      "query": "Cut the 1.2 tag and write the release notes for it.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "N8a",
+      "category": "negative_ordinary_task",
+      "query": "Summarise this meeting transcript into bullet points.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "N8b",
+      "category": "negative_ordinary_task",
+      "query": "Fix the failing test in test_feed.py.",
+      "should_trigger": false,
+      "split": "validation"
+    }
+  ],
+  "revision_note": {
+    "revision": 2,
+    "changed_at_utc": "2026-09-10T21:23:38Z",
+    "change": "Repair pass 1, CHG-004 for finding F-004. The three implicit positive validation queries each paraphrased a clause of the frontmatter description and were rewritten as situations the description does not enumerate. Split sizes, category structure, IDs and every negative are unchanged: direct_domain stays 2 train / 1 validation, indirect stays 2 train / 2 validation, and each negative category keeps one train and one validation entry.",
+    "superseded_queries": {
+      "P2c": "Can you work out the scope for release two? We have the accepted brief and one change request to fold into it.",
+      "P3c": "This has grown into something we cannot build. Help me work out what to cut and what is genuinely out.",
+      "P3d": "How would I tell, six months from now, whether this thing was worth building? I want that written down before we start."
+    },
+    "split_stability": "The split was assigned once at authoring time and is not re-randomised. Rewriting a query's text does not move it between splits, and no entry changed split in this revision."
+  }
 }

@@ -337,7 +337,7 @@ The selected sources in section 10, each with its digest. No prior candidate, no
 | not applicable | CHG-001 | new package | W1, P1-P4, T1-T3 | applied | absent | `providers/claude/plugins/devforgeai/skills/devforge-define-product/**`, digests in `../file-manifest.json` | Scaffold created from SKILL-002 following the frozen builder at `4999f31`. |
 
 **New canonical source manifest:**
-`../file-manifest.json`, twenty package-relative paths with SHA-256. No manifest includes its own digest.
+`../file-manifest.json`, the complete package-relative file-to-hash map. No manifest includes its own digest. **Corrected in repair pass 1:** revision 1 said twenty paths; the package holds 22 as of revision 2, after CHG-003 added two predecessor fixtures.
 
 **Resulting specification identity:**
 This document, first revision, at the path in section 9. No prior revision exists.
@@ -374,7 +374,7 @@ The five gaps in section 10, plus every row marked **Proposed** in section 9 - e
 | --- | --- | --- |
 | C: installed resources and outputs | `cases.jsonl` DP-C-001 and DP-C-002 against an actual installed or exported copy in a consuming project where `docs/mvp` is unreachable; the two `assets/` templates and the two workflow references must resolve inside the installed package, and `evals/` must be absent. | NOT_RUN |
 | B: output quality and boundaries | The ten cases in `evals.json`, each against a `without_skill` baseline arm in a separate clean context with its own writable output; DP-B-007 in both staging variants. | NOT_RUN |
-| A: discovery and activation | The twenty queries in `triggers/trigger-queries.json`, in a fresh terminal against the installed package, with the explicit-invocation category recorded separately and never counted as implicit activation. | NOT_RUN |
+| A: discovery and activation | The 19 queries in `triggers/trigger-queries.json`, in a fresh terminal against the installed package, with the explicit-invocation category recorded separately and never counted as implicit activation. **Corrected in repair pass 1:** revision 1 said twenty; the file has and always had 19 - 2 explicit, 3 direct-domain, 4 indirect, 10 negatives. Their text changed at revision 2 for CHG-004; the count did not. | NOT_RUN |
 
 Required C observations must pass before B or A admission for this candidate. A required observation that is `COULD_NOT_RUN` leaves the gate incomplete. Do not blend the tiers into one percentage.
 

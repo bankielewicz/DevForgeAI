@@ -15,7 +15,7 @@ upstream:
     revision: 2
     store: project
     path: "docs/devforge/ideas/IDEAS-001.md"
-    sha256: "1111111111111111111111111111111111111111111111111111111111111111"
+    sha256: "8a0b193eb62be9cb2d07ae22658895c9fdf23fbdca4d5be86422addbba2e6ec0"
     sections:
       - "IDEA-001"
       - "IDEA-002"
@@ -25,8 +25,8 @@ supersedes:
   artifact_id: "PROD-001"
   revision: 1
   store: project
-  path: "docs/devforge/product/PROD-001.r1.md"
-  sha256: "2222222222222222222222222222222222222222222222222222222222222222"
+  path: "docs/devforge/product/archive/PROD-001.r1.md"
+  sha256: "f6c8f64fef8ffdf259df50bcd6618fdc4fd66c3627baaff382351d9ba687666c"
 decision_ref: "Ada, session of 2026-09-01"
 missing_inputs:
   - "No baseline for how many members currently know a session is cancelled before travelling."

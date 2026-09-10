@@ -32,7 +32,7 @@ Synthetic fixture. This is **revision 2**, the bytes now sitting at the ledger's
 | --- | --- | --- | --- | --- | --- |
 | IDEA-010 | A member can see which tools are on the shelf right now. | People come in for a tool that is already out. | Members; the two volunteers on the desk. | user | proposed |
 | IDEA-011 | Borrowing and returning is recorded, so a tool has a current holder. | The paper book is illegible and nobody reconciles it. | Desk volunteers. | user | proposed |
-| IDEA-012 | Members reserve a tool for a specific weekend. | Popular tools are gone by Saturday morning. | AI proposal | proposed |
+| IDEA-012 | Members reserve a tool for a specific weekend. | Popular tools are gone by Saturday morning. | Members. | AI proposal | proposed |
 | IDEA-013 | A maintenance log per tool: last serviced, known faults, whether it is safe to lend. | A chainsaw went out with a slipping brake and nobody had recorded the fault. | Members; the safety officer. | user | proposed |
 
 ## Decisions

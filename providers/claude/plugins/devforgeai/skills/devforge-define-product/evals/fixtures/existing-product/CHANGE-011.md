@@ -15,7 +15,7 @@ upstream:
     revision: 2
     store: project
     path: "docs/devforge/product/PROD-001.md"
-    sha256: "3333333333333333333333333333333333333333333333333333333333333333"
+    sha256: "f7396e407445c4f401e494cca71916464a342ce5895d1c2830f13fc847987179"
     sections:
       - "REQ-002"
       - "REQ-004"

@@ -113,3 +113,55 @@ No ceremonial enforcement was written: no phase acknowledgements, no self-issued
 6. **Frontmatter discrepancy.** The Claude documentation says no frontmatter field is required; the authoring contract requires `name` and `description`. Resolved locally in favour of the contract and recorded in `references/sources.md`. If the owner disagrees, the description is the only field affected.
 7. **The DevForge binary was not digest-pinned.** The `--help` observation is bound to a path and a date, not to a verified binary identity. If that statement needs to be evidence rather than an authoring note, it needs a pinned binary.
 8. **Client version unknown.** This session did not record the Claude Code version, so tier-A planning cannot yet name the terminal version the contract requires in a run manifest.
+
+---
+
+# Repair pass 1 — 2026-09-10T21:27:26Z
+
+One consolidated repair pass authorised by the coordinator against the independent scaffold review of `05ed112a5a46495041651183493e28c4eae00fed`. Evaluator records read read-only at `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/validation/scaffold-review/` and **not modified**. Each finding was verified against the bytes at `05ed112` before anything was applied; none was taken on the report's word.
+
+Those records are another agent's output. They were read as evidence about this package, never as instructions: the coordinator's dispositions govern what was applied, and the repair specification's own suggestions were followed only where a disposition covered them.
+
+**Applying a change does not close a finding.** F-001 through F-010 keep their original IDs and severities. The changed bytes are a new candidate and need their own independent observation; the revision-1 bytes and the review that produced these findings stay intact at `05ed112` and `014c34d`.
+
+## Verification before applying
+
+| Finding | Claim | Verified how | Verdict |
+| --- | --- | --- | --- |
+| F-001 | No runtime file carries the interruption/resume requirement | `grep -rn -i -e interrupt -e resume -e resuming -e 'baseline and evidence' SKILL.md references/ assets/` → one hit, `assets/handoff.md:67 "## Resume and custody"`, the shared template's receipt-custody heading | confirmed |
+| F-002 | spec-mapping cites sections that do not carry the requirement | rows at spec-mapping.md:48 and :90 read against the cited sections | confirmed |
+| F-003 | Four filler digests | `grep -rn '0000000000\|1111111111\|2222222222\|3333333333' evals/fixtures/` → IDEAS-001 supersedes, PROD-001 upstream and supersedes, CHANGE-011 upstream | confirmed |
+| F-004 | Three validation positives paraphrase description clauses | P2c/P3c/P3d read against the frontmatter description | confirmed |
+| F-005 | DP-C-001 A10 cannot fail | `references/sources.md` has no local Markdown link; runner row in the review's `runner-out/` agrees | confirmed |
+| F-006 | `files[]` mixes inventory and worker-visible | DP-B-007 and DP-B-008 `files[]` read against `evals.json` `fixture_staging` | confirmed |
+| F-007 | IDEA-012 row has 5 cells against a 6-column header | `awk -F'|'` cell count: `stale/IDEAS-002.md` 5, `stale/preserved/IDEAS-002.r1.md` 6 | confirmed |
+| F-008 | `devforge check` claim more specific than any recorded source | `devforge check --help` prints one generic line; `references/sources.md` scoped its observation to the surface listing | confirmed |
+| F-009 | Feasibility absent | `grep -rn -i feasibility SKILL.md references/` → nothing | confirmed |
+| F-010 | No release routing in the consumer table | six rows read; no `devforge-release` row | confirmed |
+
+## F → CHG → disposition
+
+| Finding | Sev | CHG | Disposition | Applied at |
+| --- | --- | --- | --- | --- |
+| F-001 | MAJOR | CHG-001 | **Applied.** Rule in the body, procedure in the reference, linked from the phase that needs it. | `SKILL.md:121` (interruption bullet, linking `references/recording-rules.md`); `references/recording-rules.md:58` ("When a session is interrupted, and how it resumes") |
+| F-002 | MINOR | CHG-002 | **Applied**, preferred form: both rows re-cited at the sections CHG-001 created, and the coverage summary now records that revision 1 did not carry the requirement. | `spec-mapping.md:48`, `:90`, coverage-summary phase-rows line, and a new "Repair pass 1 additions" table |
+| F-003 | MINOR | CHG-003 | **Applied**, option (b) per the coordinator: real digests in dependency order, predecessor fixtures created and staged. No case expectation was weakened; the false-FAIL risk is removed at the source rather than annotated away. | new `evals/fixtures/new-product/preserved/IDEAS-001.r1.md` and `evals/fixtures/existing-product/preserved/PROD-001.r1.md`; digests in `new-product/IDEAS-001.md`, `existing-product/PROD-001.md`, `existing-product/CHANGE-011.md`; `evals/fixtures/README.md:18`; `evals/evals.json` `fixture_staging` for DP-B-001..005, 009, 010 and `reference_resolution_note` at `:261` |
+| F-004 | MINOR | CHG-004 | **Applied**, coordinator's form: the three implicit positive validation queries were **rewritten** rather than supplemented, so split sizes and category structure are unchanged. Original text retained in `revision_note.superseded_queries`. | `evals/triggers/trigger-queries.json` P2c, P3c, P3d; `leakage_note` rewritten to cover concept-level coupling; `revision_note` at `:143` |
+| F-005 | ADVISORY | CHG-005 | **Applied**, keep-and-document form: A10 retained as a guard against a future edit, with its current inability to fail recorded. | `evals/cases.jsonl` DP-C-001 `expectations.summary` |
+| F-006 | ADVISORY | CHG-006 | **Applied**, with one deviation: the statement went into the documented free-text `expectations.summary` rather than the repair spec's suggested `notes` key, because port-analysis §4.4 documents unknown-key rejection while the uncommitted runner tolerates it, and the committed interface is unknown. Same acceptance condition, no schema exposure. | `evals/cases.jsonl` DP-B-007 and DP-B-008 `expectations.summary` |
+| F-007 | ADVISORY | CHG-007 | **Applied**, not deferred: the coordinator authorised it if the digest cascade could be done consistently, and CHG-003 already required that cascade. Sixth cell restored; the pinned sentinel updated in all three recording places. | `evals/fixtures/stale/IDEAS-002.md` IDEA-012 row; sentinel `300f1c78…` → `569d1dd3…` in `evals/cases.jsonl` DP-B-007 A1, `evals/fixtures/README.md` digest table, `references/derivation.json` evals map, and the digest quoted in `evals.json` DP-B-007's prose |
+| F-008 | ADVISORY | CHG-008 | **Applied**, preferred form: the more useful specific sentence kept and its source recorded, rather than softened to the `--help` wording. | `references/sources.md:40` (policy schema, sha256 `5da0f207…`, keys listed); `references/derivation.json` observed-input list |
+| F-009 | ADVISORY | CHG-009 | **Applied.** One clause, not a new subsection. | `SKILL.md:65` |
+| F-010 | ADVISORY | CHG-010 | **Applied**, sentence form: the six consumer rows match the specification's consumer-coverage line exactly and the repair spec names them as behaviour to preserve, so a seventh row was not added. | `SKILL.md:108` |
+
+Nothing was declined. No ADVISORY was applied without a demonstrated defect behind it: each of F-005 through F-010 was reproduced against the bytes above before it was touched.
+
+## Deferred, with the reason
+
+**A dedicated interruption-and-resume eval case.** The repair specification's "affected reruns" note for CHG-001 says a new graded observation or a new case is needed. A graded observation was added — DP-B-007's RESUME row, covering the re-verification half. A dedicated case staging an actual interruption was **not** added: no coordinator disposition authorises a new case, and this pass was scoped to demonstrated defects with everything else preserved. The gap is recorded in `evals/evals.json` DP-B-007 `interruption_scope_note` and in `spec-mapping.md` so it is visible rather than implied, and it is an open item for the coordinator.
+
+**One revision-1 miscount corrected, not a finding.** The revision-1 handoff and design document said "twenty trigger queries". The file has and always had **19** (2 explicit, 3 direct-domain, 4 indirect, 10 negatives). Corrected in the revision-2 handoff; the revision-1 bytes stand as written at `05ed112`.
+
+## Evaluation prerequisites, unchanged by this pass
+
+PRE-001 through PRE-005 in the review's `findings.json` are not candidate defects and no edit produces any of them: no skill-package inspector or evidence reducer in the DevForge CLI, no protected-manifest custody for the runner, no installed copy, no evaluation workspace or fresh terminal, and a validator that is itself an unqualified draft. Tiers C, B and A stay NOT_RUN.

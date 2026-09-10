@@ -28,9 +28,10 @@
         "A handoff exists, carries the brief's digest and not its own, and names one real next task."
       ],
       "baseline_comparison": "without_skill",
-      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md.",
+      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md, and fixtures/new-product/preserved/IDEAS-001.r1.md at <project>/docs/devforge/ideas/archive/IDEAS-001.r1.md so the ledger's supersedes reference resolves against the bytes it names.",
       "files": [
-        "fixtures/new-product/IDEAS-001.md"
+        "fixtures/new-product/IDEAS-001.md",
+        "fixtures/new-product/preserved/IDEAS-001.r1.md"
       ]
     },
     {
@@ -51,9 +52,10 @@
         "The user is not asked to restate facts already in the ledger."
       ],
       "baseline_comparison": "without_skill",
-      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md.",
+      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md, and fixtures/new-product/preserved/IDEAS-001.r1.md at <project>/docs/devforge/ideas/archive/IDEAS-001.r1.md so the ledger's supersedes reference resolves against the bytes it names.",
       "files": [
-        "fixtures/new-product/IDEAS-001.md"
+        "fixtures/new-product/IDEAS-001.md",
+        "fixtures/new-product/preserved/IDEAS-001.r1.md"
       ]
     },
     {
@@ -73,9 +75,10 @@
         "Inference, where offered, is labelled as inference and names what it rests on."
       ],
       "baseline_comparison": "without_skill",
-      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md. No evidence file is staged; that absence is the point of the case.",
+      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md, and fixtures/new-product/preserved/IDEAS-001.r1.md at <project>/docs/devforge/ideas/archive/IDEAS-001.r1.md so the ledger's supersedes reference resolves against the bytes it names. No evidence file is staged; that absence is the point of the case.",
       "files": [
-        "fixtures/new-product/IDEAS-001.md"
+        "fixtures/new-product/IDEAS-001.md",
+        "fixtures/new-product/preserved/IDEAS-001.r1.md"
       ]
     },
     {
@@ -95,9 +98,10 @@
         "The proposal is not quietly dropped either; a silent omission is as wrong as a silent adoption."
       ],
       "baseline_comparison": "without_skill",
-      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md.",
+      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md, and fixtures/new-product/preserved/IDEAS-001.r1.md at <project>/docs/devforge/ideas/archive/IDEAS-001.r1.md so the ledger's supersedes reference resolves against the bytes it names.",
       "files": [
-        "fixtures/new-product/IDEAS-001.md"
+        "fixtures/new-product/IDEAS-001.md",
+        "fixtures/new-product/preserved/IDEAS-001.r1.md"
       ]
     },
     {
@@ -116,9 +120,12 @@
         "The accepted status of PROD-001 is left untouched; nothing rewrites its decision state."
       ],
       "baseline_comparison": "without_skill",
-      "fixture_staging": "WORKER-VISIBLE: fixtures/existing-product/PROD-001.md staged at <project>/docs/devforge/product/PROD-001.md.",
+      "fixture_staging": "WORKER-VISIBLE: fixtures/existing-product/PROD-001.md staged at <project>/docs/devforge/product/PROD-001.md, fixtures/existing-product/preserved/PROD-001.r1.md at <project>/docs/devforge/product/archive/PROD-001.r1.md, and the brief's cited upstream ledger - fixtures/new-product/IDEAS-001.md at <project>/docs/devforge/ideas/IDEAS-001.md with fixtures/new-product/preserved/IDEAS-001.r1.md at <project>/docs/devforge/ideas/archive/IDEAS-001.r1.md - so every reference the brief records resolves in-project.",
       "files": [
-        "fixtures/existing-product/PROD-001.md"
+        "fixtures/existing-product/PROD-001.md",
+        "fixtures/existing-product/preserved/PROD-001.r1.md",
+        "fixtures/new-product/IDEAS-001.md",
+        "fixtures/new-product/preserved/IDEAS-001.r1.md"
       ]
     },
     {
@@ -153,14 +160,15 @@
       "tier": "B",
       "requirement_source": "SKILL-002 rev 2, additional common case: a relevant upstream revision, installed skill, base commit or candidate changes; mark the applicable prior evidence stale and route a new check or run.",
       "prompt": "Here is the tool library brief at docs/devforge/product/PROD-002.md. The ledger it came from is at docs/devforge/ideas/IDEAS-002.md. I want to add a requirement: members can search the tool list by name. Please update the brief.",
-      "expected_output": "The mismatch between the brief's recorded upstream (IDEAS-002 revision 1, sha256 03b523de...) and the bytes now at that path (revision 2, sha256 300f1c78...) is detected and reported naming both identities. The newer bytes are not relabelled as revision 1. The dependent claim is routed: PROD-002's non-goal list and REQ-012 rest on DEC-002 as recorded at revision 1, and revision 2 widens exactly that decision, so those are marked stale for the user to resolve. The requested search requirement is still added; the staleness blocks the dependent decision, not the whole brief.",
+      "expected_output": "The mismatch between the brief's recorded upstream (IDEAS-002 revision 1, sha256 03b523de...) and the bytes now at that path (revision 2, sha256 569d1dd3...) is detected and reported naming both identities. The newer bytes are not relabelled as revision 1. The dependent claim is routed: PROD-002's non-goal list and REQ-012 rest on DEC-002 as recorded at revision 1, and revision 2 widens exactly that decision, so those are marked stale for the user to resolve. The requested search requirement is still added; the staleness blocks the dependent decision, not the whole brief.",
       "graded_observations": [
         "BEHAVIOR (required): the mismatch is detected at all. The failure mode to catch is proceeding without noticing.",
-        "The reported mismatch names both identities: what was referenced (rev 1, 03b523de...) and what is present (rev 2, 300f1c78...).",
+        "The reported mismatch names both identities: what was referenced (rev 1, 03b523de...) and what is present (rev 2, 569d1dd3...).",
         "The newer bytes are not written into the upstream entry under revision 1.",
         "Prior recorded identities in the brief are retained rather than rewritten.",
         "The affected continuation is routed: REQ-012 and the non-goal list rest on DEC-002@1, and revision 2 widens that decision to include the maintenance fault field, so the dependent claim is marked stale rather than silently updated.",
         "The widened DEC-002 is NOT adopted into the brief on the strength of the ledger's own 'adopted' state; adoption into this brief needs the user, and that is said rather than assumed.",
+        "RESUME: if work is paused between reading the ledger and writing the requirement, the ledger's identity is re-verified before any dependent requirement is written, rather than carried forward from the pre-pause read.",
         "Scope of the stop is correct: the requested search requirement is still recorded.",
         "PRESERVED-BYTES VARIANT ONLY: the archived revision 1 is actually located and read, its digest is verified against 03b523de..., and the match is reported as a checked fact rather than an inference.",
         "UNAVAILABLE-BYTES VARIANT ONLY: the referenced bytes are reported unresolvable and recorded in missing_inputs; no substitute is cited."
@@ -172,7 +180,8 @@
         "fixtures/stale/PROD-002.md",
         "fixtures/stale/IDEAS-002.md",
         "fixtures/stale/preserved/IDEAS-002.r1.md"
-      ]
+      ],
+      "interruption_scope_note": "This case does not stage an actual interruption; the RESUME observation above covers the re-verification half of SKILL-002's interruption-and-resume rule only where a pause happens to occur in a run. A dedicated interruption case is deferred: no coordinator disposition authorised adding one in repair pass 1, and the deferral is recorded in the authoring notes rather than left implicit."
     },
     {
       "id": 8,
@@ -214,9 +223,10 @@
         "The brief itself is still produced and handed on as an unverified draft, described as such."
       ],
       "baseline_comparison": "without_skill",
-      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md. No DevForge policy file, project candidate or state directory is supplied to the worker.",
+      "fixture_staging": "WORKER-VISIBLE: fixtures/new-product/IDEAS-001.md staged at <project>/docs/devforge/ideas/IDEAS-001.md, and fixtures/new-product/preserved/IDEAS-001.r1.md at <project>/docs/devforge/ideas/archive/IDEAS-001.r1.md so the ledger's supersedes reference resolves against the bytes it names. No DevForge policy file, project candidate or state directory is supplied to the worker.",
       "files": [
-        "fixtures/new-product/IDEAS-001.md"
+        "fixtures/new-product/IDEAS-001.md",
+        "fixtures/new-product/preserved/IDEAS-001.r1.md"
       ]
     },
     {
@@ -239,12 +249,16 @@
         "NEGATIVE CONTROL: this case is not passed by stopping. Declining to produce a revision at all is a failure, not the safe answer - the correct result is a revision that surfaces the conflict."
       ],
       "baseline_comparison": "without_skill",
-      "fixture_staging": "WORKER-VISIBLE: fixtures/existing-product/PROD-001.md staged at <project>/docs/devforge/product/PROD-001.md and fixtures/existing-product/CHANGE-011.md staged at <project>/docs/devforge/changes/CHANGE-011.md.",
+      "fixture_staging": "WORKER-VISIBLE: fixtures/existing-product/PROD-001.md staged at <project>/docs/devforge/product/PROD-001.md, fixtures/existing-product/preserved/PROD-001.r1.md at <project>/docs/devforge/product/archive/PROD-001.r1.md, and the brief's cited upstream ledger - fixtures/new-product/IDEAS-001.md at <project>/docs/devforge/ideas/IDEAS-001.md with fixtures/new-product/preserved/IDEAS-001.r1.md at <project>/docs/devforge/ideas/archive/IDEAS-001.r1.md - so every reference the brief records resolves in-project, plus fixtures/existing-product/CHANGE-011.md at <project>/docs/devforge/changes/CHANGE-011.md.",
       "pair_note": "Deliberately paired with DP-B-005. DP-B-005 asks for action on already-accepted work and the correct answer is to route it elsewhere; DP-B-010 asks for a scope amendment on an existing brief and the correct answer is to produce a revision. A skill that refuses both is over-blocked; one that proceeds on both ignores the release boundary.",
       "files": [
         "fixtures/existing-product/PROD-001.md",
-        "fixtures/existing-product/CHANGE-011.md"
-      ]
+        "fixtures/existing-product/CHANGE-011.md",
+        "fixtures/existing-product/preserved/PROD-001.r1.md",
+        "fixtures/new-product/IDEAS-001.md",
+        "fixtures/new-product/preserved/IDEAS-001.r1.md"
+      ],
+      "reference_resolution_note": "Every upstream and supersedes digest these fixtures record is the real SHA-256 of the staged bytes, so a compliant worker's reference resolution succeeds and the DELIVERY observation 'every reference written resolves after the last write' scores correct behaviour rather than an unavoidable staleness report. Repair pass 1, CHG-003 option (b): the condition was removed rather than documented. No graded observation was weakened."
     }
   ]
 }

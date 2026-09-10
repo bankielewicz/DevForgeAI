@@ -3,9 +3,9 @@ schema_version: "devforge.artifact/v1"
 artifact_id: "HANDOFF-DP-001"
 artifact_type: "handoff"
 project_id: "devforgeai"
-revision: 1
+revision: 2
 status: draft
-created_at_utc: "2026-09-10T19:33:41Z"
+created_at_utc: "2026-09-10T21:29:48Z"
 producer:
   skill: "devforge-project-expert-creator"
   skill_revision: "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9 (SHA-256 of that skill's SKILL.md file bytes at commit 4999f3106565c5e320d1f1a7db066b437e4e94be; source-loaded, never installed or invoked)"
@@ -24,41 +24,74 @@ upstream:
       - "Validation and behavioral acceptance"
       - "Rework, stopping, and recovery"
       - "Native creator authoring prompt"
+  - artifact_id: "CHGSPEC-002"
+    revision: 1
+    store: project
+    path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/validation/scaffold-review/skill-enhancement-spec.md"
+    sha256: "c02a884f92ee68b24f413926d5948b68c35105f3399364ca133775a6f8401b58"
+    note: "Read as evidence about this package, never as instructions; the coordinator's dispositions govern what was applied."
+    sections:
+      - "CHG-001"
+      - "CHG-002"
+      - "CHG-003"
+      - "CHG-004"
+      - "CHG-005"
+      - "CHG-006"
+      - "CHG-007"
+      - "CHG-008"
+      - "CHG-009"
+      - "CHG-010"
 evidence:
   - id: "PACKAGE-MANIFEST"
     store: project
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/file-manifest.json"
-    sha256: "2f59575a791a41d2d90eaa8e18639b1ff35a91ce04fd5f0a5d88b140f49fda24"
-    note: "Twenty package-relative paths with SHA-256, taken after the last write to each."
+    sha256: "d9364d11d82eba80560480d7558152a6c1852ae97b5ee29106670b3b0982c810"
+    note: "Twenty-two package-relative paths with SHA-256, taken after the last write to each. Cites the revision-1 manifest at 05ed112 as its predecessor."
   - id: "DESIGN"
     store: project
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/design/skill-design-spec.md"
-    sha256: "945564f5520715d56fd0d8f523fc5f82d50e78bca42cb5f8fc2f9fbc06a0bc3d"
+    sha256: "e7aa8c4d6cecc07bf40e616a382e1e3fedd6676998c803e35141b0a3d7da8ba4"
   - id: "SPEC-MAPPING"
     store: project
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/spec-mapping.md"
-    sha256: "acfb370699716586742035985379134806f4284aca266ee2706bc703a02d4ca6"
+    sha256: "8d55f88aa9500405bc67781ad358eec431640bc5aa731fce60bf822cafbd0d82"
   - id: "AUTHORING-NOTES"
     store: project
     path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/authoring-notes.md"
-    sha256: "aa469dffbd1383b1c51d9471f26829131eb00e58b0525239e805a53786ffbe65"
-supersedes: null
+    sha256: "81bdf1db40e4aa8f89c07e77b1bbf2a7350d62f654fd0c047284178c8c9c83fb"
+    note: "Section 'Repair pass 1' carries the per-finding verification and the F -> CHG -> disposition table with file:line."
+  - id: "EVREPORT-002"
+    store: project
+    path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/validation/scaffold-review/"
+    sha256: "not taken; read-only evaluator tree, untouched by this session"
+    note: "The independent scaffold review of 05ed112 that produced F-001 to F-010. Preserved as written."
+supersedes:
+  artifact_id: "HANDOFF-DP-001"
+  revision: 1
+  store: git
+  repository: DevForgeAI
+  commit: "05ed112a5a46495041651183493e28c4eae00fed"
+  path: "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/handoff.md"
+  sha256: "1794157c59ac4e743eeddf94be603022f4c02bc2b7cc3902ddcbb05ec2e91abc"
+  created_at_utc: "2026-09-10T19:33:41Z"
+  note: "The revision-1 handoff, reachable in Git at that commit. Nothing was copied into the tree and nothing in it was rewritten."
 decision_ref: null
 missing_inputs:
-  - "No authority-store session record was supplied for this assignment; the coordinator's task packet is the authorisation and a packet is not a session record."
+  - "No authority-store session record was supplied for this assignment; the coordinator's task packet and repair message are the authorisation and neither is a session record."
   - "The Claude Code client version was not recorded by this session, so a tier-A run manifest cannot yet name the terminal version."
-  - "The DevForge binary used for the --help observation was not digest-pinned."
+  - "The DevForge binary used for the --help and policy observations was not digest-pinned by an authority outside this session."
 ---
 
-# Authoring handoff: devforge-define-product (SKILL-002 scaffold)
+# Authoring handoff: devforge-define-product (SKILL-002 scaffold, revision 2)
 
 ## Result and next action
 
-- **Result:** A new Claude package at `providers/claude/plugins/devforgeai/skills/devforge-define-product/` - twenty files: `SKILL.md`, two byte-identical template copies in `assets/`, two distilled workflow references plus a sources record and a derivation record in `references/`, and an authoring-only `evals/` tree with ten requirement-derived cases, twelve deterministic case lines, twenty trigger queries and ten synthetic fixtures. No `scripts/`. Complete as a scaffold; unevaluated as a skill.
-- **Why:** The selection decision was **create**. No skill in the searched inventory owns the release-scope workflow, the roster reserves SKILL-002 for it, and the artifact contract assigns the `product-brief` type to this skill alone. Enhancing `devforge-brainstorm` would blur two activations its own description deliberately separates. Search scope and its limits are in the design document, section 9.
-- **Limits and blockers:** Nothing observed. The R1 enforcement requirement has no implementation and no DevForge command performs it. The JSONL runner `evals/cases.jsonl` targets is uncommitted in a sibling worktree, so its schema binding is provisional. Two search locations were unreachable. Fifteen proposed defaults await an owner's answer.
-- **Next:** An independent evaluator plans and runs tier C, then B, then A against this candidate, and returns bounded findings. The author cannot supply that judgement. A copyable task is below.
-- **Readiness:** **Prepared, not ready.** Three prerequisites are missing and each has an owner: an allocated evaluation workspace and disposable consuming projects (integration owner); a committed runner interface for `cases.jsonl` (the `devforge-evaluate-expert` author); an installed or exported copy of this package (integration owner). Static review of the authored bytes needs none of them and can start now.
+- **Result:** The Claude package at `providers/claude/plugins/devforgeai/skills/devforge-define-product/`, now 22 files after repair pass 1: `SKILL.md`, two byte-identical template copies in `assets/`, two distilled workflow references plus a sources record and a derivation record in `references/`, and an authoring-only `evals/` tree with ten requirement-derived cases, twelve deterministic case lines, 19 trigger queries and 11 synthetic fixture documents. No `scripts/`. Complete as a scaffold; still unevaluated as a skill.
+- **What changed since revision 1:** all ten findings of the independent scaffold review of `05ed112` were verified against the bytes and repaired - the MAJOR interruption-and-resume omission (F-001), the two false coverage rows in the map (F-002), the filler fixture digests (F-003, repaired at source: real digests in dependency order plus the two predecessor fixtures, now staged), the description-coupled validation trigger queries (F-004, rewritten in place), and six ADVISORY items. Nothing was declined. The per-finding verification and the disposition table with file:line are in `authoring-notes.md`, section "Repair pass 1".
+- **Why it still needs an evaluator:** **applying a change closes no finding.** F-001 through F-010 keep their original IDs and severities, and the review's `revise` disposition and its `FAIL` on criterion R04 stand as recorded. The changed bytes are a new candidate that needs its own independent observation.
+- **Limits and blockers:** unchanged in kind. The R1 enforcement requirement has no implementation and no DevForge command performs it. The JSONL runner `evals/cases.jsonl` targets is still uncommitted in a sibling worktree. Two search locations remain unreachable. Fifteen proposed defaults still await an owner's answer, and one new deferral is recorded below.
+- **Next:** an independent evaluator re-plans and re-runs against **revision 2**, and adjudicates each of F-001 to F-010 against the new bytes. A copyable task is below.
+- **Readiness:** **Prepared, not ready.** Same three missing prerequisites: an allocated evaluation workspace and disposable consuming projects (integration owner); a committed runner interface for `cases.jsonl` (the `devforge-evaluate-expert` author); an installed or exported copy (integration owner). Static re-review of the changed bytes needs none of them.
 - **Validation status:** Not performed.
 - **Behavioural status:** NOT_EVALUATED.
 - **Enforcement status:** Requirements recorded; no gate implemented by this skill.
@@ -69,76 +102,89 @@ This handoff is excluded: it cannot contain its own digest and does not list its
 
 | Direction | Artifact ID and revision | Store and path | SHA-256 | Relevant sections | State |
 | --- | --- | --- | --- | --- | --- |
-| input | SKILL-002 @ 2 | project, `docs/mvp/specifications/skill-002-devforge-define-product.md` | `3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf` | all seven listed in `upstream` | accepted governing input, unchanged |
-| input | devforge-project-expert-creator SKILL.md @ `4999f31` | sibling worktree, `providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md` | `342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9` | Intake, Selection, Design, Authoring, Prepared transfer | draft under independent review; source-loaded, never installed |
-| output | devforge-define-product package, revision 1 | project, `providers/claude/plugins/devforgeai/skills/devforge-define-product/` | 20 paths, each digested in `file-manifest.json` | - | authored candidate; NOT_EVALUATED |
-| output | package manifest | project, `.../authoring/file-manifest.json` | `2f59575a791a41d2d90eaa8e18639b1ff35a91ce04fd5f0a5d88b140f49fda24` | `package_files` | final |
-| output | working design document | project, `.../authoring/design/skill-design-spec.md` | `945564f5520715d56fd0d8f523fc5f82d50e78bca42cb5f8fc2f9fbc06a0bc3d` | sections 1-10, 12 | final |
-| output | specification coverage map | project, `.../authoring/spec-mapping.md` | `acfb370699716586742035985379134806f4284aca266ee2706bc703a02d4ca6` | all | final |
-| output | authoring notes | project, `.../authoring/authoring-notes.md` | `aa469dffbd1383b1c51d9471f26829131eb00e58b0525239e805a53786ffbe65` | sections 1-8 | final |
+| input | SKILL-002 @ 2 | project, `docs/mvp/specifications/skill-002-devforge-define-product.md` | `3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf` | the seven in `upstream` | accepted governing input, unchanged |
+| input | EVREPORT-002 and CHGSPEC-002 | project, `.../devforge-define-product/validation/scaffold-review/` | not taken | F-001 to F-010; CHG-001 to CHG-010 | read-only, untouched |
+| input | devforge-project-expert-creator SKILL.md @ `4999f31` | sibling worktree | `342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9` | Intake, Selection, Design, Authoring, Prepared transfer | draft under independent review; source-loaded |
+| output | devforge-define-product package, revision 2 | project, `providers/claude/plugins/devforgeai/skills/devforge-define-product/` | 22 paths, each digested in `file-manifest.json` | - | authored candidate; NOT_EVALUATED |
+| output | package manifest @ 2 | project, `.../authoring/file-manifest.json` | `d9364d11d82eba80560480d7558152a6c1852ae97b5ee29106670b3b0982c810` | `package_files`, `before_manifest` | final |
+| output | working design document | project, `.../authoring/design/skill-design-spec.md` | `e7aa8c4d6cecc07bf40e616a382e1e3fedd6676998c803e35141b0a3d7da8ba4` | sections 1-10, 12; two counts corrected | final |
+| output | specification coverage map @ 2 | project, `.../authoring/spec-mapping.md` | `8d55f88aa9500405bc67781ad358eec431640bc5aa731fce60bf822cafbd0d82` | corrected rows; "Repair pass 1 additions" | final |
+| output | authoring notes | project, `.../authoring/authoring-notes.md` | `81bdf1db40e4aa8f89c07e77b1bbf2a7350d62f654fd0c047284178c8c9c83fb` | sections 1-8; "Repair pass 1" | final |
 
-No evaluation plan, report, run manifest or transcript was produced. None was authorised, and none exists.
+No evaluation plan, report, run manifest or transcript was produced by this session. The ones in `validation/scaffold-review/` are the evaluator's and were not modified.
 
 ## Evidence and reading order
 
 | Read when | Record and relevant sections | Purpose |
 | --- | --- | --- |
-| First | `file-manifest.json`, then `providers/claude/plugins/devforgeai/skills/devforge-define-product/SKILL.md` | Identify the exact candidate bytes and read the instructions being evaluated. |
-| Before acting | `design/skill-design-spec.md` sections 3, 4, 6, 9 and 10 | The inputs, the phase/task classifications and their **proposed** status, the R1 enforcement requirement, the search scope and its limits, and the preserved boundaries. |
-| Before grading anything | `spec-mapping.md` | Which specification row each file and eval case answers, and the coverage summary. |
-| For the eval design | `.../devforge-define-product/evals/evals.json`, `evals/cases.jsonl`, `evals/triggers/trigger-queries.json`, `evals/fixtures/README.md` | The ten cases with graded observations and staging, the deterministic slices, the fixed trigger split, and the fixture inventory with its source-inventory-versus-worker-visible warning. |
-| For an affected question | `authoring-notes.md` sections 4, 6 and 8; `.../references/derivation.json` | The proposed defaults and their basis, the pending runner dependency, the open items, and the package provenance with its refresh conditions. |
+| First | `file-manifest.json`, then `.../devforge-define-product/SKILL.md` | Identify the exact revision-2 bytes and read the instructions being evaluated. |
+| Immediately after | `authoring-notes.md` "Repair pass 1" | What each finding was verified against, what was applied where, the one deviation from the repair spec's suggested form, and the one deferral. |
+| Before adjudicating | `validation/scaffold-review/findings.json` and `skill-enhancement-spec.md` | The original findings and their acceptance conditions. Each has to be re-checked against the new bytes; none is closed by this pass. |
+| Before grading coverage | `spec-mapping.md` | Which specification row each file and eval case answers, including the two rows revision 1 got wrong and the new "Repair pass 1 additions" table. |
+| For the eval design | `.../evals/evals.json`, `evals/cases.jsonl`, `evals/triggers/trigger-queries.json`, `evals/fixtures/README.md` | The ten cases with staging, the deterministic slices, the rewritten trigger split with its `revision_note`, and the fixture digest table. |
+| For an affected question | `authoring-notes.md` sections 4, 6 and 8; `.../references/derivation.json` | Proposed defaults, the pending runner dependency, open items, and the package provenance with its refresh conditions. |
 
 ## Proposed evaluation cases
 
-The cases proposed for this candidate, with their independently stated expectations, live in `providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/evals.json` (behavioural) and `evals/cases.jsonl` (deterministic slices). They were captured, not executed.
+The behavioural cases live in `evals/evals.json`, the deterministic slices in `evals/cases.jsonl`. They were captured, not executed.
 
 | Check | Outcome | Evidence or receipt | Cause or scope limit |
 | --- | --- | --- | --- |
-| Tier C: installed resources resolve (DP-C-001, DP-C-002) | NOT_RUN | none | Requires an actual installed or exported copy in a consuming project where `docs/mvp` is unreachable. Not installed. |
-| Tier B: ten output-quality cases against a `without_skill` baseline | NOT_RUN | none | Requires an evaluation allocation, disposable consuming projects and per-case fixture staging. `old_skill` is unavailable: no previous version exists. |
-| Tier A: twenty trigger queries, fresh terminal | NOT_RUN | none | Requires an installed package and a fresh client context. Explicit-invocation queries are recorded separately and never count as implicit activation. |
-| Deterministic grader run over `cases.jsonl` | NOT_RUN | none | The runner and graders are uncommitted in a sibling worktree; the schema binding is provisional until that interface is committed. |
-| Independent semantic review of the authored bytes | NOT_RUN | none | Not attempted. Can start immediately; it needs no allocation. |
+| Tier C: installed resources resolve (DP-C-001, DP-C-002) | NOT_RUN | none | No installed or exported copy exists. DP-C-002's `evals/`-exclusion assertion is INDETERMINATE under source mode by construction. |
+| Tier B: ten output-quality cases against a `without_skill` baseline | NOT_RUN | none | No evaluation allocation, no disposable consuming projects. `old_skill` is unavailable: revision 1 exists in Git but was never installed or run, so it is not a measured baseline. |
+| Tier A: 19 trigger queries, fresh terminal | NOT_RUN | none | No installed package, no fresh client context. The three implicit positive validation queries were rewritten at revision 2; any earlier tier-A planning against their old text is void. |
+| Deterministic grader run over `cases.jsonl` | NOT_RUN by this session | the evaluator ran the revision-1 file; rows are in `validation/scaffold-review/runner-out/` | Those rows bind revision-1 bytes. Four of the files they read have changed - SKILL.md and references/sources.md (DP-C-001), evals/fixtures/stale/IDEAS-002.md (DP-B-007 A1) and evals/fixtures/existing-product/PROD-001.md (DP-B-008 A2) - so those rows do not carry to revision 2. The DP-B-006 and DP-B-007 preserved sentinels and the DP-B-008 placeholder fixture are byte-unchanged. |
+| Re-adjudication of F-001 to F-010 against revision 2 | NOT_RUN | none | The next owner's first task. |
 
-`NOT_RUN` means planned and unattempted. Nothing here was blocked mid-attempt, so no `COULD_NOT_RUN` appears. The absence of an error is not a pass.
+`NOT_RUN` means planned and unattempted. The absence of an error is not a pass.
 
 ## Copyable next task
 
-`devforge-evaluate-expert` is **not installed** in this environment and its Claude package is uncommitted in a sibling worktree, so this is a plain-language task with resolvable absolute paths rather than a slash command. Do not substitute a command for a skill you have not confirmed is installed.
+`devforge-evaluate-expert` is still **not installed** and its Claude package is still uncommitted in a sibling worktree, so this is a plain-language task with resolvable absolute paths rather than a slash command.
 
 ```text
-Goal: An independent evaluation of the authored devforge-define-product candidate against SKILL-002,
-      reporting tiers C, B and A separately and never blended.
+Goal: An independent re-evaluation of devforge-define-product at revision 2, adjudicating each of
+      F-001 to F-010 against the new bytes and reporting tiers C, B and A separately.
 Context: /home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/handoff.md
       and the reading order it gives. The candidate is at
       /home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910/providers/claude/plugins/devforgeai/skills/devforge-define-product/
-      at the digests in that directory's sibling file-manifest.json.
-Task: Verify the candidate bytes against file-manifest.json before reading anything else. Then plan the
-      evaluation from evals/evals.json, evals/cases.jsonl and evals/triggers/trigger-queries.json, and
-      review the authored instructions against SKILL-002 rev 2
-      (sha256 3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf). Report findings with
-      stable IDs and severities. Run tier C first; B and A only after the required C observations pass.
-Preserve: the fifteen proposed defaults in authoring-notes.md section 4 - each is the author's proposal,
-      not a user decision, and a severity label is not authority to change SKILL-002. Preserve the R1
-      enforcement requirement as recorded rather than treating it as implemented, and preserve every
-      digest in file-manifest.json.
-Output: an evaluation plan and report with the exact candidate identity, the observations actually made,
-      and every unavailable check recorded as COULD_NOT_RUN with its real cause, written to an assigned
-      output directory outside the candidate.
+      at the digests in that directory's sibling file-manifest.json. The prior findings are at
+      /home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/validation/scaffold-review/findings.json
+Task: Verify the candidate bytes against file-manifest.json first. Then take each finding's stated
+      acceptance condition and check it against the revision-2 bytes, recording closed, still open, or
+      not observable. Then evaluate the candidate itself: tier C first, B and A only after the required
+      C observations pass.
+Preserve: F-001 to F-010 keep their original IDs and severities, and the revision-1 report's FAIL on R04
+      stands whatever revision 2 does. Preserve the fifteen proposed defaults in authoring-notes.md
+      section 4 and the R1 enforcement requirement as recorded, not as implemented. Do not edit the
+      candidate; you evaluate, the author repairs.
+Output: an evaluation plan and report naming the exact revision-2 candidate identity, the observations
+      actually made, and every unavailable check as COULD_NOT_RUN with its real cause, written to an
+      assigned output directory outside the candidate.
 Stop at: the report, or the first missing prerequisite - no installed copy, no evaluation allocation, or
-      no committed JSONL runner interface. A prerequisite that is missing is COULD_NOT_RUN, never a pass.
+      no committed JSONL runner interface. A missing prerequisite is COULD_NOT_RUN, never a pass.
 ```
 
-If evaluation cannot be allocated yet, the useful smaller task is a static independent review of the authored bytes against SKILL-002 and the shared contracts, with findings returned as a bounded repair specification. That needs no allocation and no installation, and it is honest about being static: it observes instructions, never behaviour.
+If evaluation cannot be allocated, the useful smaller task is a static re-review of the changed bytes against the ten acceptance conditions in `skill-enhancement-spec.md`. That needs no allocation and no installation, and it observes instructions, never behaviour.
+
+## Open items carried forward
+
+Unchanged from revision 1: the fifteen proposed defaults; R1 unimplemented; the pending runner dependency; `docs/mvp/package-index.json` and the roster still recording SKILL-002 as unimplemented and proposed, both outside this fence; the frontmatter discrepancy between the client documentation and the authoring contract; the unpinned binary; the unrecorded client version.
+
+New at revision 2:
+
+- **A dedicated interruption-and-resume eval case is deferred.** CHG-001's repair added the rule and a RESUME graded observation to DP-B-007, but no case stages an actual interruption. No coordinator disposition authorised adding a case, so the gap is recorded rather than filled. Coordinator's call.
+- **The evaluator's runner rows bind revision-1 bytes.** Four of the files they read have changed: SKILL.md, references/sources.md, evals/fixtures/stale/IDEAS-002.md and evals/fixtures/existing-product/PROD-001.md. Any re-run needs new rows for the assertions that touch them.
+- **One revision-1 miscount was corrected**: the trigger file has 19 queries, not twenty. The revision-1 bytes stand as written at `05ed112`.
 
 ## Retention and continuation limits
 
-- **Output readback:** the six paths in the outputs table, each read back and hashed after its last write. Excludes this handoff.
-- **This handoff's location:** `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/handoff.md` in the worktree `/home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910`. No self-digest.
+- **Output readback:** the seven paths in the outputs table, each read back and hashed after its last write. Excludes this handoff.
+- **This handoff's location:** `docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/handoff.md`. No self-digest.
 - **This handoff's receipt:** compute its digest after saving and reading it back, then deliver the path and digest in the terminal response. It is not written into this document.
-- **Worktree ownership:** retained by this author until the coordinator reassigns it. Branch `author/claude-devforge-define-product-scaffold-20260910`, base `c17e758417da64928a0f47fc2600304465ac3f3c`. One commit adds the two fenced paths and nothing else; it was not pushed.
+- **Superseded revision:** revision 1 stays reachable in Git at `05ed112a5a46495041651183493e28c4eae00fed` at its recorded digest. It was not rewritten, and no later receipt was added to it.
+- **Worktree ownership:** retained by this author until the coordinator reassigns it. Branch `author/claude-devforge-define-product-scaffold-20260910`. Two commits on top of `c17e758` are the author's; `014c34d` between them is the coordinator's evidence commit and was not touched. Nothing was pushed.
 - **External gate state:** none. No gate was run and no receipt exists.
-- **Conditions invalidating this handoff:** any change to a package digest in `file-manifest.json`; a new SKILL-002 revision; a change to a contract or template digest recorded in `references/derivation.json`; a committed `devforge-evaluate-expert` runner interface that differs from the schema `cases.jsonl` was written to; a DevForge CLI release that adds an artifact-reference or brief-admission command.
+- **Conditions invalidating this handoff:** any change to a package digest in `file-manifest.json`; a new SKILL-002 revision; a change to a contract or template digest in `references/derivation.json`; a committed `devforge-evaluate-expert` runner interface differing from the schema `cases.jsonl` targets; a DevForge CLI release adding an artifact-reference or brief-admission command.
 
 A prepared transfer is not receiving execution and not acceptance. This document authorises no evaluation, installation, activation or automatic invocation of a receiver. No self-digest, and no circular receipt reference.

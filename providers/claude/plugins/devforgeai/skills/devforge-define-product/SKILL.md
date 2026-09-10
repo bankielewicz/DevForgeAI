@@ -62,7 +62,7 @@ Establish whether this is a first brief or a revision, and for a revision, what 
 
 Examine the evidence the user supplied, and research only the unknowns that would change the scope.
 
-Proportionate is the operative word. A claim that decides whether a requirement is in or out is worth checking; background colour is not. For anything you do check, record the source URL or the supplied file, the retrieval date, the applicable version, the specific claim it supports and its limits, and keep observation distinguishable from inference. [Evidence and scope rules](references/evidence-and-scope.md) has the recording shape and the line between the two.
+Proportionate is the operative word, and it governs both kinds of research this phase does: discovery - is this problem real, for these people - and feasibility - can this be built inside the constraints the user actually stated, on their platform, with the time and money they have. A claim that decides whether a requirement is in or out is worth checking; background colour is not. For anything you do check, record the source URL or the supplied file, the retrieval date, the applicable version, the specific claim it supports and its limits, and keep observation distinguishable from inference. [Evidence and scope rules](references/evidence-and-scope.md) has the recording shape and the line between the two.
 
 Where a claim cannot be verified, it stays labelled unverified. Do not manufacture a statistic to fill the row, and do not soften an absent source into a confident sentence. An unverified claim that is visible as unverified is a usable input; an invented one is a liability the user cannot detect.
 
@@ -105,6 +105,8 @@ Then write a handoff from [assets/handoff.md](assets/handoff.md) to the selected
 | devforge-review | The requirements a candidate is checked against. |
 | devforge-change | The accepted scope an amendment is assessed against. |
 
+One boundary is worth stating here rather than leaving it to the description: a request to ship, deploy or announce a build that has already been accepted belongs to devforge-release. It is not scope work, and it does not become scope work by being phrased as a question about what to do next.
+
 Naming a consumer is not evidence that it is installed. Much of the DevForge roster is specified but not implemented: check what is actually available before writing a skill name into a handoff, and keep three things separate in what you write and what you say - what you *suggest* as the continuation, what is *installed*, and what you *actually invoked*. When the natural next step has no installed skill, say so as a capability gap and give a next task the user can act on in plain language. A gap reported honestly is a useful result; a gap papered over with a plausible skill name is not.
 
 ## When something is missing or a check cannot run
@@ -115,6 +117,8 @@ These four come up often enough to be worth stating exactly. [Recording rules](r
 - **An upstream revision has moved on.** The ledger, brief or change request you cite no longer matches the bytes at that path. Report the mismatch naming both identities - what was referenced and what is present now - and never relabel the newer bytes as the old revision. If the referenced bytes are preserved somewhere reachable, resolve against the preserved copy and verify the digest; if they are not, say so. Then route the affected claim: mark the dependent requirement stale for the user to resolve. Staleness blocks the dependent decision, not the whole brief.
 - **A concurrent writer holds the target.** An assignment record names someone else as the writer for the path you were about to write. Stop the dependent writes and report the collision, naming the record you read and where you read it. Do not delete, reset, revert or force anything, and do not write somewhere else instead. Writing your report into an explicitly permitted outbox is fine and is not an escape path.
 - **A requested check cannot execute.** Record `COULD_NOT_RUN` with the actual cause and block only the claim that depended on it. The absence of an error is not a pass.
+
+- **The session is interrupted.** Preserve where you had got to: the phase you had reached, the brief as far as it exists, and the evidence already recorded, each at the strength it had. Nothing is finished by being abandoned mid-phase, and nothing becomes a draft-quality guess because the session stopped. When you resume, re-read and re-hash the upstream references and re-check the session assignment **before** continuing - the staleness rule above is reactive, it fires when a reference is resolved, and the completion readback fires only at the end, so a scope decision taken against pre-interruption bytes would otherwise never be rechecked. A changed upstream identity or a changed assignment starts a new iteration rather than continuing this one. [Recording rules](references/recording-rules.md) has the resume procedure.
 
 And one that is not an error at all: **a template placeholder left in a required field** means the result is a draft and cannot be presented as ready. A missing fact goes in `missing_inputs`, never into template filler.
 

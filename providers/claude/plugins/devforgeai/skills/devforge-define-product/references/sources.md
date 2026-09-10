@@ -33,5 +33,14 @@ The governing specification, templates and contracts are recorded with their exa
 - **Source:** `devforge --help` from the compiled binary at `framework/DevForge/target/debug/devforge`.
 - **Observed:** 2026-09-10, during authoring.
 - **Observed subcommands:** `delivery`, `expert`, `check`, `init`, `red`, `green`, `accept`, `verify`, `status`, `isolate`, `help`.
+- **Also observed:** `devforge check --help`, which prints exactly one description line: "Check structural policy and provenance; does not certify semantic behavior".
 - **Used for:** the statement in `SKILL.md` and `references/recording-rules.md` that no command in this surface resolves an artifact's upstream reference, validates a product brief, or gates its adoption - so that gap is named as a missing integration rather than implied to exist.
 - **Limit:** a `--help` listing establishes which subcommands the binary exposes. It says nothing about their behaviour, and this authoring session executed none of them.
+
+## DevForge external policy schema
+
+- **Source:** the companion DevForge repository's `policies/*.json`, observed through `policies/notes-sqlite.json` at sha256 `5da0f2075b1246cb86d9e3b2f3125ab793f8abfc2349069dd39bf18f8e3d1649`.
+- **Observed:** 2026-09-10, read-only.
+- **Observed top-level keys:** `schema`, `project_id`, `goal`, `story_id`, `upstream`, `dependencies`, `dependency_file`, `source_roots`, `test_root`, `expert_dirs`, `forbidden_tokens`, `tooling_files`.
+- **Used for:** the more specific half of the `devforge check` sentence in `SKILL.md` and `references/recording-rules.md` - that it checks a project candidate's dependencies, layout, tooling pins and expert provenance. `check --help` alone would support only the generic wording, so the specific claim is sourced here rather than left unsupported.
+- **Limit:** this is the shape of the external policy that drives the check, read from one project's policy file. It is not an observation of the check running, and neither the binary nor this policy file was digest-pinned by an authority outside this session. The companion repository owns both; nothing in this package resolves either at runtime.

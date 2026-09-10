@@ -16,8 +16,8 @@ supersedes:
   artifact_id: "IDEAS-001"
   revision: 1
   store: project
-  path: "docs/devforge/ideas/IDEAS-001.r1.md"
-  sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  path: "docs/devforge/ideas/archive/IDEAS-001.r1.md"
+  sha256: "4dbe2259ecd3378c6993b2b088bfb9771db3d13bfd9a5532f8e2709637e971ac"
 decision_ref: "DEC-001"
 missing_inputs:
   - "No measurement of how often a run is cancelled or moved; the club keeps no record of it."

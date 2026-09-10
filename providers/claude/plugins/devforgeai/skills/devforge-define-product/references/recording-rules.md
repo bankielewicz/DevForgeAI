@@ -55,6 +55,22 @@ A file with no envelope of its own - a pasted export, a supplied spreadsheet, a 
 
 Nothing in the DevForge CLI performs this resolution for you. Its current command surface (`delivery`, `expert`, `check`, `init`, `red`, `green`, `accept`, `verify`, `status`, `isolate`) has no artifact-reference or brief-structure check; `devforge check` inspects a project candidate's dependencies, layout, tooling pins and expert provenance, which is a different question. Resolution here is reading and reporting, and the missing integration - deterministic upstream-reference resolution and product-brief structural admission, compiled into the CLI and wired by the integration owner - is a gap to name rather than a check to imply. Confirm any command against its own `--help` before naming it.
 
+## When a session is interrupted, and how it resumes
+
+An interruption is not a failure and not a finish. What it costs you is the assurance that the bytes you read at the start of the phase are still the bytes on disk.
+
+**On interruption, preserve.** Keep the phase you had reached, the brief as far as it exists, the evidence rows already recorded, and each decision state at the strength it actually had. Do not round a half-gathered phase up to a finished one, and do not discard an unfinished brief because it is unfinished - a draft with `missing_inputs` populated is a usable resumption point and a deleted one is not.
+
+**On resuming, re-establish before continuing.** In this order, before any further requirement is written:
+
+1. Re-read every upstream reference the brief records and re-hash the bytes at each recorded path, exactly as the four steps above describe. A digest that no longer matches is the staleness condition, handled below.
+2. Re-check the session assignment: the record, the owner it names, the fence, and whether it is still active. An assignment that has changed hands while you were away is an ownership collision, handled under *Ownership and concurrent writers*, not a formality.
+3. Re-check the selected destination and artifact identity. Something else may hold that path now.
+
+A changed upstream identity, a changed assignment or a changed destination starts a new iteration: re-establish the baseline and the evidence for the affected part rather than continuing as though the pause had not happened. Only the affected part - a superseded ledger revision behind one requirement does not invalidate the evidence rows or the requirements that do not rest on it.
+
+Two things this is not. It is not a licence to redo settled work: a decision the user made before the pause is still theirs, at the same strength, and asking again for an authorisation they already gave wastes their attention. And it is not a substitute for the completion readback, which still happens after the last write.
+
 ## When the upstream has moved on
 
 Two separate things follow from finding a mismatch, and running them together is how a brief quietly gains a commitment nobody made.
