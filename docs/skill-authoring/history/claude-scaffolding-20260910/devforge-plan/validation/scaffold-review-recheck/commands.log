@@ -1,0 +1,175 @@
+# commands.log — focused recheck of devforge-plan repair pass 1
+
+Evaluator: the same separately dispatched Claude evaluator context that produced the first review.
+Scope, per the coordinator: recheck only F-001..F-007 on the new revision; do not rerun unchanged
+broad checks. Timestamps are observed `date -u` output.
+Session window: 2026-09-10T22:04:31Z to 2026-09-10T22:10:48Z and later.
+
+Abbreviations (expanded on first use):
+  WT      = /home/bryan/Projects/DevForge/worktrees/claude-scaffold-plan-20260910
+  PKG     = $WT/providers/claude/plugins/devforgeai/skills/devforge-plan
+  AUTH    = $WT/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-plan/authoring
+  VALSKILL= /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert
+  FENCE   = $WT/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-plan/validation/scaffold-review-recheck
+
+## Intake: identify and bound the change
+
+date -u
+  -> Thu Sep 10 22:04:31 UTC 2026
+
+git -C $WT rev-parse HEAD
+  -> f8709e84272ba1d642387d86c476cf37c8cad81f  (equals the coordinator's stated new candidate)
+
+git -C $WT log --oneline -4
+  -> f8709e8 fix(claude): devforge-plan repair pass 1 from independent scaffold review
+     68b5f0d docs(claude): independent scaffold review of devforge-plan at 03dc1a6 (...)
+     03dc1a6 feat(claude): scaffold devforge-plan (SKILL-006)
+     c17e758 Merge pull request #10 ...
+
+git -C $WT diff 03dc1a6 f8709e8 --stat -- providers/
+  -> exactly 7 package files changed:
+       SKILL.md +17 | assets/handoff.md +4 | evals/cases.jsonl 7 +/- |
+       evals/fixtures/good/HANDOFF-001.md +1 | references/derivation.json 472 +/- |
+       references/readiness-check.md +33 | references/recording-rules.md 17 +/-
+
+git -C $WT diff 68b5f0d HEAD --stat -- docs/.../devforge-plan/validation/
+  -> empty. The repair commit did not touch my first-pass scaffold-review/ directory.
+
+## Per-finding diff inspection
+
+git -C $WT diff 03dc1a6 f8709e8 -- $PKG/SKILL.md $PKG/assets/handoff.md $PKG/evals/fixtures/good/HANDOFF-001.md
+  -> F-001: SKILL.md §Stopping gains an interruption-and-resume paragraph linking readiness-check.md;
+     assets/handoff.md §"You are here" regains a **Current phase** row plus a checkpoint sentence;
+     evals/fixtures/good/HANDOFF-001.md gains a populated **Current phase** row.
+  -> F-002: SKILL.md §"Required inputs" gains a no-adopted-scope paragraph naming
+     `devforge-brainstorm` and `devforge-define-product`.
+  -> Both hunks start at lines 74 and 244; the frontmatter is outside every hunk.
+
+git -C $WT diff 03dc1a6 f8709e8 -- $PKG/references/readiness-check.md $PKG/references/recording-rules.md $PKG/evals/cases.jsonl
+  -> F-001: readiness-check.md gains §"Resuming after an interruption" (preserve first; a three-step
+     re-check; an outcome table; record the resume).
+  -> F-006: recording-rules.md rewrites the producer.skill_revision paragraph to separate the contract
+     from this package's narrowing and to route an unrecoverable value to missing_inputs.
+  -> F-003: PL-PKG-001 loses its case-level mode and its A5; new PL-PKG-003 carries A5 with
+     mode "installed".
+  -> F-004: PL-PKG-002 A9 retargeted to references/sources.md; A10 and A11 removed with the reason
+     stated in expectations.summary.
+  -> Sentinel: PL-C-003's forbidden self-digest string changes e85fb43b… -> e37ec74e…
+
+## Regression checks
+
+find $PKG -type f | sort | xargs sha256sum
+  -> 30 files. Unchanged since revision 1: assets/epic.md `48f8b069…`, assets/story.md `a19ccd7f…`,
+     references/sources.md `7238dacc…`, references/upstream-resolution.md `604b9cd9…`,
+     evals/evals.json `d5627bf4…`, evals/triggers/trigger-queries.json `ad23ff64…`, and every fixture
+     except good/HANDOFF-001.md.
+
+git show 03dc1a6:$PKG/SKILL.md | sed -n '3p' | sha256sum
+git show f8709e8:$PKG/SKILL.md | sed -n '3p' | sha256sum
+  -> both `64b9772dbf2298de3039a181c07684adc34e6ad1c8136b16593a36a859ae0601`
+     The `description` line is byte-identical across the repair.
+git show 03dc1a6:$PKG/SKILL.md | sed -n '1,5p' | sha256sum
+git show f8709e8:$PKG/SKILL.md | sed -n '1,5p' | sha256sum
+  -> both `d47e317920c97f86d1be2e68cb006287454472be3167defa6d6dc07a3fae8cf6`
+     The whole frontmatter block is byte-identical.
+
+wc -l $PKG/SKILL.md
+  -> 265 lines (was 249). Still inside the documented 500-line guidance.
+
+sha256sum $PKG/evals/fixtures/good/HANDOFF-001.md
+  -> e37ec74ec62f29e0e314026266450d2467d025f44404bedb1724e3ba9348051b
+     equal to the new forbidden_strings entry in PL-C-003 A2: the sentinel was updated consistently.
+grep -c "<its own digest>" $PKG/evals/fixtures/good/HANDOFF-001.md   -> 0   (no self-digest)
+grep -rn "e85fb43b61cf07782dd5c26589114477e904e160b24c89965fa7f48387c5e1dd" $PKG
+  -> no match. No stale digest survives anywhere in the package.
+
+git -C $WT diff 03dc1a6 f8709e8 --stat -- $PKG/evals/evals.json $PKG/evals/triggers/
+  -> empty. The tier-B case file and the 27 trigger queries are untouched, so the split and the
+     no-leakage property established in the first pass still hold.
+
+/usr/bin/python3 -B -c "<verify every derivation.json destination_sha256 against the file bytes>"
+  -> 11 of 11 destinations OK; evals/fixtures/ carries a null digest by design, as before.
+
+/usr/bin/python3 -B -c "<recursive search for the repair_pass_1 key in derivation.json>"
+  -> present on derivations[0] SKILL.md, [3] assets/handoff.md, [4] recording-rules.md,
+     [6] readiness-check.md, [8] evals/cases.jsonl — the five changed derivation destinations.
+     The evals/fixtures/ entry carries none, and correctly so: it declares per-file digests are kept
+     in the authoring file manifest rather than repeated in the record.
+
+/usr/bin/python3 -B -c "<verify AUTH/file-manifest.json revision 2 against the bytes>"
+  -> revision 2; supersedes revision 1 at 03dc1a6; file_count 30; 30 entries, 0 mismatches;
+     30 files actually on disk. `repair_pass_1_changed_files` lists exactly the seven files the
+     git diff shows. The new good/HANDOFF-001.md digest is recorded; the old one is absent.
+
+## F-005 repin verification
+
+/usr/bin/python3 -B -c "<print the cases.jsonl derivation entry's sources and dependency_status>"
+  -> all four sources repinned to e641797eebf04cd1e8eb9f711549e038e7745407 with
+     run_cases.py `95ca2abf…`, graders.py `1b7a27a3…`, runner-interface.md `87c8942f…`,
+     evals/cases.jsonl `c31a7cb0…`; dependency_status now records the performed recheck.
+
+git -C <validator wt> show e641797:$VALSKILL/references/runner-interface.md | sha256sum
+git -C <validator wt> show e641797:$VALSKILL/evals/cases.jsonl | sha256sum
+  -> `87c8942f2faa9c00c8746eeb51001ddccee3802c9f21a6e187d072251d4673e2` and
+     `c31a7cb0a98fd33941fadb23c0fc63b1f274f07df15f850348acdf3b310f6be8`
+     Both claimed digests are correct against the validator bytes; the two script digests were
+     already verified in the first pass.
+
+## Affected runner cases only
+
+Runner and grader identity, self-reported by the run (no protected manifest exists):
+  $VALSKILL/scripts/run_cases.py  `95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2`
+  $VALSKILL/scripts/graders.py    `1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f`
+  /usr/bin/python3 3.12, invoked with -B. Validator worktree HEAD still e641797.
+
+/usr/bin/python3 -B -c "<count cases and assertions in the repaired case file>"
+  -> 18 cases, 59 assertions (was 17 / 61: PL-PKG-001 -1, PL-PKG-003 +1, PL-PKG-002 -2).
+     The file loads with no duplicate case_id and no key outside the frozen runner's permitted sets.
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $PKG/evals/cases.jsonl --candidate $PKG \
+  --out $FENCE/runner-out/recheck-pkg-source.jsonl --mode source \
+  --case-id PL-PKG-001 --case-id PL-PKG-002
+  -> exit 0; PL-PKG-001 A1-A4 all MATCH (8 local links, all resolve); PL-PKG-002 A9 MATCH
+     "1 local, 2 external"; A10 and A11 no longer exist.
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $PKG/evals/cases.jsonl --candidate $PKG \
+  --out $FENCE/runner-out/recheck-pkg003-installed.jsonl --mode installed --case-id PL-PKG-003
+  -> exit 0; A5 MISMATCH "evals is present" — the expected artefact of running an installed-mode
+     assertion against source bytes. Still not a candidate defect; still no installed copy exists.
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $PKG/evals/cases.jsonl --candidate $PKG \
+  --out $FENCE/runner-out/recheck-pkg003-source.jsonl --mode source --case-id PL-PKG-003
+  -> exit 0; A5 INDETERMINATE "the case declares mode 'installed' and this run used 'source'".
+     Run to confirm the mode gate is now isolated to the one installation-dependent assertion.
+
+/usr/bin/python3 -B $VALSKILL/scripts/run_cases.py \
+  --cases $PKG/evals/cases.jsonl --candidate $PKG/evals/fixtures \
+  --out $FENCE/runner-out/recheck-plc003.jsonl --mode source --case-id PL-C-003
+  -> exit 0; A1 MATCH "12 fields"; A2 MATCH "2 sentinel(s) unchanged"; A3 INDETERMINATE (routed).
+     The no-self-digest check is live again against the new fixture bytes.
+
+Exit status describes the program, never the candidate. No aggregate was computed from any row.
+
+## Not rerun, deliberately
+
+PL-C-001, PL-C-002, PL-C-004, PL-C-005, PL-C-006 and PL-B-001..PL-B-009 were not rerun: none of the
+files they observe changed, and the coordinator scoped this pass to the changed requirements. Their
+first-pass rows in ../scaffold-review/runner-out/ remain the evidence for them. Tiers C, B and A were
+not attempted; no install, export, build or terminal launch occurred.
+
+## Author records read (untrusted, informational)
+
+$AUTH/spec-mapping.md   -> the two rows the first pass falsified (lines 58 and 78) now cite the new
+                           locations, and a correction table names the original false claims.
+$AUTH/authoring-notes.md -> line 267 records the interruption eval case as a known open gap.
+$AUTH/file-manifest.json -> revision 2, verified above.
+
+## Writes
+
+All inside $FENCE and nowhere else: recheck-report.md, findings-recheck.json, commands.log,
+runner-out/{recheck-pkg-source.jsonl, recheck-pkg003-installed.jsonl, recheck-pkg003-source.jsonl,
+recheck-plc003.jsonl}. The first-pass ../scaffold-review/ directory was not modified. No commit was
+made. Nothing under providers/, docs/mvp/ or the DevForge repository was modified.
