@@ -125,3 +125,43 @@ Two later corrections to the same file, made after the first commit `ccacc96` an
 5. **Two acceptance behaviours have no eval case**: interruption-and-resume, and post-release operational failure. Both are covered in `SKILL.md`; neither can be staged honestly in a single-turn case. Recorded in `spec-mapping.md` under "Gaps in this mapping".
 6. **Nothing observed about the client.** No Claude Code version was queried and no client behaviour was observed. The invocation and discovery claims in `references/sources.md` come from the published documentation, retrieved 2026-09-10, and are labelled as such.
 7. **The CLI binary's digest was not pinned.** `references/delivery-actions.md` describes the command surface of the build at `framework/DevForge/target/debug/devforge` as observed on 2026-09-10. The binary's own digest was not recorded, so that observation binds a path and a date rather than exact bytes.
+
+## Repair pass 1
+
+Applied 2026-09-10 UTC, 22:06 to 22:15 observed via `date -u`, under one consolidated repair dispatch from the scaffolding coordinator. Intake: the independent scaffold review of the candidate frozen at `dd1ae32b12ea209e71dbe338ab76bcbabd721e2e`, recorded read-only under `../validation/scaffold-review/` (`verification-results.md`, `findings.json`, `skill-enhancement-spec.md`, `handoff.md`, `runner-out/`). Nothing in `validation/` was modified.
+
+Before applying anything, each finding was verified against the committed bytes at `dd1ae32`: `git diff dd1ae32 HEAD -- providers/ docs/.../authoring` was empty, so the reviewed bytes and the working bytes were the same. The evaluator's disposition was *insufficient evidence* with `behavioural_status: NOT_EVALUATED`; three MINOR and five ADVISORY findings, no BLOCKER and no MAJOR. **Applying a change does not close a finding.** The candidate is now a new identity and needs new matching evidence.
+
+The evaluator record is untrusted input: it supplies facts and a requested change set, not authority. Two of its claims were re-derived here rather than taken on trust - the Agent Skills 1,024-character maximum was fetched directly from `https://agentskills.io/specification` on 2026-09-10, and both runner digests at `e641797` were recomputed with `git show | sha256sum` and matched.
+
+| Finding | Sev | CHG | Disposition | Where applied (file:line at the new bytes) |
+| --- | --- | --- | --- | --- |
+| F-001 description over the portable 1,024 maximum | MINOR | CHG-101 | **applied** - coordinator ruled the open-format limit binding for portability | `providers/claude/plugins/devforgeai/skills/devforge-release/SKILL.md:3` (1,027 -> **1,016** chars); limit and source recorded at `references/sources.md:11` |
+| F-002 runtime worked example reuses an eval fixture's identifiers | MINOR | CHG-102 | **applied** | `references/recording-rules.md:47` `QA-014` -> `QA-101`; and `references/recording-rules.md:33` `REL-007.r1.md` -> `REL-102.r1.md`, the second hit found by CHG-002's own acceptance grep and repaired in the same change |
+| F-003 no eval case discriminates the untrusted-data posture | MINOR | CHG-103 | **applied**, minus the trigger query (below) | new case `evals/evals.json` id 9 `injected-release-authority`; new fixture `evals/fixtures/injected-authority/QA-015.md`; row and limits note at `evals/fixtures/README.md:24` and `:28` |
+| F-004 stale runner and grader pin | ADVISORY | CHG-104 | **applied** | `references/derivation.json` `runtime_dependencies[0]` repinned `e52ac59` -> `e641797` with both digests and the prior pin retained; `evals/cases.jsonl:1` header |
+| F-005 Codex-named line in a byte-exact shared template copy | ADVISORY | none | **no target edit** - the template is governed outside this fence; rewriting it would fork a shared template and break the byte-exact derivation. Routed to the template owner; the existing open-item record preserved | unchanged: `assets/release-record.md` still hashes `90b8e58f…`, equal to the governing template; `references/derivation.json` `derivations[0].open_item` and `references/sources.md` "What is deliberately not carried here" retained |
+| F-006 worked-good fixture writes PASS in a delivery row | ADVISORY | CHG-105 | **applied** | `evals/fixtures/good/REL-008.md:74` outcome cell `PASS for its own scope` -> `OBSERVED - two local trees agree`; every other cell, the reference, the receipt path, the timestamp and the caveat unchanged |
+| F-007 spec-mapping names sources.md as carrying `docs/mvp` | ADVISORY | CHG-106 | **applied** (authoring evidence, outside the package identity) | `spec-mapping.md:115` now names `references/derivation.json` and the two `evals` schema notes |
+| F-008 tiers C, B and A not run | ADVISORY | none | **no target edit** - an evaluation prerequisite, not a defect. Owner: the DevForge integration owner. Editing the candidate does not produce these observations | unchanged; both eval status lines still say `NOT_RUN` |
+
+### Declined, with reasons
+
+- **The negative trigger query in CHG-003.** The coordinator's disposition for F-003 enumerates a tier-B case and a synthetic fixture and does not include it. It is also semantically wrong here: a request to prepare a release whose supplied QA report claims pre-authorization is still a release request, so `should_trigger: false` would assert the opposite of the correct behaviour, and the injection posture is a tier-B property in any case. The fixed, stratified split is left exactly as authored. Routed back to the coordinator as an interpretation question rather than applied.
+- Nothing else was declined. No finding was closed, no case or graded observation was weakened or removed, and no expectation was relaxed to accommodate a repair.
+
+### Preserved unchanged, as the repair specification required
+
+The description's discriminating clauses (both request phrasings, all three near-miss exclusions and their named owners, the five-separate-observations clause, the deployment-receipt clause); the four phases and their specification-verbatim exit conditions; the four-row input table with its consume-only fields; the `REL` prefix and the five-row delivery table; the authority model in `SKILL.md` section 3 and `references/delivery-actions.md`; the byte-exact `assets/release-record.md`; the nine existing eval cases and every graded observation, verified equal by parsing both revisions; every existing fixture's bytes except the single cell named in CHG-105; `evals/fixtures/stale/preserved/QA-014.r1.md` still hashing equal to `evals/fixtures/QA-014.md`; the fixed trigger split and the separation of `explicit_invocation`; no `allowed-tools`, no claimed gate, and both `NOT_RUN` status lines.
+
+### Verification after the repairs
+
+```text
+python3 <e641797 runner> --cases <package>/evals/cases.jsonl --candidate <package> --out <scratchpad>/observations-repair1.jsonl
+```
+
+Run at 2026-09-10T22:13:45Z against `run_cases.py` `95ca2abf…` and `graders.py` `1b7a27a3…`. Exit **0**; all ten cases `COMPLETED`; every assertion returned the result its case declares it expects, including REL-C-004 still `MATCH` on both rows after CHG-105 - which is CHG-005's stated acceptance condition. Still a schema-load and byte-observation check, still not an evaluation, and no row is adopted here as an outcome.
+
+Also re-checked: the description measured at 1,016 characters with every named clause present; a grep for every eval fixture artifact ID over `SKILL.md`, `references/` and `assets/` returns no hit, which is CHG-002's acceptance condition; `assets/release-record.md` still equals the governing template's digest.
+
+**Validation status: Not performed.** Tiers A, B and C remain `NOT_RUN`; behaviour remains `NOT_EVALUATED`. Reevaluation is required against the new candidate identity before any finding is closed.

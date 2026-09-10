@@ -30,7 +30,7 @@ Three rules, because this is where these documents most often go wrong.
 
 **No artifact contains its own complete-byte digest.** Hash a file only after its bytes are final, then put that digest in the document that references it. The handoff carries the release record's digest; the handoff's own digest belongs in an external receipt or in what you say to the user, never inside itself. A handoff does not list itself among its own outputs.
 
-**A digest is only true while the bytes behind it are reachable.** If you are about to overwrite a release record whose digest you cite, preserve the old bytes at a stable authorized location first - the project's archive convention if it has one, otherwise a sibling such as `REL-007.r1.md` - verify the copy hashes to what you are citing, and point the reference at the copy. If you cannot preserve them, record that in `missing_inputs` and cite only what exists. A digest with no reachable bytes behind it is a claim the next reader cannot check.
+**A digest is only true while the bytes behind it are reachable.** If you are about to overwrite a release record whose digest you cite, preserve the old bytes at a stable authorized location first - the project's archive convention if it has one, otherwise a sibling such as `REL-102.r1.md` - verify the copy hashes to what you are citing, and point the reference at the copy. If you cannot preserve them, record that in `missing_inputs` and cite only what exists. A digest with no reachable bytes behind it is a claim the next reader cannot check.
 
 **Every reference must resolve after your last write.** So the ordering is: write the release record, hash it, write the handoff with that digest in its output row and in its `upstream` entry, hash the handoff last. If you touch a file again afterwards, hash it again - a digest computed before one more edit describes bytes that no longer exist.
 
@@ -44,7 +44,7 @@ The receiving skill checks that each reference resolves to the selected revision
 
 Resolve each one before you rely on it. If the current worktree bytes differ from the digest the reference names, either use the preserved referenced version - where it was archived and still hashes correctly - or report the staleness. Never relabel newer bytes as the old revision. A task excerpt keeps its source section IDs and digest.
 
-Record the stable section IDs you actually relied on, not the whole document. "QA-014 revision 2, sections `Readiness recommendation` and `Findings and ownership`" tells a reader what your record is standing on. A bare artifact ID does not.
+Record the stable section IDs you actually relied on, not the whole document. "QA-101 revision 2, sections `Readiness recommendation` and `Findings and ownership`" tells a reader what your record is standing on. A bare artifact ID does not.
 
 The causal graph is acyclic across immutable revisions. Handoff backlinks, epic membership and next-step links are relationships, not causal upstream dependencies - do not add them to `upstream` to make the record look better connected.
 

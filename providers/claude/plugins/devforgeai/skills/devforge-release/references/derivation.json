@@ -2,10 +2,9 @@
   "schema_version": "devforge.package-derivation/v1",
   "skill": "devforge-release",
   "provider": "claude",
-  "recorded_at_utc": "2026-09-10T20:18:15Z",
+  "recorded_at_utc": "2026-09-10T22:07:30Z",
   "path_convention": "Every framework path in this record is relative to the DevForge workspace root that holds the framework/ and worktrees/ trees. No developer home directory appears in this package; the absolute paths used during authoring are recorded only in the authoring evidence outside it.",
   "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'. This record contains no digest of itself.",
-
   "authoring_route": {
     "mode": "operator-author scaffold, builder followed source-loaded",
     "detail": "The Claude devforge-project-expert-creator package was read by absolute path at commit 4999f3106565c5e320d1f1a7db066b437e4e94be in the sibling worktree worktrees/claude-scaffold-project-expert-creator-20260910 and its five-phase process - Intake, Selection, Design, Authoring, PreparedTransfer - was followed. It was source-loaded, not installed and not invoked as a skill.",
@@ -24,20 +23,81 @@
     "worktree_branch": "author/claude-devforge-release-scaffold-20260910",
     "no_port_source": "There is no devforge-release package in either provider's inventory at the base revision, so this is original authoring rather than a port. The searched inventory and its limits are recorded in the working design document's section 9."
   },
-
   "selected_inputs": [
-    { "artifact": "SKILL-011", "revision": 2, "store": "project", "path": "docs/mvp/specifications/skill-011-devforge-release.md", "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d", "role": "governing specification" },
-    { "artifact": "skill-authoring-contract", "revision": 3, "store": "project", "path": "docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53", "role": "authoring, packaging and evaluation tiers" },
-    { "artifact": "artifact-contract", "revision": 2, "store": "project", "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5", "role": "envelope, upstream references, digest rules, suggested directories" },
-    { "artifact": "execution-contract", "revision": 3, "store": "project", "path": "docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b", "role": "worktree ownership, failure and recovery cases, the subscription-only CI boundary" },
-    { "artifact": "development-language-policy", "revision": "2026-09-09 owner decision with the 2026-09-10 phase/hook clarification", "store": "project", "path": "docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f", "role": "Rust authority, the permitted Python evaluation exception, the prohibition on ceremonial enforcement" },
-    { "artifact": "bounded-delivery", "revision": "unnumbered working guidance", "store": "project", "path": "docs/learned-behaviors/bounded-delivery.md", "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae", "role": "the finish line and the stopping condition" },
-    { "artifact": "roster", "revision": "draft refreshed 2026-09-05", "store": "project", "path": "docs/mvp/roster.md", "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc", "role": "provenance flow: which upstreams this skill consumes and which consumer reads its output" },
-    { "artifact": "evals.json authoring template", "revision": "selected at base", "store": "project", "path": "docs/mvp/templates/skill-authoring/evals.json", "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692", "role": "base field shape for evals/evals.json" },
-    { "artifact": "trigger-queries.json authoring template", "revision": "selected at base", "store": "project", "path": "docs/mvp/templates/skill-authoring/trigger-queries.json", "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4", "role": "base field shape for evals/triggers/trigger-queries.json" }
+    {
+      "artifact": "SKILL-011",
+      "revision": 2,
+      "store": "project",
+      "path": "docs/mvp/specifications/skill-011-devforge-release.md",
+      "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d",
+      "role": "governing specification"
+    },
+    {
+      "artifact": "skill-authoring-contract",
+      "revision": 3,
+      "store": "project",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+      "role": "authoring, packaging and evaluation tiers"
+    },
+    {
+      "artifact": "artifact-contract",
+      "revision": 2,
+      "store": "project",
+      "path": "docs/mvp/artifact-contract.md",
+      "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+      "role": "envelope, upstream references, digest rules, suggested directories"
+    },
+    {
+      "artifact": "execution-contract",
+      "revision": 3,
+      "store": "project",
+      "path": "docs/mvp/execution-contract.md",
+      "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+      "role": "worktree ownership, failure and recovery cases, the subscription-only CI boundary"
+    },
+    {
+      "artifact": "development-language-policy",
+      "revision": "2026-09-09 owner decision with the 2026-09-10 phase/hook clarification",
+      "store": "project",
+      "path": "docs/development-language-policy.md",
+      "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+      "role": "Rust authority, the permitted Python evaluation exception, the prohibition on ceremonial enforcement"
+    },
+    {
+      "artifact": "bounded-delivery",
+      "revision": "unnumbered working guidance",
+      "store": "project",
+      "path": "docs/learned-behaviors/bounded-delivery.md",
+      "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae",
+      "role": "the finish line and the stopping condition"
+    },
+    {
+      "artifact": "roster",
+      "revision": "draft refreshed 2026-09-05",
+      "store": "project",
+      "path": "docs/mvp/roster.md",
+      "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc",
+      "role": "provenance flow: which upstreams this skill consumes and which consumer reads its output"
+    },
+    {
+      "artifact": "evals.json authoring template",
+      "revision": "selected at base",
+      "store": "project",
+      "path": "docs/mvp/templates/skill-authoring/evals.json",
+      "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692",
+      "role": "base field shape for evals/evals.json"
+    },
+    {
+      "artifact": "trigger-queries.json authoring template",
+      "revision": "selected at base",
+      "store": "project",
+      "path": "docs/mvp/templates/skill-authoring/trigger-queries.json",
+      "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4",
+      "role": "base field shape for evals/triggers/trigger-queries.json"
+    }
   ],
   "selected_inputs_note": "Every digest above was computed from the working checkout framework/DevForgeAI on 2026-09-10 and independently from the bytes at base commit c17e758417da64928a0f47fc2600304465ac3f3c. They agreed, so the base commit is a reachable preserved location for all of them.",
-
   "derivations": [
     {
       "destination": "assets/release-record.md",
@@ -73,7 +133,7 @@
     },
     {
       "destination": "references/recording-rules.md",
-      "destination_sha256": "43dcf6c27e61a3d5dea009606cb0354485ada2ea6a7633649ce9b12303429408",
+      "destination_sha256": "b20187d7f4f4254b2817903daf8da8f9c7604b1a3466c98deafb1b0bec1c7337",
       "kind": "reference: narrowed restatement of shared contracts",
       "source": {
         "artifact": "artifact-contract, with the envelope and digest sections of the execution contract",
@@ -81,9 +141,14 @@
         "path": "docs/mvp/artifact-contract.md",
         "revision": "revision 2, selected at base",
         "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
-        "sections_relied_on": ["Standard envelope", "Provenance without circular bookkeeping", "Output storage and stable candidate snapshots", "Decisions, readiness, and evaluation are separate"]
+        "sections_relied_on": [
+          "Standard envelope",
+          "Provenance without circular bookkeeping",
+          "Output storage and stable candidate snapshots",
+          "Decisions, readiness, and evaluation are separate"
+        ]
       },
-      "transformation": "distilled and narrowed to the situations this skill meets. It restates; it does not extend or waive. Where the two differ, the contract governs.",
+      "transformation": "distilled and narrowed to the situations this skill meets. It restates; it does not extend or waive. Where the two differ, the contract governs. Repair pass 1 (CHG-102) replaced the two worked-example identifiers - an artifact ID and an archived-sibling filename - with values no eval fixture uses; the instructional content is unchanged.",
       "refresh_condition": "docs/mvp/artifact-contract.md changes in any of the sections named above. Owner: the contract owner selects the refresh; this package's author re-narrows and updates this record."
     },
     {
@@ -96,49 +161,84 @@
         "path": "docs/mvp/specifications/skill-011-devforge-release.md",
         "revision": "revision 2, selected at base",
         "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d",
-        "sections_relied_on": ["State/action boundary", "Workflow and phase exits", "Rework, stopping, and recovery"]
+        "sections_relied_on": [
+          "State/action boundary",
+          "Workflow and phase exits",
+          "Rework, stopping, and recovery"
+        ]
       },
       "transformation": "distilled, plus three command rows written from the observed --help output of the built binary rather than from any document.",
       "observed_binary": {
         "path": "framework/DevForge/target/debug/devforge",
         "observed_at_utc": "2026-09-10",
-        "commands": ["delivery", "expert", "check", "init", "red", "green", "accept", "verify", "status", "isolate"],
+        "commands": [
+          "delivery",
+          "expert",
+          "check",
+          "init",
+          "red",
+          "green",
+          "accept",
+          "verify",
+          "status",
+          "isolate"
+        ],
         "note": "No subcommand creates a pull request, pushes, merges, tags, publishes or deploys. This is recorded as a missing integration, not worked around. The binary's own digest was not pinned by this authoring session; the observation is of a build at that path on that date."
       },
       "refresh_condition": "The DevForge CLI's command surface changes, or SKILL-011 is revised. Owner: the CLI owner for the surface, the specification owner for the requirements."
     }
   ],
-
   "not_derived": [
-    { "path": "SKILL.md", "note": "Written for this package against SKILL-011. Not a copy or adaptation of any single source." },
-    { "path": "references/sources.md", "note": "External documentation retrieved 2026-09-10, with its own dates and applicability recorded in the file." },
-    { "path": "evals/**", "note": "Authored evaluation inputs. They stay in the source and are omitted from installed copies and runtime exports. Every fixture under evals/fixtures/ is synthetic and labelled as such in evals/fixtures/README.md; no digest inside a fixture was computed from anything." }
+    {
+      "path": "SKILL.md",
+      "note": "Written for this package against SKILL-011. Not a copy or adaptation of any single source."
+    },
+    {
+      "path": "references/sources.md",
+      "note": "External documentation retrieved 2026-09-10, with its own dates and applicability recorded in the file."
+    },
+    {
+      "path": "evals/**",
+      "note": "Authored evaluation inputs. They stay in the source and are omitted from installed copies and runtime exports. Every fixture under evals/fixtures/ is synthetic and labelled as such in evals/fixtures/README.md; no digest inside a fixture was computed from anything."
+    }
   ],
-
   "runtime_dependencies": [
     {
       "what": "The Python JSONL runner and deterministic graders that evals/cases.jsonl is written against",
       "package": "the Claude devforge-evaluate-expert package",
-      "commit": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+      "commit": "e641797eebf04cd1e8eb9f711549e038e7745407",
       "worktree_read_from": "worktrees/claude-scaffold-evaluate-expert-20260910",
-      "paths": ["scripts/run_cases.py", "scripts/graders.py"],
-      "status": "PENDING. That package is a draft; an independent E2 bootstrap review of the same commit exists at b6a4bf7 in that worktree and a repair pass is in progress on that branch. It is not installed anywhere. The case file was written against the committed bytes at the pinned commit and its schema was load-checked against them; it has not been evaluated.",
-      "boundary": "The runner and graders are the framework's permitted Python evaluation artifacts: they produce evidence and metrics, not admission, acceptance or a verdict. Their MATCH / MISMATCH / INDETERMINATE vocabulary is deliberately disjoint from PASS / FAIL, and no row may be copied into a results record as an outcome. evals/ is an authoring input, never a runtime resource of this skill."
+      "paths": [
+        "scripts/run_cases.py",
+        "scripts/graders.py"
+      ],
+      "status": "PENDING. That package is a draft: an E2 independent bootstrap review at b6a4bf7 returned revise, its repairs F-001..F-009 were applied at e101e76, a focused recheck at 6916b60 closed them and opened MINOR F-R01, and its derivation digests were regenerated at e641797. Still a draft, and installed nowhere. The case file was written against e52ac59 and re-load-checked against e641797 in repair pass 1; all ten cases reached COMPLETED with every assertion matching the expectation the case itself states. That is a load check, not an evaluation.",
+      "boundary": "The runner and graders are the framework's permitted Python evaluation artifacts: they produce evidence and metrics, not admission, acceptance or a verdict. Their MATCH / MISMATCH / INDETERMINATE vocabulary is deliberately disjoint from PASS / FAIL, and no row may be copied into a results record as an outcome. evals/ is an authoring input, never a runtime resource of this skill.",
+      "superseded_pin": {
+        "commit": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+        "scripts_sha256": {
+          "scripts/run_cases.py": "d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d",
+          "scripts/graders.py": "7c03e7b2137787035c995787b232a7bf8d801c88672675bacf4359a8cdb38c13"
+        },
+        "note": "The pin this package was originally authored against. Its bytes remain reachable at that commit; the digests are recorded here so a reader can tell a deliberate repin from drift. Recorded, not deleted."
+      },
+      "scripts_sha256": {
+        "scripts/run_cases.py": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+        "scripts/graders.py": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f"
+      },
+      "digests_observed_at_utc": "2026-09-10T22:07:00Z recomputed independently from the bytes at e641797 with git show | sha256sum"
     }
   ],
-
   "refresh_conditions_summary": "Refresh this record when any selected input's digest changes, when a derived destination is edited, when the DevForge CLI surface changes, or when the runner dependency moves. Select the source revision with the assignment owner, preserve the old bytes and evidence, update the affected entries, regenerate only the authorized installed copies, and hand the changed identities to the evaluator for the checks they affect.",
-
   "self_reference_note": "This file records no digest of itself. The package's complete file-to-digest map lives in the authoring evidence at docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/authoring/file-manifest.json, which likewise excludes its own digest.",
-
   "execution_ref": null,
   "execution_ref_reason": "No session-record artifact was supplied for this authoring assignment. A worker-authored session ID would not be proof of ownership, so this stays null.",
-
   "referenced_not_modified": [
     "docs/mvp/** - specification, templates and all three contracts",
     "docs/mvp/package-index.json and docs/mvp/roster.md",
     "every sibling skill in the Claude and Codex provider trees",
     "the devforge-project-expert-creator worktree and the devforge-evaluate-expert worktree, both read read-only at pinned commits",
     "the DevForge CLI, its policies, gates and tests"
-  ]
+  ],
+  "repair_pass_note": "Repair pass 1, 2026-09-10: description trimmed to the Agent Skills 1,024-character maximum (CHG-101); worked-example identifiers decoupled from eval fixture IDs (CHG-102); one tier-B case and fixture added for the untrusted-data posture (CHG-103); the runner pin refreshed to e641797 with the prior pin retained (CHG-104); one fixture table cell reworded off the disputed PASS token (CHG-105). No instruction, phase, exit condition, input row, authority statement or existing case was weakened or removed. assets/release-record.md still hashes 90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb, equal to the governing template."
 }
