@@ -22,7 +22,7 @@ For skill authoring, read `docs/mvp/skill-authoring-contract.md` and applicable 
 
 ## Concurrent sessions
 
-At session start, verify repository, worktree, branch, HEAD, write scope, and existing changes. Parallel implementation sessions use separate worktrees and branches with distinct outputs. Shared contracts and installer integration have one integration owner; report ambiguity rather than expanding a skill-only assignment.
+At session start, verify repository, worktree, branch, HEAD, write scope, and existing changes. Parallel implementation sessions use separate worktrees and branches with distinct outputs. For routine testing and test installation, use a fresh task-owned Git worktree derived from task context as described in [default test workspaces](docs/test-workspaces.md); do not ask the user for a routine test directory that can safely be derived. Shared contracts and installer integration have one integration owner; report ambiguity rather than expanding a skill-only assignment.
 
 Preserve others' changes. Workers must not commit, rebase, reset, or merge a shared checkout; its designated integration owner handles authorized integration. Recheck owned files and required pins before writes and handoff. Unexpected drift stops the affected action. Never silently repin frozen evidence or overwrite concurrent work.
 
