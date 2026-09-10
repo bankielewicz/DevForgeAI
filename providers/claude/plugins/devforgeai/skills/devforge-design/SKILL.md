@@ -88,7 +88,13 @@ Record feedback as traceable revisions: what was asked, which flow or requiremen
 
 Separate what the mockup settled from what it did not. A question about whether an interaction is technically achievable, or how a system behaves under real data, is not settled by a mockup - name it as an open question for a bounded prototype rather than answering it from the design.
 
-**Exit:** the accepted design revision is identifiable, and its remaining uncertainties are listed with the phase or skill that would resolve each.
+**When the design would need an accepted requirement to change.** Sometimes the flow the user is asking for cannot be drawn without contradicting a requirement the product already accepted - the requested screen skips a confirmation the brief requires, or the requested behaviour is the opposite of what a REQ row says. That is a product-scope conflict, and it is not yours to resolve by drawing the requested version and letting the requirement quietly lose.
+
+Record it instead. Name the conflict as a change request against the product artifact that owns the requirement, identify the affected requirement rows and the flows that depend on them, and leave those design-spec rows short of ready - `proposed`, with the conflict named in the decisions section and the blocked requirement in `missing_inputs`. The rest of the design, the part that does not depend on the disputed requirement, continues.
+
+Then follow the same honesty as everywhere else about who picks it up. `devforge-change` owns the change request and `devforge-define-product` owns the product artifact it would revise, and **neither is installed** at the time of writing. So say that as a capability gap and give the user a plain-language next task with resolvable absolute paths - which requirement, which artifact, what the conflict is - rather than a slash command for a skill you have not confirmed. Nothing here makes the missing-product-brief fallback above into an accepted requirement either; a conflict against a user-stated requirement is still the user's to settle, not yours.
+
+**Exit:** the accepted design revision is identifiable, and its remaining uncertainties are listed with the phase or skill that would resolve each - a technical uncertainty as a bounded prototype question, a product-scope conflict as a recorded change request with its owner named.
 
 ## Outputs
 
@@ -107,12 +113,13 @@ Write the design-spec first, hash it, then put that digest in the handoff. No ar
 
 Use the words precisely; blending them hides real gaps. `NOT_EVALUATED` is behaviour nobody evaluated. `NOT_RUN` is planned and unattempted. `COULD_NOT_RUN` is a required observation that was blocked, with the actual cause recorded. `NOT_APPLICABLE` is a stated scope exclusion with its reason. The absence of an error is not a pass.
 
-Four cases come up often enough to state:
+Five cases come up often enough to state:
 
 - **A required input is missing.** It stays missing, with the reason and the work it blocks, and it goes in `missing_inputs`. Continue the parts that do not depend on it.
 - **An upstream revision changed.** Mark the affected prior evidence stale and say which flows and requirement references it touches. Repairing a broken locator is mechanical; adopting a newer revision is a decision that needs the user's actual authorization.
 - **A concurrent writer holds the worktree, branch or destination.** Stop the dependent writes and report the collision, naming the record you saw and where you read it. Do not delete, reset, revert or force anything, and do not quietly write somewhere else.
 - **A template placeholder is still sitting in a required field.** The result is a draft and cannot be presented as ready. A missing fact goes in `missing_inputs`, never into template filler.
+- **The work is interrupted and picked up later.** Preserve the current phase, the upstream digests you froze, and the paths of the evidence you had gathered - an interrupted run is paused, not finished. On resuming, re-check those identities and the session assignment *before* dependent work continues, rather than waiting to notice a difference: the bytes you cited may have moved while you were gone, and the assignment may no longer be yours. A changed input, base commit or assignment starts a new iteration with the prior evidence retained; it does not silently continue this one.
 
 ## Decisions versus proposals
 

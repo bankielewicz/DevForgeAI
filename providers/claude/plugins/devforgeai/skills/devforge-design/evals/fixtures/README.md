@@ -19,4 +19,37 @@ Fixtures are reproducible from this source directory. They are inputs to authore
 | `unverified-inspection/UX-008.md` | A design-spec whose mockup row asserts a visual inspection with no evidence behind it. |
 | `unverified-inspection/inspection-claim.json` | The same asserted outcome in field form - claim, tool, viewport, evidence - so a deterministic grader can address the claim and its evidence separately. |
 
-Digests quoted inside a fixture are fabricated placeholders unless a case declares otherwise. Where a case asserts a real sha256 - the ownership sentinel - that value is computed from these exact bytes and is recorded in `evals/cases.jsonl`; editing the fixture invalidates the case until the case is updated with it.
+Digests quoted inside a fixture are fabricated placeholders unless a case declares otherwise. Where a case asserts a real sha256 - the ownership sentinel and the preserved product-brief revision - that value is computed from these exact bytes and is recorded in `evals/cases.jsonl`; editing the fixture invalidates the case until the case is updated with it.
+
+## Running `evals/cases.jsonl`
+
+**The case file needs two invocations, not one.** The runner takes exactly one `--candidate` per invocation, and this file deliberately spans two candidate roots: `DX-C-001` inspects the skill package itself, while every other case inspects a fixture directory. Running the whole file against a single root leaves the other cases `COULD_NOT_RUN`, because their `candidate_subpath` will not resolve.
+
+Substitute absolute paths for the two roots and a writable output directory outside the candidate. `--out` must not already exist.
+
+Package-structure case:
+
+```text
+python3 <evaluate-expert-skill-root>/scripts/run_cases.py \
+  --cases     <package>/evals/cases.jsonl \
+  --candidate <package> \
+  --mode      installed \
+  --case-id   DX-C-001 \
+  --out       <run-dir>/observations-package.jsonl
+```
+
+Every other case:
+
+```text
+python3 <evaluate-expert-skill-root>/scripts/run_cases.py \
+  --cases     <package>/evals/cases.jsonl \
+  --candidate <package>/evals/fixtures \
+  --mode      source \
+  --out       <run-dir>/observations-fixtures.jsonl
+```
+
+The second invocation runs the whole file, so `DX-C-001` appears in it as `COULD_NOT_RUN`; take that case's result from the first run and ignore its row in the second. Read the two observation files together - neither is complete coverage on its own, and the runner's header records which cases each invocation selected precisely so a partial run cannot be mistaken for a full one.
+
+One result that looks like a defect and is not: `DX-C-001` asserts `path_absent` on `evals`, because an **installed** copy has its authored evals stripped. Run it against the source package - as the first command above does - and that assertion is expected to mismatch. It discriminates an installed copy from a source tree, which is what tier C is for.
+
+Neither invocation writes inside the package, and the runner never imports or executes fixture content: it reads bytes. Exit code 0 means the runner completed and wrote a complete observations file; it says nothing about whether any assertion matched.
