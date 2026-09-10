@@ -55,7 +55,7 @@ and no case in it has been run.
 | 4. Check readiness | Coverage, cycles, unresolved decisions, source freshness, capability gaps | Separate ready from blocked without pretending a missing expert exists | `SKILL.md` §"4. Check readiness" with a stated **Exit**; `references/readiness-check.md` §"The five readings" and §"Separating ready from blocked" | evals ids 7, 8, 10; cases `PL-B-007`, `PL-B-009`, `PL-C-004` |
 | These phases are the skill's workflow, not new CLI subcommands | — | — | `SKILL.md` §"What this skill owns and what it does not"; `references/readiness-check.md` opening | case `PL-B-007` A2 |
 | Only documented, implemented DevForge commands may be named as executable gates | — | — | `SKILL.md` names **no** DevForge command as a planning gate and states the missing integration; `references/readiness-check.md` records the observed command surface and what `devforge check` actually checks | — |
-| On interruption, preserve the current phase and evidence; resume by checking identities and the session assignment again | — | — | `assets/handoff.md` §"Resume and custody" (invalidating conditions, worktree disposition); `references/upstream-resolution.md` §"When a cited revision no longer matches" | — |
+| On interruption, preserve the current phase and evidence; resume by checking identities and the session assignment again | — | — | `SKILL.md` §"Stopping", the interruption paragraph; `references/readiness-check.md` §"Resuming after an interruption"; `assets/handoff.md` §"You are here" **Current phase** row | none authored — see the gap note below |
 
 ## Outputs and standardized templates
 
@@ -75,7 +75,7 @@ and no case in it has been run.
 | Indirect activation | Uses dependencies and readiness rather than inventing a sprint requirement | `SKILL.md` phase 2 sprint paragraph; phase 4 | evals id 1; `PL-B-002`; triggers `indirect` |
 | Missing behavior | Marks the dependent acceptance criterion unresolved and routes clarification | `SKILL.md` phase 3 paragraph 2; `references/readiness-check.md` §"Unresolved decisions" | evals id 2; `PL-B-003` |
 | Traceability | Identifies an unsupported criterion as a new proposal, not an inherited requirement | `SKILL.md` phase 3 paragraph 1 and §"Decisions, proposals…"; `references/recording-rules.md` §"Proposals, decisions and status" | evals id 3; `PL-B-004` |
-| Out of scope | Routes to brainstorm or define-product | `SKILL.md` `description` exclusions; §"Stopping" | evals id 4; `PL-B-005`; triggers `negative_unscoped_exploration` |
+| Out of scope | Routes to brainstorm or define-product | `SKILL.md` §"Required inputs", the no-adopted-scope paragraph naming `devforge-brainstorm` and `devforge-define-product` — the operative body instruction; reinforced by the `description` exclusions | evals id 4; `PL-B-005`; triggers `negative_unscoped_exploration` |
 
 ## Additional common cases
 
@@ -95,7 +95,7 @@ and no case in it has been run.
 | Revisions preserve prior acceptance criteria and invalidate affected downstream evidence | `SKILL.md` amendment paragraph; `references/upstream-resolution.md` §"Revising rather than regenerating" | evals id 9 artifact assertions; `PL-B-008` |
 | Stop when a story cannot be implementation-ready with unresolved acceptance behaviour, stale governing inputs, dependency cycles, or required missing expertise | `SKILL.md` §"Stopping"; `references/readiness-check.md` §"Stop and hand back when" | evals ids 2, 6, 10 |
 | Preserve accepted versions and observed failures; do not force-unlock, overwrite another session's result, change external gates, or retry indefinitely | `SKILL.md` collision bullet; `references/readiness-check.md` §"When another writer owns the destination"; `references/recording-rules.md` §"Identity and digests" preservation rule | evals id 5 |
-| If the worktree or active run changes, re-establish the appropriate baseline and evidence before resuming | `assets/handoff.md` §"Resume and custody" invalidating conditions | — |
+| If the worktree or active run changes, re-establish the appropriate baseline and evidence before resuming | `references/readiness-check.md` §"Resuming after an interruption", the outcome table row for a changed assignment, worktree or base; `SKILL.md` §"Stopping" interruption paragraph; `assets/handoff.md` §"Resume and custody" invalidating conditions | — |
 | Report missing observations precisely | `SKILL.md` fixed-vocabulary paragraph; `references/recording-rules.md` §"Result vocabulary" | evals id 8 artifact assertions |
 
 ## Native creator authoring prompt
@@ -127,3 +127,26 @@ and no case in it has been run.
 | Sprint scheduler or issue-tracker integration | The specification excludes both from the MVP. `SKILL.md` phase 2 states sprint grouping is optional and only on request. |
 | Terminal acceptance evidence | Requires a run. Tiers A, B and C are `NOT_RUN`; no installation exists. |
 | `package-index.json` status update for SKILL-006 | Outside the assignment's fence. Recorded as a coordinator item in `authoring-notes.md` and the authoring handoff. |
+
+## Repair pass 1 — coverage changes
+
+Applied 2026-09-10 UTC from the independent scaffold review of `03dc1a6`. Only the rows the findings
+demonstrated were wrong have moved; every other row is unchanged.
+
+| Row | Was | Now | Finding |
+| --- | --- | --- | --- |
+| "On interruption, preserve the current phase and evidence…" | Mapped to `assets/handoff.md` §"Resume and custody" and `references/upstream-resolution.md`. Neither carried the requirement; the handoff section is fields of a completed document a session interrupted mid-phase never reaches, and the upstream section addresses a moved revision during normal operation | `SKILL.md` §"Stopping" interruption paragraph, `references/readiness-check.md` §"Resuming after an interruption", and the restored **Current phase** row in `assets/handoff.md` | F-001 |
+| "Out of scope — routes to brainstorm or define-product" | Claimed at the `description` exclusions and §"Stopping". Stopping named neither sibling; the body carried no routing at all | `SKILL.md` §"Required inputs", the no-adopted-scope paragraph — the operative body instruction — with the description exclusions reinforcing it | F-002 |
+| "If the worktree or active run changes, re-establish the baseline…" | `assets/handoff.md` invalidating conditions only | The outcome table in `references/readiness-check.md` §"Resuming after an interruption", plus the two prior locations | F-001 |
+| "Expected result — epic; story plus a standardized handoff" | cases `PL-C-001`, `PL-C-002`, `PL-C-003`; `PL-PKG-002` A1–A3 | unchanged; `PL-PKG-002` keeps A1–A3 | — |
+
+Case-file changes that affect this map: `PL-PKG-001` now carries the four mode-independent structural
+assertions with no case-level mode, so they are observable against a source tree; the evals-absence
+assertion moved verbatim to the new `PL-PKG-003` under `mode: installed` (F-003). `PL-PKG-002` lost A10
+and A11 and A9 was retargeted at `references/sources.md` (F-004). No coverage row above depended on the
+removed assertions.
+
+**Known gap, not closed by this pass.** No eval case stages an interrupted session, so the behaviour
+F-001 added is instructed but unobserved. The finding's own rerun note says a new tier-B case is needed
+and none exists. Authoring one was not in the coordinator's dispatch for this pass, so it is recorded
+here for the next evaluation rather than added.

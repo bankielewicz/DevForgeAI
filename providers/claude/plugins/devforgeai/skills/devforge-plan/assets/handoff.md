@@ -22,9 +22,13 @@ missing_inputs: []
 Replace these directions with actual content. Keep it scannable: the epics and stories hold the
 detail, so link them rather than copying their tables here.
 
+Fill this at completion, at a transfer, or at a recovery checkpoint. Written at a checkpoint it is what
+a resumed session reads first, which is why **Current phase** is a row and not an afterthought.
+
 ## You are here
 
 - **Skill and use case:** devforge-plan — derive epics and implementable stories from adopted scope.
+- **Current phase:** {{Select / Partition / Specify / Check readiness, and whether it completed}}
 - **Result:** {{what was produced; complete, partial, or blocked}}
 - **Delivery slice and non-goals:** {{PROD-ID@revision, the outcome, the explicit exclusions}}
 - **Session/worktree assignment:** {{external SESSION reference, or null with the reason}}

@@ -87,6 +87,39 @@ what you found, where, and what you would need to proceed. Historical authorship
 current exclusive writer either: compare actual active assignment evidence before treating an old
 producer as a collision.
 
+## Resuming after an interruption
+
+An interrupted session is not a fresh one, and it is not a continuation either until you have checked
+which of the two it is.
+
+Preserve first. The phase you had reached, the input identities you had frozen in Select, and any epic
+or story bytes already written are the record that makes resuming possible. Do not delete a partial
+output because it looks unfinished; a partial story with its provenance intact is worth more than a
+clean start that has lost which revision it was derived from.
+
+Then, before writing anything further, run this sequence:
+
+1. **Re-read the session assignment.** Ownership can have changed while you were away. The worktree,
+   branch or destination you held may now belong to someone else, in which case the collision rule above
+   applies and the dependent writes stop.
+2. **Re-check every recorded digest** against the bytes at the locator you recorded. An input that still
+   hashes the same is still the thing you partitioned against.
+3. **Re-check the base commit or run identity** if one was recorded for this work.
+
+What each outcome means:
+
+| Observation | What follows |
+| --- | --- |
+| Assignment unchanged, every digest matches | Continue the phase you were in. The preserved evidence carries forward. |
+| A cited input's digest has moved | This is a new iteration, not a continuation. The staleness rule in `upstream-resolution.md` governs, evidence gathered before the change does not transfer to the changed bytes, and adopting the newer revision is still a decision that needs authorisation. |
+| The assignment, worktree or base has changed | Re-establish the baseline before resuming, and record which prior evidence the change invalidated. |
+| Another writer now holds the destination | Stop the dependent writes and report, as above. |
+| You cannot recover what phase you were in | Say so. Re-deriving from the preserved inputs is honest; asserting a phase you cannot evidence is not. |
+
+Record the resume itself: what was preserved, what was re-checked, what had moved. A reader who cannot
+see that the re-check happened has no way to tell a resumed session from one that quietly carried stale
+evidence across the gap.
+
 ## When a check cannot run
 
 Record `COULD_NOT_RUN` with the actual cause, and block only the claim that depends on it. Continue the

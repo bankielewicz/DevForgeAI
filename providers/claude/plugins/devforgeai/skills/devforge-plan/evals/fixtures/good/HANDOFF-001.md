@@ -45,6 +45,7 @@ no digest of itself.
 ## You are here
 
 - **Skill and use case:** devforge-plan — derive epics and implementable stories from adopted scope.
+- **Current phase:** Check readiness, completed for the authored story; Specify not started for the four allocated stories.
 - **Result:** partial. One epic and one authored story; four stories allocated and not yet authored.
 - **Delivery slice and non-goals:** PROD-001@2 self-service swaps. Non-goals: shift creation, onboarding,
   payroll export, push notifications, multi-site coordination.

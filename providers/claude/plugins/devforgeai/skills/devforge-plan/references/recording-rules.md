@@ -82,10 +82,19 @@ defect as a wrong primary reference, just harder to notice. Read them all back, 
 Write order that keeps this true: epics and stories first, hash them, then the handoff carrying their
 digests, then hash the handoff into your terminal response. Touch a file again and you hash it again.
 
-`producer.skill_revision` is the SHA-256 of the installed `SKILL.md` file's bytes — one file. It is not
-a digest of the package and not the plugin version, which can be identical across two different drafts
-and therefore identifies nothing. Say which one you have; a bare 64-character string tells a later
-reader nothing. Where nothing observable gives you the value, `unknown` is the honest entry.
+`producer.skill_revision` is where a restatement stops and this package's own narrowing begins, so read
+the two apart. The contract requires the **exact installed skill revision or digest** and stops there.
+This package narrows that to one specific thing: the SHA-256 of the installed `SKILL.md` file's bytes —
+one file. It is not a digest of the package and not the plugin version, which can be identical across
+two different drafts and therefore identifies nothing. Say which one you have; a bare 64-character
+string tells a later reader nothing.
+
+The narrowing is this package's choice and the contract still governs. What the contract does not offer
+is a fallback: it supplies `null` plus `missing_inputs` for `execution_ref`, and nothing equivalent for
+`producer`. So an unrecoverable producer revision is a **missing required fact**, not a filled field.
+Write `unknown` with what you do know — which artifact you hashed, or that nothing observable gave you
+the value — *and* record it in `missing_inputs`. A result carrying `unknown` there with an empty
+`missing_inputs` is a draft presented as complete, and a plausible-looking digest is worse than either.
 
 ## Placeholders and missing facts
 

@@ -217,3 +217,92 @@ rebased, stashed or cleaned.
 
 **Validation status: Not performed.** **Behavioural status: NOT_EVALUATED.** **Enforcement status:
 requirements recorded; no gate implemented by this skill.**
+
+---
+
+# Repair pass 1
+
+Applied 2026-09-10 UTC under coordinator dispatch, from the independent scaffold review of commit
+`03dc1a605acfb3ff80577f244d1a60f52244fb36`. Evaluator records are read-only at
+`docs/skill-authoring/history/claude-scaffolding-20260910/devforge-plan/validation/scaffold-review/`
+and were not modified. `git diff 03dc1a6 HEAD` over the package and this authoring directory was empty
+before the pass, so every finding was verified against the exact bytes it was raised against.
+
+The repair owner is this author under coordinator dispatch; the validator's default owner field names a
+role, not a party. Author and evaluator stay separate — applying a change means the source was edited,
+not that a finding is closed. **The evaluator has to evaluate the new bytes; prior observations do not
+transfer to changed ones.**
+
+Revision 1's package bytes remain reachable at `03dc1a6`. Nothing was reverted, reset or overwritten.
+
+## Verification before applying
+
+| Finding | Verified how, against `03dc1a6` | Verdict |
+| --- | --- | --- |
+| F-001 | Case-insensitive search for `interrupt`, `resum`, `re-establish` across `SKILL.md` and all five `references/` files: the only hit is `derivation.json` prose. `assets/handoff.md:90` is the sole package hit and is a completed-document section. `grep 'Current phase'` on the shared template returns line 25; on the asset, nothing | demonstrated |
+| F-002 | `grep -inE 'brainstorm|define-product'` over `SKILL.md` matches line 3 only, the frontmatter description. `references/` and `assets/` hits are provenance prose in `derivation.json` and `sources.md`, not operative guidance | demonstrated |
+| F-003 | `PL-PKG-001` carried case-level `"mode":"installed"` over all five assertions; `runner-out/pkg-source.jsonl` shows A1–A5 all INDETERMINATE for the mode reason | demonstrated |
+| F-004 | Link counts per file: `recording-rules.md` 0, `upstream-resolution.md` 0, `readiness-check.md` 0, `sources.md` 3 (1 local + 2 external), `SKILL.md` 7. A9–A11 targeted the three link-free files | demonstrated |
+| F-005 | `e641797eebf04cd1e8eb9f711549e038e7745407` exists and carries `run_cases.py` `95ca2abf…`, `graders.py` `1b7a27a3…`, matching the coordinator's values. `GRADERS` registry byte-identical across `e52ac59..e641797` | demonstrated |
+| F-006 | `grep skill_revision docs/mvp/artifact-contract.md` returns no hits; the contract says only "exact installed skill revision/digest" and supplies a `null` + `missing_inputs` fallback for `execution_ref` alone | demonstrated |
+| F-007 | Diff of the shared template against the asset: `You are here` lost `Current phase` and `Exact candidate or artifact scope`, and folded `Task state` into `Result`. The transformation string named none of the three | demonstrated |
+
+## F → CHG → disposition
+
+| Finding | Severity | Change | Disposition | Where, by file:line after the pass |
+| --- | --- | --- | --- | --- |
+| F-001 | MAJOR | CHG-R01 | applied | `SKILL.md:255-262` interruption-and-resume paragraph in §Stopping, linked to the reference; `references/readiness-check.md:90` new §"Resuming after an interruption" (preserve first, three-step re-check, outcome table, record the resume); `assets/handoff.md:31` restored **Current phase** row and `assets/handoff.md:26` the line saying why it is a row; `references/derivation.json:149,210,351` record all three |
+| F-002 | MINOR | CHG-R02 | applied | `SKILL.md:77-83` no-adopted-scope paragraph in §"Required inputs", routing to `devforge-brainstorm` and `devforge-define-product` with the check-what-is-installed rule; `references/derivation.json:149` |
+| F-003 | MINOR | CHG-R03 | applied | `evals/cases.jsonl:1` `PL-PKG-001` keeps A1–A4 and drops the case-level mode; `evals/cases.jsonl:3` new `PL-PKG-003` carries A5 verbatim under `"mode":"installed"`; `references/derivation.json:446` |
+| F-004 | MINOR | CHG-R04 | applied | `evals/cases.jsonl:2` `PL-PKG-002` A9 retargeted to `references/sources.md`; A10 and A11 removed; `expectations.summary` states that the three operative references carry no Markdown links by design and that SKILL.md's links are covered by `PL-PKG-001` A4. A1–A8 and A12 unchanged, IDs not renumbered |
+| F-005 | MINOR | CHG-R05 | applied | `references/derivation.json:432` `dependency_status` replaced with the observed compatibility statement; the four source entries repinned to `e641797`, each retaining its revision-1 pin under `superseded_pin` |
+| F-006 | ADVISORY | CHG-R06 | applied | `references/recording-rules.md:85-96` marks the one-file definition as this package's narrowing, states that the contract governs and offers no `producer` fallback, and routes an unrecoverable revision to `missing_inputs`; `references/derivation.json:262` |
+| F-007 | ADVISORY | CHG-R07 | applied | `references/derivation.json:196` transformation string now discloses the removed `Exact candidate or artifact scope` row and the folded `Task state` row, and records that `Current phase` was removed at revision 1 in error and restored at revision 2 |
+| — | — | CHG-R08 | applied as a cascade of CHG-R01 | `evals/fixtures/good/HANDOFF-001.md:48` gained the **Current phase** row so the package's own conforming example still matches its template; its digest moved, so the forbidden self-digest string in `evals/cases.jsonl:6` `PL-C-003` A2 was updated to `e37ec74e…`. Not a finding — a consequence of one |
+
+Nothing was declined. Seven findings, seven applied, plus one cascade.
+
+## Not closed by this pass, and why
+
+- **No eval case stages an interrupted session.** F-001's own rerun note says a new tier-B case is
+  needed and none exists. The coordinator's dispatch for F-001 was the rule, the restored row and the
+  derivation record; authoring a new case is new work rather than a demonstrated defect, so it is
+  recorded for the next evaluation instead of added. The behaviour F-001 asked for is now instructed and
+  still unobserved.
+- **Every tier stays `NOT_RUN`.** No installation exists, so `PL-PKG-003` — the one genuinely
+  installation-dependent assertion — remains unobservable until an operator installs or exports the
+  package.
+- **The findings are not closed by these edits.** Reevaluation of the repaired bytes is required.
+
+## Static self-checks after the pass
+
+Same boundary as before: these confirm my own writes landed and parse. **`run_cases.py` was not run, no
+observations file exists, and no grader result is recorded anywhere as a tier outcome.**
+
+| Check | Result |
+| --- | --- |
+| Frozen `e641797` `load_cases` accepts the repaired case file | 18 cases, no duplicate `case_id`, no unknown grader; every case and assertion key inside that runner's `CASE_KEYS` / `ASSERTION_KEYS` frozensets |
+| `SKILL.md` frontmatter still exactly `name` + `description`, description byte-unchanged | parsed; 897 characters, as F-002's preserve note required |
+| `SKILL.md` body length | 265 lines, against the documented 500-line recommendation |
+| Local Markdown links resolve | `SKILL.md` 8 local (one added, to `references/readiness-check.md`), `references/sources.md` 1 local + 2 external; all resolve |
+| No developer home path, no `docs/mvp` runtime dependency, no `!`-prefixed syntax in the package | none |
+| `evals.json`, `trigger-queries.json`, `derivation.json` parse | all parse |
+
+## Runner invocation groups, updated
+
+The two groups from the original pass now contain three package cases rather than two, and the
+installed-mode group is no longer a precondition for the structural observations:
+
+```text
+group 1 - the package, source mode (no installation needed)
+  --candidate <devforge-plan source root>
+  --case-id PL-PKG-001 --case-id PL-PKG-002
+
+group 2 - the package, installed mode (needs a real installed copy or export)
+  --candidate <installed devforge-plan root>  --mode installed
+  --case-id PL-PKG-003
+
+group 3 - the fixtures
+  --candidate <skill source>/evals/fixtures
+  every case except PL-PKG-001, PL-PKG-002 and PL-PKG-003
+```
