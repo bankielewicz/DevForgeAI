@@ -1,0 +1,228 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "record_type": "focused-recheck",
+  "supersedes": {
+    "artifact_id": "EVREPORT-002",
+    "path": "../scaffold-review/findings.json",
+    "sha256": "d3a2b7426917f07116e2cef6c725805f12a67f07a8f38bed807c11d0ec3593c8",
+    "note": "The first-pass findings record. Its bytes are preserved unchanged at commit 014c34d and are not rewritten by this recheck. Original IDs and severities are retained; closure is recorded here as new evidence about a new revision."
+  },
+  "scope": {
+    "authorized": "Recheck only F-001..F-010 against the new revision, plus rubric criterion R04. Re-run only the runner cases whose fixtures or sentinels changed.",
+    "not_rerun": "Unchanged broad checks were deliberately not repeated: the full 12-case author run, the 5 evaluator-added structural cases, the full R01-R03/R05-R10 rubric pass, the Claude documentation re-fetch, and the devforge --help surface enumeration. Their first-pass outcomes stand against the unchanged bytes they measured, and where a changed file could have disturbed one, a targeted regression probe was run instead.",
+    "regression_probes_run": [
+      "frontmatter keys, description length and byte-stability, SKILL.md line count",
+      "count of '**Exit when**' markers (4, unchanged)",
+      "! dynamic-context injection scan across the whole package",
+      "absolute/home/docs-mvp path scan in shipped runtime files",
+      "assets byte-identity against docs/mvp templates",
+      "declarative file parsing and provider hygiene (agents/, scripts/, hooks/ absent)",
+      "derivation destination and source digest reconciliation",
+      "author file-manifest.json against actual bytes"
+    ]
+  },
+  "candidate_before": {
+    "revision": "05ed112a5a46495041651183493e28c4eae00fed",
+    "skill_md_sha256": "c93065fc82750ed9df1ad8bdfd8d34b1005af03e49879b13b2f0442800c0083f",
+    "package_file_count": 20
+  },
+  "candidate_after": {
+    "revision": "2224a10d59d06715ca8a5f13ee3abf484c0dcff5",
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-define-product",
+    "skill_md_sha256": "a2c9d5aa254ac6316a40cfe9eacb32d3cf8608182233fc4d1ff5758d2a3f69c1",
+    "package_file_count": 22,
+    "changed_files": {
+      "SKILL.md": "a2c9d5aa254ac6316a40cfe9eacb32d3cf8608182233fc4d1ff5758d2a3f69c1",
+      "evals/cases.jsonl": "94a1a03a36d7273f9612ac4c90cccdc25436261eab3f6ff4a4ade4d9681fee9d",
+      "evals/evals.json": "1895cf038fe6668f51f292704ddd4eb39c69b64334721153e76e12556011efec",
+      "evals/fixtures/README.md": "b7fc6727e245903be9159284d34999000f3a234989e666cf206ecac8c52e5002",
+      "evals/fixtures/existing-product/CHANGE-011.md": "574555751b8fb9af860a23a91ca1bbda9eede682cbe9ac909d0a856980da4aa4",
+      "evals/fixtures/existing-product/PROD-001.md": "f7396e407445c4f401e494cca71916464a342ce5895d1c2830f13fc847987179",
+      "evals/fixtures/new-product/IDEAS-001.md": "8a0b193eb62be9cb2d07ae22658895c9fdf23fbdca4d5be86422addbba2e6ec0",
+      "evals/fixtures/stale/IDEAS-002.md": "569d1dd38129b0745f77a07005d48241559efcfe130875b356f01c85185cdcc8",
+      "evals/triggers/trigger-queries.json": "8e77614560224a6ab6fbafbcc1da120dda40dbec4d049f92a5b2afd702a4cbd1",
+      "references/derivation.json": "d4b805f7fe0edf40091a57cad9ee9b96bae83feb0b34f7f83c4a0228148d94a0",
+      "references/recording-rules.md": "08037a2a59c2deedfdddbeb86dab2abcdd029b93a6a5abcf120da7eb9786e87f",
+      "references/sources.md": "f98445e8145f25e502baa37aaa2cee86c49c5ccb6c353ab6c2117046dec93374"
+    },
+    "added_files": {
+      "evals/fixtures/existing-product/preserved/PROD-001.r1.md": "f6c8f64fef8ffdf259df50bcd6618fdc4fd66c3627baaff382351d9ba687666c",
+      "evals/fixtures/new-product/preserved/IDEAS-001.r1.md": "4dbe2259ecd3378c6993b2b088bfb9771db3d13bfd9a5532f8e2709637e971ac"
+    },
+    "unchanged_files_note": "assets/product-brief.md, assets/handoff.md, references/evidence-and-scope.md and the remaining fixtures are byte-identical to revision 1."
+  },
+  "disposition_before": "revise",
+  "disposition_after": "insufficient evidence",
+  "disposition_basis": "Adjudicated by hand against the validator's results contract; no implemented decision receipt exists. All ten findings are closed against the new bytes and no applicable FAIL remains - R04 is now PASS, which was the sole FAIL driving 'revise'. The one new finding (F-011) is ADVISORY and by the contract's own definition does not fail an accepted requirement. With no applicable FAIL, the remaining missing required observations govern: evidence groups C, B and A are still NOT_RUN, which gives 'insufficient evidence'. This is the maximum the evidence supports; 'suitable for the stated scope' requires all required observations passing, which no source edit can produce.",
+  "behavioural_status": "NOT_EVALUATED",
+  "rubric_recheck": {
+    "rechecked": ["R04"],
+    "R04": {
+      "before": "FAIL",
+      "after": "PASS",
+      "evidence": "SKILL.md line 121 adds a fifth condition bullet, 'The session is interrupted.', instructing preservation of the phase reached, the brief so far and the evidence already recorded at the strength it had; and on resume, re-reading and re-hashing the upstream references and re-checking the session assignment before continuing, with a changed identity starting a new iteration. references/recording-rules.md line 58 adds 'When a session is interrupted, and how it resumes' carrying an ordered three-step re-establish procedure (upstream re-hash, assignment re-check, destination re-check) and the changed-identity rule. Both SKILL-002 sentences are now carried: the phase-table closing paragraph and the 'Rework, stopping, and recovery' re-establish-the-baseline line.",
+      "preserved_behaviour_verified": "The four '**Exit when**' markers are intact and unchanged. The new text explicitly scopes itself - 'Only the affected part' - so it does not widen the existing narrow stop condition, explicitly defers to the existing staleness rule rather than duplicating it, and explicitly states it is not a substitute for the completion readback and not a licence to re-ask for an authorisation the user already gave. DP-C-001 A4 rose from 4 to 5 local links with all 5 resolving, confirming the new cross-reference is not broken.",
+      "not_rechecked": "R01, R02, R03, R05, R06, R07, R08, R09 and R10 were not re-run, per the authorization. Their first-pass PASS stands; targeted regression probes covered the ways the changed files could have disturbed them."
+    }
+  },
+  "tiers": {
+    "C": {"status": "NOT_RUN", "cause": "No installed or exported copy exists; no installation authorised. Unchanged from the first pass.", "owner": "coordinator"},
+    "B": {"status": "NOT_RUN", "cause": "No isolated evaluation workspace allocated; no baseline arm run. Unchanged.", "owner": "coordinator"},
+    "A": {"status": "NOT_RUN", "cause": "No fresh terminal available. Unchanged.", "owner": "coordinator"},
+    "note": "No native observation was obtained in either pass. Every closure below is a source-and-bytes closure. None of them is evidence that a session behaves correctly."
+  },
+  "runner_recheck": {
+    "instrument": {
+      "run_cases_py_sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+      "graders_py_sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+      "identical_to_first_pass": true,
+      "custody": "Identities remain self-reported by the run. Protected-manifest custody is still not implemented in the DevForge CLI."
+    },
+    "invocation": "/usr/bin/python3 -B run_cases.py --cases <P>/evals/cases.jsonl --candidate <P> --out <fence>/runner-out/observations-recheck-affected-source.jsonl --mode source --case-id DP-C-001 --case-id DP-B-006 --case-id DP-B-007 --case-id DP-B-008",
+    "exit_status": 0,
+    "exit_meaning": "The program wrote a complete observations file. It says nothing about the candidate.",
+    "case_file_sha256": "94a1a03a36d7273f9612ac4c90cccdc25436261eab3f6ff4a4ade4d9681fee9d",
+    "selected": 4,
+    "skipped_recorded": 8,
+    "results": [
+      {"case": "DP-C-001", "status": "COMPLETED", "notable": "A4 package_relative_links now observes 5 local, 0 external, all resolving - up from 4, because the F-001 repair added a link to recording-rules.md. A10 still observes 0 local, 0 external, which the case now discloses in its expectations.summary."},
+      {"case": "DP-B-006", "status": "COMPLETED", "notable": "A1 artifact_side_effect MATCH, 1 sentinel unchanged. The PROD-004 sentinel digest 6d25b414... is untouched by the repair pass."},
+      {"case": "DP-B-007", "status": "COMPLETED", "notable": "A1 artifact_side_effect MATCH, 2 sentinels unchanged, now pinned at the NEW IDEAS-002 digest 569d1dd3... - confirming the F-007 fixture repair and its sentinel reconciliation land together."},
+      {"case": "DP-B-008", "status": "COMPLETED", "notable": "A1 required_report_fields MISMATCH on the placeholder fixture and A2 MATCH on the complete positive control - identical in meaning to the first pass. The MISMATCH is the confirming observation that the fixture holds placeholders, not a defect."}
+    ],
+    "no_aggregate": "No aggregate row exists in the output and none is computed here. Rows are cited as evidence, never adopted as outcomes."
+  },
+  "findings_closure": [
+    {
+      "id": "F-001",
+      "severity_original": "MAJOR",
+      "closure": "closed",
+      "verified_at": ["SKILL.md line 121", "references/recording-rules.md line 58"],
+      "evidence": "The targeted grep that produced the finding now returns the new instruction in both files rather than only the handoff template's 'Resume and custody' heading. Both governing SKILL-002 sentences are carried: preserve phase and evidence on interruption, and re-establish the baseline when the worktree or active run changes.",
+      "regression_check": "No preserved behaviour disturbed. Four Exit-when markers intact; the new text scopes itself to the affected part, defers to the existing staleness rule, and disclaims substituting for the completion readback. DP-C-001 A4 confirms the added cross-reference resolves.",
+      "residual": "No case stages an actual interruption, so this closure is a source closure only. SKILL-002 does not require a dedicated interruption eval case - see deferred_item below."
+    },
+    {
+      "id": "F-002",
+      "severity_original": "MINOR",
+      "closure": "closed",
+      "verified_at": ["authoring/spec-mapping.md, 'Workflow and phase exits' and 'Rework, stopping, and recovery' rows, 'Coverage summary', new 'Repair pass 1 additions' section"],
+      "evidence": "Both rows now cite SKILL.md line 121 and recording-rules.md line 58, and every cited line number was verified accurate against the bytes. Each row additionally records what revision 1 wrongly cited, so the error is preserved rather than erased. The coverage summary now states plainly that in revision 1 the requirement was not carried by any runtime file and that the map wrongly recorded it as carried.",
+      "regression_check": "The map's other rows were spot-checked in the first pass and are unchanged. The new section closes with an explicit limit: 'None of it is an observation of behaviour: tiers C, B and A remain NOT_RUN, and the ten review findings keep their original IDs and severities until independent observation of the new bytes closes them.'",
+      "residual": "none"
+    },
+    {
+      "id": "F-003",
+      "severity_original": "MINOR",
+      "closure": "closed",
+      "verified_at": ["evals/fixtures/new-product/IDEAS-001.md", "evals/fixtures/existing-product/PROD-001.md", "evals/fixtures/existing-product/CHANGE-011.md", "two new preserved/ fixtures", "evals/fixtures/README.md", "evals.json fixture_staging for DP-B-001..005, 009, 010"],
+      "evidence": "The author took the larger of the two offered options. Every filler digest is gone - a whole-package scan for 0000../1111../2222../3333.. returns nothing. Two predecessor fixtures were created (IDEAS-001.r1.md, PROD-001.r1.md) and the supersedes paths moved under archive/. All six upstream/supersedes links were resolved programmatically against the referenced bytes and 6 of 6 RESOLVE, which also proves the write-then-hash ordering was executed correctly across an interdependent chain (IDEAS-001 hashed after its own edit, then PROD-001 written citing it, then CHANGE-011 citing PROD-001). fixture_staging for the affected cases now stages the preserved files and the cited upstream ledger, so DP-B-010's DELIVERY observation 'every reference written resolves after the last write' is satisfiable and can no longer produce a false FAIL against correct behaviour.",
+      "regression_check": "The README now names the single deliberately-unresolvable reference - stale/PROD-002.md's upstream, which is DP-B-007's whole subject - so the one intended staleness condition stays intact and is distinguishable from a defect.",
+      "residual": "none"
+    },
+    {
+      "id": "F-004",
+      "severity_original": "MINOR",
+      "closure": "closed",
+      "verified_at": ["evals/triggers/trigger-queries.json, leakage_note and queries P2c, P3c, P3d"],
+      "evidence": "All three implicit positive validation queries were rewritten to situations the description does not enumerate. leakage_note now discloses two kinds of leakage, verbatim and concept-level, and explains why a verbatim check alone is insufficient. Its specific claim - that none of the three uses MVP, scope, requirements, release, product brief, accepted brief, cut, non-goals or 'worth shipping' - was tested programmatically against all nine terms and holds for all three. No validation query appears verbatim in SKILL.md.",
+      "regression_check": "Split remains fixed and stratified: 19 queries, 9 positive and 10 negative, one train and one validation entry per negative category. The strong negatives are unchanged. P1b remains explicit invocation and is still excluded from implicit-activation evidence.",
+      "residual": "The rewritten queries remain plausible positives on inspection, but whether they actually trigger is a tier-A question that is still NOT_RUN."
+    },
+    {
+      "id": "F-005",
+      "severity_original": "ADVISORY",
+      "closure": "closed",
+      "verified_at": ["evals/cases.jsonl DP-C-001 expectations.summary"],
+      "evidence": "The author took the disclose-and-keep option: the summary now states 'A10 currently cannot MISMATCH: SKILL.md is the only link-bearing file', so the assertion is retained as a guard against future edits with its current vacuity recorded rather than hidden.",
+      "regression_check": "A1-A9 unchanged and all MATCH in the re-run.",
+      "residual": "none"
+    },
+    {
+      "id": "F-006",
+      "severity_original": "ADVISORY",
+      "closure": "closed",
+      "verified_at": ["evals/fixtures/README.md 'Staging note'", "evals/cases.jsonl DP-B-007 and DP-B-008 expectations.summary"],
+      "evidence": "The README staging note now states explicitly that evals.json fixture_staging is the authority for worker visibility and cases.jsonl files[] is source inventory only, and it names the two entries deliberately never staged for a worker: stale/preserved/IDEAS-002.r1.md in DP-B-007's unavailable variant, and existing-product/PROD-001.md in DP-B-008 where it is the grader-only positive control. Both cases carry the same note in their own expectations.summary, so a harness reading only cases.jsonl encounters it.",
+      "regression_check": "Placed in expectations.summary rather than a notes field; both are permitted keys and the file still loads at exit 0.",
+      "residual": "none"
+    },
+    {
+      "id": "F-007",
+      "severity_original": "ADVISORY",
+      "closure": "closed",
+      "verified_at": ["evals/fixtures/stale/IDEAS-002.md IDEA-012 row", "evals/cases.jsonl DP-B-007 A1", "evals/fixtures/README.md digest table", "references/derivation.json evals digest map"],
+      "evidence": "The missing 'Members.' cell is restored, so the IDEA-012 row now carries 6 cells against the 6-column header and 'AI proposal' sits under Origin where it belongs. The author accepted the three-place digest cost rather than deferring: the new digest 569d1dd3... is reconciled in the cases.jsonl sentinel, the README digest table and derivation.json, and a whole-package scan finds no surviving reference to the old 300f1c78... value. The re-run confirms DP-B-007 A1 MATCH with 2 sentinels unchanged.",
+      "regression_check": "Every other difference between the two ledger revisions - the widened DEC-002, the added IDEA-013, the added Q-011 - is preserved, so DP-B-007's substance is unchanged.",
+      "residual": "none"
+    },
+    {
+      "id": "F-008",
+      "severity_original": "ADVISORY",
+      "closure": "closed",
+      "verified_at": ["references/sources.md, new 'DevForge external policy schema' section at line 40", "references/derivation.json observed-input list"],
+      "evidence": "The author added the source rather than softening the claim, which was the recommended option. The cited policy file digest 5da0f2075b1246cb86d9e3b2f3125ab793f8abfc2349069dd39bf18f8e3d1649 was independently recomputed and matches exactly, and all twelve top-level keys the section lists are present in the actual file with none invented. The section also records that check --help alone would support only the generic wording, and states its own limit: it is the shape of the policy that drives the check, not an observation of the check running. sources.md separately now records the exact check --help description line.",
+      "regression_check": "The ten named subcommands and the missing-integration statement are unchanged and remain accurate.",
+      "residual": "none"
+    },
+    {
+      "id": "F-009",
+      "severity_original": "ADVISORY",
+      "closure": "closed",
+      "verified_at": ["SKILL.md line 65"],
+      "evidence": "The proportionality sentence now names both kinds of research the phase does: 'discovery - is this problem real, for these people - and feasibility - can this be built inside the constraints the user actually stated, on their platform, with the time and money they have.' One clause, as bounded.",
+      "regression_check": "The proportionality rule itself and the read-only research boundary are unchanged.",
+      "residual": "none"
+    },
+    {
+      "id": "F-010",
+      "severity_original": "ADVISORY",
+      "closure": "closed",
+      "verified_at": ["SKILL.md line 108"],
+      "evidence": "A paragraph now sits directly beneath the consumer table: 'a request to ship, deploy or announce a build that has already been accepted belongs to devforge-release. It is not scope work, and it does not become scope work by being phrased as a question about what to do next.' The routing boundary is reachable from the phase-4 section without relying on the frontmatter, and the closing clause forecloses the obvious reframing.",
+      "regression_check": "The six existing consumer rows are unchanged and still match the specification's consumer-coverage line. The 'naming a consumer is not evidence that it is installed' paragraph still follows.",
+      "residual": "none"
+    }
+  ],
+  "new_findings": [
+    {
+      "id": "F-011",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "introduced_by": "the F-001 repair (CHG-001)",
+      "title": "The conditions list says 'These four' but now carries five bullets",
+      "criterion_ids": [],
+      "requirement_ids": ["internal consistency; no external requirement"],
+      "affected_revision": "2224a10d59d06715ca8a5f13ee3abf484c0dcff5",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-define-product/SKILL.md"],
+      "evidence": [
+        {
+          "kind": "count",
+          "description": "SKILL.md section 'When something is missing or a check cannot run' opens 'These four come up often enough to be worth stating exactly.' A literal count of '- **' bullets in that section returns 5: a required input is missing; an upstream revision has moved on; a concurrent writer holds the target; a requested check cannot execute; and the new 'The session is interrupted.' The introduction was left as context by the repair diff and not updated.",
+          "locator": "SKILL.md, 'When something is missing or a check cannot run', introduction line vs bullet list"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "none",
+      "impact": "Cosmetic. A reader is told four and sees five. No instruction is wrong, no bullet is missing, and no decision changes. It is recorded because it is a real inconsistency introduced by a repair, and because an off-by-one in an enumeration is the kind of thing that invites a later editor to delete a bullet to make the count true.",
+      "recommendation": "Change 'These four' to 'These five', or to a countless phrasing such as 'These come up often enough to be worth stating exactly.' One word.",
+      "affected_cases": []
+    }
+  ],
+  "deferred_item_assessment": {
+    "item": "No dedicated eval case stages an actual interruption and observes the resume behaviour. The author recorded the deferral in authoring-notes.md section 9 and routed the interruption observation onto DP-B-007 as a RESUME graded observation.",
+    "question_put": "Does SKILL-002 require a dedicated interruption eval case?",
+    "answer": "No.",
+    "evidence": "SKILL-002 revision 2 mentions interruption exactly once, at line 46, inside 'Workflow and phase exits': 'On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.' That is a required behaviour. Its 'Validation and behavioral acceptance' section enumerates five acceptance cases (Direct activation, Indirect activation, Missing evidence, Traceability, Out of scope) and four additional common cases (concurrent writer, upstream revision changed, template placeholder, check cannot execute). Interruption appears in neither list. The section's general requirement is 'Acceptance requires real outputs from representative requests in each terminal for which support is claimed', which is not case-specific.",
+    "verdict": "The deferral is consistent with the specification and is not a finding. It is recorded as a coverage limit rather than a defect: the F-001 closure rests on the instruction existing in the bytes, and no observation - deterministic or native - exercises the behaviour. A dedicated case would strengthen the evidence and is a reasonable future enhancement, but nothing in SKILL-002 obliges one, and manufacturing a finding for it would invent a requirement the specification does not state."
+  },
+  "evaluation_prerequisites_unchanged": [
+    "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI. Every structural row in this recheck is again a manual observation with authority none. Owner: DevForge integration owner.",
+    "Protected-manifest custody for the evaluation runner is not implemented in the DevForge CLI. Runner and grader identities remain self-reported. Owner: DevForge integration owner.",
+    "No installed or exported copy of the candidate. Tier C still NOT_RUN. Owner: coordinator.",
+    "No isolated workspace and no fresh terminal. Tiers B and A still NOT_RUN. Owner: coordinator.",
+    "The validator followed is still devforge-evaluate-expert at e641797, a draft under bootstrap review (E2 revise, repaired at e101e76, recheck outstanding), source-loaded and never natively evaluated. Owner: devforge-evaluate-expert author under coordinator dispatch."
+  ],
+  "independence_limits": "Same evaluator context as the first pass, so this recheck is not independent of the first report's conclusions - it is a verification of specific claims against new bytes by the reviewer who made them. That is appropriate for a closure check and inappropriate as a fresh assessment. This context also read the author's change record (authoring-notes.md, spec-mapping.md) as part of the assigned scope; every closure above was nonetheless verified against package bytes rather than against the author's account of them, and the author's own disposition preferences were not adopted. A genuinely independent re-review of revision 2 by a fresh context has not been performed."
+}
