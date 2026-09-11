@@ -27,10 +27,12 @@ Inspect the destination for a collision before writing to it. A collision needs 
 
 ## Produced outputs
 
-The selection decision with its rationale, the searched and unreachable locations, the candidate identities and the chosen canonical target, plus its generated installation or export mapping. These go into the working design document in the next phase; for a reuse result they are the deliverable itself.
+The selection decision with its rationale, the searched and unreachable locations, the candidate identities and the chosen canonical target, plus its generated installation or export mapping - the durable source and the project-local copy or plugin export generated from it, as the recorded-outputs list in the reference sets out. These go into the working design document in the next phase.
+
+For a reuse result there is no next phase, and this record is the deliverable: save it to the assigned durable artifact location and read it back, so the summary links a path that resolves.
 
 ## Next phase
 
 - **Reuse:** skip authoring entirely and go to [phase 06, completion summary](phase-06-completion-summary.md). A recorded reuse recommendation is a complete result.
 - **Enhance or create:** continue to [phase 03, design](phase-03-design.md).
-- **Unresolved:** put the relevant differences in front of the user as one focused question and continue the work that does not depend on the answer.
+- **Unresolved:** put the relevant differences in front of the user as one focused question, then continue to [phase 03, design](phase-03-design.md) with the part of the design that depends on the answer left open.

@@ -294,7 +294,7 @@
     },
     {
       "destination": "phases/phase-01-intake.md",
-      "destination_sha256": "89f5adc2671e5e943498ef5351341cd14290988187614755c2269bd3877da32b",
+      "destination_sha256": "e02678981423ef960d60edbe02fbd7b9ace53465545984be674e3ce5cfb3ab69",
       "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
       "relocated_from": "1. Intake (lines 44-50) and When an evaluator sends findings back (lines 100-106)",
       "sources": [
@@ -326,7 +326,7 @@
     },
     {
       "destination": "phases/phase-02-selection.md",
-      "destination_sha256": "f0deb9be1c5152e38ec5ab43e36ffa9f3768c4f326da420070bc6a27a1704fe4",
+      "destination_sha256": "f3edf4a9996da763b354a9e7f248f9228abcff57d952751a1d7711a74481ec3e",
       "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
       "relocated_from": "2. Selection (lines 52-60)",
       "sources": [
@@ -358,7 +358,7 @@
     },
     {
       "destination": "phases/phase-03-design.md",
-      "destination_sha256": "f72a87289b8987b96464f2e4f3f6d5ddfb12671e919d6c956b40f1165213f76d",
+      "destination_sha256": "cb85b7f364f7b692c79a6908f505dfce00840c4a9c5f737370d05919a9f3a42d",
       "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
       "relocated_from": "3. Design (lines 62-72)",
       "sources": [
@@ -390,7 +390,7 @@
     },
     {
       "destination": "phases/phase-04-authoring.md",
-      "destination_sha256": "8640e308204fffd630ca105791cae6e76ad4c18af5d72a5b74c508efe0a02685",
+      "destination_sha256": "59c02abb43045b992dc0fbd072b7cb9627e053b36fdb22e3437aec4dcc51d789",
       "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
       "relocated_from": "4. Authoring (lines 74-86)",
       "sources": [
@@ -454,7 +454,7 @@
     },
     {
       "destination": "phases/phase-06-completion-summary.md",
-      "destination_sha256": "e074dfb8d2890d38d358c3f703eee6ea3709ed2b799d59cd4a2374bc16857c29",
+      "destination_sha256": "822592e6e122b188057ccad6ebc37e04828737d7a9e2b93fe7192d6c35fe6430",
       "kind": "instructions: authored in-package as a new package-local phase file",
       "relocated_from": "(new phase; no baseline section)",
       "sources": [
@@ -531,7 +531,7 @@
     },
     {
       "destination": "references/phase-mapping.md",
-      "destination_sha256": "8d7d8be14a604a54c3e6bff31955d242925492c8df2b8880a92d2c7bfa5d56bd",
+      "destination_sha256": "6884f876c99758e690d6a0fed0a757e4afbb145a4587b4c0cb57be7f04a4a37e",
       "kind": "reference: authored in-package maintenance record for this package's own refactor",
       "sources": [
         {
@@ -675,6 +675,25 @@
       "not_run": "No native evaluation campaign, and no case, trigger query, discovery, activation or installation-acceptance observation. Behaviour is NOT_EVALUATED and every authored case outcome is NOT_RUN."
     },
     "claims_not_made": "A refactor record identifies which bytes moved where. It is not evidence that the result behaves correctly, that any contract accepted phases/, or that phase 06 has a classification."
+  },
+
+  "review_l_repair_pass": {
+    "recorded_at_utc": "2026-09-11T23:13:11Z",
+    "input": {
+      "artifact": "independent review L of 921abe844b700a1e7e9a4ae276124a09972b7842",
+      "disposition": "APPROVE_WITH_MINOR_FINDINGS",
+      "store": "task allocation",
+      "note": "Findings P2-1, P3-1, P3-2, P3-5 and P3-6 were accepted and applied. P3-3 concerns the worker's report, not this package. P3-4 (the existing-expert fixture) and P3-7 (a docs/mvp path named in evals prose) are pre-existing and belong to their owners; no candidate change was made for them."
+    },
+    "changes": [
+      "P2-1: every route that reaches phase 06 without passing phase 05 now instructs saving its record to the assigned durable location and reading it back - phase 02 for a reuse recommendation, and the stop-and-hand-back branch of phases 01, 03 and 04 for a partial or blocked result. Phase 06's opening assertion is now route-aware. The save stays out of phase 06, which produces presentation only.",
+      "P3-1: phase 06's closing duplication of the SKILL.md stopping prohibition was removed; the entry point keeps it.",
+      "P3-2: phase 06 no longer calls the outcome words 'the fixed vocabulary'. That phrase is reserved for the result-status words, and the two sets are explicitly not interchangeable.",
+      "P3-5: phase 02's Unresolved branch names phase 03 as its continuation.",
+      "P3-6: phase 02 defines the generated installation or export mapping in place and points at the reference's recorded-outputs list.",
+      "references/phase-mapping.md records the added save obligation as an addition rather than a relocation, and Option B's justification now says the saving half sits in the Enforced phase that produces each route's record rather than in phase 05 alone."
+    ],
+    "claims_not_made": "A repair record identifies which bytes changed. The review observed source and packaging only; behaviour remains NOT_EVALUATED and every authored eval case remains NOT_RUN."
   },
 
   "self_reference_note": "This file does not carry its own digest. It is hashed by the candidate's file manifest like every other package file, and no entry above records a digest of this record.",

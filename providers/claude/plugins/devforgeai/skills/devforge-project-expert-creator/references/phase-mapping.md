@@ -50,6 +50,8 @@ Three items, named rather than left to be discovered:
 
 Nothing else was removed. Every other baseline sentence appears in the new layout with its meaning intact.
 
+One obligation is **added** rather than relocated, and is named here because it is new: every route must save its record to the assigned durable location and read it back before the completion summary. Phase 05 already did this for a full run. Phase 02 now says it for a reuse recommendation, and the stop-and-hand-back branch of phases 01, 03 and 04 says it for a partial or blocked result. The baseline's stopping section required a reuse recommendation to record its search limits but never said where that record was written, and the completion summary makes the gap operative: it must link a path that resolves.
+
 ## Identities and references preserved
 
 The five phase identities - Intake, Selection, Design, Authoring, Prepared transfer - keep their names, their order and their Enforced classification. Every link that existed in the baseline still resolves, re-pointed only for depth: `assets/…` and `references/…` from `SKILL.md` become `../assets/…` and `../references/…` from a phase file, and each is also linked directly from `SKILL.md` so that no reference sits more than one level from the file the client always loads. Eval case IDs, fixtures and the trigger split are unchanged; new cases take new IDs.
@@ -58,10 +60,12 @@ The five phase identities - Intake, Selection, Design, Authoring, Prepared trans
 
 The authoring contract classifies five creator phases as Enforced and does not classify a sixth. This package cannot classify one, and does not. The proposal put to that contract's owner, with the fact that decides it:
 
-An Enforced item, by this package's own interview guide, needs observable completion evidence: what could be inspected, where it lives, who writes it, and what makes it stale. Phase 06 has two halves with different answers. **Saving the detailed artifact and handoff and reading them back** already has that evidence - files at assigned paths with final digests - and it already sits inside Enforced phase 05. **Presenting a short terminal summary** has none: a terminal response is not retained, not addressable and not inspectable, and routing it to an outbox to make it inspectable would reintroduce exactly the bookkeeping the requirement removes.
+An Enforced item, by this package's own interview guide, needs observable completion evidence: what could be inspected, where it lives, who writes it, and what makes it stale. Phase 06 has two halves with different answers. **Saving the detailed record and reading it back** has that evidence - files at assigned paths with final digests. **Presenting a short terminal summary** has none: a terminal response is not retained, not addressable and not inspectable, and routing it to an outbox to make it inspectable would reintroduce exactly the bookkeeping the requirement removes.
 
-- **Option A - Enforced.** Classify phase 06 Enforced on the strength of its save-and-read-back precondition, and accept that the presentation half carries no completion evidence. Honest only if the classification says which half the evidence covers.
-- **Option B - Optional presentation step over Enforced obligations.** Classify phase 06 Optional. Its retained-evidence obligations stay where they already are, inside Enforced phase 05, and the summary is a presentation convention with no evidence claim.
+The saving half sits in the Enforced phases, not in phase 06, on every route. Phase 05 carries it for a full run. It is also carried by phase 02 for a reuse recommendation, and by the stop-and-hand-back branch of phases 01, 03 and 04 for a partial or blocked result - the routes that never reach phase 05. That placement is deliberate: phase 06 produces presentation only, and moving an evidence obligation into it would make the phase both the producer and the presenter of its own evidence.
+
+- **Option A - Enforced.** Classify phase 06 Enforced on the strength of the save-and-read-back precondition its inputs require, and accept that the presentation half carries no completion evidence. Honest only if the classification says which half the evidence covers.
+- **Option B - Optional presentation step over Enforced obligations.** Classify phase 06 Optional. Its retained-evidence obligations stay where they already are, inside the Enforced phases that produce each route's record, and the summary is a presentation convention with no evidence claim.
 
 Option B matches the evidence rule this package applies to everyone else. It is put as a proposal either way; the owner decides. **No runtime check exists for phase 06, and none is proposed by this change.** Markdown does not enforce progression; if the owner wants one, it is a compiled DevForge CLI requirement routed to the integration owner.
 

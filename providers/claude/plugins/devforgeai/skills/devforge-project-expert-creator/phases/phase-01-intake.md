@@ -37,4 +37,4 @@ An intake record: the target kind and why; the recovered sources with their iden
 
 Continue to [phase 02, selection](phase-02-selection.md). A repair carries its frozen target and the prior selection decision into phase 02 rather than repeating the inventory.
 
-Stop and hand back instead if the write fence, the provider or the destination is contested or unknown, or if a required approval does not exist; report what is blocked and who owns it, then continue to [phase 06](phase-06-completion-summary.md) with a blocked outcome.
+Stop and hand back instead if the write fence, the provider or the destination is contested or unknown, or if a required approval does not exist; report what is blocked and who owns it, save that record to the assigned durable location and read it back, then continue to [phase 06](phase-06-completion-summary.md) with a blocked outcome.

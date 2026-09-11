@@ -37,4 +37,4 @@ The filled working design document at the project's artifact location, the exper
 
 ## Next phase
 
-Continue to [phase 04, authoring](phase-04-authoring.md) once the activation boundary, the inputs, the output, the core process and its branches, the material constraints and the destination are settled. An unanswered non-blocking question stays open and does not hold up the independent work; a consequential rule that needs an approval nobody has given stops the dependent part of the design and goes to [phase 06](phase-06-completion-summary.md) as a blocker.
+Continue to [phase 04, authoring](phase-04-authoring.md) once the activation boundary, the inputs, the output, the core process and its branches, the material constraints and the destination are settled. An unanswered non-blocking question stays open and does not hold up the independent work; a consequential rule that needs an approval nobody has given stops the dependent part of the design, which means saving the design so far and the blocker to the assigned durable location and reading it back, then going to [phase 06](phase-06-completion-summary.md) as a blocker.

@@ -14,9 +14,9 @@ The saved outputs and their read-back paths and digests from [phase 05](phase-05
 
 ## Substantive work
 
-The detailed artifact and the handoff are already saved and read back. Do not restate them. Print a short terminal summary carrying exactly these:
+The detailed record for this route is already saved and read back - the package record and handoff from phase 05, or the reuse recommendation or blocked record from the phase that stopped. Do not restate them. Print a short terminal summary carrying exactly these:
 
-1. The actual outcome, in the fixed vocabulary - draft-ready, completed, partial, blocked, or a reuse recommendation. Never a status the evidence does not support.
+1. The actual outcome, as one of the outcome words - draft-ready, completed, partial, blocked, or a reuse recommendation. These are outcome words, not the result-status vocabulary in `SKILL.md`; do not substitute one set for the other. Never a status the evidence does not support.
 2. One sentence saying what is now useful that was not before.
 3. Links to the primary artifact and to the handoff or report, as paths that resolve for the reader.
 4. The material decision or blocker, if there is one. If there is not, say nothing rather than filling the slot.
@@ -34,4 +34,4 @@ The terminal summary only. It is presentation, not an artifact: it has no envelo
 
 ## Next phase
 
-None. This is the end of the workflow; `SKILL.md` states the stopping condition. Do not begin another round of polish, a second design document or a broader specification after this.
+None. This is the end of the workflow; `SKILL.md` states the stopping condition.

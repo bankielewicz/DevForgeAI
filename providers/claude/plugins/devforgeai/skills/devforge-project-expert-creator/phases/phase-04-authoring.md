@@ -45,4 +45,4 @@ The authored or edited candidate at its canonical source, its complete file list
 
 ## Next phase
 
-Continue to [phase 05, prepared transfer](phase-05-prepared-transfer.md). If a write fence, a collision or a missing authorisation stopped part of the authoring, record what landed and what did not and continue to [phase 06](phase-06-completion-summary.md) with a partial or blocked outcome.
+Continue to [phase 05, prepared transfer](phase-05-prepared-transfer.md). If a write fence, a collision or a missing authorisation stopped part of the authoring, record what landed and what did not, save that record to the assigned durable location and read it back, then continue to [phase 06](phase-06-completion-summary.md) with a partial or blocked outcome.
