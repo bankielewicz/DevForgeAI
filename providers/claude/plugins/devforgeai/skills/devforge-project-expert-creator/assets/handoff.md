@@ -21,6 +21,8 @@ missing_inputs: []
 
 Populate this at authoring completion, at a transfer, or at a recovery checkpoint. Aim for something a person can scan; length is not an acceptance condition. The specification, package record and change record keep the full detail - link them rather than copying them here. Replace these directions with actual content.
 
+This saved document is the retained evidence. It is not the closing terminal response: save and read this back first, then present the short summary described in [completion-summary.md](completion-summary.md), which links here rather than repeating it.
+
 ## Result and next action
 
 - **Result:** {{what was created, reused or enhanced; complete or partial; the candidate identity is in the evidence below}}
