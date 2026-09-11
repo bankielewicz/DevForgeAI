@@ -1,0 +1,163 @@
+{
+  "schema_version": "devforge.package-derivation/v1",
+  "skill": "devforge-design",
+  "provider": "claude",
+  "recorded_at_utc": "2026-09-10T21:16:02Z",
+  "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
+  "authoring_route": {
+    "mode": "scaffold from SKILL-003, following a source-loaded Claude builder",
+    "detail": "The Claude devforge-project-expert-creator package was read by absolute path at a frozen commit and its workflow (Intake, Selection, Design, Authoring, Prepared transfer) was followed. It was source-loaded, not installed: no builder skill was discovered or invoked by a client, and no evaluator was invoked.",
+    "builder_source": {
+      "repository_worktree": "claude-scaffold-project-expert-creator-20260910",
+      "commit": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+      "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+      "status": "The builder is itself a draft under independent review. An E1 bootstrap review was revise-bounded and its repairs were applied at this commit; no native evaluation of the builder has been recorded."
+    },
+    "claims_not_made": "No skill was installed, discovered, activated, run or evaluated. No evaluation tier was executed. Structural authoring operations - reading source, hashing bytes, confirming a write landed - are not evidence about behaviour.",
+    "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+    "worktree_branch": "author/claude-devforge-design-scaffold-20260910",
+    "repair_passes": [
+      {
+        "pass": 1,
+        "recorded_at_utc": "2026-09-10T21:16:02Z",
+        "input": "Independent scaffold review of this package at 9ad38de, recorded under docs/skill-authoring/history/claude-scaffolding-20260910/devforge-design/validation/scaffold-review/. Its records were read as untrusted evidence and each finding was re-verified against the package bytes before anything was applied; nothing under validation/ was modified.",
+        "applied": "F-001 (product-scope conflict route), F-002 (unobservable skill_revision routed to missing_inputs), F-003 (interruption and resume), F-004 (evidence-record counts), F-005 (case-file invocation documented), F-006 (tier relabel), F-007 (this entry), F-009 (expect value), F-010 (vacuous link assertion removed), F-011 (negative_change trigger category).",
+        "declined": "F-008: the repair spec records 'Demonstrated impact: no defect' for it.",
+        "no_target_edit": "F-012 and F-013 are evaluation and runtime-capability gaps, not defects in these bytes.",
+        "claims_not_made": "The repair pass changed source bytes. It did not run, install, export, discover, activate or evaluate anything, and it closes no evaluation finding: the evaluator has to evaluate the new bytes."
+      }
+    ]
+  },
+  "selected_inputs": [
+    {
+      "artifact": "SKILL-003",
+      "role": "governing specification",
+      "store": "project",
+      "path": "docs/mvp/specifications/skill-003-devforge-design.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "4a90c0d5648217480a4986518795dedd17bf3f62a67e433ec4d9d10e4247c8fb"
+    },
+    {
+      "artifact": "skill-authoring-contract",
+      "role": "packaging, evals and tier vocabulary",
+      "store": "project",
+      "path": "docs/mvp/skill-authoring-contract.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+    },
+    {
+      "artifact": "artifact-contract",
+      "role": "envelope, upstream resolution, no-self-digest",
+      "store": "project",
+      "path": "docs/mvp/artifact-contract.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5"
+    },
+    {
+      "artifact": "execution-contract",
+      "role": "ownership collision behaviour and handoff command honesty",
+      "store": "project",
+      "path": "docs/mvp/execution-contract.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+    },
+    {
+      "artifact": "roster",
+      "role": "provenance flow: upstream producers and downstream consumers of design-spec",
+      "store": "project",
+      "path": "docs/mvp/roster.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc"
+    },
+    {
+      "artifact": "development-language-policy",
+      "role": "Rust owns phases and gates; no ceremonial enforcement in skill content",
+      "store": "project",
+      "path": "docs/development-language-policy.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f"
+    },
+    {
+      "artifact": "bounded-delivery",
+      "role": "finite stopping condition",
+      "store": "project",
+      "path": "docs/learned-behaviors/bounded-delivery.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae"
+    },
+    {
+      "artifact": "AGENTS.md",
+      "role": "repository ownership and concurrency rules",
+      "store": "project",
+      "path": "AGENTS.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "25c4e85059f15cf6c1c86a41896564e9abd79599943f6f0ba4f9840d14bf34da"
+    },
+    {
+      "artifact": "CLAUDE.md",
+      "role": "repository guidance for Claude sessions",
+      "store": "project",
+      "path": "CLAUDE.md",
+      "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "sha256": "62ae72b79afd1e69f39225b9823bf12d5cf1089acc9cbd4255140cd3c7eb60b4"
+    }
+  ],
+  "derivations": [
+    {
+      "source_path": "docs/mvp/templates/devforge-design/design-spec.md",
+      "source_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "source_sha256": "5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661",
+      "destination": "assets/design-spec.md",
+      "destination_sha256": "5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661",
+      "transformation": "Exact byte copy. No placeholder, heading, column or section was altered, so the destination digest equals the source digest. Guidance on filling it lives in references/recording-rules.md rather than in the template.",
+      "refresh_condition": "The governing template at docs/mvp/templates/devforge-design/design-spec.md changes. Refresh is a bounded copy inside this skill's fence; it does not authorise redesigning the shared template.",
+      "owner": "skill author for the copy; the shared template's owner for its content"
+    },
+    {
+      "source_path": "docs/mvp/templates/shared/handoff.md",
+      "source_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "source_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "destination": "assets/handoff.md",
+      "destination_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "transformation": "Exact byte copy, including the {{producing-skill}} placeholder, which the run fills with devforge-design.",
+      "refresh_condition": "The governing shared handoff template changes.",
+      "owner": "skill author for the copy; the shared template's owner for its content"
+    },
+    {
+      "source_path": "docs/mvp/templates/skill-authoring/evals.json",
+      "source_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "source_sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692",
+      "destination": "evals/evals.json",
+      "destination_sha256": "recorded in the authoring file-manifest, not here; this file would otherwise carry a digest that changes every time a case is edited",
+      "transformation": "Structural extension, not a copy. The template's id/name/prompt/expected_output/files shape is preserved and extended with tier, spec_case, graded_observations, artifact_assertions, baseline_comparison and deterministic_cases. Cases are derived from SKILL-003's acceptance-case rows and its four additional common cases.",
+      "refresh_condition": "The authoring template's field set changes, or SKILL-003 adds, removes or alters an acceptance case.",
+      "owner": "skill author"
+    },
+    {
+      "source_path": "docs/mvp/templates/skill-authoring/trigger-queries.json",
+      "source_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+      "source_sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4",
+      "destination": "evals/triggers/trigger-queries.json",
+      "destination_sha256": "recorded in the authoring file-manifest, not here",
+      "transformation": "Structural extension. The template's id/query/should_trigger/split entry shape is preserved; a category field, a schema note, a split policy and a note on the overloading of the word 'design' are added. The train/validation split is fixed at authoring time and stratified by should_trigger and category.",
+      "refresh_condition": "The authoring template's entry shape changes, or the SKILL.md description is revised in a way that moves an activation boundary.",
+      "owner": "skill author"
+    },
+    {
+      "source_path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/ (run_cases.py, graders.py)",
+      "source_revision": "claude-scaffold-evaluate-expert-20260910 @ e641797eebf04cd1e8eb9f711549e038e7745407",
+      "source_sha256": {
+        "scripts/run_cases.py": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+        "scripts/graders.py": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f"
+      },
+      "destination": "evals/cases.jsonl",
+      "destination_sha256": "recorded in the authoring file-manifest, not here",
+      "transformation": "Authored to the case schema this runner implements; nothing was copied. The original authoring predated the runner's commit and cited an uncommitted analysis document, so it had no checkable identity. Repair pass 1 repoints the entry at the committed runner and graders, whose source was read directly to confirm the five schema facts this case file depends on: routed_to is in ASSERTION_KEYS; notes is in both CASE_KEYS and ASSERTION_KEYS; candidate_subpath is resolved against the candidate root; name_folder_relation's flag is expect_equal; required_report_fields reports a placeholder field as MISMATCH with observed value 'placeholder'.",
+      "refresh_condition": "The devforge-evaluate-expert runner or graders change - in particular CASE_KEYS, ASSERTION_KEYS, a grader's argument names, or its observed-value vocabulary. That package's own pending recheck at e101e76 is the next known trigger. Re-pin both digests when it lands.",
+      "owner": "skill author for the case file; the devforge-evaluate-expert package owner for the runner and its schema"
+    }
+  ],
+  "runtime_independence": "No file in this package reads anything under docs/mvp at runtime, and no developer home directory appears in any package file. The paths above are provenance records of what was read while authoring. Package resources resolve against the loaded SKILL.md directory; project inputs and outputs resolve against the project root supplied for the task.",
+  "no_self_digest": "This file does not record its own digest. The complete package-relative path-to-digest map is in the authoring evidence file-manifest.json, which does not record its own digest either."
+}

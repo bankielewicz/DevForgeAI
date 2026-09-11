@@ -1,0 +1,171 @@
+{
+  "skill_name": "devforge-design",
+  "revision": 2,
+  "revision_note": "Revision 2, repair pass 1 (CHG-011, finding F-011). Query A7b - \"Change the accepted requirement that says out-of-area postcodes are rejected at signup.\" - moved from negative_define_product to a new negative_change category, matching the description's routing of an accepted-requirement change to devforge-change. Its should_trigger and split values are unchanged, as is every other entry. Re-cutting the stratification invalidates no measurement: no tier-A run has been performed against revision 1. Known limit: negative_change now holds one entry, on the validation side, so it contributes no train-side signal - an owner allocating tier A may want a second query in it first. Revision 1 is the authored file at commit 9ad38de.",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "negative_design_note": "The word 'design' is heavily overloaded in software work. The four negative_non_ui_design queries exist specifically to separate the user experience from schema design, API design, pattern selection and system design; the other four negative categories - negative_prototype, negative_develop, negative_define_product and negative_change - separate this skill from the sibling that owns each of those requests, and negative_ordinary_task covers everyday work that is not a DevForgeAI phase at all. A near-miss that fails here is a description defect, not a model defect.",
+  "queries": [
+    {
+      "id": "A1a",
+      "category": "explicit_invocation",
+      "query": "Use the devforge-design skill on the Havenlist signup flow.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A1b",
+      "category": "explicit_invocation",
+      "query": "Run devforge-design for the borrow-history screens.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A2a",
+      "category": "direct_domain",
+      "query": "Use DevForgeAI to design mockups for this MVP.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2b",
+      "category": "direct_domain",
+      "query": "Can you mock up the signup screen so I can show it to the volunteers on Thursday?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2c",
+      "category": "direct_domain",
+      "query": "I need wireframes for the three screens in the borrow request flow before we build anything.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2d",
+      "category": "direct_domain",
+      "query": "Let's design the user experience for the waiting-list state.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A3a",
+      "category": "indirect",
+      "query": "Show how a customer would complete signup, including errors and empty states.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3b",
+      "category": "indirect",
+      "query": "What should this page actually look like when a member has never borrowed anything?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3c",
+      "category": "indirect",
+      "query": "What happens when the postcode is outside our area - what does the person see and how do they get out of it?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3d",
+      "category": "indirect",
+      "query": "We keep losing people halfway through registration. Can you work through the screens with me and figure out where they drop off?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A3e",
+      "category": "indirect",
+      "query": "Before we write any of this, I want something I can click through and show two neighbours to see if it makes sense to them.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A4a",
+      "category": "negative_non_ui_design",
+      "query": "Design the database schema for the loans table.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A4b",
+      "category": "negative_non_ui_design",
+      "query": "Help me design the REST API for borrow requests - what should the endpoints and payloads be?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A4c",
+      "category": "negative_non_ui_design",
+      "query": "Which design pattern should I use for the notification dispatcher?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A4d",
+      "category": "negative_non_ui_design",
+      "query": "Can you review my system design for the nightly reconciliation job?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A5a",
+      "category": "negative_prototype",
+      "query": "I need to find out whether the postcode lookup is fast enough under real load. Build something we can measure.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A5b",
+      "category": "negative_prototype",
+      "query": "Write a throwaway spike to check whether shedkit's date picker can even do range selection.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A6a",
+      "category": "negative_develop",
+      "query": "The signup design is signed off. Implement the out-of-area error state and its tests.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A6b",
+      "category": "negative_develop",
+      "query": "Production bug: the confirmation banner renders behind the header on mobile. Patch it.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A7a",
+      "category": "negative_define_product",
+      "query": "We haven't decided what this product is yet. Help me work out what is in scope for the first release.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A7b",
+      "category": "negative_change",
+      "query": "Change the accepted requirement that says out-of-area postcodes are rejected at signup.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A8a",
+      "category": "negative_ordinary_task",
+      "query": "Rename the css class on the confirmation panel to match the others.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A8b",
+      "category": "negative_ordinary_task",
+      "query": "Summarise what changed in this pull request.",
+      "should_trigger": false,
+      "split": "validation"
+    }
+  ]
+}

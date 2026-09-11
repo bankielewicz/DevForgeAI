@@ -1,0 +1,210 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "evaluation_id": "SCAFFOLD-RECHECK-devforge-design-20260910",
+  "supersedes": {
+    "evaluation_id": "SCAFFOLD-REVIEW-devforge-design-20260910",
+    "path": "../scaffold-review/findings.json",
+    "sha256": "d274779599f18e4aa24becffc7967c8bb9ff4a8a9f6517be2e83aa5d10dc5030",
+    "note": "The first evaluation's records are preserved unchanged at commit 60803e9 and were re-verified byte-for-byte at b2827ce. No earlier FAIL was overwritten."
+  },
+  "recorded_at_utc": "2026-09-10T21:24:58Z",
+  "scope": "Focused re-evaluation authorized by the coordinator: F-001..F-011 closure, rubric criterion R04 and structural check CHK-SPEC-01 only. Unchanged broad checks were not rerun. F-012 and F-013 remain no-target-edit and are unchanged.",
+  "candidate": {
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-design-20260910",
+    "commit": "b2827cebf29398f6a63b2a3fd3140cd30483bf70",
+    "prior_commit": "9ad38de25a9941eb8ed67e9650430879f62032e4",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-design",
+    "file_count": 23,
+    "changed_package_files": {
+      "SKILL.md": "90698266b028a8abad3ba113eb8e14d85212e89b41c9b0e75e8c7cdd58d082a1",
+      "evals/cases.jsonl": "0e6d95413e3864db21378a6e81b9094aaa1d33bbdce1101d07d779a8ab6eb77d",
+      "evals/evals.json": "11b27a97554edd97c00f1f6bfe9887b4d2e49e98caacdc5cbffe1183212331f8",
+      "evals/fixtures/README.md": "bc9ff21852b45f7bb331e3b6610bfbbb44facc7928d8dc60c3a1c243aff3fabc",
+      "evals/triggers/trigger-queries.json": "671ea375af729a8e9be7c1f94bbcdb4415b2d33f1d0a8c833b60a654772de0f6",
+      "references/derivation.json": "c77fc2c08c8686346f135fd56c116019405060e014469371fe5ade8cc67f8cff",
+      "references/recording-rules.md": "282fe411fc1a9c56193a1ea4cdce5804a69228bc5efe437d5f44db08c482424b"
+    },
+    "unchanged_and_verified": {
+      "assets/design-spec.md": "5a30b17a40a52be8c1efb453415d0e77d3406c29c71674408a5506bf5e6ab661",
+      "assets/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "evals/fixtures/ownership-collision/sentinel/UX-004.md": "cf0e9f8da091ae53b9588194bacf98524755e84e2fff6abae4d26a09b316a06c",
+      "evals/fixtures/stale/preserved/PROD-001.r2.md": "b863996bf1804f08980e5f051e9f568fa5e3187c1a70faa3f45f6e3e0f43e8f9",
+      "evals/fixtures/shared/PROD-001.md": "b863996bf1804f08980e5f051e9f568fa5e3187c1a70faa3f45f6e3e0f43e8f9",
+      "references/mockups-and-preview.md": "0524a76f59c627a852c93600f1e5c612a1c3963265aeacb8931ad96a10f0b33a",
+      "references/sources.md": "2ae704a8d2d9bcb5b58ce09652a289b9465232b71e6816e22873e13cb01076fa",
+      "note": "All 12 fixtures, both template assets and two of the four references are byte-identical to 9ad38de. No file was added or deleted. The two sentinel digests the cases hard-code are unchanged, so DX-B-007 and DX-B-008 remain valid without edits."
+    }
+  },
+  "preserved_behaviour_regression_checks": [
+    {"check": "frontmatter carries name and description only", "result": "PASS", "evidence": "keys = ['name','description']"},
+    {"check": "frontmatter description byte-identical to 9ad38de", "result": "PASS", "evidence": "sed -n 3p compared; identical; 950 chars, inside the 1,536-char listing limit"},
+    {"check": "SKILL.md length stays well inside the 500-line recommendation", "result": "PASS", "evidence": "139 lines, up from 132"},
+    {"check": "no Claude shell-injection syntax, no docs/mvp runtime path, no home path in SKILL.md", "result": "PASS", "evidence": "grep -c for '!`', '```!', 'docs/mvp/', '/home/' all returned 0"},
+    {"check": "both assets/ files remain byte-exact copies of their governing templates", "result": "PASS", "evidence": "digests unchanged from 9ad38de and from the docs/mvp sources verified in the first evaluation"},
+    {"check": "the two hard-coded case sentinels still match their fixture bytes", "result": "PASS", "evidence": "cf0e9f8d… and b863996b… unchanged; DX-B-007 A1 and DX-B-008 A2 both observed MATCH in rc3"},
+    {"check": "the inspection-versus-existence treatment, authority boundary and upstream-resolution procedure are untouched", "result": "PASS", "evidence": "SKILL.md diff is additive only (two new blocks plus an extended exit line); references/mockups-and-preview.md unchanged; recording-rules.md diff is one row"},
+    {"check": "no scripts/ directory added", "result": "PASS", "evidence": "package file list unchanged at 23 files"},
+    {"check": "the first evaluation's records were not modified", "result": "PASS", "evidence": "all eight scaffold-review files hash identically at b2827ce to the revision-2 digests this evaluator delivered"}
+  ],
+  "closure": [
+    {
+      "id": "F-001", "severity": "MAJOR", "status": "CLOSED",
+      "requirement": "SKILL-003 Rework: \"Product-scope conflicts return to define-product via change\"",
+      "change_applied": "CHG-001",
+      "evidence": "SKILL.md:91-95 adds the subsection \"When the design would need an accepted requirement to change\", and SKILL.md:97 extends the phase-4 exit line to distinguish the two rework routes. The block names the condition, requires recording the conflict as a change request against the owning product artifact, requires identifying the affected requirement rows and dependent flows, keeps those design-spec rows at `proposed` with the conflict in the decisions section and the blocked requirement in `missing_inputs`, lets independent work continue, names devforge-change and devforge-define-product as the owners, states that neither is installed, and requires a plain-language next task with resolvable paths instead of a slash command. It also guards the missing-product-brief fallback from being used to make the conflict disappear.",
+      "regression_check": "The prototype route in the preceding paragraph is intact and the exit line now carries both. The suggested/installed/actually-invoked separation at SKILL.md:105-110 is unchanged.",
+      "new_coverage": "evals.json id 11 and cases.jsonl DX-B-011 exercise it; DX-B-011 COMPLETED in rc2 and rc3 with its single assertion routed to independent review, which is the correct routing because no grader can read routed-versus-absorbed from bytes."
+    },
+    {
+      "id": "F-002", "severity": "MINOR", "status": "CLOSED",
+      "requirement": "artifact-contract: missing_inputs is \"Explicit unresolved required information\"",
+      "change_applied": "CHG-002",
+      "evidence": "references/recording-rules.md:17 producer row now reads \"...`unknown` is the honest entry - and record that same fact in `missing_inputs`, naming what it blocks. `unknown` sitting alone in a required field with an empty `missing_inputs` tells a consumer scanning for unresolved information that nothing is unresolved.\"",
+      "regression_check": "The correct narrowing of skill_revision to one file's bytes, and the reasoning against a package or plugin digest, are preserved verbatim.",
+      "new_coverage": "none added; see N-003 note under still_open for the declined deterministic assertion."
+    },
+    {
+      "id": "F-003", "severity": "MINOR", "status": "CLOSED",
+      "requirement": "SKILL-003: \"On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again\"",
+      "change_applied": "CHG-003",
+      "evidence": "SKILL.md:122 adds a fifth bullet: preserve the current phase, the frozen upstream digests and the evidence paths; on resuming re-check those identities and the session assignment before dependent work continues, rather than waiting to notice a difference; a changed input, base commit or assignment starts a new iteration with prior evidence retained.",
+      "regression_check": "The list lead-in was updated from \"Four cases\" to \"Five cases\", so the package carries no stale count. The four original bullets are unchanged. assets/handoff.md, a byte-exact template copy, was correctly left alone."
+    },
+    {
+      "id": "F-004", "severity": "MINOR", "status": "CLOSED",
+      "requirement": "skill-authoring-contract: record actual results and limitations; a coverage claim must be checkable",
+      "change_applied": "CHG-004",
+      "evidence": "spec-mapping.md: the interruption row now cites the new bullet and drops DX-B-007; the rework row is split into two rows so the product-scope clause cites the new subsection and case 11 while the prototype clause cites case 8 and triggers A5a/A5b - the previous misuse of the should_trigger:false entries A7a/A7b as evidence for a rework route is gone; \"24 trigger queries\" is now \"23 trigger queries across three positive and six negative categories\"; the coverage summary now reads \"Five of the eleven carry at least one deterministic grader assertion; six route entirely to independent review\", which this evaluator recomputed and confirms (graders: DX-C-001, DX-B-004, DX-B-007, DX-B-008, DX-B-009; routed: DX-B-002, DX-B-003, DX-B-005, DX-B-006, DX-B-010, DX-B-011). authoring/handoff.md's result line is corrected to 11 cases and 23 trigger queries.",
+      "regression_check": "The correction is additive and preserves history: spec-mapping.md states plainly that revision 1's counts were wrong and that the revision-1 bytes remain at 9ad38de. No earlier record was silently rewritten."
+    },
+    {
+      "id": "F-005", "severity": "MINOR", "status": "CLOSED",
+      "requirement": "An authored case file must be runnable by someone other than its author",
+      "change_applied": "CHG-005",
+      "evidence": "evals/fixtures/README.md gains a \"Running evals/cases.jsonl\" section carrying both exact invocations, the two-root reason, the note that DX-C-001 appears COULD_NOT_RUN in the second run and its result must be taken from the first, and the explanation that DX-C-001's path_absent assertion on evals is expected to mismatch against a source tree. cases.jsonl DX-C-001 and DX-B-011 also carry a notes field pointing at it.",
+      "regression_check": "Every candidate_subpath value and every assertion is preserved; the fixtures were not restructured to force a single root.",
+      "empirical_confirmation": "This evaluator ran the README's commands verbatim. rc1 (package root, --mode installed, DX-C-001) COMPLETED. rc3 (fixtures root, --mode source, no --case-id, exactly as documented) returned 11 of 11 cases COMPLETED with zero COULD_NOT_RUN, against 9 of 10 COULD_NOT_RUN for the equivalent single-root run on the old revision."
+    },
+    {
+      "id": "F-006", "severity": "MINOR", "status": "CLOSED",
+      "requirement": "skill-authoring-contract tier definitions; required C observations gate B and A admission",
+      "change_applied": "CHG-006",
+      "evidence": "evals.json id 9 tier C -> B with deterministic_cases updated to DX-B-009; cases.jsonl DX-C-009 renamed DX-B-009 with tier B. evals.json tier_note gains the invariant \"Every case whose baseline_comparison is a baseline arm is tier B; the only tier C case is the installed-resource one.\" Recomputed: the only tier C case is DX-C-001, whose baseline_comparison is not_applicable; every remaining case is tier B with a without_skill arm.",
+      "regression_check": "The case's prompt, fixture, expectations.summary, both assertions and its without_skill baseline are preserved. spec-mapping.md's cross-reference was updated to DX-B-009."
+    },
+    {
+      "id": "F-007", "severity": "MINOR", "status": "CLOSED",
+      "requirement": "skill-authoring-contract: a derivation record needs an exact source revision and SHA-256",
+      "change_applied": "CHG-007",
+      "evidence": "derivation.json derivations[4] now cites claude-scaffold-evaluate-expert-20260910 @ e641797eebf04cd1e8eb9f711549e038e7745407 with per-file digests for scripts/run_cases.py and scripts/graders.py. This evaluator recomputed both from the git objects at that commit: run_cases.py 95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2 and graders.py 1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f - both identical to the pinned values. The transformation text asserts five schema facts; the two that are read directly from run_cases.py were re-verified here (routed_to is in ASSERTION_KEYS; notes is in both CASE_KEYS and ASSERTION_KEYS), and the other three match this evaluator's own observations from the first evaluation. The refresh condition correctly names that package's pending e101e76 recheck as the next trigger and requires re-pinning both digests.",
+      "regression_check": "The four template derivations, the no_self_digest statement and the runtime_independence statement are unchanged in substance. A repair_passes record was added to authoring_route that names what was applied, what was declined and what remains no-target-edit, and states plainly that changing source bytes closes no evaluation finding."
+    },
+    {
+      "id": "F-008", "severity": "ADVISORY", "status": "NOT APPLIED - declined by the author",
+      "requirement": "Proposal only. missing-rust-capabilities: a fact nobody wrote a case for is not observed",
+      "change_applied": "none",
+      "evidence": "cases.jsonl DX-C-001 now holds A1, A2, A3, A4, A6, A7, A8 - A5 was removed and nothing was added. DX-B-009's fields remain [created_at_utc, execution_ref] with no skill_revision. derivation.json authoring_route.repair_passes[0].declined records: \"F-008: the repair spec records 'Demonstrated impact: no defect' for it.\"",
+      "assessment": "Acceptable. CHG-008 was an authorised enhancement whose own stated impact was 'no demonstrated defect', and declining an ADVISORY with the reason recorded is the author's call. The consequence is unchanged from the first evaluation: name-versus-folder, links in the shipped assets and sources.md, the presence of both provenance files, the absence of shell-injection syntax and the two template digests remain facts the package's own deterministic layer does not observe, so an evaluator supplies them by hand as this one did. No further action is required of the author unless an owner decides otherwise."
+    },
+    {
+      "id": "F-009", "severity": "ADVISORY", "status": "CLOSED",
+      "requirement": "Internal consistency of the case file",
+      "change_applied": "CHG-009",
+      "evidence": "cases.jsonl DX-B-009 A1 expect changed from \"complete\" to \"placeholder\", which now matches both the case's own expectations.summary and the grader's observed value. Confirmed empirically: rc2 and rc3 both record A1 -> MISMATCH, observed 'placeholder'.",
+      "regression_check": "The assertion, its grader and its args are unchanged."
+    },
+    {
+      "id": "F-010", "severity": "ADVISORY", "status": "CLOSED",
+      "requirement": "Internal consistency of the case file",
+      "change_applied": "CHG-010",
+      "evidence": "cases.jsonl DX-C-001 A5 removed. A notes field explains that A5 could only ever observe '0 local, 0 external' and that the remaining assertion IDs deliberately skip A5 so they still line up with the rows an earlier run recorded - which preserves the comparability of this evaluator's first-run observations rather than renumbering over them. Confirmed empirically: rc1 records six MATCH rows and one MISMATCH, with no A5.",
+      "regression_check": "A3 and A4 still observe four and one resolving destinations respectively. No link was added to a reference merely to make an assertion non-vacuous."
+    },
+    {
+      "id": "F-011", "severity": "ADVISORY", "status": "CLOSED - with a disclosed limit, see N-002",
+      "requirement": "skill-authoring-contract: realistic near-miss negatives with a fixed split",
+      "change_applied": "CHG-011",
+      "evidence": "trigger-queries.json gains revision: 2 and a revision_note. Exactly one entry moved: A7b from negative_define_product to a new negative_change category. This evaluator diffed the two revisions entry by entry: 23 queries before and after, no id added or removed, and for all 23 common ids the query text, should_trigger and split are unchanged - the single field difference in the whole file's query set is A7b's category. Totals are unchanged at 13 train / 10 validation and 12 negative / 11 positive, with no duplicate ids. negative_design_note was corrected to describe the now-six negative categories accurately.",
+      "regression_check": "The revision_note states that re-cutting invalidates no measurement because no tier-A run was performed against revision 1, which this evaluator confirms - tier A has been NOT_RUN throughout. Revision 1 remains reachable at 9ad38de."
+    }
+  ],
+  "rechecked_outcomes": [
+    {
+      "check_id": "AI-R04", "group": "ai_review", "prior_outcome": "FAIL", "new_outcome": "PASS",
+      "rationale": "The FAIL rested entirely on the absent product-scope-conflict transition. SKILL.md:91-97 now supplies it with a stated condition, a stated action, a named owner for each half, and an exit condition that distinguishes it from the prototype route; SKILL.md:122 supplies the interruption transition that the same criterion's anchors also reach. No conflicting instruction was introduced: the new blocks agree with the existing missing-product-brief procedure, the decisions-versus-proposals section and the stopping conditions, and no branch now prescribes two incompatible actions for one condition. Every other R04 anchor that passed at 9ad38de is supported by text that did not change.",
+      "limit": "Static reading. Whether a session follows the new transition is tier B behaviour and remains NOT_RUN."
+    },
+    {
+      "check_id": "CHK-SPEC-01", "group": "structure", "prior_outcome": "FAIL", "new_outcome": "PASS",
+      "rationale": "The two SKILL-003 rows that were unaddressed at 9ad38de are addressed at b2827ce: the Rework product-scope clause at SKILL.md:91-97 and the Workflow-and-phase-exits interruption clause at SKILL.md:122. spec-mapping.md's claims for both rows were re-verified against the bytes they cite and now resolve. No previously addressed row lost its support: the only prose edits in the package are the two additions and the one recording-rules row.",
+      "limit": "Method INSPECTION_MANUAL, authority: none. Skill-package structural inspection is still not implemented in the DevForge CLI."
+    }
+  ],
+  "unchanged_findings": [
+    {"id": "F-012", "type": "evaluation_gap", "status": "unchanged - no target edit", "note": "Tiers C, B and A remain NOT_RUN. No installed or exported copy exists and no fresh terminal or isolated workspace was allocated for this recheck either. Owner: coordinator and DevForgeAI integration owner."},
+    {"id": "F-013", "type": "evaluation_gap", "status": "unchanged - no target edit", "note": "Skill-package structural inspection, evidence reduction and protected-manifest custody for the evaluation runner are still not implemented in the DevForge CLI. Every structural row in this recheck is INSPECTION_MANUAL with authority: none, and no decision receipt exists. Owner: DevForge integration owner."}
+  ],
+  "new_findings": [
+    {
+      "id": "N-001",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "criteria": ["R09"],
+      "requirement": "Eval quality: a case's graded expectation must be established by the bytes the worker can actually see.",
+      "affected_revision": "b2827ce",
+      "affected_files": [
+        "providers/claude/plugins/devforgeai/skills/devforge-design/evals/cases.jsonl",
+        "providers/claude/plugins/devforgeai/skills/devforge-design/evals/evals.json"
+      ],
+      "affected_sections": ["cases.jsonl DX-B-011 expectations.summary and assertion A1 expect", "evals.json id 11 expected_output and graded_observations[0]"],
+      "evidence": [
+        "The new case states that \"PROD-001@2 REQ-004 accepts an account only for served postcodes and requires an immediate out-of-area rejection\" and grades on whether \"the contradiction with REQ-004 is named\".",
+        "The bytes the worker sees say only: \"REQ-004 | A new neighbour can create an account with an email address and a postcode, and is told immediately when the postcode is outside the served area. | The served-area list is fixed and known at signup time.\" (fixtures/shared/PROD-001.md line 32). That mandates immediate notification; it does not state that account creation is refused.",
+        "The rejection reading is established elsewhere - fixtures/stale/PROD-001.md line 36 records revision 3 changing REQ-004 and notes \"Immediate rejection is no longer the accepted behaviour\" - but DX-B-011 sets files to [fixtures/shared/PROD-001.md] and candidate_subpath to shared, so the worker cannot see that fixture.",
+        "Consequence: a worker that reads revision 2 carefully and concludes REQ-004 does not settle whether an out-of-area account may exist, then routes the request as an uncovered product-scope question rather than as a contradiction, is behaving correctly and would still miss the case's stated expectation."
+      ],
+      "impact": "Narrow. The behaviour the case exists to discriminate - record and route to the owning artifact, versus draw it as though the requirement permitted it - is exercised under either reading, and a reviewer applying the rubric has the latitude to judge it. But the graded wording rests on an interpretation the worker cannot reach from its own inputs, which is the same class of mistake the skill itself warns about under \"Inventing the requirement\".",
+      "confidence": "high",
+      "uncertainty": "The fixture set's own authoring clearly intends the rejection reading; this is a wording gap in the case, not a wrong premise.",
+      "recommendation": "Widen the expectation to accept either reading while still requiring the routing behaviour - for example: named as contradicting REQ-004, or as a scope question REQ-004 does not settle, and in either case recorded as a change request against PROD-001 with the affected rows identified rather than drawn as though the requirement permitted it. Change only cases.jsonl DX-B-011 and evals.json id 11.",
+      "explicitly_do_not": "Do not edit fixtures/shared/PROD-001.md to make REQ-004 say 'rejected'. Its bytes are byte-identical to fixtures/stale/preserved/PROD-001.r2.md (both b863996bf1804f08980e5f051e9f568fa5e3187c1a70faa3f45f6e3e0f43e8f9), which is the sentinel DX-B-008 A2 hard-codes; editing it would break that case and destroy the preserved-revision relationship DX-B-008 exists to test.",
+      "owner": "devforge-design scaffold author, under coordinator dispatch",
+      "affected_cases": ["DX-B-011", "evals.json id 11"]
+    },
+    {
+      "id": "N-002",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "criteria": ["R09"],
+      "requirement": "trigger-queries.json split_policy: \"Fixed and stratified by should_trigger and category\"",
+      "affected_revision": "b2827ce",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-design/evals/triggers/trigger-queries.json"],
+      "affected_sections": ["revision_note", "split_policy"],
+      "evidence": [
+        "Moving A7b to the new negative_change category left two categories single-sided, not one. Recomputed composition: negative_change holds one entry on the validation side and none on train; negative_define_product now holds one entry on train (A7a) and none on validation. Before the re-cut every one of the eight categories had at least one entry on each side.",
+        "The revision_note discloses only the first half: \"negative_change now holds one entry, on the validation side, so it contributes no train-side signal - an owner allocating tier A may want a second query in it first.\" It does not mention that negative_define_product lost its validation entry in the same move.",
+        "split_policy still reads \"Fixed and stratified by should_trigger and category\" without qualification, which is now true of six categories rather than eight."
+      ],
+      "impact": "No expected value is wrong and no measurement is invalidated - tier A has never been run. The effect is on a future tier-A allocation: a per-category train-versus-validation report is impossible for two categories rather than the one the file admits to, so an owner reading the disclosure would under-count the work needed to rebalance.",
+      "confidence": "high",
+      "uncertainty": "None. The author disclosed the re-cut and one of its two consequences deliberately and honestly; this is an incomplete disclosure, not a concealed one.",
+      "recommendation": "Extend the revision_note's known-limit sentence to name both categories, and qualify split_policy's stratification claim to match. Alternatively add one query to each of negative_change (train) and negative_define_product (validation) and restore full stratification. Either is a single-file edit.",
+      "owner": "devforge-design scaffold author, or the coordinator if a second query per category is wanted",
+      "affected_cases": ["trigger queries A7a, A7b; any future tier-A allocation"]
+    }
+  ],
+  "severity_counts": {
+    "closed": {"MAJOR": 1, "MINOR": 6, "ADVISORY": 3},
+    "not_applied_declined": {"ADVISORY": 1},
+    "new": {"BLOCKER": 0, "MAJOR": 0, "MINOR": 0, "ADVISORY": 2},
+    "unchanged_evaluation_gaps": 2
+  },
+  "adjudication": {
+    "rule_applied": "Any applicable FAIL produces revise; otherwise missing or unavailable required observations produce insufficient evidence; all required observations passing supports only suitable for the stated scope.",
+    "applicable_fails": [],
+    "disposition": "insufficient evidence",
+    "change_from_prior": "revise -> insufficient evidence. The single FAIL that produced revise is resolved; what remains is missing observation, not observed failure.",
+    "why_not_suitable_for_the_stated_scope": "Tiers C, B and A are still NOT_RUN and behavioural status is still NOT_EVALUATED. No amount of source repair reaches that recommendation; it needs an allocated native evaluation.",
+    "decision_receipt": "none produced; evidence reduction is not implemented in the DevForge CLI"
+  }
+}
