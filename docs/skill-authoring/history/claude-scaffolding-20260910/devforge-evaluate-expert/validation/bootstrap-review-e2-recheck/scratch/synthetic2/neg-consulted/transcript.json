@@ -1,0 +1,4 @@
+{"session":"rc-3","events":[
+ {"type":"prompt","text":"Refactor the payments module."},
+ {"type":"resource_read","resource":"devforge-evaluate-expert"},
+ {"type":"completed","exit":0}]}

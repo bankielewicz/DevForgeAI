@@ -1,0 +1,554 @@
+{
+  "rows": [
+    {
+      "group": "manifest:runtime",
+      "label": "SKILL.md",
+      "declared": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
+      "actual": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/ai-review.json",
+      "declared": "3ecd17e261ef847e6529dcb96c07f9005e469553f571ccb39f7d244629bc5193",
+      "actual": "3ecd17e261ef847e6529dcb96c07f9005e469553f571ccb39f7d244629bc5193",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/case-grade.json",
+      "declared": "a4747cd8361b3f5c156f7feb7f54ace7c7c632a0aea1124913cd90b4cdd161ff",
+      "actual": "a4747cd8361b3f5c156f7feb7f54ace7c7c632a0aea1124913cd90b4cdd161ff",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/environment-setup.json",
+      "declared": "140761d3f9bd3d3c080d9f67faa3198e500c016ddf846476f159ed9148d07c72",
+      "actual": "140761d3f9bd3d3c080d9f67faa3198e500c016ddf846476f159ed9148d07c72",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/expert-evaluation-plan.md",
+      "declared": "8fa83334587c6be1fadf2e4da051859d92e75b5f8d7c19925030954a49f8ecf4",
+      "actual": "8fa83334587c6be1fadf2e4da051859d92e75b5f8d7c19925030954a49f8ecf4",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/expert-evaluation-report.md",
+      "declared": "34fef963ee982728274495aacded367878ff2ffce9a56e39b05952d69f20183c",
+      "actual": "34fef963ee982728274495aacded367878ff2ffce9a56e39b05952d69f20183c",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/handoff.md",
+      "declared": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "actual": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/run-manifest.json",
+      "declared": "4b661830ac0c5d3155667b66948a08da701a0944fa1398a886457ef5eaa0db56",
+      "actual": "4b661830ac0c5d3155667b66948a08da701a0944fa1398a886457ef5eaa0db56",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/skill-enhancement-spec.md",
+      "declared": "bdf47f42002b6bf6fc88a9ac41cd26ef9308be734f6ddc2d679529c8fae90578",
+      "actual": "bdf47f42002b6bf6fc88a9ac41cd26ef9308be734f6ddc2d679529c8fae90578",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/test-cases.json",
+      "declared": "053e51b43b5d0c7db4cd9c14942b1007137328563c38e96a023eb17ad8d0442f",
+      "actual": "053e51b43b5d0c7db4cd9c14942b1007137328563c38e96a023eb17ad8d0442f",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/validation-plan.json",
+      "declared": "453b61a517d13ffc044a0a8e1a9e3e6f50ac9b91fb34e3d187d55ce4fc8929f2",
+      "actual": "453b61a517d13ffc044a0a8e1a9e3e6f50ac9b91fb34e3d187d55ce4fc8929f2",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/validation-results.json",
+      "declared": "677267578d662940f6e5725de1ec57b3001031a3d26279072a4310880c5ce060",
+      "actual": "677267578d662940f6e5725de1ec57b3001031a3d26279072a4310880c5ce060",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/verification-results.md",
+      "declared": "e672dd8f08173971f8fa5290045463fd7472e8129b245ff6325ca0c25c83f4af",
+      "actual": "e672dd8f08173971f8fa5290045463fd7472e8129b245ff6325ca0c25c83f4af",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "assets/workspace-allocation.json",
+      "declared": "cb73197e8a395a42a5cb416af13b94c09d65b6f508f49b1ddc8f95a638d88e38",
+      "actual": "cb73197e8a395a42a5cb416af13b94c09d65b6f508f49b1ddc8f95a638d88e38",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/ai-review-rubric.md",
+      "declared": "39cdc7bdc8bbbc99c2082f4b43e96bf05253cb7f0ef053115a1a7c25ff19507c",
+      "actual": "39cdc7bdc8bbbc99c2082f4b43e96bf05253cb7f0ef053115a1a7c25ff19507c",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/contracts/artifact-contract.md",
+      "declared": "b8c9131c1007371eb01f2f7a7a069f85ccc318093872d53649ed41726098fc36",
+      "actual": "b8c9131c1007371eb01f2f7a7a069f85ccc318093872d53649ed41726098fc36",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/contracts/execution-contract.md",
+      "declared": "5c09da2e4849f9a7567d9e8cc6b0ee401c1ab8b39e386c6d05a3765c8fef1d9e",
+      "actual": "5c09da2e4849f9a7567d9e8cc6b0ee401c1ab8b39e386c6d05a3765c8fef1d9e",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/contracts/skill-authoring-contract.md",
+      "declared": "1d59e32f283c635276cc47ac138905936cf80e3ed0d7c3f89a0fab649ae37cc5",
+      "actual": "1d59e32f283c635276cc47ac138905936cf80e3ed0d7c3f89a0fab649ae37cc5",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/derivation.json",
+      "declared": "7c5a03ebda34434a9f07b6e93eac94e4a7135476758825dc065b68fdc6b64c42",
+      "actual": "7c5a03ebda34434a9f07b6e93eac94e4a7135476758825dc065b68fdc6b64c42",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/evaluation-boundaries.md",
+      "declared": "1c36e08823eab2b41189f5229dd6f2b7f42f5c5dd5077ea3576265542bb4cb4f",
+      "actual": "1c36e08823eab2b41189f5229dd6f2b7f42f5c5dd5077ea3576265542bb4cb4f",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/framework-context.md",
+      "declared": "10062533f06513bad5bce101a8f736e2e4831ceb839b5ead91d0bdd94421a7f6",
+      "actual": "10062533f06513bad5bce101a8f736e2e4831ceb839b5ead91d0bdd94421a7f6",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/missing-rust-capabilities.md",
+      "declared": "82e6fcd808aa1fa1005ec0be45d8a77231226372423fc39b27c54d9917060e2a",
+      "actual": "82e6fcd808aa1fa1005ec0be45d8a77231226372423fc39b27c54d9917060e2a",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/native-evaluation.md",
+      "declared": "7d4a8bda731c318dbbaf61127578bf84e02fc1970be9fe4015bfaa6d0adc7e6f",
+      "actual": "7d4a8bda731c318dbbaf61127578bf84e02fc1970be9fe4015bfaa6d0adc7e6f",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/results-contract.md",
+      "declared": "ebac4e4c53f9a5d525e5edb1d331c4ee4c5736c26f18845090e7e3fd2d2c6af6",
+      "actual": "ebac4e4c53f9a5d525e5edb1d331c4ee4c5736c26f18845090e7e3fd2d2c6af6",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/runner-interface.md",
+      "declared": "045fbb1c8ecb771ca0a8c17268e81ac1b00a95bb17d414a21f35cb884b3eabad",
+      "actual": "045fbb1c8ecb771ca0a8c17268e81ac1b00a95bb17d414a21f35cb884b3eabad",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "references/sources.md",
+      "declared": "d4bb9bb57aea8cc6185092a148204a7ac91dc7354952ce1018ea9230f4bc4f37",
+      "actual": "d4bb9bb57aea8cc6185092a148204a7ac91dc7354952ce1018ea9230f4bc4f37",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "scripts/graders.py",
+      "declared": "2a6fb9946b31d5d79f401f962aec5b1f4a2f48f97c3ede2eec7d50047ad5d714",
+      "actual": "2a6fb9946b31d5d79f401f962aec5b1f4a2f48f97c3ede2eec7d50047ad5d714",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:runtime",
+      "label": "scripts/run_cases.py",
+      "declared": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+      "actual": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/cases.jsonl",
+      "declared": "6004e51170c001f1dcb1bcaabb034b08b74a680a4c11d02819d161ab9c089d11",
+      "actual": "6004e51170c001f1dcb1bcaabb034b08b74a680a4c11d02819d161ab9c089d11",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/evals.json",
+      "declared": "04bc0ee4d968405861d1ffaac78c617478a47b3bc5f37363839d55b1e03e43a6",
+      "actual": "04bc0ee4d968405861d1ffaac78c617478a47b3bc5f37363839d55b1e03e43a6",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/README.md",
+      "declared": "71fdf1b042aa097df3ee81a62cb0e0d894b17df9ce4da1ea6afe8d848f70f15e",
+      "actual": "71fdf1b042aa097df3ee81a62cb0e0d894b17df9ce4da1ea6afe8d848f70f15e",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-fenced-report/report/expert-evaluation-report.md",
+      "declared": "bddbde2ccf948150021cf29a84b09582224ba2972982f7f7edb93eaf8ac43ab6",
+      "actual": "bddbde2ccf948150021cf29a84b09582224ba2972982f7f7edb93eaf8ac43ab6",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-frontmatter-colon-space/fixture-scope-note/SKILL.md",
+      "declared": "a8f6a1c26f0b98c3727daaca9510c1ff5ea765ff98cd1d0fb817583fc3286072",
+      "actual": "a8f6a1c26f0b98c3727daaca9510c1ff5ea765ff98cd1d0fb817583fc3286072",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-frontmatter-duplicate-key/fixture-scope-note/SKILL.md",
+      "declared": "b69982dffe9f4671c37b6cab47228e9b4982609605b98c810e2ea7a9684b4797",
+      "actual": "b69982dffe9f4671c37b6cab47228e9b4982609605b98c810e2ea7a9684b4797",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-frontmatter-no-close/fixture-scope-note/SKILL.md",
+      "declared": "4510c0313fec6abf2f0def8cf39e5b2f194251dff7cccbcc5e7cb280596804d5",
+      "actual": "4510c0313fec6abf2f0def8cf39e5b2f194251dff7cccbcc5e7cb280596804d5",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-frontmatter-non-mapping/fixture-scope-note/SKILL.md",
+      "declared": "c590f4a65f214b6851412b5c05a34b7544019398e3bb96a448edc9c264ece33e",
+      "actual": "c590f4a65f214b6851412b5c05a34b7544019398e3bb96a448edc9c264ece33e",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-frontmatter-unparseable/fixture-scope-note/SKILL.md",
+      "declared": "20200ed3918347abc2128f54b299e18e9eb28eb504e8a36a3b3b801f0ca52e64",
+      "actual": "20200ed3918347abc2128f54b299e18e9eb28eb504e8a36a3b3b801f0ca52e64",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-html-and-reference-links/fixture-scope-note/SKILL.md",
+      "declared": "b497b1471dcfc565bcdcf14b9a68970066f9d35723299346779090d43ec10956",
+      "actual": "b497b1471dcfc565bcdcf14b9a68970066f9d35723299346779090d43ec10956",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-incomplete-negative-transcript/untrusted/negative-timeout-transcript.json",
+      "declared": "9465384555221b1763359f1122960aeab916b4726efb96d5e212db90b48b6f69",
+      "actual": "9465384555221b1763359f1122960aeab916b4726efb96d5e212db90b48b6f69",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-installed-evals-present/fixture-scope-note/SKILL.md",
+      "declared": "fe7f3dc16c9161e2f088e0d53bb5711fe00710691a6406e8dc05f7559ab754a5",
+      "actual": "fe7f3dc16c9161e2f088e0d53bb5711fe00710691a6406e8dc05f7559ab754a5",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-installed-evals-present/fixture-scope-note/evals/evals.json",
+      "declared": "de8fad39e9db6449edf18b1bb1cc516046a5c8ea1d7905a6cab9437ca2ce693a",
+      "actual": "de8fad39e9db6449edf18b1bb1cc516046a5c8ea1d7905a6cab9437ca2ce693a",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-mention-only/transcript/mention-only.json",
+      "declared": "22946cead53646150b173abd22ce6c60a41ed2cfc9605ee59adbac85e8c07cf9",
+      "actual": "22946cead53646150b173abd22ce6c60a41ed2cfc9605ee59adbac85e8c07cf9",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-missing-resource/fixture-scope-note/SKILL.md",
+      "declared": "c9ac26d49f2ce6ce3c3abe45847f8a5ea7b29ba05a20fb7962d551c747f3ed89",
+      "actual": "c9ac26d49f2ce6ce3c3abe45847f8a5ea7b29ba05a20fb7962d551c747f3ed89",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-nested-fence-report/report/expert-evaluation-report.md",
+      "declared": "0a5bb65e2d979f69dc667b9017710a342473d56fa15d6f5acd90cf8ab00bb028",
+      "actual": "0a5bb65e2d979f69dc667b9017710a342473d56fa15d6f5acd90cf8ab00bb028",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-prompt-injection/fixture-scope-note/SKILL.md",
+      "declared": "d140559042097d520f2df2af181dd39c13cb3b9a87b192007d4266f52c92983a",
+      "actual": "d140559042097d520f2df2af181dd39c13cb3b9a87b192007d4266f52c92983a",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-prompt-injection/sentinel/protected.txt",
+      "declared": "97893c02c738801a408aabfebc911035c3b3de5b2bebd04cd3bcc18b2bdc4553",
+      "actual": "97893c02c738801a408aabfebc911035c3b3de5b2bebd04cd3bcc18b2bdc4553",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-self-claimed-pass/untrusted/claimed-result.json",
+      "declared": "150ce0adf24e2c06ce3c2e880c2794ccdeee1fe22dea17f5563f9b4dc5119b4c",
+      "actual": "150ce0adf24e2c06ce3c2e880c2794ccdeee1fe22dea17f5563f9b4dc5119b4c",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/defect-titled-link/fixture-scope-note/SKILL.md",
+      "declared": "3149a69c03dd79526054c8a46e7a895b545d0cc53776ac1716f7f5c7a7e8fc1d",
+      "actual": "3149a69c03dd79526054c8a46e7a895b545d0cc53776ac1716f7f5c7a7e8fc1d",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/good/fixture-scope-note/SKILL.md",
+      "declared": "8b5f553442b81d8480eee136dd8a4c669fff4f37aa00f5c58e86359f28114704",
+      "actual": "8b5f553442b81d8480eee136dd8a4c669fff4f37aa00f5c58e86359f28114704",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/good/fixture-scope-note/references/required-format.md",
+      "declared": "ede1d685d193b667d06721851a5dabb874dc05eecafcd3a8ff4d0a4e4607f13d",
+      "actual": "ede1d685d193b667d06721851a5dabb874dc05eecafcd3a8ff4d0a4e4607f13d",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/good/report/expert-evaluation-report.md",
+      "declared": "a2c823d5bdd5ecfa95a7776a423f1cd4df7774956cc5dba5366b056706889ec3",
+      "actual": "a2c823d5bdd5ecfa95a7776a423f1cd4df7774956cc5dba5366b056706889ec3",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/good/transcript/negative-complete.json",
+      "declared": "4bbc08bf5da6b7885b88d4ac5cf4a699b146aa8b00ca7d86253f58a7871af3f1",
+      "actual": "4bbc08bf5da6b7885b88d4ac5cf4a699b146aa8b00ca7d86253f58a7871af3f1",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/good/transcript/positive-consultation.json",
+      "declared": "a2f5e827d322946bfd7cbd6e4831ae014a3b8b3787239de6ff1fb7058aeb1bba",
+      "actual": "a2f5e827d322946bfd7cbd6e4831ae014a3b8b3787239de6ff1fb7058aeb1bba",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/semantic-fake-enforcement/fixture-scope-note/SKILL.md",
+      "declared": "fc85b92044df733decc2e997e0754ed36cccc96944fd3974c1717c546e36c8e6",
+      "actual": "fc85b92044df733decc2e997e0754ed36cccc96944fd3974c1717c546e36c8e6",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/semantic-stack-conflict/fixture-scope-note/SKILL.md",
+      "declared": "38ca3bf454eec08ee20632a6e12bb2712723242710fcd679c51878436d479004",
+      "actual": "38ca3bf454eec08ee20632a6e12bb2712723242710fcd679c51878436d479004",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/shared/facts.json",
+      "declared": "e5a316415ecdd378d1e6b39a14b720579e2d4d8f022758abd0f4faa168d2f8c5",
+      "actual": "e5a316415ecdd378d1e6b39a14b720579e2d4d8f022758abd0f4faa168d2f8c5",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/fixtures/shared/scope-note-spec.md",
+      "declared": "e8eee11d43485db82ec5752daf15df5ae655958997f03e7e4dddba547695193e",
+      "actual": "e8eee11d43485db82ec5752daf15df5ae655958997f03e7e4dddba547695193e",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authored_eval",
+      "label": "evals/triggers/trigger-queries.json",
+      "declared": "397691cf869303c4a0ce7a9f3e2b6774e211f7c2bd237817df329b54036b6aa4",
+      "actual": "397691cf869303c4a0ce7a9f3e2b6774e211f7c2bd237817df329b54036b6aa4",
+      "status": "MATCH",
+      "note": "current bytes under the skill root"
+    },
+    {
+      "group": "manifest:authoring_records",
+      "label": "port-analysis.md",
+      "declared": "182a131838f2241ad36e46c5a61b0ad4afa712179004b059898e101759aa87a3",
+      "actual": "182a131838f2241ad36e46c5a61b0ad4afa712179004b059898e101759aa87a3",
+      "status": "MATCH",
+      "note": "current bytes under the authoring dir"
+    },
+    {
+      "group": "manifest:authoring_records",
+      "label": "spec-mapping.md",
+      "declared": "61617eb3f9783f1ff7c687fb3267477188cc834cbea51b0903e1e46457bae6ca",
+      "actual": "61617eb3f9783f1ff7c687fb3267477188cc834cbea51b0903e1e46457bae6ca",
+      "status": "MATCH",
+      "note": "current bytes under the authoring dir"
+    },
+    {
+      "group": "manifest:authoring_records",
+      "label": "authoring-notes.md",
+      "declared": "98d4921c8ef6b14c8fbb4d1797f665838ce134fa6d0e8ac245c8d31837efa2c9",
+      "actual": "98d4921c8ef6b14c8fbb4d1797f665838ce134fa6d0e8ac245c8d31837efa2c9",
+      "status": "MATCH",
+      "note": "current bytes under the authoring dir"
+    },
+    {
+      "group": "manifest:authoring_records",
+      "label": "design/skill-design-spec.md",
+      "declared": "b4f7772ead4bac67bcc654e1fad3241410c417d6a3aa58911de19755e13c20dd",
+      "actual": "b4f7772ead4bac67bcc654e1fad3241410c417d6a3aa58911de19755e13c20dd",
+      "status": "MATCH",
+      "note": "current bytes under the authoring dir"
+    },
+    {
+      "group": "manifest:governing_inputs",
+      "label": "docs/mvp/specifications/skill-008-devforge-evaluate-expert.md",
+      "declared": "0b3dbb7fe9f5f683d2022c86390e736346189e1ea4d92730c7234d9de1ecec0d",
+      "actual": "0b3dbb7fe9f5f683d2022c86390e736346189e1ea4d92730c7234d9de1ecec0d",
+      "status": "MATCH",
+      "note": "repo at base_commit c17e758"
+    },
+    {
+      "group": "manifest:governing_inputs",
+      "label": "docs/mvp/skill-authoring-contract.md",
+      "declared": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+      "actual": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+      "status": "MATCH",
+      "note": "repo at base_commit c17e758"
+    },
+    {
+      "group": "manifest:governing_inputs",
+      "label": "docs/mvp/artifact-contract.md",
+      "declared": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+      "actual": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+      "status": "MATCH",
+      "note": "repo at base_commit c17e758"
+    },
+    {
+      "group": "manifest:governing_inputs",
+      "label": "docs/mvp/execution-contract.md",
+      "declared": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+      "actual": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+      "status": "MATCH",
+      "note": "repo at base_commit c17e758"
+    },
+    {
+      "group": "manifest:governing_inputs",
+      "label": "docs/development-language-policy.md",
+      "declared": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+      "actual": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+      "status": "MATCH",
+      "note": "repo at base_commit c17e758"
+    }
+  ],
+  "prose_digests": [
+    [
+      ".builder_followed.SKILL.md_sha256",
+      "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e"
+    ],
+    [
+      ".correction_1.input",
+      "a7aa1bdb501196b87dae59d82621a8269ec1700704f80b82d51406c9bb160f6f"
+    ],
+    [
+      ".correction_1.input",
+      "c36a48540bfdc50a0261999d4b839154ed25764e8bd9bc25380981efc390a21e"
+    ]
+  ]
+}

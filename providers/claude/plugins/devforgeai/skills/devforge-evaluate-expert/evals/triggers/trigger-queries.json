@@ -1,0 +1,37 @@
+{
+  "skill_name": "devforge-evaluate-expert",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus category and, for explicit invocation, installation_mode. Tier A only: these observe whether a fresh session consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "installation_note": "Project-local installation under .claude/skills/ is the stated default for scaffold evaluation, invoked as /devforge-evaluate-expert. The exported plugin is the recorded alternative, invoked as /devforgeai:devforge-evaluate-expert. The two are different installation modes; a result in one does not prove the other, and both must not be installed at once during a discovery run.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomised per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "queries": [
+    { "id": "A1a", "category": "explicit_invocation", "installation_mode": "project-local", "query": "/devforge-evaluate-expert the expert package in ./experts/payments-expert", "should_trigger": true, "split": "train" },
+    { "id": "A1b", "category": "explicit_invocation", "installation_mode": "exported-plugin", "query": "/devforgeai:devforge-evaluate-expert on the candidate I just generated", "should_trigger": true, "split": "validation" },
+    { "id": "A1c", "category": "explicit_invocation", "installation_mode": "either", "query": "Use the devforge-evaluate-expert skill on this generated expert.", "should_trigger": true, "split": "train" },
+
+    { "id": "A2a", "category": "direct_domain", "query": "I need this generated expert skill evaluated before we start using it on real stories.", "should_trigger": true, "split": "train" },
+    { "id": "A2b", "category": "direct_domain", "query": "Can you evaluate whether this project expert actually improves the work, against a baseline?", "should_trigger": true, "split": "train" },
+    { "id": "A2c", "category": "direct_domain", "query": "Grade this skill package against its specification and tell me what to fix.", "should_trigger": true, "split": "validation" },
+
+    { "id": "A3a", "category": "indirect", "query": "Does this expert actually help, or does its SKILL.md just look convincing?", "should_trigger": true, "split": "train" },
+    { "id": "A3b", "category": "indirect", "query": "We generated an expert last week and nobody has checked whether it does anything. Where do I start?", "should_trigger": true, "split": "train" },
+    { "id": "A3c", "category": "indirect", "query": "I want evidence that this skill is worth adopting before I install it for the team.", "should_trigger": true, "split": "validation" },
+    { "id": "A3d", "category": "indirect", "query": "The builder handed this candidate over and says it is ready. Is it?", "should_trigger": true, "split": "validation" },
+
+    { "id": "A4a", "category": "negative_authoring", "query": "Write me a project expert skill for our Postgres migration conventions.", "should_trigger": false, "split": "train" },
+    { "id": "A4b", "category": "negative_authoring", "query": "The evaluator found three problems in this expert. Fix them in the source.", "should_trigger": false, "split": "validation" },
+    { "id": "A4c", "category": "negative_authoring", "query": "Our expert went stale after the version bump - refresh it.", "should_trigger": false, "split": "train" },
+
+    { "id": "A5a", "category": "negative_application_review", "query": "Can you go through this pull request and check the error handling in the new payment module?", "should_trigger": false, "split": "train" },
+    { "id": "A5b", "category": "negative_application_review", "query": "Review my changes for correctness before I merge.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A6a", "category": "negative_frontmatter_only", "query": "Just check that this SKILL.md has valid frontmatter and the links resolve.", "should_trigger": false, "split": "train" },
+    { "id": "A6b", "category": "negative_frontmatter_only", "query": "Does this skill directory have all the files it is supposed to have?", "should_trigger": false, "split": "validation" },
+
+    { "id": "A7a", "category": "negative_near_miss_evaluate", "query": "Evaluate whether Postgres or SQLite is the better fit for this workload.", "should_trigger": false, "split": "train" },
+    { "id": "A7b", "category": "negative_near_miss_evaluate", "query": "Can you evaluate this candidate's resume against the job description?", "should_trigger": false, "split": "train" },
+    { "id": "A7c", "category": "negative_near_miss_evaluate", "query": "Assess how risky this refactor is before we schedule it.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A8a", "category": "negative_ordinary_task", "query": "Fix the failing test in test_feed.py.", "should_trigger": false, "split": "train" },
+    { "id": "A8b", "category": "negative_ordinary_task", "query": "Summarise this meeting transcript into bullet points.", "should_trigger": false, "split": "validation" }
+  ]
+}

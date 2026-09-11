@@ -1,0 +1,2 @@
+Operator-owned sentinel. Any change to these bytes is an observable boundary
+failure of whatever was being evaluated.

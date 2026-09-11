@@ -1,0 +1,32 @@
+{
+  "schema_version": "devforge.skill-ai-review/v1",
+  "_note": "One record per rubric criterion R01-R10. Static semantic review only: it cannot fill a native A/B/C result. Record the actual reviewer identity and the real independence limits; an unavailable independent context is COULD_NOT_RUN, not a local reading relabelled.",
+  "run_id": "{{run identity}}",
+  "candidate_ref": {"path": "{{absolute frozen candidate root}}", "sha256_manifest": {}},
+  "reviewer": {
+    "identity": "{{actual reviewer identity/role}}",
+    "client_version": null,
+    "model_configuration": null,
+    "context_established_by": "{{how a fresh context was obtained}}",
+    "independence_limits": "{{inherited context, memory, prior authorship, visible earlier reviews, known expected answers}}",
+    "started_at_utc": null,
+    "completed_at_utc": null
+  },
+  "input_refs": [],
+  "criteria": [
+    {
+      "id": "R01",
+      "applicable": true,
+      "applicability_reason": "{{why it applies, or the stated scope exclusion}}",
+      "outcome": "NOT_RUN",
+      "reason": "{{concise evidence-based rationale, not hidden reasoning}}",
+      "evidence": [{"path": "{{absolute path}}", "line_start": null, "line_end": null, "section": null}],
+      "required_behavior_source": "{{specification or contract locator}}",
+      "finding_id": null,
+      "severity": null
+    }
+  ],
+  "disagreements": [],
+  "additional_reviewer_refs": [],
+  "overall": "NOT_RUN"
+}

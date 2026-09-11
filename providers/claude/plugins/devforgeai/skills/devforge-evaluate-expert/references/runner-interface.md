@@ -1,0 +1,123 @@
+# The case runner and its graders
+
+`scripts/run_cases.py` executes authored evaluation cases and writes per-case observations. `scripts/graders.py` holds the deterministic assertions it dispatches to. Together they are the framework's permitted Python evaluation artifacts: a JSONL runner and deterministic graders that produce raw outputs and metrics.
+
+Read this before using them, because the thing that makes them permitted is a boundary that is easy to erase by accident.
+
+## What makes this evidence and not a gate
+
+Some grader assertions check facts a structural gate would also check. The difference is role, not subject matter.
+
+| Property | A gate (not implemented here) | These graders |
+| --- | --- | --- |
+| Where an assertion comes from | A fixed rule catalogue applied to every package | Only a `case_id` in an authored case file. A fact nobody wrote a case for is simply not observed |
+| Aggregation | One outcome per rule, then a package-wide `overall`, under a precedence rule | **None.** No `overall`, no coverage summary, no counts, no percentage, anywhere in the output |
+| Exit status | Candidate passed / failed / could not run | This program produced complete output / could not / crashed. Never the candidate |
+| Vocabulary | `PASS` / `FAIL` / `COULD_NOT_RUN` | `MATCH` / `MISMATCH` / `INDETERMINATE`, deliberately disjoint |
+| Downstream use | Permits or refuses a dependent action | Rows you cite while adjudicating separately |
+| Effect on the missing capability | Would close it | Does not close it |
+
+Three rules follow, and they are not negotiable:
+
+1. **Never route P2 to the runner as a substitute for structural inspection.** The gap named in [missing DevForge CLI capabilities](missing-rust-capabilities.md) stays in the report even when every row matched.
+2. **Never copy a row into a results record as an outcome.** `MATCH` is an observation about one assertion. Whether it supports `PASS` for a required check is your judgement, made against the results contract, and it is recorded as your judgement.
+3. **Never read the exit status as a verdict.** Exit 0 means the file was written. It is entirely normal for a run full of `MISMATCH` rows to exit 0.
+
+## Prerequisites
+
+`/usr/bin/python3` 3.12, standard library only. No PyYAML, no third-party package, no package manager. No network, no subprocess, and no import or execution of candidate code. Exactly one file is written, at `--out`; nothing inside the candidate tree is ever written.
+
+Because installation does not preserve executable bits, invoke through the interpreter as shown rather than executing the file directly.
+
+## Interface
+
+```text
+python3 -B <installed-skill-root>/scripts/run_cases.py \
+  --cases      /abs/path/cases.jsonl \
+  --candidate  /abs/path/candidate-or-output-root \
+  --out        /abs/path/run/observations.jsonl \
+  [--mode source|installed] \
+  [--case-id ID]... \
+  [--help]
+```
+
+`-B` suppresses bytecode caching. The runner also sets `sys.dont_write_bytecode` before importing its grader module, so the guarantee holds either way; `-B` protects a caller who copies the command and edits it.
+
+All paths absolute. `--out` must not exist, its parent must exist, and it must lie outside `--candidate`. `--mode` defaults to `source` and affects only assertions in cases that declare a mode. `--case-id` may be repeated to run a subset; unselected cases still appear as `SKIPPED` rows and the header records the selection, so a partial run cannot be mistaken for full coverage.
+
+| Exit | Meaning |
+| --- | --- |
+| 0 | The program completed and wrote a complete observations file. Says nothing about any assertion. |
+| 1 | Invalid invocation or unusable input: unreadable case file, unreadable candidate, malformed JSONL, unknown grader, unknown case id, `--out` that exists or sits inside the candidate. |
+| 2 | Unexpected internal error. Never looks like a completed run. |
+
+## Case file
+
+One JSON object per line. Duplicate JSON keys within a line, duplicate `case_id` values, and unknown keys at either level are rejected, naming the file, the line and the offending key.
+
+| Level | Permitted keys |
+| --- | --- |
+| Case | `case_id`, `tier`, `title`, `prompt`, `files`, `candidate_subpath`, `mode`, `expectations`, `assertions`, `notes` |
+| Assertion | `assertion_id`, `grader`, `args`, `expect`, `expectations`, `routed_to`, `notes` |
+
+A case must carry a non-empty `assertions` list. A mistyped `assertions` key would otherwise produce a case that reports `COMPLETED` while observing nothing, which is the silent coverage loss this runner exists to prevent. Rejection is whole-file: one bad line means no observations file, so a partial run can never be mistaken for a complete one.
+
+```text
+{"case_id":"EX-C-003","tier":"C","title":"...","prompt":"...",
+ "files":["fixtures/good/"],"candidate_subpath":"good/fixture-scope-note",
+ "mode":"installed",
+ "expectations":{"summary":"the statement this case tests, for a human reader"},
+ "assertions":[{"assertion_id":"A1","grader":"path_absent",
+                "args":{"path":"evals"},"expect":"absent"}]}
+```
+
+`files` paths resolve relative to the `evals` directory and stay within it. `candidate_subpath` selects a subtree of `--candidate` for this case. `expectations.summary` is for people; no grader reads it. An assertion with `"grader": null` and a `routed_to` value records an expectation that no deterministic check can establish - the runner emits `INDETERMINATE` with the routing, which is the honest answer and is deliberately visible.
+
+## Observations file
+
+JSONL: one header record, then one record per case. There is no aggregate record.
+
+The header carries `schema_version`, `created_at_utc`, `python_version`, `runner_identity`, `grader_identity`, `case_file` (each with a path and sha256), `candidate_root`, `mode`, `case_selection`, `case_count`, an `authority` string and a `custody_note`.
+
+Those identities are **self-reported by the run**. That is why the custody note is there: a protected manifest binding them outside evaluated-agent write access is the second missing CLI capability, and a file describing itself is not that manifest.
+
+Each case record carries `case_id`, `tier`, `execution_status` (`COMPLETED`, `COULD_NOT_RUN` or `SKIPPED`), an optional `cause`, an `assertions` list and `metrics` (`files_read`, `bytes_read`, `duration_ms`). Each assertion carries `assertion_id`, `grader`, `result`, `observed`, `reason` and an optional `evidence` locator.
+
+## The graders
+
+| Grader | Establishes | Boundary it holds |
+| --- | --- | --- |
+| `frontmatter_present` | Opening and closing `---` delimiters | A missing closing delimiter is `MISMATCH`, not a crash |
+| `frontmatter_fields` | Required fields are populated scalars | **Restricted parser, no PyYAML.** `MISMATCH` for a duplicate top-level key, and for a non-mapping root - a frontmatter block whose first content line is a sequence entry or a bare scalar cannot carry a mapping key at all, so the fields are determinably absent. `INDETERMINATE` for constructs that are genuinely unreadable without a YAML parser: block scalars, nested maps, flow collections, anchors, merge keys, indented continuations, an unquoted value carrying `: ` or a trailing `:`, and any later line outside the `key: value` subset. It never guesses a value and never invents a defect it cannot establish |
+| `name_folder_relation` | The frontmatter `name` and the folder name | Records both. Asserts equality only when the case sets `expect_equal`, because Claude's own naming rules make a difference legitimate |
+| `package_relative_links` | Local Markdown destinations resolve inside the package | Supported subset only: inline links whose destination carries no title, whitespace, nesting, entity or angle bracket. Anything outside it is named as an unsupported representation with its line number and the assertion is `INDETERMINATE`: a link title, an HTML `src=` or `href=` attribute, a link reference definition, or a reference-style link. A representation it cannot read is never passed over, because an unseen link is absent from the count and a count of zero unresolvable destinations would read as a match. External URLs are counted, never fetched |
+| `path_present` / `path_absent` | A package-relative path exists or does not | Used for `evals` absence in installed mode and for referenced resources |
+| `required_report_fields` | Named fields are present and populated **outside fenced code blocks** | A field still holding a `{{placeholder}}` is `MISMATCH`, not a match. Lines inside a fence are skipped: a field named only in an illustrative example is an illustration, and counting it would report a populated field the document does not have. Fences follow the CommonMark closing rule - the same character, at least as long as the opening run - so a four-backtick block may quote a three-backtick example without ending early |
+| `claim_evidence_binding` | A self-reported outcome **and**, separately, whether its declared evidence resolves and hashes | Emits two facts. A file claiming `PASS` with null manifest, null transcript and empty evidence yields `observed: claimed='PASS' evidence=none` and `MISMATCH`. The claim is never adopted as the result |
+| `transcript_completion` | A terminal completion event in the synthetic transcript shape, and whether a named target was **consulted** - see the field contract below | No terminal completion sets the case to `COULD_NOT_RUN`; a negative-activation assertion can never match on an incomplete transcript. A real client transcript does not match this fixture shape and is `INDETERMINATE`, not an inference |
+| `artifact_side_effect` | Declared sentinels still hash as expected; forbidden strings absent from a named artifact | Observes bytes. It does **not** judge whether a model resisted an embedded instruction - that reading is criterion R06 |
+
+## The consultation field contract
+
+`transcript_completion` decides "was the target consulted?" from **structured event fields only**. It never searches free text.
+
+An event counts as a consultation when both hold:
+
+1. its `type` is one of `skill_loaded`, `skill_read`, `resource_read`, `skill_consulted` (override with the `consultation_event_types` arg); **and**
+2. one of its identity fields - `skill`, `resource`, `loaded`, `target` (override with `identity_fields`) - holds the target's **exact** name.
+
+Everything else is a mention. A `prompt` naming the skill is a mention, including the explicit-invocation form `/devforge-evaluate-expert ...`, and including a prompt that says *not* to use it. This separation is the whole point: tier A requires the target appearing in the inventory, the session selecting it, the instructions actually loading, and the task completing to stay four distinct observations, and a substring search collapses all four into one.
+
+If a consultation-bearing event carries no identity field, consultation can be neither established nor excluded: the assertion is `INDETERMINATE` and the case becomes `COULD_NOT_RUN`. That is the honest answer for a transcript whose shape cannot settle the question.
+
+## Limits worth stating in a report
+
+- The frontmatter reader covers a restricted top-level scalar subset. Real YAML that exceeds it returns `INDETERMINATE`, which is a gap in the observation, not a property of the candidate. An unquoted value carrying `: ` or a trailing `:` is one such case: YAML reads that colon as a mapping indicator, so the reader declines rather than storing text the format does not define. Do not report it as a candidate defect - a client loader may accept the same bytes, and one was observed doing so (Claude Code 2.1.268, 2026-09-10). Whether a package should quote such a value is an authoring question for the owner, decided against the governing spec, not something this grader establishes.
+- The link parser is not a CommonMark renderer. Link titles, reference-style links, link reference definitions, entity-encoded destinations and HTML `src=` / `href=` attributes are reported as unsupported representations needing manual inspection, each with its line number. It reports the first one it reaches, so a document with several may need more than one pass by hand. A shortcut reference used in prose without a definition on its own line is not detected at all.
+- The transcript shape is a fixture format authored for these graders. It tests the grader; it is not native evidence, and synthetic transcripts never substitute for an observed run.
+- Metrics are bounded reads of this program, not measurements of a client session.
+- Nothing here observes discovery, activation, loading or output quality. Those are tiers A, B and C in [native evaluation](native-evaluation.md).
+
+## Exercising the graders before trusting them
+
+The fixtures under `evals/fixtures/` exist so a grader's classification can be checked against a known answer before it is used on a real candidate - a conforming package, one defect per directory, and two semantic defects that deliberately have no deterministic assertion at all. Running the authored cases against them is how you establish that the graders discriminate, and it is a test of the graders rather than an evaluation of anything.

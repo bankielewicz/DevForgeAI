@@ -1,0 +1,306 @@
+== PR13-01a-titled-link  [package_relative_links]
+   note      : titled inline link to a missing file
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+
+== PR13-01b-html-and-refdef  [package_relative_links]
+   note      : HTML img src= plus a link reference definition, both missing
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+
+== PR13-01c-control-plain-missing  [package_relative_links]
+   note      : control: plain inline link to a missing file
+   e641797   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.md'
+   f8a5741   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.md'
+
+== PR13-02-nested-fence  [required_report_fields]
+   note      : four-backtick block quoting a three-backtick example
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): result
+
+== PR13-03-colon-space  [frontmatter_fields]
+   note      : unquoted description containing a colon-space
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+
+== PR13-01b1-html-only  [package_relative_links]
+   note      : HTML img src= alone
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+
+== PR13-01b2-refdef-only  [package_relative_links]
+   note      : link reference definition alone
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: a link reference definition is outside the supported subset; its destination belongs to a reference elsewhere in the document that this parser does not resolve
+
+== REG-fence-tilde-open-backtick-close  [required_report_fields]
+   note      : tilde-opened block; a backtick run must not close it
+   e641797   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : MISMATCH (field is example-only)
+
+== REG-fence-longer-closer  [required_report_fields]
+   note      : three-backtick open, five-backtick close: closes
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   evaluator : MATCH (line 6 is outside the block)
+
+== REG-fence-shorter-closer  [required_report_fields]
+   note      : four-backtick open, three-backtick line inside, no real close: unclosed at EOF
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : MISMATCH (still inside the block at EOF)
+
+== REG-fence-indented-3sp  [required_report_fields]
+   note      : fence indented three spaces (still a fence in CommonMark)
+   e641797   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : MISMATCH (inside the block)
+
+== REG-fence-indented-4sp  [required_report_fields]
+   note      : fence indented four spaces: CommonMark makes this an indented code block, not a fence
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   evaluator : ambiguous; record behaviour
+
+== REG-fence-closer-with-info-string  [required_report_fields]
+   note      : CommonMark: a closing fence may carry no info string; ```markdown must not close
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   evaluator : MISMATCH per CommonMark (field is inside the block)
+
+== REG-fence-tab-indent  [required_report_fields]
+   note      : tab-indented fence line
+   e641797   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : ambiguous; record behaviour
+
+== REG-fence-unclosed-eof-link  [package_relative_links]
+   note      : unclosed fence at EOF hides a broken link from the link grader
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   evaluator : MATCH 0 local (fence swallows the rest) - documented behaviour
+
+== REG-link-image-missing  [package_relative_links]
+   note      : image link to a missing file (supported subset)
+   e641797   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.png'
+   f8a5741   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.png'
+   evaluator : MISMATCH (destination does not exist)
+
+== REG-link-image-present  [package_relative_links]
+   note      : image link to a present file
+   e641797   : MATCH          observed='1 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : MATCH          observed='1 local, 0 external'
+               reason=every local destination resolves inside the package
+   evaluator : MATCH 1 local
+
+== REG-link-parens-in-dest  [package_relative_links]
+   note      : destination containing parentheses
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : INDETERMINATE (nested parentheses are outside the subset)
+
+== REG-link-angle-dest-present  [package_relative_links]
+   note      : angle-bracket destination naming a file that exists
+   e641797   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: '<references/present.md>'
+   f8a5741   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: '<references/present.md>'
+   evaluator : INDETERMINATE per runner-interface.md (angle brackets unsupported)
+
+== REG-link-multiple-per-line  [package_relative_links]
+   note      : three links on one line, one of them broken
+   e641797   : MISMATCH       observed='3 local, 0 external'
+               reason=line 6: the local destination does not exist: 'references/gone.md'
+   f8a5741   : MISMATCH       observed='3 local, 0 external'
+               reason=line 6: the local destination does not exist: 'references/gone.md'
+   evaluator : MISMATCH naming references/gone.md
+
+== REG-link-titled-present  [package_relative_links]
+   note      : titled inline link whose destination DOES exist
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : INDETERMINATE (unsupported representation)
+
+== REG-link-code-span-syntax  [package_relative_links]
+   note      : link syntax shown inside an inline code span in prose
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : no unresolvable destination exists; MATCH would be truthful
+
+== REG-link-external-titled  [package_relative_links]
+   note      : titled EXTERNAL link, nothing local
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : INDETERMINATE under the new rule; was MATCH 0 local
+
+== REG-link-refdef-continuation  [package_relative_links]
+   note      : link reference definition with the destination on the following line
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   evaluator : not detected by REFERENCE_DEFINITION (needs trailing space/tab)
+
+== REG-link-colon-in-prose  [package_relative_links]
+   note      : a bracketed phrase followed by a colon in ordinary prose
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: a link reference definition is outside the supported subset; its destination belongs to a reference elsewhere in the document that this parser does not resolve
+   evaluator : false INDETERMINATE risk on valid prose
+
+== REG-link-html-in-codespan  [package_relative_links]
+   note      : an HTML attribute shown inside an inline code span
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+   evaluator : false INDETERMINATE risk on prose
+
+== REG-link-data-src  [package_relative_links]
+   note      : a data-src attribute (not a resource attribute)
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+   evaluator : flagged by the \b(?:src|href) pattern after a hyphen
+
+== REG-link-max-bound  [package_relative_links]
+   note      : MAX_LINKS bound: 2100 resolvable local links
+   e641797   : INDETERMINATE  observed='2049 local, 0 external'
+               reason=line 2055: the supported link count bound was exceeded
+   f8a5741   : INDETERMINATE  observed='2049 local, 0 external'
+               reason=line 2055: the supported link count bound was exceeded
+   evaluator : INDETERMINATE once the bound is exceeded
+
+== REG-scalar-quoted-with-colon  [frontmatter_fields]
+   note      : double-quoted value containing ': '
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (quoting makes it a valid scalar)
+
+== REG-scalar-single-quoted-with-colon  [frontmatter_fields]
+   note      : single-quoted value containing ': '
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH
+
+== REG-scalar-quoted-plus-comment  [frontmatter_fields]
+   note      : quoted value followed by a trailing comment
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+   evaluator : MATCH (YAML parses this to 'a: b')
+
+== REG-scalar-unquoted-comment-with-colon  [frontmatter_fields]
+   note      : unquoted value whose trailing comment contains ': '
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (comment stripped first)
+
+== REG-scalar-comment-only-value  [frontmatter_fields]
+   note      : value consisting only of a comment (YAML null)
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : YAML value is null -> MISMATCH/INDETERMINATE, never MATCH
+
+== REG-scalar-trailing-colon  [frontmatter_fields]
+   note      : unquoted value ending in a colon
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+   evaluator : INDETERMINATE
+
+== REG-scalar-colon-no-space  [frontmatter_fields]
+   note      : unquoted value containing a colon with no following space
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (valid plain scalar)
+
+== REG-scalar-url-value  [frontmatter_fields]
+   note      : unquoted value containing a URL
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (valid plain scalar)
+
+== REG-scalar-empty-value  [frontmatter_fields]
+   note      : empty value
+   e641797   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is empty, which may introduce a nested block; a YAML parser is required and this grader does not use one
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is empty, which may introduce a nested block; a YAML parser is required and this grader does not use one
+   evaluator : INDETERMINATE unsupported
+
+== REG-scalar-colon-space-name-folder  [name_folder_relation]
+   note      : colon-space description: what name_folder_relation now reports
+   e641797   : MISMATCH       observed="name='fixtures' folder='REG-scalar-colon-space-name-folder'"
+               reason=the case required the frontmatter name to equal the folder name
+   f8a5741   : INDETERMINATE  observed='folder=REG-scalar-colon-space-name-folder'
+               reason=no frontmatter name is available: the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect
+   evaluator : INDETERMINATE; equality no longer assertable
+
+== REG-scalar-colon-space-present  [frontmatter_present]
+   note      : colon-space description: what frontmatter_present reports
+   e641797   : MATCH          observed='present'
+               reason=opening and closing --- delimiters are present
+   f8a5741   : MATCH          observed='present'
+               reason=opening and closing --- delimiters are present
+   evaluator : MATCH (delimiters are present)
+
+39 probes

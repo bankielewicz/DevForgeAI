@@ -1,0 +1,5 @@
+{"session": "syn-neg-1", "events": [
+  {"type": "prompt", "text": "Refactor the payments module."},
+  {"type": "selection_requested", "skill": "devforge-develop"},
+  {"type": "timeout", "after_ms": 600000}
+]}

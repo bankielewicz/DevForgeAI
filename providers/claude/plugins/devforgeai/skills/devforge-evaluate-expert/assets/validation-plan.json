@@ -1,0 +1,62 @@
+{
+  "schema_version": "devforge.skill-validation-plan/v1",
+  "_note": "Freeze this before any measured run. Expand checks[] into every required attempt and arm before execution. Candidate checks use expectation 'pass'; baseline checks use 'observation'. Never place this record's own digest inside itself.",
+  "run_id": "{{unique run identity}}",
+  "provider": "claude",
+  "candidate_root": "{{absolute frozen source candidate root}}",
+  "input_refs": [
+    {"kind": "specification", "path": "{{absolute path}}", "sha256": "{{digest}}"},
+    {"kind": "cases", "path": "{{absolute path}}", "sha256": "{{digest}}"},
+    {"kind": "rubric", "path": "{{absolute path}}", "sha256": "{{digest}}"},
+    {"kind": "contract", "path": "{{absolute path}}", "sha256": "{{digest}}"}
+  ],
+  "baseline": {
+    "kind": "{{old_skill/without_skill}}",
+    "relevance": "{{why this is the appropriate comparison}}",
+    "files_sha256": {},
+    "isolation": "{{how the baseline is prevented from discovering the candidate in any location}}"
+  },
+  "assignment": {
+    "owner": "{{actual owner}}",
+    "write_fence": "{{permitted writes}}",
+    "report_destination": "{{assigned absolute path}}",
+    "protected_paths": []
+  },
+  "runtime": {
+    "installation_mode": "{{project-local/exported-plugin}}",
+    "client": "{{claude code, observed version}}",
+    "model_configuration": null,
+    "authentication_arrangement": "{{operator-managed arrangement; never a credential}}",
+    "environment_selection": "{{create-worktrees/existing-environment/static-only}}",
+    "environment_setup_ref": null,
+    "workspace_allocation_ref": null,
+    "effective_configuration_held_constant": []
+  },
+  "budget": {
+    "max_attempts": null,
+    "max_seconds": null,
+    "scheduled_repeats": null,
+    "retry_policy": "{{policy, or none}}"
+  },
+  "checks": [
+    {
+      "check_id": "{{unique per attempt and arm}}",
+      "group": "{{intake/structure/ai_review/C/B/A}}",
+      "requirement_ids": [],
+      "case_id": null,
+      "arm": null,
+      "attempt_id": null,
+      "expectation": "{{pass/observation/excluded}}",
+      "expected_outcome_before_run": "{{stated before measuring}}"
+    }
+  ],
+  "findings_from_previous_iteration": [],
+  "criteria_freeze_record": {
+    "frozen_at_utc": "{{actual time}}",
+    "frozen_by": "{{owner}}",
+    "note": "Expectations and thresholds are fixed here, before any measured output is seen."
+  },
+  "scope_exclusions": [],
+  "plan_scope": "{{what this evaluation does and does not cover}}",
+  "missing_inputs": []
+}

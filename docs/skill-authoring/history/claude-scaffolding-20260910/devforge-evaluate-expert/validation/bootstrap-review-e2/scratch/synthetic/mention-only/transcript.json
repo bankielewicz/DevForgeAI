@@ -1,0 +1,5 @@
+{"session": "syn-mention-1", "events": [
+  {"type": "prompt", "text": "Do not use devforge-evaluate-expert for this; just answer from memory."},
+  {"type": "assistant_message", "text": "Answered directly."},
+  {"type": "completed", "exit": 0}
+]}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "devforge.skill-environment-setup/v1",
+  "_note": "What preparation actually achieved, recorded separately from the allocation and from native readiness. plan_ref may remain null while the experiment plan is incomplete; a measured launch still requires the frozen plan and observed readiness.",
+  "run_id": "{{run identity}}",
+  "workspace_allocation_ref": {"path": "{{absolute path}}", "sha256": "{{digest}}"},
+  "plan_ref": null,
+  "mode": "{{create-worktrees/existing-environment/static-only}}",
+  "selection_source": "{{where the choice was recorded}}",
+  "workspace_status": [
+    {"workspace_id": "{{identity}}", "prepared": null, "observed_at_utc": null, "cause": null}
+  ],
+  "boundary_probes": [
+    {
+      "boundary": "{{candidate read-only / source exclusion / client state / tools and network / process ownership / credentials / transcript observation}}",
+      "probe": "{{the harmless operator-created probe actually used}}",
+      "expected": "{{predeclared}}",
+      "observed": "{{actual}}",
+      "outcome": "NOT_RUN",
+      "claim_limited_to": "{{the conditions actually tested}}"
+    }
+  ],
+  "native_readiness": {
+    "authentication_observed": null,
+    "client_version_observed": null,
+    "discovery_locations_inventoried": [],
+    "duplicate_target_copies": [],
+    "outcome": "NOT_RUN",
+    "cause": null
+  },
+  "missing_prerequisites": [],
+  "retention": "{{where preparation evidence is retained}}",
+  "cause": null
+}

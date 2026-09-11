@@ -1,0 +1,19 @@
+--- source: frozen=17 cases, current=21 cases
+    added case_ids   : ['EX-DEF-012', 'EX-DEF-013', 'EX-DEF-014', 'EX-DEF-015']
+    removed case_ids : []
+    prior-case assertion drift rows: 0
+
+--- source: NEW case rows
+    EX-DEF-012 tier=C execution_status=COMPLETED
+        A1 [package_relative_links] INDETERMINATE observed='0 local, 0 external'
+            reason=line 8: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+    EX-DEF-013 tier=C execution_status=COMPLETED
+        A1 [package_relative_links] INDETERMINATE observed='0 local, 0 external'
+            reason=line 8: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+    EX-DEF-014 tier=C execution_status=COMPLETED
+        A1 [required_report_fields] MISMATCH observed='incomplete'
+            reason=missing or empty required field(s): recommendation
+    EX-DEF-015 tier=C execution_status=COMPLETED
+        A1 [frontmatter_fields] INDETERMINATE observed='unparsed'
+            reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+

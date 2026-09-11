@@ -1,0 +1,4 @@
+{"session":"rc-1","events":[
+ {"type":"prompt","text":"Evaluate the expert package in ./experts/payments."},
+ {"type":"skill_loaded","skill":"devforge-evaluate-expert"},
+ {"type":"completed","exit":0}]}

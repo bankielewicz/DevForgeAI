@@ -1,0 +1,206 @@
+{
+  "schema_version": "devforge.skill-validation-findings/v1",
+  "_note": "Focused recheck of repair pass 1. Scope: findings F-001..F-009 and rubric criteria R05, R08, R09 only. Unchanged broad checks were deliberately not rerun; silence here is not a fresh observation. No aggregate verdict, no acceptance, no admission.",
+  "run_id": "bootstrap-review-e2-recheck",
+  "producer": "independent evaluator (bootstrap, source-loaded rubric), worker E2",
+  "created_at_utc": "2026-09-10T19:51:28Z",
+  "supersedes": {
+    "artifact_id": "SEVAL-E2-001",
+    "path": "../bootstrap-review-e2/evaluation-report.md",
+    "candidate": "e52ac596cbf790dfa156d883852d392c512fdbcc"
+  },
+  "candidate": {
+    "commit": "e101e76162976f2414035bbe542f0a34f8cc51be",
+    "preceding_commit_scope_check": "b6a4bf7 added only the E2 review directory; git diff --name-status e52ac59 b6a4bf7 touches nothing under providers/",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert",
+    "file_count": 54,
+    "runtime_files": 28,
+    "authored_eval_files": 26,
+    "diff_under_providers": "14 files, 422 insertions, 27 deletions; 10 modified, 4 added (regression fixtures), 0 deleted",
+    "changed_file_digests": {
+      "SKILL.md": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
+      "scripts/run_cases.py": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+      "scripts/graders.py": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+      "references/runner-interface.md": "87c8942f2faa9c00c8746eeb51001ddccee3802c9f21a6e187d072251d4673e2",
+      "references/native-evaluation.md": "7d4a8bda731c318dbbaf61127578bf84e02fc1970be9fe4015bfaa6d0adc7e6f",
+      "references/results-contract.md": "ebac4e4c53f9a5d525e5edb1d331c4ee4c5736c26f18845090e7e3fd2d2c6af6",
+      "references/sources.md": "d4bb9bb57aea8cc6185092a148204a7ac91dc7354952ce1018ea9230f4bc4f37",
+      "references/derivation.json": "0c79f568af1be499a2eea8c99bb5e46f692e273876bc8691ac179508b338df04",
+      "evals/cases.jsonl": "c31a7cb0a98fd33941fadb23c0fc63b1f274f07df15f850348acdf3b310f6be8",
+      "evals/fixtures/README.md": "38d893a1da0e46d57de597bc48290bc4bdebc4e0d288a064844344e6b7d9c03d",
+      "evals/fixtures/defect-fenced-report/report/expert-evaluation-report.md": "bddbde2ccf948150021cf29a84b09582224ba2972982f7f7edb93eaf8ac43ab6",
+      "evals/fixtures/defect-frontmatter-non-mapping/fixture-scope-note/SKILL.md": "c590f4a65f214b6851412b5c05a34b7544019398e3bb96a448edc9c264ece33e",
+      "evals/fixtures/defect-mention-only/transcript/mention-only.json": "22946cead53646150b173abd22ce6c60a41ed2cfc9605ee59adbac85e8c07cf9",
+      "evals/fixtures/good/transcript/positive-consultation.json": "a2f5e827d322946bfd7cbd6e4831ae014a3b8b3787239de6ff1fb7058aeb1bba"
+    }
+  },
+  "recheck_integrity": {
+    "candidate_bytes_unchanged_by_this_recheck": true,
+    "evidence": "scratch/manifest-before.txt vs scratch/manifest-after.txt, 54 files, diff empty",
+    "pycache_in_package_after_all_runs": 0,
+    "git_status": "only bootstrap-review-e2-recheck/ untracked; bootstrap-review-e2/ unmodified; nothing committed",
+    "e2_case_file_rejection": "The unchanged E2 case file is now rejected at exit 1 because case E2-FM-004 carried the deliberate F-004 probe key 'bogus_unknown_key'. This is the fix working. A stripped copy (scratch/cases/e2-cases-stripped.jsonl), identical but for that key, was used for all reruns."
+  },
+  "finding_closures": [
+    {
+      "finding_id": "F-001",
+      "severity": "MAJOR",
+      "status": "CLOSED",
+      "change": "SKILL.md +12 lines of package-relative links at the phase that needs each file",
+      "verification": "Recomputed transitive Markdown-link closure from SKILL.md: 26 of 28 runtime files reachable (was 18). All 8 previously-unreachable files now linked. The only two unreached by a link are scripts/run_cases.py and scripts/graders.py, named directly in the P2 command block and explicitly excluded when F-001 was raised. No sentence rewritten, no file removed."
+    },
+    {
+      "finding_id": "F-002",
+      "severity": "MAJOR",
+      "status": "CLOSED",
+      "change": "fenced_lines() helper reusing the module's FENCE regex; grade_required_report_fields skips fenced lines",
+      "verification": "E2-RPT-001 over the same fenced-report input now MISMATCH 'incomplete', 'missing or empty required field(s): Disposition' (was MATCH 'every required field is present and populated'). Identical in both modes. Regression EX-GOOD-002 still MATCH x2."
+    },
+    {
+      "finding_id": "F-003",
+      "severity": "MAJOR",
+      "status": "CLOSED",
+      "change": "Consultation read only from CONSULTATION_EVENT_TYPES events whose identity field holds the exact target name; free text never searched; identity-less consultation event yields INDETERMINATE and blocks the case",
+      "verification": "E2-NEG-002 now MISMATCH 'completed consulted=False' (was MATCH consulted=True). Three new overshoot probes authored for this recheck: genuine skill_loaded naming the target -> MATCH consulted=True; negative expectation over a real resource_read -> MISMATCH; consultation-bearing event with no identity field -> INDETERMINATE + COULD_NOT_RUN. Regression E2-NEG-001 still COULD_NOT_RUN."
+    },
+    {
+      "finding_id": "F-004",
+      "severity": "MINOR",
+      "status": "CLOSED",
+      "change": "CASE_KEYS and ASSERTION_KEYS allowlists plus a required non-empty assertions list, each raising InputError naming file, line and key",
+      "verification": "Typo probe ('assertion' for 'assertions') now exits 1 naming the key and the permitted set (was exit 0 with a COMPLETED zero-assertion case). New empty-assertions probe also exits 1. Documentation and code now agree."
+    },
+    {
+      "finding_id": "F-005",
+      "severity": "MINOR",
+      "status": "CLOSED",
+      "change": "sys.dont_write_bytecode = True before the grader import; -B added to both documented invocations",
+      "verification": "Ran a fresh copy of scripts/ WITHOUT -B - the form that previously produced the cache - and 0 __pycache__ directories appeared. No __pycache__ in the package after any run in this recheck."
+    },
+    {
+      "finding_id": "F-006",
+      "severity": "MINOR",
+      "status": "CLOSED",
+      "change": "Eight-row precedence table in native-evaluation.md step 5 and the matching enumeration in sources.md",
+      "verification": "Matches the documentation retrieved 2026-09-10: --add-dir at 5, plugin at 6, claude.ai account-synced at 7, bundled at 8. The without_skill rule now names 7 and 8 explicitly. The author added a correct point I had not made: plugin skills are namespaced, so a plugin copy coexists with a same-named copy rather than replacing it."
+    },
+    {
+      "finding_id": "F-007",
+      "severity": "ADVISORY",
+      "status": "CLOSED",
+      "change": "Option (a): new non_mapping frontmatter status returning MISMATCH, decided from the first content line only",
+      "verification": "E2-FM-003 now MISMATCH 'non-mapping-root' for frontmatter_fields and MISMATCH for name_folder_relation (both were INDETERMINATE). Regression E2-FM-004, the 'description: >-' block scalar, is still INDETERMINATE, so the disclosed limit was not over-hardened. Implementation is better scoped than the suggestion: a later unmatched line still returns INDETERMINATE."
+    },
+    {
+      "finding_id": "F-008",
+      "severity": "ADVISORY",
+      "status": "CLOSED",
+      "change": "All four sub-items",
+      "verification": "(a) read_frontmatter docstring lists all five statuses. (b) Disjointness claim scoped to assertion results with an explicit paragraph on case-level COULD_NOT_RUN. (c) references/sources.md declared in new_in_this_package (15 entries) with a digest that matches its bytes. (d) SKILL.md P6 flags the templates' inherited decision.json paragraph as template text; template bytes correctly left unedited."
+    },
+    {
+      "finding_id": "F-009",
+      "severity": "ADVISORY",
+      "status": "CLOSED",
+      "change": "Both sub-items",
+      "verification": "(a) results-contract.md replaces the four-extension sentence with a six-row table grouping every addition by purpose and states no VPR-2/Routine-Full/lineage/adoption-evidence field exists. (b) handoff.md revision 2 states both capability sentences verbatim at lines 61-62; grep -c = 2, was 0."
+    }
+  ],
+  "new_findings": [
+    {
+      "finding_id": "F-R01",
+      "type": "defect",
+      "severity": "MINOR",
+      "requirement_ids": [
+        "skill-authoring-contract: record package-relative destination and SHA-256 for each package-local copy",
+        "derivation.json's own stated purpose",
+        "AI-R07"
+      ],
+      "affected_revision": "e101e76162976f2414035bbe542f0a34f8cc51be",
+      "location": "references/derivation.json, derivations[].destination_sha256 and new_in_this_package[].sha256",
+      "evidence": [
+        {
+          "kind": "recomputed_digests",
+          "description": "Seven declared destination digests are the files' values at e52ac59, not at e101e76: SKILL.md (5f9769ddc394 vs bdf665c7e180), scripts/run_cases.py (d1fb18689eee vs 95ca2abf77a5), scripts/graders.py (7c03e7b21377 vs 1b7a27a37e1f), references/runner-interface.md (a58c35dab0fd vs 87c8942f2faa), references/native-evaluation.md (b43680f963d5 vs 7d4a8bda731c), references/results-contract.md (6e99ade182e4 vs ebac4e4c53f9), evals/cases.jsonl (b4b0c9314f43 vs c31a7cb0a98f)."
+        },
+        {
+          "kind": "disclosure_gap",
+          "description": "The repair_pass_1 record contains the words 'digest' or 'sha256' zero times, so the staleness is undisclosed."
+        },
+        {
+          "kind": "scope_bound",
+          "description": "The 18 source digests are unaffected and all 18 still match. references/sources.md, newly declared in this same pass, carries a correct digest - so the omission is an oversight, not a policy."
+        },
+        {
+          "kind": "mitigation",
+          "description": "The author's file-manifest.json is 54/54 current, independently verified, so a correct per-file record exists in the authoring evidence. repair_pass_1 documents every change in prose with finding ID, files and verification. No false positive is produced."
+        }
+      ],
+      "confidence": "high; every value recomputed directly from bytes and cross-checked with sha256sum.",
+      "impact": "derivation.json states its purpose as letting a later reader tell a deliberate refresh from silent drift, and it is the provenance record that ships inside the installed package. A reader verifying the package against it now gets seven mismatches and cannot distinguish this legitimate repair from tampering. It also sits awkwardly against the package's own results-contract rule that changed bytes invalidate the observations that depended on them.",
+      "recommendation": "Regenerate the seven digest values and add one line to repair_pass_1 recording that destination digests were refreshed in this pass. No content change. Next owner: the validator's author under coordinator dispatch.",
+      "affected_case_ids": []
+    }
+  ],
+  "author_disclosures_verified": {
+    "builder_digest_provenance_correction": "CONSISTENT and independently confirmed. git show 69b6090:.../devforge-project-expert-creator/SKILL.md | sha256sum -> 1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e, exactly the corrected value now recorded. git show 4999f31:... -> 342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9, exactly the value first recorded. The stated mechanism (digest taken from the builder worktree after E1's repair landed, separated in time from the read) matches the byte evidence. The corrected value is used throughout and the builder reference stays at what was actually followed.",
+    "handoff_revision_2": "VERIFIED - both capability statements verbatim, grep -c = 2",
+    "file_manifest_json": "VERIFIED - 54/54 per-file digests current against bytes"
+  },
+  "rubric_recheck": {
+    "R05": {
+      "was": "FAIL",
+      "now": "PASS"
+    },
+    "R08": {
+      "was": "FAIL",
+      "now": "PASS"
+    },
+    "R09": {
+      "was": "FAIL",
+      "now": "PASS"
+    },
+    "_not_readjudicated": [
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R06",
+      "R07",
+      "R10"
+    ],
+    "_note": "Authorization covered R05, R08 and R09 only. R07 is flagged for the coordinator: it passed at e52ac59 partly because 16/16 destination and 18/18 source digests matched, and F-R01 means seven destination digests no longer do."
+  },
+  "tiers": {
+    "A": {
+      "outcome": "NOT_RUN",
+      "cause": "No installed copy, no fresh Claude session, no permitted native workspace. A repair pass cannot supply these."
+    },
+    "B": {
+      "outcome": "NOT_RUN",
+      "cause": "As A; no baseline arm was run."
+    },
+    "C": {
+      "outcome": "NOT_RUN",
+      "cause": "No installation was performed. The synthetic runner exercise is a test of the graders: local evidence, not isolated native evidence."
+    }
+  },
+  "behavior_status": "NOT_EVALUATED",
+  "validation_disposition": "insufficient_evidence",
+  "disposition_basis": "Adjudicated by hand against references/results-contract.md. The three applicable FAILs that produced 'revise' in SEVAL-E2-001 are closed on rerun evidence: R05, R08 and R09 now PASS. With no applicable FAIL in the rechecked scope, the governing rule is 'otherwise a missing required observation gives insufficient evidence'; tiers A, B and C remain NOT_RUN. This is not 'suitable for the stated scope' and is not acceptance, adoption or release. One MINOR defect (F-R01) is open.",
+  "severity_counts_open": {
+    "BLOCKER": 0,
+    "MAJOR": 0,
+    "MINOR": 1,
+    "ADVISORY": 0
+  },
+  "severity_counts_closed": {
+    "BLOCKER": 0,
+    "MAJOR": 3,
+    "MINOR": 3,
+    "ADVISORY": 3
+  },
+  "adoption_reference": null,
+  "next_owner": "devforge-project-expert-creator (the validator's author), under coordinator dispatch, for F-R01 only",
+  "evaluator_boundary": "This evaluator did not author the candidate, made no edit to it, and recommends rather than accepts. bootstrap-review-e2/ was not modified. Nothing was committed."
+}

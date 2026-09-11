@@ -1,0 +1,13 @@
+file-manifest.json top-level keys: ['schema_version', '_note', 'recorded_at_utc', 'revision', 'supersedes', 'supersedes_chain', 'producer', 'repository', 'worktree', 'branch', 'base_commit', 'canonical_source_root', 'counts', 'runtime_files_sha256', 'authored_eval_files_sha256', 'packaging_note', 'authoring_records_sha256', 'repair_pass_1', 'governing_inputs_sha256', 'builder_followed', 'validation_status', 'behavioral_status', 'enforcement_status', 'missing_rust_capabilities', 'correction_1']
+  revision: 3
+  schema_version: 'devforge.package-manifest/v1'
+  recorded_at_utc: '2026-09-10T00:00:00Z'
+derivation:correction_1            total=  2  MATCH=2
+derivation:destination             total= 18  DECLARED_NULL=2  MATCH=16
+derivation:governing_specification total=  1  MATCH=1
+derivation:new                     total= 15  DECLARED_NULL=1  MATCH=14
+derivation:prior_chain             total= 10  MATCH=10
+derivation:source                  total= 18  MATCH=18
+
+ALL: total=64  DECLARED_NULL=3  MATCH=61
+

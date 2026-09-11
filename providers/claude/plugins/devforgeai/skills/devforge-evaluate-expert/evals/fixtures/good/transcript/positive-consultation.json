@@ -1,0 +1,9 @@
+{
+  "fixture_kind": "synthetic-transcript",
+  "note": "A real consultation: a structured load event naming the exact target identity. This is the only shape that establishes consultation.",
+  "events": [
+    {"type": "prompt", "text": "Evaluate the generated expert in ./experts/payments-expert."},
+    {"type": "skill_loaded", "skill": "devforge-evaluate-expert"},
+    {"type": "completed", "terminal_completed": true}
+  ]
+}
