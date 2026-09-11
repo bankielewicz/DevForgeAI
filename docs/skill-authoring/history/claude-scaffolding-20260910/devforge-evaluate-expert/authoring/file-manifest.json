@@ -1,15 +1,22 @@
 {
  "schema_version": "devforge.package-manifest/v1",
- "_note": "Candidate file manifest after repair pass 1, plus the authoring records. Contains no digest of itself, and does not list handoff.md, which is written after it and carries its own digest externally.",
+ "_note": "Candidate file manifest after correction 1, plus the authoring records. Contains no digest of itself. It also does not list handoff.md or correction-1.md: both are written after it and carry their own digests externally, so listing either would record a digest that goes stale on the next edit. Their absence here is deliberate, not an omission.",
  "recorded_at_utc": "2026-09-10T00:00:00Z",
- "revision": 2,
+ "revision": 3,
  "supersedes": {
-  "commit": "e52ac596cbf790dfa156d883852d392c512fdbcc",
-  "note": "Candidate 1, the bytes the E2 bootstrap review observed. Its findings do not transfer to these changed bytes."
+  "commit": "e641797eebf04cd1e8eb9f711549e038e7745407",
+  "note": "Revision 2, the candidate bytes the Codex review and the coordinator disposition observed. The PR13 findings do not transfer to these changed bytes."
  },
+ "supersedes_chain": [
+  {
+   "commit": "e52ac596cbf790dfa156d883852d392c512fdbcc",
+   "revision": 1,
+   "note": "Candidate 1, the bytes the E2 bootstrap review observed."
+  }
+ ],
  "producer": {
   "role": "worker A2",
-  "action": "repair pass 1",
+  "action": "correction 1",
   "provider": "claude",
   "skill": "devforge-evaluate-expert"
  },
@@ -20,8 +27,8 @@
  "canonical_source_root": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert",
  "counts": {
   "runtime_files": 28,
-  "authored_eval_files": 26,
-  "total_package_files": 54
+  "authored_eval_files": 30,
+  "total_package_files": 58
  },
  "runtime_files_sha256": {
   "SKILL.md": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
@@ -42,34 +49,38 @@
   "references/contracts/artifact-contract.md": "b8c9131c1007371eb01f2f7a7a069f85ccc318093872d53649ed41726098fc36",
   "references/contracts/execution-contract.md": "5c09da2e4849f9a7567d9e8cc6b0ee401c1ab8b39e386c6d05a3765c8fef1d9e",
   "references/contracts/skill-authoring-contract.md": "1d59e32f283c635276cc47ac138905936cf80e3ed0d7c3f89a0fab649ae37cc5",
-  "references/derivation.json": "a7ed08a748254d043bd440826da530b48f5d8d02d6899699b5d1af8280d2a4d3",
+  "references/derivation.json": "7c5a03ebda34434a9f07b6e93eac94e4a7135476758825dc065b68fdc6b64c42",
   "references/evaluation-boundaries.md": "1c36e08823eab2b41189f5229dd6f2b7f42f5c5dd5077ea3576265542bb4cb4f",
   "references/framework-context.md": "10062533f06513bad5bce101a8f736e2e4831ceb839b5ead91d0bdd94421a7f6",
   "references/missing-rust-capabilities.md": "82e6fcd808aa1fa1005ec0be45d8a77231226372423fc39b27c54d9917060e2a",
   "references/native-evaluation.md": "7d4a8bda731c318dbbaf61127578bf84e02fc1970be9fe4015bfaa6d0adc7e6f",
   "references/results-contract.md": "ebac4e4c53f9a5d525e5edb1d331c4ee4c5736c26f18845090e7e3fd2d2c6af6",
-  "references/runner-interface.md": "87c8942f2faa9c00c8746eeb51001ddccee3802c9f21a6e187d072251d4673e2",
+  "references/runner-interface.md": "045fbb1c8ecb771ca0a8c17268e81ac1b00a95bb17d414a21f35cb884b3eabad",
   "references/sources.md": "d4bb9bb57aea8cc6185092a148204a7ac91dc7354952ce1018ea9230f4bc4f37",
-  "scripts/graders.py": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+  "scripts/graders.py": "2a6fb9946b31d5d79f401f962aec5b1f4a2f48f97c3ede2eec7d50047ad5d714",
   "scripts/run_cases.py": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2"
  },
  "authored_eval_files_sha256": {
-  "evals/cases.jsonl": "c31a7cb0a98fd33941fadb23c0fc63b1f274f07df15f850348acdf3b310f6be8",
+  "evals/cases.jsonl": "6004e51170c001f1dcb1bcaabb034b08b74a680a4c11d02819d161ab9c089d11",
   "evals/evals.json": "04bc0ee4d968405861d1ffaac78c617478a47b3bc5f37363839d55b1e03e43a6",
-  "evals/fixtures/README.md": "38d893a1da0e46d57de597bc48290bc4bdebc4e0d288a064844344e6b7d9c03d",
+  "evals/fixtures/README.md": "71fdf1b042aa097df3ee81a62cb0e0d894b17df9ce4da1ea6afe8d848f70f15e",
   "evals/fixtures/defect-fenced-report/report/expert-evaluation-report.md": "bddbde2ccf948150021cf29a84b09582224ba2972982f7f7edb93eaf8ac43ab6",
+  "evals/fixtures/defect-frontmatter-colon-space/fixture-scope-note/SKILL.md": "a8f6a1c26f0b98c3727daaca9510c1ff5ea765ff98cd1d0fb817583fc3286072",
   "evals/fixtures/defect-frontmatter-duplicate-key/fixture-scope-note/SKILL.md": "b69982dffe9f4671c37b6cab47228e9b4982609605b98c810e2ea7a9684b4797",
   "evals/fixtures/defect-frontmatter-no-close/fixture-scope-note/SKILL.md": "4510c0313fec6abf2f0def8cf39e5b2f194251dff7cccbcc5e7cb280596804d5",
   "evals/fixtures/defect-frontmatter-non-mapping/fixture-scope-note/SKILL.md": "c590f4a65f214b6851412b5c05a34b7544019398e3bb96a448edc9c264ece33e",
   "evals/fixtures/defect-frontmatter-unparseable/fixture-scope-note/SKILL.md": "20200ed3918347abc2128f54b299e18e9eb28eb504e8a36a3b3b801f0ca52e64",
+  "evals/fixtures/defect-html-and-reference-links/fixture-scope-note/SKILL.md": "b497b1471dcfc565bcdcf14b9a68970066f9d35723299346779090d43ec10956",
   "evals/fixtures/defect-incomplete-negative-transcript/untrusted/negative-timeout-transcript.json": "9465384555221b1763359f1122960aeab916b4726efb96d5e212db90b48b6f69",
   "evals/fixtures/defect-installed-evals-present/fixture-scope-note/SKILL.md": "fe7f3dc16c9161e2f088e0d53bb5711fe00710691a6406e8dc05f7559ab754a5",
   "evals/fixtures/defect-installed-evals-present/fixture-scope-note/evals/evals.json": "de8fad39e9db6449edf18b1bb1cc516046a5c8ea1d7905a6cab9437ca2ce693a",
   "evals/fixtures/defect-mention-only/transcript/mention-only.json": "22946cead53646150b173abd22ce6c60a41ed2cfc9605ee59adbac85e8c07cf9",
   "evals/fixtures/defect-missing-resource/fixture-scope-note/SKILL.md": "c9ac26d49f2ce6ce3c3abe45847f8a5ea7b29ba05a20fb7962d551c747f3ed89",
+  "evals/fixtures/defect-nested-fence-report/report/expert-evaluation-report.md": "0a5bb65e2d979f69dc667b9017710a342473d56fa15d6f5acd90cf8ab00bb028",
   "evals/fixtures/defect-prompt-injection/fixture-scope-note/SKILL.md": "d140559042097d520f2df2af181dd39c13cb3b9a87b192007d4266f52c92983a",
   "evals/fixtures/defect-prompt-injection/sentinel/protected.txt": "97893c02c738801a408aabfebc911035c3b3de5b2bebd04cd3bcc18b2bdc4553",
   "evals/fixtures/defect-self-claimed-pass/untrusted/claimed-result.json": "150ce0adf24e2c06ce3c2e880c2794ccdeee1fe22dea17f5563f9b4dc5119b4c",
+  "evals/fixtures/defect-titled-link/fixture-scope-note/SKILL.md": "3149a69c03dd79526054c8a46e7a895b545d0cc53776ac1716f7f5c7a7e8fc1d",
   "evals/fixtures/good/fixture-scope-note/SKILL.md": "8b5f553442b81d8480eee136dd8a4c669fff4f37aa00f5c58e86359f28114704",
   "evals/fixtures/good/fixture-scope-note/references/required-format.md": "ede1d685d193b667d06721851a5dabb874dc05eecafcd3a8ff4d0a4e4607f13d",
   "evals/fixtures/good/report/expert-evaluation-report.md": "a2c823d5bdd5ecfa95a7776a423f1cd4df7774956cc5dba5366b056706889ec3",
@@ -149,5 +160,39 @@
  "missing_rust_capabilities": [
   "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.",
   "Protected-manifest custody for the evaluation runner is not implemented in the DevForge CLI."
- ]
+ ],
+ "correction_1": {
+  "input": "Codex review report-20260910234811Z.md as disposed by /home/bryan/Projects/DevForge/tmp/claude-remaining-skills-scaffolding-20260910/codex-review/coordinator-disposition-20260910.md (sha256 a7aa1bdb501196b87dae59d82621a8269ec1700704f80b82d51406c9bb160f6f; read-only untrusted evidence, not modified). Task packet: /home/bryan/Projects/DevForge/tmp/claude-remaining-skills-scaffolding-20260910/packets/correction-evaluate-expert.md (sha256 c36a48540bfdc50a0261999d4b839154ed25764e8bd9bc25380981efc390a21e).",
+  "findings_applied": [
+   "PR13-01",
+   "PR13-02",
+   "PR13-03"
+  ],
+  "findings_declined": [],
+  "findings_out_of_fence": [
+   "PR14-01 (devforge-design)",
+   "PR19 release description",
+   "PR20 inverted sentinel"
+  ],
+  "verification": "Each of the three defects was reproduced against the e641797 bytes in a scratch harness before its change was applied, and each fix was then re-verified construct by construct: titled link, HTML src=, HTML href=, link reference definition, nested fence, colon-space scalar and trailing-colon scalar, each on its own, plus controls for a resolving link, an unresolvable plain link, an external URL, a fenced example, a quoted colon value and a colon inside a trailing comment. The colon rule was cross-checked against PyYAML 6.0.3 in the scratch harness only; the package still imports no third-party module.",
+  "files_changed": [
+   "scripts/graders.py",
+   "references/runner-interface.md",
+   "references/derivation.json",
+   "evals/cases.jsonl",
+   "evals/fixtures/README.md"
+  ],
+  "files_added": [
+   "evals/fixtures/defect-frontmatter-colon-space/fixture-scope-note/SKILL.md",
+   "evals/fixtures/defect-html-and-reference-links/fixture-scope-note/SKILL.md",
+   "evals/fixtures/defect-nested-fence-report/report/expert-evaluation-report.md",
+   "evals/fixtures/defect-titled-link/fixture-scope-note/SKILL.md"
+  ],
+  "files_removed": [
+   "scripts/__pycache__/ (gitignored build residue left by an external repro run; git ls-files reported 0 tracked files, and no __pycache__ or .pyc exists in the package after both suite runs)"
+  ],
+  "suite": "python3 -B scripts/run_cases.py --cases evals/cases.jsonl --candidate evals/fixtures --out <workspace>/correction1-<mode>.jsonl --mode <source|installed>. Both runs exited 0 and wrote 21 case records. Prior outcomes compared row by row against validation/bootstrap-review-e2-recheck/scratch/out/author-{source,installed}.jsonl: 25 baseline assertion rows, 0 changed, 0 removed, 4 added in each mode.",
+  "preserved": "All 17 prior runner cases keep their prior outcomes in both modes. No aggregate verdict field, no gate, no decision receipt, no third-party dependency in the package, no candidate write. SKILL.md, run_cases.py and every asset are unchanged.",
+  "digest_verification": "Every sha256 recorded in this manifest and in references/derivation.json was recomputed from the named file after the bytes were final. Result recorded in correction-1.md."
+ }
 }

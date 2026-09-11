@@ -43,11 +43,28 @@ IDENTITY_FIELDS = ("skill", "resource", "loaded", "target")
 KEY_LINE = re.compile(r"^([A-Za-z0-9_.-]+):[ \t]*(.*)$")
 # Inline Markdown link or image with a non-nested destination.
 INLINE_LINK = re.compile(r"!?\[(?:[^\[\]]*)\]\(([^()\s]*)\)")
+# The opening of an inline link. An opener that INLINE_LINK does not also match
+# carries a destination this parser does not interpret - a link title, internal
+# whitespace, angle brackets or nested parentheses. Without this the whole link
+# would simply not be seen, and an unresolvable destination would be counted as
+# zero links and reported as a match.
+INLINE_LINK_OPENER = re.compile(r"!?\[[^\[\]]*\]\(")
 # Representations this parser deliberately does not interpret.
 REFERENCE_LINK = re.compile(r"\][ \t]*\[")
+# A link reference definition. Its destination belongs to a shortcut, collapsed
+# or full reference elsewhere in the document, which this parser does not resolve.
+REFERENCE_DEFINITION = re.compile(r"^\s{0,3}\[[^\]]+\]:[ \t]")
+# An HTML tag carrying a resource attribute. HTML is outside the subset entirely.
+HTML_RESOURCE_ATTR = re.compile(
+    r"<[A-Za-z][A-Za-z0-9-]*[^>]*?\b(?:src|href)[ \t]*=", re.IGNORECASE
+)
 ENTITY = re.compile(r"&(?:#\d+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]*);")
 FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
 PLACEHOLDER = re.compile(r"\{\{[^}]*\}\}")
+# An unquoted plain scalar cannot carry ": " or a trailing ":" - YAML reads either
+# as a mapping indicator, not as text. Verified against PyYAML 6.0.3: both raise
+# ScannerError "mapping values are not allowed here".
+PLAIN_SCALAR_MAPPING_INDICATOR = re.compile(r":[ \t]|:$")
 
 
 class ReadLimit(Exception):
@@ -101,28 +118,52 @@ def resolve_in(root: Path, relative: str):
 # --------------------------------------------------------------------------
 
 
+def fence_token(line: str):
+    """Return (character, length) for a fence line, or None for any other line."""
+    fence = FENCE.match(line)
+    if fence is None:
+        return None
+    run = fence.group(1)
+    return run[0], len(run)
+
+
+def scan_lines(text: str):
+    """Yield (number, line, inside) for every line, tracking fenced code blocks.
+
+    CommonMark closes a fenced block only on a run of the *same* character that
+    is *at least as long* as the opening run. A four-backtick block may therefore
+    quote a three-backtick example without ending early. Tracking only the fence
+    character would close the outer block at the inner example, putting the rest
+    of the example back into the document - which is how a line that exists only
+    as an illustration gets read as the document's own data.
+
+    Fence lines themselves are reported as inside: they are the block's own
+    delimiters, never document content.
+
+    This is the single fence reader. Both the report-field grader and the link
+    grader consume it, so the two cannot drift apart.
+    """
+    open_character, open_length = "", 0
+    for number, line in enumerate(text.split("\n"), 1):
+        token = fence_token(line)
+        if token is None:
+            yield number, line, bool(open_character)
+            continue
+        character, length = token
+        if not open_character:
+            open_character, open_length = character, length
+        elif character == open_character and length >= open_length:
+            open_character, open_length = "", 0
+        yield number, line, True
+
+
 def fenced_lines(text: str) -> set[int]:
     """Return the 1-based line numbers that sit inside a fenced code block.
 
     Content inside a fence is illustrative. A grader that reads it as though it
     were the document's own data reports a fact the document does not state.
     """
-    inside: set[int] = set()
-    in_fence = False
-    marker = ""
-    for number, line in enumerate(text.split("\n"), 1):
-        fence = FENCE.match(line)
-        if fence:
-            found = fence.group(1)
-            if not in_fence:
-                in_fence, marker = True, found[0]
-            elif found[0] == marker:
-                in_fence, marker = False, ""
-            inside.add(number)
-            continue
-        if in_fence:
-            inside.add(number)
-    return inside
+    return {number for number, _, inside in scan_lines(text) if inside}
 
 
 def read_frontmatter(text: str):
@@ -186,8 +227,29 @@ def read_frontmatter(text: str):
             return "unsupported", {}, f"the value of {key!r} is empty, which may introduce a nested block"
         if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
             value = value[1:-1]
-        elif " #" in value:
-            value = value.split(" #", 1)[0].strip()
+        else:
+            # A trailing comment is removed first, exactly as YAML does, so a
+            # colon that appears only inside a comment is not mistaken for one in
+            # the value. Verified against PyYAML 6.0.3: `k: foo # note: bar`
+            # parses to 'foo'.
+            if " #" in value:
+                value = value.split(" #", 1)[0].strip()
+            # An unquoted value carrying ": " or a trailing ":" is not a plain
+            # scalar at all - YAML reads the colon as a mapping indicator and
+            # refuses the line. The restricted subset cannot say what the author
+            # meant, so it declines to parse rather than storing a value the
+            # format does not define. This is a limit of this reader, not an
+            # observed defect in the candidate: a client loader may accept the
+            # same bytes, and the caller reports INDETERMINATE either way.
+            if PLAIN_SCALAR_MAPPING_INDICATOR.search(value):
+                return (
+                    "unsupported",
+                    {},
+                    f"the value of {key!r} is an unquoted plain scalar containing "
+                    "': ' or a trailing ':', which YAML reads as a mapping "
+                    "indicator rather than as text; the restricted subset "
+                    "declines to parse it and does not treat it as a defect",
+                )
         if key in fields:
             duplicates.append(key)
         fields[key] = value
@@ -320,21 +382,34 @@ def grade_package_relative_links(root, args, budget, case):
 
     failures, unsupported = [], []
     local = external = 0
-    in_fence = False
-    fence_marker = ""
-    for number, line in enumerate(text.split("\n"), 1):
-        fence = FENCE.match(line)
-        if fence:
-            marker = fence.group(1)
-            if not in_fence:
-                in_fence, fence_marker = True, marker[0]
-            elif marker[0] == fence_marker:
-                in_fence, fence_marker = False, ""
+    for number, line, inside in scan_lines(text):
+        if inside:
             continue
-        if in_fence:
-            continue
+        # A representation this parser does not interpret must be named, not
+        # passed over. An unseen link is silently absent from the count, and a
+        # count of zero unresolvable destinations then reads as a match.
         if REFERENCE_LINK.search(line):
             unsupported.append((number, "reference-style links are outside the supported subset"))
+        if REFERENCE_DEFINITION.match(line):
+            unsupported.append((
+                number,
+                "a link reference definition is outside the supported subset; its destination "
+                "belongs to a reference elsewhere in the document that this parser does not resolve",
+            ))
+        if HTML_RESOURCE_ATTR.search(line):
+            unsupported.append((
+                number,
+                "an HTML src= or href= resource attribute is outside the supported subset; "
+                "HTML is not interpreted",
+            ))
+        supported = {match.start() for match in INLINE_LINK.finditer(line)}
+        for opener in INLINE_LINK_OPENER.finditer(line):
+            if opener.start() not in supported:
+                unsupported.append((
+                    number,
+                    "an inline link destination outside the supported subset - a link title, "
+                    "internal whitespace, angle brackets or nested parentheses",
+                ))
         for match in INLINE_LINK.finditer(line):
             if local + external > MAX_LINKS:
                 unsupported.append((number, "the supported link count bound was exceeded"))
