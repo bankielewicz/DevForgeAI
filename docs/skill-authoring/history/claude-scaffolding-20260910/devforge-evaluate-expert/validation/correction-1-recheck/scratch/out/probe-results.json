@@ -1,0 +1,626 @@
+[
+  {
+    "probe": "PR13-01a-titled-link",
+    "note": "titled inline link to a missing file",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses"
+    },
+    "evaluator_expectation": null
+  },
+  {
+    "probe": "PR13-01b-html-and-refdef",
+    "note": "HTML img src= plus a link reference definition, both missing",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted"
+    },
+    "evaluator_expectation": null
+  },
+  {
+    "probe": "PR13-01c-control-plain-missing",
+    "note": "control: plain inline link to a missing file",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "1 local, 0 external",
+      "reason": "line 6: the local destination does not exist: 'missing.md'"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "1 local, 0 external",
+      "reason": "line 6: the local destination does not exist: 'missing.md'"
+    },
+    "evaluator_expectation": null
+  },
+  {
+    "probe": "PR13-02-nested-fence",
+    "note": "four-backtick block quoting a three-backtick example",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): result"
+    },
+    "evaluator_expectation": null
+  },
+  {
+    "probe": "PR13-03-colon-space",
+    "note": "unquoted description containing a colon-space",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "unparsed",
+      "reason": "the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one"
+    },
+    "evaluator_expectation": null
+  },
+  {
+    "probe": "PR13-01b1-html-only",
+    "note": "HTML img src= alone",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted"
+    },
+    "evaluator_expectation": null
+  },
+  {
+    "probe": "PR13-01b2-refdef-only",
+    "note": "link reference definition alone",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: a link reference definition is outside the supported subset; its destination belongs to a reference elsewhere in the document that this parser does not resolve"
+    },
+    "evaluator_expectation": null
+  },
+  {
+    "probe": "REG-fence-tilde-open-backtick-close",
+    "note": "tilde-opened block; a backtick run must not close it",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): recommendation"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): recommendation"
+    },
+    "evaluator_expectation": "MISMATCH (field is example-only)"
+  },
+  {
+    "probe": "REG-fence-longer-closer",
+    "note": "three-backtick open, five-backtick close: closes",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "evaluator_expectation": "MATCH (line 6 is outside the block)"
+  },
+  {
+    "probe": "REG-fence-shorter-closer",
+    "note": "four-backtick open, three-backtick line inside, no real close: unclosed at EOF",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): recommendation"
+    },
+    "evaluator_expectation": "MISMATCH (still inside the block at EOF)"
+  },
+  {
+    "probe": "REG-fence-indented-3sp",
+    "note": "fence indented three spaces (still a fence in CommonMark)",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): recommendation"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): recommendation"
+    },
+    "evaluator_expectation": "MISMATCH (inside the block)"
+  },
+  {
+    "probe": "REG-fence-indented-4sp",
+    "note": "fence indented four spaces: CommonMark makes this an indented code block, not a fence",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "evaluator_expectation": "ambiguous; record behaviour"
+  },
+  {
+    "probe": "REG-fence-closer-with-info-string",
+    "note": "CommonMark: a closing fence may carry no info string; ```markdown must not close",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "1 fields",
+      "reason": "every required field is present and populated"
+    },
+    "evaluator_expectation": "MISMATCH per CommonMark (field is inside the block)"
+  },
+  {
+    "probe": "REG-fence-tab-indent",
+    "note": "tab-indented fence line",
+    "grader": "required_report_fields",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): recommendation"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "incomplete",
+      "reason": "missing or empty required field(s): recommendation"
+    },
+    "evaluator_expectation": "ambiguous; record behaviour"
+  },
+  {
+    "probe": "REG-fence-unclosed-eof-link",
+    "note": "unclosed fence at EOF hides a broken link from the link grader",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "evaluator_expectation": "MATCH 0 local (fence swallows the rest) - documented behaviour"
+  },
+  {
+    "probe": "REG-link-image-missing",
+    "note": "image link to a missing file (supported subset)",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "1 local, 0 external",
+      "reason": "line 6: the local destination does not exist: 'missing.png'"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "1 local, 0 external",
+      "reason": "line 6: the local destination does not exist: 'missing.png'"
+    },
+    "evaluator_expectation": "MISMATCH (destination does not exist)"
+  },
+  {
+    "probe": "REG-link-image-present",
+    "note": "image link to a present file",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "1 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "1 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "evaluator_expectation": "MATCH 1 local"
+  },
+  {
+    "probe": "REG-link-parens-in-dest",
+    "note": "destination containing parentheses",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses"
+    },
+    "evaluator_expectation": "INDETERMINATE (nested parentheses are outside the subset)"
+  },
+  {
+    "probe": "REG-link-angle-dest-present",
+    "note": "angle-bracket destination naming a file that exists",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "1 local, 0 external",
+      "reason": "line 6: the local destination does not exist: '<references/present.md>'"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "1 local, 0 external",
+      "reason": "line 6: the local destination does not exist: '<references/present.md>'"
+    },
+    "evaluator_expectation": "INDETERMINATE per runner-interface.md (angle brackets unsupported)"
+  },
+  {
+    "probe": "REG-link-multiple-per-line",
+    "note": "three links on one line, one of them broken",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "3 local, 0 external",
+      "reason": "line 6: the local destination does not exist: 'references/gone.md'"
+    },
+    "f8a5741": {
+      "result": "MISMATCH",
+      "observed": "3 local, 0 external",
+      "reason": "line 6: the local destination does not exist: 'references/gone.md'"
+    },
+    "evaluator_expectation": "MISMATCH naming references/gone.md"
+  },
+  {
+    "probe": "REG-link-titled-present",
+    "note": "titled inline link whose destination DOES exist",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses"
+    },
+    "evaluator_expectation": "INDETERMINATE (unsupported representation)"
+  },
+  {
+    "probe": "REG-link-code-span-syntax",
+    "note": "link syntax shown inside an inline code span in prose",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses"
+    },
+    "evaluator_expectation": "no unresolvable destination exists; MATCH would be truthful"
+  },
+  {
+    "probe": "REG-link-external-titled",
+    "note": "titled EXTERNAL link, nothing local",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses"
+    },
+    "evaluator_expectation": "INDETERMINATE under the new rule; was MATCH 0 local"
+  },
+  {
+    "probe": "REG-link-refdef-continuation",
+    "note": "link reference definition with the destination on the following line",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "evaluator_expectation": "not detected by REFERENCE_DEFINITION (needs trailing space/tab)"
+  },
+  {
+    "probe": "REG-link-colon-in-prose",
+    "note": "a bracketed phrase followed by a colon in ordinary prose",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: a link reference definition is outside the supported subset; its destination belongs to a reference elsewhere in the document that this parser does not resolve"
+    },
+    "evaluator_expectation": "false INDETERMINATE risk on valid prose"
+  },
+  {
+    "probe": "REG-link-html-in-codespan",
+    "note": "an HTML attribute shown inside an inline code span",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted"
+    },
+    "evaluator_expectation": "false INDETERMINATE risk on prose"
+  },
+  {
+    "probe": "REG-link-data-src",
+    "note": "a data-src attribute (not a resource attribute)",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "0 local, 0 external",
+      "reason": "every local destination resolves inside the package"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "0 local, 0 external",
+      "reason": "line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted"
+    },
+    "evaluator_expectation": "flagged by the \\b(?:src|href) pattern after a hyphen"
+  },
+  {
+    "probe": "REG-link-max-bound",
+    "note": "MAX_LINKS bound: 2100 resolvable local links",
+    "grader": "package_relative_links",
+    "e641797": {
+      "result": "INDETERMINATE",
+      "observed": "2049 local, 0 external",
+      "reason": "line 2055: the supported link count bound was exceeded"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "2049 local, 0 external",
+      "reason": "line 2055: the supported link count bound was exceeded"
+    },
+    "evaluator_expectation": "INDETERMINATE once the bound is exceeded"
+  },
+  {
+    "probe": "REG-scalar-quoted-with-colon",
+    "note": "double-quoted value containing ': '",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "evaluator_expectation": "MATCH (quoting makes it a valid scalar)"
+  },
+  {
+    "probe": "REG-scalar-single-quoted-with-colon",
+    "note": "single-quoted value containing ': '",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "evaluator_expectation": "MATCH"
+  },
+  {
+    "probe": "REG-scalar-quoted-plus-comment",
+    "note": "quoted value followed by a trailing comment",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "unparsed",
+      "reason": "the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one"
+    },
+    "evaluator_expectation": "MATCH (YAML parses this to 'a: b')"
+  },
+  {
+    "probe": "REG-scalar-unquoted-comment-with-colon",
+    "note": "unquoted value whose trailing comment contains ': '",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "evaluator_expectation": "MATCH (comment stripped first)"
+  },
+  {
+    "probe": "REG-scalar-comment-only-value",
+    "note": "value consisting only of a comment (YAML null)",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "evaluator_expectation": "YAML value is null -> MISMATCH/INDETERMINATE, never MATCH"
+  },
+  {
+    "probe": "REG-scalar-trailing-colon",
+    "note": "unquoted value ending in a colon",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "unparsed",
+      "reason": "the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one"
+    },
+    "evaluator_expectation": "INDETERMINATE"
+  },
+  {
+    "probe": "REG-scalar-colon-no-space",
+    "note": "unquoted value containing a colon with no following space",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "evaluator_expectation": "MATCH (valid plain scalar)"
+  },
+  {
+    "probe": "REG-scalar-url-value",
+    "note": "unquoted value containing a URL",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "description,name",
+      "reason": "every required field is a populated scalar"
+    },
+    "evaluator_expectation": "MATCH (valid plain scalar)"
+  },
+  {
+    "probe": "REG-scalar-empty-value",
+    "note": "empty value",
+    "grader": "frontmatter_fields",
+    "e641797": {
+      "result": "INDETERMINATE",
+      "observed": "unparsed",
+      "reason": "the value of 'description' is empty, which may introduce a nested block; a YAML parser is required and this grader does not use one"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "unparsed",
+      "reason": "the value of 'description' is empty, which may introduce a nested block; a YAML parser is required and this grader does not use one"
+    },
+    "evaluator_expectation": "INDETERMINATE unsupported"
+  },
+  {
+    "probe": "REG-scalar-colon-space-name-folder",
+    "note": "colon-space description: what name_folder_relation now reports",
+    "grader": "name_folder_relation",
+    "e641797": {
+      "result": "MISMATCH",
+      "observed": "name='fixtures' folder='REG-scalar-colon-space-name-folder'",
+      "reason": "the case required the frontmatter name to equal the folder name"
+    },
+    "f8a5741": {
+      "result": "INDETERMINATE",
+      "observed": "folder=REG-scalar-colon-space-name-folder",
+      "reason": "no frontmatter name is available: the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect"
+    },
+    "evaluator_expectation": "INDETERMINATE; equality no longer assertable"
+  },
+  {
+    "probe": "REG-scalar-colon-space-present",
+    "note": "colon-space description: what frontmatter_present reports",
+    "grader": "frontmatter_present",
+    "e641797": {
+      "result": "MATCH",
+      "observed": "present",
+      "reason": "opening and closing --- delimiters are present"
+    },
+    "f8a5741": {
+      "result": "MATCH",
+      "observed": "present",
+      "reason": "opening and closing --- delimiters are present"
+    },
+    "evaluator_expectation": "MATCH (delimiters are present)"
+  }
+]

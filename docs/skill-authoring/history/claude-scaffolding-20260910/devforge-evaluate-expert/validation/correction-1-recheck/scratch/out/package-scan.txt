@@ -1,0 +1,27 @@
+== package_relative_links over the candidate's own Markdown
+  SKILL.md                                         e641797=MATCH          f8a5741=MATCH         
+  assets/expert-evaluation-plan.md                 e641797=MATCH          f8a5741=MATCH         
+  assets/expert-evaluation-report.md               e641797=MATCH          f8a5741=MATCH         
+  assets/handoff.md                                e641797=MATCH          f8a5741=MATCH         
+  assets/skill-enhancement-spec.md                 e641797=MATCH          f8a5741=MATCH         
+  assets/verification-results.md                   e641797=MATCH          f8a5741=MATCH         
+  references/ai-review-rubric.md                   e641797=MATCH          f8a5741=MATCH         
+  references/contracts/artifact-contract.md        e641797=MATCH          f8a5741=MATCH         
+  references/contracts/execution-contract.md       e641797=MATCH          f8a5741=MATCH         
+  references/contracts/skill-authoring-contract.md e641797=MATCH          f8a5741=MATCH         
+  references/evaluation-boundaries.md              e641797=MATCH          f8a5741=MATCH         
+  references/framework-context.md                  e641797=MATCH          f8a5741=MATCH         
+  references/missing-rust-capabilities.md          e641797=MATCH          f8a5741=MATCH         
+  references/native-evaluation.md                  e641797=MATCH          f8a5741=MATCH         
+  references/results-contract.md                   e641797=MATCH          f8a5741=MATCH         
+  references/runner-interface.md                   e641797=MATCH          f8a5741=MATCH         
+  references/sources.md                            e641797=MATCH          f8a5741=MATCH         
+  changed results: 0
+
+== frontmatter_fields over every Claude plugin SKILL.md
+  devforge-brainstorm                  e641797=MATCH          f8a5741=MATCH         
+  devforge-develop                     e641797=MATCH          f8a5741=MATCH         
+  devforge-evaluate-expert             e641797=MATCH          f8a5741=MATCH         
+  devforge-project-expert-creator      e641797=MATCH          f8a5741=MATCH         
+  devforge-review                      e641797=MATCH          f8a5741=MATCH         
+  changed results: 0

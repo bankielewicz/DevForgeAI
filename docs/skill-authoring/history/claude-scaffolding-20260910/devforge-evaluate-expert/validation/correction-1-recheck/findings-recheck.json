@@ -1,0 +1,196 @@
+{
+  "schema_version": "devforge.skill-eval-findings/v1",
+  "scope": "Focused recheck of correction 1 only (PR #13). Prior findings F-001..F-009 and F-R01 were closed at e641797 and were not reopened.",
+  "candidate": {
+    "repository": "DevForgeAI",
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910",
+    "branch": "author/claude-devforge-evaluate-expert-scaffold-20260910",
+    "commit": "f8a5741d87001f448bef2a659c670afaf4b1ed16",
+    "prior_candidate": "e641797eebf04cd1e8eb9f711549e038e7745407",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert",
+    "graders_sha256_f8a5741": "2a6fb9946b31d5d79f401f962aec5b1f4a2f48f97c3ede2eec7d50047ad5d714",
+    "graders_sha256_e641797": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+    "run_cases_sha256_both": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2"
+  },
+  "defect_closure": [
+    {
+      "defect": "PR13-01 (titled inline link)",
+      "input": "[required](missing.md \"title\")",
+      "result_e641797": "MATCH, observed '0 local, 0 external'",
+      "result_f8a5741": "INDETERMINATE, observed '0 local, 0 external', reason names the line and the unsupported representation",
+      "status": "CLOSED",
+      "evidence": "scratch/out/probe-run.txt PR13-01a-titled-link"
+    },
+    {
+      "defect": "PR13-01 (HTML resource attribute)",
+      "input": "<img src=\"missing.png\">",
+      "result_e641797": "MATCH, observed '0 local, 0 external'",
+      "result_f8a5741": "INDETERMINATE naming the HTML src=/href= attribute",
+      "status": "CLOSED",
+      "evidence": "scratch/out/probe-run.txt PR13-01b1-html-only (detector exercised alone)"
+    },
+    {
+      "defect": "PR13-01 (link reference definition)",
+      "input": "[missing]: nothere.md",
+      "result_e641797": "MATCH, observed '0 local, 0 external'",
+      "result_f8a5741": "INDETERMINATE naming the link reference definition",
+      "status": "CLOSED",
+      "evidence": "scratch/out/probe-run.txt PR13-01b2-refdef-only (detector exercised alone)"
+    },
+    {
+      "defect": "PR13-01 control",
+      "input": "[required](missing.md)",
+      "result_e641797": "MISMATCH 'the local destination does not exist'",
+      "result_f8a5741": "MISMATCH, byte-identical reason",
+      "status": "UNCHANGED (control holds)",
+      "evidence": "scratch/out/probe-run.txt PR13-01c-control-plain-missing"
+    },
+    {
+      "defect": "PR13-02 (four-backtick block quoting a three-backtick example)",
+      "input": "````markdown\\nexample:\\n```\\nresult: PASS\\n```\\n````",
+      "result_e641797": "MATCH '1 fields' for an example-only field",
+      "result_f8a5741": "MISMATCH 'incomplete', missing required field(s): result",
+      "status": "CLOSED",
+      "evidence": "scratch/out/probe-run.txt PR13-02-nested-fence"
+    },
+    {
+      "defect": "PR13-03 (unquoted colon-space plain scalar)",
+      "input": "description: means the user experience: a schema",
+      "result_e641797": "MATCH 'description,name', 'every required field is a populated scalar'",
+      "result_f8a5741": "INDETERMINATE 'unparsed', reason names the mapping indicator and explicitly declines to call it a candidate defect",
+      "status": "CLOSED",
+      "evidence": "scratch/out/probe-run.txt PR13-03-colon-space; PyYAML 6.0.3 raises ScannerError on the same bytes"
+    }
+  ],
+  "findings": [
+    {
+      "id": "R1-001",
+      "severity": "MINOR",
+      "kind": "new false INDETERMINATE on valid input, introduced by correction 1",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py:228-252",
+      "claim": "A quoted frontmatter value followed by a trailing comment is now reported INDETERMINATE 'unparsed', and the emitted reason calls it 'an unquoted plain scalar', which is false for the input.",
+      "evidence": "Input `description: \"a: b\" # note`. PyYAML 6.0.3 safe_load returns {'name':'n','description':'a: b'} - valid YAML. e641797: MATCH 'description,name'. f8a5741: INDETERMINATE 'unparsed' with reason \"the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':'\". Cause: the quote test at line 228 requires value[0]==value[-1]; a trailing comment breaks that, so the value falls into the else branch, the comment strip at 235 leaves the quote characters in place, and PLAIN_SCALAR_MAPPING_INDICATOR at 244 fires on the quoted text. See scratch/out/probe-run.txt REG-scalar-quoted-plus-comment.",
+      "impact": "Bounded: zero change on the five Claude plugin SKILL.md files present in this worktree and on the candidate's own 17 Markdown documents (scratch/out/package-scan.txt). The emitted reason string is nevertheless untrue for this input class, and runner-interface.md:91 does not list it.",
+      "smallest_repair": "Make the comment strip quote-aware and run it before the quote test: if the value starts with ' or \", drop any trailing ` #...` that follows the matching closing quote, then apply the existing quote-strip branch. A one-line alternative that is still honest is to return 'unsupported' with a reason that names the actual construct (a quoted value with trailing content) instead of asserting the value is unquoted."
+    },
+    {
+      "id": "R1-002",
+      "severity": "MINOR",
+      "kind": "new false INDETERMINATE on valid input, introduced by correction 1",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py:51,56,58,393-412",
+      "claim": "The three new detectors fire on prose and on inline code spans that contain no link at all, turning documents that were correctly MATCH into INDETERMINATE.",
+      "evidence": "Four inputs, all MATCH at e641797 and all INDETERMINATE at f8a5741 (scratch/out/probe-run.txt): (a) REG-link-code-span-syntax, prose line ``Write it as `[label](path \"title\")` in the report.`` -> INLINE_LINK_OPENER fires; (b) REG-link-html-in-codespan, ``Use `<img src=...>` sparingly.`` -> HTML_RESOURCE_ATTR fires; (c) REG-link-colon-in-prose, `[Note]: this is prose, not a link definition.` -> REFERENCE_DEFINITION matches any `^\\s{0,3}\\[..\\]: ` line; (d) REG-link-data-src, `<div data-src=\"x\">y</div>` -> the \\b in the src|href alternation matches after a hyphen.",
+      "impact": "No false MATCH; the direction is conservative. Demonstrated impact on real documents is zero: 17 of 17 Markdown files in the candidate keep MATCH (scratch/out/package-scan.txt). The cost lands on future evaluated packages whose SKILL.md documents link syntax or uses a `[Term]: definition` prose line: package_relative_links becomes a reported gap rather than an observation.",
+      "smallest_repair": "Doc-only minimum: add one sentence to runner-interface.md:116 stating that the detectors over-approximate - inline code spans are not excluded, and any `[text]: ` line is treated as a reference definition. Code minimum if preferred: strip inline code spans from a line before scanning it."
+    },
+    {
+      "id": "R1-003",
+      "severity": "MINOR",
+      "kind": "pre-existing false MATCH, NOT introduced by correction 1, adjacent to the defect it closed",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py:226-240",
+      "claim": "A frontmatter value consisting only of a comment is reported as a populated scalar, storing the comment text as the value.",
+      "evidence": "Input `description: # placeholder`. PyYAML 6.0.3 gives {'name':'n','description':None}. Both e641797 and f8a5741 return MATCH 'description,name', 'every required field is a populated scalar' (scratch/out/probe-run.txt REG-scalar-comment-only-value). The value after .strip() is '# placeholder', which contains no ' #' so the comment strip at line 235 never runs, and the empty-value branch at 226 never sees it.",
+      "impact": "Favourable evidence that is false, in the same family as PR13-03: the grader reports a value the format does not define. It is not a regression - byte-identical behaviour at both commits - so it is recorded as residual, not as a correction-1 defect. Severity ranking is the coordinator's call; the packet keys MAJOR to NEW false MATCH.",
+      "smallest_repair": "In the unquoted branch, treat a value whose first character is '#' as the existing empty-value case: return 'unsupported' with the reason already written at line 227."
+    },
+    {
+      "id": "R1-004",
+      "severity": "MINOR",
+      "kind": "documentation claim contradicted by execution (new wording, pre-existing behaviour)",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/references/runner-interface.md:93",
+      "claim": "The corrected row states that an inline link whose destination carries an angle bracket is 'named as an unsupported representation with its line number and the assertion is INDETERMINATE'. It is not: it is resolved as a literal filename and reported MISMATCH.",
+      "evidence": "Input `[x](<references/present.md>)` with references/present.md actually present. Both e641797 and f8a5741: MISMATCH, reason \"the local destination does not exist: '<references/present.md>'\" (scratch/out/probe-run.txt REG-link-angle-dest-present). INLINE_LINK's `[^()\\s]*` accepts the angle brackets, so INLINE_LINK_OPENER finds no unmatched opener and the unsupported path is never reached.",
+      "impact": "A valid CommonMark link whose target exists is reported as a broken destination, and the new documentation says the opposite will happen. The behaviour is pre-existing; the incorrect promise is new in this correction.",
+      "smallest_repair": "Either add `if dest.startswith('<')` to the unsupported set inside grade_package_relative_links before _classify_destination, or amend runner-interface.md:93 to say angle brackets are only detected when they also prevent the supported pattern from matching."
+    },
+    {
+      "id": "R1-005",
+      "severity": "ADVISORY",
+      "kind": "pre-existing false MATCH, disclosed in derivation.json but not in runner-interface.md",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py:121-158; references/runner-interface.md:95",
+      "claim": "A closing fence that carries an info string still closes the block, so content after it is treated as document data. CommonMark forbids an info string on a closing fence.",
+      "evidence": "Input ```` ```\\n```markdown\\nrecommendation: adopt\\n``` ````: both commits return MATCH '1 fields' for a field that CommonMark places inside the block (scratch/out/probe-run.txt REG-fence-closer-with-info-string). derivation.json correction_1 CHG-102 states verbatim 'The closing-fence info-string rule is not implemented and is not claimed'; runner-interface.md:95 says only 'Fences follow the CommonMark closing rule - the same character, at least as long as the opening run', which is narrow enough to be literally true but reads as broader.",
+      "impact": "A false MATCH remains reachable for a report whose only recommendation line sits after an info-string-bearing inner fence. Unchanged from e641797, so not a correction-1 regression.",
+      "smallest_repair": "Carry the derivation.json sentence into runner-interface.md:95 or into the Limits list at line 114."
+    },
+    {
+      "id": "R1-006",
+      "severity": "ADVISORY",
+      "kind": "pre-existing false MISMATCH (conservative direction)",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py:62",
+      "claim": "FENCE's `^\\s{0,3}` counts a leading tab as one whitespace character, so a tab-indented fence line opens a block; CommonMark expands a tab to four columns, making it indented code rather than a fence.",
+      "evidence": "Input \"\\t```\\nrecommendation: adopt\\n\\t```\": both commits return MISMATCH 'incomplete' (scratch/out/probe-run.txt REG-fence-tab-indent). The comparable 4-space form returns MATCH at both commits (REG-fence-indented-4sp), which is the CommonMark-consistent answer.",
+      "impact": "Understates a populated field in a tab-indented document. Not favourable, not new.",
+      "smallest_repair": "Expand leading tabs to four columns before FENCE.match, or state the tab limit in the Limits list."
+    },
+    {
+      "id": "R1-007",
+      "severity": "ADVISORY",
+      "kind": "regression-case coverage gap in the new fixtures",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl:19 (EX-DEF-013); evals/fixtures/defect-html-and-reference-links/fixture-scope-note/SKILL.md",
+      "claim": "EX-DEF-013 names two detectors but can only ever evidence one. The HTML attribute is on line 8 and the link reference definition on line 21; the grader returns the first unsupported representation, so the reference-definition detector is never exercised by the suite.",
+      "evidence": "Both modes at f8a5741 report EX-DEF-013 A1 INDETERMINATE with reason 'line 8: an HTML src= or href= resource attribute ...' (scratch/out/f8a5741-source.jsonl, f8a5741-installed.jsonl). Removing REFERENCE_DEFINITION would leave the suite output unchanged. The evaluator exercised the detector alone (probe PR13-01b2) and it works; the gap is in the permanent regression coverage, not in the code. The author discloses the limitation in the case expectations and the fixture README.",
+      "impact": "One of the three PR13-01 sub-defects has no case that would fail if it regressed.",
+      "smallest_repair": "Split the fixture in two, or add a second case pointing at a reference-definition-only fixture directory."
+    },
+    {
+      "id": "R1-008",
+      "severity": "ADVISORY",
+      "kind": "reporting precedence not documented",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py:428-443; references/runner-interface.md:93",
+      "claim": "When a document contains both an unresolvable supported link and an unsupported representation, the unsupported representation is discarded from the emitted result entirely, not merely deferred.",
+      "evidence": "Input with `[broken](missing.md)` on line 6 and `[ok](refs/a.md \"title\")` on line 8: f8a5741 returns MISMATCH naming only line 6; the unsupported entry is collected and then never emitted (scratch/out/probe2-run.txt P2-failure-hides-unsupported). runner-interface.md:93 says 'A representation it cannot read is never passed over'; line 116 says only that the first of several unsupported representations is named.",
+      "impact": "A reader of a MISMATCH row cannot tell that the document also contained a representation the parser did not read. Direction is not favourable, so no false pass.",
+      "smallest_repair": "Append the unsupported count to `observed` (for example '1 local, 0 external, 1 unread'), or add one sentence at line 116."
+    },
+    {
+      "id": "R1-009",
+      "severity": "ADVISORY",
+      "kind": "determinable fact lost as a consequence of the PR13-03 fix",
+      "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py:169-259, 312-341",
+      "claim": "read_frontmatter aborts the whole block on the first unsupported value, so an unquoted colon-space description now also suppresses a perfectly readable `name`, converting a determinable name_folder_relation MISMATCH into INDETERMINATE.",
+      "evidence": "Fixture with `name: fixtures` (folder name differs) and an unquoted colon-space description: e641797 returns MISMATCH \"the case required the frontmatter name to equal the folder name\"; f8a5741 returns INDETERMINATE 'no frontmatter name is available' (scratch/out/probe-run.txt REG-scalar-colon-space-name-folder).",
+      "impact": "Known and intended coupling - the coordinator disposition records it for devforge-design and devforge-release - but the effect reaches a second grader that the correction record does not mention. Any package with an unquoted colon-space description now yields INDETERMINATE for both frontmatter_fields and name_folder_relation.",
+      "smallest_repair": "None required for correctness; if wanted, record the second-grader effect in runner-interface.md:92 or return the fields read before the unsupported line alongside the status."
+    }
+  ],
+  "not_run": [
+    {
+      "item": "Native tier C (installed resources resolve in a consuming project)",
+      "status": "NOT_RUN",
+      "reason": "Out of this packet's scope; no installed package, no isolate boundary probe, no model execution was attempted."
+    },
+    {
+      "item": "Native tier B (output quality against a baseline arm)",
+      "status": "NOT_RUN",
+      "reason": "Out of scope; evals.json still records execution_status NOT_RUN and authoring_status AUTHORED_NOT_EXECUTED."
+    },
+    {
+      "item": "Native tier A (discovery and activation from a fresh terminal)",
+      "status": "NOT_RUN",
+      "reason": "Out of scope; trigger queries were not exercised."
+    },
+    {
+      "item": "Semantic re-adjudication of SKILL.md, assets and references",
+      "status": "NOT_APPLICABLE",
+      "reason": "Closed at e641797 and explicitly out of this focused recheck."
+    }
+  ],
+  "disposition": {
+    "correction_1": "All three founded defects are closed by execution. Each of the five discriminating inputs answered MATCH at e641797 and INDETERMINATE or MISMATCH at f8a5741, and the control is unchanged.",
+    "package": "insufficient evidence",
+    "package_basis": "Native tiers C, B and A are NOT_RUN, so no behavioural evidence exists for this package at any commit. The deterministic evidence at f8a5741 is stronger than at e641797, and no new false MATCH was produced, so nothing found here argues for 'revise'. Acceptance is not the evaluator's decision."
+  },
+  "recommended_follow_up": [
+    "R1-003 first: the only undisclosed false MATCH in this batch. Pre-existing (byte-identical at both commits), so it does not change the correction-1 or package disposition, but it is the same family as the defect PR13-03 closed and runner-interface.md does not disclose it.",
+    "R1-001: quote-aware comment strip, or an accurate reason string.",
+    "R1-002: one sentence in runner-interface.md:116 recording that the three detectors over-approximate, or skip inline code spans.",
+    "R1-004: reconcile runner-interface.md:93 with the angle-bracket behaviour, in either direction.",
+    "R1-007: split the EX-DEF-013 fixture so the reference-definition detector has a case that would fail if it regressed."
+  ],
+  "manifest_prose_checks": {
+    "correction_1.suite '25 baseline assertion rows'": "CONFIRMED - frozen author-source.jsonl and author-installed.jsonl each carry 17 case records with 25 assertion rows; both f8a5741 runs carry 21 case records with 29 rows (25 + 4).",
+    "correction_1.files_changed / files_added": "CONFIRMED for package paths against git diff --name-status e641797 f8a5741. The diff additionally carries authoring/correction-1.md (added) and authoring/file-manifest.json (modified), which sit outside the package and outside those lists by design.",
+    "correction_1.files_removed '__pycache__'": "CONFIRMED absent - no __pycache__ or .pyc exists anywhere under the skill root after both suite runs and every probe."
+  }
+}

@@ -1,0 +1,543 @@
+# commands.log - devforge-evaluate-expert correction 1 focused recheck
+# evaluator: independent; candidate frozen at f8a5741d87001f448bef2a659c670afaf4b1ed16
+# every Python invocation used /usr/bin/python3 -B (PYTHONDONTWRITEBYTECODE=1 where a wrapper was used)
+
+## 0. custody
+### git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse HEAD
+f8a5741d87001f448bef2a659c670afaf4b1ed16
+exit=0
+### git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 status --porcelain   (before any evaluator write)
+(no output at the initial run; this line is recorded from the observation, not captured to this file)
+exit=0
+### git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse --abbrev-ref HEAD
+author/claude-devforge-evaluate-expert-scaffold-20260910
+exit=0
+### /usr/bin/python3 -VV
+Python 3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]
+exit=0
+### git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 diff --stat e641797 f8a5741 -- /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py   (runner byte-identical across the two commits)
+exit=0 (no output = unchanged)
+### git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 show e641797:.../scripts/graders.py > /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/restored/graders_e641797.py
+exit=0
+### sha256sum of the two grader revisions
+1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/restored/graders_e641797.py
+2a6fb9946b31d5d79f401f962aec5b1f4a2f48f97c3ede2eec7d50047ad5d714  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/f8a5741-source.jsonl --mode source
+wrote 21 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/f8a5741-source.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/f8a5741-installed.jsonl --mode installed
+wrote 21 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/f8a5741-installed.jsonl
+exit=0
+
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/old-runner/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/e641797-graders-source.jsonl --mode source
+wrote 21 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/e641797-graders-source.jsonl
+exit=0
+
+
+## 2. suite comparison against the frozen bootstrap-review-e2-recheck run
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/compare.py <frozen author-source.jsonl> <f8a5741-source.jsonl> source
+--- source: frozen=17 cases, current=21 cases
+    added case_ids   : ['EX-DEF-012', 'EX-DEF-013', 'EX-DEF-014', 'EX-DEF-015']
+    removed case_ids : []
+    prior-case assertion drift rows: 0
+
+--- source: NEW case rows
+    EX-DEF-012 tier=C execution_status=COMPLETED
+        A1 [package_relative_links] INDETERMINATE observed='0 local, 0 external'
+            reason=line 8: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+    EX-DEF-013 tier=C execution_status=COMPLETED
+        A1 [package_relative_links] INDETERMINATE observed='0 local, 0 external'
+            reason=line 8: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+    EX-DEF-014 tier=C execution_status=COMPLETED
+        A1 [required_report_fields] MISMATCH observed='incomplete'
+            reason=missing or empty required field(s): recommendation
+    EX-DEF-015 tier=C execution_status=COMPLETED
+        A1 [frontmatter_fields] INDETERMINATE observed='unparsed'
+            reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+
+exit=0
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/compare.py <frozen author-installed.jsonl> <f8a5741-installed.jsonl> installed
+--- installed: frozen=17 cases, current=21 cases
+    added case_ids   : ['EX-DEF-012', 'EX-DEF-013', 'EX-DEF-014', 'EX-DEF-015']
+    removed case_ids : []
+    prior-case assertion drift rows: 0
+
+--- installed: NEW case rows
+    EX-DEF-012 tier=C execution_status=COMPLETED
+        A1 [package_relative_links] INDETERMINATE observed='0 local, 0 external'
+            reason=line 8: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+    EX-DEF-013 tier=C execution_status=COMPLETED
+        A1 [package_relative_links] INDETERMINATE observed='0 local, 0 external'
+            reason=line 8: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+    EX-DEF-014 tier=C execution_status=COMPLETED
+        A1 [required_report_fields] MISMATCH observed='incomplete'
+            reason=missing or empty required field(s): recommendation
+    EX-DEF-015 tier=C execution_status=COMPLETED
+        A1 [frontmatter_fields] INDETERMINATE observed='unparsed'
+            reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+
+exit=0
+## 2b. the four new cases run against the e641797 graders (discrimination check)
+### /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/old-runner/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/evals/fixtures --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/e641797-graders-source.jsonl --mode source
+(scratch/old-runner/ = the f8a5741 run_cases.py with the e641797 graders.py beside it; nothing in the package was modified)
+EX-DEF-012 MATCH / EX-DEF-013 MATCH / EX-DEF-014 MATCH / EX-DEF-015 MATCH  -- all four discriminate
+exit=0
+
+## 1+3. paired probe harness (39 inputs, each run against both grader revisions)
+### PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/probe.py
+== PR13-01a-titled-link  [package_relative_links]
+   note      : titled inline link to a missing file
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+
+== PR13-01b-html-and-refdef  [package_relative_links]
+   note      : HTML img src= plus a link reference definition, both missing
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+
+== PR13-01c-control-plain-missing  [package_relative_links]
+   note      : control: plain inline link to a missing file
+   e641797   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.md'
+   f8a5741   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.md'
+
+== PR13-02-nested-fence  [required_report_fields]
+   note      : four-backtick block quoting a three-backtick example
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): result
+
+== PR13-03-colon-space  [frontmatter_fields]
+   note      : unquoted description containing a colon-space
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+
+== PR13-01b1-html-only  [package_relative_links]
+   note      : HTML img src= alone
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+
+== PR13-01b2-refdef-only  [package_relative_links]
+   note      : link reference definition alone
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: a link reference definition is outside the supported subset; its destination belongs to a reference elsewhere in the document that this parser does not resolve
+
+== REG-fence-tilde-open-backtick-close  [required_report_fields]
+   note      : tilde-opened block; a backtick run must not close it
+   e641797   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : MISMATCH (field is example-only)
+
+== REG-fence-longer-closer  [required_report_fields]
+   note      : three-backtick open, five-backtick close: closes
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   evaluator : MATCH (line 6 is outside the block)
+
+== REG-fence-shorter-closer  [required_report_fields]
+   note      : four-backtick open, three-backtick line inside, no real close: unclosed at EOF
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : MISMATCH (still inside the block at EOF)
+
+== REG-fence-indented-3sp  [required_report_fields]
+   note      : fence indented three spaces (still a fence in CommonMark)
+   e641797   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : MISMATCH (inside the block)
+
+== REG-fence-indented-4sp  [required_report_fields]
+   note      : fence indented four spaces: CommonMark makes this an indented code block, not a fence
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   evaluator : ambiguous; record behaviour
+
+== REG-fence-closer-with-info-string  [required_report_fields]
+   note      : CommonMark: a closing fence may carry no info string; ```markdown must not close
+   e641797   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   f8a5741   : MATCH          observed='1 fields'
+               reason=every required field is present and populated
+   evaluator : MISMATCH per CommonMark (field is inside the block)
+
+== REG-fence-tab-indent  [required_report_fields]
+   note      : tab-indented fence line
+   e641797   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   f8a5741   : MISMATCH       observed='incomplete'
+               reason=missing or empty required field(s): recommendation
+   evaluator : ambiguous; record behaviour
+
+== REG-fence-unclosed-eof-link  [package_relative_links]
+   note      : unclosed fence at EOF hides a broken link from the link grader
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   evaluator : MATCH 0 local (fence swallows the rest) - documented behaviour
+
+== REG-link-image-missing  [package_relative_links]
+   note      : image link to a missing file (supported subset)
+   e641797   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.png'
+   f8a5741   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: 'missing.png'
+   evaluator : MISMATCH (destination does not exist)
+
+== REG-link-image-present  [package_relative_links]
+   note      : image link to a present file
+   e641797   : MATCH          observed='1 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : MATCH          observed='1 local, 0 external'
+               reason=every local destination resolves inside the package
+   evaluator : MATCH 1 local
+
+== REG-link-parens-in-dest  [package_relative_links]
+   note      : destination containing parentheses
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : INDETERMINATE (nested parentheses are outside the subset)
+
+== REG-link-angle-dest-present  [package_relative_links]
+   note      : angle-bracket destination naming a file that exists
+   e641797   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: '<references/present.md>'
+   f8a5741   : MISMATCH       observed='1 local, 0 external'
+               reason=line 6: the local destination does not exist: '<references/present.md>'
+   evaluator : INDETERMINATE per runner-interface.md (angle brackets unsupported)
+
+== REG-link-multiple-per-line  [package_relative_links]
+   note      : three links on one line, one of them broken
+   e641797   : MISMATCH       observed='3 local, 0 external'
+               reason=line 6: the local destination does not exist: 'references/gone.md'
+   f8a5741   : MISMATCH       observed='3 local, 0 external'
+               reason=line 6: the local destination does not exist: 'references/gone.md'
+   evaluator : MISMATCH naming references/gone.md
+
+== REG-link-titled-present  [package_relative_links]
+   note      : titled inline link whose destination DOES exist
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : INDETERMINATE (unsupported representation)
+
+== REG-link-code-span-syntax  [package_relative_links]
+   note      : link syntax shown inside an inline code span in prose
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : no unresolvable destination exists; MATCH would be truthful
+
+== REG-link-external-titled  [package_relative_links]
+   note      : titled EXTERNAL link, nothing local
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+   evaluator : INDETERMINATE under the new rule; was MATCH 0 local
+
+== REG-link-refdef-continuation  [package_relative_links]
+   note      : link reference definition with the destination on the following line
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   evaluator : not detected by REFERENCE_DEFINITION (needs trailing space/tab)
+
+== REG-link-colon-in-prose  [package_relative_links]
+   note      : a bracketed phrase followed by a colon in ordinary prose
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: a link reference definition is outside the supported subset; its destination belongs to a reference elsewhere in the document that this parser does not resolve
+   evaluator : false INDETERMINATE risk on valid prose
+
+== REG-link-html-in-codespan  [package_relative_links]
+   note      : an HTML attribute shown inside an inline code span
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+   evaluator : false INDETERMINATE risk on prose
+
+== REG-link-data-src  [package_relative_links]
+   note      : a data-src attribute (not a resource attribute)
+   e641797   : MATCH          observed='0 local, 0 external'
+               reason=every local destination resolves inside the package
+   f8a5741   : INDETERMINATE  observed='0 local, 0 external'
+               reason=line 6: an HTML src= or href= resource attribute is outside the supported subset; HTML is not interpreted
+   evaluator : flagged by the \b(?:src|href) pattern after a hyphen
+
+== REG-link-max-bound  [package_relative_links]
+   note      : MAX_LINKS bound: 2100 resolvable local links
+   e641797   : INDETERMINATE  observed='2049 local, 0 external'
+               reason=line 2055: the supported link count bound was exceeded
+   f8a5741   : INDETERMINATE  observed='2049 local, 0 external'
+               reason=line 2055: the supported link count bound was exceeded
+   evaluator : INDETERMINATE once the bound is exceeded
+
+== REG-scalar-quoted-with-colon  [frontmatter_fields]
+   note      : double-quoted value containing ': '
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (quoting makes it a valid scalar)
+
+== REG-scalar-single-quoted-with-colon  [frontmatter_fields]
+   note      : single-quoted value containing ': '
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH
+
+== REG-scalar-quoted-plus-comment  [frontmatter_fields]
+   note      : quoted value followed by a trailing comment
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+   evaluator : MATCH (YAML parses this to 'a: b')
+
+== REG-scalar-unquoted-comment-with-colon  [frontmatter_fields]
+   note      : unquoted value whose trailing comment contains ': '
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (comment stripped first)
+
+== REG-scalar-comment-only-value  [frontmatter_fields]
+   note      : value consisting only of a comment (YAML null)
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : YAML value is null -> MISMATCH/INDETERMINATE, never MATCH
+
+== REG-scalar-trailing-colon  [frontmatter_fields]
+   note      : unquoted value ending in a colon
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect; a YAML parser is required and this grader does not use one
+   evaluator : INDETERMINATE
+
+== REG-scalar-colon-no-space  [frontmatter_fields]
+   note      : unquoted value containing a colon with no following space
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (valid plain scalar)
+
+== REG-scalar-url-value  [frontmatter_fields]
+   note      : unquoted value containing a URL
+   e641797   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   f8a5741   : MATCH          observed='description,name'
+               reason=every required field is a populated scalar
+   evaluator : MATCH (valid plain scalar)
+
+== REG-scalar-empty-value  [frontmatter_fields]
+   note      : empty value
+   e641797   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is empty, which may introduce a nested block; a YAML parser is required and this grader does not use one
+   f8a5741   : INDETERMINATE  observed='unparsed'
+               reason=the value of 'description' is empty, which may introduce a nested block; a YAML parser is required and this grader does not use one
+   evaluator : INDETERMINATE unsupported
+
+== REG-scalar-colon-space-name-folder  [name_folder_relation]
+   note      : colon-space description: what name_folder_relation now reports
+   e641797   : MISMATCH       observed="name='fixtures' folder='REG-scalar-colon-space-name-folder'"
+               reason=the case required the frontmatter name to equal the folder name
+   f8a5741   : INDETERMINATE  observed='folder=REG-scalar-colon-space-name-folder'
+               reason=no frontmatter name is available: the value of 'description' is an unquoted plain scalar containing ': ' or a trailing ':', which YAML reads as a mapping indicator rather than as text; the restricted subset declines to parse it and does not treat it as a defect
+   evaluator : INDETERMINATE; equality no longer assertable
+
+== REG-scalar-colon-space-present  [frontmatter_present]
+   note      : colon-space description: what frontmatter_present reports
+   e641797   : MATCH          observed='present'
+               reason=opening and closing --- delimiters are present
+   f8a5741   : MATCH          observed='present'
+               reason=opening and closing --- delimiters are present
+   evaluator : MATCH (delimiters are present)
+
+39 probes
+exit=0
+### PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/probe2.py
+P2-failure-hides-unsupported [e641797] MISMATCH observed='1 local, 0 external'
+    reason=line 6: the local destination does not exist: 'missing.md'
+P2-failure-hides-unsupported [f8a5741] MISMATCH observed='1 local, 0 external'
+    reason=line 6: the local destination does not exist: 'missing.md'
+    note: one plain broken link plus one unsupported titled link
+
+P2-two-unsupported-only-first-named [e641797] MATCH observed='0 local, 0 external'
+    reason=every local destination resolves inside the package
+P2-two-unsupported-only-first-named [f8a5741] INDETERMINATE observed='0 local, 0 external'
+    reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+    note: two unsupported representations on different lines
+
+P2-refdef-inside-fence [e641797] MATCH observed='0 local, 0 external'
+    reason=every local destination resolves inside the package
+P2-refdef-inside-fence [f8a5741] MATCH observed='0 local, 0 external'
+    reason=every local destination resolves inside the package
+    note: reference definition inside a fence is skipped
+
+exit=0
+
+## 3b. ground truth for the YAML claims (PyYAML 6.0.3, scratch only; the package imports no third-party module)
+### /usr/bin/python3 -B -c "import yaml; ...safe_load of six frontmatter bodies"
+PyYAML 6.0.3
+'name: n\ndescription: "a: b" # note\n'                -> {'name': 'n', 'description': 'a: b'}
+'name: n\ndescription: # placeholder\n'                -> {'name': 'n', 'description': None}
+'name: n\ndescription: means the user experience: a schema\n' -> ScannerError mapping values are not allowed here
+'name: n\ndescription: see the following:\n'           -> ScannerError mapping values are not allowed here
+'name: n\ndescription: ratio 3:1 of cases\n'           -> {'name': 'n', 'description': 'ratio 3:1 of cases'}
+'name: n\ndescription: plain text # note: here\n'      -> {'name': 'n', 'description': 'plain text'}
+exit=0
+
+## 3c. real-document impact scan (both grader revisions over the package's own Markdown and every Claude plugin SKILL.md)
+### PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/package-scan.py
+== package_relative_links over the candidate's own Markdown
+  SKILL.md                                         e641797=MATCH          f8a5741=MATCH         
+  assets/expert-evaluation-plan.md                 e641797=MATCH          f8a5741=MATCH         
+  assets/expert-evaluation-report.md               e641797=MATCH          f8a5741=MATCH         
+  assets/handoff.md                                e641797=MATCH          f8a5741=MATCH         
+  assets/skill-enhancement-spec.md                 e641797=MATCH          f8a5741=MATCH         
+  assets/verification-results.md                   e641797=MATCH          f8a5741=MATCH         
+  references/ai-review-rubric.md                   e641797=MATCH          f8a5741=MATCH         
+  references/contracts/artifact-contract.md        e641797=MATCH          f8a5741=MATCH         
+  references/contracts/execution-contract.md       e641797=MATCH          f8a5741=MATCH         
+  references/contracts/skill-authoring-contract.md e641797=MATCH          f8a5741=MATCH         
+  references/evaluation-boundaries.md              e641797=MATCH          f8a5741=MATCH         
+  references/framework-context.md                  e641797=MATCH          f8a5741=MATCH         
+  references/missing-rust-capabilities.md          e641797=MATCH          f8a5741=MATCH         
+  references/native-evaluation.md                  e641797=MATCH          f8a5741=MATCH         
+  references/results-contract.md                   e641797=MATCH          f8a5741=MATCH         
+  references/runner-interface.md                   e641797=MATCH          f8a5741=MATCH         
+  references/sources.md                            e641797=MATCH          f8a5741=MATCH         
+  changed results: 0
+
+== frontmatter_fields over every Claude plugin SKILL.md
+  devforge-brainstorm                  e641797=MATCH          f8a5741=MATCH         
+  devforge-develop                     e641797=MATCH          f8a5741=MATCH         
+  devforge-evaluate-expert             e641797=MATCH          f8a5741=MATCH         
+  devforge-project-expert-creator      e641797=MATCH          f8a5741=MATCH         
+  devforge-review                      e641797=MATCH          f8a5741=MATCH         
+  changed results: 0
+exit=0
+
+## 4. digest verification
+### PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/verify-digests.py /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/digest-verification.json
+file-manifest.json top-level keys: ['schema_version', '_note', 'recorded_at_utc', 'revision', 'supersedes', 'supersedes_chain', 'producer', 'repository', 'worktree', 'branch', 'base_commit', 'canonical_source_root', 'counts', 'runtime_files_sha256', 'authored_eval_files_sha256', 'packaging_note', 'authoring_records_sha256', 'repair_pass_1', 'governing_inputs_sha256', 'builder_followed', 'validation_status', 'behavioral_status', 'enforcement_status', 'missing_rust_capabilities', 'correction_1']
+  revision: 3
+  schema_version: 'devforge.package-manifest/v1'
+  recorded_at_utc: '2026-09-10T00:00:00Z'
+derivation:correction_1            total=  2  MATCH=2
+derivation:destination             total= 18  DECLARED_NULL=2  MATCH=16
+derivation:governing_specification total=  1  MATCH=1
+derivation:new                     total= 15  DECLARED_NULL=1  MATCH=14
+derivation:prior_chain             total= 10  MATCH=10
+derivation:source                  total= 18  MATCH=18
+
+ALL: total=64  DECLARED_NULL=3  MATCH=61
+
+exit=0
+### PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/verify-manifest.py /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/scratch/out/manifest-verification.json
+manifest:authored_eval         total= 30  MATCH=30
+manifest:authoring_records     total=  4  MATCH=4
+manifest:governing_inputs      total=  5  MATCH=5
+manifest:runtime               total= 28  MATCH=28
+ALL manifest table digests: total=67  MATCH=67
+
+digests appearing only in manifest prose (not table entries):
+  .builder_followed.SKILL.md_sha256 -> 1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e
+  .correction_1.input -> a7aa1bdb501196b87dae59d82621a8269ec1700704f80b82d51406c9bb160f6f
+  .correction_1.input -> c36a48540bfdc50a0261999d4b839154ed25764e8bd9bc25380981efc390a21e
+
+counts declared: {'runtime_files': 28, 'authored_eval_files': 30, 'total_package_files': 58}
+actual runtime entries: 28 authored_eval entries: 30
+exit=0
+### git -C <wt> show 69b6090:providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md | sha256sum   (file-manifest builder_followed pin)
+1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e  -   == declared
+exit=0
+### manifest completeness: 58 listed == 58 files on disk under the skill root; 0 unlisted, 0 missing
+exit=0
+
+## 5. language-policy grep
+### grep -oP 'result\(\s*\K[A-Z_]+' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py | sort | uniq -c
+     11 INDETERMINATE
+     13 MATCH
+     22 MISMATCH
+exit=0
+### grep -nE '(PASS|FAIL|verdict|accept|admit|approve|aggregate|score|overall|coverage|percent)' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py
+17:  * The output contains no aggregate field anywhere: no overall, no coverage
+20:    from the framework's PASS / FAIL / NOT_APPLICABLE authority vocabulary, so an
+94:    "acceptance, or aggregate any verdict."
+104:# while reporting COMPLETED is exactly the silent coverage loss this runner is
+278:            "Produces evidence only: no aggregate verdict, no admission, no acceptance. "
+exit=0
+### grep -n 'return 0|return 1|return 2' /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py
+363:        return 0
+367:        return 1
+371:        return 2
+exit=0
+### aggregate-field scan over both observation files produced by this recheck
+f8a5741-source.jsonl banned aggregate keys present: none
+f8a5741-source.jsonl authority-vocabulary values present: none
+f8a5741-source.jsonl distinct assertion result values: ['INDETERMINATE', 'MATCH', 'MISMATCH']
+f8a5741-installed.jsonl banned aggregate keys present: none
+f8a5741-installed.jsonl authority-vocabulary values present: none
+f8a5741-installed.jsonl distinct assertion result values: ['INDETERMINATE', 'MATCH', 'MISMATCH']
+exit=0
+### find /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert -name '__pycache__' -o -name '*.pyc'   (after every run above)
+exit=0 (no output = none)
+
+## 2c. baseline assertion-row count (checks the file-manifest correction_1.suite prose: '25 baseline assertion rows')
+### PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B -c "count assertion rows per observations file"
+author-source.jsonl cases= 17 assertion rows= 25
+author-installed.jsonl cases= 17 assertion rows= 25
+f8a5741-source.jsonl cases= 21 assertion rows= 29
+f8a5741-installed.jsonl cases= 21 assertion rows= 29
+exit=0
+
+## 6. closing custody
+### git -C <wt> status --porcelain
+?? docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/correction-1-recheck/
+exit=0
+### git -C <wt> diff --stat HEAD -- providers/ docs/   (candidate and tracked evidence untouched)
+exit=0 (no output = untouched)
+### find <wt> -name '__pycache__' -not -path '*/target/*' -not -path '*/.poc/*'
+/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-evaluate-expert/validation/bootstrap-review-e2/scratch/scripts-copy/__pycache__
+exit=0  -- the single hit is gitignored, dated 15:16 (the earlier bootstrap-review-e2 session), predates this evaluator's first write at 20:25, and was not touched

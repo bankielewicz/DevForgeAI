@@ -1,0 +1,18 @@
+P2-failure-hides-unsupported [e641797] MISMATCH observed='1 local, 0 external'
+    reason=line 6: the local destination does not exist: 'missing.md'
+P2-failure-hides-unsupported [f8a5741] MISMATCH observed='1 local, 0 external'
+    reason=line 6: the local destination does not exist: 'missing.md'
+    note: one plain broken link plus one unsupported titled link
+
+P2-two-unsupported-only-first-named [e641797] MATCH observed='0 local, 0 external'
+    reason=every local destination resolves inside the package
+P2-two-unsupported-only-first-named [f8a5741] INDETERMINATE observed='0 local, 0 external'
+    reason=line 6: an inline link destination outside the supported subset - a link title, internal whitespace, angle brackets or nested parentheses
+    note: two unsupported representations on different lines
+
+P2-refdef-inside-fence [e641797] MATCH observed='0 local, 0 external'
+    reason=every local destination resolves inside the package
+P2-refdef-inside-fence [f8a5741] MATCH observed='0 local, 0 external'
+    reason=every local destination resolves inside the package
+    note: reference definition inside a fence is skipped
+

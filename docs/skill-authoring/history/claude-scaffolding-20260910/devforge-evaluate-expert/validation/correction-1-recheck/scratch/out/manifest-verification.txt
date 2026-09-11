@@ -1,0 +1,13 @@
+manifest:authored_eval         total= 30  MATCH=30
+manifest:authoring_records     total=  4  MATCH=4
+manifest:governing_inputs      total=  5  MATCH=5
+manifest:runtime               total= 28  MATCH=28
+ALL manifest table digests: total=67  MATCH=67
+
+digests appearing only in manifest prose (not table entries):
+  .builder_followed.SKILL.md_sha256 -> 1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e
+  .correction_1.input -> a7aa1bdb501196b87dae59d82621a8269ec1700704f80b82d51406c9bb160f6f
+  .correction_1.input -> c36a48540bfdc50a0261999d4b839154ed25764e8bd9bc25380981efc390a21e
+
+counts declared: {'runtime_files': 28, 'authored_eval_files': 30, 'total_package_files': 58}
+actual runtime entries: 28 authored_eval entries: 30
