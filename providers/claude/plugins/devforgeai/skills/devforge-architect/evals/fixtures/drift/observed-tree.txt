@@ -1,0 +1,17 @@
+Synthetic fixture: `find . -type d -not -path '*/node_modules/*'` output recorded 2026-09-01.
+
+.
+./src
+./src/routes
+./src/routes/reports
+./src/routes/import
+./src/services
+./src/services/reconcile
+./src/db
+./src/db/queries
+./src/util
+./src/util/dates
+./src/util/dates2
+./scripts
+./test
+./test/routes

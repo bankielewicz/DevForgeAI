@@ -1,0 +1,149 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "_note": "Findings from the scaffold evaluation of devforge-architect (SKILL-005). Severity is chosen from the demonstrated consequence, never from a criterion's label. An evaluation_gap is an evaluation prerequisite owned by someone other than the candidate's author; it is never a defect in the candidate and editing the candidate will not close it. This record contains no digest of itself.",
+  "run_id": "EVRUN-claude-devforge-architect-scaffold-20260910T2123Z",
+  "recorded_at_utc": "2026-09-10T21:35:55Z",
+  "candidate": {
+    "skill": "devforge-architect",
+    "provider": "claude",
+    "root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect",
+    "commit": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+    "skill_md_sha256": "cb51fead7d5bdd8ed6fcee17c3e6ae6a716efc0936108240e535fa0cca04b9e4"
+  },
+  "counts": {"BLOCKER": 0, "MAJOR": 0, "MINOR": 1, "ADVISORY": 4, "evaluation_gap": 3},
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "type": "defect",
+      "severity": "MINOR",
+      "criterion_ids": ["R04"],
+      "requirement_ids": ["SKILL-005 'Workflow and phase exits' closing paragraph", "SKILL-005 'Rework, stopping, and recovery'"],
+      "affected_revision": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+      "location": "SKILL.md - no interruption or resume branch exists; the sections where one belongs are 'When something is missing or a check cannot run' (lines 103-111) and 'Stopping' (lines 113-120). Second locus: docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/authoring/spec-mapping.md, 'Workflow and phase exits' final row.",
+      "evidence": [
+        {"kind": "observation", "description": "Case-insensitive grep for interrupt|resume across every Markdown file in the package returns exactly one hit: the '## Resume and custody' heading inside the copied handoff template. No instruction anywhere addresses an interrupted session.", "locator": "commands.log; verification-results.md 'Manual structural observations' row M-11"},
+        {"kind": "specification", "description": "'On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.'", "locator": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-005-devforge-architect.md @ b9dc3a5a..., 'Workflow and phase exits'"},
+        {"kind": "specification", "description": "'If the worktree or active run changes, re-establish the appropriate baseline and evidence before resuming.'", "locator": "same file, 'Rework, stopping, and recovery'"},
+        {"kind": "author_claim_checked_against_bytes", "description": "spec-mapping.md maps this requirement to references/recording-rules.md 'Resolving an upstream reference' and 'When no session record exists'. Those bytes were read. They carry the identity-recheck half as unconditional pre-write rules and do not carry the phase-and-evidence-preservation half, and neither is framed as an interruption or resume path, so a resumed session has no trigger to consult them. The mapping row claims full coverage of a partially carried requirement.", "locator": "authoring/spec-mapping.md; references/recording-rules.md lines 356-383"}
+      ],
+      "confidence": "High that the instruction is absent - the grep is exhaustive over the package. Moderate on the size of the consequence: the unconditional pre-write identity rules would in practice catch the highest-risk resumed-session failure, a silently stale upstream, which is why this is MINOR and not MAJOR. The residual gap is real but narrow.",
+      "impact": "A session interrupted mid-contract has no instruction to preserve the current phase's partial evidence or to re-read the session assignment before continuing. The observable consequence is a resumed session that carries partial phase work forward without re-establishing the assignment it is writing under - the situation the execution contract's worktree-assignment rules exist to prevent. It does not affect a session that runs to completion in one pass.",
+      "recommendation": "CHG-001. Add an interruption and resume branch to SKILL.md - two sentences, in 'Stopping' or as a sixth bullet in 'When something is missing or a check cannot run'. Correct the spec-mapping row to say partial with the two halves distinguished.",
+      "affected_case_ids": ["ARCH-B-007", "ARCH-PKG-001", "EV-ADD-PKG-001"]
+    },
+    {
+      "finding_id": "F-002",
+      "type": "enhancement",
+      "severity": "ADVISORY",
+      "criterion_ids": ["R01"],
+      "requirement_ids": ["SKILL-005 'User goal and use-case inventory'"],
+      "affected_revision": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+      "location": "SKILL.md line 3, frontmatter description, exclusion clause; evals/triggers/trigger-queries.json entry A12a and owner_map.negative_review",
+      "evidence": [
+        {"kind": "observation", "description": "The authored trigger set carries negative A12a - 'Review this candidate against the story's acceptance criteria and tell me if it is ready' - with owner_map routing it to devforge-review (SKILL-010). The description names seven sibling exclusions and devforge-review is not among them; devforge-release and devforge-evaluate-expert are likewise unnamed.", "locator": "SKILL.md line 3; evals/triggers/trigger-queries.json"},
+        {"kind": "measurement", "description": "The description is 1,297 characters. The live Claude Code skills documentation, retrieved 2026-09-10 UTC, states the description (combined with when_to_use) is truncated at 1,536 characters in the skill listing, leaving 239 characters of headroom - enough for a devforge-review clause.", "locator": "https://code.claude.com/docs/en/skills; commands.log"}
+      ],
+      "confidence": "High on the facts; the effect on selection is unmeasured because tier A did not run. This is a discrimination-margin observation, not a demonstrated misrouting.",
+      "impact": "A near-miss review request is discriminated only by the absence of an attractor rather than by a stated boundary. No FAIL anchor is met and no required use case is affected, so this does not fail R01.",
+      "recommendation": "CHG-002, optional. Add a devforge-review exclusion clause to the description within the measured headroom. Do not extend the description past the truncation limit to do it.",
+      "affected_case_ids": ["A12a"]
+    },
+    {
+      "finding_id": "F-003",
+      "type": "enhancement",
+      "severity": "ADVISORY",
+      "criterion_ids": ["R05"],
+      "requirement_ids": ["SKILL-005 'Only documented, implemented DevForge commands may be named as executable gates'"],
+      "affected_revision": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+      "location": "SKILL.md line 93, 'External checks and what they prove'",
+      "evidence": [
+        {"kind": "observation", "description": "SKILL.md says the surface 'includes check, expert prepare|bind|status, init, red, green, accept, verify, status and isolate'. The operator binary devforge 0.1.0 (sha256 835c3263...) lists one further top-level command, `delivery`, with its own subcommands capabilities, init, status, advance, resume, complete, check, verify, run and hook. Every command the package names does exist, and the word 'includes' makes the list non-exhaustive rather than false; the same sentence instructs the reader to run `devforge --help` on the operator's binary.", "locator": "commands.log, devforge --help and devforge delivery --help observed 2026-09-10T21:23:15Z-21:27:14Z"}
+      ],
+      "confidence": "High. This is a completeness observation, not an error: no named command is fabricated and no missing command is needed by this skill's workflow.",
+      "impact": "None demonstrated. A reader following the instruction to check the operator's binary sees the full surface.",
+      "recommendation": "No target edit required. If the author touches that sentence for another reason, `delivery` may be added; changing it solely for completeness is not justified by the evidence.",
+      "affected_case_ids": []
+    },
+    {
+      "finding_id": "F-004",
+      "type": "enhancement",
+      "severity": "ADVISORY",
+      "criterion_ids": ["R01", "R02"],
+      "requirement_ids": ["SKILL-005 'Outputs and standardized templates' consumer-coverage line"],
+      "affected_revision": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+      "location": "SKILL.md line 87, phase 4 consumers sentence",
+      "evidence": [
+        {"kind": "observation", "description": "The specification's consumer coverage line reads 'architecture-contract -> plan; project-expert-creator; evaluate-expert; develop; review; change.' SKILL.md names plan, project-expert-creator, develop and review; the description names change as the owner of upgrade proposals; devforge-evaluate-expert is named nowhere in the package.", "locator": "SKILL.md lines 3 and 87; specification 'Outputs and standardized templates'"},
+        {"kind": "author_claim_checked_against_bytes", "description": "spec-mapping.md discloses this as a deliberate partial with a stated reason - evaluate-expert consumes an expert package rather than the contract directly, and naming an uninstalled skill in a continuation would risk presenting it as an available next step. The bytes match the disclosure.", "locator": "authoring/spec-mapping.md, 'Outputs and standardized templates' consumer row"}
+      ],
+      "confidence": "High on the facts. The author's reasoning is defensible and is reinforced by SKILL.md's own instruction to check what is actually installed before naming a skill in a continuation.",
+      "impact": "None demonstrated. The specification line describes artifact flow across the roster, not an instruction the skill must recite.",
+      "recommendation": "No target edit. Recorded so the partial coverage is visible to the coordinator as a considered decision rather than an omission.",
+      "affected_case_ids": []
+    },
+    {
+      "finding_id": "F-005",
+      "type": "enhancement",
+      "severity": "ADVISORY",
+      "criterion_ids": ["R09"],
+      "requirement_ids": ["skill-authoring-contract.md 'Three separately reported evaluation tiers'"],
+      "affected_revision": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+      "location": "evals/triggers/trigger-queries.json, queries[] and split_policy",
+      "evidence": [
+        {"kind": "observation", "description": "22 queries, split fixed at authoring time and recorded once, balanced by should_trigger (7 positive / 7 negative in train, 4 / 4 in validation) and with no duplicate IDs. Every negative category has an owner_map entry and every owner_map entry has a query. However eight of the thirteen categories carry exactly one query, so six negative routings - accepted-story, early-exploration, story-breakdown, ux-design, review and copy-edit for the train-only ones, and scope-definition, expert-authoring and prototype for the validation-only ones - appear in one split only and have no coverage in the other.", "locator": "evals/triggers/trigger-queries.json; commands.log stratification tally"}
+      ],
+      "confidence": "High on the tally. The file's split_policy claims stratification 'by should_trigger and category', which is true in the sense that each category is deterministically assigned; it does not claim per-category presence in both splits.",
+      "impact": "None demonstrated - tier A did not run. If it later does, six near-miss routings will be evidenced only from the split that happens to contain them, so a description change tuned on train has no held-out check for those six.",
+      "recommendation": "CHG-005, optional and only if tier A is scheduled. Add one query to the thinner side of the single-entry negative categories. Do not re-randomise the existing split, which is fixed and recorded.",
+      "affected_case_ids": ["A5a", "A6a", "A7a", "A8a", "A9a", "A10a", "A11a", "A12a", "A13a"]
+    },
+    {
+      "finding_id": "F-006",
+      "type": "evaluation_gap",
+      "severity": "MAJOR",
+      "criterion_ids": [],
+      "requirement_ids": ["SKILL-005 'Validation and behavioral acceptance'", "skill-authoring-contract.md 'Three separately reported evaluation tiers'"],
+      "affected_revision": "not a property of the candidate",
+      "location": "the evaluation assignment, not the package",
+      "evidence": [
+        {"kind": "assignment", "description": "This assignment allocated no installed or exported copy of devforge-architect, no fresh Claude Code terminal, and no permitted isolated evaluation workspace, and the packet directs that no install be attempted. Tiers C, B and A are therefore NOT_RUN with that cause.", "locator": "packet evaluator-devforge-architect.md, section P4"}
+      ],
+      "confidence": "Certain. This is an assignment scope fact, not an inference.",
+      "impact": "Every behavioural claim about this skill is unavailable: discovery, activation, instruction loading, installed-resource resolution in a consuming project, and output quality against the without_skill baseline. The specification's acceptance requirement - real outputs from representative requests in each supported terminal, with the terminal version, actual discovery/activation, revisions, assignment and evidence location recorded - is entirely unmet. Behavioural status is NOT_EVALUATED.",
+      "recommendation": "Coordinator to allocate an installed copy, a fresh terminal and an isolated workspace and dispatch a native evaluation. Severity MAJOR reflects the size of the unmet acceptance requirement; it is not a defect in the candidate and no edit to the candidate produces it.",
+      "affected_case_ids": ["ARCH-PKG-001", "ARCH-PKG-002", "ARCH-B-001", "ARCH-B-002", "ARCH-B-003", "ARCH-B-004", "ARCH-B-005", "ARCH-B-006", "ARCH-B-007", "ARCH-B-008", "ARCH-B-009", "A1a", "A1b", "A2a", "A2b", "A2c", "A2d", "A3a", "A3b", "A3c", "A3d", "A3e", "A4a", "A4b", "A5a", "A6a", "A7a", "A8a", "A9a", "A10a", "A11a", "A12a", "A13a"]
+    },
+    {
+      "finding_id": "F-007",
+      "type": "evaluation_gap",
+      "severity": "MAJOR",
+      "criterion_ids": [],
+      "requirement_ids": ["devforge-evaluate-expert references/missing-rust-capabilities.md"],
+      "affected_revision": "not a property of the candidate",
+      "location": "the DevForge CLI, owned by the DevForge integration owner",
+      "evidence": [
+        {"kind": "cli_help", "description": "Verified against the operator binary rather than taken on the validator's word: `devforge --help`, `devforge check --help`, `devforge expert --help` and `devforge delivery --help` were run against devforge 0.1.0 sha256 835c3263.... `check` is described as 'Check structural policy and provenance; does not certify semantic behavior' and takes a project and a policy; there is no skill-package inspector, no rule catalogue, no evidence reducer and no protected-manifest custody command anywhere in the surface.", "locator": "commands.log, observed 2026-09-10T21:23:15Z-21:27:14Z"}
+      ],
+      "confidence": "Certain for this binary at this revision. A future CLI revision could change it; the check must be repeated against the binary actually supplied.",
+      "impact": "Statement one: skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI, so every structural row in this evaluation was obtained by reading, is labelled INSPECTION_MANUAL with authority none, and the disposition was adjudicated by hand against the results contract with no decision receipt produced. Statement two: protected-manifest custody for the evaluation runner - binding the runner, graders, runtime, case inputs and grading criteria outside evaluated-agent write access and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI, so the runner and grader identities in every observations header are self-reported by the run. A complete set of matching runner rows does not close either dependency.",
+      "recommendation": "Route to the DevForge integration owner as an evaluation prerequisite. No candidate edit produces either capability.",
+      "affected_case_ids": []
+    },
+    {
+      "finding_id": "F-008",
+      "type": "evaluation_gap",
+      "severity": "MINOR",
+      "criterion_ids": ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10"],
+      "requirement_ids": ["devforge-evaluate-expert references/ai-review-rubric.md, 'Preparing an independent review'"],
+      "affected_revision": "not a property of the candidate",
+      "location": "the evaluation arrangement",
+      "evidence": [
+        {"kind": "arrangement", "description": "The packet designates this session as the fresh evaluator context, and it is separately dispatched from the author. But the same single session ran P2 and P3, and evals/evals.json - which carries the author's own graded_observations, effectively the expected answers for tier B - was read during P2 orientation before R01-R10 were drafted. No second reviewer was dispatched.", "locator": "ai-review.json reviewer.independence_limits"}
+      ],
+      "confidence": "Certain; this is a fact about how the review was conducted.",
+      "impact": "The R01-R10 records are an independent-of-the-author reading but not a doubly separated one, and they were formed with the author's tier-B expected observations already in context. It does not invalidate the findings - F-001 rests on an exhaustive grep and a specification sentence, neither of which the author's records could have anchored - but a consequential disagreement about any criterion should be resolved with a second fresh reviewer on the same raw packet rather than by weighing this one more heavily.",
+      "recommendation": "Record the limit. Dispatch a second fresh reviewer only if a criterion outcome becomes contested.",
+      "affected_case_ids": []
+    }
+  ]
+}

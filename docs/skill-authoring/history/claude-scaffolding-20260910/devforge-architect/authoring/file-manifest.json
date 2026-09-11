@@ -1,0 +1,77 @@
+{
+  "schema_version": "devforge.package-manifest/v1",
+  "skill": "devforge-architect",
+  "provider": "claude",
+  "package_root": "providers/claude/plugins/devforgeai/skills/devforge-architect",
+  "recorded_at_utc": "2026-09-10T21:59:27Z",
+  "base_commit": "c17e758417da64928a0f47fc2600304465ac3f3c",
+  "branch": "author/claude-devforge-architect-scaffold-20260910",
+  "note": "Complete package-relative path to SHA-256 map for the authored candidate, hashed after the package bytes were final. This manifest is authoring evidence and lives outside the package, so it contains no digest of itself and no package file's digest is computed from a file that includes it.",
+  "installation_note": "Source manifest. Nothing was installed, exported or bound, so no installed or exported manifest exists. An installed copy omits evals/ and would therefore have a different file list; comparing the two is the integration owner's step, not evidence produced here.",
+  "behavioural_status": "NOT_EVALUATED",
+  "tier_status": {
+    "A": "NOT_RUN",
+    "B": "NOT_RUN",
+    "C": "NOT_RUN"
+  },
+  "file_count": 32,
+  "files": {
+    "SKILL.md": "f0f91b2cc18dfcdb5d74f17eee9c3b3f4a2943cf43ea1ed9fdfb1e3ba4b2b3ac",
+    "assets/architecture-contract.md": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218",
+    "assets/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "evals/cases.jsonl": "809a67baab4ed8fd7e967d750e76667761c7475d1e2fd685d98bff1cdd5a0eb1",
+    "evals/evals.json": "dba8dd4530ced694f2ed37d2a1ec6f0ba9d88471522e1f1cc85fd1bf9ae0c947",
+    "evals/fixtures/README.md": "166a6cdbf72c8b00b208390f4bcd46a5899bc7faf42770e99663baf43330111b",
+    "evals/fixtures/collision/SESSION-042.md": "355f792661a31179a41fa7db1c27c5fe57c900d7bcc8c4cd3cd62f162438ac42",
+    "evals/fixtures/collision/request-note.md": "171199780302270054720b133ef3fa8bb76880289215f6e021e9ad34e0a73576",
+    "evals/fixtures/could-not-run/request-note.md": "dcf154d5557ab3f25727a9e3eb65501f189f9af263f855063c8ed6c546e37c1f",
+    "evals/fixtures/drift/PB-002.md": "38ca5f9d50672882c637794a063381e1f14c1d3a82c737dd60fb16c1d0909659",
+    "evals/fixtures/drift/note-from-the-lead.md": "89e915c099713b87c0fc7d2a1dde59f0a8ec85c267e72de5367aad1c1f2c3c05",
+    "evals/fixtures/drift/observed-tree.txt": "354067d90a180415eacc28680bffe817ff50cdc37ac7851204eb46cd066bb342",
+    "evals/fixtures/drift/package.json": "fe505057b272ce403f74229e078121659c05c551bb2911be8257fa4dbb3dd6b8",
+    "evals/fixtures/existing-stack/Directory.Packages.props": "f7274f78b8b6c4ddc6f2153c4977df127123e372d418175fbfccd93703345b18",
+    "evals/fixtures/existing-stack/note-from-the-user.md": "9dd54d1d2a5fe8d00eb2b07e9bba82e4903cb54728236fa10f04952d3514330e",
+    "evals/fixtures/existing-stack/observed-tree.txt": "9c39f8c71c355d3685b7b15b9b27e3701b01fed6fdc9c9702f3e979347db59ba",
+    "evals/fixtures/existing-stack/src/Notes.Api/Notes.Api.csproj": "feb36264d3cebc78281de50af5b68aa8daa7b2000e6321fa2e7f9e58294b1104",
+    "evals/fixtures/greenfield/PB-001.md": "776fb9bd9616ddaaaa6ec10db2608afec2c227ebfd4e6a227aa1d5d218373773",
+    "evals/fixtures/out-of-scope/docs/getting-started.md": "abb76b894f05f4f31cfc116be345b2e471d50fc85b5118695916a6be3ea8d36b",
+    "evals/fixtures/out-of-scope/request-note.md": "55b7323343bca9cadbb94c2521fc84a4417365ce40dc1fd3c4a762074ce02859",
+    "evals/fixtures/placeholder/ARCH-005.md": "4d25f4be00ba47910727802e8ea0382817c8adbe7f12e4f477d8d97f26616fcc",
+    "evals/fixtures/stale/ARCH-004.md": "b058798466a3d263aed1f5a97a60e942a44a8b455b6bc09fb5b64b07d9aa8982",
+    "evals/fixtures/stale/PB-003.md": "327ac438fd3665e45a2fb0a8ecf8345a76506bf705965519f7d77e0de38801a3",
+    "evals/fixtures/stale/preserved/PB-003.r1.md": "b6097c371bc88e64c41a77ee772d138e8173900614574649798f53f051ddc3b2",
+    "evals/fixtures/version-uncertainty/Directory.Packages.props": "7bdb76205615f93a357980058690b0352db246cbdd9355046bd603c43132a7a3",
+    "evals/fixtures/version-uncertainty/proposed-snippet.md": "7902ed106cf564195552844d8084fe1695cf6040f211d80aa247574d4dfde9a0",
+    "evals/triggers/trigger-queries.json": "3bcd429651d044ead326068e6f69dae0d0677939ee08baa392f202b604fc6354",
+    "references/derivation.json": "69441df618eac3ae5727217ddbcab839abc04a9608556e6eba469f5a0b3cf6da",
+    "references/framework-context.md": "1672462fcf118d6be9af08dca94d05efb4caeab128d9b671fd8419b52910ed19",
+    "references/recording-rules.md": "5e828c935fed53e62000df883ea4cb3565ca7194909a687febb47401a024f18a",
+    "references/sources.md": "61ed1720311c3b2370db1d3c578d2e3a1c5381b8490718a8788c7197bf205e37",
+    "references/version-evidence.md": "d788578077654daaa8cae752d5142dfd88fa85042fa90128980df34981c48cad"
+  },
+  "revision": 3,
+  "supersedes": {
+    "revision": 2,
+    "recorded_at_utc": "2026-09-10T19:58:18Z",
+    "preserved_at": "commit 61f6ef0, same path",
+    "note": "Revision 2 was the candidate the independent scaffold review evaluated (SKILL.md sha256 cb51fead7d5bdd8ed6fcee17c3e6ae6a716efc0936108240e535fa0cca04b9e4). Repair pass 1 applied CHG-001, CHG-002 and CHG-005, changing SKILL.md and evals/triggers/trigger-queries.json only."
+  },
+  "repair_pass_1": {
+    "applied_from": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review/skill-enhancement-spec.md (CHGSPEC-ARCH-001)",
+    "evaluated_revision": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+    "changes_applied": [
+      "CHG-001 (F-001, required)",
+      "CHG-002 (F-002, optional)",
+      "CHG-005 (F-005, optional)"
+    ],
+    "changes_declined": [
+      "CHG-003 (F-003) - repair spec requests no target edit",
+      "CHG-004 (F-004) - repair spec requests no target edit"
+    ],
+    "files_changed": [
+      "SKILL.md",
+      "evals/triggers/trigger-queries.json"
+    ],
+    "closure_note": "Applied means the source was edited. F-001 is not closed: the candidate is a new identity and needs new matching evidence."
+  }
+}

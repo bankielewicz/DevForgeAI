@@ -1,0 +1,13 @@
+Synthetic fixture: recorded directory listing, 2026-09-01.
+
+.
+./Directory.Packages.props
+./src
+./src/Notes.Api
+./src/Notes.Api/Notes.Api.csproj
+./src/Notes.Api/Endpoints
+./src/Notes.Api/Queries
+./src/Notes.Domain
+./src/Notes.Migrations
+./test
+./test/Notes.Api.Tests

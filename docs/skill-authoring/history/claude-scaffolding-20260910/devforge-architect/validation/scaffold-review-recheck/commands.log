@@ -1,0 +1,71 @@
+# scaffold-review-recheck commands.log - focused re-evaluation of devforge-architect at e979de0
+# evaluator: independent scaffold evaluator; all times observed via date -u at the moment of the call
+### 2026-09-10T22:02:27Z  git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910 rev-parse HEAD
+e979de01419a3990b5e3dda870db0ba62c222b84
+### exit=0
+### 2026-09-10T22:02:27Z  git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910 log --oneline 61f6ef06fc61fa92d7a3714c54a5251cd9177a4f..HEAD
+e979de0 fix(claude): devforge-architect repair pass 1 from independent scaffold review
+e115a36 docs(claude): independent scaffold review of devforge-architect at 61f6ef0 (Claude validator e641797, source-loaded)
+### exit=0
+### 2026-09-10T22:02:27Z  git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910 status --porcelain
+?? docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review-recheck/
+### exit=0
+### 2026-09-10T22:02:27Z  git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910 diff 61f6ef06fc61fa92d7a3714c54a5251cd9177a4f e979de0 --stat -- providers/
+ .../devforgeai/skills/devforge-architect/SKILL.md  |  3 +-
+ .../evals/triggers/trigger-queries.json            | 84 +++++++++++++++++++++-
+ 2 files changed, 84 insertions(+), 3 deletions(-)
+### exit=0
+### 2026-09-10T22:02:35Z  git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910 diff 61f6ef06fc61fa92d7a3714c54a5251cd9177a4f e979de0 -- providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md
+diff --git a/providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md b/providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md
+index 808954c..7aac781 100644
+--- a/providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md
++++ b/providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: devforge-architect
+-description: Establish or amend a project's architecture contract - the approved stack and exact dependency versions, the source tree and dependency boundaries, interface and data contracts, the test policy, and the expertise a delivery slice needs. Use it when someone asks to define or record a project's architecture or technical decisions, wants the stack settled before development starts, asks how to stop later sessions introducing incompatible libraries or drifting off the agreed structure, needs an evidence-backed inventory of an existing repository's real dependencies and layout, or brings an already-approved amendment to rules the project adopted. It records what the user actually decided and keeps its own proposals visibly separate. Do not use it to work out what to build (devforge-brainstorm), to define scope and requirements (devforge-define-product), to design the user experience (devforge-design), to build a spike for an unresolved technical uncertainty (devforge-prototype), to derive epics and stories from adopted rules (devforge-plan), to implement an accepted story (devforge-develop), or to author a project expert skill (devforge-project-expert-creator) - and a new library release is never authorization to upgrade an approved stack, so route that proposal to devforge-change.
++description: Establish or amend a project's architecture contract - the approved stack and exact dependency versions, the source tree and dependency boundaries, interface and data contracts, the test policy, and the expertise a delivery slice needs. Use it when someone asks to define or record a project's architecture or technical decisions, wants the stack settled before development starts, asks how to stop later sessions introducing incompatible libraries or drifting off the agreed structure, needs an evidence-backed inventory of an existing repository's real dependencies and layout, or brings an already-approved amendment to rules the project adopted. It records what the user actually decided and keeps its own proposals visibly separate. Do not use it to work out what to build (devforge-brainstorm), to define scope and requirements (devforge-define-product), to design the user experience (devforge-design), to build a spike for an unresolved technical uncertainty (devforge-prototype), to derive epics and stories from adopted rules (devforge-plan), to implement an accepted story (devforge-develop), to author a project expert skill (devforge-project-expert-creator), or to review a candidate against its acceptance criteria (devforge-review) - and a new library release is never authorization to upgrade an approved stack, so route that proposal to devforge-change.
+ ---
+ 
+ # Establish the project contract
+@@ -109,6 +109,7 @@ Use the vocabulary precisely, because blending these hides real gaps: `NOT_EVALU
+ - **A concurrent writer holds your worktree, branch or destination.** Stop the dependent writes and report the collision, naming the record you saw and where you read it. Do not delete, reset, revert or force anything, and do not quietly write somewhere else - relocating leaves the path someone is actually watching empty.
+ - **A template placeholder is still in a required field.** The result is a draft and cannot be presented as ready. A missing fact goes in `missing_inputs`, never into template filler.
+ - **A requested check cannot execute.** Record `COULD_NOT_RUN` with its actual cause and the claim it blocks. A missing binary, an unavailable policy or an unsupported adapter blocks the dependent claim, not the reporting.
++- **The session is interrupted and resumes later.** Preserve the current phase's evidence and the identities you have already frozen instead of discarding them and starting the phase over. Resume only after re-checking those upstream identities and the session assignment - and where an input, the worktree or the active run has changed, re-establish the baseline and open a new revision rather than carrying the interrupted one forward.
+ 
+ ## Stopping
+ 
+### exit=0
+### 2026-09-10T22:03:00Z  /usr/bin/python3 -B -c 
+import re,hashlib
+p='/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md'
+b=open(p,'rb').read(); t=b.decode('utf-8'); lines=t.split('\n')
+end=lines[1:].index('---')+1
+d=[l for l in lines[1:end] if l.startswith('description: ')][0][len('description: '):]
+print('description chars:',len(d),'limit 1536 headroom:',1536-len(d))
+print('sha256:',hashlib.sha256(b).hexdigest())
+
+description chars: 1370 limit 1536 headroom: 166
+sha256: f0f91b2cc18dfcdb5d74f17eee9c3b3f4a2943cf43ea1ed9fdfb1e3ba4b2b3ac
+### exit=0
+### 2026-09-10T22:03:40Z  /usr/bin/python3 -B -c 
+import json
+old=json.load(open('/tmp/claude-1000/tq-old.json')); new=json.load(open('/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect/evals/triggers/trigger-queries.json'))
+qo={x['id']:x for x in old['queries']}; qn={x['id']:x for x in new['queries']}
+print('original 22 identical by id:', all(qo[i]==qn.get(i) for i in qo))
+print('added ids:',sorted(set(qn)-set(qo)))
+
+original 22 identical by id: True
+added ids: ['A10b', 'A11b', 'A12b', 'A13b', 'A5b', 'A6b', 'A7b', 'A8b', 'A9b']
+### exit=0
+### 2026-09-10T22:04:17Z  git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910 diff --name-only 61f6ef06fc61fa92d7a3714c54a5251cd9177a4f e979de0 -- providers/
+providers/claude/plugins/devforgeai/skills/devforge-architect/SKILL.md
+providers/claude/plugins/devforgeai/skills/devforge-architect/evals/triggers/trigger-queries.json
+### exit=0
+### 2026-09-10T22:04:34Z  /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review-recheck/runner-out/recheck-arch-pkg-001.jsonl --mode source --case-id ARCH-PKG-001
+wrote 11 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review-recheck/runner-out/recheck-arch-pkg-001.jsonl
+### exit=0
+### 2026-09-10T22:04:34Z  /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review/runner-out/evaluator-added-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review-recheck/runner-out/recheck-ev-add-pkg-003.jsonl --mode source --case-id EV-ADD-PKG-003
+wrote 10 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review-recheck/runner-out/recheck-ev-add-pkg-003.jsonl
+### exit=0

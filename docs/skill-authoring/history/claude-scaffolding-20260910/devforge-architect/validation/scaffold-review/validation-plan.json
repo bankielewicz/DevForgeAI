@@ -1,0 +1,131 @@
+{
+  "schema_version": "devforge.skill-validation-plan/v1",
+  "_note": "EVPLAN content for this evaluation. PROCEDURAL LIMIT, recorded rather than backdated: this plan record was written after the deterministic runs of P2 completed. Nothing was chosen after seeing output - every candidate expectation was already fixed in the frozen case file's own `expectations.summary` and `expect` strings at commit 61f6ef06fc61fa92d7a3714c54a5251cd9177a4f, and the evaluator-added cases carried their expectations in the same fields before their first run. No threshold was adjusted and no baseline was swapped. The record's own digest is not inside it.",
+  "run_id": "EVRUN-claude-devforge-architect-scaffold-20260910T2123Z",
+  "provider": "claude",
+  "candidate_root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect",
+  "candidate_revision": {
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910",
+    "commit": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+    "head_at_intake": "61f6ef06fc61fa92d7a3714c54a5251cd9177a4f",
+    "head_equals_frozen": true,
+    "worktree_clean_at_intake": true,
+    "file_count": 32,
+    "manifest_ref": "verification-results.md section 'Candidate source manifest'"
+  },
+  "installed_candidate": {
+    "installation_mode": "none",
+    "path": null,
+    "reason": "No installed copy of devforge-architect exists. This assignment allocated no isolated workspace and authorised no install or export; the packet directs `do not attempt installs`."
+  },
+  "input_refs": [
+    {"kind": "specification", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-005-devforge-architect.md", "sha256": "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b"},
+    {"kind": "cases", "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect/evals/cases.jsonl", "sha256": "809a67baab4ed8fd7e967d750e76667761c7475d1e2fd685d98bff1cdd5a0eb1"},
+    {"kind": "cases", "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review/runner-out/evaluator-added-cases.jsonl", "sha256": "5b2db5f9f84bd12351e93b16b9c4f4a5b87831d0b4b7e63a016dfbc61b8371ce", "description": "Evaluator-added structural cases, authored in this fence because the candidate's own tier-C coverage omits assets/, fixture-reference completeness and the injection-syntax scan."},
+    {"kind": "cases", "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect/evals/evals.json", "sha256": "dba8dd4530ced694f2ed37d2a1ec6f0ba9d88471522e1f1cc85fd1bf9ae0c947", "description": "Authored tier-B acceptance cases. Read before the independent review; recorded as an independence limit."},
+    {"kind": "cases", "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/providers/claude/plugins/devforgeai/skills/devforge-architect/evals/triggers/trigger-queries.json", "sha256": "0caa042650d002dcb5e8fe03067728cbab6842a6fadf81be0a2a42a92085aaf2"},
+    {"kind": "rubric", "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/references/ai-review-rubric.md @ e641797eebf04cd1e8eb9f711549e038e7745407 in /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910", "sha256": "read via `git show`; blob content pinned by the commit id"},
+    {"kind": "runner", "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py", "sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2", "description": "Working-tree bytes verified byte-identical to the blob at e641797."},
+    {"kind": "runner", "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py", "sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f", "description": "Working-tree bytes verified byte-identical to the blob at e641797."},
+    {"kind": "validator", "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md @ e641797", "sha256": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac"},
+    {"kind": "contract", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"},
+    {"kind": "contract", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5"},
+    {"kind": "contract", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"},
+    {"kind": "contract", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/development-language-policy.md", "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f"},
+    {"kind": "contract", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/learned-behaviors/bounded-delivery.md", "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae"},
+    {"kind": "reference", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md", "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc"},
+    {"kind": "template", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/devforge-architect/architecture-contract.md", "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218"},
+    {"kind": "template", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/shared/handoff.md", "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"},
+    {"kind": "template", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/evals.json", "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692"},
+    {"kind": "template", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/trigger-queries.json", "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4"},
+    {"kind": "template", "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/templates/skill-authoring/evaluation-report.md", "sha256": "d4929c36980ff5237ee3e6a3363392d9fa6303ba1f3028b8b184a85fd31b0ddc"},
+    {"kind": "authority", "path": "/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge", "sha256": "835c32639c0a7df270fe1b9182580f14fc7d0874d3aad1b4037ba7cf420b2b07", "description": "devforge 0.1.0; --help surface observed 2026-09-10T21:23:15Z-21:27:14Z UTC."},
+    {"kind": "external", "path": "https://code.claude.com/docs/en/skills", "sha256": "not applicable; retrieved page, no local bytes retained", "description": "Fetched 2026-09-10 UTC, between the observed readings 21:27:14Z and 21:35:45Z."},
+    {"kind": "author_evidence_untrusted", "path": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/authoring/", "sha256": "see authoring/file-manifest.json", "description": "Informational only. Read after R01-R10 were drafted, to verify its claims against candidate bytes. No disposition it prefers was adopted; the author states none."}
+  ],
+  "baseline": {
+    "kind": "without_skill",
+    "relevance": "No Claude devforge-architect package exists at base commit c17e758417da64928a0f47fc2600304465ac3f3c; verified by `git ls-tree -r c17e758 -- providers/claude/plugins/devforgeai/skills/devforge-architect`, which returned nothing. There is no previous revision, so `old_skill` is unavailable and `without_skill` is the only correct label.",
+    "files_sha256": {},
+    "isolation": "NOT_RUN. No baseline arm was executed: tier B was not run at all, so no isolation of a baseline from the candidate was required or established."
+  },
+  "assignment": {
+    "owner": "independent scaffold evaluator (devforge-architect / SKILL-005) under coordinator dispatch",
+    "write_fence": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-architect-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-architect/validation/scaffold-review/",
+    "report_destination": "the same directory",
+    "protected_paths": [
+      "the entire devforge-architect package (read-only)",
+      "the authoring evidence tree (read-only)",
+      "both sibling worktrees claude-scaffold-evaluate-expert-20260910 and claude-scaffold-project-expert-creator-20260910 (read-only)",
+      "framework/DevForgeAI and framework/DevForge (read-only)"
+    ],
+    "commit_policy": "no commit; the packet forbids it"
+  },
+  "runtime": {
+    "installation_mode": "none - source-only evaluation",
+    "client": "unknown. No Claude Code client version was observed for any measured skill run, because no measured skill run occurred.",
+    "model_configuration": null,
+    "authentication_arrangement": "not applicable; no client session was launched",
+    "environment_selection": "static-only",
+    "environment_setup_ref": null,
+    "workspace_allocation_ref": null,
+    "effective_configuration_held_constant": []
+  },
+  "budget": {
+    "max_attempts": null,
+    "max_seconds": null,
+    "scheduled_repeats": null,
+    "retry_policy": "none; no measured run was attempted"
+  },
+  "checks": [
+    {"check_id": "CHK-INTAKE-001", "group": "intake", "requirement_ids": ["packet: frozen candidate"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "HEAD equals 61f6ef06 and the package tree is byte-identical to the frozen commit"},
+    {"check_id": "CHK-INTAKE-002", "group": "intake", "requirement_ids": ["packet: baseline"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "no devforge-architect package exists at c17e758, so without_skill is the correct baseline label"},
+    {"check_id": "CHK-INTAKE-003", "group": "intake", "requirement_ids": ["packet: builder identity"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "the author's records name devforge-project-expert-creator at 4999f3106565c5e320d1f1a7db066b437e4e94be as the followed builder"},
+    {"check_id": "CHK-STRUCT-001", "group": "structure", "requirement_ids": ["packet eval item 1"], "case_id": "ARCH-PKG-001", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "frontmatter present with name and description only; name equals folder; every local link in SKILL.md and the four references resolves in-package; both assets present"},
+    {"check_id": "CHK-STRUCT-002", "group": "structure", "requirement_ids": ["packet eval item 1"], "case_id": "ARCH-PKG-002", "arm": null, "attempt_id": "A1", "expectation": "excluded", "expected_outcome_before_run": "NOT_APPLICABLE: the assertion is installed-mode-only and no installed copy exists; run against the source tree it observes the source tree, not an installed package"},
+    {"check_id": "CHK-STRUCT-003", "group": "structure", "requirement_ids": ["packet eval item 1"], "case_id": "EV-ADD-PKG-001", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "the two copied templates and the fixtures README carry no local Markdown destination that escapes the package"},
+    {"check_id": "CHK-STRUCT-004", "group": "structure", "requirement_ids": ["packet eval item 1"], "case_id": "EV-ADD-PKG-002", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "every reference and asset derivation.json binds is present on disk"},
+    {"check_id": "CHK-STRUCT-005", "group": "structure", "requirement_ids": ["packet eval item 5"], "case_id": "EV-ADD-PKG-003", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "no inline or fenced shell-injection placeholder, no absolute host path and no docs/mvp runtime path in SKILL.md or the two procedural references"},
+    {"check_id": "CHK-STRUCT-006", "group": "structure", "requirement_ids": ["packet eval item 1"], "case_id": "EV-ADD-PKG-004", "arm": null, "attempt_id": "A1", "expectation": "observation", "expected_outcome_before_run": "MISMATCH is the correct reading: a shipped source template must still hold its placeholders. Only a populated shipped template would be a defect."},
+    {"check_id": "CHK-STRUCT-007", "group": "structure", "requirement_ids": ["packet eval item 5"], "case_id": "EV-ADD-PKG-005", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "no scripts/, no agents/openai.yaml, no hooks/ inside the skill package"},
+    {"check_id": "CHK-STRUCT-008", "group": "structure", "requirement_ids": ["packet eval item 6"], "case_id": "EV-ADD-FIX-001", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "all twenty fixture paths named in evals.json files[] exist"},
+    {"check_id": "CHK-STRUCT-009", "group": "structure", "requirement_ids": ["packet eval item 6"], "case_id": "EV-ADD-FIX-002", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "all ten named fixtures hash to the digests recomputed from the frozen candidate"},
+    {"check_id": "CHK-STRUCT-010", "group": "structure", "requirement_ids": ["packet eval item 6"], "case_id": "EV-ADD-FIX-003", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "the digest ARCH-004.md cites resolves to the preserved revision-1 bytes and the live revision-2 digest is not cited"},
+    {"check_id": "CHK-STRUCT-011", "group": "structure", "requirement_ids": ["packet eval item 6"], "case_id": "EV-ADD-FIX-004", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "no policy file exists in the could-not-run fixture, so its stated cause is real"},
+    {"check_id": "CHK-STRUCT-012", "group": "structure", "requirement_ids": ["packet eval item 6"], "case_id": "EV-ADD-FIX-005", "arm": null, "attempt_id": "A1", "expectation": "pass", "expected_outcome_before_run": "no fixture note carries a shell-injection placeholder"},
+    {"check_id": "CHK-STRUCT-013", "group": "structure", "requirement_ids": ["packet eval item 1"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "derivation.json sources and destinations match bytes: at least five spot-checks including both template copies against docs/mvp"},
+    {"check_id": "CHK-STRUCT-014", "group": "structure", "requirement_ids": ["packet eval item 1"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "the trigger split is fixed, recorded once, and stratified by should_trigger; no held-out answer appears in SKILL.md"},
+    {"check_id": "CHK-STRUCT-015", "group": "structure", "requirement_ids": ["packet eval item 4"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "every DevForge command named in the package exists in the operator binary's own --help output"},
+    {"check_id": "CHK-AI-R01", "group": "ai_review", "requirement_ids": ["R01"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable; anchors judged against the frozen specification"},
+    {"check_id": "CHK-AI-R02", "group": "ai_review", "requirement_ids": ["R02"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-AI-R03", "group": "ai_review", "requirement_ids": ["R03"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-AI-R04", "group": "ai_review", "requirement_ids": ["R04"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-AI-R05", "group": "ai_review", "requirement_ids": ["R05"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-AI-R06", "group": "ai_review", "requirement_ids": ["R06"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable; the skill reads repositories, manifests, pasted snippets and retrieved pages"},
+    {"check_id": "CHK-AI-R07", "group": "ai_review", "requirement_ids": ["R07"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-AI-R08", "group": "ai_review", "requirement_ids": ["R08"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-AI-R09", "group": "ai_review", "requirement_ids": ["R09"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-AI-R10", "group": "ai_review", "requirement_ids": ["R10"], "case_id": null, "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "applicable"},
+    {"check_id": "CHK-C-001", "group": "C", "requirement_ids": ["SKILL-005 acceptance; authoring contract tier C"], "case_id": "ARCH-PKG-001/ARCH-PKG-002", "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "NOT_RUN: no installed copy, no fresh terminal and no isolated workspace were allocated in this assignment"},
+    {"check_id": "CHK-B-001", "group": "B", "requirement_ids": ["SKILL-005 validation cases 1-5 and the four common cases"], "case_id": "ARCH-B-001..ARCH-B-009", "arm": "candidate", "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "NOT_RUN: same cause"},
+    {"check_id": "CHK-B-002", "group": "B", "requirement_ids": ["SKILL-005 validation cases 1-5 and the four common cases"], "case_id": "ARCH-B-001..ARCH-B-009", "arm": "baseline_without_skill", "attempt_id": null, "expectation": "observation", "expected_outcome_before_run": "NOT_RUN: same cause"},
+    {"check_id": "CHK-A-001", "group": "A", "requirement_ids": ["SKILL-005 direct and indirect activation; trigger-queries.json"], "case_id": "A1a..A13a", "arm": null, "attempt_id": null, "expectation": "pass", "expected_outcome_before_run": "NOT_RUN: same cause"}
+  ],
+  "findings_from_previous_iteration": [],
+  "criteria_freeze_record": {
+    "frozen_at_utc": "2026-09-10T21:35:45Z",
+    "frozen_by": "independent scaffold evaluator",
+    "note": "Candidate expectations were already frozen in the candidate's own case file at commit 61f6ef06 before this evaluation began; evaluator-added expectations were written into evaluator-added-cases.jsonl before its first execution. This plan record was written afterwards and records that ordering rather than backdating it. No expectation, threshold or baseline was changed after any output was seen."
+  },
+  "scope_exclusions": [
+    {"id": "EXC-001", "scope": "Native tiers C, B and A", "reason": "This assignment allocated no installed copy, no fresh terminal and no isolated workspace, and the packet directs that no install be attempted. Recorded as NOT_RUN with that cause, not as NOT_APPLICABLE - the tiers remain required and unmet."},
+    {"id": "EXC-002", "scope": "Behavioural conclusions of any kind", "reason": "No measured client run occurred. Behaviour is NOT_EVALUATED."}
+  ],
+  "plan_scope": "Covers: package structure, resolution and provenance; requirement coverage against SKILL-005 at b9dc3a5a; instruction clarity and usefulness; authority boundaries; Claude provider correctness; eval quality. Does not cover: discovery, activation, loading, output quality, or any comparison against the without_skill baseline - none of those was observed.",
+  "missing_inputs": [
+    "An installed or exported devforge-architect copy - blocks every tier C observation.",
+    "A fresh Claude Code terminal with an observable client version - blocks every tier A observation.",
+    "A permitted isolated evaluation workspace with per-attempt client state separation - blocks every tier B observation and both arms of the baseline comparison.",
+    "A separately dispatched reviewer context for P3 - this session is the packet-designated fresh evaluator context and also ran P2, so the independent review is single-context; recorded as an independence limit rather than substituted."
+  ]
+}

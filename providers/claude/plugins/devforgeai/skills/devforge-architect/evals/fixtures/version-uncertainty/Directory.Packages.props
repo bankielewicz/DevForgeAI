@@ -1,0 +1,10 @@
+<!-- Synthetic fixture. Not a real repository. -->
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="SynthRelay.Client" Version="3.4.2" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
+  </ItemGroup>
+</Project>

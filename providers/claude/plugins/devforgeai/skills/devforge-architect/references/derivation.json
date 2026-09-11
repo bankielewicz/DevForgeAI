@@ -1,0 +1,177 @@
+{
+  "schema_version": "devforge.package-derivation/v1",
+  "skill": "devforge-architect",
+  "provider": "claude",
+  "recorded_at_utc": "2026-09-10T19:37:14Z",
+  "purpose": "Package-local copies must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract: 'Package-local template copies and their derivation records are inside the assigned skill's source fence.'",
+  "selected_base": {
+    "repository": "DevForgeAI",
+    "commit": "c17e758417da64928a0f47fc2600304465ac3f3c",
+    "note": "Every shared source below was read at this commit in the assigned authoring worktree and verified byte-identical to the DevForgeAI main checkout where compared. Absolute host paths are recorded in the authoring evidence, not in this package."
+  },
+  "governing_specification": {
+    "store": "project",
+    "path": "docs/mvp/specifications/skill-005-devforge-architect.md",
+    "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+    "sha256": "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b",
+    "note": "Not copied into the package. The specification governs authoring; the installed skill does not need it at runtime."
+  },
+  "external_sources": {
+    "retrieved_observed_between": ["2026-09-10T19:30:39Z", "2026-09-10T19:37:14Z"],
+    "documents": [
+      "https://code.claude.com/docs/en/skills"
+    ],
+    "recorded_in": "references/sources.md",
+    "note": "Claims used from it are recorded in that file with their applicability and refresh conditions. Retrieved by a single page fetch; no running client was observed. The retrieval falls between the two observed `date -u` readings above; no exact fetch timestamp was observed and none is invented."
+  },
+  "derivations": [
+    {
+      "destination": "assets/architecture-contract.md",
+      "destination_sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218",
+      "kind": "shared framework template copied into the package",
+      "source": {
+        "store": "project",
+        "path": "docs/mvp/templates/devforge-architect/architecture-contract.md",
+        "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+        "sha256": "38b4ec73345e05563fcffc0efe6a8165b9cfa2f32eca40254e90b53ae5ad1218"
+      },
+      "transformation": "none; byte-identical copy",
+      "refresh_condition": "The shared template changes at its governing source. Compare digests and re-copy on an authorised refresh; guidance on filling it stays in references/recording-rules.md so the template's placeholders remain intact."
+    },
+    {
+      "destination": "assets/handoff.md",
+      "destination_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "kind": "shared framework template copied into the package",
+      "source": {
+        "store": "project",
+        "path": "docs/mvp/templates/shared/handoff.md",
+        "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+        "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+      },
+      "transformation": "none; byte-identical copy",
+      "refresh_condition": "The shared handoff template changes at its governing source. Compare digests and re-copy on an authorised refresh."
+    }
+  ],
+  "distilled_references": [
+    {
+      "destination": "references/framework-context.md",
+      "kind": "narrowed restatement of shared contracts; not a copy",
+      "sources": [
+        {
+          "store": "project",
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+          "sections_relied_on": [
+            "Sources, ownership, and runtime copies",
+            "Per-skill structure and distribution",
+            "Resource and script paths",
+            "Three separately reported evaluation tiers"
+          ]
+        },
+        {
+          "store": "project",
+          "path": "docs/development-language-policy.md",
+          "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+          "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+          "sections_relied_on": [
+            "Rust framework authority and required Python evaluation",
+            "Phases, hooks and skill content"
+          ]
+        },
+        {
+          "store": "project",
+          "path": "docs/learned-behaviors/bounded-delivery.md",
+          "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+          "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae",
+          "sections_relied_on": [
+            "Establish a finish line that matches the request",
+            "Justify an additional iteration"
+          ]
+        },
+        {
+          "store": "authority",
+          "path": "the companion DevForge CLI build selected by the operator",
+          "revision": "observed --help output on 2026-09-10 UTC; the absolute host path is recorded in the authoring evidence, not in this package",
+          "sha256": "not recorded; the binary is operator-owned and outside this package's fence",
+          "sections_relied_on": [
+            "the command surface listed by devforge --help and by check/expert --help"
+          ]
+        }
+      ],
+      "transformation": "selected and narrowed to the situations this skill meets; restates and does not extend or waive the contracts",
+      "refresh_condition": "Any of the listed sources changes at its governing revision, or the CLI's --help surface changes."
+    },
+    {
+      "destination": "references/recording-rules.md",
+      "kind": "narrowed restatement of shared contracts; not a copy",
+      "sources": [
+        {
+          "store": "project",
+          "path": "docs/mvp/artifact-contract.md",
+          "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+          "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+          "sections_relied_on": [
+            "Standard envelope",
+            "Provenance without circular bookkeeping",
+            "Consistency checks at a handoff",
+            "Output storage and stable candidate snapshots"
+          ]
+        },
+        {
+          "store": "project",
+          "path": "docs/mvp/execution-contract.md",
+          "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "sections_relied_on": [
+            "Worktree assignment for concurrent sessions",
+            "Failure and recovery cases required before adoption"
+          ]
+        }
+      ],
+      "transformation": "selected and narrowed; the envelope table, digest ordering, upstream resolution and collision behaviour restated for this skill's artifacts",
+      "refresh_condition": "Either contract changes at its governing revision."
+    },
+    {
+      "destination": "references/version-evidence.md",
+      "kind": "narrowed restatement of the governing specification and shared contracts; not a copy",
+      "sources": [
+        {
+          "store": "project",
+          "path": "docs/mvp/specifications/skill-005-devforge-architect.md",
+          "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+          "sha256": "b9dc3a5a2d19a024c42b60539909009d9d9292e54f3509739a8ae575311ea88b",
+          "sections_relied_on": [
+            "User goal and use-case inventory",
+            "Inputs and provenance",
+            "Validation and behavioral acceptance"
+          ]
+        },
+        {
+          "store": "project",
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+          "sections_relied_on": [
+            "Per-skill structure and distribution"
+          ]
+        }
+      ],
+      "transformation": "selected and narrowed to the version-verification, existing-stack and newer-release rules this skill applies",
+      "refresh_condition": "The specification or the authoring contract changes at its governing revision."
+    }
+  ],
+  "not_derived": {
+    "note": "SKILL.md, evals/ and this file are authored for this package rather than copied from a shared source. evals/ is an authoring input and is omitted from installed copies and runtime exports.",
+    "files": [
+      "SKILL.md",
+      "references/derivation.json",
+      "references/sources.md",
+      "evals/evals.json",
+      "evals/cases.jsonl",
+      "evals/triggers/trigger-queries.json",
+      "evals/fixtures/"
+    ]
+  },
+  "self_digest_policy": "This record does not contain its own digest. The complete package-relative path-to-digest map is in the authoring evidence file-manifest.json, which is outside this package."
+}
