@@ -1,9 +1,9 @@
 {
   "schema_version": "devforge.skill-derivation/v1",
   "skill": "devforge-project-expert-creator",
-  "recorded_at_utc": "2026-09-09T03:29:03.763405+00:00",
+  "recorded_at_utc": "2026-09-08T23:29:03.763405-04:00",
   "path_base": "DevForge workspace root",
-  "source_selection": "F01–F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved. User approved the concise handoff enhancement; affected actual baseline identities are pinned at 2031bf2e917bb4f2a2c9be717a74641b5801c409. Shared source selections and historical evidence remain unchanged.",
+  "source_selection": "F01–F08 user-authorized Codex manual promotion; original derivations retained, old prototype source and draft history preserved. Managed v1 IDs and frozen VPI evidence are unchanged. Owner explicitly added bounded local unqualified adoption; qualification rules and historical inputs preserved. User approved the concise handoff enhancement; affected actual baseline identities are pinned at 2031bf2e917bb4f2a2c9be717a74641b5801c409. Shared source selections and historical evidence remain unchanged. User-selected progressive disclosure enhancement at baseline 8d2f22b82a08a25731c1be05e91f55247d1026ad: preserve five-phase actions, add phased authoring and compact completion; shared source selections unchanged.",
   "entries": [
     {
       "destination": "references/contracts/skill-authoring-contract.md",
@@ -196,7 +196,7 @@
     },
     {
       "destination": "SKILL.md",
-      "destination_sha256": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423",
+      "destination_sha256": "558ef26a36d833a63a479bcd7fdf0b96d8556f26ea8493ffa71ff87dedb1712b",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/SKILL.md",
@@ -221,13 +221,14 @@
           "sha256": "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"
         }
       ],
-      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved. The previously recorded destination hash did not match the selected baseline bytes; both identities are retained, and the added source pin identifies the actual baseline.",
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved. The previously recorded destination hash did not match the selected baseline bytes; both identities are retained, and the added source pin identifies the actual baseline. Progressive disclosure adaptation at selected main 8d2f22b: preserved phase actions with phase-file routing, structural mapping and concise final display where relevant.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
       "previous_destination_sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
       "prior_destination_identities": [
         "41873d8fad910c2bf6ec9ac4e087f96abaaa6c54811bb0eba65317fe6844a7ad",
         "6e0b413ea644f811d44b5c6cbe67b59e2839392fc0a6eeaa6aed2f778ad19263"
-      ]
+      ],
+      "progressive_disclosure_prior_destination_sha256": "b573de8d84f13b2c014224597e1d2e51f66c95d1dc4924a1feaccc7d37bd2423"
     },
     {
       "destination": "agents/openai.yaml",
@@ -257,7 +258,7 @@
     },
     {
       "destination": "references/interview-guide.md",
-      "destination_sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+      "destination_sha256": "c739d30879fcd28d7bad7ad256dedb920896a925d7980f69269669b0ae2b0f0c",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/references/interview-guide.md",
@@ -277,12 +278,13 @@
           "source_revision": "draft revision 3, 2026-09-07"
         }
       ],
-      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12.",
-      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. Progressive disclosure adaptation at selected main 8d2f22b: preserved phase actions with phase-file routing, structural mapping and concise final display where relevant.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+      "progressive_disclosure_prior_destination_sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e"
     },
     {
       "destination": "references/existing-skill-selection.md",
-      "destination_sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+      "destination_sha256": "8034774b00f9740e106680ed7d0506aa36a69209c319a34d76d7e66d7ecaee00",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/references/existing-skill-selection.md",
@@ -302,12 +304,13 @@
           "source_revision": "draft revision 3, 2026-09-07"
         }
       ],
-      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12.",
-      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately."
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. Progressive disclosure adaptation at selected main 8d2f22b: preserved phase actions with phase-file routing, structural mapping and concise final display where relevant.",
+      "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
+      "progressive_disclosure_prior_destination_sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464"
     },
     {
       "destination": "assets/skill-design-spec.md",
-      "destination_sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead",
+      "destination_sha256": "a5f4141952831305860550eb4acc0c6bb48fc5160927b8b58b2d47f0238b7ba4",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/skill-authoring/history/skill-builder-mvp-2026-09-07/assets/skill-design-specification-template.md",
@@ -327,13 +330,14 @@
           "source_revision": "draft revision 3, 2026-09-07"
         }
       ],
-      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts.",
+      "transformation": "Enhance preserved generic MVP into canonical DevForgeAI authoring infrastructure. Retain Q&A, duplicate discovery, classification and author-only boundaries; add framework identity and validator remediation/receipt fields. Template retains sections 1-9 and appends 10-12. Controlled SENH-v3 adaptation: retain semantics and historical results; separate managed runtime mechanics and authoring content, remove self-digest instruction where applicable. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. Progressive disclosure adaptation at selected main 8d2f22b: preserved phase actions with phase-file routing, structural mapping and concise final display where relevant.",
       "refresh_condition": "Select a new governing source with the assignment owner; preserve prior bytes and evidence; update affected derivations and regenerate assigned copies; request affected evaluation separately.",
-      "previous_destination_sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+      "previous_destination_sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3",
+      "progressive_disclosure_prior_destination_sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead"
     },
     {
       "destination": "assets/handoff.md",
-      "destination_sha256": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4",
+      "destination_sha256": "ec86cb05ec9db45dffd6658a00f960529e4ef852fe640d97c5c81dd14dbcd974",
       "sources": [
         {
           "path": "framework/DevForgeAI/docs/mvp/templates/shared/handoff.md",
@@ -347,12 +351,13 @@
           "sha256": "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7"
         }
       ],
-      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
+      "transformation": "Builder-specific adaptation preserving shared artifact envelope and substantive continuation; managed receipt/transition fields require actual runtime observations; no self-digest or helper fallback. F01–F08 manual promotion: renamed package/receivers and grounded policy/artifact mappings; preserve historical source facts. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved. Progressive disclosure adaptation at selected main 8d2f22b: preserved phase actions with phase-file routing, structural mapping and concise final display where relevant.",
       "refresh_condition": "Explicit owner-selected source change; preserve former bytes, reconcile affected resources, evaluate separately.",
       "previous_destination_sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931",
       "prior_destination_identities": [
         "39525123d3925cc6c537b727189fbebef476b99e6aab049c834a0a1a481079c7"
-      ]
+      ],
+      "progressive_disclosure_prior_destination_sha256": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4"
     },
     {
       "destination": "references/managed-authoring.md",
@@ -400,7 +405,7 @@
     },
     {
       "destination": "references/manual-operation.md",
-      "destination_sha256": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72",
+      "destination_sha256": "def2d1f4d78772b9ab2b006a11d19161cd534803ff6d1cbceda914f0a390a4e8",
       "sources": [
         {
           "path": "providers/codex/plugins/devforgeai/skills/skill-builder",
@@ -430,12 +435,13 @@
           "sha256": "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
         }
       ],
-      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved.",
+      "transformation": "F01–F08 manual operational derivative; managed/funding orchestration remains deferred. Append owner-approved local unqualified baseline option, separate from Full/Routine qualification. User-approved concise handoff enhancement: brief outcome and next action, ordered links to retained evidence, and explicit receiving readiness; existing artifact envelope and acceptance boundaries preserved. Progressive disclosure adaptation at selected main 8d2f22b: preserved phase actions with phase-file routing, structural mapping and concise final display where relevant.",
       "refresh_condition": "New accepted source or changed manual interfaces require new derivative identity and affected verification.",
       "prior_destination_identities": [
         "4f9b4e52315e975c90463aec319f7493978e16d99f57c9771987f287f521991f",
         "87fdd1e51179a1f4912551ab6013ffd56745ac3fe63f577146e4b6c8968c7189"
-      ]
+      ],
+      "progressive_disclosure_prior_destination_sha256": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72"
     }
   ],
   "external_references": "references/sources.md",
@@ -512,5 +518,22 @@
       "path": "providers/codex/plugins/devforgeai/skills/skill-builder",
       "selection": "Relevant policy/reducer/data shapes only; funded runtime contracts not imported."
     }
-  ]
+  ],
+  "progressive_disclosure": {
+    "baseline_commit": "8d2f22b82a08a25731c1be05e91f55247d1026ad",
+    "source_path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator",
+    "specification": "evals/progressive-disclosure-record.md",
+    "transformation": "Original workflow sections moved into five numbered phase files; explicit framework input applicability, phased target design and concise completion added. No runtime IDs or accepted classifications changed.",
+    "new_resources": [
+      "phases/01-intake.md",
+      "phases/02-selection.md",
+      "phases/03-design.md",
+      "phases/04-authoring.md",
+      "phases/05-prepared-transfer.md",
+      "assets/phase.md",
+      "assets/completion-summary.md"
+    ],
+    "refresh_condition": "Explicit source/requirement selection; retain former commit bytes and request affected independent evaluation.",
+    "behavior_evaluation": "NOT_RUN"
+  }
 }

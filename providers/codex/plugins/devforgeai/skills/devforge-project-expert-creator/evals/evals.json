@@ -113,6 +113,136 @@
         "Apply only justified authorized corrections, preserve unrelated behavior, and return a new candidate/change record and prepared evaluator handoff.",
         "Do not claim the evaluator was invoked merely because its handoff exists."
       ]
+    },
+    {
+      "id": "PD01-new-workflow",
+      "tier": "B",
+      "prompt": "Create the Codex release-notes workflow described in the Framework workflow fixture. Use its accepted classifications and assigned canonical source; create a meaningful phased package and prepare its handoff.",
+      "files": [
+        "fixtures/phased-authoring.md"
+      ],
+      "requirement_ids": [
+        "PD01",
+        "SB01",
+        "SB03",
+        "SB04",
+        "SB10"
+      ],
+      "expectations": [
+        "Uses numbered phases/ files for the multi-step target, direct entrypoint links, and current-phase-only loading with conditional references.",
+        "Records provider/canonical source, purpose/activation/inputs/outputs, applicability, classifications, evidence and start/stop conditions.",
+        "Does not demand unrelated application architecture, force five target phases, execute hooks, or claim unavailable Rust enforcement."
+      ]
+    },
+    {
+      "id": "PD02-preserving-refactor",
+      "tier": "B",
+      "prompt": "Enhance the Existing inline source from the fixture into phases/ with concise completion. This is structural only; preserve every obligation, ID, accepted choice and invocation policy. Prepare the detailed evidence and handoff.",
+      "files": [
+        "fixtures/phased-authoring.md"
+      ],
+      "requirement_ids": [
+        "PD02",
+        "SB03",
+        "SB06",
+        "SB10"
+      ],
+      "expectations": [
+        "Maps every C1/D1/A1/H1 obligation and prohibitions to its new location and retains prior source identity.",
+        "Separates relocation from behavior proposals and does not reopen settled classifications.",
+        "Preserves missing-list stop, unknown-claim labels, required source references, optional appendix condition and no automatic publication/receiver."
+      ]
+    },
+    {
+      "id": "PD03-same-provider-reuse",
+      "tier": "B",
+      "prompt": "Use the Search inventory and Existing inline source fixtures to decide how to meet the release-notes need; no new capability is requested.",
+      "files": [
+        "fixtures/phased-authoring.md"
+      ],
+      "requirement_ids": [
+        "PD03",
+        "SB02",
+        "SB07"
+      ],
+      "expectations": [
+        "Compares purpose, activation, provider, inputs, outputs and behavior and recommends reuse of the sufficient Codex source.",
+        "Treats its installed copy as the same lineage and the Claude package as an independent provider implementation.",
+        "Records actual search limits, a no-edit authoring disposition and usable handoff rather than creating an unnecessary package."
+      ]
+    },
+    {
+      "id": "PD04-simple-expert",
+      "tier": "B",
+      "prompt": "Create the Simple reference expert from the fixture in its assigned Codex source. Keep it proportional to its glossary task.",
+      "files": [
+        "fixtures/phased-authoring.md"
+      ],
+      "requirement_ids": [
+        "PD04",
+        "SB02",
+        "SB03"
+      ],
+      "expectations": [
+        "Creates a focused reference expert without artificial target phases or new hooks.",
+        "Records why inline guidance is sufficient, preserves glossary facts and unknown-term behavior.",
+        "The creator still records its own five required phase dispositions and prepares separate evaluation."
+      ]
+    },
+    {
+      "id": "PD05-optional-selection",
+      "tier": "B",
+      "prompt": "Enhance the fixture release-notes workflow to express its accepted optional Appendix branch. The user does not request technical detail. Preserve required work.",
+      "files": [
+        "fixtures/phased-authoring.md"
+      ],
+      "requirement_ids": [
+        "PD05",
+        "SB04",
+        "SB06"
+      ],
+      "expectations": [
+        "Documents A1 applicability/skip and continuation without bypassing C1, D1, H1 or required source references.",
+        "Keeps accepted Optional/Enforced group choices; does not ask again or classify all children from a parent.",
+        "Does not interpret skipping target optional detail as skipping the creator's Enforced phases."
+      ]
+    },
+    {
+      "id": "PD06-compact-completion",
+      "tier": "B",
+      "prompt": "Complete the fixture structural authoring task with a short terminal response. Save all details in the assigned artifact location and prepare the evaluator handoff.",
+      "files": [
+        "fixtures/phased-authoring.md"
+      ],
+      "requirement_ids": [
+        "PD06",
+        "SB08",
+        "SB10"
+      ],
+      "expectations": [
+        "Saves retrievable full specification, candidate identity, change/preservation record and evidence references before summarizing.",
+        "Terminal response contains actual outcome, useful result, primary artifact/handoff links, material limit, and one next action/owner, roughly 60-120 words when practical.",
+        "Handoff retains exact pins, receiver prerequisites and evidence reading order; no self-digest or claim the receiver ran."
+      ]
+    },
+    {
+      "id": "PD07-missing-input-enforcement",
+      "tier": "B",
+      "prompt": "Design the framework workflow using the Missing input variant. Report its missing input and actual enforcement limits; do not manufacture evidence or start runtime implementation.",
+      "files": [
+        "fixtures/phased-authoring.md"
+      ],
+      "requirement_ids": [
+        "PD07",
+        "SB01",
+        "SB05",
+        "SB10"
+      ],
+      "expectations": [
+        "Records missing source/list as unknown with reason and blocks dependent drafting; continues only independent authorized design.",
+        "Retains enforced requirements while marking runtime mechanism unavailable/Unknown and hook proposals design only.",
+        "Returns a partial or blocked handoff and concrete next owner/action; no native PASS, automatic evaluator, infrastructure campaign or fabricated identity."
+      ]
     }
   ]
 }

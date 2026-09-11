@@ -62,3 +62,7 @@ A build/enhancement authorization plus settled relevant decisions is enough to p
 The necessary information is the task/activation boundary, inputs, output, core process and branches, material constraints, existing-skill decision, canonical destination/assignment, and classifications of all proposed workflow items.
 
 Document unavailable contract/source information and enforcement limitations truthfully. Optional references, maintenance details, or additional examples need not block an otherwise sufficient design. Capturing evaluation prerequisites or examples does not authorize running them.
+
+## Phased workflow design
+
+Use section 13 of [the design template](../assets/skill-design-spec.md) for multi-step workflows and structural enhancements. Capture phase paths, applicability, start/stop conditions, actual enforcement owner, saved evidence and final display. Map old obligations to new locations separately from proposed behavior changes. Framework work needs its workflow/contracts, not unrelated application architecture. Reference-only experts need no artificial phases. Preserve settled classifications when moving instructions.
