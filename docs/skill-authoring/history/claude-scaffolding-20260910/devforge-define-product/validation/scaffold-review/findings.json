@@ -1,0 +1,421 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "report": {
+    "artifact_id": "EVREPORT-002",
+    "path": "verification-results.md",
+    "note": "The human-readable report in this directory. This file is its machine-readable findings half; neither carries its own digest."
+  },
+  "candidate": {
+    "skill": "devforge-define-product",
+    "provider": "claude",
+    "store": "worktree",
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910",
+    "revision": "05ed112a5a46495041651183493e28c4eae00fed",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-define-product",
+    "skill_md_sha256": "c93065fc82750ed9df1ad8bdfd8d34b1005af03e49879b13b2f0442800c0083f",
+    "installed_copy": null,
+    "installed_copy_reason": "Not installed. No .claude/skills copy, no exported plugin, no consuming project. The assignment authorised no installation."
+  },
+  "specification": {
+    "artifact": "SKILL-002",
+    "revision": 2,
+    "path": "docs/mvp/specifications/skill-002-devforge-define-product.md",
+    "sha256": "3e48f93f200499083a062e200f71ad4a3659fad098ef6658fb4b4a34bea6ddbf"
+  },
+  "evaluator": {
+    "role": "independent scaffold evaluator, coordinator-dispatched; did not author the candidate",
+    "model": "Opus 5 (1M context)",
+    "model_id": "claude-opus-5[1m]",
+    "validator_followed": {
+      "skill": "devforge-evaluate-expert",
+      "revision": "e641797eebf04cd1e8eb9f711549e038e7745407",
+      "skill_md_sha256": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac",
+      "load_mode": "source-loaded from a worktree; never installed, never invoked as a skill",
+      "qualification": "Draft under bootstrap review. E2: revise, repaired at e101e76, recheck outstanding. The instrument used here is unqualified and a defect in it propagates into these findings silently."
+    }
+  },
+  "disposition": "revise",
+  "disposition_basis": "Adjudicated by hand against the validator's results contract; no implemented decision receipt exists and no decision.json was produced, because evidence reduction is one of the two capabilities the DevForge CLI does not implement. One applicable required check failed (F-001), and any applicable FAIL gives revise. Recorded separately so the two are not conflated: with F-001 repaired the outcome would be insufficient evidence, not suitable for the stated scope, because required evidence groups C, B and A are all NOT_RUN.",
+  "behavioural_status": "NOT_EVALUATED",
+  "severity_counts": {
+    "BLOCKER": 0,
+    "MAJOR": 1,
+    "MINOR": 3,
+    "ADVISORY": 6,
+    "total": 10
+  },
+  "rubric": {
+    "PASS": ["R01", "R02", "R03", "R05", "R06", "R07", "R08", "R09", "R10"],
+    "FAIL": ["R04"],
+    "COULD_NOT_RUN": [],
+    "NOT_APPLICABLE": [],
+    "method": "AI_REVIEW, static reading only",
+    "independence_limits": "A separately dispatched evaluator context that did not author the candidate and received only the coordinator packet. It shares a filesystem and a machine with the authoring session; only the prompt and the conversation are separated. Before the rubric pass it had read references/derivation.json and evals/evals.json, both of which carry the author's own claims_not_made and status assertions, so some author framing was in context. The author's spec-mapping.md, authoring-notes.md, handoff.md, skill-design-spec.md and file-manifest.json were read only after the rubric pass, and only to verify their claims against bytes. No held-out expected answer was consulted."
+  },
+  "tiers": {
+    "C": {
+      "status": "NOT_RUN",
+      "cause": "No installed or exported copy of the candidate exists and the assignment authorised no installation. DP-C-002's evals/-exclusion assertion is additionally INDETERMINATE under source mode and unobserved in installed mode.",
+      "owner": "coordinator"
+    },
+    "B": {
+      "status": "NOT_RUN",
+      "cause": "No isolated evaluation workspace was allocated to this assignment and no baseline arm was run.",
+      "owner": "coordinator"
+    },
+    "A": {
+      "status": "NOT_RUN",
+      "cause": "No fresh terminal was available to this assignment.",
+      "owner": "coordinator"
+    },
+    "note": "The packet fixed NOT_RUN for the native tiers. Under the validator's results contract in isolation, a required observation blocked by an unavailable prerequisite would read COULD_NOT_RUN. The distinction is recorded rather than silently resolved; either label leaves the required evidence groups incomplete."
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "type": "defect",
+      "severity": "MAJOR",
+      "title": "Interruption and resume behaviour required by SKILL-002 is absent from every shipped runtime file",
+      "criterion_ids": ["R04"],
+      "requirement_ids": [
+        "SKILL-002 rev 2, 'Workflow and phase exits', closing paragraph: 'On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.'",
+        "SKILL-002 rev 2, 'Rework, stopping, and recovery': 'If the worktree or active run changes, re-establish the appropriate baseline and evidence before resuming.'"
+      ],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": [
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/SKILL.md",
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/references/recording-rules.md"
+      ],
+      "evidence": [
+        {
+          "kind": "command",
+          "description": "grep -rn -i -e interrupt -e resume -e resuming -e 'baseline and evidence' over SKILL.md, references/ and assets/ returns exactly one hit: assets/handoff.md line 67, '## Resume and custody' - the shared handoff template's receipt-custody heading, which concerns delivering a handoff's digest, not workflow interruption.",
+          "locator": "commands.log, 'Manual structural observations' block"
+        },
+        {
+          "kind": "section-read",
+          "description": "references/recording-rules.md was read in full. 'Resolving a reference before you use it' is a four-step digest-comparison procedure; 'Ownership and concurrent writers' covers collision handling and bootstrap. Neither mentions interruption, phase preservation, resuming, or re-establishing a baseline.",
+          "locator": "providers/claude/plugins/devforgeai/skills/devforge-define-product/references/recording-rules.md"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "None about the omission, which is a byte-level fact. The severity is a judgement: the consequence is delayed detection rather than a silent wrong commitment, because the completion readback would eventually surface a changed digest.",
+      "impact": "A session interrupted mid-brief has no instruction to preserve the current phase and the evidence gathered, and no instruction to re-verify the upstream identities and the session assignment before continuing. The skill's staleness procedure is reactive - it fires when a reference is resolved - and its reference readback fires only at completion, so a scope decision taken in phase 3 against pre-interruption bytes is never rechecked before it is written into the brief.",
+      "recommendation": "Add a short interruption-and-resume rule to SKILL.md 'Stopping' (or as a fifth bullet under 'When something is missing or a check cannot run') and put the procedural detail in references/recording-rules.md beside 'Resolving a reference before you use it'. See CHG-001.",
+      "affected_cases": ["DP-B-006", "DP-B-007"],
+      "affected_cases_note": "These are the natural regressions. Neither currently observes interruption or resume; a new case or a new graded observation is needed."
+    },
+    {
+      "id": "F-002",
+      "type": "defect",
+      "severity": "MINOR",
+      "title": "spec-mapping.md claims coverage for the interruption and resume rows that the cited bytes do not carry",
+      "criterion_ids": [],
+      "requirement_ids": [
+        "Coordinator packet item 2: 'Verify spec-mapping.md claims against bytes.'"
+      ],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": [
+        "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/spec-mapping.md"
+      ],
+      "evidence": [
+        {
+          "kind": "claim-vs-bytes",
+          "description": "spec-mapping.md 'Workflow and phase exits' maps 'On interruption, preserve the current phase and evidence; resume by rechecking identities and the assignment' to references/recording-rules.md 'Resolving a reference before you use it' and 'Ownership and concurrent writers'. Its 'Rework, stopping, and recovery' table maps 'If the worktree or active run changes, re-establish the baseline and evidence before resuming' to the latter. Both sections were read in full and carry neither requirement.",
+          "locator": "authoring/spec-mapping.md, 'Workflow and phase exits' and 'Rework, stopping, and recovery' tables"
+        },
+        {
+          "kind": "claim-vs-bytes",
+          "description": "The map's 'Coverage summary' asserts 'Phase rows: 4 of 4, each with an explicit exit condition in the body' and lists every recovery row as carried.",
+          "locator": "authoring/spec-mapping.md, 'Coverage summary'"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "none",
+      "impact": "The coverage map is the artifact a dispatcher would use to decide that SKILL-002 needs no further work on this row. Recording a requirement as carried when the cited sections do not carry it turns F-001 from a visible gap into an invisible one.",
+      "recommendation": "Correct both rows to state the requirement is not carried, or apply CHG-001 first and then re-cite the new section. See CHG-002. Target is the authoring evidence tree, not the package.",
+      "affected_cases": []
+    },
+    {
+      "id": "F-003",
+      "type": "defect",
+      "severity": "MINOR",
+      "title": "Fixture upstream and supersedes digests are non-resolvable filler, creating an unscripted staleness signal in seven cases",
+      "criterion_ids": [],
+      "requirement_ids": [
+        "skill-authoring-contract rev 3: fixtures must be reproducible and cases derived from requirements",
+        "artifact-contract rev 2, 'Standard envelope': upstream and supersedes carry the digest of exact referenced bytes, and the prior bytes are retained"
+      ],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": [
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/fixtures/new-product/IDEAS-001.md",
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/fixtures/existing-product/PROD-001.md",
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/fixtures/existing-product/CHANGE-011.md",
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/fixtures/README.md",
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/evals.json"
+      ],
+      "evidence": [
+        {
+          "kind": "fixture-read",
+          "description": "new-product/IDEAS-001.md supersedes.sha256 = '0000000000000000000000000000000000000000000000000000000000000000' pointing at docs/devforge/ideas/IDEAS-001.r1.md, which is absent from the fixture tree.",
+          "locator": "evals/fixtures/new-product/IDEAS-001.md, frontmatter supersedes"
+        },
+        {
+          "kind": "fixture-read",
+          "description": "existing-product/PROD-001.md upstream.sha256 = '1111...1111' and supersedes.sha256 = '2222...2222' pointing at PROD-001.r1.md, absent. existing-product/CHANGE-011.md upstream.sha256 = '3333...3333'.",
+          "locator": "evals/fixtures/existing-product/PROD-001.md and CHANGE-011.md, frontmatter"
+        },
+        {
+          "kind": "contrast",
+          "description": "By contrast the stale/ fixtures carry real digests - 03b523dea859ed3442d833eed9653ec6bc57cf995a14716d478e0a64959b0098 and 300f1c7872ce1f8121f2554e4a3daf0b60754f3ee3e79bea24db20c8778c4e1d, both independently verified against the fixture bytes - because reference resolution is DP-B-007's subject. The design is therefore inconsistent: real digests where staleness is under test, filler everywhere else, with no note distinguishing them.",
+          "locator": "evals/fixtures/stale/, evals/fixtures/README.md digest table"
+        },
+        {
+          "kind": "instruction-conflict",
+          "description": "SKILL.md 'Before you call it done' and references/recording-rules.md 'Resolving a reference before you use it' require a compliant worker to read the bytes at each recorded path and hash them. SKILL.md separately forbids exactly this fixture shape: 'a digest with no reachable bytes behind it is a claim the next reader cannot check.'",
+          "locator": "SKILL.md 'Before you call it done'; 'Rework, and where a change belongs'"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "Whether the author intended the filler digests as deliberate distractors. Nothing in the fixtures README, evals.json or cases.jsonl says so, and no case observes them, so they read as scaffolding rather than as a tested condition.",
+      "impact": "In DP-B-001 through DP-B-005, DP-B-008 and DP-B-010 the skill's own reference-resolution procedure fires against digests that can never match and paths that are not staged, so a correct worker emits a staleness or missing-input report that none of those cases' expected_output or graded_observations anticipates. DP-B-010's DELIVERY observation 'every reference written resolves after the last write' would mark a faithfully carried-forward PROD-001 upstream as a delivery failure - a false FAIL against correct behaviour. The fixtures also model, unlabelled, the anti-pattern the skill forbids.",
+      "recommendation": "Declare in evals/fixtures/README.md which fixture digests are real and which are non-resolvable filler, and add a graded observation to DP-B-010 (with a note on DP-B-001 and DP-B-008) stating that reporting the unresolvable upstream is expected behaviour and not a delivery failure. Alternatively replace the filler digests with the actual sha256 of the staged fixture bytes and stage the referenced files. See CHG-003.",
+      "affected_cases": ["DP-B-001", "DP-B-002", "DP-B-003", "DP-B-004", "DP-B-005", "DP-B-008", "DP-B-010"]
+    },
+    {
+      "id": "F-004",
+      "type": "defect",
+      "severity": "MINOR",
+      "title": "Every implicit positive validation trigger query paraphrases a clause of the frontmatter description",
+      "criterion_ids": [],
+      "requirement_ids": [
+        "skill-authoring-contract rev 3: 'For description optimization, preserve a fixed train/validation split and fresh final queries; do not put held-out expected answers into the author or task worker's context.'"
+      ],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": [
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/triggers/trigger-queries.json"
+      ],
+      "evidence": [
+        {
+          "kind": "text-comparison",
+          "description": "P2c 'Can you work out the scope for release two? We have the accepted brief and one change request to fold into it.' against description clause 'is amending the scope of a product that already has an accepted brief'.",
+          "locator": "evals/triggers/trigger-queries.json P2c; SKILL.md frontmatter description"
+        },
+        {
+          "kind": "text-comparison",
+          "description": "P3c 'This has grown into something we cannot build. Help me work out what to cut and what is genuinely out.' against description clause 'needs to cut a scope that has grown past what they can deliver'.",
+          "locator": "evals/triggers/trigger-queries.json P3c; SKILL.md frontmatter description"
+        },
+        {
+          "kind": "text-comparison",
+          "description": "P3d 'How would I tell, six months from now, whether this thing was worth building?' against description clause 'wants to know the smallest version worth shipping and how they would know it helped'.",
+          "locator": "evals/triggers/trigger-queries.json P3d; SKILL.md frontmatter description"
+        },
+        {
+          "kind": "disclosure-gap",
+          "description": "leakage_note claims only 'No validation-split query text appears anywhere in SKILL.md' - a verbatim-text claim - and discloses conceptual coupling only for the train-split entries P2a and P3a.",
+          "locator": "evals/triggers/trigger-queries.json leakage_note"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "The strength of the coupling is a reading rather than a measurement; P3d is the loosest of the three. The effect on a tier-A result cannot be quantified without running it.",
+      "impact": "All three implicit positive validation queries restate situations the description enumerates (P1b, the fourth validation positive, is explicit invocation and is correctly excluded from implicit-activation evidence by the file's own note). A tier-A run over this split would largely measure whether the description matches its own examples rather than whether the skill is discovered from a request phrased outside them, so a high positive rate would overstate discovery. The negatives are unaffected and are genuinely strong near-misses, and the split is otherwise correctly fixed and stratified - one train and one validation entry per negative category.",
+      "recommendation": "Extend leakage_note to disclose the concept-level coupling, and add two fresh positive validation queries describing situations the description does not enumerate. See CHG-004.",
+      "affected_cases": ["trigger P2c", "trigger P3c", "trigger P3d"]
+    },
+    {
+      "id": "F-005",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "DP-C-001 assertion A10 cannot fail",
+      "criterion_ids": [],
+      "requirement_ids": ["skill-authoring-contract rev 3: grader assertions must be meaningful"],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/cases.jsonl"],
+      "evidence": [
+        {
+          "kind": "runner-observation",
+          "description": "DP-C-001 A10 runs package_relative_links on references/sources.md and observed '0 local, 0 external'.",
+          "locator": "runner-out/observations-author-cases-source.jsonl, case DP-C-001"
+        },
+        {
+          "kind": "runner-observation",
+          "description": "Evaluator-added EV-C-101 confirms references/recording-rules.md, references/evidence-and-scope.md and evals/fixtures/README.md are equally link-free. SKILL.md is the only file in the package containing Markdown links.",
+          "locator": "runner-out/observations-evaluator-cases-source.jsonl, case EV-C-101"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "none",
+      "impact": "Contained. The assertion cannot MISMATCH under any edit that does not first add a link, so it adds apparent breadth to DP-C-001 without adding an observation.",
+      "recommendation": "Drop A10, or keep it and record in DP-C-001's expectations.summary that SKILL.md is currently the only link-bearing file so the assertion guards future edits. See CHG-005.",
+      "affected_cases": ["DP-C-001"]
+    },
+    {
+      "id": "F-006",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "cases.jsonl files[] lists operator-only inventory alongside worker-visible fixtures",
+      "criterion_ids": [],
+      "requirement_ids": [
+        "skill-authoring-contract rev 3: 'A fixture manifest must distinguish source inventory from files actually visible to a worker; operator-only preserved inputs cannot prove that the worker consumed them.'"
+      ],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/cases.jsonl"],
+      "evidence": [
+        {
+          "kind": "cross-file-inconsistency",
+          "description": "cases.jsonl DP-B-008 files[] includes fixtures/existing-product/PROD-001.md, which evals.json stages only as the grader-only positive control for assertion A2. cases.jsonl DP-B-007 files[] includes fixtures/stale/preserved/IDEAS-002.r1.md, which evals.json describes as 'source inventory only and never visible to the worker' in the unavailable-bytes variant.",
+          "locator": "evals/cases.jsonl DP-B-007 and DP-B-008; evals.json fixture_staging for the same cases"
+        },
+        {
+          "kind": "mitigation",
+          "description": "The authoritative split is recorded elsewhere - evals.json fixture_staging and the fixtures README 'Staging note', which states the distinction explicitly - and the frozen runner ignores files[] entirely, reading only candidate_subpath and assertion args.",
+          "locator": "evals/fixtures/README.md 'Staging note'; scripts/run_cases.py run_case()"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "none",
+      "impact": "The contract requirement is met, because the distinction is recorded in evals.json and the README. The residual risk is a run harness that reads cases.jsonl files[] as the staging list and leaks an operator-only input to the worker, which would silently invalidate DP-B-007's unavailable-bytes variant and DP-B-008's positive control.",
+      "recommendation": "Add a one-line notes field to DP-B-007 and DP-B-008 stating that files[] is the case's source inventory and that evals.json fixture_staging is authoritative for worker visibility. See CHG-006.",
+      "affected_cases": ["DP-B-007", "DP-B-008"]
+    },
+    {
+      "id": "F-007",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "IDEAS-002 revision 2 fixture has a malformed ideas-table row",
+      "criterion_ids": [],
+      "requirement_ids": ["skill-authoring-contract rev 3: fixtures must be reproducible"],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-define-product/evals/fixtures/stale/IDEAS-002.md"],
+      "evidence": [
+        {
+          "kind": "diff",
+          "description": "The IDEA-012 row carries 5 cells against a 6-column header ('| IDEA-012 | ... | Popular tools are gone by Saturday morning. | AI proposal | proposed |'), so 'AI proposal' lands under 'Who is affected' and 'proposed' under 'Origin', leaving 'State' empty. diff against stale/preserved/IDEAS-002.r1.md shows revision 1 has the correct 6 cells including the 'Members.' cell that revision 2 lost.",
+          "locator": "evals/fixtures/stale/IDEAS-002.md, Ideas table, IDEA-012 row"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "none",
+      "impact": "Contained. A worker reading revision 2 in DP-B-007 reads IDEA-012's affected users as 'AI proposal'. DP-B-007 grades DEC-002 and IDEA-013, not IDEA-012, so no current graded observation is distorted. The defect is durable because the bytes are pinned as a sentinel, so repairing it is not free.",
+      "recommendation": "Restore the 'Members.' cell, then update all three places recording 300f1c7872ce1f8121f2554e4a3daf0b60754f3ee3e79bea24db20c8778c4e1d - cases.jsonl DP-B-007 A1, fixtures/README.md digest table, and references/derivation.json's evals digest map - to the new digest. Because the repair costs three coordinated digest updates, deferring it with the defect recorded is a legitimate choice. See CHG-007.",
+      "affected_cases": ["DP-B-007"]
+    },
+    {
+      "id": "F-008",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "The devforge check characterisation is more specific than any source the package records",
+      "criterion_ids": [],
+      "requirement_ids": ["skill-authoring-contract rev 3: derivation records the sources actually used"],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": [
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/references/sources.md",
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/SKILL.md",
+        "providers/claude/plugins/devforgeai/skills/devforge-define-product/references/recording-rules.md"
+      ],
+      "evidence": [
+        {
+          "kind": "claim-vs-source",
+          "description": "SKILL.md and references/recording-rules.md both state that devforge check 'checks a project candidate's dependencies, layout, tooling pins and expert provenance'. references/sources.md records only the --help subcommand listing and scopes its use to the 'no command covers this workflow' statement. devforge check --help on the binary at sha256 835c32639c0a7df270fe1b9182580f14fc7d0874d3aad1b4037ba7cf420b2b07 prints only 'Check structural policy and provenance; does not certify semantic behavior'.",
+          "locator": "SKILL.md 'What this skill owns, and what it does not'; references/sources.md 'DevForge CLI command surface'"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "none",
+      "impact": "The statement is factually accurate - verified against the repository's policy schema, which drives devforge check from source roots, test root, expert dirs, forbidden tokens, tooling_files pins and a dependencies.json contract - so this is a provenance gap rather than an error. A later reader cannot check the more specific half against any source the package records.",
+      "recommendation": "Either soften the sentence to the --help wording, or add the actual source to references/sources.md and references/derivation.json. See CHG-008.",
+      "affected_cases": []
+    },
+    {
+      "id": "F-009",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "The feasibility half of the MVP support decision is not carried",
+      "criterion_ids": [],
+      "requirement_ids": [
+        "SKILL-002 rev 2, use-case inventory, 'MVP support decision': 'Required when defining or changing a release scope; includes proportionate discovery and feasibility research.'"
+      ],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-define-product/SKILL.md"],
+      "evidence": [
+        {
+          "kind": "command",
+          "description": "grep -rn -i feasibility over SKILL.md and references/ returns nothing. Phase 2 'Investigate' covers proportionate discovery research well - 'A claim that decides whether a requirement is in or out is worth checking; background colour is not' - but never the feasibility half.",
+          "locator": "commands.log; SKILL.md '## 2. Investigate'"
+        }
+      ],
+      "confidence": "high",
+      "uncertainty": "Whether the specification means feasibility as a distinct research activity or as an aspect of scoping. The phrase pairs it with discovery as a second named kind of research, which reads as distinct.",
+      "impact": "Low. DP-B-002's stated capacity constraint exercises the behaviour indirectly and phase 3's observable-result rule pushes toward buildable requirements, but a session is never told that checking whether the scope is deliverable under the stated constraints belongs to phase 2.",
+      "recommendation": "Add feasibility to phase 2's proportionality sentence. See CHG-009.",
+      "affected_cases": ["DP-B-002"]
+    },
+    {
+      "id": "F-010",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "The release routing instruction is absent from the consumer table a session actually consults",
+      "criterion_ids": [],
+      "requirement_ids": [
+        "SKILL-002 rev 2, 'Validation and behavioral acceptance', case 'Out of scope': 'Routes to release rather than generating another product brief.'"
+      ],
+      "affected_revision": "05ed112a5a46495041651183493e28c4eae00fed",
+      "affected_files": ["providers/claude/plugins/devforgeai/skills/devforge-define-product/SKILL.md"],
+      "evidence": [
+        {
+          "kind": "section-read",
+          "description": "The routing instruction appears only in the frontmatter description ('or to ship a build that has already been accepted (devforge-release)') and in the Stopping paragraph forbidding execution of anything the brief describes. The body's 'What downstream reads' table has six consumer rows - design, prototype, architect, plan, review, change - and no devforge-release row.",
+          "locator": "SKILL.md frontmatter description; 'What downstream reads'; 'Stopping'"
+        }
+      ],
+      "confidence": "medium",
+      "uncertainty": "The description is loaded together with the body, so the required behaviour is instructed and may well be followed. Whether a session consults the table rather than the description when selecting a continuation cannot be established without tier B.",
+      "impact": "Low. The concern is placement: phase-local guidance is where a session looks when choosing a next owner in phase 4, and the table is the phase-local artifact.",
+      "recommendation": "Add a devforge-release row, or one sentence under the table, stating that a request to ship an already-accepted build belongs to devforge-release and is not scope work. See CHG-010.",
+      "affected_cases": ["DP-B-005"]
+    }
+  ],
+  "evaluation_prerequisites": [
+    {
+      "id": "PRE-001",
+      "statement": "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.",
+      "verified_how": "devforge --help, check --help, expert --help and delivery --help on the binary at sha256 835c32639c0a7df270fe1b9182580f14fc7d0874d3aad1b4037ba7cf420b2b07. No skill-package inspector and no evidence reducer is exposed; devforge check inspects a project candidate against a policy and explicitly does not certify semantic behaviour.",
+      "blocks": "Every structural row in this evaluation is a manual observation labelled INSPECTION_MANUAL with authority none. The complete set of matching runner rows does not close this dependency.",
+      "owner": "DevForge integration owner",
+      "is_candidate_defect": false
+    },
+    {
+      "id": "PRE-002",
+      "statement": "Protected-manifest custody for the evaluation runner is not implemented in the DevForge CLI.",
+      "verified_how": "The runner, grader, Python and case identities in both observations files are self-reported by the run, as the runner's own custody_note states.",
+      "blocks": "No identity used in P2 was bound outside evaluated-agent write access before use, nor verified before criteria were applied.",
+      "owner": "DevForge integration owner",
+      "is_candidate_defect": false
+    },
+    {
+      "id": "PRE-003",
+      "statement": "No installed or exported copy of the candidate exists.",
+      "verified_how": "No installation was performed; the assignment authorised none.",
+      "blocks": "Tier C entirely, and the installed-mode half of DP-C-002's evals/-exclusion assertion.",
+      "owner": "coordinator",
+      "is_candidate_defect": false
+    },
+    {
+      "id": "PRE-004",
+      "statement": "No isolated evaluation workspace and no fresh terminal were allocated to this assignment.",
+      "verified_how": "None was allocated by the packet, which directed tiers C, B and A to be recorded NOT_RUN with cause and forbade attempting installs.",
+      "blocks": "Tiers B and A, and therefore every claim about output quality, discovery and activation.",
+      "owner": "coordinator",
+      "is_candidate_defect": false
+    },
+    {
+      "id": "PRE-005",
+      "statement": "The validator followed here is itself unqualified.",
+      "verified_how": "devforge-evaluate-expert at e641797 is a draft under bootstrap review - E2: revise, repaired at e101e76, recheck outstanding. It was source-loaded, never installed and never evaluated natively.",
+      "blocks": "The reliability of this report's method. A defect in the validator propagates into these findings silently.",
+      "owner": "devforge-evaluate-expert author under coordinator dispatch",
+      "is_candidate_defect": false
+    }
+  ]
+}

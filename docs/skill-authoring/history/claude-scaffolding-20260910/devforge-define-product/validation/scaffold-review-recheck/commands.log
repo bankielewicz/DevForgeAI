@@ -1,0 +1,114 @@
+# commands.log - focused recheck of devforge-define-product repair pass 1
+
+Scope: recheck only F-001..F-010 on the new revision, plus R04. Unchanged broad checks were
+deliberately NOT re-run, per the coordinator's authorization.
+
+WT   = /home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910
+P    = $WT/providers/claude/plugins/devforgeai/skills/devforge-define-product
+VPKG = /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert
+NF   = $WT/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/validation/scaffold-review-recheck
+OLD  = $WT/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/validation/scaffold-review
+FW   = /home/bryan/Projects/DevForge/framework/DevForgeAI
+
+## Intake
+
+date -u +%FT%TZ                                   # 2026-09-10T21:36:39Z (used for every envelope here)
+git -C $WT rev-parse HEAD                         # 2224a10d59d06715ca8a5f13ee3abf484c0dcff5
+git -C $WT log --oneline -4                       # 2224a10 repair pass 1; 014c34d my first report; 05ed112 scaffold
+git -C $WT status --porcelain                     # clean before my writes
+git -C $WT diff 05ed112 2224a10 --stat -- providers/   # 14 files changed, +645/-125
+git -C $WT diff 05ed112 2224a10 --stat -- docs/        # authoring evidence + my committed first report
+mkdir -p $NF/runner-out                           # WRITE (new fence)
+
+## Evidence custody: my first report must be preserved unchanged
+
+sha256sum $OLD/{verification-results.md,findings.json,skill-enhancement-spec.md,handoff.md,commands.log}
+    # 38be1868..., d3a2b742..., c02a884f..., 21e72ac4..., 2d516468... - all equal to the bytes
+    # this evaluator wrote in the first pass. Committed at 014c34d, untouched.
+git -C $WT diff --stat 014c34d 2224a10 -- $OLD    # empty: repair pass did not alter the first report
+
+## Per-finding diff inspection
+
+git -C $WT diff 05ed112 2224a10 -- $P/SKILL.md                          # F-001, F-009, F-010
+git -C $WT diff 05ed112 2224a10 -- $P/references/recording-rules.md     # F-001
+git -C $WT diff 05ed112 2224a10 -- $P/references/sources.md             # F-008
+git -C $WT diff 05ed112 2224a10 -- $P/evals/cases.jsonl                 # F-005, F-006, F-007 sentinel
+git -C $WT diff 05ed112 2224a10 -- $P/evals/fixtures/{new-product/IDEAS-001.md,existing-product/PROD-001.md,existing-product/CHANGE-011.md,stale/IDEAS-002.md}   # F-003, F-007
+git -C $WT diff 05ed112 2224a10 -- <authoring>/spec-mapping.md          # F-002
+cat $P/evals/fixtures/README.md                                          # F-003, F-006
+python3 -c "<dump DP-C-001/DP-B-006/DP-B-007/DP-B-008 assertions and expectations>"   # F-005, F-006, F-007
+python3 -c "<dump trigger-queries leakage_note and positive queries>"                 # F-004
+python3 -c "<dump evals.json fixture_staging and graded_observations>"                # F-003
+
+## F-001 regression probe: bullet count against its own introduction
+
+sed -n '/^## When something is missing or a check cannot run/,/^The words are fixed/p' $P/SKILL.md | grep -n 'These \|^- \*\*'
+    # intro still reads "These four come up often enough"; the list now has FIVE bullets -> new finding F-011
+sed -n '/^## When something is missing.../,/^And one that is not an error/p' $P/SKILL.md | grep -c '^- \*\*'   # 5
+
+## F-008 source verification
+
+ls -la /home/bryan/Projects/DevForge/framework/DevForge/policies/notes-sqlite.json
+sha256sum   /home/bryan/Projects/DevForge/framework/DevForge/policies/notes-sqlite.json
+    # 5da0f2075b1246cb86d9e3b2f3125ab793f8abfc2349069dd39bf18f8e3d1649 - equals the digest sources.md cites
+python3 -c "import json;print(sorted(json.load(open(<policy>)).keys()))"
+    # all 12 keys sources.md lists are present and none is invented
+
+## F-003 / F-007 digest chain
+
+sha256sum <each fixture at HEAD>
+python3 -c "<resolve every upstream/supersedes citation against the referenced file's actual bytes>"
+    # 6 of 6 links RESOLVE: IDEAS-001->r1, PROD-001->IDEAS-001, PROD-001->r1,
+    #   CHANGE-011->PROD-001, PROD-002->IDEAS-002.r1, IDEAS-002->IDEAS-002.r1
+python3 -c "<scan whole package for filler digests 0000../1111../2222../3333.. and old sentinel 300f1c78>"
+    # filler: none remain.  old IDEAS-002 sentinel: no stale reference anywhere.
+
+## Derivation and manifest reconciliation
+
+python3 -c "<compare every derivation destination_sha256 against package bytes>"      # 21/21 OK
+python3 -c "<compare derivation source digests against $FW governing files>"          # 7/7 OK
+python3 -c "<compare authoring/file-manifest.json against package bytes>"             # 22/22 OK, no omission, no phantom
+
+## Runner - only the affected cases, per the authorization
+
+sha256sum $VPKG/scripts/run_cases.py $VPKG/scripts/graders.py
+    # 95ca2abf... and 1b7a27a3... - identical to the first pass; instrument unchanged
+
+/usr/bin/python3 -B $VPKG/scripts/run_cases.py \
+  --cases $P/evals/cases.jsonl \
+  --candidate $P \
+  --out $NF/runner-out/observations-recheck-affected-source.jsonl \
+  --mode source \
+  --case-id DP-C-001 --case-id DP-B-006 --case-id DP-B-007 --case-id DP-B-008
+    # exit 0; 4 selected, 8 recorded SKIPPED (unselected cases still appear, so a partial
+    # run cannot be mistaken for full coverage). DP-C-001 A4 now 5 local links, all resolve.
+    # DP-B-007 A1 2 sentinels unchanged at the NEW IDEAS-002 digest. DP-B-008 A1 MISMATCH
+    # is the confirming placeholder observation, unchanged in meaning from the first pass.
+
+## R04 recheck and the deferred-case question
+
+grep -rn -i -e interrupt -e resume -e resuming -e 'baseline and evidence' $P/SKILL.md $P/references/ $P/assets/
+sed -n '65p;108p;121p' $P/SKILL.md ; sed -n '58p' $P/references/recording-rules.md ; sed -n '40p' $P/references/sources.md
+    # every line number spec-mapping.md cites is accurate
+sed -n '/^## Validation and behavioral acceptance/,/^## Rework/p' $FW/docs/mvp/specifications/skill-002-devforge-define-product.md
+grep -n -i interrupt $FW/docs/mvp/specifications/skill-002-devforge-define-product.md
+    # interruption appears ONLY at spec line 46 (Workflow and phase exits) as required behaviour.
+    # It is NOT among the 5 acceptance cases or the 4 additional common cases.
+    # => SKILL-002 does not require a dedicated interruption eval case; the author's deferral is spec-consistent.
+
+## Preserved-behaviour regression sweep
+
+python3 -c "<frontmatter keys, description length, line count, Exit-when count, ! injection,
+             home/docs-mvp paths in runtime files, asset byte-identity vs docs/mvp, JSON parse,
+             agents/scripts/hooks absence>"
+    # 2 keys; description 943 chars UNCHANGED; 146 lines; 4 Exit-when; no injection; no stray paths;
+    # both assets still byte-identical to docs/mvp; all declarative files parse; provider hygiene intact.
+
+## Outputs written (all inside $NF)
+
+$NF/runner-out/observations-recheck-affected-source.jsonl
+$NF/commands.log
+$NF/findings-recheck.json
+$NF/recheck-report.md
+
+scaffold-review/ was not modified. Nothing was committed.

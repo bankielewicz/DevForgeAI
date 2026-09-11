@@ -1,0 +1,125 @@
+# commands.log - scaffold evaluation of devforge-define-product (SKILL-002)
+
+Every command actually run during this evaluation, in order. Read-only on the candidate and
+every governing input except the four `mkdir`/write operations inside this fence.
+Abbreviations used below: WT_C = /home/bryan/Projects/DevForge/worktrees/claude-scaffold-define-product-20260910
+                         WT_V = /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910
+                         PKG  = $WT_C/providers/claude/plugins/devforgeai/skills/devforge-define-product
+                         VPKG = $WT_V/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert
+                         FENCE= $WT_C/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/validation/scaffold-review
+                         AUTH = $WT_C/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring
+                         FW   = /home/bryan/Projects/DevForge/framework/DevForgeAI
+
+## P1 - intake and freeze
+
+git -C $WT_V rev-parse HEAD                              # e641797eebf04cd1e8eb9f711549e038e7745407
+git -C $WT_V rev-parse --git-common-dir                  # .../framework/DevForgeAI/.git
+git -C $WT_V show e641797 --stat --oneline
+git -C $WT_C rev-parse HEAD                              # 05ed112a5a46495041651183493e28c4eae00fed
+git -C $WT_C diff 05ed112a5a46495041651183493e28c4eae00fed HEAD --stat -- providers/   # empty
+git -C $WT_C status --porcelain                          # empty (clean)
+git -C $WT_V ls-tree -r --name-only e641797 -- <VPKG>
+git -C $WT_C ls-tree -r --name-only 05ed112 -- <PKG>
+git -C $WT_C ls-tree -r --name-only 05ed112 -- <AUTH parent>
+git -C $WT_V show e641797:<VPKG>/SKILL.md | sha256sum    # bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac
+sha256sum $FW/docs/mvp/specifications/skill-002-devforge-define-product.md
+                                                         # 3e48f93f... matches the packet's pinned digest
+find <PKG> -type f | sort | while read f; do sha256sum "$f"; done    # evaluator's own 20-file manifest
+sha256sum $FW/docs/mvp/templates/... $FW/docs/mvp/*.md $FW/docs/development-language-policy.md \
+          $FW/docs/learned-behaviors/bounded-delivery.md
+git -C $FW show c17e758417da64928a0f47fc2600304465ac3f3c:<each governing path> | sha256sum
+git -C $FW ls-tree --name-only c17e758 providers/claude/plugins/devforgeai/skills/
+                                                         # brainstorm, develop, project-expert-creator, review
+
+## Reads (governing inputs and candidate; all read-only)
+
+git -C $WT_V show e641797:<VPKG>/SKILL.md
+git -C $WT_V show e641797:<VPKG>/references/{runner-interface,missing-rust-capabilities,results-contract,ai-review-rubric}.md
+git -C $WT_V show e641797:<VPKG>/assets/{verification-results,skill-enhancement-spec,handoff}.md
+git -C $WT_C show 05ed112:<PKG>/SKILL.md
+git -C $WT_C show 05ed112:<PKG>/references/{evidence-and-scope,recording-rules,sources}.md
+git -C $WT_C show 05ed112:<PKG>/references/derivation.json
+git -C $WT_C show 05ed112:<PKG>/assets/{product-brief,handoff}.md
+git -C $WT_C show 05ed112:<PKG>/evals/{evals.json,cases.jsonl,triggers/trigger-queries.json}
+cat <PKG>/evals/fixtures/{README.md,new-product/IDEAS-001.md,existing-product/PROD-001.md,
+    existing-product/CHANGE-011.md,stale/PROD-002.md,ownership/SESSION-088.md,
+    ownership/contested/PROD-004.md,placeholder/PROD-005.md}
+diff <PKG>/evals/fixtures/stale/preserved/IDEAS-002.r1.md <PKG>/evals/fixtures/stale/IDEAS-002.md
+cat $FW/docs/mvp/specifications/skill-002-devforge-define-product.md
+cat $FW/docs/mvp/templates/skill-authoring/{evals.json,trigger-queries.json}
+sed -n '/## Standard envelope/,/^## /p'  $FW/docs/mvp/artifact-contract.md
+sed -n '/Output storage/,/^## /p'        $FW/docs/mvp/artifact-contract.md
+grep -n -i -e files -e worker-visible -e fixture -e held-out -e frontmatter -e tier \
+         $FW/docs/mvp/skill-authoring-contract.md
+grep -n -o 'devforge-[a-z-]*' $FW/docs/mvp/roster.md | sort -u
+
+## P2 - deterministic observation (local, non-isolated evidence)
+
+sha256sum <VPKG>/scripts/run_cases.py <VPKG>/scripts/graders.py
+    # run_cases.py 95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2
+    # graders.py   1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f
+git -C $WT_V diff --stat HEAD -- <VPKG>/scripts/       # empty: working-tree bytes == commit e641797
+cat <VPKG>/scripts/run_cases.py
+grep -n '^def \|^GRADERS\|args.get' <VPKG>/scripts/graders.py
+
+mkdir -p $FENCE/runner-out                             # WRITE (inside fence)
+
+/usr/bin/python3 -B <VPKG>/scripts/run_cases.py \
+  --cases <PKG>/evals/cases.jsonl \
+  --candidate <PKG> \
+  --out $FENCE/runner-out/observations-author-cases-source.jsonl \
+  --mode source
+    # exit 0; "wrote 12 case record(s)"   -> the author's case file loads under the frozen runner
+
+# evaluator-added structural cases (authored into the fence, not into the candidate)
+#   $FENCE/runner-out/evaluator-added-cases.jsonl                                  # WRITE (inside fence)
+/usr/bin/python3 -B <VPKG>/scripts/run_cases.py \
+  --cases $FENCE/runner-out/evaluator-added-cases.jsonl \
+  --candidate <PKG> \
+  --out $FENCE/runner-out/observations-evaluator-cases-source.jsonl \
+  --mode source
+    # exit 0; "wrote 5 case record(s)"
+
+# Manual structural observations the runner cannot make (method: INSPECTION_MANUAL, authority: none)
+/usr/bin/python3 -B -c "import json; json.load(open(<each .json>))"     # derivation/evals/triggers parse
+/usr/bin/python3 -B -c "json.loads() per line of evals/cases.jsonl"     # 12 lines parse
+grep -rn '^[[:space:]]*!' <PKG>                                          # no dynamic-context injection
+grep -rn -e '/home/' -e '~/' -e 'docs/mvp' -e '../' <PKG>/SKILL.md <PKG>/assets/ <PKG>/references/
+grep -rn -i -e interrupt -e resume -e resuming -e 'baseline and evidence' \
+         <PKG>/SKILL.md <PKG>/references/ <PKG>/assets/
+grep -n -i -e release -e feasibility <PKG>/SKILL.md
+grep -n -o '](\([^)]*\))' <PKG>/SKILL.md                                 # 4 local links
+python3 -c "<description length / frontmatter key count>"                # 2 keys; description 943 chars; 142 lines
+
+## Missing-capability verification (per references/missing-rust-capabilities.md)
+
+ls -la  /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge
+sha256sum /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge
+    # 835c32639c0a7df270fe1b9182580f14fc7d0874d3aad1b4037ba7cf420b2b07
+.../devforge --help ; .../devforge check --help ; .../devforge expert --help ; .../devforge delivery --help
+    # confirms the subcommand surface the candidate names, and that no skill-package
+    # inspector or evidence reducer exists
+
+## External source
+
+WebFetch https://code.claude.com/docs/en/skills   (retrieved 2026-09-10 UTC)
+
+## Author evidence, read LAST so it could not frame the independent review
+
+cat $AUTH/spec-mapping.md
+grep -rn '4999f31\|project-expert-creator' $AUTH/
+python3 -c "<compare $AUTH/file-manifest.json against actual package bytes>"
+    # 20/20 files, 0 mismatches, 0 omissions, 0 phantom entries
+
+## Outputs written (all inside $FENCE)
+
+$FENCE/runner-out/evaluator-added-cases.jsonl
+$FENCE/runner-out/observations-author-cases-source.jsonl
+$FENCE/runner-out/observations-evaluator-cases-source.jsonl
+$FENCE/commands.log
+$FENCE/verification-results.md
+$FENCE/findings.json
+$FENCE/skill-enhancement-spec.md
+$FENCE/handoff.md
+
+No commit was made. No file outside $FENCE was created, modified or deleted.

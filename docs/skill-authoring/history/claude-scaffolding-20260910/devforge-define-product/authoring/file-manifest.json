@@ -1,0 +1,53 @@
+{
+  "schema_version": "devforge.package-manifest/v1",
+  "skill": "devforge-define-product",
+  "provider": "claude",
+  "recorded_at_utc": "2026-09-10T21:28:08Z",
+  "candidate_root": "providers/claude/plugins/devforgeai/skills/devforge-define-product",
+  "repository_revision_base": "c17e758417da64928a0f47fc2600304465ac3f3c",
+  "note": "Complete package-relative file-to-hash map for the authored candidate, taken after the last write to every path. A manifest proves which bytes exist; it establishes nothing about behaviour. Behavioural status is NOT_EVALUATED and every evaluation tier is NOT_RUN.",
+  "self_reference_note": "This manifest does not contain its own digest, and it does not list itself. It also omits the sibling handoff.md, which is written after this file and carries this file's digest instead.",
+  "before_manifest": {
+    "store": "git",
+    "repository": "DevForgeAI",
+    "commit": "05ed112a5a46495041651183493e28c4eae00fed",
+    "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring/file-manifest.json",
+    "sha256": "2f59575a791a41d2d90eaa8e18639b1ff35a91ce04fd5f0a5d88b140f49fda24",
+    "note": "The revision-1 manifest, listing the 20 package files as they stood before this repair pass. Its bytes stay reachable at that commit; nothing was copied into the tree."
+  },
+  "before_manifest_reason": "Revision 1 recorded null here because the candidate root did not exist at the base commit. Revision 2 has a predecessor and cites it.",
+  "package_file_count": 22,
+  "package_files": {
+    "SKILL.md": "a2c9d5aa254ac6316a40cfe9eacb32d3cf8608182233fc4d1ff5758d2a3f69c1",
+    "assets/handoff.md": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+    "assets/product-brief.md": "5a2229a13fba07d0a279f82255a49f57a78be99db8fd8f7991c1f85a12864ddb",
+    "evals/cases.jsonl": "94a1a03a36d7273f9612ac4c90cccdc25436261eab3f6ff4a4ade4d9681fee9d",
+    "evals/evals.json": "1895cf038fe6668f51f292704ddd4eb39c69b64334721153e76e12556011efec",
+    "evals/fixtures/README.md": "b7fc6727e245903be9159284d34999000f3a234989e666cf206ecac8c52e5002",
+    "evals/fixtures/existing-product/CHANGE-011.md": "574555751b8fb9af860a23a91ca1bbda9eede682cbe9ac909d0a856980da4aa4",
+    "evals/fixtures/existing-product/PROD-001.md": "f7396e407445c4f401e494cca71916464a342ce5895d1c2830f13fc847987179",
+    "evals/fixtures/existing-product/preserved/PROD-001.r1.md": "f6c8f64fef8ffdf259df50bcd6618fdc4fd66c3627baaff382351d9ba687666c",
+    "evals/fixtures/new-product/IDEAS-001.md": "8a0b193eb62be9cb2d07ae22658895c9fdf23fbdca4d5be86422addbba2e6ec0",
+    "evals/fixtures/new-product/preserved/IDEAS-001.r1.md": "4dbe2259ecd3378c6993b2b088bfb9771db3d13bfd9a5532f8e2709637e971ac",
+    "evals/fixtures/ownership/SESSION-088.md": "1566326d5fdb7cb7dab03c08b1f7df7bb393409db238c46286e9e03f684c1940",
+    "evals/fixtures/ownership/contested/PROD-004.md": "6d25b414245faad27a66242072cfe408578fa2da6f0469318f8326aa513d8ea5",
+    "evals/fixtures/placeholder/PROD-005.md": "e59ebe12de391f2b82a9e2c85db840f0d87878195cc0b375ea3b0b9776b58efd",
+    "evals/fixtures/stale/IDEAS-002.md": "569d1dd38129b0745f77a07005d48241559efcfe130875b356f01c85185cdcc8",
+    "evals/fixtures/stale/PROD-002.md": "8bb89681e658a455ecc1021230c8b000c577b51167ad0f9461ebc0ab52853087",
+    "evals/fixtures/stale/preserved/IDEAS-002.r1.md": "03b523dea859ed3442d833eed9653ec6bc57cf995a14716d478e0a64959b0098",
+    "evals/triggers/trigger-queries.json": "8e77614560224a6ab6fbafbcc1da120dda40dbec4d049f92a5b2afd702a4cbd1",
+    "references/derivation.json": "d4b805f7fe0edf40091a57cad9ee9b96bae83feb0b34f7f83c4a0228148d94a0",
+    "references/evidence-and-scope.md": "6276b73559d6fcf3be54c3d5a55156825e730a034616bfa6c7c967f8ee952c71",
+    "references/recording-rules.md": "08037a2a59c2deedfdddbeb86dab2abcdd029b93a6a5abcf120da7eb9786e87f",
+    "references/sources.md": "f98445e8145f25e502baa37aaa2cee86c49c5ccb6c353ab6c2117046dec93374"
+  },
+  "authoring_evidence_root": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-define-product/authoring",
+  "authoring_evidence_files": {
+    "authoring-notes.md": "81bdf1db40e4aa8f89c07e77b1bbf2a7350d62f654fd0c047284178c8c9c83fb",
+    "design/skill-design-spec.md": "e7aa8c4d6cecc07bf40e616a382e1e3fedd6676998c803e35141b0a3d7da8ba4",
+    "spec-mapping.md": "8d55f88aa9500405bc67781ad358eec431640bc5aa731fce60bf822cafbd0d82"
+  },
+  "authoring_evidence_note": "Recorded for custody. handoff.md and this manifest are excluded; handoff.md carries this manifest's digest, computed after this file's bytes were final.",
+  "revision": 2,
+  "revision_note": "Revision 2, after repair pass 1 from the independent scaffold review of 05ed112a5a46495041651183493e28c4eae00fed. Two package files were added (the predecessor fixtures CHG-003 required) and eight were edited; assets/product-brief.md and assets/handoff.md remain byte-identical to their docs/mvp sources. Applying a change closes no finding."
+}
