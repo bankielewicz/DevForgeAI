@@ -1,0 +1,125 @@
+# commands.log - evaluator: devforge-prototype (SKILL-004) scaffold review
+# All commands run read-only against frozen inputs; writes only inside this fence.
+# Entries marked [reconstructed] were run during orientation before this log was opened
+# and are recorded here from the session transcript, not from a live tee.
+
+## P1 orientation [reconstructed]
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse HEAD
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 show e641797eebf04cd1e8eb9f711549e038e7745407:providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 show e641797eebf04cd1e8eb9f711549e038e7745407:providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/references/{ai-review-rubric.md,runner-interface.md,missing-rust-capabilities.md}
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-prototype-20260910 rev-parse HEAD
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-prototype-20260910 diff e199230858d871926fff2d55de8b015fa0ce335e HEAD --stat -- providers/
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-prototype-20260910 status --porcelain
+# read: spec skill-004, candidate SKILL.md, references/*, assets/*, evals/*, derivation.json
+
+## P1 freeze - identities (live)
+sha256sum <validator>/scripts/run_cases.py <validator>/scripts/graders.py
+  95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2  run_cases.py
+  1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f  graders.py
+  (both equal to `git show e641797:...` output; working tree == frozen commit)
+cd <candidate-package> && find . -type f | sort | xargs -n1 sha256sum > <fence>/candidate-manifest.txt   # 31 files
+
+## P2 deterministic observation (local, non-isolated evidence)
+/usr/bin/python3 -B <validator>/scripts/run_cases.py \
+  --cases <pkg>/evals/cases.jsonl \
+  --candidate <pkg>/evals/fixtures \
+  --out <fence>/runner-out/candidate-cases.observations.jsonl --mode source
+  -> exit 0, "wrote 9 case record(s)"
+
+/usr/bin/python3 -B <validator>/scripts/run_cases.py \
+  --cases <fence>/runner-out/evaluator-structural-cases.jsonl \
+  --candidate <pkg> \
+  --out <fence>/runner-out/evaluator-structural.observations.jsonl --mode source
+  -> exit 0, "wrote 10 case record(s)"   (evaluator-added structural cases EV-S-001..010)
+
+# Probe A: --candidate = package root (the natural reading of "candidate root")
+/usr/bin/python3 -B <validator>/scripts/run_cases.py --cases <pkg>/evals/cases.jsonl \
+  --candidate <pkg> --out <fence>/runner-out/probe-candidate-root-is-package.observations.jsonl --mode source
+  -> exit 0, all 9 cases COULD_NOT_RUN ("candidate_subpath ... does not resolve")
+
+# Probe B: --mode installed against the same fixture root
+/usr/bin/python3 -B <validator>/scripts/run_cases.py --cases <pkg>/evals/cases.jsonl \
+  --candidate <pkg>/evals/fixtures --out <fence>/runner-out/probe-mode-installed.observations.jsonl --mode installed
+  -> exit 0; results identical to the source-mode run (no case declares `mode`)
+
+## P2 manual structural observation (INSPECTION_MANUAL, authority: none)
+grep -rnoE '\]\([^)]+\)' --include=*.md .            # 7 local Markdown links, all resolve in-package
+grep -rn -E 'ARCH-014|vessel|250 ?ms|400 (concurrent )?viewers|XPLAN-006|XPLAN-010|812' SKILL.md references/ assets/   # no matches (no held-out leak)
+grep -rn -E '^\s*!|\!`|`!' SKILL.md references/ assets/   # no matches (no Claude `!` shell-injection syntax)
+sed -n '3p' SKILL.md | wc -c                          # 1143 bytes incl. "description: " prefix
+sha256sum <fixtures>/good/source/service-notes.md <fixtures>/defect-fence-breach/preserved/service-notes.baseline.md
+  both f9138601783d24d2a3dd8170db7b510c557ec22d906b76afc7707aa5be8e223f (matches the declared sentinel)
+sha256sum <fixtures>/defect-fence-breach/source/service-notes.md
+  eccebbaf05767d28272ce58695a8eae2183ae0447c55b83a80588cab3a381e99 (differs, as case XP-C-006 intends)
+python3 -B  # verify every derivation.json destination_sha256 against actual bytes -> 11/11 OK
+sha256sum on 9 governing inputs in framework/DevForgeAI -> 9/9 match derivation.json governing_inputs
+
+## Freshness / provenance
+git -C <validator-wt> diff e52ac59 e641797 --stat -- .../devforge-evaluate-expert/scripts/
+  graders.py +108/-? , run_cases.py +55/-?  (147 insertions, 16 deletions over the two files)
+git -C <validator-wt> log --oneline e52ac59..e641797
+  e641797 derivation digests regenerated after repair pass 1 (F-R01)
+  6916b60 E2 focused recheck at e101e76 (F-001..F-009 closed; F-R01 new MINOR)
+  e101e76 repair pass 1 from E2 bootstrap review (F-001..F-009)
+  b6a4bf7 E2 independent bootstrap review at e52ac59
+git -C <candidate-wt> ls-tree -r --name-only c17e758 providers/claude/plugins/devforgeai/skills/
+  -> devforge-brainstorm, devforge-develop, devforge-project-expert-creator, devforge-review. No devforge-prototype.
+
+## Client facts and CLI
+WebFetch https://code.claude.com/docs/en/skills  (retrieved 2026-09-10)
+  description budget 1,536 chars combined with when_to_use; allowed-tools/disallowed-tools exist;
+  `!`/```! dynamic shell injection is a documented SKILL.md feature; supporting files are package-relative Markdown links.
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge isolate --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge check --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert --help
+  -> commands present: delivery expert check init red green accept verify status isolate
+  -> isolate: --project, --runtime [codex|claude], -- <COMMAND>;  check: "does not certify semantic behavior"
+  No devforge command was run against any project, policy or state directory.
+
+## Not run
+No install, no export, no fresh terminal, no isolated workspace: tiers C, B and A NOT_RUN.
+
+## P3 independent review inputs
+git -C <validator-wt> show e641797:.../references/ai-review-rubric.md      # R01-R10 anchors
+git -C <validator-wt> show e641797:.../references/results-contract.md      # outcomes, disposition, severity
+git -C <validator-wt> show e641797:.../references/missing-rust-capabilities.md
+git -C <validator-wt> show e641797:.../references/runner-interface.md
+git -C <validator-wt> show e641797:.../assets/{verification-results.md,skill-enhancement-spec.md,handoff.md}
+grep -n -iE 'frontmatter|template|derivation|tier|evals/' /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md
+grep -n -oE 'devforge-[a-z-]+' /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/roster.md | sort -u
+  -> architect brainstorm change define-product design develop evaluate-expert plan
+     project-expert-creator prototype release review  (all four siblings named in the
+     candidate's description exist in the roster)
+python3 -B  # trigger split: 22 queries, 10 positive / 12 negative, 9 categories,
+            # every category >=1 train and >=1 validation (train 12 / validation 10), ids unique
+python3 -B  # evals.json: 11 tier-B cases covering all 5 SKILL-004 acceptance rows,
+            # all 4 additional common cases, the rework rule and the stop rule
+git -C <candidate-wt> ls-tree -r --name-only c17e758 | grep -i devforge-prototype
+  -> only docs/mvp/specifications/skill-004-devforge-prototype.md and the two docs/mvp templates
+grep -rn -iE 'freez|frozen' SKILL.md references/ assets/    # F-003 evidence
+grep -n -iE 'preced|does not establish|self-recorded' references/experiment-boundaries.md
+  -> no match (the file SKILL.md:50 routes to carries no freeze-limit statement)
+
+## P6 outputs written (this fence only; nothing committed)
+verification-results.md   2939cfc197b8f47abd61158b7b8e7ce390f578203e4b60bc2014215f6001d309
+findings.json             5fb80dff124e6f21af6f9c227a308609ad6c0ab5f37406a1a8b88b2526ed5393
+skill-enhancement-spec.md 1e076a070b129a1cd9f0e3e542adf3989817113723d6d5dc85cd41c974def294
+validation-plan.json      a864bc73eae707b98e5d8d1207d0d88db8371ffc1a31be32f848ca24d1e74243
+ai-review.json            706fe8a8dab924ffcd695ef40ad559d4856388989698ff1ca9c79b29d5750d5d
+validation-results.json   382b1f74a54a9eb13fc7913202acc672e2b39e3f2ccd5c0ff9b2fe177d4c92ae
+candidate-manifest.txt    6bd15a3ead18037682c70168752c66e838b2d536c2130462d8842acc5eb4ee6f
+handoff.md                written after this log was finalised; its digest is delivered
+                          in the terminal response, never inside itself
+python3 -B  # JSON/JSONL parse check over every record written here: 9/9 parse
+
+## End of log. Nothing outside this directory was written. No commit was made.
+
+## P6 correction (own-vocabulary fix, applied after the first readback)
+verification-results.md 'Candidate and baseline comparison': replaced an incorrect use of
+NOT_APPLICABLE for undisclosable comparison limits with "cannot be disclosed ... carry the arms'
+NOT_RUN". The word is reserved for a stated scope exclusion. Same discipline this evaluation
+applies to the candidate in F-002.
+  verification-results.md rehashed: 2939cfc197b8f47abd61158b7b8e7ce390f578203e4b60bc2014215f6001d309   (was b67fda57c8c5590cbc6d605bbe24b54a5bd9308b8328ae01d7d4d87922215a05)
+  This log rehashed after this append; handoff.md rows updated from these values, then rehashed.
+  No digest of this log is written into verification-results.md, which would create a cycle.

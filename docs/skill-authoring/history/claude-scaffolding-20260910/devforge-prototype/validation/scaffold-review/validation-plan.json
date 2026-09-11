@@ -1,0 +1,94 @@
+{
+  "schema_version": "devforge.skill-validation-plan/v1",
+  "artifact_id": "EVPLAN-004-SCAFFOLD-01",
+  "note": "P1 record. Frozen before the deterministic runs in this directory. The native arms were declared NOT_RUN at plan time because no installed copy, fresh terminal or isolated workspace was allocated to this assignment; no expectation was chosen after seeing an output.",
+  "created_at_utc": "2026-09-10T21:23:19Z",
+  "evaluator": {
+    "role": "independent scaffold evaluator under a coordinator; did not author the candidate",
+    "model_name": "Opus 5 (1M context)",
+    "model_id": "claude-opus-5[1m]",
+    "client": "Claude Code (Claude Agent SDK). Version string not observable from inside the session; recorded as unknown rather than inferred."
+  },
+  "target": {
+    "skill": "devforge-prototype",
+    "provider": "claude",
+    "source_root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-prototype-20260910/providers/claude/plugins/devforgeai/skills/devforge-prototype",
+    "source_commit": "e199230858d871926fff2d55de8b015fa0ce335e",
+    "source_manifest": { "path": "candidate-manifest.txt", "sha256": "6bd15a3ead18037682c70168752c66e838b2d536c2130462d8842acc5eb4ee6f", "files": 31 },
+    "installed_root": null,
+    "installed_manifest": null,
+    "installation_mode": "none - not installed, not exported, not attempted"
+  },
+  "authority_and_fence": {
+    "write_fence": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-prototype-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-prototype/validation/scaffold-review/",
+    "permitted_writes": "this directory only",
+    "read_only": ["the candidate package", "the frozen validator worktree", "framework/DevForgeAI governing inputs", "the author's evidence tree", "the DevForge CLI binary (--help only)"],
+    "commits": "none; nothing was committed and no checkout was switched, reset, cleaned, stashed or rebased",
+    "workspace_allocation": null,
+    "workspace_allocation_reason": "No isolated workspace was selected or allocated for this assignment, so no workspace-allocation record exists and no measured native launch was permitted."
+  },
+  "frozen_inputs": [
+    { "role": "governing specification", "artifact": "SKILL-004", "revision": 2, "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/specifications/skill-004-devforge-prototype.md", "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c" },
+    { "role": "validator SKILL.md (source-loaded, never installed)", "commit": "e641797eebf04cd1e8eb9f711549e038e7745407", "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/SKILL.md", "sha256": "bdf665c7e18061395c0762de7a377fdc5f6ed48d66245df5623c5c32b90cf2ac" },
+    { "role": "case runner", "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py", "sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2", "verified": "working-tree bytes equal `git show e641797:<path>`" },
+    { "role": "graders", "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py", "sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f", "verified": "working-tree bytes equal `git show e641797:<path>`" },
+    { "role": "rubric", "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/references/ai-review-rubric.md", "commit": "e641797eebf04cd1e8eb9f711549e038e7745407" },
+    { "role": "authored cases", "path": "<candidate>/evals/cases.jsonl", "sha256": "586cd3bf0e1840ed1fdb52aa34e1ddb2658c19986aa2f8b1529b424d2a53a5f3" },
+    { "role": "authored tier-B cases", "path": "<candidate>/evals/evals.json", "sha256": "5b23791bf8531c3e0c28968d2c0760a9a54021e2be2df8cadfcb1f605a691809" },
+    { "role": "authored tier-A queries", "path": "<candidate>/evals/triggers/trigger-queries.json", "sha256": "95a203352658a4dae61e78909a773a6a294e3219262e48bfdcf76c0587243505" },
+    { "role": "evaluator-added cases", "path": "runner-out/evaluator-structural-cases.jsonl", "sha256": "e539c5f6d2987d203897f812e583061d362bfda49f79ea7245edf412190258a9", "note": "authored by this evaluation, inside the fence; not part of the candidate" },
+    { "role": "governing templates", "paths": [
+        "docs/mvp/templates/devforge-prototype/experiment-plan.md sha256 70af539ce5e32ef8cbdb1648f13b1e0b3ca31f829387f159875a41f64db20564",
+        "docs/mvp/templates/devforge-prototype/prototype-report.md sha256 9cf2c9d3b54c69ae735036f97ba898891b04247e8a1f613413a2d8b70c213252",
+        "docs/mvp/templates/shared/handoff.md sha256 abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+      ] }
+  ],
+  "baseline": {
+    "kind": "without_skill",
+    "why_relevant": "This is a new capability, not a revision. No Claude devforge-prototype package exists at base c17e758417da64928a0f47fc2600304465ac3f3c in either provider's source inventory, so there is no preserved previous revision to compare against.",
+    "verified_by": "git ls-tree -r --name-only c17e758 providers/claude/plugins/devforgeai/skills/",
+    "executed": false,
+    "executed_reason": "No fresh terminal or isolated workspace was allocated; tier B is NOT_RUN."
+  },
+  "planned_checks": [
+    { "id": "CHK-INTAKE-01", "group": "intake", "expectation": "pass", "observes": "candidate commit, cleanliness and a 31-file sha256 manifest computed by this evaluation" },
+    { "id": "CHK-INTAKE-02", "group": "intake", "expectation": "pass", "observes": "specification digest equals the packet value and the candidate's declared value" },
+    { "id": "CHK-INTAKE-03", "group": "intake", "expectation": "pass", "observes": "runner and grader working-tree bytes equal the frozen commit's bytes" },
+    { "id": "CHK-STRUCT-01", "group": "structure", "expectation": "pass", "observes": "frontmatter present; name and description populated; name == folder (asserted as the DevForgeAI convention)" },
+    { "id": "CHK-STRUCT-02", "group": "structure", "expectation": "pass", "observes": "every local Markdown link resolves inside the package" },
+    { "id": "CHK-STRUCT-03", "group": "structure", "expectation": "pass", "observes": "every resource SKILL.md routes to is present" },
+    { "id": "CHK-STRUCT-04", "group": "structure", "expectation": "pass", "observes": "no runtime dependency on docs/mvp, on another skill package, or on a developer home path" },
+    { "id": "CHK-STRUCT-05", "group": "structure", "expectation": "pass", "observes": "derivation.json destination digests equal the actual package bytes, and its governing-input digests equal the actual source bytes (spot-check target >= 5, including the template copies)" },
+    { "id": "CHK-STRUCT-06", "group": "structure", "expectation": "pass", "observes": "evals files[] and fixtures exist; cases.jsonl loads in the runner" },
+    { "id": "CHK-STRUCT-07", "group": "structure", "expectation": "pass", "observes": "trigger split fixed and stratified by should_trigger and category" },
+    { "id": "CHK-STRUCT-08", "group": "structure", "expectation": "pass", "observes": "no held-out expected answer appears in SKILL.md, references/ or assets/" },
+    { "id": "CHK-STRUCT-09", "group": "structure", "expectation": "pass", "observes": "each authored case's declared baseline arm resolves to something that exists" },
+    { "id": "CHK-STRUCT-10", "group": "structure", "expectation": "pass", "observes": "provider correctness: Claude locations and invocation, no Codex-only concept, no `!` shell-injection syntax" },
+    { "id": "CHK-STRUCT-11", "group": "structure", "expectation": "pass", "observes": "every DevForge command named in the package appears in the supplied binary's own --help" },
+    { "id": "CHK-AI-R01", "group": "ai_review", "expectation": "pass", "observes": "rubric R01 task identity and scope" },
+    { "id": "CHK-AI-R02", "group": "ai_review", "expectation": "pass", "observes": "rubric R02 inputs, outputs and completion" },
+    { "id": "CHK-AI-R03", "group": "ai_review", "expectation": "pass", "observes": "rubric R03 authority, ownership and accepted decisions" },
+    { "id": "CHK-AI-R04", "group": "ai_review", "expectation": "pass", "observes": "rubric R04 workflow decisions and failure paths" },
+    { "id": "CHK-AI-R05", "group": "ai_review", "expectation": "pass", "observes": "rubric R05 runtime dependencies and resource delivery" },
+    { "id": "CHK-AI-R06", "group": "ai_review", "expectation": "pass", "observes": "rubric R06 instructions versus supplied data" },
+    { "id": "CHK-AI-R07", "group": "ai_review", "expectation": "pass", "observes": "rubric R07 framework semantics and artifact provenance" },
+    { "id": "CHK-AI-R08", "group": "ai_review", "expectation": "pass", "observes": "rubric R08 prompt organisation and decision-relevant detail" },
+    { "id": "CHK-AI-R09", "group": "ai_review", "expectation": "pass", "observes": "rubric R09 observable checks and honest outcome reporting" },
+    { "id": "CHK-AI-R10", "group": "ai_review", "expectation": "pass", "observes": "rubric R10 enforcement and handoff boundaries" },
+    { "id": "CHK-C-01", "group": "C", "expectation": "pass", "observes": "installed resources resolve from an installed copy; evals/ stripped", "planned_status": "NOT_RUN", "cause": "no installed or exported copy allocated" },
+    { "id": "CHK-B-01", "group": "B", "expectation": "observation", "observes": "the 11 authored tier-B cases, candidate arm against the without_skill arm", "planned_status": "NOT_RUN", "cause": "no fresh terminal or isolated workspace allocated" },
+    { "id": "CHK-A-01", "group": "A", "expectation": "pass", "observes": "the 22 authored trigger queries: inventory presence, selection, loading and completion kept as four distinct observations", "planned_status": "NOT_RUN", "cause": "no fresh terminal and no installed inventory" }
+  ],
+  "expected_outcomes_declared_before_running": {
+    "candidate_cases": "Each of the 9 cases in the candidate's cases.jsonl was expected to reproduce its own authored expectation string. The defect fixtures were expected to MISMATCH and the truncated-transcript case to be COULD_NOT_RUN; those are the fixtures discriminating, not candidate defects.",
+    "evaluator_cases": "EV-S-001..006 and EV-S-008..010 expected to MATCH. EV-S-007 expected to MISMATCH, because the shipped assets are blank templates and a placeholder is what a blank template contains.",
+    "exit_status": "Exit 0 means the program wrote a complete file. It was declared in advance that exit status would not be read as a verdict."
+  },
+  "missing_required_inputs": [
+    { "input": "an installed or exported candidate", "blocks": "tier C, the installed-mode evals/ absence observation, and the installed identity of every structural row", "owner": "coordinator / DevForge integration owner" },
+    { "input": "a fresh terminal and a permitted isolated workspace", "blocks": "tiers A and B", "owner": "coordinator" },
+    { "input": "a session record for this evaluation", "blocks": "nothing observationally; execution_ref stays null and its absence establishes no ownership", "owner": "coordinator" },
+    { "input": "skill-package structural inspection and evidence reduction in the DevForge CLI", "blocks": "any claim that a structural gate ran, and any implemented decision receipt", "owner": "DevForge integration owner" },
+    { "input": "protected-manifest custody for the evaluation runner", "blocks": "any claim that runner, grader, runtime and case identities were bound rather than self-reported", "owner": "DevForge integration owner" }
+  ]
+}

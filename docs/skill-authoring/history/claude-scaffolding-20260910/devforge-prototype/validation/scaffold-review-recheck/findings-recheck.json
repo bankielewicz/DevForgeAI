@@ -1,0 +1,189 @@
+{
+  "schema_version": "devforge.skill-findings/v1",
+  "evaluation": "focused re-evaluation (repair pass 1) of the Claude devforge-prototype package against SKILL-004",
+  "scope": "Authorized recheck of F-001..F-006 and rubric criterion R08 only. Unchanged broad checks were not rerun; their first-pass results stand at ../scaffold-review/ and are cited rather than recomputed.",
+  "created_at_utc": "2026-09-10T21:54:50Z",
+  "report": "recheck-report.md",
+  "supersedes": {
+    "findings_record": "../scaffold-review/findings.json",
+    "sha256": "5fb80dff124e6f21af6f9c227a308609ad6c0ab5f37406a1a8b88b2526ed5393",
+    "note": "Supersedes its disposition only. The prior record's bytes are retained unmodified and were committed at d12edbb. Prior FAIL rows and finding history are preserved, never overwritten."
+  },
+  "authority": "none - findings are evidence for someone else's decision. This evaluator recommends; it does not accept, adopt, install or release.",
+  "candidate": {
+    "skill": "devforge-prototype",
+    "provider": "claude",
+    "root": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-prototype-20260910/providers/claude/plugins/devforgeai/skills/devforge-prototype",
+    "commit": "a80d39e75b9b5fa89826a544b4527feefc215813",
+    "prior_commit": "e199230858d871926fff2d55de8b015fa0ce335e",
+    "manifest": { "path": "candidate-manifest-a80d39e.txt", "sha256": "639e1c04dfb3baac4d00343b71dcd5cf7ef935eae98c440ffea472779aebdb19", "files": 31 },
+    "installed_copy": null,
+    "installed_copy_reason": "Still not allocated. Tier C remains NOT_RUN and XP-PKG-005 remains unobservable.",
+    "changed_files": [
+      { "path": "SKILL.md", "sha256": "127ded6c18429e87de34fec216f0d6389c4d3bd5dfb6db4b316507de40a3085d", "serves": ["F-003"] },
+      { "path": "references/experiment-boundaries.md", "sha256": "7c0163534f27ae31f3dc6a9294637579025173353d08a957f8ab4934396867a0", "serves": ["F-003"] },
+      { "path": "evals/cases.jsonl", "sha256": "f71168da5718d7ac12f823df9c3dd407575ce325c8a43eba650addc33e1e5d8b", "serves": ["F-001", "F-005"] },
+      { "path": "evals/evals.json", "sha256": "e364ec174524a06634c1ff634812d8e5bbca4a6f4d9c26bc4f9e933f6dc6d1e6", "serves": ["F-002", "F-004", "F-005"] },
+      { "path": "evals/fixtures/README.md", "sha256": "8b9e8ba432d10a8e0439b9af5699e08bead70eb83400f30fc54077912774e650", "serves": ["F-005", "F-006"] },
+      { "path": "references/derivation.json", "sha256": "ad6f43b1411ffe041a60d247a9c9ac7300bc98cfd7d5cb1761e8b64132a85dfb", "serves": ["provenance for all six changes"] }
+    ]
+  },
+  "validator": {
+    "package": "Claude devforge-evaluate-expert",
+    "commit": "e641797eebf04cd1e8eb9f711549e038e7745407",
+    "loaded_as": "source-loaded, read-only by absolute path; never installed, never invoked as a skill",
+    "runner_sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+    "graders_sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+    "qualification": "Unchanged from the first pass. Draft under bootstrap review and itself unevaluated; E2 revise at e52ac59, repaired e101e76, rechecked 6916b60 with MINOR F-R01 open."
+  },
+  "preserved_behaviour_verification": {
+    "method": "byte-identity against e199230 for every item the enhancement spec listed as preserved",
+    "results": {
+      "assets/experiment-plan.md": "UNCHANGED",
+      "assets/prototype-report.md": "UNCHANGED",
+      "assets/handoff.md": "UNCHANGED",
+      "references/framework-context.md": "UNCHANGED (including line 33)",
+      "references/recording-rules.md": "UNCHANGED (including line 60)",
+      "references/sources.md": "UNCHANGED",
+      "evals/triggers/trigger-queries.json": "UNCHANGED - the fixed, stratified 22-query split intact",
+      "evals/fixtures/** except README.md": "UNCHANGED - 0 of 19 files differ",
+      "XP-C-006 sentinel binding": "f9138601783d24d2a3dd8170db7b510c557ec22d906b76afc7707aa5be8e223f on both the live good-fixture source and the preserved baseline",
+      "SKILL.md": "1 insertion, 1 deletion - line 50 only",
+      "frontmatter": "still name + description only; description line still 1143 bytes",
+      "derivation.json destination digests": "11 of 11 match the new bytes",
+      "nine pre-existing deterministic cases": "candidate_subpath, assertions and expectations intact; all nine rows reproduce identically in execution_status, result, observed and reason"
+    },
+    "regression_found": false
+  },
+  "runner_evidence": {
+    "authority": "none - local, non-isolated observations. MATCH/MISMATCH/INDETERMINATE are cited, never copied into an outcome. Exit status describes the program, not the candidate.",
+    "invocations": [
+      { "id": "RUN-1", "name": "fixture-backed group, as documented", "candidate": "<package>/evals/fixtures", "mode": "source", "exit": 0, "case_records": 14, "out": "runner-out/fixtures.observations.jsonl", "sha256": "ab0140ca87d5599a4cdffd04f8f8d75e0b86f924f51c7df018c98c7b7c2c2439" },
+      { "id": "RUN-2", "name": "package-observing group, as documented", "candidate": "<package>", "mode": "source", "exit": 0, "case_records": 14, "out": "runner-out/package.observations.jsonl", "sha256": "f552fcc56c412e295aec864040d45b26ca18c3016d79ef38b4c2ec41413d8dc8" },
+      { "id": "RUN-3", "name": "deliberate misuse probe for XP-PKG-005 (--mode installed against the authoring source, since no installed copy exists)", "candidate": "<package>", "mode": "installed", "case_selection": "XP-PKG-005", "exit": 0, "case_records": 14, "skipped": 13, "out": "runner-out/installed-mode-against-source.observations.jsonl", "sha256": "0801b57f3d7cd2b729058d04134ee1f2f08cece5e559f3b0d75c517f307683f8", "reading": "Establishes that XP-PKG-005 discriminates - A1 path_absent(evals) MISMATCH 'evals is present'. Establishes nothing about tier C: the authoring source is not an installed copy." }
+    ],
+    "regression_check": "All nine prior fixture rows reproduce identically against ../scaffold-review/runner-out/candidate-cases.observations.jsonl, compared field-level over execution_status, result, observed and reason. 9 of 9.",
+    "new_coverage": "XP-PKG-001..004 complete with 18 of 18 assertions MATCH against the package root (RUN-2). XP-PKG-005 INDETERMINATE on mode, as its own notes predict."
+  },
+  "closures": [
+    {
+      "id": "F-001",
+      "prior_severity": "MINOR",
+      "status": "CLOSED",
+      "verified_at": ["evals/cases.jsonl (whole file)", "evals/evals.json tier_note"],
+      "evidence": "XP-PKG-001..005 added, omitting candidate_subpath and reading --candidate directly; XP-PKG-005 declares mode 'installed' and covers the 'templates and references resolve inside the installed package' half. The eight simulated-tier cases relabelled tier B, and every case gained a notes field stating what its tier refers to and that the case_id letter is historical. RUN-2: XP-PKG-001..004 18/18 MATCH.",
+      "regression": "none - nine prior rows identical",
+      "residual": "XP-PKG-005 cannot be observed until an installed or exported copy exists (PREREQ-003). That is a prerequisite owned by the coordinator / integration owner, not a defect in the candidate."
+    },
+    {
+      "id": "F-002",
+      "prior_severity": "MAJOR",
+      "status": "CLOSED",
+      "verified_at": ["evals/evals.json evals[7] baseline_comparison and the new fixture_note"],
+      "evidence": "baseline_comparison is now 'without_skill', matching the other ten cases. The fixture_note states the distinction the finding identified - the fixture is a prior report artifact supplied TO the case, an input, not a baseline arm. The NOT_APPLICABLE fallback previously proposed in the authoring notes is explicitly withdrawn on the correct ground that the word is reserved for a stated scope exclusion. The spec-mapping.md / evals.json contradiction is gone.",
+      "regression": "the case's prompt, files, expected_output and all five graded_observations are byte-unchanged. All eleven tier-B cases now declare a baseline arm that resolves.",
+      "note": "This was the finding driving the revise. Resolved by bytes, and the fix corrects the reasoning rather than only the token."
+    },
+    {
+      "id": "F-003",
+      "prior_severity": "MINOR",
+      "criterion": "AI-R08",
+      "status": "CLOSED",
+      "verified_at": ["SKILL.md:50", "references/experiment-boundaries.md:21"],
+      "evidence": "SKILL.md:50 no longer asserts that a self-computed hash establishes ordering; it now says a hash you computed yourself records which bytes you had and that whether anything outside your reach holds it is a separate fact no current DevForge command supplies, linking recording-rules.md for the distinguishing field and experiment-boundaries.md for why ordering still matters. experiment-boundaries.md:21 is new and carries the limit explicitly, routing to the open integration requirement. Both links resolve. grep for 'preceded the evidence' over the package returns four hits: experiment-boundaries.md:21 and framework-context.md:33, both denying the claim, plus two historical quotations of the old text inside derivation.json's repair record. No sentence asserts it.",
+      "regression": "framework-context.md and recording-rules.md byte-unchanged; SKILL.md changed by exactly one line.",
+      "r08_recheck": "PASS - no material contradiction remains and the routes lead to text that addresses what they promise."
+    },
+    {
+      "id": "F-004",
+      "prior_severity": "MINOR",
+      "status": "CLOSED",
+      "verified_at": ["evals/evals.json runner_dependency.commit, .scripts_sha256, .superseded_pin, .status"],
+      "evidence": "Pin is now e641797eebf04cd1e8eb9f711549e038e7745407. The declared scripts_sha256 values were re-hashed here against the actual frozen validator files and are equal, so the repin is verifiable rather than asserted. superseded_pin preserves the old value with the full review chain b6a4bf7 -> e101e76 -> 6916b60 -> e641797 and notes both scripts changed across the range. The status sentence carries the real condition including open MINOR F-R01, and correctly defers the forward pin to the coordinator rather than hard-asserting a future.",
+      "regression": "runner_dependency.boundary byte-unchanged, as required."
+    },
+    {
+      "id": "F-005",
+      "prior_severity": "MINOR",
+      "status": "CLOSED",
+      "verified_at": ["evals/evals.json runner_dependency.invocation", "evals/fixtures/README.md 'Running the cases against these fixtures'", "evals/cases.jsonl comment header"],
+      "evidence": "Documented in three places aimed at three different readers, with full commands for the fixture-backed, package-observing and installed-only groups, an explicit why_this_matters paragraph naming the silent-failure mode, the --out constraints, and the instruction to check execution_status of every row. The sibling gap in devforge-evaluate-expert is carried forward under sibling_gap_reported_not_fixed rather than edited around. Both documented invocations were run exactly as written and behaved exactly as documented (RUN-1, RUN-2).",
+      "regression": "every case's candidate_subpath value unchanged; the fixture tree was not restructured."
+    },
+    {
+      "id": "F-006",
+      "prior_severity": "ADVISORY",
+      "status": "CLOSED",
+      "verified_at": ["evals/fixtures/README.md 'Fixture filenames versus artifact IDs'"],
+      "evidence": "The author took the lower-risk of the two options the spec offered: a mapping table for the four documents plus the rule that references use artifact_id while case files and assertion args use paths, with the rationale (stable fixture slots). No fixture was renamed.",
+      "regression": "no files entry or assertion argument had to move; sentinel bindings untouched."
+    }
+  ],
+  "new_findings": [
+    {
+      "id": "F-007",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "title": "The wrong-root guidance is inaccurate for XP-PKG-004, whose absence assertions pass vacuously under any root",
+      "criterion_or_requirement": ["none directly - accuracy of the candidate's own anti-misreading guidance, introduced by the F-005 repair"],
+      "affected_revision": "a80d39e75b9b5fa89826a544b4527feefc215813",
+      "affected_files": ["evals/evals.json", "evals/fixtures/README.md"],
+      "affected_sections": ["runner_dependency.invocation.fixture_backed.note", "fixtures README, 'Running the cases against these fixtures', final paragraph"],
+      "evidence": [
+        { "path": "runner-out/fixtures.observations.jsonl", "sha256": "ab0140ca87d5599a4cdffd04f8f8d75e0b86f924f51c7df018c98c7b7c2c2439", "description": "Under the fixtures root: XP-PKG-001 3x MISMATCH, XP-PKG-002 5x MISMATCH, XP-PKG-003 8x MISMATCH, XP-PKG-004 COMPLETED with 2x MATCH, XP-PKG-005 4x INDETERMINATE" },
+        { "description": "The guidance says 'Under this root the XP-PKG-* cases correctly MISMATCH, because the fixtures root has no SKILL.md.' That is accurate for three of five cases and wrong for two." }
+      ],
+      "impact": "Narrow but real, and the same class of hazard the rest of the file works to close. XP-PKG-004's assertions are path_absent on scripts and agents, which are trivially absent from the fixtures root, so the case reports COMPLETED with 2 MATCH against a tree that is not the package. The file's own advice - check the execution_status of every row - does not catch it, because that status is COMPLETED rather than COULD_NOT_RUN. A reader who ran only the fixtures invocation could count XP-PKG-004 as coverage of the no-scripts policy check. An absence assertion passes vacuously anywhere the thing is absent.",
+      "confidence": "high",
+      "uncertainty": "none on the observation. Whether it is worth an assertion change or only a wording change is the author's call; the wording change alone closes the demonstrated misreading.",
+      "recommendation": "Amend both notes to distinguish the three behaviours - XP-PKG-001..003 mismatch here because there is no SKILL.md; XP-PKG-004's absence assertions pass vacuously against any tree and prove nothing under this root; XP-PKG-005 is INDETERMINATE on mode - and state that none of the five is coverage under this root. Optionally add a path_present anchor assertion (for example on SKILL.md) to XP-PKG-004 so the case cannot complete against a tree that is not the package.",
+      "affected_cases": ["XP-PKG-004"],
+      "is_regression": false,
+      "regression_note": "This text did not exist before the repair; it arrived with the F-005 fix. It is a new, lower-severity defect in new material, surfaced by rerunning the documented invocation rather than assuming it."
+    }
+  ],
+  "ev_s_007_decision": {
+    "author_position": "Declined to carry the evaluator's EV-S-007 into the package. Argued in XP-PKG-003 notes and derivation.json not_copied that unfilled templates correctly hold placeholders, so authoring that assertion would record a healthy package as defective; XP-PKG-003 asserts template presence instead, and placeholder detection stays on a produced artifact where XP-C-004 covers it.",
+    "evaluator_judgement": "AGREE. EV-S-007 was an evaluator-side probe whose expected result I declared in prose and interpreted myself. That is defensible for a one-off probe and poor in a durable case file: the runner emits no expected-versus-observed comparison, so a standing assertion whose healthy-package result is MISMATCH inverts the file's reading convention and would train a later reader to skim past mismatches. Separating 'the template is present' from 'a produced report has no placeholders' is the cleaner split and matches the contract's own package-versus-outputs distinction.",
+    "residual_gap": "Nothing now detects an assets/ template accidentally shipped pre-filled - the inverse defect. Narrow: the templates are byte-identical to the governing docs/mvp sources, derivation.json records those digests, and this recheck verified all 11 destination digests, so drift would be caught by the provenance record rather than by a case. If a case is ever wanted, the right shape is digest equality against the recorded derivation digest, not a placeholder assertion.",
+    "charged_as_finding": false
+  },
+  "severity_counts": { "BLOCKER": 0, "MAJOR": 0, "MINOR": 0, "ADVISORY": 1 },
+  "prior_severity_counts": { "BLOCKER": 0, "MAJOR": 1, "MINOR": 4, "ADVISORY": 1 },
+  "group_outcomes": {
+    "intake": "PASS",
+    "structure": "PASS (was FAIL; F-002 closed)",
+    "ai_review": "PASS for R08 (was FAIL; F-003 closed). R01-R07, R09, R10 not rechecked - first-pass PASS stands, and the six changed files touch none of the evidence those criteria cited.",
+    "C": "NOT_RUN",
+    "B": "NOT_RUN",
+    "A": "NOT_RUN"
+  },
+  "behavioural_status": "NOT_EVALUATED",
+  "disposition": {
+    "value": "insufficient evidence",
+    "prior_value": "revise",
+    "rule_applied": "Any applicable FAIL gives revise; otherwise a missing required observation gives insufficient evidence; every required observation passing supports only suitable for the stated scope.",
+    "reasoning": "No applicable FAIL remains, so revise no longer holds. Suitable for the stated scope is not reachable: tiers C, B and A are all still NOT_RUN for want of an installed copy, a fresh terminal and an isolated workspace - a missing required observation. F-007 is ADVISORY and by the contract's definition does not by itself fail an accepted requirement, so it does not restore revise.",
+    "ceiling_note": "This is the ceiling static evidence can reach. The movement from revise to insufficient evidence is the whole distance the repair could travel; the remaining gap is not the author's to close.",
+    "adjudicated_by": "hand, against devforge-evaluate-expert references/results-contract.md at e641797",
+    "is_acceptance": false
+  },
+  "missing_capabilities": [
+    "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.",
+    "Protected-manifest custody for the evaluation runner - binding the selected runner and grader files, the Python and dependency selection, the case inputs and the grading criteria outside evaluated-agent write access, and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI."
+  ],
+  "evaluation_prerequisites_not_defects": [
+    { "id": "PREREQ-001", "statement": "Skill-package structural inspection and evidence reduction not implemented in the DevForge CLI.", "owner": "DevForge integration owner", "status": "open, unchanged" },
+    { "id": "PREREQ-002", "statement": "Protected-manifest custody for the evaluation runner not implemented in the DevForge CLI.", "owner": "DevForge integration owner", "status": "open, unchanged" },
+    { "id": "PREREQ-003", "statement": "No installed or exported copy of the candidate.", "owner": "coordinator / DevForge integration owner", "blocks": "tier C, and observation of the newly authored XP-PKG-005", "status": "open, unchanged" },
+    { "id": "PREREQ-004", "statement": "No fresh terminal and no permitted isolated workspace.", "owner": "coordinator", "blocks": "tiers A and B", "status": "open, unchanged" },
+    { "id": "PREREQ-005", "statement": "No session record for this evaluation; execution_ref is null.", "owner": "coordinator", "status": "open, unchanged" }
+  ],
+  "tiers": {
+    "C": { "status": "NOT_RUN", "cause": "No installed or exported copy allocated. XP-PKG-005 is authored and ready but unobservable until one exists." },
+    "B": { "status": "NOT_RUN", "cause": "No fresh terminal and no permitted isolated workspace; no baseline arm executed. The 11 authored tier-B cases were read, not run." },
+    "A": { "status": "NOT_RUN", "cause": "No fresh terminal and no installed inventory. The 22 authored trigger queries were read, not run." }
+  },
+  "independence_limits": "This recheck ran in the same context that produced the original findings, so this evaluator is checking its own prior conclusions. Mitigated by re-verifying each finding against the diff at the cited file and line rather than against the prior summary, and by rerunning the documented invocations rather than trusting the author's recorded results - which is how F-007 surfaced. Recorded as a limit on the weight of these closures, not as COULD_NOT_RUN.",
+  "writes": "This directory only. ../scaffold-review/ was not modified. The candidate was not edited. Nothing was committed."
+}

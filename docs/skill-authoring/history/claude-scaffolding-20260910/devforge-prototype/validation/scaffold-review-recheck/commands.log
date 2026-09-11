@@ -1,0 +1,94 @@
+# commands.log - FOCUSED RE-EVALUATION (repair pass 1) of devforge-prototype
+# Evaluator: independent scaffold evaluator under coordinator dispatch.
+# Scope authorized: recheck F-001..F-006 and R08 only on the new revision.
+#   Unchanged broad checks were NOT rerun; their first-pass results stand and are
+#   cited from ../scaffold-review/ rather than recomputed.
+# Opened: 2026-09-10T21:54:50Z  (observed via date -u)
+# Writes: this directory only. ../scaffold-review/ was not modified. Nothing committed.
+
+## Candidate identity
+git -C <wt> rev-parse HEAD                       -> a80d39e75b9b5fa89826a544b4527feefc215813
+git -C <wt> log --oneline e199230..HEAD
+  a80d39e fix(claude): devforge-prototype repair pass 1 from independent scaffold review
+  d12edbb docs(claude): independent scaffold review of devforge-prototype at e199230
+git -C <wt> status --porcelain                   -> clean before this fence was created
+git -C <wt> diff e199230 a80d39e --stat -- providers/
+  SKILL.md 2+/-, evals/cases.jsonl 35, evals/evals.json 45, evals/fixtures/README.md 33,
+  references/derivation.json 632, references/experiment-boundaries.md 2   (6 files)
+cd <package> && find . -type f | sort | xargs -n1 sha256sum > <fence>/candidate-manifest-a80d39e.txt   # 31 files
+
+## Preserved-behaviour verification (regression guard)
+# byte-identity vs e199230 for everything the enhancement spec listed as preserved
+assets/experiment-plan.md            UNCHANGED
+assets/prototype-report.md           UNCHANGED
+assets/handoff.md                    UNCHANGED
+references/framework-context.md      UNCHANGED   (incl. the line-33 sentence the fix must agree with)
+references/recording-rules.md        UNCHANGED   (incl. the already-correct line 60)
+references/sources.md                UNCHANGED
+evals/triggers/trigger-queries.json  UNCHANGED   (fixed 22-query train/validation split intact)
+every file under evals/fixtures/ except README.md   UNCHANGED  (loop over 19 fixture files, 0 changed)
+sentinel good/source/service-notes.md            f9138601783d24d2a3dd8170db7b510c557ec22d906b76afc7707aa5be8e223f
+sentinel defect-fence-breach/preserved/...       f9138601783d24d2a3dd8170db7b510c557ec22d906b76afc7707aa5be8e223f  (still binds XP-C-006)
+git diff --numstat ... -- SKILL.md               -> 1 insertion, 1 deletion (line 50 only)
+sed -n '1,5p' SKILL.md                           -> frontmatter still name + description only
+sed -n '3p' SKILL.md | wc -c                     -> 1143 (unchanged; inside the 1,536-char budget)
+
+## F-003 / R08 recheck
+sed -n '50p' SKILL.md
+grep -rn "preceded the evidence" <package>
+  -> experiment-boundaries.md:21 (denies it), framework-context.md:33 (denies it),
+     derivation.json:686 and :689 (historical quotation of the old text in the repair record)
+grep -n "does not establish to anyone else|no current DevForge command binds" references/experiment-boundaries.md
+  -> line 21 present: the dead pointer now carries the limit
+both SKILL.md:50 link targets resolve inside the package
+
+## F-004 recheck
+python3 -B  # evals.json runner_dependency.commit = e641797eebf04cd1e8eb9f711549e038e7745407
+            # scripts_sha256 declared: run_cases.py 95ca2abf..., graders.py 1b7a27a3...
+sha256sum <validator>/scripts/run_cases.py <validator>/scripts/graders.py
+  -> 95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2  run_cases.py
+  -> 1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f  graders.py
+  -> declared digests equal the actual frozen bytes; the repin is verifiable, not asserted
+
+## Provenance recheck
+python3 -B  # references/derivation.json destination_sha256 vs actual bytes: 11 OK, 0 DIFF
+python3 -B  # derivation.json gained repair_pass_1 recording CHG-001..CHG-006 with
+            # per-change verified / change / preserved fields and the superseded candidate
+
+## Runner - the invocations the candidate now documents (all /usr/bin/python3 -B, --out in this fence)
+/usr/bin/python3 -B <validator>/scripts/run_cases.py \
+  --cases <package>/evals/cases.jsonl --candidate <package>/evals/fixtures \
+  --out <fence>/runner-out/fixtures.observations.jsonl --mode source
+  -> exit 0, 14 case records
+/usr/bin/python3 -B <validator>/scripts/run_cases.py \
+  --cases <package>/evals/cases.jsonl --candidate <package> \
+  --out <fence>/runner-out/package.observations.jsonl --mode source
+  -> exit 0, 14 case records
+/usr/bin/python3 -B <validator>/scripts/run_cases.py \
+  --cases <package>/evals/cases.jsonl --candidate <package> \
+  --out <fence>/runner-out/installed-mode-against-source.observations.jsonl \
+  --mode installed --case-id XP-PKG-005
+  -> exit 0, 14 case records (13 SKIPPED). Deliberate misuse probe against the AUTHORING
+     SOURCE, since no installed copy exists: XP-PKG-005 A1 path_absent(evals) MISMATCH
+     "evals is present". Establishes that the assertion discriminates. Does NOT establish
+     tier C - the source root is not an installed copy.
+
+## Regression check
+python3 -B  # field-level comparison of the nine prior fixture rows against
+            # ../scaffold-review/runner-out/candidate-cases.observations.jsonl
+            # execution_status, result, observed and reason all identical: 9/9 reproduce
+
+## R08 occurrence count - verified by extraction, not by eye
+grep -rno "preceded the evidence" <package>
+  references/framework-context.md:33      prose, DENIES the claim
+  references/experiment-boundaries.md:21  prose, DENIES the claim
+  references/derivation.json:686          repair record 'verified' field, quoting the OLD SKILL.md text
+  references/derivation.json:689          repair record 'acceptance_check' field, quoting its own grep pattern
+grep -rno "preceded the evidence" <package> | wc -l      -> 4
+python3 -B  # per-line literal count: 686 -> 1, 689 -> 1 (the phrase sits inside the quoted pattern)
+# The repair record's acceptance_check says "exactly two occurrences". That is self-referentially
+# wrong: writing the sentence created a third occurrence and the verified field beside it a fourth.
+# Its substance is right - exactly two PROSE occurrences remain and both deny the claim.
+# Not charged as a finding: a self-check in a provenance record, not an instruction to a session.
+
+## End of log. Writes confined to this directory. ../scaffold-review/ unmodified. Nothing committed.

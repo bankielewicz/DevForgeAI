@@ -1,0 +1,62 @@
+{
+  "schema_version": "devforge.skill-validation-results/v1",
+  "note": "P5 record. One result per planned check in validation-plan.json. Groups are reported separately and never blended into a score. Runner MATCH/MISMATCH/INDETERMINATE rows are cited as evidence; none was copied into a result column.",
+  "created_at_utc": "2026-09-10T21:23:19Z",
+  "plan_ref": "validation-plan.json",
+  "report_ref": "verification-results.md",
+  "findings_ref": "findings.json",
+  "candidate_commit": "e199230858d871926fff2d55de8b015fa0ce335e",
+  "decision_receipt": null,
+  "decision_receipt_reason": "Evidence reduction is not implemented in the DevForge CLI. No decision.json exists and none was produced; the disposition below was adjudicated by hand against the validator's results contract.",
+  "results": [
+    { "check_id": "CHK-INTAKE-01", "group": "intake", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "candidate-manifest.txt (31 files); git rev-parse HEAD = e199230; git status --porcelain empty; git diff e199230 HEAD --stat -- providers/ empty" },
+    { "check_id": "CHK-INTAKE-02", "group": "intake", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "sha256sum of the specification = e4f61c35... , equal to the packet value and to references/derivation.json governing_inputs[0]" },
+    { "check_id": "CHK-INTAKE-03", "group": "intake", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "run_cases.py 95ca2abf... and graders.py 1b7a27a3... equal `git show e641797:<path> | sha256sum`" },
+    { "check_id": "CHK-STRUCT-01", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL + runner rows", "authority": "none", "evidence": "runner-out/evaluator-structural.observations.jsonl EV-S-001 (frontmatter_present MATCH), EV-S-002 (frontmatter_fields MATCH, description+name populated scalars), EV-S-003 (name_folder_relation MATCH, name='devforge-prototype' folder='devforge-prototype')", "note": "Equality was asserted because the case set expect_equal, i.e. as the DevForgeAI convention. Claude takes the command segment from the directory for a personal or project skill and from the frontmatter name for a plugin skill, so a difference would not have been a provider defect." },
+    { "check_id": "CHK-STRUCT-02", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL + runner rows", "authority": "none", "evidence": "EV-S-004 (SKILL.md: 6 local, 0 external, all resolve) and EV-S-005 (references/*.md: 1 local link total, resolves). 7 local links package-wide, verified independently by grep." },
+    { "check_id": "CHK-STRUCT-03", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL + runner rows", "authority": "none", "evidence": "EV-S-006, 6 path_present MATCH for the six resources SKILL.md routes to" },
+    { "check_id": "CHK-STRUCT-04", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "grep for docs/mvp, /home/ and ~/ across SKILL.md, references/*.md and assets/*.md: the only docs/mvp occurrences are provenance records inside references/derivation.json plus one prohibition sentence in framework-context.md. No home path anywhere. evals/ declares a dependency on the devforge-evaluate-expert runner, which is an authoring-time dependency inside a directory stripped on install, not a runtime one." },
+    { "check_id": "CHK-STRUCT-05", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "11 of 11 derivation.json destination_sha256 values equal the actual package bytes; 9 of 9 governing-input digests equal the actual bytes in framework/DevForgeAI, including the three template copies (experiment-plan.md 70af539c and prototype-report.md 9cf2c9d3 byte-identical to docs/mvp; handoff.md eab442b5 a recorded bounded adaptation of abc7f8e0 with transformation, precedent and refresh condition). authoring_route.builder_commit = 4999f3106565c5e320d1f1a7db066b437e4e94be, as the assignment states.", "note": "Exceeds the >=5 spot-check target; 20 digests checked." },
+    { "check_id": "CHK-STRUCT-06", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL + runner", "authority": "none", "evidence": "cases.jsonl loaded cleanly in the frozen runner (whole-file rejection would have refused it); all 9 candidate_subpath values resolved against evals/fixtures; every files[] entry in evals.json resolves to an existing fixture; EV-S-008 confirms the eval tree present in source", "note": "Two labelling defects were found in this material and are recorded as F-001 and F-005; neither prevented loading." },
+    { "check_id": "CHK-STRUCT-07", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "22 queries, 10 positive / 12 negative, 9 categories, every category carrying at least one train and at least one validation entry (train 12 / validation 10); ids unique; split recorded as fixed at authoring time and not re-randomised; only the explicit_invocation category names the skill and it is flagged as never counting as implicit activation evidence" },
+    { "check_id": "CHK-STRUCT-08", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "grep of SKILL.md, references/ and assets/ for ARCH-014, vessel, '250 ms', '400 viewers', XPLAN-006, XPLAN-010 and 812 returns no match. Authored expectations live only in evals/, which does not ship." },
+    { "check_id": "CHK-STRUCT-09", "group": "structure", "expectation": "pass", "result": "FAIL", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "evals/evals.json case 8 declares baseline_comparison 'old_skill'; git ls-tree c17e758 providers/claude/plugins/devforgeai/skills/ returns no devforge-prototype, so no preserved previous revision exists. The other ten cases correctly declare 'without_skill'.", "finding_id": "F-002", "severity": "MAJOR" },
+    { "check_id": "CHK-STRUCT-10", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "No Claude ! shell-injection syntax (inline or fenced) anywhere in the package. No agents/openai.yaml and no agents/ directory (EV-S-010). No scripts/ (EV-S-009). Description 1,143 bytes on the frontmatter line, inside the documented 1,536-character budget shared with when_to_use (https://code.claude.com/docs/en/skills, retrieved 2026-09-10). Claude load locations and /<skill> and /<plugin>:<skill> invocation forms recorded correctly in references/sources.md." },
+    { "check_id": "CHK-STRUCT-11", "group": "structure", "expectation": "pass", "result": "PASS", "method": "INSPECTION_MANUAL", "authority": "none", "evidence": "devforge --help lists delivery, expert, check, init, red, green, accept, verify, status, isolate - every command named in references/framework-context.md. isolate --help confirms --project, --runtime [codex|claude] and a trailing -- <COMMAND>. check --help confirms 'does not certify semantic behavior'. expert --help confirms prepare, bind, status. No devforge command was run against any project, policy or state directory." },
+    { "check_id": "CHK-AI-R01", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[0]" },
+    { "check_id": "CHK-AI-R02", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[1]" },
+    { "check_id": "CHK-AI-R03", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[2]" },
+    { "check_id": "CHK-AI-R04", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[3]" },
+    { "check_id": "CHK-AI-R05", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[4]" },
+    { "check_id": "CHK-AI-R06", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[5]" },
+    { "check_id": "CHK-AI-R07", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[6]" },
+    { "check_id": "CHK-AI-R08", "group": "ai_review", "expectation": "pass", "result": "FAIL", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[7]: SKILL.md:50 versus references/framework-context.md:33, with the routed file carrying no such statement", "finding_id": "F-003", "severity": "MINOR" },
+    { "check_id": "CHK-AI-R09", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[8]" },
+    { "check_id": "CHK-AI-R10", "group": "ai_review", "expectation": "pass", "result": "PASS", "method": "AI_REVIEW", "authority": "none", "evidence": "ai-review.json criteria[9]" },
+    { "check_id": "CHK-C-01", "group": "C", "expectation": "pass", "result": "NOT_RUN", "cause": "No installed or exported copy of the candidate was allocated to this assignment; installation was not attempted. Static link resolution does not establish tier C.", "evidence": null },
+    { "check_id": "CHK-B-01", "group": "B", "expectation": "observation", "result": "NOT_RUN", "cause": "No fresh terminal and no permitted isolated workspace were allocated; neither the candidate arm nor the without_skill arm was executed. The 11 authored tier-B cases were read, not run.", "evidence": null },
+    { "check_id": "CHK-A-01", "group": "A", "expectation": "pass", "result": "NOT_RUN", "cause": "No fresh terminal and no installed inventory; discovery and activation cannot be observed by reading. The 22 authored trigger queries were read, not run.", "evidence": null }
+  ],
+  "group_outcomes": {
+    "intake": "PASS",
+    "structure": "FAIL (1 of 11 rows; F-002). Every other structural row passed.",
+    "ai_review": "FAIL (R08; F-003). R01-R07 and R09-R10 PASS.",
+    "C": "NOT_RUN",
+    "B": "NOT_RUN",
+    "A": "NOT_RUN"
+  },
+  "behavioural_status": "NOT_EVALUATED",
+  "disposition": {
+    "value": "revise",
+    "rule_applied": "any applicable FAIL produces revise",
+    "applicable_fails": ["CHK-STRUCT-09 (F-002, MAJOR)", "CHK-AI-R08 (F-003, MINOR)"],
+    "note": "Suitable for the stated scope was unreachable regardless, because it requires every required observation passing and tiers C, B and A are NOT_RUN. Absent the two FAILs the disposition would have been insufficient evidence.",
+    "adjudicated_by": "hand, against devforge-evaluate-expert references/results-contract.md at e641797",
+    "is_acceptance": false
+  },
+  "missing_capabilities": [
+    "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.",
+    "Protected-manifest custody for the evaluation runner - binding the selected runner and grader files, the Python and dependency selection, the case inputs and the grading criteria outside evaluated-agent write access, and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI."
+  ],
+  "missing_capabilities_note": "Both are evaluation prerequisites owned by the DevForge integration owner. Neither is a defect in this candidate. The complete set of matching runner rows in this directory does not close either dependency."
+}

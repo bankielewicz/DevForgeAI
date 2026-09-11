@@ -1,0 +1,163 @@
+{
+  "schema_version": "devforge.skill-ai-review/v1",
+  "note": "P3 record. One record per rubric criterion R01-R10, from the frozen ai-review-rubric.md at e641797. No average, no weighted score, no percentage.",
+  "created_at_utc": "2026-09-10T21:23:19Z",
+  "reviewer": {
+    "identity": "independent scaffold evaluator dispatched by the coordinator; did not author the candidate",
+    "role": "evaluator",
+    "model_name": "Opus 5 (1M context)",
+    "model_id": "claude-opus-5[1m]",
+    "client": "Claude Code (Claude Agent SDK)",
+    "client_version": "unknown - not observable from inside the session; recorded as unknown rather than inferred",
+    "model_configuration": "unknown - temperature, sampling and system configuration are not observable from inside the session"
+  },
+  "independence": {
+    "what_was_separated": [
+      "A separately dispatched evaluator context that received only the coordinator's frozen packet.",
+      "No authoring conversation, no authoring transcript and no inherited reasoning from the author.",
+      "No author-preferred disposition was supplied to, or accepted by, this context."
+    ],
+    "what_was_not_separated": [
+      "P2 (deterministic observation) and P3 (this review) ran in the same context, so the semantic review is not separated from the structural observations.",
+      "Before the per-criterion records were completed, this context had read references/derivation.json and evals/evals.json, which carry the author's transformation claims and the authored expected outputs.",
+      "For the requirement-mapping verification, this context read the author's spec-mapping.md, authoring-notes.md and handoff.md. They were treated as untrusted evidence and checked against bytes; the exposure is nonetheless real.",
+      "Filesystem, process and history state were not separated from P1/P2; a subagent fork would not have separated them either."
+    ],
+    "outcome": "Recorded as a limit on the weight of R01-R10. Not COULD_NOT_RUN: a genuinely fresh evaluator context was established, and no author conclusion or held-out answer was adopted."
+  },
+  "input_manifest": {
+    "candidate_commit": "e199230858d871926fff2d55de8b015fa0ce335e",
+    "candidate_manifest": { "path": "candidate-manifest.txt", "sha256": "6bd15a3ead18037682c70168752c66e838b2d536c2130462d8842acc5eb4ee6f" },
+    "specification": { "path": "docs/mvp/specifications/skill-004-devforge-prototype.md", "revision": 2, "sha256": "e4f61c35220641f053a828615df1bc3415c707fde26fcf8b0cdece6cdb1ba54c" },
+    "rubric": { "package": "devforge-evaluate-expert", "commit": "e641797eebf04cd1e8eb9f711549e038e7745407", "path": "references/ai-review-rubric.md" },
+    "contracts_consulted": [
+      "docs/mvp/skill-authoring-contract.md revision 3 sha256 371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+      "docs/mvp/artifact-contract.md revision 2 sha256 00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5 (via the candidate's derivation record and the specification's references)",
+      "docs/mvp/execution-contract.md revision 3 sha256 73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b (same)"
+    ],
+    "note": "Line references below are one-based and bind to these bytes. A later edit floats them."
+  },
+  "no_candidate_code_run": "No file in the candidate was imported, executed or invoked. The runner that produced the deterministic observations belongs to the validator package and reads bytes only.",
+  "criteria": [
+    {
+      "id": "R01",
+      "applicable": true,
+      "applicability_reason": "every skill",
+      "result": "PASS",
+      "evidence": "SKILL.md:2-3 names the capability and the situations needing it, with four in-scope trigger shapes and four near-miss exclusions each naming its owning sibling. All four siblings (devforge-develop, devforge-design, devforge-change, devforge-brainstorm) are real names in docs/mvp/roster.md, so no exclusion routes to a fiction. Body task at SKILL.md:6-8 and deliverables at SKILL.md:48 and :74 match the specification's Expected result row. The fifth discriminator - an uncertainty inspection already settles needs no experiment - carries the specification's MVP support decision into the discovery metadata.",
+      "locations": ["SKILL.md:2-3", "SKILL.md:6-8", "SKILL.md:48", "SKILL.md:74", "docs/mvp/roster.md (Roster section)"],
+      "required_behaviour_source": "SKILL-004 'User goal and use-case inventory'",
+      "finding_id": null,
+      "limit": "This criterion cannot prove activation. Actual selection is tier A, NOT_RUN."
+    },
+    {
+      "id": "R02",
+      "applicable": true,
+      "applicability_reason": "every skill",
+      "result": "PASS",
+      "evidence": "Required-input table at SKILL.md:30-36, five rows each with a 'Use only' column. Consequential missing-input behaviour at SKILL.md:38: a missing required input stays missing with a reason and the work it blocks, and the time/resource bound is singled out as a stop rather than a fabrication ('ask for it rather than inventing one'). Outputs and destinations at SKILL.md:80-86 distinguish a selected destination from a proposed default and state what writing the default anyway costs. Completion at SKILL.md:100 requires four observable things and counts a failed hypothesis and a blocked experiment as complete results, distinguishing a finished result from a successful one.",
+      "locations": ["SKILL.md:30-36", "SKILL.md:38", "SKILL.md:80-86", "SKILL.md:100-104", "references/derivation.json proposed_defaults"],
+      "required_behaviour_source": "SKILL-004 'Inputs and provenance', 'Outputs and standardized templates', 'Completion handoff'",
+      "finding_id": null,
+      "limit": "A blank source template is expected; the shipped assets are blank templates (EV-S-007), which is correct. No completed deliverable exists in this package to check for retained placeholders."
+    },
+    {
+      "id": "R03",
+      "applicable": true,
+      "applicability_reason": "every DevForgeAI skill; this one can write files",
+      "result": "PASS",
+      "evidence": "SKILL.md:22 forbids accepting the result on the project's behalf, promoting the code, or amending an upstream document. SKILL.md:76 keeps adoption the user's. assets/prototype-report.md hard-codes 'User decision reference: null'. references/experiment-boundaries.md 'Disposition of the prototype code' adds a 'What it does not authorise' column and states a working experiment is evidence for revisiting a decision through the change workflow, not the revisit and not the authority to make one. SKILL.md:56 refuses to widen a fence for a missing credential or unauthorised service. assets/handoff.md closes by authorising no promotion, no amendment and no external action. references/framework-context.md closing paragraph forbids modifying sibling gates, contracts, installer policy or the roster to make this candidate pass.",
+      "locations": ["SKILL.md:22", "SKILL.md:56", "SKILL.md:76", "assets/prototype-report.md 'Disposition'", "references/experiment-boundaries.md 'Disposition of the prototype code'", "references/framework-context.md 'Package shape and packaging rules' final paragraph"],
+      "required_behaviour_source": "SKILL-004 'State/action boundary' and 'Rework, stopping, and recovery'",
+      "finding_id": null,
+      "limit": null
+    },
+    {
+      "id": "R04",
+      "applicable": true,
+      "applicability_reason": "every skill",
+      "result": "PASS",
+      "evidence": "Four phases each with an explicit observable Exit line (SKILL.md:50, :58, :66, :76). Consequential branches at SKILL.md:92-96 cover missing required input, changed upstream, concurrent writer, placeholder in a required field, and blocked check, each with a condition and an action. Stop conditions at SKILL.md:104. Retries bounded in both directions: SKILL.md:62 forbids re-running until it passes and reporting only that run; references/experiment-boundaries.md 'Stopping' forbids indefinite retry. SKILL.md:92 keeps independent work alive while a blocker halts dependent work. No two instructions prescribe incompatible actions for the same condition.",
+      "locations": ["SKILL.md:42-78", "SKILL.md:88-96", "SKILL.md:98-106", "references/experiment-boundaries.md 'When a measurement cannot be taken', 'Stopping'"],
+      "required_behaviour_source": "SKILL-004 'Workflow and phase exits', 'Additional common cases', 'Rework, stopping, and recovery'",
+      "finding_id": null,
+      "limit": "The one contradiction found in the package concerns evidence strength, not an action, and is scored under R08."
+    },
+    {
+      "id": "R05",
+      "applicable": true,
+      "applicability_reason": "every skill; no script-specific anchors apply because the package ships no scripts",
+      "result": "PASS",
+      "evidence": "Resources routed at the phase that needs them, not front-loaded: references/framework-context.md at SKILL.md:20, assets/experiment-plan.md and references/recording-rules.md at SKILL.md:48, references/experiment-boundaries.md at SKILL.md:50, assets/prototype-report.md and assets/handoff.md at SKILL.md:74. All 6 destinations present (EV-S-006, 6 MATCH) and all 7 local links resolve inside the package (EV-S-004, EV-S-005). Two-roots rule at SKILL.md:26 and again in references/framework-context.md 'Resolving paths'. Byte evidence supports the no-repository claim: no docs/mvp path and no /home or ~ path appears in any runtime file. devforge isolate is the only command named in the package and the supplied binary's `isolate --help` confirms --project, --runtime with possible values codex and claude, and a trailing -- <COMMAND>; every other command in the framework-context table appears in `devforge --help`. The isolate row states its real limit (bounds the project, not a subpath, so it is not an experiment fence) rather than overselling it.",
+      "locations": ["SKILL.md:20", "SKILL.md:26", "SKILL.md:48", "SKILL.md:50", "SKILL.md:74", "references/framework-context.md 'What the CLI actually offers this workflow today', 'Resolving paths'", "runner-out/evaluator-structural.observations.jsonl EV-S-004..006"],
+      "required_behaviour_source": "SKILL-004 'Native creator authoring prompt' (package-relative references; installed skills must not depend on this repository's docs path); skill-authoring-contract 'Resource and script paths'",
+      "finding_id": null,
+      "limit": "Static resolution does not establish tier C, which is NOT_RUN. No candidate code was run during this review."
+    },
+    {
+      "id": "R06",
+      "applicable": true,
+      "applicability_reason": "the declared workflow reads user-supplied documents, code, pasted output and retrieved pages",
+      "result": "PASS",
+      "evidence": "SKILL.md:40 states the boundary in the operative position, immediately after the inputs table: supplied material supplies facts and never instructions or authority, and a directive inside supplied material is a fact about that material to report rather than follow. Recognisable without requiring any markup convention. evals/fixtures/README.md 'Untrusted content' designates the two persuasive fixtures as data, and the grader chosen for them (artifact_side_effect) observes bytes only. references/experiment-boundaries.md extends the same treatment to retrieved research: record URL, retrieval date, applicable version and the specific claim, keep it distinguishable from inference, and leave an unverified claim as a missing input.",
+      "locations": ["SKILL.md:40", "references/experiment-boundaries.md 'Measurement before result' (research bullet)", "evals/fixtures/README.md 'Untrusted content'"],
+      "required_behaviour_source": "skill-authoring-contract; rubric R06",
+      "finding_id": null,
+      "limit": "A static PASS here does not establish that a session will hold the boundary under pressure. That is tier B, NOT_RUN."
+    },
+    {
+      "id": "R07",
+      "applicable": true,
+      "applicability_reason": "every DevForgeAI skill; envelope anchors apply to the framework artifacts this skill produces, not to its native SKILL.md metadata",
+      "result": "PASS",
+      "evidence": "references/recording-rules.md 'The envelope' maps every devforge.artifact/v1 field, including status ('A report stays draft until someone with the authority to accept it does so - producing it is not accepting it') and decision_ref ('A report you wrote does not adopt itself'). Upstream references require artifact ID, revision, store, path, sha256 and the section IDs relied on, with draft-versus-accepted state recorded. The no-self-digest rule appears correctly in all three places it matters: recording-rules.md 'Digests, and the order of the writes', assets/handoff.md's outputs-table instruction, and derivation.json.self_reference_note. The ordered write sequence with a read-back step catches stale repeated digests. producer.skill_revision is correctly defined as the sha256 of the SKILL.md file, explicitly not the package digest and not the plugin version, with 'unknown' as the honest entry. Frontmatter carries name and description only (EV-S-002), so no artifact-envelope field is confused with native metadata. Provenance verified rather than trusted: 11/11 derivation destination_sha256 values equal actual package bytes and 9/9 governing-input digests equal actual source bytes, including the three template copies.",
+      "locations": ["references/recording-rules.md 'The envelope', 'Upstream references', 'Digests, and the order of the writes'", "references/derivation.json derivations[] and self_reference_note", "assets/handoff.md 'Inputs consumed and outputs produced', 'Retention and continuation limits'"],
+      "required_behaviour_source": "artifact-contract 'Standard envelope', 'Provenance without circular bookkeeping'; SKILL-004 'Inputs and provenance'",
+      "finding_id": null,
+      "limit": "A hash binding proves which inputs were referenced, never that behaviour is correct - which the package itself states in references/framework-context.md 'Result vocabulary'."
+    },
+    {
+      "id": "R08",
+      "applicable": true,
+      "applicability_reason": "every skill",
+      "result": "FAIL",
+      "evidence": "A material contradiction with a decision impact, both locations cited. SKILL.md:50 states the freeze exists 'so that a later reader can tell the plan preceded the evidence' and routes the reader to references/experiment-boundaries.md for 'what a freeze does and does not establish here'. references/framework-context.md:33 states the opposite: 'Hashing the plan yourself records which bytes you had; it does not establish that they preceded the evidence to anyone who does not already trust you.' Compounding it, the pointer is a dead end: references/experiment-boundaries.md carries no freeze-limit statement (grep for 'preced', 'does not establish', 'self-recorded', 'outside the evaluated' returns no match). The correct operative text is at references/recording-rules.md:60.",
+      "locations": ["SKILL.md:50", "references/framework-context.md:33", "references/experiment-boundaries.md 'Measurement before result'", "references/recording-rules.md:60"],
+      "required_behaviour_source": "rubric R08 FAIL anchor 'a conflicting duplicate rule changes a decision'; SKILL-004 phase 1 exit condition",
+      "finding_id": "F-003",
+      "severity": "MINOR",
+      "severity_basis": "Contained by mitigation: references/recording-rules.md is linked from SKILL.md:48, two lines earlier and in the same phase, and its 'Filling the plan' guidance for the 'Plan identity frozen before execution' field is correct and sufficient. A session following the phase-1 route in order reaches the right instruction. The demonstrated consequence is an overstated gloss at the always-loaded entrypoint plus a dead-end pointer.",
+      "limit": "Organisation is otherwise sound: essential rules in SKILL.md, conditional detail in three references each linked at the phase that needs it, no unreferenced essential constraint, no compression target imposed."
+    },
+    {
+      "id": "R09",
+      "applicable": true,
+      "applicability_reason": "every skill; the testing anchors apply because measurement is part of this skill's job",
+      "result": "PASS",
+      "evidence": "The fixed vocabulary is stated once, precisely, with the reason blending it is harmful (SKILL.md:90) and reused consistently in references/framework-context.md 'Result vocabulary', assets/handoff.md and assets/prototype-report.md, whose observations table ships NOT_RUN as the starting value that must be replaced. 'The absence of an error is not a pass' appears at SKILL.md:64 and in two references. Planned / attempted / failed / unavailable / completed stay distinct, and references/experiment-boundaries.md 'When a measurement cannot be taken' adds the three specific traps: a substitute is a new case needing a plan revision, an unavailable runtime is not a small result, a partial run is partial. Selection effects addressed at SKILL.md:62. references/framework-context.md 'Result vocabulary' states that a hash binding or package check proves which inputs were referenced, never that behaviour is correct. The package's own eval metadata holds the same line: evals/evals.json declares authoring_status AUTHORED_NOT_EXECUTED, execution_status NOT_RUN, an execution_boundary with run_now false, and a runner_dependency.boundary stating a runner row must never be copied into a results record as an outcome.",
+      "locations": ["SKILL.md:62", "SKILL.md:64", "SKILL.md:88-96", "references/framework-context.md 'Result vocabulary'", "references/experiment-boundaries.md 'When a measurement cannot be taken'", "evals/evals.json execution_boundary and runner_dependency"],
+      "required_behaviour_source": "SKILL-004 'Validation and behavioral acceptance' and 'Additional common cases'; framework result-vocabulary convention",
+      "finding_id": null,
+      "limit": "The one R09-adjacent claim in the package - that a self-hash establishes ordering - is scored under R08, where the contradiction's two source locations live, rather than counted twice."
+    },
+    {
+      "id": "R10",
+      "applicable": true,
+      "applicability_reason": "every DevForgeAI skill carries the handoff anchors; the enforcement anchors apply because the package proposes controls",
+      "result": "PASS",
+      "evidence": "SKILL.md:20 states the prohibition as a prohibition: do not narrate a phase as though narrating it were a check, do not issue yourself a PASS, do not write a command sequence that only pretends to gate something; and where a requirement genuinely needs to block a dependent action, record it as a requirement - the action, the evidence, the intended allow or refuse - and route it to the integration owner. references/framework-context.md 'Integrations this workflow would need and does not have' then does exactly that for four controls (sub-project experiment fence, pre-execution plan freeze, promotion check, threshold immutability), each naming the protected action and the absent evidence, closing with 'Recording a requirement is design input. It is not evidence that any client supports, enables or honours such a check, and the honest status of every row above is that the gap is open.' No control anywhere is labelled active. assets/handoff.md carries exact output identities and digests, an observed-checks table with the fixed vocabulary, the fence actually used, prototype identity and reproduction steps, an explicit Enforcement status field, a Validation status field noting a self-run measurement is not an independent check, and a continuation directory naming owners; it also warns against naming a slash command for a skill not confirmed installed, and against a self-digest.",
+      "locations": ["SKILL.md:20", "references/framework-context.md 'Integrations this workflow would need and does not have'", "references/experiment-boundaries.md 'The fence' (isolate's real limit)", "assets/handoff.md 'Result and next action', 'Continuation directory', 'Copyable next task', closing paragraph"],
+      "required_behaviour_source": "SKILL-004 'These phases describe the skill's workflow, not new CLI subcommands. Only documented, implemented DevForge commands may be named as executable gates'; development-language-policy 'Phases, hooks and skill content'",
+      "finding_id": null,
+      "limit": "The installed runtime's actual coverage is assessed separately and is NOT_RUN. Prose cannot establish it, and this package correctly does not claim it does."
+    }
+  ],
+  "summary": {
+    "pass": ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R09", "R10"],
+    "fail": ["R08"],
+    "could_not_run": [],
+    "not_applicable": [],
+    "aggregate": "none computed - no average, no weighted score, no percentage, by rubric instruction"
+  },
+  "disputes": "None arose. No second reviewer was dispatched, because no consequential interpretation was left unresolved: the R08 contradiction is settled by two quoted sentences from the candidate's own bytes, not by interpretation."
+}

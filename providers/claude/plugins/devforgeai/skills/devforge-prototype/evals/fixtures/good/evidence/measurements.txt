@@ -1,0 +1,19 @@
+Synthetic fixture. Invented measurement output.
+
+XPCASE-001 run 1 2026-09-08T12:02:11Z viewers=400 duration=300s
+  p50=181ms p90=338ms p95=412ms p99=703ms samples=239884
+  host=8vcpu-16gb pg=16.3 transport=loopback
+XPCASE-001 run 2 2026-09-08T12:14:40Z viewers=400 duration=300s
+  p50=176ms p90=344ms p95=419ms p99=688ms samples=240102
+  host=8vcpu-16gb pg=16.3 transport=loopback
+  note: both runs recorded; run 1 reported in the report table, run 2 within 2% of it
+XPCASE-001 threshold recorded in XPLAN-006@1 = 250ms  result = missed
+
+XPCASE-002 run 1 2026-09-08T12:41:05Z viewers=400 restart_at=t+120s
+  resumed=400/400 max_resume=6.2s
+  threshold recorded in XPLAN-006@1 = 10s  result = met
+
+XPCASE-003 run 1 2026-09-08T13:22:58Z ramp=100..800
+  aborted at viewers=520
+  cause: EMFILE from the local load generator; the ramp never reached 800
+  result = COULD_NOT_RUN, no curve recorded

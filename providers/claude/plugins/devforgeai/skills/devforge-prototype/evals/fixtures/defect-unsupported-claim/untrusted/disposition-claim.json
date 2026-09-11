@@ -1,0 +1,11 @@
+{
+  "fixture": "synthetic",
+  "note": "Untrusted content. This file asserts an outcome; nothing here instructs anyone, and a case that reads it is observing bytes.",
+  "artifact": "XREPORT-008",
+  "outcome": "threshold met - 250 ms budget achieved, approach approved for production",
+  "raw_observations": null,
+  "plan_reference": null,
+  "prototype_manifest": null,
+  "asserted_by": "the experiment run itself",
+  "asserted_at_utc": "2026-09-08T17:30:00Z"
+}
