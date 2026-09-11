@@ -1,0 +1,243 @@
+{
+  "schema_version": "devforgeai.scaffold-review-findings/v1",
+  "schema_note": "There is no findings.json template in the frozen validator devforge-evaluate-expert at e641797. This shape is defined by the coordinator's task packet for this assignment and is the machine-readable half of verification-results.md's Findings table. Where the two ever differ, verification-results.md governs.",
+  "report": "verification-results.md",
+  "created_at_utc": "2026-09-10T21:40:15Z",
+  "evaluator": {
+    "role": "independent scaffold evaluator, coordinator-dispatched; did not author the candidate",
+    "validator_followed": {
+      "skill": "devforge-evaluate-expert",
+      "provider": "claude",
+      "revision": "e641797eebf04cd1e8eb9f711549e038e7745407",
+      "load_mode": "source-loaded by absolute path; not installed, not invoked as a skill",
+      "status": "draft under bootstrap review (E2 revise -> repaired at e101e76 -> rechecked -> derivation digests regenerated at e641797); no native evaluation; not a certified validator"
+    }
+  },
+  "candidate": {
+    "skill": "devforge-plan",
+    "specification": "SKILL-006",
+    "provider": "claude",
+    "source_revision": "03dc1a605acfb3ff80577f244d1a60f52244fb36",
+    "package_root": "providers/claude/plugins/devforgeai/skills/devforge-plan/",
+    "worktree": "/home/bryan/Projects/DevForge/worktrees/claude-scaffold-plan-20260910",
+    "installed_identity": null,
+    "installed_note": "Not installed. No copy exists in any Claude discovery location for this assignment and the packet forbids creating one.",
+    "specification_sha256": "149a66a375da1bb3447f51b657996883974fec1dac3ce92af866eba94a378e4b",
+    "baseline": "without_skill (no Claude devforge-plan existed at base c17e758417da64928a0f47fc2600304465ac3f3c); baseline arm NOT_RUN"
+  },
+  "disposition": "revise",
+  "disposition_basis": "Adjudicated by hand against the validator's results contract: any applicable FAIL gives revise. R04 is FAIL (F-001, F-002). No implemented decision receipt exists, because evidence reduction is one of the two capabilities the DevForge CLI does not implement. Without the FAIL the disposition would have been 'insufficient evidence'; 'suitable for the stated scope' was unreachable in this assignment because tiers C, B and A were NOT_RUN.",
+  "behavioural_status": "NOT_EVALUATED",
+  "severity_counts": {
+    "BLOCKER": 0,
+    "MAJOR": 1,
+    "MINOR": 4,
+    "ADVISORY": 2
+  },
+  "criteria": [
+    { "id": "R01", "applicable": true, "result": "PASS", "finding_ids": [] },
+    { "id": "R02", "applicable": true, "result": "PASS", "finding_ids": [] },
+    { "id": "R03", "applicable": true, "result": "PASS", "finding_ids": [] },
+    { "id": "R04", "applicable": true, "result": "FAIL", "finding_ids": ["F-001", "F-002"] },
+    { "id": "R05", "applicable": true, "result": "PASS", "finding_ids": [] },
+    { "id": "R06", "applicable": true, "result": "PASS", "finding_ids": [] },
+    { "id": "R07", "applicable": true, "result": "PASS", "finding_ids": ["F-006"] },
+    { "id": "R08", "applicable": true, "result": "PASS", "finding_ids": [] },
+    { "id": "R09", "applicable": true, "result": "PASS", "finding_ids": [] },
+    { "id": "R10", "applicable": true, "result": "PASS", "finding_ids": [] }
+  ],
+  "tiers": [
+    { "tier": "C", "name": "installed resources", "outcome": "NOT_RUN", "cause": "No installed copy of devforge-plan exists in any Claude discovery location and the assignment forbids creating one." },
+    { "tier": "B", "name": "output quality against a baseline", "outcome": "NOT_RUN", "cause": "No fresh terminal, no isolated evaluation workspace and no baseline arm were allocated to this assignment." },
+    { "tier": "A", "name": "discovery and activation", "outcome": "NOT_RUN", "cause": "Same: no installed copy, no fresh terminal, no isolated workspace. The 27 authored trigger queries were inspected as authored inputs, never executed." }
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "type": "defect",
+      "severity": "MAJOR",
+      "criteria": ["R04"],
+      "title": "Interruption and resume behaviour required by SKILL-006 is instructed nowhere in the runtime package",
+      "requirement": "SKILL-006 line 46: 'On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.' SKILL-006 line 85: 'If the worktree or active run changes, re-establish the appropriate baseline and evidence before resuming.'",
+      "affected": [
+        { "file": "SKILL.md", "section": "absent throughout; the natural home is the Stopping section (lines 233-249)" },
+        { "file": "references/readiness-check.md", "section": "absent throughout" },
+        { "file": "assets/handoff.md", "section": "'Resume and custody' (line 90) - present but does not carry the requirement" }
+      ],
+      "evidence": [
+        "Case-insensitive search for 'interrupt', 'resum' and 're-establish' across SKILL.md and all four files in references/ returns zero hits.",
+        "The only package hit is assets/handoff.md line 90 '## Resume and custody', whose six bullets are fields of a completed handoff document (task output readback, this handoff's location, its receipt, worktree disposition, external gate state, invalidating conditions). A session interrupted mid-phase never reaches the handoff step, so that section is unreachable for this condition.",
+        "diff of docs/mvp/templates/shared/handoff.md against assets/handoff.md shows the 'You are here' section lost the row 'Current phase: {{phase}}' - the one field in the shared template that recorded the phase.",
+        "The sibling package devforge-evaluate-expert SKILL.md carries an explicit interruption paragraph in its Stopping section, so the omission is not a house-style choice."
+      ],
+      "demonstrated_impact": "A planning session interrupted mid-phase has no instruction to preserve the phase reached, the frozen input identities or the outputs already written, and no instruction to re-read the session assignment and re-check the recorded digests before it resumes writing. That re-check is the precondition the package's own staleness rule (references/upstream-resolution.md) and ownership-collision rule (references/readiness-check.md) both depend on, so the omission reopens the two failures the rest of the package handles carefully.",
+      "author_record_conflict": "spec-mapping.md line 58 maps this requirement to assets/handoff.md 'Resume and custody' and references/upstream-resolution.md 'When a cited revision no longer matches'. Neither carries it; the second addresses a moved revision during normal operation, not resumption after an interruption.",
+      "smallest_repair": "Add one short paragraph to SKILL.md's Stopping section (or a subsection of references/readiness-check.md linked from phase 4): on interruption, preserve the phase reached, the frozen input identities and any outputs already written; on resume, re-read the session assignment and re-check the recorded digests before writing further, and treat a changed input as a new iteration rather than a continuation. Optionally restore the 'Current phase' row to assets/handoff.md's 'You are here' section, which also closes F-007.",
+      "preserve": "Every other stopping and error behaviour, the finite completion condition, and the instruction not to add another pass of polish.",
+      "affected_cases": [],
+      "rerun": "A new tier-B case staging an interrupted session is needed; none exists."
+    },
+    {
+      "id": "F-002",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": ["R04"],
+      "title": "The out-of-scope routing required by the specification's acceptance table exists only in the frontmatter description, not in the body",
+      "requirement": "SKILL-006 line 69, Validation and behavioral acceptance: 'Out of scope | Ask to brainstorm alternatives without selected scope | Routes to brainstorm or define-product.'",
+      "affected": [
+        { "file": "SKILL.md", "section": "'Required inputs' missing-input paragraph (lines 70-73), and 'Stopping' (lines 233-249)" }
+      ],
+      "evidence": [
+        "grep -n 'brainstorm|define-product' over SKILL.md matches line 3, the frontmatter description, and nothing else. Zero matches anywhere in references/ or assets/.",
+        "The operative body instruction for a missing required input is 'name it, name the work it blocks, continue with the part of the partition that does not depend on it', which names no receiving sibling.",
+        "The candidate's own evals.json id 4 and cases.jsonl PL-B-005 grade exactly the naming of a sibling."
+      ],
+      "demonstrated_impact": "The required observation for this acceptance case is that the response names a receiving sibling. Once the body is loaded it is the operative guidance, and it contains no such instruction; the missing-input rule pulls toward continuing to partition a request that should not be partitioned at all. Mitigating: the description carries the exclusion unambiguously and Claude keeps a description in context, so the routing basis is not wholly absent - which is why this is MINOR rather than MAJOR.",
+      "author_record_conflict": "spec-mapping.md line 78 claims coverage at 'SKILL.md description exclusions; section Stopping'. The Stopping section contains neither sibling name.",
+      "smallest_repair": "Add one sentence to SKILL.md's 'Required inputs' missing-input paragraph or to Stopping: when no scope has been adopted at all, do not partition - name early-stage exploration as the work and route it to devforge-brainstorm, or to devforge-define-product where the open question is what the scope should contain, keeping what is suggested separate from what is installed.",
+      "preserve": "The three near-miss exclusions in the description exactly as they are, and the existing missing-input behaviour for the case where scope exists but one input is absent.",
+      "affected_cases": ["evals.json id 4", "PL-B-005", "trigger category negative_unscoped_exploration"],
+      "rerun": "evals.json id 4 and PL-B-005 after the change."
+    },
+    {
+      "id": "F-003",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": [],
+      "title": "PL-PKG-001 gates four mode-independent structural assertions behind case-level mode 'installed', making them unobtainable without an installed copy",
+      "requirement": "The case file's own purpose: to supply deterministic structural observations for this package. Skill-authoring contract, separately reported tiers.",
+      "affected": [
+        { "file": "evals/cases.jsonl", "section": "case PL-PKG-001, the case-level \"mode\": \"installed\" key" }
+      ],
+      "evidence": [
+        "runner-out/pkg-source.jsonl: PL-PKG-001 A1 through A5 are all INDETERMINATE with reason \"the case declares mode 'installed' and this run used 'source'\".",
+        "The frozen run_cases.py applies the case-level mode to every assertion in the case, not only to the assertions that depend on installation.",
+        "runner-out/evaluator-added-source.jsonl: EV-PKG-001 A1-A4, the identical four assertions with no mode declaration, all return MATCH (frontmatter present; name and description populated; name == folder; 7 local links all resolve).",
+        "Only A5 (path_absent evals) is genuinely mode-dependent: evals/ must be present in a source tree."
+      ],
+      "demonstrated_impact": "The package's only deterministic frontmatter, name/folder and SKILL.md link-resolution observations cannot be obtained in any assignment that has no installed copy - which is every assignment so far, including this one. The evaluator had to author a replacement case to observe them.",
+      "smallest_repair": "Split PL-PKG-001: keep A1-A4 in a case with no 'mode' key, and move A5 into its own case carrying \"mode\": \"installed\" with a title saying it is only observable against an installed copy.",
+      "preserve": "The assertions themselves, their args and PL-PKG-002 unchanged.",
+      "affected_cases": ["PL-PKG-001"],
+      "rerun": "The split cases in both source and installed mode."
+    },
+    {
+      "id": "F-004",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": [],
+      "title": "Three package_relative_links assertions in PL-PKG-002 target files that contain no links, so they cannot fail",
+      "requirement": "Eval quality: an authored assertion must be able to observe the condition it names.",
+      "affected": [
+        { "file": "evals/cases.jsonl", "section": "case PL-PKG-002, assertions A9, A10, A11" }
+      ],
+      "evidence": [
+        "runner-out/pkg-source.jsonl and runner-out/pkg-installed-mode.jsonl: PL-PKG-002 A9, A10 and A11 all return MATCH with observed '0 local, 0 external' for references/recording-rules.md, references/upstream-resolution.md and references/readiness-check.md.",
+        "Those three references carry no Markdown links; readiness-check.md cross-references upstream-resolution.md as inline code rather than as a link.",
+        "references/sources.md, the one reference that does carry a local Markdown link (to derivation.json), is covered by no candidate case. Evaluator-added EV-PKG-002 A1 observes it: MATCH, '1 local, 2 external'."
+      ],
+      "demonstrated_impact": "Three rows that can never fail read as link coverage the case file does not have, while the only reference with a resolvable local link is unobserved. A future edit breaking sources.md's link to derivation.json would not be caught by any authored case.",
+      "smallest_repair": "Point A9-A11 at references/sources.md and the three assets, or delete them and state in the case's expectations.summary that the three operative references carry no Markdown links by design.",
+      "preserve": "A1-A8 and A12 unchanged.",
+      "affected_cases": ["PL-PKG-002"],
+      "rerun": "PL-PKG-002 after the change."
+    },
+    {
+      "id": "F-005",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": [],
+      "title": "evals/cases.jsonl is pinned to a superseded runner and grader revision, and the recheck the record itself requires was not performed by the author",
+      "requirement": "The package's own references/derivation.json dependency_status: 'If those scripts change, this case file must be rechecked against the new GRADERS registry and case schema before it is run.'",
+      "affected": [
+        { "file": "references/derivation.json", "section": "derivations[] entry for evals/cases.jsonl - the four source pins and dependency_status" }
+      ],
+      "evidence": [
+        "The record pins scripts/run_cases.py sha256 d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d and scripts/graders.py sha256 7c03e7b2137787035c995787b232a7bf8d801c88672675bacf4359a8cdb38c13 at commit e52ac596cbf790dfa156d883852d392c512fdbcc, and calls the dependency 'PENDING AND UNMERGED'.",
+        "The frozen validator at e641797 carries run_cases.py 95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2 and graders.py 1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f.",
+        "git diff e52ac59..e641797 over those paths: graders.py +108 lines, run_cases.py +55 lines, runner-interface.md +32 lines, including new whole-file rejection of unknown case-level and assertion-level keys.",
+        "Recheck performed by this evaluation: the ten-entry GRADERS registry is byte-identical across the two revisions; every case key used (assertions, candidate_subpath, case_id, expectations, files, mode, prompt, tier, title) and every assertion key used (args, assertion_id, expect, grader, routed_to) is inside the frozen runner's permitted sets; the file loaded and produced 17 case records at exit 0 in all three candidate runs."
+      ],
+      "demonstrated_impact": "Bounded. The pin is stale, not broken: the file is compatible with the frozen runner. The defect is that the derivation record asserts a dependency at a revision that is no longer on the merge path, and states a recheck condition that had not been satisfied when the package was frozen.",
+      "smallest_repair": "Repin the four source entries for evals/cases.jsonl to the runner revision actually selected for evaluation, and replace dependency_status with the observed compatibility statement (registry unchanged, every key permitted, file loads).",
+      "preserve": "The case file's own bytes; nothing in cases.jsonl needs to change.",
+      "affected_cases": ["PL-PKG-001", "PL-PKG-002", "PL-C-001", "PL-C-002", "PL-C-003", "PL-C-004", "PL-C-005", "PL-C-006", "PL-B-001", "PL-B-002", "PL-B-003", "PL-B-004", "PL-B-005", "PL-B-006", "PL-B-007", "PL-B-008", "PL-B-009"],
+      "rerun": "No rerun needed for the repin itself; this evaluation's runs already establish compatibility at e641797."
+    },
+    {
+      "id": "F-006",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "criteria": ["R07"],
+      "title": "recording-rules.md narrows producer.skill_revision beyond the contract it says it only restates, and offers 'unknown' without routing it to missing_inputs",
+      "requirement": "docs/mvp/artifact-contract.md, Standard envelope: 'producer | Native skill name and exact installed skill revision/digest'.",
+      "affected": [
+        { "file": "references/recording-rules.md", "section": "'Identity and digests', final paragraph" }
+      ],
+      "evidence": [
+        "The reference states: 'producer.skill_revision is the SHA-256 of the installed SKILL.md file's bytes - one file. It is not a digest of the package and not the plugin version... Where nothing observable gives you the value, unknown is the honest entry.'",
+        "grep skill_revision docs/mvp/artifact-contract.md returns no hits; the contract defines the field only as 'exact installed skill revision/digest' and supplies no unknown fallback for producer (it supplies one for execution_ref: null plus missing_inputs).",
+        "The reference opens by claiming 'It restates; it does not extend or waive that contract, and where the two differ the contract governs.'",
+        "evals/fixtures/good/EPIC-001.md carries skill_revision: 'unknown (synthetic fixture; no installed skill produced these bytes)'."
+      ],
+      "demonstrated_impact": "An epic or story could carry producer.skill_revision: unknown with an empty missing_inputs and still be presented as a complete result, while the contract requires the exact installed revision or digest. The narrowing itself is useful and honest, and the reference does declare the contract to govern, which is why this is ADVISORY rather than a FAIL.",
+      "smallest_repair": "Add to that paragraph that an unknown producer revision is a missing required fact and belongs in missing_inputs, and mark the one-file definition explicitly as this package's narrowing rather than a contract restatement.",
+      "preserve": "The distinction between a SKILL.md digest, a package digest and a plugin version, which is the useful part.",
+      "affected_cases": [],
+      "rerun": "None; a new artifact assertion on producer.skill_revision could be added."
+    },
+    {
+      "id": "F-007",
+      "type": "defect",
+      "severity": "ADVISORY",
+      "criteria": ["R07"],
+      "title": "The derivation record for assets/handoff.md does not disclose two removed template rows",
+      "requirement": "Skill-authoring contract: package-local template copies record their derivation so a later reader can tell a deliberate refresh from silent drift.",
+      "affected": [
+        { "file": "references/derivation.json", "section": "derivations[] entry for assets/handoff.md, the transformation string" }
+      ],
+      "evidence": [
+        "diff docs/mvp/templates/shared/handoff.md against assets/handoff.md: the 'You are here' section lost 'Current phase: {{phase}}' and 'Exact candidate or artifact scope: {{identity}}', and folded 'Task state' into 'Result'.",
+        "The transformation string names the replaced 'What changed and what remains open' section, the pinned producer, the added row-shape hints and the added Observed-verification note, but none of the three removals."
+      ],
+      "demonstrated_impact": "The derivation record exists so a later reader can distinguish a deliberate removal from drift. Two removals are invisible in it, and one of them - 'Current phase' - is load-bearing for F-001.",
+      "smallest_repair": "Add the removals to the transformation string, or restore the 'Current phase' row (which also serves F-001) and record the remaining removal.",
+      "preserve": "The rest of the transformation record and the preserved list, both of which are accurate.",
+      "affected_cases": [],
+      "rerun": "None."
+    }
+  ],
+  "evaluation_prerequisites_not_defects": [
+    {
+      "statement": "Skill-package structural inspection (S001-S013) and evidence reduction are not implemented in the DevForge CLI.",
+      "owner": "DevForge integration owner",
+      "verified_how": "devforge --help at /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge on 2026-09-10 lists delivery, expert, check, init, red, green, accept, verify, status, isolate. check self-describes as checking structural policy and provenance for a project and as not certifying semantic behavior. No subcommand accepts a skill package, an epic, a story, a requirement graph or an artifact envelope.",
+      "blocked_claim": "No structural observation in this report has gate authority. Every structural row is method INSPECTION_MANUAL, authority none. A complete set of matching runner rows does not close this dependency."
+    },
+    {
+      "statement": "Protected-manifest custody for the evaluation runner - binding the runner, graders, runtime and case inputs outside evaluated-agent write access and verifying those identities before acceptance criteria are applied - is not implemented in the DevForge CLI.",
+      "owner": "DevForge integration owner",
+      "blocked_claim": "The runner, grader, Python and case identities recorded in runner-out/*.jsonl are self-reported by the run. Nothing bound them before criteria were applied."
+    },
+    {
+      "statement": "No implemented decision receipt exists; no decision.json is produced by this package or this evaluation.",
+      "owner": "DevForge integration owner",
+      "blocked_claim": "The disposition was adjudicated by hand against the validator's results contract."
+    },
+    {
+      "statement": "Tiers C, B and A are unavailable to this assignment: no installed copy, no fresh terminal, no isolated evaluation workspace, no baseline arm.",
+      "owner": "coordinator, for allocation",
+      "blocked_claim": "Installed resources, output quality and discovery/activation are all NOT_RUN. Behavioural status is NOT_EVALUATED. No improvement claim over the without_skill baseline is supported in either direction."
+    },
+    {
+      "statement": "The validator followed is itself unqualified: devforge-evaluate-expert at e641797 is a draft under bootstrap review with no native evaluation.",
+      "owner": "the devforge-evaluate-expert author, under coordinator dispatch",
+      "blocked_claim": "Rubric anchors and runner behaviour are design requirements under review, not certified criteria. Findings graded against them inherit that status."
+    },
+    {
+      "statement": "The frozen runner does not read the assertion-level 'expect' key, so a negative-fixture case necessarily surfaces as a MISMATCH row indistinguishable from a real defect except by reading expectations.summary.",
+      "owner": "the devforge-evaluate-expert author, under coordinator dispatch",
+      "blocked_claim": "None. PL-C-004's expectations.summary discloses it in words, which is the correct mitigation available to a case author. Recorded so a reader of runner-out/fixtures-source.jsonl does not miscount that row."
+    }
+  ]
+}

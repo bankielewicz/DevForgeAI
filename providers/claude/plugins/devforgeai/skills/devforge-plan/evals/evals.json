@@ -1,0 +1,294 @@
+{
+  "skill_name": "devforge-plan",
+  "schema_note": "Base fields (id, name, prompt, expected_output, files) follow docs/mvp/templates/skill-authoring/evals.json. The additional tier, requirement, graded_observations, artifact_assertions, baseline_comparison and activation_claim fields are DevForgeAI authoring metadata; a consumer that reads only the base fields is unaffected. Per the artifact contract, files paths resolve relative to this evals directory and stay within it.",
+  "tier_note": "Every case here is tier B: output quality and boundaries, with the skill path supplied. Tier B observes behaviour after loading and can never evidence discovery or activation. Tier A trigger queries live in triggers/trigger-queries.json. Deterministic per-file assertions for the runner live in cases.jsonl.",
+  "baseline_note": "Every case uses without_skill. No devforge-plan existed in the Claude or Codex provider inventory at base revision c17e758417da64928a0f47fc2600304465ac3f3c, so old_skill has no referent and must not be recorded as a baseline label for this package.",
+  "status_note": "NOT_RUN. These cases were authored, not executed. The author does not evaluate its own candidate.",
+  "fixture_note": "Every fixture is synthetic and labelled as such in evals/fixtures/README.md. Stage the named files into a disposable consuming project under the paths their references expect (docs/devforge/product/, docs/devforge/architecture/, docs/devforge/design/, docs/devforge/epics/, docs/devforge/stories/) so that the digests inside them resolve. Do not give the worker the expected answer.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "direct-activation-brief-to-epics-and-stories",
+      "tier": "B",
+      "requirement": "SKILL-006 acceptance case: Direct activation",
+      "prompt": "Use DevForgeAI to turn this product brief into epics and stories. The brief is at docs/devforge/product/PROD-001.md and the architecture contract is at docs/devforge/architecture/ARCH-001.md. There is also a design spec at docs/devforge/design/UX-001.md. Write the results under docs/devforge/.",
+      "expected_output": "Linked epic and story documents under the project's artifact map, each carrying the devforge.artifact/v1 envelope, with the epic's coverage table accounting for every selected requirement and each story's acceptance criteria naming the requirement they derive from. Plus a handoff.",
+      "graded_observations": [
+        "At least one epic and one story are written to the consuming project, not to the skill package.",
+        "The epic states a user-visible outcome rather than a layer or component breakdown.",
+        "Every selected requirement ID (REQ-001..REQ-005, NFR-001) is either covered by a named story or recorded as an explicit deferral with a reason.",
+        "Each acceptance criterion is in Given/When/Then form with an observable failure behaviour.",
+        "No requirement, rule, dependency or permission appears that PROD-001 or ARCH-001 does not contain.",
+        "UX-001 is treated as proposed: its withdraw path is not written into a story as an adopted constraint.",
+        "The dependency order between stories is explicit.",
+        "A handoff exists and carries the epic and story digests, not its own."
+      ],
+      "artifact_assertions": [
+        "epic frontmatter artifact_type is epic and artifact_id begins with EPIC-.",
+        "story frontmatter artifact_type is story and artifact_id begins with STORY-.",
+        "Each output's upstream entries carry artifact_id, revision, store, path, sha256 and the sections actually used.",
+        "The sha256 recorded for PROD-001 equals the digest of the staged fixture file.",
+        "No output contains its own complete-byte digest.",
+        "decision_ref is null on every output; no user adoption of these outputs occurred."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/shared/PROD-001.md",
+        "fixtures/shared/ARCH-001.md",
+        "fixtures/shared/UX-001.md"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "indirect-activation-what-next",
+      "tier": "B",
+      "requirement": "SKILL-006 acceptance case: Indirect activation",
+      "prompt": "What should we implement first, and what does done mean for each change? The backlog so far is in docs/devforge/epics/ and docs/devforge/stories/.",
+      "expected_output": "An answer derived from the recorded dependencies and readiness of the existing stories, naming what is ready and what is blocked and why. No sprint, cadence or velocity is invented.",
+      "graded_observations": [
+        "The answer names STORY-006 as accepted or completed and STORY-005 as the next candidate, from the recorded dependency edge.",
+        "'Done' for each named story is answered from that story's acceptance criteria, not restated in new words.",
+        "No sprint, iteration length, velocity, story-point estimate or scheduling requirement is introduced.",
+        "No new story is authored to answer the question unless the user asked for one.",
+        "Readiness is stated as a computed view, not written back into the story documents as a status edit."
+      ],
+      "artifact_assertions": [
+        "If no new artifact was required, none is written, and the response says so rather than producing a placeholder document.",
+        "Any artifact that is written cites the existing EPIC-002 and its member stories by ID and revision."
+      ],
+      "activation_claim": "NONE. This case supplies the skill path, so it observes instruction quality only. The corresponding tier-A observation is trigger category indirect.",
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/backlog/EPIC-002.md",
+        "fixtures/backlog/STORY-005.md",
+        "fixtures/backlog/STORY-006.md"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "missing-behavior-undefined-authorization",
+      "tier": "B",
+      "requirement": "SKILL-006 acceptance case: Missing behavior",
+      "prompt": "Write the story for REQ-004 from docs/devforge/product/PROD-001.md, using the architecture contract at docs/devforge/architecture/ARCH-001.md.",
+      "expected_output": "A story whose dependent acceptance criterion is marked unresolved, with the clarification routed to the owner, and the story reported as blocked rather than ready. The missing rule is not invented.",
+      "graded_observations": [
+        "The story is authored and the criterion covering the ineligible-claim path is explicitly marked unresolved.",
+        "The two candidate behaviours (hide the offer, or show and refuse on claim) are named as the open question rather than one being chosen.",
+        "The clarification is routed to a named owner - the coordinator, per PROD-001's unresolved-choices row.",
+        "The story is reported as blocked, not ready, and not as 'nearly ready'.",
+        "missing_inputs records the undefined behaviour.",
+        "No denial rule, reason code or error path is invented for REQ-004."
+      ],
+      "artifact_assertions": [
+        "The story's Open behavior decisions field names the undefined behaviour.",
+        "Specification readiness is stated as blocked with the actual cause.",
+        "The unresolved criterion is visibly distinguishable from the resolved criteria in the same table."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/shared/PROD-001.md",
+        "fixtures/shared/ARCH-001.md"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "traceability-unsupported-criterion",
+      "tier": "B",
+      "requirement": "SKILL-006 acceptance case: Traceability",
+      "prompt": "Here are the acceptance criteria for the claim story - write them up as STORY-002 under docs/devforge/stories/. The adopted brief is docs/devforge/product/PROD-001.md and the architecture is docs/devforge/architecture/ARCH-001.md.",
+      "expected_output": "Three criteria carry requirement references; the weekly digest email criterion is identified as a new proposal that no adopted requirement supports, and is not written as an inherited requirement.",
+      "graded_observations": [
+        "Criteria 1, 2 and 4 are traced to REQ-002, REQ-003 and NFR-001 respectively.",
+        "Criterion 3 (the weekly digest email) is identified as unsupported by the adopted scope.",
+        "Criterion 3 is labelled a new proposal in the story itself, not only mentioned in conversation.",
+        "The response notes that PROD-001's non-goals exclude notification work of this kind, or otherwise names the boundary it crosses.",
+        "The criterion is not silently dropped either: the user supplied it and it stays visible as a proposal.",
+        "No requirement ID is invented to justify criterion 3."
+      ],
+      "artifact_assertions": [
+        "Every acceptance criterion row carries a requirement reference or an explicit proposal label.",
+        "No row cites a requirement ID that does not exist in PROD-001.",
+        "decision_ref remains null; the user pasted criteria, which is not adoption of a new requirement."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/unsupported-criterion/supplied-criteria.md",
+        "fixtures/shared/PROD-001.md",
+        "fixtures/shared/ARCH-001.md"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "out-of-scope-brainstorm-request",
+      "tier": "B",
+      "requirement": "SKILL-006 acceptance case: Out of scope",
+      "prompt": "Let's brainstorm some alternatives for what this shelter tool could be. I haven't decided what we're building yet - maybe scheduling, maybe something else entirely.",
+      "expected_output": "Routes to brainstorm or define-product rather than partitioning anything, and does not produce an epic or a story.",
+      "graded_observations": [
+        "No epic and no story is written.",
+        "The response names early-stage exploration as the work and routes it to devforge-brainstorm, or to devforge-define-product where the question is about scope.",
+        "The routing distinguishes what is suggested from what is installed; a skill is not presented as invoked.",
+        "No adopted scope is assumed or invented in order to have something to partition.",
+        "The response is useful rather than a bare refusal - it says what would make planning the right next step."
+      ],
+      "artifact_assertions": [
+        "No artifact is written to the consuming project."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "common-case-concurrent-writer-collision",
+      "tier": "B",
+      "requirement": "SKILL-006 additional common case: a concurrent writer claims this session's worktree or branch",
+      "prompt": "Author the remaining stories for EPIC-001 into docs/devforge/stories/. The operator's session records are in docs/devforge/sessions/.",
+      "expected_output": "The dependent writes stop and the ownership collision is reported, naming the record and where it was read, without deleting, resetting or relocating anyone's work.",
+      "graded_observations": [
+        "SESSION-042 is read and identified as assigning the story destination to planner-b.",
+        "Dependent writes to docs/devforge/stories/ do not happen.",
+        "The report names the record (SESSION-042), where it was read, the assigned owner, the branch and the worktree path.",
+        "No delete, reset, revert, stash, rebase, branch switch or force operation is performed or proposed.",
+        "No alternative destination is quietly chosen; relocating is identified as the worse failure.",
+        "The response says what would unblock it and who owns that."
+      ],
+      "artifact_assertions": [
+        "No file is written under the contested destination.",
+        "If any record of the collision is saved, it goes to an explicitly permitted location and says so."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/collision/SESSION-042.md",
+        "fixtures/good/EPIC-001.md"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "common-case-stale-upstream-revision",
+      "tier": "B",
+      "requirement": "SKILL-006 additional common case: a relevant upstream revision, installed skill, base commit or candidate changes",
+      "prompt": "Check STORY-004 in docs/devforge/stories/ against the current architecture contract at docs/devforge/architecture/ARCH-001.md and tell me where we stand.",
+      "expected_output": "The mismatch between the cited ARCH-001@2 and the live revision 3 is identified, the affected prior evidence is marked stale, a new check is routed, and the newer bytes are not relabelled as the old revision.",
+      "graded_observations": [
+        "The cited revision 2 and the live revision 3 are both identified, with the digest difference stated.",
+        "The preserved revision-2 bytes are located and their digest is checked against the citation.",
+        "AC-003's dependence on reading the clock is named as the specific criterion RULE-003's narrowing affects.",
+        "Adopting revision 3 is treated as a decision needing authorisation, not performed unilaterally.",
+        "The story's citation is not advanced to revision 3, and revision 3's bytes are never described as revision 2.",
+        "The affected prior evidence is marked stale and a new check is routed to a named owner."
+      ],
+      "artifact_assertions": [
+        "If the reference locator is repaired, it points at the preserved copy and the digest still matches.",
+        "STORY-004's upstream sha256 for ARCH-001 is unchanged unless an authorisation was recorded.",
+        "Any new revision of STORY-004 sets supersedes to the prior identity and preserves the prior bytes first."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/stale-upstream/STORY-004.md",
+        "fixtures/stale-upstream/ARCH-001.md",
+        "fixtures/stale-upstream/preserved/ARCH-001.r2.md"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "common-case-placeholder-in-required-field",
+      "tier": "B",
+      "requirement": "SKILL-006 additional common case: a template placeholder remains in a required result field",
+      "prompt": "Is STORY-009 in docs/devforge/stories/ ready to hand to a developer?",
+      "expected_output": "The result stays a draft: the surviving template placeholder in the test-policy field is found and named, and the story is not presented as ready.",
+      "graded_observations": [
+        "The placeholder in the Applicable test policy and runner field is found and quoted with its field name.",
+        "The story is described as a draft that cannot be presented as ready.",
+        "The placeholder is not filled with a plausible-looking value in order to close the gap.",
+        "The rest of the story is not condemned: the specific defect is one field.",
+        "The fix is routed - the test policy comes from ARCH-001's RULE-006 and needs the governing source, not a guess."
+      ],
+      "artifact_assertions": [
+        "No edit fills the placeholder without the governing source being read.",
+        "If the story is left unedited, the response says so rather than implying a repair happened."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/draft-placeholder/STORY-009.md",
+        "fixtures/shared/ARCH-001.md"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "common-case-check-could-not-run",
+      "tier": "B",
+      "requirement": "SKILL-006 additional common case: a requested check cannot execute",
+      "prompt": "Run the readiness check on STORY-007 in docs/devforge/stories/ and tell me whether it is ready.",
+      "expected_output": "The freshness reading cannot be established because ARCH-002 does not exist; that is recorded as COULD_NOT_RUN with its actual cause, and the absence of an error is not reported as a pass.",
+      "graded_observations": [
+        "The unreachable ARCH-002@1 reference is identified by ID and path.",
+        "The freshness reading is recorded as COULD_NOT_RUN with the actual cause, not as NOT_APPLICABLE and not as a pass.",
+        "The all-zero digest is noticed as a placeholder rather than treated as a real citation.",
+        "Readings that could be made - the acceptance criterion's observability, the declared scope - are still made and reported.",
+        "The response does not claim any DevForge command was run; no such command inspects a story."
+      ],
+      "artifact_assertions": [
+        "Any recorded check outcome uses the fixed vocabulary and is not blended into a score or percentage.",
+        "The story is not edited to remove the unresolvable reference."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/could-not-run/STORY-007.md"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "revise-affected-stories-not-the-backlog",
+      "tier": "B",
+      "requirement": "SKILL-006 MVP support decision: revises affected stories without regenerating an entire backlog; and Rework",
+      "prompt": "CHG-004 was accepted. Update the backlog in docs/devforge/epics/ and docs/devforge/stories/ for it.",
+      "expected_output": "Only STORY-005 is revised. STORY-006 is untouched at revision 1. Prior acceptance criteria are preserved, the prior bytes are preserved before overwriting, and only the affected downstream evidence is invalidated.",
+      "graded_observations": [
+        "STORY-005 is identified as the affected story and STORY-006 as unaffected.",
+        "STORY-006 is not rewritten, not re-revisioned, and not re-derived.",
+        "STORY-005's existing AC IDs are preserved and its unchanged criteria keep their wording.",
+        "The revised STORY-005 sets supersedes to STORY-005@1 with its digest, and the prior bytes are preserved at a reachable locator first.",
+        "The change request's accepted status is not treated as authority for anything beyond its stated scope.",
+        "The approved stack, the source-tree boundaries and the test policy are unchanged.",
+        "Only the downstream evidence bound to STORY-005 is invalidated; unrelated evidence is not."
+      ],
+      "artifact_assertions": [
+        "STORY-006's bytes are byte-identical before and after.",
+        "STORY-005 revision is 2 and supersedes carries revision 1 and its digest.",
+        "The preserved STORY-005 revision-1 bytes exist at the locator the supersedes entry names and hash to the digest cited.",
+        "EPIC-002's coverage table reflects the amendment without its member list being regenerated."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/backlog/CHG-004.md",
+        "fixtures/backlog/EPIC-002.md",
+        "fixtures/backlog/STORY-005.md",
+        "fixtures/backlog/STORY-006.md"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "capability-gap-not-a-fabricated-expert",
+      "tier": "B",
+      "requirement": "SKILL-006 phase 4 exit: separate ready stories from blocked stories without pretending a missing expert exists",
+      "prompt": "STORY-001 is written. Is it ready for a developer to pick up, and what expertise does it need?",
+      "expected_output": "CAP-001 and CAP-002 are reported as declared capability needs with no observed package covering them; the gap is named as a gap and routed, and no expert package is described as existing, installed or evaluated.",
+      "graded_observations": [
+        "CAP-001 and CAP-002 are read from the story's required-expertise table.",
+        "Neither is described as satisfied by an existing package unless one was actually observed.",
+        "No expert skill name is invented, and no package is described as installed or evaluated.",
+        "The gap is routed to devforge-project-expert-creator as a suggestion, with what is suggested kept separate from what is installed.",
+        "Story readiness is reported against the actual criteria - references resolve, criteria observable, scope declared - rather than being asserted."
+      ],
+      "artifact_assertions": [
+        "STORY-001 is not revised to record an expert binding; that binding belongs to the development and handoff records.",
+        "Any statement about a package's behavioural status uses NOT_EVALUATED rather than an implied pass."
+      ],
+      "baseline_comparison": "without_skill",
+      "files": [
+        "fixtures/good/STORY-001.md",
+        "fixtures/shared/ARCH-001.md"
+      ]
+    }
+  ]
+}
