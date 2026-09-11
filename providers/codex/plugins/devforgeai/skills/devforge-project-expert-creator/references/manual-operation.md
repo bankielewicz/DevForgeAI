@@ -81,3 +81,7 @@ All references use the same canonical `Pin` and final freshness/overwrite checks
 - `devforge.manual-local-owner-acceptance/v1`: exactly `schema_version`, `owner`, `action: install_unqualified_local_baseline`, `qualification_status: UNQUALIFIED`, `inputs`, `observation_basis: operator-reviewed actual evidence`. `inputs` is the complete adoption object before its `acceptance` field is added. Its owner matches the selected record. Conditional user installation authority remains usable after its conditions have actually passed; do not fabricate the owner's decision or ask the same authorization again.
 
 These local records are not inputs to `assess_evidence.py`'s VPR-2 qualification reducer. The installer consumes them only for the explicitly unqualified local claim. Keep any separately produced Full/Routine plan, results and decision unchanged. A failed local check or unavailable required observation blocks local installation, while reporting and historical preservation remain possible. Native execution still needs its own selected bounded allocation; local adoption permission does not launch an old campaign.
+
+## Terminal completion display
+
+After saving the handoff and its detailed evidence, use [the completion summary](../assets/completion-summary.md). Keep actual outcome, useful result, primary links, material blocker/decision and one immediate action/owner visible. Preserve all detailed evidence in the existing assigned artifact/outbox arrangement; a compact display is not an executed receiving task or a new runtime receipt.

@@ -59,3 +59,5 @@ Include in the specification:
 - Contract, ownership, or integration gaps and unresolved decisions.
 
 Candidate inspection is not validation. Do not report testing or global uniqueness.
+
+Compare provider explicitly. Same-named Claude and Codex packages are intentional independent implementations; neither is an accidental duplicate solely because their names or purposes match. For structural enhancements, carry the settled selection into the old-to-new obligation map in the specification.

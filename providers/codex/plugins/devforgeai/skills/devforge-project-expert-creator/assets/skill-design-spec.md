@@ -350,3 +350,41 @@ Not performed.
 Record the actual requested claim; accepted baseline/capability/environment scope; current routinely accepted candidate; last fully qualified anchor or accepted unqualified baseline; immediate and cumulative impact references; matching CI/CP rules; proposed Routine/Full scope and missing evidence. Reuse accepted choices. The creator proposes evaluation coverage; the separate evaluator and independent reviewer assess it. Installation/validation wording alone does not require Full.
 
 For project/framework consumers, map this detailed design into XSPEC via exact references and stable sections, and use XPKG for candidate file/provenance identities. Preserve authoring-only status, all five Enforced phases, bounded change dispositions and the actual next user invocation. No source edit closes earlier evaluation findings.
+
+## 13. Phase structure, preservation and completion
+
+**Target provider and canonical source:**
+[Explicit provider, selected checkout/revision and owned path; identify generated copies separately. Same-named implementations for different providers are not automatically duplicates.]
+
+**Workflow kind and structural choice:**
+[Framework workflow / project-specific workflow / reference-only expert. Multi-step workflows use phases/; a simple reference-only expert needs no ceremonial phases. Explain the applicable choice. Use framework contracts for framework work and architecture/code/API inputs only when relevant.]
+
+**Purpose, activation, inputs and outputs:**
+[Reference sections 1–3; preserve a single governing definition.]
+
+**Phase map:**
+[For multi-step workflows, link every phase directly from SKILL.md. The paths below are relative to the package root; links inside phase files resolve relative to that file.]
+
+| Stable phase/action IDs | Purpose and applicability | Package-relative phase file | Required inputs/start | Work and outputs | Optional/Enforced and accepted decision | Enforcement owner, actual mechanism/support | Continuation, skip and stop |
+|---|---|---|---|---|---|---|---|
+| [Existing ID or new selected ID.] | [Task and selection condition.] | [phases/01-name.md; inline if justified.] | [Inputs and missing-input behavior.] | [Actions and saved result.] | [Retained classification or unresolved choice.] | [Rust CLI reference or explicit unavailable/unknown; proposal reference.] | [Next phase; authorized optional skip; no required work bypass; blockers.] |
+
+**Loading plan:**
+[Essential entrypoint constraints; which phase is loaded first/resumed; each phase's conditional references. Do not instruct reading all files upfront. Use assets/phase.md as a starting point when useful.]
+
+**Enhancement preservation map — required for structural refactors:**
+
+| Prior instruction location and identity | Obligation / stable ID | New package-relative location | Disposition | Behavior change and authority |
+|---|---|---|---|---|
+| [Source revision/path/section; retained bytes.] | [Action, decision, classification or requirement.] | [File/section.] | [Preserved / authorized change / blocked.] | [None for relocation; separately identified accepted change or pending proposal.] |
+
+[Map every prior obligation, including conditional actions, not merely headings. Preserve runtime IDs, accepted decisions and dependencies. A new filename alone does not create a new classification question. Keep proposed behavior changes separate from structural moves.]
+
+**Saved evidence and handoff:**
+[Existing assigned artifact/outbox locations for the full specification, candidate identity/manifest, change record, checks/history and evaluator handoff. Retain exact bytes; use permitted receipt arrangements without self-digests. Link from section 12 rather than duplicating evidence.]
+
+**Concise final display:**
+[Actual outcome; useful result; primary artifact and handoff links; material decision/blocker; one immediate action and owner. Use assets/completion-summary.md and roughly 60–120 words when practical. Important failures take precedence. Keep detailed identities/checks in retained records; preparation is not execution.]
+
+**Enforcement and evaluation limits:**
+[Optional requirements do not need invented gates. Preserve every enforced requirement and accepted proposal; design only the missing enforced mechanisms. Rust in DevForge CLI owns authority; Python evaluation runners/graders supply evidence only. Missing support stays a dependency with its owning component. Creator validation status remains Not performed.]

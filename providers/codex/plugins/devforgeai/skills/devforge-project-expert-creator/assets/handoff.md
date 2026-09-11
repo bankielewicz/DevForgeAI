@@ -60,3 +60,7 @@ Stop at {{completion or stated missing prerequisite}}.
 Retain exact referenced bytes and earlier failures. A hash cannot recover a missing source. Use the assigned artifact storage; before cleanup or relocation, preserve evidence and an explicit path mapping. Record affected identity changes in a new revision rather than rewriting prior evidence.
 
 Prepared transfer is not receiving execution or acceptance. No target validation, installation, hook activation or automatic receiving invocation is authorized by this document. In unmanaged mode, label hashes as author observations. If an actual managed assignment applies, reference its runtime/custody record and unresolved observations here; do not reproduce it. No self-digest or circular receipt references.
+
+## Terminal display
+
+After this handoff and its referenced detailed records are saved, use [completion-summary.md](completion-summary.md) for the terminal response. The display links here; it does not replace the evidence envelope, reading order, receiver readiness or full change record. Include the phase/obligation preservation map in the referenced specification for a structural enhancement.
