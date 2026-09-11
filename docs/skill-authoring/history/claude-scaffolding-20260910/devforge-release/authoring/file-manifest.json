@@ -11,7 +11,7 @@
   "evidence_note": "A file-to-digest map proves which bytes exist at these paths right now. It proves nothing about whether the package was installed, discovered, activated, or works.",
   "file_count": 25,
   "files_sha256": {
-    "SKILL.md": "b4ac89032c8b17ee6d201033290833c1498e06952f5885e80b331b50629112fe",
+    "SKILL.md": "7498e37c96f80454afdcb2bd6786422c88f9188136e77136ca6a659fcd225b71",
     "assets/handoff.md": "b2dbc7cc1083d423d8806e706d564b409edcc7d29f94108dbbfae455cad6b9dd",
     "assets/release-record.md": "90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb",
     "evals/cases.jsonl": "6c3535b1ba870ea0154feca5063f9be61c296e58be1945526129bef535e9bae8",
@@ -40,7 +40,7 @@
   "duplicate_note": "evals/fixtures/QA-014.md and evals/fixtures/stale/preserved/QA-014.r1.md are deliberately identical bytes: the preserved copy is what a correct staleness repair points at when revision 2 supersedes revision 1.",
   "installed_copy": "Not generated. A project-local installation or a plugin export is an integration-owner action and would produce its own manifest.",
   "producer_skill_revision_note": "For an artifact this package later produces, producer.skill_revision is the digest of the installed SKILL.md file's bytes - the SKILL.md entry above is the source file's digest, and an installed copy preserves content bytes, so they coincide where installation copies the file unchanged. Say which one you have.",
-  "candidate_revision": "repair pass 1. The prior candidate is commit dd1ae32b12ea209e71dbe338ab76bcbabd721e2e, 24 files, whose complete manifest is retained in git at that commit and in the evaluator's frozen record under validation/scaffold-review/verification-results.md. A changed candidate is a new identity and needs new matching evidence.",
+  "candidate_revision": "correction 1, on top of repair pass 1. The immediately prior candidate is commit 66d8dbad7c211ce1cba208cb09600a80997c5d74 (repair pass 1, SKILL.md b4ac89032c8b17ee6d201033290833c1498e06952f5885e80b331b50629112fe); the candidate before that is commit dd1ae32b12ea209e71dbe338ab76bcbabd721e2e, 24 files, whose complete manifest is retained in git at that commit and in the evaluator's frozen record under validation/scaffold-review/verification-results.md. A changed candidate is a new identity and needs new matching evidence.",
   "changed_in_repair_pass_1": {
     "SKILL.md": {
       "before": "7b7796d4cfef18f9c7734f6cb8219d627c61abd7f5ce1fab0da642919411a51f",
@@ -78,5 +78,18 @@
       "before": "79ff05226e099c6f067a660a775a648b98692c554f0611283c6111252fe4acdc",
       "after": "f30a29b9c13bfca7c056d5e130a68fc266891543e21162554f9ddb9eabb90803"
     }
+  },
+  "changed_in_repair_pass_1_note": "The before/after digests above record what repair pass 1 produced at commit 66d8dbad7c211ce1cba208cb09600a80997c5d74. They are history and were not rewritten by correction 1; the SKILL.md 'after' value there is therefore the pre-correction digest, not the current one. The current digest for every path is the files_sha256 map above.",
+  "changed_in_correction_1": {
+    "recorded_at_utc": "2026-09-11T00:08:30Z",
+    "authorization": "The coordinator's codex-review disposition of 2026-09-10.",
+    "scope": "One line of one file. SKILL.md line 3's description value was an unquoted YAML plain scalar containing ': ', which PyYAML 6.0.3 safe_load rejects with ScannerError 'mapping values are not allowed here'. The value is now wrapped in double quotes. The description text is byte-identical - 1,016 characters, verified equal to the prior raw scalar text - and the document body after the frontmatter is byte-identical.",
+    "SKILL.md": {
+      "before": "b4ac89032c8b17ee6d201033290833c1498e06952f5885e80b331b50629112fe",
+      "after": "7498e37c96f80454afdcb2bd6786422c88f9188136e77136ca6a659fcd225b71"
+    },
+    "no_other_package_file_changed": "Every other entry in files_sha256 is unchanged from repair pass 1. references/derivation.json was checked and records no digest for SKILL.md - SKILL.md appears there only under not_derived, with a note and no hash - so it needed no update and was not edited.",
+    "identity_note": "This is a new candidate identity. Tiers C, B and A remain NOT_RUN and behaviour remains NOT_EVALUATED; the correction closes no finding and produces no evaluation evidence.",
+    "superseded_reference": "authoring/handoff.md line 104 is a delivered receipt for the repair-pass-1 candidate and still names b4ac8903...; it was deliberately left unmodified. The frozen evaluator records under validation/ likewise still name the pre-correction digest and are outside this correction's fence. Details in authoring/correction-1.md."
   }
 }
