@@ -41,15 +41,17 @@ Never insert step 4's digest into the document, and never edit the document afte
 its own receipt. If the handoff has to change, that is a new revision with a new digest: preserve
 the previous bytes rather than mutating a document whose digest has already been delivered.
 
-`scripts/check_receipt.py` performs the mechanical part of step 3, and helps you inspect step 4.
-Invoke it with `python3` and an absolute path - executable mode bits are not preserved by this
-project's packaging, so do not rely on running the file directly. It has two commands, because
-they establish different things and merging them would overstate what you know.
+`<selected devforge executable> receipt check` performs the mechanical part of step 3, and helps
+you inspect step 4. Invoke it through the absolute path of the DevForge executable your assignment
+selected; nothing puts it on `PATH`. It has two commands, because they establish different things
+and merging them would overstate what you know. [scripts/check_receipt.py](../scripts/check_receipt.py)
+remains in this package unchanged as the legacy baseline, and is no longer the instructed path;
+its retirement is a later owner decision.
 
 **Command 1, verify the receipt.** This is the one the workflow depends on:
 
 ```bash
-python3 /absolute/path/to/skill/scripts/check_receipt.py \
+/absolute/path/to/devforge receipt check \
   --file /absolute/path/to/HANDOFF.md \
   --expected-sha256 <the 64-character digest you are about to deliver>
 ```
@@ -61,19 +63,20 @@ COULD_NOT_RUN rather than FAIL. Exit 4 means the invocation asserted nothing.
 **Command 2, list digests for your own inspection.** This is a listing, not a verdict:
 
 ```bash
-python3 /absolute/path/to/skill/scripts/check_receipt.py \
+/absolute/path/to/devforge receipt check \
   --file /absolute/path/to/HANDOFF.md --self-receipt-inspection
 ```
 
-It passes only when the file contains no 64-hex token at all - then absence of a self-receipt
-follows from absence of any digest. It fails if the file literally contains its own final digest,
-though that predicate cannot be made to fail by construction and is not a tested guarantee. Every
-other digest occurrence it reports as COULD_NOT_RUN with a line number, exit 5, because it cannot
-tell a legitimate reference to another file from a receipt for this one - and a self-receipt
-split across several lines looks like neither.
+Inspection lists recognized standalone 64-hex tokens. Exit 0 means the scan found no recognized
+token; it does not establish that the document contains no self-receipt. Unicode-adjacent or split
+representations may escape the listing. Manually inspect the document regardless of the listing
+outcome. It fails if the file literally contains its own final digest, though that predicate cannot
+be made to fail by construction and is not a tested guarantee. Other recognized tokens are reported
+as COULD_NOT_RUN with a line number, exit 5, because it cannot tell a legitimate reference to
+another file from a receipt for this one.
 
 A normal handoff lists many digests in its inputs table, so exit 5 is the expected result there.
-That is not a failure; it is the script telling you which lines you must read. **You** confirm
+That is not a failure; it is the command telling you which lines you must read. **You** confirm
 that none of them is a receipt for this document. Two things that commonly look alike:
 
 | Line | Verdict |
@@ -81,7 +84,7 @@ that none of them is a receipt for this document. Two things that commonly look 
 | `input \| prior/HANDOFF.md \| <digest>` - same basename, different path, an earlier file | Legitimate. A historical reference is not a self-receipt. |
 | `This document (HANDOFF.md) sha256: <digest>` - or the same claim spread over a "file:" line and a "sha256:" line | A self-receipt. Remove it; the digest belongs outside the document. |
 
-The script proves byte identity and receipt format. It does not know whether the handoff is
+The compiled command, like the script it replaces, proves byte identity and receipt format. It does not know whether the handoff is
 correct, authorized or accepted, it does not establish that the document is free of a
 self-receipt, and no exit code from it may be reported as semantic acceptance.
 
