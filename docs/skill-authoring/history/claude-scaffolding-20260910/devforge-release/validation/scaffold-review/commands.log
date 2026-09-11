@@ -1,0 +1,230 @@
+# commands.log - scaffold-review of devforge-release (SKILL-011)
+# evaluator: independent Claude evaluator context, dispatched by coordinator
+# log opened: 2026-09-10T21:47:11Z
+
+### 2026-09-10T21:47:11Z $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910 rev-parse HEAD
+dd1ae32b12ea209e71dbe338ab76bcbabd721e2e
+### 2026-09-10T21:47:11Z $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910 status --porcelain
+?? docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/
+### 2026-09-10T21:47:11Z $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910 diff dd1ae32b12ea209e71dbe338ab76bcbabd721e2e HEAD --stat -- providers/
+(empty output above means package bytes at HEAD equal the frozen commit)
+### 2026-09-10T21:47:11Z $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse HEAD
+e641797eebf04cd1e8eb9f711549e038e7745407
+### 2026-09-10T21:47:11Z $ git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 status --porcelain
+### 2026-09-10T21:47:19Z $ cd /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/providers/claude/plugins/devforgeai/skills/devforge-release && find . -type f | sort | xargs sha256sum
+7b7796d4cfef18f9c7734f6cb8219d627c61abd7f5ce1fab0da642919411a51f  ./SKILL.md
+b2dbc7cc1083d423d8806e706d564b409edcc7d29f94108dbbfae455cad6b9dd  ./assets/handoff.md
+90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb  ./assets/release-record.md
+c5e415614caee682aa81f56458a923e8bb18360ddf862c0cb7d805197c0f1fa0  ./evals/cases.jsonl
+d48e13d5f7e00b7e280f0ed93ae4c97f57bae49258ddffe88b45871bef705785  ./evals/evals.json
+575949f6fd587a6925992089e1e0d08fdea6aa65d95f2b17a1b150e118f491e9  ./evals/fixtures/ARCH-003.md
+891f6d8ced1d7f1ac1149bd4e01c3a01e41e438a5aaedccfc2d55fb3656423d5  ./evals/fixtures/DEV-021.md
+1284c83cc305dae8807feaa310ec2a4eb35c798212ce9bd50d5a0d340110cd78  ./evals/fixtures/QA-014.md
+d9487a17f22bc9303f2c07fc940a3cf6a95a91d7741e2391815f6420eee062b0  ./evals/fixtures/README.md
+dcb3d5cf803244c4d3cfd8239d924ed7f6b9b3f8fbbd89275feeaac10624c24f  ./evals/fixtures/STORY-041.md
+c75654ad5067727f9ac70fef0bac0986f6f4c5fc921753e3f30d1c0cb6db8ed6  ./evals/fixtures/ci-unavailable/ci-probe.txt
+d599b9c40083ad6269330e88885624f670f177bee32bdcee7864a84f9dfc4535  ./evals/fixtures/collision/SESSION-088.md
+c20f59e57eae506dc846ac29b69d506695163c129e012880b488aba1b18012cb  ./evals/fixtures/good/REL-008.md
+8699c69c8e02ddaa9295cb1eadf5163799cb638db170ff0c1edbba65da1bbf3f  ./evals/fixtures/good/verification-claim.json
+0ce45fefb512921ebe91898cd6034279a89678cc42573f74f7cd1aac29e73b36  ./evals/fixtures/good/verify-receipt.txt
+55fe7fb34e883ec5c3a254aa2d99a8a1f2d59fc194dba8f747dfbccf4f5df279  ./evals/fixtures/placeholder/REL-007.md
+707b44db4ad3e353fe51aacc98473836ece23e838e00656f7409827dbb23b933  ./evals/fixtures/stale/QA-014.md
+1284c83cc305dae8807feaa310ec2a4eb35c798212ce9bd50d5a0d340110cd78  ./evals/fixtures/stale/preserved/QA-014.r1.md
+5057ddcffc8189df0982400a8328f9ef8436bf7879a4a5bb37d5d8b64e6ac792  ./evals/fixtures/unsupported-claim/deployment-claim.json
+a031958175823d985117b3cae65d5e2988559803db30b49a8e69c60ba8361ab5  ./evals/triggers/trigger-queries.json
+20f5e450c71fdf960ec9b344cd0056bc35a9b2f594d7a970c5f26b7f75f1ba70  ./references/delivery-actions.md
+9bc835eff901217c0a071cd2ccf9c6a1c504f0a6fead12830d5022c9bd977b6b  ./references/derivation.json
+43dcf6c27e61a3d5dea009606cb0354485ada2ea6a7633649ce9b12303429408  ./references/recording-rules.md
+79ff05226e099c6f067a660a775a648b98692c554f0611283c6111252fe4acdc  ./references/sources.md
+### 2026-09-10T21:47:19Z $ find . -type f | wc -l
+24
+### 2026-09-10T21:47:35Z $ sha256sum /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py
+95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py
+1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py
+### 2026-09-10T21:47:35Z $ /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/providers/claude/plugins/devforgeai/skills/devforge-release/evals/cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/providers/claude/plugins/devforgeai/skills/devforge-release --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/observations-source.jsonl --mode source
+wrote 10 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/observations-source.jsonl
+exit=0
+### 2026-09-10T21:49:28Z $ sha256sum /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/evaluator-cases.jsonl
+3f1e787cb295c54164693221395d212ff67d7dd1407633df00c7f4b481e0d618  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/evaluator-cases.jsonl
+### 2026-09-10T21:49:28Z $ /usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py --cases /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/evaluator-cases.jsonl --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/providers/claude/plugins/devforgeai/skills/devforge-release --out /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/observations-evaluator.jsonl --mode source
+wrote 7 case record(s) to /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/observations-evaluator.jsonl
+exit=0
+### 2026-09-10T21:49:38Z $ sha256sum /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge
+835c32639c0a7df270fe1b9182580f14fc7d0874d3aad1b4037ba7cf420b2b07  /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge
+### 2026-09-10T21:49:38Z $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --help
+External project-expertise and development gates (Linux POC)
+
+Usage: devforge [OPTIONS] <COMMAND>
+
+Commands:
+  delivery  Manage external mechanical delivery state and protected worker sessions
+  expert    Prepare expertise context, inspect freshness, or bind an AI-authored skill
+  check     Check structural policy and provenance; does not certify semantic behavior
+  init      Record baseline in an external, human-controlled state directory
+  red       Observe a test-only assertion failure
+  green     Observe passing tests with exactly the tests evaluated at RED
+  accept    Preserve the exact GREEN candidate as an accepted local snapshot
+  verify    Verify accepted archive and current candidate integrity
+  status    Inspect durable phase state
+  isolate   Run with only the project writable; no unconfined fallback
+  help      Print this message or the help of the given subcommand(s)
+
+Options:
+      --project <PROJECT>  
+      --policy <POLICY>    
+      --state <STATE>      
+      --expert <EXPERT>    
+  -h, --help               Print help
+  -V, --version            Print version
+### 2026-09-10T21:49:38Z $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge verify --help
+Verify accepted archive and current candidate integrity
+
+Usage: devforge verify [OPTIONS]
+
+Options:
+      --project <PROJECT>  
+      --policy <POLICY>    
+      --state <STATE>      
+      --expert <EXPERT>    
+  -h, --help               Print help
+### 2026-09-10T21:49:38Z $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge check --help
+Check structural policy and provenance; does not certify semantic behavior
+
+Usage: devforge check [OPTIONS]
+
+Options:
+      --project <PROJECT>  
+      --policy <POLICY>    
+      --state <STATE>      
+      --expert <EXPERT>    
+  -h, --help               Print help
+### 2026-09-10T21:49:38Z $ /home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge status --help
+Inspect durable phase state
+
+Usage: devforge status [OPTIONS]
+
+Options:
+      --project <PROJECT>  
+      --policy <POLICY>    
+      --state <STATE>      
+      --expert <EXPERT>    
+  -h, --help               Print help
+### 2026-09-10T21:49:50Z $ python3 -B -c 'measure frontmatter description length and SKILL.md line count'
+frontmatter key='name' value_chars=16
+frontmatter key='description' value_chars=1027
+SKILL.md total lines: 122
+SKILL.md total chars: 16632
+### 2026-09-10T21:49:50Z $ grep -n 'character\|1024\|1,024\|1536\|1,536\|description' /home/bryan/Projects/DevForge/framework/DevForgeAI/docs/mvp/skill-authoring-contract.md | head -30
+### 2026-09-10T21:50:36Z $ grep -rn 'QA-014|a91c04d2|4c1f8ba|SESSION-088|FIND-034|RULE-02|foldbench|STORY-041' SKILL.md references/ assets/
+references/recording-rules.md:47:Record the stable section IDs you actually relied on, not the whole document. "QA-014 revision 2, sections `Readiness recommendation` and `Findings and ownership`" tells a reader what your record is standing on. A bare artifact ID does not.
+(runtime files scanned for eval-fixture identifiers; a hit couples runtime instruction text to an eval fixture)
+### 2026-09-10T21:50:36Z $ grep -rnE '/home/|/Users/|C:\\|~/' SKILL.md references/ assets/ evals/
+references/sources.md:9:| [Claude Code skills documentation](https://code.claude.com/docs/en/skills) | 2026-09-10 | All `SKILL.md` frontmatter fields are optional and `description` is the recommended one, because Claude uses it to decide when to apply the skill; the combined `description` and `when_to_use` text is truncated at 1,536 characters in the skill listing; explicit invocation is `/<skill-name>` for a project skill and `/<plugin-name>:<skill-name>` for a plugin skill, or bare when nothing collides; loading is progressive - descriptions are in context so Claude knows what is available, full skill content loads on invocation, and supporting files load only when a link is followed; skills load from a managed settings directory, `~/.claude/skills/`, `<project>/.claude/skills/`, a nested `<subdir>/.claude/skills/`, a plugin's `skills/` directory, an `--add-dir` directory, and synced account skills in cloud sessions; supporting files are referenced by relative Markdown links; keeping `SKILL.md` under 500 lines is advised because every line is a recurring token cost. | Claude Code. Recheck when the client's frontmatter fields, truncation limit, discovery locations or loading behaviour change. Verified against the published documentation only; no client behaviour was observed for this package, and nothing here establishes that this skill is discovered or activated. |
+(no output = no developer home path anywhere in the package)
+### 2026-09-10T21:50:36Z $ grep -rn 'docs/mvp' SKILL.md assets/ evals/
+evals/evals.json:3:  "schema_note": "Base fields (id, name, prompt, expected_output, files) follow docs/mvp/templates/skill-authoring/evals.json. The additional tier, requirement, graded_observations, baseline_comparison and activation_claim fields are DevForgeAI authoring metadata; a consumer that reads only the base fields is unaffected. Per the artifact contract, files paths resolve relative to this evals directory and stay within it.",
+evals/triggers/trigger-queries.json:3:  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+(hits in evals/*.json schema_note are authoring provenance, not runtime paths)
+### 2026-09-10T21:50:36Z $ grep -rniE 'codex|openai|gpt|AGENTS.md|subagent' SKILL.md references/ assets/ evals/
+assets/release-record.md:57:- Model-driven Codex GitHub Action: deferred for the subscription-only MVP; its documented setup requires an API key.
+references/derivation.json:56:      "open_item": "The template carries a line naming a model-driven Codex GitHub Action as deferred for the subscription-only MVP. That template is governed outside this package's fence, so it was copied byte-exact rather than rewritten from inside the fence. Whether the shared wording should be provider-neutral is a decision for the template's owner.",
+references/derivation.json:140:    "every sibling skill in the Claude and Codex provider trees",
+evals/fixtures/good/REL-008.md:83:- Model-driven Codex GitHub Action: NOT_APPLICABLE. This framework uses no model API key anywhere.
+### 2026-09-10T21:51:35Z $ grep -rn 'docs/mvp' references/
+references/derivation.json:29:    { "artifact": "SKILL-011", "revision": 2, "store": "project", "path": "docs/mvp/specifications/skill-011-devforge-release.md", "sha256": "f94261d7af37d8c68510e88d4b8705447b06ce396ead5776c28c7502cf60585d", "role": "governing specification" },
+references/derivation.json:30:    { "artifact": "skill-authoring-contract", "revision": 3, "store": "project", "path": "docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53", "role": "authoring, packaging and evaluation tiers" },
+references/derivation.json:31:    { "artifact": "artifact-contract", "revision": 2, "store": "project", "path": "docs/mvp/artifact-contract.md", "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5", "role": "envelope, upstream references, digest rules, suggested directories" },
+references/derivation.json:32:    { "artifact": "execution-contract", "revision": 3, "store": "project", "path": "docs/mvp/execution-contract.md", "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b", "role": "worktree ownership, failure and recovery cases, the subscription-only CI boundary" },
+references/derivation.json:35:    { "artifact": "roster", "revision": "draft refreshed 2026-09-05", "store": "project", "path": "docs/mvp/roster.md", "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc", "role": "provenance flow: which upstreams this skill consumes and which consumer reads its output" },
+references/derivation.json:36:    { "artifact": "evals.json authoring template", "revision": "selected at base", "store": "project", "path": "docs/mvp/templates/skill-authoring/evals.json", "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692", "role": "base field shape for evals/evals.json" },
+references/derivation.json:37:    { "artifact": "trigger-queries.json authoring template", "revision": "selected at base", "store": "project", "path": "docs/mvp/templates/skill-authoring/trigger-queries.json", "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4", "role": "base field shape for evals/triggers/trigger-queries.json" }
+references/derivation.json:49:        "path": "docs/mvp/templates/devforge-release/release-record.md",
+references/derivation.json:55:      "why_copied": "An installed skill must not depend on this repository's docs/mvp tree being reachable at runtime.",
+references/derivation.json:57:      "refresh_condition": "docs/mvp/templates/devforge-release/release-record.md changes. Owner: the shared template owner selects the refresh; this package's author then re-copies and updates this record."
+references/derivation.json:66:        "path": "docs/mvp/templates/shared/handoff.md",
+references/derivation.json:72:      "refresh_condition": "docs/mvp/templates/shared/handoff.md changes. Owner: the shared template owner selects the refresh; this package's author reconciles the adaptation against it and records the new source digest here."
+references/derivation.json:81:        "path": "docs/mvp/artifact-contract.md",
+references/derivation.json:87:      "refresh_condition": "docs/mvp/artifact-contract.md changes in any of the sections named above. Owner: the contract owner selects the refresh; this package's author re-narrows and updates this record."
+references/derivation.json:96:        "path": "docs/mvp/specifications/skill-011-devforge-release.md",
+references/derivation.json:138:    "docs/mvp/** - specification, templates and all three contracts",
+references/derivation.json:139:    "docs/mvp/package-index.json and docs/mvp/roster.md",
+### 2026-09-10T21:51:35Z $ grep -roE 'devforge (delivery|expert|check|init|red|green|accept|verify|status|isolate)' SKILL.md references/ assets/ | sort -u
+SKILL.md:devforge verify
+references/delivery-actions.md:devforge check
+references/delivery-actions.md:devforge status
+references/delivery-actions.md:devforge verify
+### 2026-09-10T21:51:35Z $ verify file-manifest.json digests against actual package bytes
+manifest top-level keys: ['schema_version', 'skill', 'provider', 'recorded_at_utc', 'package_root', 'worktree_branch', 'base_revision', 'self_reference_note', 'scope_note', 'evidence_note', 'file_count', 'files_sha256', 'duplicate_note', 'installed_copy', 'producer_skill_revision_note']
+files entry type: dict
+{}
+### 2026-09-10T21:51:48Z $ verify authoring/file-manifest.json files_sha256 against observed package bytes
+declared file_count: 24 entries: 24
+agree=24 mismatch=0 missing=0
+files on disk not in manifest: []
+installed_copy: "Not generated. A project-local installation or a plugin export is an integration-owner action and would produce its own manifest."
+base_revision: c17e758417da64928a0f47fc2600304465ac3f3c | branch: author/claude-devforge-release-scaffold-20260910
+### 2026-09-10T21:52:05Z $ verify derivation.json selected_inputs digests against framework/DevForgeAI working bytes
+371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53  docs/mvp/skill-authoring-contract.md
+00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5  docs/mvp/artifact-contract.md
+73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b  docs/mvp/execution-contract.md
+3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f  docs/development-language-policy.md
+22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae  docs/learned-behaviors/bounded-delivery.md
+ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc  docs/mvp/roster.md
+508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692  docs/mvp/templates/skill-authoring/evals.json
+8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4  docs/mvp/templates/skill-authoring/trigger-queries.json
+### 2026-09-10T21:52:05Z $ verify builder pin 4999f31 exists and its SKILL.md digest matches derivation.json builder_identity
+4999f31 fix(claude): devforge-project-expert-creator repair pass 1 from E1 bootstrap review (F-001..F-004)
+342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9  -
+(expected per derivation.json builder_identity SKILL.md: 342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9)
+### 2026-09-10T21:52:05Z $ verify runner pin e52ac59 graders/run_cases digests vs the e641797 pair actually used
+d1fb18689eeea31f8facde4e3de1507320e74ffb349f547f9db2201395bb132d  -
+7c03e7b2137787035c995787b232a7bf8d801c88672675bacf4359a8cdb38c13  -
+(the run used run_cases 95ca2abf... graders 1b7a27a3... at e641797)
+### 2026-09-10T21:54:12Z $ verify the candidate's factual claims about the skill inventory (devforge-change unimplemented; no devforge-release at base)
+-- Claude skills at candidate HEAD dd1ae32:
+providers/claude/plugins/devforgeai/skills/devforge-brainstorm
+providers/claude/plugins/devforgeai/skills/devforge-develop
+providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator
+providers/claude/plugins/devforgeai/skills/devforge-release
+providers/claude/plugins/devforgeai/skills/devforge-review
+-- Codex skills at candidate HEAD dd1ae32:
+providers/codex/plugins/devforgeai/skills/devforge-brainstorm
+providers/codex/plugins/devforgeai/skills/devforge-develop
+providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert
+providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator
+providers/codex/plugins/devforgeai/skills/devforge-review
+-- Claude + Codex skills at base c17e758:
+providers/claude/plugins/devforgeai/skills/devforge-brainstorm
+providers/claude/plugins/devforgeai/skills/devforge-develop
+providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator
+providers/claude/plugins/devforgeai/skills/devforge-review
+providers/codex/plugins/devforgeai/skills/devforge-brainstorm
+providers/codex/plugins/devforgeai/skills/devforge-develop
+providers/codex/plugins/devforgeai/skills/devforge-evaluate-expert
+providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator
+providers/codex/plugins/devforgeai/skills/devforge-review
+-- devforge-change anywhere in either provider tree at HEAD:
+(none)
+### 2026-09-10T21:56:35Z $ /usr/bin/python3 -B -c 'json.load findings.json' && sha256sum findings.json
+findings.json parses as JSON
+c3221dcf9e2c27a1b288453cf5f150a72a8659a13cfb596a91ee7408c6b768a2  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/findings.json
+### 2026-09-10T22:00:53Z $ sha256sum verification-results.md (bytes final before the enhancement spec cites it)
+6bf0d875ac08ffdec392f1fb4a325a94c7ba107d612823c5c5f805cdbe77343e  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/verification-results.md
+### 2026-09-10T22:02:58Z $ sha256sum skill-enhancement-spec.md runner-out/observations-source.jsonl runner-out/observations-evaluator.jsonl
+c5048e3143470ee8596a9498b677bdb12730794f0a1d0ea4708c9ee4011f4f17  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/skill-enhancement-spec.md
+f5914fd038f9fbb2f58562021f5048e9b49cd8dd83c03d7e8f73ef77a4b55506  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/observations-source.jsonl
+eddedf971d497feaadbadf388233407678718a7b637c4f09af2f9f7317f6152f  /home/bryan/Projects/DevForge/worktrees/claude-scaffold-release-20260910/docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/scaffold-review/runner-out/observations-evaluator.jsonl
+### 2026-09-10T22:04:23Z $ final readback: fence inventory and digests
+959c991f2be638cc6e3b3a42787cb0e582131b758c1ff68b2b4cadbd25257b09  ./commands.log
+c3221dcf9e2c27a1b288453cf5f150a72a8659a13cfb596a91ee7408c6b768a2  ./findings.json
+351967956de001445f3948adfc5beba1d64dd2ad9dd18f95ddb4bf58b0e32e45  ./handoff.md
+3f1e787cb295c54164693221395d212ff67d7dd1407633df00c7f4b481e0d618  ./runner-out/evaluator-cases.jsonl
+eddedf971d497feaadbadf388233407678718a7b637c4f09af2f9f7317f6152f  ./runner-out/observations-evaluator.jsonl
+f5914fd038f9fbb2f58562021f5048e9b49cd8dd83c03d7e8f73ef77a4b55506  ./runner-out/observations-source.jsonl
+c5048e3143470ee8596a9498b677bdb12730794f0a1d0ea4708c9ee4011f4f17  ./skill-enhancement-spec.md
+6bf0d875ac08ffdec392f1fb4a325a94c7ba107d612823c5c5f805cdbe77343e  ./verification-results.md
+### 2026-09-10T22:04:23Z $ confirm no candidate byte changed and nothing outside the fence was written
+?? docs/skill-authoring/history/claude-scaffolding-20260910/devforge-release/validation/
+(empty = no tracked change; the single ?? entry is this evidence directory)
+(empty = validator worktree untouched)
+### 2026-09-10T22:04:23Z log closed

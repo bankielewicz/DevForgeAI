@@ -1,0 +1,9 @@
+{
+  "_fixture_note": "Synthetic evaluation fixture. A machine-readable result file that asserts an outcome while every declared evidence field is empty. The claim is an observed claim; it is not a result.",
+  "artifact": "REL-009",
+  "outcome": "DEPLOYED",
+  "deployment_receipt": null,
+  "ci_result": null,
+  "readback": [],
+  "asserted_by": "the document itself"
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": "devforge.package-manifest/v1",
+  "skill": "devforge-release",
+  "provider": "claude",
+  "recorded_at_utc": "2026-09-10T22:14:20Z",
+  "package_root": "providers/claude/plugins/devforgeai/skills/devforge-release",
+  "worktree_branch": "author/claude-devforge-release-scaffold-20260910",
+  "base_revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+  "self_reference_note": "This manifest records no digest of itself, and it does not list itself. Compute its digest after its bytes are final and deliver it in the handoff's external receipt or the terminal response.",
+  "scope_note": "Every file in the authored package source, including evals/. An installed copy and a runtime export omit evals/, so their manifests differ from this one by exactly the fifteen evals/ entries; excluding them from an export must not silently change what was evaluated.",
+  "evidence_note": "A file-to-digest map proves which bytes exist at these paths right now. It proves nothing about whether the package was installed, discovered, activated, or works.",
+  "file_count": 25,
+  "files_sha256": {
+    "SKILL.md": "7498e37c96f80454afdcb2bd6786422c88f9188136e77136ca6a659fcd225b71",
+    "assets/handoff.md": "b2dbc7cc1083d423d8806e706d564b409edcc7d29f94108dbbfae455cad6b9dd",
+    "assets/release-record.md": "90b8e58f54eec19bb809a2aad5fb670b4616a32e3543815221818f66308e67eb",
+    "evals/cases.jsonl": "6c3535b1ba870ea0154feca5063f9be61c296e58be1945526129bef535e9bae8",
+    "evals/evals.json": "17e1f0d45eb4161d5bac4196ac22382ea8f0c1f39a1b864c32c1a7defc0a3697",
+    "evals/fixtures/ARCH-003.md": "575949f6fd587a6925992089e1e0d08fdea6aa65d95f2b17a1b150e118f491e9",
+    "evals/fixtures/DEV-021.md": "891f6d8ced1d7f1ac1149bd4e01c3a01e41e438a5aaedccfc2d55fb3656423d5",
+    "evals/fixtures/QA-014.md": "1284c83cc305dae8807feaa310ec2a4eb35c798212ce9bd50d5a0d340110cd78",
+    "evals/fixtures/README.md": "a251dbb9c45633a447d5cc57ac433e529fd28e14d2d1f2be1ff050175f685a67",
+    "evals/fixtures/STORY-041.md": "dcb3d5cf803244c4d3cfd8239d924ed7f6b9b3f8fbbd89275feeaac10624c24f",
+    "evals/fixtures/ci-unavailable/ci-probe.txt": "c75654ad5067727f9ac70fef0bac0986f6f4c5fc921753e3f30d1c0cb6db8ed6",
+    "evals/fixtures/collision/SESSION-088.md": "d599b9c40083ad6269330e88885624f670f177bee32bdcee7864a84f9dfc4535",
+    "evals/fixtures/good/REL-008.md": "d4062862a01a7e94e8907c8dadd49a126eabefbb012d5c8b9cbc4b4e74c78f47",
+    "evals/fixtures/good/verification-claim.json": "8699c69c8e02ddaa9295cb1eadf5163799cb638db170ff0c1edbba65da1bbf3f",
+    "evals/fixtures/good/verify-receipt.txt": "0ce45fefb512921ebe91898cd6034279a89678cc42573f74f7cd1aac29e73b36",
+    "evals/fixtures/injected-authority/QA-015.md": "fbcf899770db83079f1452bf6ac8bddb08821cd26e849fbade85afb99446310a",
+    "evals/fixtures/placeholder/REL-007.md": "55fe7fb34e883ec5c3a254aa2d99a8a1f2d59fc194dba8f747dfbccf4f5df279",
+    "evals/fixtures/stale/QA-014.md": "707b44db4ad3e353fe51aacc98473836ece23e838e00656f7409827dbb23b933",
+    "evals/fixtures/stale/preserved/QA-014.r1.md": "1284c83cc305dae8807feaa310ec2a4eb35c798212ce9bd50d5a0d340110cd78",
+    "evals/fixtures/unsupported-claim/deployment-claim.json": "5057ddcffc8189df0982400a8328f9ef8436bf7879a4a5bb37d5d8b64e6ac792",
+    "evals/triggers/trigger-queries.json": "a031958175823d985117b3cae65d5e2988559803db30b49a8e69c60ba8361ab5",
+    "references/delivery-actions.md": "20f5e450c71fdf960ec9b344cd0056bc35a9b2f594d7a970c5f26b7f75f1ba70",
+    "references/derivation.json": "a220281728dab456cc8e6ad5266eb4491c39994b633ca5c347adf1fb5057e105",
+    "references/recording-rules.md": "b20187d7f4f4254b2817903daf8da8f9c7604b1a3466c98deafb1b0bec1c7337",
+    "references/sources.md": "f30a29b9c13bfca7c056d5e130a68fc266891543e21162554f9ddb9eabb90803"
+  },
+  "duplicate_note": "evals/fixtures/QA-014.md and evals/fixtures/stale/preserved/QA-014.r1.md are deliberately identical bytes: the preserved copy is what a correct staleness repair points at when revision 2 supersedes revision 1.",
+  "installed_copy": "Not generated. A project-local installation or a plugin export is an integration-owner action and would produce its own manifest.",
+  "producer_skill_revision_note": "For an artifact this package later produces, producer.skill_revision is the digest of the installed SKILL.md file's bytes - the SKILL.md entry above is the source file's digest, and an installed copy preserves content bytes, so they coincide where installation copies the file unchanged. Say which one you have.",
+  "candidate_revision": "correction 1, on top of repair pass 1. The immediately prior candidate is commit 66d8dbad7c211ce1cba208cb09600a80997c5d74 (repair pass 1, SKILL.md b4ac89032c8b17ee6d201033290833c1498e06952f5885e80b331b50629112fe); the candidate before that is commit dd1ae32b12ea209e71dbe338ab76bcbabd721e2e, 24 files, whose complete manifest is retained in git at that commit and in the evaluator's frozen record under validation/scaffold-review/verification-results.md. A changed candidate is a new identity and needs new matching evidence.",
+  "changed_in_repair_pass_1": {
+    "SKILL.md": {
+      "before": "7b7796d4cfef18f9c7734f6cb8219d627c61abd7f5ce1fab0da642919411a51f",
+      "after": "b4ac89032c8b17ee6d201033290833c1498e06952f5885e80b331b50629112fe"
+    },
+    "evals/cases.jsonl": {
+      "before": "c5e415614caee682aa81f56458a923e8bb18360ddf862c0cb7d805197c0f1fa0",
+      "after": "6c3535b1ba870ea0154feca5063f9be61c296e58be1945526129bef535e9bae8"
+    },
+    "evals/evals.json": {
+      "before": "d48e13d5f7e00b7e280f0ed93ae4c97f57bae49258ddffe88b45871bef705785",
+      "after": "17e1f0d45eb4161d5bac4196ac22382ea8f0c1f39a1b864c32c1a7defc0a3697"
+    },
+    "evals/fixtures/README.md": {
+      "before": "d9487a17f22bc9303f2c07fc940a3cf6a95a91d7741e2391815f6420eee062b0",
+      "after": "a251dbb9c45633a447d5cc57ac433e529fd28e14d2d1f2be1ff050175f685a67"
+    },
+    "evals/fixtures/good/REL-008.md": {
+      "before": "c20f59e57eae506dc846ac29b69d506695163c129e012880b488aba1b18012cb",
+      "after": "d4062862a01a7e94e8907c8dadd49a126eabefbb012d5c8b9cbc4b4e74c78f47"
+    },
+    "evals/fixtures/injected-authority/QA-015.md": {
+      "before": "absent (new file)",
+      "after": "fbcf899770db83079f1452bf6ac8bddb08821cd26e849fbade85afb99446310a"
+    },
+    "references/derivation.json": {
+      "before": "9bc835eff901217c0a071cd2ccf9c6a1c504f0a6fead12830d5022c9bd977b6b",
+      "after": "a220281728dab456cc8e6ad5266eb4491c39994b633ca5c347adf1fb5057e105"
+    },
+    "references/recording-rules.md": {
+      "before": "43dcf6c27e61a3d5dea009606cb0354485ada2ea6a7633649ce9b12303429408",
+      "after": "b20187d7f4f4254b2817903daf8da8f9c7604b1a3466c98deafb1b0bec1c7337"
+    },
+    "references/sources.md": {
+      "before": "79ff05226e099c6f067a660a775a648b98692c554f0611283c6111252fe4acdc",
+      "after": "f30a29b9c13bfca7c056d5e130a68fc266891543e21162554f9ddb9eabb90803"
+    }
+  },
+  "changed_in_repair_pass_1_note": "The before/after digests above record what repair pass 1 produced at commit 66d8dbad7c211ce1cba208cb09600a80997c5d74. They are history and were not rewritten by correction 1; the SKILL.md 'after' value there is therefore the pre-correction digest, not the current one. The current digest for every path is the files_sha256 map above.",
+  "changed_in_correction_1": {
+    "recorded_at_utc": "2026-09-11T00:08:30Z",
+    "authorization": "The coordinator's codex-review disposition of 2026-09-10.",
+    "scope": "One line of one file. SKILL.md line 3's description value was an unquoted YAML plain scalar containing ': ', which PyYAML 6.0.3 safe_load rejects with ScannerError 'mapping values are not allowed here'. The value is now wrapped in double quotes. The description text is byte-identical - 1,016 characters, verified equal to the prior raw scalar text - and the document body after the frontmatter is byte-identical.",
+    "SKILL.md": {
+      "before": "b4ac89032c8b17ee6d201033290833c1498e06952f5885e80b331b50629112fe",
+      "after": "7498e37c96f80454afdcb2bd6786422c88f9188136e77136ca6a659fcd225b71"
+    },
+    "no_other_package_file_changed": "Every other entry in files_sha256 is unchanged from repair pass 1. references/derivation.json was checked and records no digest for SKILL.md - SKILL.md appears there only under not_derived, with a note and no hash - so it needed no update and was not edited.",
+    "identity_note": "This is a new candidate identity. Tiers C, B and A remain NOT_RUN and behaviour remains NOT_EVALUATED; the correction closes no finding and produces no evaluation evidence.",
+    "superseded_reference": "authoring/handoff.md line 104 is a delivered receipt for the repair-pass-1 candidate and still names b4ac8903...; it was deliberately left unmodified. The frozen evaluator records under validation/ likewise still name the pre-correction digest and are outside this correction's fence. Details in authoring/correction-1.md."
+  }
+}

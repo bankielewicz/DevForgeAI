@@ -1,0 +1,155 @@
+{
+  "skill_name": "devforge-release",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults the skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomized per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
+  "status": "Authored, not executed. Tier A is NOT_RUN: no installed package, no fresh terminal, no consultation trace.",
+  "queries": [
+    {
+      "id": "A1a",
+      "category": "explicit_invocation",
+      "query": "Use the devforge-release skill to prepare the PR for this candidate.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A1b",
+      "category": "explicit_invocation",
+      "query": "Run devforge-release on QA-014.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A2a",
+      "category": "direct_domain",
+      "query": "Use DevForgeAI to prepare the PR and release record for this candidate.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2b",
+      "category": "direct_domain",
+      "query": "The review came back ready. Can you write the PR title and body, and the release notes?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A2c",
+      "category": "direct_domain",
+      "query": "I need a release record for the change we just reviewed - draft it, don't open anything.",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A3a",
+      "category": "indirect",
+      "query": "Package this accepted change for delivery, including recovery and verification.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3b",
+      "category": "indirect",
+      "query": "QA-014 says this is ready. What would have to be true before it could actually go out?",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3c",
+      "category": "indirect",
+      "query": "We're shipping this on Friday and there's a schema change in it. I want the rollback written down somewhere before then, not worked out on the night.",
+      "should_trigger": true,
+      "split": "train"
+    },
+    {
+      "id": "A3d",
+      "category": "indirect",
+      "query": "Someone's going to ask me on Monday what went out and how we know it worked. Can you put that together from what's in docs/devforge?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A3e",
+      "category": "indirect",
+      "query": "I opened the PR this morning and merged it. Nothing's written down about it anywhere - can you sort that out?",
+      "should_trigger": true,
+      "split": "validation"
+    },
+    {
+      "id": "A4a",
+      "category": "negative_failed_review",
+      "query": "The review came back with two blockers. Can you go through them and tell me whether this is actually ready?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A4b",
+      "category": "negative_failed_review",
+      "query": "Is this change ready, and what evidence supports that conclusion?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A5a",
+      "category": "negative_fix_requirement",
+      "query": "AC-2 is failing - exports requested before the window change come back short. Fix it.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A5b",
+      "category": "negative_fix_requirement",
+      "query": "Implement STORY-041 and show me the failing test before the implementation passes.",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A6a",
+      "category": "negative_change_assessment",
+      "query": "The upstream library shipped a breaking change in 3.0. What does that invalidate for us?",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A6b",
+      "category": "negative_change_assessment",
+      "query": "A customer wants the retention window to apply to exports too. What would that change?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A7a",
+      "category": "negative_deployment_question",
+      "query": "Did this actually deploy? Check prod-1 for me.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A7b",
+      "category": "negative_deployment_question",
+      "query": "The retention job hasn't run since last night. Something's wrong on the box - can you look?",
+      "should_trigger": false,
+      "split": "validation"
+    },
+    {
+      "id": "A8a",
+      "category": "negative_ordinary_task",
+      "query": "Write release notes for the blog post about our new pricing.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A8b",
+      "category": "negative_ordinary_task",
+      "query": "Squash the last three commits on this branch and rewrite the messages.",
+      "should_trigger": false,
+      "split": "train"
+    },
+    {
+      "id": "A8c",
+      "category": "negative_ordinary_task",
+      "query": "Summarize what changed in this diff.",
+      "should_trigger": false,
+      "split": "validation"
+    }
+  ]
+}
