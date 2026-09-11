@@ -502,7 +502,7 @@
     },
     {
       "destination": "assets/completion-summary.md",
-      "destination_sha256": "9b7b1d5acae370168b96ab4b247da223e77677f2d718899acb08388102901a3c",
+      "destination_sha256": "ac9cd338be373944c290b83697a43c0231ea9712cf32c01b3ae25eedb0a20970",
       "kind": "asset: authored in-package output template",
       "sources": [
         {
@@ -531,7 +531,7 @@
     },
     {
       "destination": "references/phase-mapping.md",
-      "destination_sha256": "6884f876c99758e690d6a0fed0a757e4afbb145a4587b4c0cb57be7f04a4a37e",
+      "destination_sha256": "e8110482bae738953be4f2703658aa6fe5c19a110428a3303ac64e2b3747c75f",
       "kind": "reference: authored in-package maintenance record for this package's own refactor",
       "sources": [
         {
@@ -694,6 +694,21 @@
       "references/phase-mapping.md records the added save obligation as an addition rather than a relocation, and Option B's justification now says the saving half sits in the Enforced phase that produces each route's record rather than in phase 05 alone."
     ],
     "claims_not_made": "A repair record identifies which bytes changed. The review observed source and packaging only; behaviour remains NOT_EVALUATED and every authored eval case remains NOT_RUN."
+  },
+
+  "pr23_minor_wording_repair": {
+    "base_revision": "2716eaf7c9a209b7883b4ea356bb8947cb63a198",
+    "review": "review-ai-pr23-2716eaf/review-report.md; findings F1-F3",
+    "changes": [
+      "F1: distinguish accepted requirements from the proposed unknown-field rule in the draft-ready example.",
+      "F2: distinguish untouched candidate files from the saved assigned intake/selection record; preserve the collision and no-bypass boundary.",
+      "F3: no separately bound presentation-completion artifact is required; retained client history is not a runtime receipt."
+    ],
+    "prior_destination_sha256": {
+      "references/phase-mapping.md": "6884f876c99758e690d6a0fed0a757e4afbb145a4587b4c0cb57be7f04a4a37e",
+      "assets/completion-summary.md": "9b7b1d5acae370168b96ab4b247da223e77677f2d718899acb08388102901a3c"
+    },
+    "claims_not_made": "Wording repair only; prior packaging and inherited structural-blocker evidence remain scoped to their recorded bytes. No native evaluation, installation, new gate or phase classification."
   },
 
   "self_reference_note": "This file does not carry its own digest. It is hashed by the candidate's file manifest like every other package file, and no entry above records a digest of this record.",
