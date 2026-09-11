@@ -59,6 +59,8 @@ An enforcement request and a recorded enforcement requirement are both still des
 
 Map each accepted change to its findings and requirement IDs, then make focused edits to the canonical source. Preserve unrelated behaviour, resources, identities and invocation policy. Keep the prior bytes and the prior reports available; the edited bytes are a new candidate with its own identity.
 
+When an authorised change relocates instructions rather than rewriting them - an inline workflow moving into `phases/`, content moving between files - record the mapping as part of the change: old section to new location, and every sentence whose behaviour was omitted or changed, named explicitly. A finding written against a section that has moved still applies to the instruction, wherever it now lives; re-point the reference, do not drop the finding. A link that now resolves somewhere else is a changed behaviour and is recorded as one.
+
 Update the working specification only for an authorised clarification or enhancement. Preserve the former specification identity - changed specification bytes need a new revision, not a silent rewrite of the accepted one.
 
 Do not edit an installed copy as if it were the source. Source changes go back to the integration owner, who regenerates the installation or export. A file existing, or hashing correctly, establishes neither activation nor quality.

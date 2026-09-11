@@ -32,12 +32,15 @@ Read filenames and the `name`/`description` metadata first to shortlist, then re
 | Scope | Work included, work excluded, and who owns each. |
 | Inputs and outputs | Required context and access; the artifacts actually delivered. |
 | Process | The essential steps, decisions and rules. |
+| Behaviour | What it actually does with a representative request, read from its instructions - not run. |
 | Runtime | Provider, tools, environment, dependencies. |
 | Authority | Governing specification, durable source, assignment and integration owner. |
 
 A shared name, role or toolset does not establish duplication. A general-purpose creator skill is relevant when the requested target is an authoring workflow, and is not a duplicate of every skill it could produce. A framework utility can be genuinely distinct from a roster skill when their outcomes, scope or authority differ - which does not authorise adding it to the accepted roster or changing a sibling gate.
 
-For a project expert specifically, the comparison that matters is whether an existing expert already carries the decisions and versions this story needs. Overlapping subject matter is not enough: an expert for the same subsystem built against a superseded architecture rule is a refresh candidate, not a reuse candidate.
+**Cross-provider equivalents are not duplicates.** The Claude and Codex packages of the same framework skill are intentional provider implementations with separately tracked behaviour, and the authoring contract gives them separate canonical sources. A Codex package existing is not a reason to delete, merge or re-point the Claude one, nor evidence that the Claude one is redundant - and it is not yours to edit unless you were assigned that provider. Compare within your assigned provider to decide reuse, enhancement or creation; record the other provider's equivalent as context, with its path, and leave it alone. Where the two have diverged, that is a fact for the report, not a defect to fix here.
+
+For a project expert specifically, the comparison that matters is whether an existing expert already carries the decisions and versions this story needs. Overlapping subject matter is not enough: an expert for the same subsystem built against a superseded architecture rule is a refresh candidate, not a reuse candidate. For a framework workflow skill, the equivalent question is whether an existing skill in the same provider's roster already owns this workflow and could absorb the gap without blurring its activation.
 
 ## Choosing
 
