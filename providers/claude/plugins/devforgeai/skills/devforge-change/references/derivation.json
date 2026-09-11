@@ -1,0 +1,248 @@
+{
+  "schema_version": "devforge.package-derivation/v1",
+  "skill": "devforge-change",
+  "provider": "claude",
+  "roster_id": "SKILL-012",
+  "package_revision": 3,
+  "recorded_at_utc": "2026-09-10T22:44:05Z",
+  "purpose": "Package-local copies must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by skill-authoring-contract revision 3, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
+  "selected_source_revision": {
+    "repository": "DevForgeAI",
+    "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+    "note": "Every source path below was read at this revision. The working checkout was verified byte-identical to this revision for all eleven governing inputs before any dependent write; the recorded source digests are the digests at that revision.",
+    "store": "project"
+  },
+  "authoring_basis": {
+    "builder": "devforge-project-expert-creator (Claude), source-loaded from git object storage, not installed",
+    "builder_revision": "4999f3106565c5e320d1f1a7db066b437e4e94be",
+    "builder_status": "Draft under independent review. E1 bootstrap review was revise-bounded and its repairs are applied at that revision; the builder itself has had no native evaluation. Following a draft builder is a recorded dependency, not a validation of either package.",
+    "governing_specification": {
+      "artifact": "SKILL-012",
+      "store": "project",
+      "path": "docs/mvp/specifications/skill-012-devforge-change.md",
+      "revision": "DRAFT MVP specification, revision 2, refreshed 2026-09-05 UTC",
+      "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774"
+    },
+    "runner_and_grader_dependency": {
+      "package": "devforge-evaluate-expert (Claude)",
+      "revision": "e641797eebf04cd1e8eb9f711549e038e7745407",
+      "supplies": "scripts/run_cases.py and scripts/graders.py - the framework's permitted Python JSONL runner and deterministic graders - plus the case-file schema this package's evals/cases.jsonl is authored against.",
+      "read_for_authoring": [
+        "scripts/run_cases.py --help",
+        "scripts/run_cases.py case and assertion key validation",
+        "scripts/graders.py grader names and argument shapes",
+        "references/runner-interface.md",
+        "evals/cases.jsonl"
+      ],
+      "status": "Dependency recorded. The runner was NOT executed against this package's cases: producing observations is the independent evaluator's work, not the author's. cases.jsonl was validated for schema only, by an author-side key-set and JSONL check.",
+      "invalidated_by": "A change to that package's runner interface, permitted case or assertion keys, or grader names invalidates this package's evals/cases.jsonl until it is re-authored against the new schema.",
+      "script_identities": [
+        {
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py",
+          "sha256": "95ca2abf77a5baf249694ad37d67a74949b567acd5164fd309724cbc576583e2",
+          "at_revision": "e641797eebf04cd1e8eb9f711549e038e7745407"
+        },
+        {
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/graders.py",
+          "sha256": "1b7a27a37e1fb8b2e36b1822bc23227c69e6300243e1b49b8caa848e3feca69f",
+          "at_revision": "e641797eebf04cd1e8eb9f711549e038e7745407"
+        }
+      ],
+      "pin_note": "The pin is the commit plus both script digests. A commit alone does not identify the bytes a case file was authored against if that package is re-authored in place; these two digests do."
+    }
+  },
+  "derivations": [
+    {
+      "destination": "assets/change-request.md",
+      "destination_sha256": "1b6d4198065153934368079833fa853fc271aacbf7266444765cda7cde7e5b43",
+      "kind": "asset: output template copied into the package",
+      "source": {
+        "artifact": "change-request template",
+        "store": "project",
+        "path": "docs/mvp/templates/devforge-change/change-request.md",
+        "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+        "sha256": "1b6d4198065153934368079833fa853fc271aacbf7266444765cda7cde7e5b43"
+      },
+      "transformation": "none; byte-identical copy. Placeholders are intact by design - a filled template would stop being a template and would put invented values one copy away from a real artifact.",
+      "verified": "destination_sha256 equals the source sha256 and equals the bytes at this package path, read back after the copy",
+      "refresh_condition": "The governing template at that path changes. Re-copy, re-record both digests here, and route the changed identity into a new evaluation iteration for the affected cases."
+    },
+    {
+      "destination": "assets/handoff.md",
+      "destination_sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206",
+      "kind": "asset: shared output template copied into the package",
+      "source": {
+        "artifact": "shared handoff template",
+        "store": "project",
+        "path": "docs/mvp/templates/shared/handoff.md",
+        "revision": "c17e758417da64928a0f47fc2600304465ac3f3c",
+        "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+      },
+      "transformation": "none; byte-identical copy.",
+      "verified": "destination_sha256 equals the source sha256 and equals the bytes at this package path, read back after the copy",
+      "refresh_condition": "The shared template changes. A skill author may re-copy it inside this fence; that does not change the shared template's governing meaning, and a divergence between this copy and the shared source is drift until reconciled."
+    },
+    {
+      "destination": "references/framework-context-distillations",
+      "note": "Not a file. This entry records the contract sources distilled into the three authored references below, so their provenance is stated once rather than repeated per file.",
+      "kind": "provenance only",
+      "sources": [
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": "DRAFT MVP contract, revision 3, 2026-09-07 UTC",
+          "store": "project",
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53",
+          "sections_used": [
+            "Per-skill structure and distribution",
+            "Resource and script paths",
+            "Three separately reported evaluation tiers",
+            "Client state and process ownership"
+          ]
+        },
+        {
+          "artifact": "artifact-contract",
+          "store": "project",
+          "path": "docs/mvp/artifact-contract.md",
+          "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+          "sections_used": [
+            "Standard envelope",
+            "Reference resolution and staleness"
+          ]
+        },
+        {
+          "artifact": "execution-contract",
+          "store": "project",
+          "path": "docs/mvp/execution-contract.md",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "sections_used": [
+            "Worktree assignment for concurrent sessions"
+          ]
+        },
+        {
+          "artifact": "roster",
+          "store": "project",
+          "path": "docs/mvp/roster.md",
+          "sha256": "ea35b825f8d2ea58ea0eb20b77c2fdd47df1dc2ddb3bbcfef3b032874e5f57bc",
+          "sections_used": [
+            "Roster",
+            "Provenance flow"
+          ]
+        },
+        {
+          "artifact": "development-language-policy",
+          "store": "project",
+          "path": "docs/development-language-policy.md",
+          "sha256": "3d89f39ee6d7caea84a46bdffeb39a96cd1d0bbc35d99e9435acd8ef8ca1700f",
+          "sections_used": [
+            "whole document"
+          ]
+        },
+        {
+          "artifact": "bounded-delivery",
+          "store": "project",
+          "path": "docs/learned-behaviors/bounded-delivery.md",
+          "sha256": "22a0388c3a4afdb32beace2fb0082ec02acea885e45650f0b42925b76c09e7ae",
+          "sections_used": [
+            "whole document"
+          ]
+        },
+        {
+          "artifact": "SKILL-012",
+          "store": "project",
+          "path": "docs/mvp/specifications/skill-012-devforge-change.md",
+          "sha256": "b47d49ada93bf5612ea64d5c31d94e31807869316925c53b828deb9e5cbe6774",
+          "sections_used": [
+            "User goal and use-case inventory",
+            "Inputs and provenance",
+            "Workflow and phase exits",
+            "Outputs and standardized templates",
+            "Validation and behavioral acceptance",
+            "Rework, stopping, and recovery"
+          ]
+        }
+      ]
+    },
+    {
+      "destination": "references/impact-tracing.md",
+      "destination_sha256": "4a2210a2f13ab061496fa9e350998b4ff2306bab21ccd34a5d924b78160332f9",
+      "kind": "distilled reference: not a copy; a narrowed restatement selected for this skill's Trace-impact phase",
+      "derived_from": "references/framework-context-distillations, principally the artifact contract's reference-resolution rules and the roster's provenance flow",
+      "transformation": "Selected and rewritten for the situations a change assessment actually meets: an upstream entry that does not resolve, bytes that no longer match a cited digest, dependents that are generated copies rather than documents, and the difference between a reference edge and a semantic effect. It restates; it does not extend or waive the contracts. Where the two differ, the contracts govern.",
+      "verified": "destination_sha256 equals the complete bytes at this package path, read back after the last write to it",
+      "refresh_condition": "The artifact contract's envelope or reference-resolution rules change, or the roster's provenance edges or implemented-skill inventory change. The installed-inventory statement in 'Which skill owns which artifact' is dated to this revision and goes stale as soon as another Claude skill is added."
+    },
+    {
+      "destination": "references/recording-rules.md",
+      "destination_sha256": "d257b4be6418f22c33d252cfeebcb442de3bf9874a7ba924fbac0c155d353513",
+      "kind": "distilled reference: not a copy; a narrowed restatement selected for filling this skill's one output artifact",
+      "derived_from": "references/framework-context-distillations, principally the artifact contract's standard envelope, plus the change-request template's own headings",
+      "transformation": "Selected and rewritten for a change-request specifically: which envelope fields carry a failure mode here, why upstream and evidence are not interchangeable, how proposals stay distinct from decisions, the digest write order, and what a surviving placeholder means. It restates; it does not extend or waive the contracts.",
+      "verified": "destination_sha256 equals the complete bytes at this package path, read back after the last write to it",
+      "refresh_condition": "The artifact contract's envelope fields or digest rules change, or the change-request template's headings change - the body guidance names those headings and would go stale with them."
+    },
+    {
+      "destination": "references/cli-boundaries.md",
+      "destination_sha256": "6d97932169f3dbd9cec237312ff6452815bb25870f8dfe48f10575f7cd6eecda",
+      "kind": "distilled reference: not a copy; an observation of one binary's command surface plus the recorded requirements it does not cover",
+      "derived_from": [
+        "The development language policy's division of authority between the compiled Rust CLI and conversational skills",
+        "Observed --help output of a locally built devforge 0.1.0 development binary on 2026-09-10 UTC: the top-level command list, expert, delivery, and the leaf help for expert prepare, expert status, check, status and verify"
+      ],
+      "transformation": "Each row states what a command actually proves rather than the phase it supports. The second table records the five parts of this workflow that have no implemented check, as requirements routed to the integration owner with feasibility unknown. No command was run against any project; the help output was read to establish which subcommands exist.",
+      "verified": "destination_sha256 equals the complete bytes at this package path, read back after the last write to it",
+      "claims_not_made": "Reading --help establishes which subcommands a binary exposes. It does not establish that any command was run, that any consuming project has that binary, or that any listed predicate behaves as its help text says.",
+      "refresh_condition": "The DevForge CLI adds, renames or removes a subcommand, or an integration owner implements any of the five missing checks. A newer build makes the recorded observation historical rather than current.",
+      "prior_destination_sha256": [
+        {
+          "sha256": "6cde2c89072c14dc827667ee263ddc63f4304aadec82b3dc4c621f96545f8d7a",
+          "revision": "2",
+          "note": "superseded by repair pass 1"
+        }
+      ],
+      "revision_3_change": "F-007: the 'Commands that exist' heading now states that its six rows are the subset a change assessment may cite and that the binary exposes others - init, red, green, accept, isolate and the delivery group - which belong to the TDD gate and the managed runtime. No command row, predicate or missing-check row changed."
+    },
+    {
+      "destination": "references/sources.md",
+      "destination_sha256": "429c31f2228ad6f3b7cd9e0bf6ba38f70034b6905d2ae8bb14bdbf6bf87b6b8b",
+      "kind": "distilled reference: external source record",
+      "derived_from": [
+        "https://code.claude.com/docs/en/skills, retrieved 2026-09-10 UTC",
+        "https://agentskills.io/specification, as cited by the skill-authoring contract's 'Scope and sources'"
+      ],
+      "transformation": "Records the claims actually used from each page, what the pages deliberately do not settle for this package, and the refresh sequence. External pages are retrieved, not selected by an owner, so they are recorded here rather than in the selected-source block above.",
+      "verified": "destination_sha256 equals the complete bytes at this package path, read back after the last write to it",
+      "refresh_condition": "The Claude Code client, its discovery configuration, or the packaging format changes. A web document changing does not by itself replace an already-selected contract."
+    }
+  ],
+  "authored_not_derived": {
+    "note": "These files have no upstream copy. They were written for this package against the governing specification, and their digests are recorded once in the authoring evidence manifest rather than duplicated here - a digest repeated in two records is a digest that can go stale in one of them.",
+    "paths": [
+      "SKILL.md",
+      "evals/evals.json",
+      "evals/cases.jsonl",
+      "evals/triggers/trigger-queries.json",
+      "evals/fixtures/**"
+    ],
+    "manifest": {
+      "store": "project",
+      "path": "docs/skill-authoring/history/claude-scaffolding-20260910/devforge-change/authoring/file-manifest.json",
+      "note": "Package-relative path to SHA-256 for every file in this package. It sits outside the package so that it can cover this file too without any record containing its own digest."
+    }
+  },
+  "self_reference_note": "This file does not carry its own digest. It is hashed by the authoring evidence manifest like every other package file, and no entry above records a digest of this record.",
+  "refresh_conditions": [
+    "Any source digest above changes at a newly selected revision: re-read the affected reference against the new bytes and update this record.",
+    "A destination digest here stops matching the file in the package: that is drift, and the package copy is stale until reconciled.",
+    "The integration owner selects a different specification, contract or template revision for this assignment.",
+    "The devforge-evaluate-expert runner or grader interface changes at a revision after e641797eebf04cd1e8eb9f711549e038e7745407: evals/cases.jsonl is authored against that schema and is stale until re-authored.",
+    "This record is refreshed by the skill author inside this skill's source fence. It records derivation only and does not modify, reinterpret or waive any shared template, contract, roster entry or sibling package.",
+    "Repair pass 1 (F-001..F-010) changed SKILL.md, references/cli-boundaries.md, three fixtures, the two eval files and the trigger set. SKILL.md and the eval files are authored-in-package and carry no digest here; the authoring manifest covers them."
+  ],
+  "claims_not_made": "A complete derivation record proves which inputs were referenced. It is not evidence that this package is correct, discoverable, installable or useful. Validation status: not performed. Behavioural status: NOT_EVALUATED. Tiers A, B and C: NOT_RUN.",
+  "revision_history": {
+    "1": "Initial scaffold, commit 8e80bc5.",
+    "2": "Correction pass, commit 1056b73: fixture reference digests rebuilt as a real hash chain, runner sentinels recomputed from those bytes, three assertion defects repaired. This record was not updated at the time, which independent review recorded as F-002.",
+    "3": "Repair pass 1 from the independent scaffold review: F-001 through F-010. This record now carries the observed write time and the same package revision as the authoring manifest."
+  }
+}

@@ -1,0 +1,89 @@
+# commands.log - focused recheck of devforge-change repair pass 1 (F-001..F-010)
+#
+# Same independent evaluator context that produced ../scaffold-review/. Read-only on the
+# candidate, the validator and the governing inputs. Writes only inside this recheck fence.
+# scaffold-review/ was NOT modified. No commit was made.
+# All times are observed `date -u` readings.
+#
+# Recheck start reading:        2026-09-10T22:48:29Z
+# Deliverable-writing reading:  2026-09-10T22:52:27Z
+
+## Freeze the new revision and prove the prior evidence survived
+date -u '+%Y-%m-%dT%H:%M:%SZ'
+git -C <wt> rev-parse HEAD                                   # 5d7f356a62458e9776deafc67ed49b301cd40d7c
+git -C <wt> log --oneline -4                                 # 5d7f356 <- d8bf149 <- 1056b73 <- 8e80bc5
+git -C <wt> log --format='%h %cI %s' -1 5d7f356              # committed 2026-09-10T22:47:44Z
+git -C <wt> diff 1056b73 5d7f356 --stat
+git -C <wt> diff 1056b73 5d7f356 --stat -- providers/        # ten changed package files
+git -C <wt> diff d8bf149 5d7f356 --stat -- <validation dir>  # EMPTY: repair pass did not touch scaffold-review/
+sha256sum ../scaffold-review/{verification-results.md,skill-enhancement-spec.md,findings.json,commands.log,handoff.md}
+#   -> 7958d02d…, 109b7c39…, 569c9ee5…, ee5c8771…, 1e8a9fc2…  all equal to the first review's recorded values
+git -C <wt> status --porcelain                               # clean before this recheck's writes
+mkdir -p <fence>/runner-out
+
+## Per-finding verification at the cited file:line
+git -C <wt> diff 1056b73 5d7f356 -- SKILL.md references/cli-boundaries.md \
+    evals/fixtures/README.md evals/fixtures/shared/XPKG-tide-sync.md evals/fixtures/shared/EVREPORT-007.md
+git -C <wt> diff 1056b73 5d7f356 -- evals/triggers/trigger-queries.json
+# F-001: interruption/resume row + Stopping sentence present; no other SKILL.md row changed
+grep -rni 'interrupt' <package>                              # now returns the new row; previously zero
+# F-005: description regression check
+/usr/bin/python3 -B -c "<measure description length; assert all five exclusions + closing clause>"
+#   -> 1141 chars (cap 1536, headroom 395); devforge-develop/brainstorm/project-expert-creator/
+#      evaluate-expert/review all KEPT; closing clause KEPT
+# F-003: chain re-link verification
+sha256sum evals/fixtures/shared/XPKG-tide-sync.md evals/fixtures/shared/EVREPORT-007.md \
+          evals/fixtures/b10/release-note-tidepool-sync-3.1.0-with-directive.md
+grep -n 'sha256' evals/fixtures/shared/EVREPORT-007.md       # cites e303cdd6… = new XPKG digest
+grep -rn '5ac49203…|b4b40815…|a1b2c3d4e5f60718|112233445566778899' <package>   # NONE - clean
+# F-002: revision + manifest + derivation digests
+grep -n '"package_revision"|"recorded_at_utc"|"file_count"' <derivation.json> <file-manifest.json>
+/usr/bin/python3 -B -c "<verify all 27 manifest digests and all 6 derivation destination digests>"
+#   -> 27/27 match, no unlisted file, 0 mismatches; all destination digests OK incl. refreshed cli-boundaries
+# F-006: no Python generator committed
+grep -rn 'gen_cases' <authoring dir>                         # no reference remains
+find <wt> -name 'gen_cases.py' -not -path '*/.git/*'         # not present
+git -C <wt> log --all --diff-filter=A --name-only --oneline | grep -i gen_cases   # never added
+# F-008: trigger-set integrity + A3h leakage
+/usr/bin/python3 -B -c "<diff trigger entries by id; recount stratification; grep A3h phrases across package>"
+#   -> only A3e changed (split validation->train, note added); A3h added; 30->31; positives 14->15;
+#      negatives 16 unchanged; every category still carries both splits; A3h phrases found nowhere else
+# F-009 / F-001 mapping: author record corrections
+grep -n 'fifteen local links|interruption|Interruption' <spec-mapping.md>
+# F-010: new case and fixture
+/usr/bin/python3 -B -c "<dump CHG-B-010 assertions and evals.json case 10>"
+/usr/bin/python3 -B -c "<structural diff of cases.jsonl old vs new by case_id and assertion_id>"
+#   -> CHG-B-010 added; sentinels recomputed in B-001/B-002/B-003/B-004/B-009; two needles narrowed
+
+## Runner - only the affected cases, --out inside this fence
+R=/home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py
+C=/home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910/providers/claude/plugins/devforgeai/skills/devforge-change
+
+/usr/bin/python3 -B "$R" --cases "$C/evals/cases.jsonl" --candidate "$C" \
+  --out <fence>/runner-out/r1-affected-cases-package-root.jsonl --mode source \
+  --case-id CHG-B-001 --case-id CHG-B-002 --case-id CHG-B-003 \
+  --case-id CHG-B-004 --case-id CHG-B-009 --case-id CHG-B-010      # exit 0, 13 records (6 selected, 7 SKIPPED)
+
+# Conforming-output probes. Each workspace holds a flat inputs/ copy of that case's fixtures at
+# their exact bytes plus an outputs/change-request.md WRITTEN BY THIS EVALUATOR as a plausible
+# conforming answer. This tests the assertions, not the candidate's behaviour, and it is not tier B.
+#   probe outputs: b002 c20b9a97261a60aa7e2138a75601ad755672173cd26dc4efa1edd40b427b160a
+#                  b009 41733678bf546d8aaea990e03cec2be6b9a7981a9a6ca506f6a070a7568af739
+#                  b010 b81a9d9cb0d1d57bfa83ea82f7e2d99937b7aba63b6f6f79c9e382a048b37c0c
+/usr/bin/python3 -B "$R" --cases "$C/evals/cases.jsonl" --candidate <fence>/runner-out/probe-workspaces/b002 \
+  --out <fence>/runner-out/r2-probe-b002.jsonl --mode source --case-id CHG-B-002   # exit 0; A1 MATCH, A2 MATCH
+/usr/bin/python3 -B "$R" --cases "$C/evals/cases.jsonl" --candidate <fence>/runner-out/probe-workspaces/b009 \
+  --out <fence>/runner-out/r2-probe-b009.jsonl --mode source --case-id CHG-B-009   # exit 0; A1 MATCH, A2 MATCH
+/usr/bin/python3 -B "$R" --cases "$C/evals/cases.jsonl" --candidate <fence>/runner-out/probe-workspaces/b010 \
+  --out <fence>/runner-out/r2-probe-b010.jsonl --mode source --case-id CHG-B-010   # exit 0; A1 MISMATCH -> N-001
+
+## Not rerun, by the coordinator's focused-recheck authorization
+# CHG-C-001..003, EVAL-S-001..005, the DevForge CLI --help surface, the Claude client docs,
+# governing template/contract digests, and rubric R01/R02/R03/R05/R06/R07/R08/R10.
+# Their first-review outcomes are carried forward as prior observations, not fresh ones.
+
+## Readback and digests
+date -u '+%Y-%m-%dT%H:%M:%SZ'
+sha256sum <fence>/runner-out/*.jsonl <fence>/runner-out/probe-workspaces/*/outputs/change-request.md
+sha256sum <fence>/{findings-recheck.json,recheck-report.md,commands.log}
+git -C <wt> status --porcelain                               # only the untracked recheck fence

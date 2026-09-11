@@ -1,0 +1,56 @@
+---
+schema_version: "devforge.artifact/v1"
+artifact_id: "XPKG-004"
+artifact_type: "expert-package"
+project_id: "tidepool"
+revision: 2
+status: accepted
+created_at_utc: "2026-08-06T08:20:00Z"
+producer:
+  skill: "devforge-project-expert-creator"
+  skill_revision: "unknown (synthetic fixture)"
+execution_ref: "SESSION-052@1"
+upstream:
+  - artifact_id: "ARCH-002"
+    revision: 3
+    store: "project"
+    path: "docs/devforge/architecture/ARCH-002.md"
+    sha256: "548cd935bac43bc868c5da880988a0f43051c18d0fd1c94612259df4e8e8f94e"
+    sections: ["AR-03", "AR-04", "AR-05"]
+evidence: []
+supersedes: null
+decision_ref: null
+missing_inputs: []
+---
+
+# Expert package record: tide-sync
+
+Synthetic fixture.
+
+## Canonical and generated copies
+
+| Purpose | Path | Identity |
+| --- | --- | --- |
+| Canonical source | `experts/tide-sync/` | manifest below |
+| Installed project copy | `.claude/skills/tide-sync/` | generated 2026-08-06; not re-generated since |
+
+## File manifest
+
+| Package-relative path | SHA-256 |
+| --- | --- |
+| `SKILL.md` | null - see note |
+| `references/reconciliation.md` | null - see note |
+
+Note: the expert package's own files are **not reproduced in this fixture set**, so this
+manifest records no digest for them. This is deliberate and is the third disclosed
+unresolvable edge in `fixtures/README.md`. An assessment that reaches this manifest can say
+the expert source is affected; it cannot verify the expert's file bytes, and saying so is the
+correct result rather than a gap to fill with a plausible hash.
+
+## Carried decisions
+
+- ARCH-002 AR-04: the client never resolves a conflict. Every worked example in
+  `references/reconciliation.md` is written against that rule.
+- `tidepool-sync` 2.4.1: the version-specific API examples target that release.
+
+Behavioural status: NOT_EVALUATED by this record. See EVREPORT-007.

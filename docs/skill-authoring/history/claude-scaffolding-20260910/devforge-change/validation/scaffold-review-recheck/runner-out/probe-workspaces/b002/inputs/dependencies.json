@@ -1,0 +1,11 @@
+{
+  "_fixture_note": "Synthetic. tidepool-sync is an invented package and these pins are invented.",
+  "project_id": "tidepool",
+  "approved": {
+    "python": "3.12",
+    "tidepool-sync": "2.4.1",
+    "psycopg": "3.2.1",
+    "pydantic": "2.9.2"
+  },
+  "policy": "Exact pins only. A newer release is a proposal for a controlled refresh under ARCH-002 AR-05."
+}

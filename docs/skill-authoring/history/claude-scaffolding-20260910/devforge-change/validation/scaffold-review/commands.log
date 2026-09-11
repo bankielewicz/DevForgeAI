@@ -1,0 +1,114 @@
+# commands.log - independent scaffold evaluation of devforge-change (SKILL-012)
+#
+# Evaluator: separately dispatched Claude Code evaluator context under a coordinator.
+# All times are observed `date -u` readings, not placeholders.
+# Rows marked [reconstructed] were run before this log file existed and are transcribed
+# from the session transcript; every later row was appended as it ran.
+# Every command below is read-only with respect to the candidate, the validator and the
+# governing inputs. The only writes are inside the assigned output fence.
+#
+# Session start reading:            2026-09-10T22:02:25Z
+# Deliverable-writing reading:      2026-09-10T22:24:55Z
+
+## P1 - freeze [reconstructed]
+date -u '+%Y-%m-%dT%H:%M:%SZ'
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 rev-parse HEAD
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 log --oneline -3
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 status --porcelain
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 ls-tree -r --name-only e641797eebf04cd1e8eb9f711549e038e7745407 -- providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910 rev-parse HEAD
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910 log --oneline -5
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910 status --porcelain
+# validator byte pin: working tree vs commit e641797, nine files, all EQUAL
+for f in scripts/run_cases.py scripts/graders.py references/ai-review-rubric.md references/results-contract.md references/runner-interface.md SKILL.md assets/verification-results.md assets/skill-enhancement-spec.md assets/handoff.md; do sha256sum "<validator>/$f"; git show e641797...:"<validator>/$f" | sha256sum; done
+# candidate manifest, 26 files
+find providers/claude/plugins/devforgeai/skills/devforge-change -type f | sort | xargs sha256sum
+# author evidence manifest, 5 files
+find docs/skill-authoring/history/claude-scaffolding-20260910/devforge-change -type f | sort | xargs sha256sum
+# governing inputs, current working tree of framework/DevForgeAI
+sha256sum docs/mvp/specifications/skill-012-devforge-change.md   # matched the packet digest
+sha256sum docs/mvp/templates/devforge-change/change-request.md docs/mvp/templates/shared/handoff.md docs/mvp/templates/skill-authoring/{evals.json,trigger-queries.json,evaluation-report.md} docs/mvp/skill-authoring-contract.md docs/mvp/artifact-contract.md docs/mvp/execution-contract.md docs/mvp/roster.md docs/development-language-policy.md docs/learned-behaviors/bounded-delivery.md
+# governing inputs at the candidate's selected base revision
+for p in <nine governing paths>; do git show c17e758417da64928a0f47fc2600304465ac3f3c:$p | sha256sum; done
+git diff --stat c17e758417da64928a0f47fc2600304465ac3f3c HEAD -- docs/mvp docs/development-language-policy.md docs/learned-behaviors   # empty
+# packaged asset copies vs governing templates
+diff docs/mvp/templates/devforge-change/change-request.md <candidate>/assets/change-request.md   # identical
+diff docs/mvp/templates/shared/handoff.md <candidate>/assets/handoff.md                          # identical
+mkdir -p <fence>/runner-out
+
+## P2 - deterministic observation
+# DevForge CLI surface, read-only --help only; no command run against any project
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge check --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge status --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge verify --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert status --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert prepare --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge expert bind --help
+/home/bryan/Projects/DevForge/framework/DevForge/target/debug/devforge --version        # devforge 0.1.0
+# package hygiene scans
+grep -rn '!`'  <candidate>              # none
+grep -rn '```!' <candidate>             # none
+grep -rniE 'codex|openai\.yaml|AGENTS\.md|subagent|\$ARGUMENTS' <candidate>   # none
+grep -rn 'docs/mvp' <candidate>         # provenance records only, no runtime prose
+grep -rnE '/home/|/Users/|~/' <candidate>   # none outside an external URL
+grep -rnoE '\]\([^)]+\)' <candidate>/SKILL.md <candidate>/references <candidate>/assets
+# frontmatter measurement: name 15 chars, description 1034 chars
+/usr/bin/python3 -B -c "<frontmatter length measurement over SKILL.md>"
+# fixture cross-digest resolution: 7 sha256 references, 5 resolve, 2 do not
+/usr/bin/python3 -B -c "<scan all 64-hex refs under evals/fixtures and resolve against fixture bytes>"
+# author file-manifest verification: 26/26 digests match actual bytes, no unlisted file
+/usr/bin/python3 -B -c "<verify file-manifest.json against candidate bytes>"
+# asserted report-field names vs the packaged template: none missing
+/usr/bin/python3 -B -c "<cross-check required_report_fields names against assets/change-request.md>"
+# sibling inventory at the candidate's base revision
+git -C <candidate worktree> ls-tree --name-only c17e758417da64928a0f47fc2600304465ac3f3c providers/claude/plugins/devforgeai/skills/
+find <candidate worktree> -name 'gen_cases.py' -not -path './.git/*'   # not present
+git -C <candidate worktree> log --all --diff-filter=A --name-only --oneline | grep -i gen_cases  # never added
+
+# authored the evaluator's own structural case file
+/usr/bin/python3 -B <inline script> > <fence>/runner-out/evaluator-cases.jsonl
+
+# the frozen runner, three runs, all exit 0
+/usr/bin/python3 -B /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910/providers/claude/plugins/devforgeai/skills/devforge-evaluate-expert/scripts/run_cases.py \
+  --cases     /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910/providers/claude/plugins/devforgeai/skills/devforge-change/evals/cases.jsonl \
+  --candidate /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910/providers/claude/plugins/devforgeai/skills/devforge-change \
+  --out       <fence>/runner-out/run1-candidate-cases-mode-installed.jsonl \
+  --mode installed                                                       # exit 0, 12 case records
+/usr/bin/python3 -B <same runner> --cases <same> --candidate <same> \
+  --out <fence>/runner-out/run2-candidate-cases-mode-source.jsonl --mode source      # exit 0, 12 case records
+/usr/bin/python3 -B <same runner> --cases <fence>/runner-out/evaluator-cases.jsonl --candidate <same> \
+  --out <fence>/runner-out/run3-evaluator-cases-mode-source.jsonl --mode source      # exit 0, 5 case records
+
+## P3 - independent review
+# reading only; no command. See verification-results.md for the independence limits.
+WebFetch https://code.claude.com/docs/en/skills    # fetched 2026-09-10; 1,536-character listing cap confirmed verbatim
+
+## P4 - native tiers
+# none attempted. No installed copy, no fresh terminal and no isolated workspace were
+# allocated to this assignment, and the packet forbids attempting an install.
+
+## P6 - write the results
+date -u '+%Y-%m-%dT%H:%M:%SZ'
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910 rev-parse HEAD    # still 1056b73
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910 status --porcelain # only the untracked fence
+
+## P6 - self-consistency pass over this evaluation's own envelopes
+# Two defects of the same class this report cites against the candidate were found in the
+# evaluator's own records and repaired before the digests below were taken:
+#   (a) a prose stand-in in an upstream sha256 field of verification-results.md -> null + note
+#   (b) execution_ref: null with no reason in missing_inputs -> reason added in all three envelopes
+date -u '+%Y-%m-%dT%H:%M:%SZ'    # 2026-09-10T22:37:05Z, used as created_at_utc
+
+## P6 - readback and digests, in write order
+sha256sum verification-results.md findings.json skill-enhancement-spec.md commands.log runner-out/*.jsonl
+# handoff.md is written after those digests are known and is hashed last; its own digest
+# never goes inside it and is delivered in the terminal response instead.
+sha256sum handoff.md
+
+## P6 - fence and non-interference verification
+find <fence> -type f -printf '%s\t%p\n'
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910 status --porcelain   # only the untracked fence
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-change-20260910 diff --stat 1056b73 HEAD -- providers/   # empty
+git -C /home/bryan/Projects/DevForge/worktrees/claude-scaffold-evaluate-expert-20260910 status --porcelain   # clean
