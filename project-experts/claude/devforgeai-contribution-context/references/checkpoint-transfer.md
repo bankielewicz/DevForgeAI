@@ -41,15 +41,17 @@ Never insert step 4's digest into the document, and never edit the document afte
 its own receipt. If the handoff has to change, that is a new revision with a new digest: preserve
 the previous bytes rather than mutating a document whose digest has already been delivered.
 
-`scripts/check_receipt.py` performs the mechanical part of step 3, and helps you inspect step 4.
-Invoke it with `python3` and an absolute path - executable mode bits are not preserved by this
-project's packaging, so do not rely on running the file directly. It has two commands, because
-they establish different things and merging them would overstate what you know.
+`<selected devforge executable> receipt check` performs the mechanical part of step 3, and helps
+you inspect step 4. Invoke it through the absolute path of the DevForge executable your assignment
+selected; nothing puts it on `PATH`. It has two commands, because they establish different things
+and merging them would overstate what you know. [scripts/check_receipt.py](../scripts/check_receipt.py)
+remains in this package unchanged as the legacy baseline, and is no longer the instructed path;
+its retirement is a later owner decision.
 
 **Command 1, verify the receipt.** This is the one the workflow depends on:
 
 ```bash
-python3 /absolute/path/to/skill/scripts/check_receipt.py \
+/absolute/path/to/devforge receipt check \
   --file /absolute/path/to/HANDOFF.md \
   --expected-sha256 <the 64-character digest you are about to deliver>
 ```
@@ -61,7 +63,7 @@ COULD_NOT_RUN rather than FAIL. Exit 4 means the invocation asserted nothing.
 **Command 2, list digests for your own inspection.** This is a listing, not a verdict:
 
 ```bash
-python3 /absolute/path/to/skill/scripts/check_receipt.py \
+/absolute/path/to/devforge receipt check \
   --file /absolute/path/to/HANDOFF.md --self-receipt-inspection
 ```
 
@@ -73,7 +75,7 @@ tell a legitimate reference to another file from a receipt for this one - and a 
 split across several lines looks like neither.
 
 A normal handoff lists many digests in its inputs table, so exit 5 is the expected result there.
-That is not a failure; it is the script telling you which lines you must read. **You** confirm
+That is not a failure; it is the command telling you which lines you must read. **You** confirm
 that none of them is a receipt for this document. Two things that commonly look alike:
 
 | Line | Verdict |

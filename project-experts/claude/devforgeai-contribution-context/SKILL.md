@@ -187,12 +187,14 @@ that does not exist is not a continuation.
   procedure and receipt discipline. Read it when the declared mode is checkpoint/transfer.
 - [assets/handoff-template.md](assets/handoff-template.md) - package-local copy of the shared
   handoff template, used for checkpoint output.
-- [scripts/check_receipt.py](scripts/check_receipt.py) - two deterministic commands, run with
-  `python3` and an absolute path. `--expected-sha256` verifies the receipt: full 64-hex format
-  and recompute-and-compare. `--self-receipt-inspection` lists the document's digest lines for
-  you to read, because whether a digest is a receipt for this document or a legitimate reference
-  to another file is a judgement the script cannot make. It proves byte identity and receipt
-  format only; it says nothing about whether the content is correct, authorized or accepted.
+- `<selected devforge executable> receipt check` - two deterministic commands, run from the
+  DevForge executable your assignment selected. `--expected-sha256` verifies the receipt: full
+  64-hex format and recompute-and-compare. `--self-receipt-inspection` lists the document's
+  digest lines for you to read, because whether a digest is a receipt for this document or a
+  legitimate reference to another file is a judgement the command cannot make. It proves byte
+  identity and receipt format only; it says nothing about whether the content is correct,
+  authorized or accepted. [scripts/check_receipt.py](scripts/check_receipt.py) remains in this
+  package unchanged as the legacy baseline and is no longer the instructed path.
 - [references/derivation.json](references/derivation.json) - provenance for the copied template:
   source locator, revision, digests, transformation and refresh triggers. Read it when
   maintaining or refreshing this package.
