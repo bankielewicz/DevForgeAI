@@ -83,7 +83,7 @@ that none of them is a receipt for this document. Two things that commonly look 
 | `input \| prior/HANDOFF.md \| <digest>` - same basename, different path, an earlier file | Legitimate. A historical reference is not a self-receipt. |
 | `This document (HANDOFF.md) sha256: <digest>` - or the same claim spread over a "file:" line and a "sha256:" line | A self-receipt. Remove it; the digest belongs outside the document. |
 
-The script proves byte identity and receipt format. It does not know whether the handoff is
+The compiled command, like the script it replaces, proves byte identity and receipt format. It does not know whether the handoff is
 correct, authorized or accepted, it does not establish that the document is free of a
 self-receipt, and no exit code from it may be reported as semantic acceptance.
 
