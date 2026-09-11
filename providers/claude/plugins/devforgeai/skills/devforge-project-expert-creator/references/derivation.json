@@ -2,7 +2,8 @@
   "schema_version": "devforge.package-derivation/v1",
   "skill": "devforge-project-expert-creator",
   "provider": "claude",
-  "recorded_at_utc": "2026-09-10T18:33:02Z",
+  "recorded_at_utc": "2026-09-11T22:43:59Z",
+  "first_recorded_at_utc": "2026-09-10T18:33:02Z",
   "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
 
   "authoring_route": {
@@ -175,14 +176,15 @@
     },
     {
       "destination": "references/sources.md",
-      "destination_sha256": "06be403701b23d06357e64cb47a8f5e03269eea6861c8bb24305ef68c30ed239",
+      "destination_sha256": "94783ab05bef11c859af3733714c7601ff72204deeb1bfa7ea7be0b982f3b091",
       "kind": "authored in-package",
       "sources": [
-        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-10" },
+        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-11", "first_retrieved_utc": "2026-09-10", "claims_used": "the rendered SKILL.md enters the conversation once and stays across later turns and is not re-read, so standing instructions belong in it and on-demand detail in linked files; keep SKILL.md under 500 lines; description and when_to_use are truncated at 1,536 characters in the listing; the Agent Skills specification allows six frontmatter fields for uploaded packages" },
+        { "artifact": "Skill authoring best practices", "store": "web", "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices", "retrieved_utc": "2026-09-11", "scope": "generic Agent Skills platform guidance, not Claude Code client behaviour", "claims_used": "keep the body under 500 lines and split at that limit; SKILL.md is an overview pointing at detailed material; keep references one level deep; give a reference file over about 100 lines a contents list; push a large multi-step workflow into separate files; description at most 1,024 characters, third person, what plus when" },
         { "artifact": "Claude Code subagents documentation", "store": "web", "url": "https://code.claude.com/docs/en/sub-agents", "retrieved_utc": "2026-09-10" },
         { "artifact": "Codex references/sources.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/sources.md", "sha256": "7e44a8b04e1a5a52ea65b785613ca7960147f0d555f687465c6e90f822757bad", "role": "table shape and refresh-sequence precedent only" }
       ],
-      "transformation": "Records the two Claude documentation pages actually fetched on 2026-09-10 with the specific claims relied on, and states explicitly that the Codex creator's OpenAI sources are not carried over. The Agent Skills specification is recorded as referenced through the framework authoring contract rather than fetched at this revision.",
+      "transformation": "Records the Claude documentation pages actually fetched with the specific claims relied on, and states explicitly that the Codex creator's OpenAI sources are not carried over. The Agent Skills specification is recorded as referenced through the framework authoring contract rather than fetched at this revision. Refactor pass 1, 2026-09-11: code.claude.com/docs/en/skills was fetched again and the platform best-practices page was fetched for the first time; the table keeps their applicable scope apart, notes where their description limits differ, and records the one pattern deliberately not adopted - the copy-and-tick progress checklist.",
       "claims_not_made": "Documentation claims are not observations of client behaviour for this package."
     },
     {

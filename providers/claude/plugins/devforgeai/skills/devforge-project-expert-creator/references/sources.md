@@ -19,7 +19,7 @@ This package is a Claude implementation. The Codex creator's sources - the OpenA
 
 One pattern from the best-practices page is deliberately not adopted: the workflow checklist the model copies into its response and ticks off as it goes. Under this framework's language policy, phase state, transitions and gates belong to the compiled DevForge CLI, and a self-checked markdown checklist is the phase narration and self-issued PASS that [framework context](framework-context.md) prohibits. The phase files here state obligations and next-phase conditions instead, and the authoring guidance tells others to do the same. This is a DevForgeAI constraint, not a defect in the published guidance, which addresses skills with no external gate.
 
-The one-level-deep rule shapes the layout rather than forbidding a link: every phase file and every reference is linked directly from `SKILL.md`, so nothing needed for a task sits behind two hops, even though a phase file also links the references it uses at the point of use.
+The one-level-deep rule shapes the layout rather than forbidding a link. Every phase file and every reference is linked directly from `SKILL.md`, so no knowledge a task needs sits behind two hops, even though a phase file also links the references it uses at the point of use. The `assets/` templates are deliberately not in that table: they are documents to copy and fill at one particular phase, not context to read, and each is linked from the phase that uses it.
 
 ## Refresh sequence
 
