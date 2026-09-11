@@ -67,12 +67,13 @@ COULD_NOT_RUN rather than FAIL. Exit 4 means the invocation asserted nothing.
   --file /absolute/path/to/HANDOFF.md --self-receipt-inspection
 ```
 
-It passes only when the file contains no 64-hex token at all - then absence of a self-receipt
-follows from absence of any digest. It fails if the file literally contains its own final digest,
-though that predicate cannot be made to fail by construction and is not a tested guarantee. Every
-other digest occurrence it reports as COULD_NOT_RUN with a line number, exit 5, because it cannot
-tell a legitimate reference to another file from a receipt for this one - and a self-receipt
-split across several lines looks like neither.
+Inspection lists recognized standalone 64-hex tokens. Exit 0 means the scan found no recognized
+token; it does not establish that the document contains no self-receipt. Unicode-adjacent or split
+representations may escape the listing. Manually inspect the document regardless of the listing
+outcome. It fails if the file literally contains its own final digest, though that predicate cannot
+be made to fail by construction and is not a tested guarantee. Other recognized tokens are reported
+as COULD_NOT_RUN with a line number, exit 5, because it cannot tell a legitimate reference to
+another file from a receipt for this one.
 
 A normal handoff lists many digests in its inputs table, so exit 5 is the expected result there.
 That is not a failure; it is the command telling you which lines you must read. **You** confirm
