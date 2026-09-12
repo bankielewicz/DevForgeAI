@@ -30,4 +30,6 @@ The material Record will write down: the ideas with their people, problem, outco
 
 Continue to [phase 03, Record](phase-03-record.md).
 
+Stop and hand back instead if something other than a question blocks the work - a write fence or a destination that turns out not to be yours, an authorization that does not cover what the conversation has moved on to. Report what is blocked and who owns it, save that record where you were authorized to save it, read it back at [phase 05](phase-05-readback.md), and continue to [phase 06](phase-06-completion-summary.md) with a blocked outcome.
+
 Stop and wait instead when a question genuinely blocks - ask it and, in a managed session, write the `awaiting_user` checkpoint form that [`references/managed-runtime.md`](../references/managed-runtime.md) describes. Waiting is not a result: the user's next message resumes this phase. An unknown you can work around is not a blocker; it stays in `missing_inputs` and in the open questions, and exploration continues.
