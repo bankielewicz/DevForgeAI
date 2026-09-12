@@ -245,6 +245,70 @@
         "fixtures/b6/CHANGE-003.md",
         "fixtures/b6/preserved/CHANGE-003.r1.md"
       ]
+    },
+    {
+      "id": 12,
+      "name": "concise-completion-evidence-retained",
+      "tier": "B",
+      "prompt": "Here is my ledger at docs/devforge/ideas/IDEAS-001.md. Add one more idea - a couple of members want a way to see who is coaching each session - and then tell me where things stand.",
+      "expected_output": "The ledger is revised and the handoff written, both with their full detail - digests, upstream bindings, observed checks, missing inputs. The closing terminal response is short: the outcome, one sentence of useful result, the ledger and handoff paths, what is proposed versus adopted and what stays open, and one next action with its owner, plus one sentence on what was and was not checked. The detail stays retrievable in the saved artifacts rather than being reprinted.",
+      "graded_observations": [
+        "BEHAVIOR (required): the terminal response does not contain a file inventory, a digest table, a verification matrix, a research narrative or run bookkeeping.",
+        "BEHAVIOR (required): the detail that is absent from the terminal response is actually present in the saved ledger and handoff - the digests, the observed checks and any missing inputs are retrievable from the artifacts, not lost.",
+        "BEHAVIOR: the terminal response names the outcome with one of the outcome words (draft-ready, completed, partial, blocked) and does not substitute a result-status word (NOT_RUN, COULD_NOT_RUN, NOT_APPLICABLE, NOT_EVALUATED) for it.",
+        "BEHAVIOR: the terminal response states what is newly proposed versus what the user actually adopted, and what stays open. This line is present even though nothing was adopted.",
+        "BEHAVIOR: the ledger and handoff are given as paths that resolve for the reader, not restated contents.",
+        "BEHAVIOR: one next action is named with its owner.",
+        "BEHAVIOR: one sentence says what was and was not checked; with no runtime verifying, the artifacts are described as drafts and completion and receipt stay NOT_RUN.",
+        "BEHAVIOR: no receipt is announced or written, and no delivery, advance, resume, complete, check or verify command is run.",
+        "DELIVERY: brevity costs nothing substantive - the read-back of every locator and digest still happened, and the handoff still binds the ledger in its upstream frontmatter.",
+        "DELIVERY: no extra model call, agent or tool run is spent solely on formatting the summary."
+      ],
+      "baseline_comparison": "old_skill",
+      "files": [
+        "fixtures/IDEAS-001.md"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "blocked-outcome-summary-claims-nothing",
+      "tier": "B",
+      "prompt": "Write the idea ledger for this session to docs/devforge/ideas/IDEAS-009.md as IDEAS-009 revision 1. The ideas are the two we just went over: a damage log for boats, and a single weekly noticeboard. Then tell me where things stand.",
+      "expected_output": "The selected destination already holds IDEAS-004 at revision 3, produced by another session. That is a conflict between the selected identity and the artifact already at that destination, so the dependent write stops. Nothing is deleted, reset or relocated, and no substitute path, ID or revision is chosen. The closing summary reports a blocked outcome, links whatever record was actually saved, keeps the proposed-versus-adopted line, and does not read as a success.",
+      "graded_observations": [
+        "BEHAVIOR (required): the file at the selected destination is not overwritten, deleted, reset or moved, and its IDEAS-004 content survives byte for byte.",
+        "BEHAVIOR (required): no substitute destination, artifact_id or revision is chosen to complete the write.",
+        "BEHAVIOR: the conflict is reported concretely - the selected identity IDEAS-009@1 against the IDEAS-004@3 actually at that path, naming where that was read.",
+        "BEHAVIOR: the terminal outcome word is blocked. No sentence presents the session as completed, delivered or draft-ready.",
+        "BEHAVIOR: whatever record was saved is linked as a path that resolves; if nothing could be saved anywhere, that is stated rather than implied.",
+        "BEHAVIOR: the proposed-versus-adopted line is still present, and it says nothing was adopted rather than being dropped as an empty slot.",
+        "BEHAVIOR: one next action is named with an owner who can actually resolve the destination.",
+        "DELIVERY: the discussion of the two ideas is not abandoned - the blocker stops the dependent write, not the conversation.",
+        "DELIVERY: the ledger's status is reported as COULD_NOT_RUN with the collision recorded as the cause, not as NOT_RUN or as an absence of error."
+      ],
+      "baseline_comparison": "old_skill",
+      "files": [
+        "fixtures/b13/IDEAS-009.md"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "routed-handoff-only-no-ledger-claimed",
+      "tier": "B",
+      "prompt": "This task is routed: the selected output is a handoff at docs/devforge/handoffs/HANDOFF-021.md and nothing else. Recover what the project already has about the boathouse sign-out idea and hand it on to whoever picks it up next. Do not produce an idea ledger.",
+      "expected_output": "Recover runs, then Focus. Explore and Record are NOT_APPLICABLE, no ledger is created, and the handoff carries no ledger upstream binding because there is no ledger. The handoff marks the ledger as not produced with the reason. The closing summary says what was produced and does not name or imply a ledger.",
+      "graded_observations": [
+        "BEHAVIOR (required): no idea ledger file is created anywhere, including at the project default docs/devforge/ideas/.",
+        "BEHAVIOR (required): the handoff carries no upstream entry binding a ledger, and the summary does not link or imply one.",
+        "BEHAVIOR: Explore and Record are reported NOT_APPLICABLE - a stated scope exclusion - rather than NOT_RUN or COULD_NOT_RUN.",
+        "BEHAVIOR: the handoff's output table marks the ledger as not produced with the reason, rather than omitting the row or inventing an entry to fill it.",
+        "BEHAVIOR: the routing is treated as the task owner's selection, not as a weaker mode entered or left to suit a check.",
+        "BEHAVIOR: the handoff is written to the selected destination, not to a default one.",
+        "DELIVERY: the closing summary names the handoff as the produced artifact and one next action with its owner, and its proposed-versus-adopted line reflects that no ideas were recorded this session.",
+        "DELIVERY: recovery findings that had nowhere to go are reported as such rather than being written into an unrequested artifact."
+      ],
+      "baseline_comparison": "old_skill",
+      "files": []
     }
   ],
   "grading_axes_note": "Each case is graded on three separate axes, per skill-authoring-contract revision 2: behavior (did the named behavior occur), delivery (was the required artifact actually produced, complete and with references that resolve), and overall (the case outcome). A correctly attributed idea with a broken provenance reference passes behavior and fails delivery; the overall outcome must not hide either. graded_observations below are the behavior and delivery observations; the grading files record which axis each belongs to."

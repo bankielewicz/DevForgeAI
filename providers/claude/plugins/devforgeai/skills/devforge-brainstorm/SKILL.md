@@ -75,121 +75,54 @@ checking, while the path that is being checked stays empty. Say what you found, 
 what you would need.
 
 Two different roots are in play, and conflating them is how a lookup quietly fails. This
-skill's own resources - `assets/idea-ledger.md`, `assets/handoff.md`, the `references/`
-files - sit beside the `SKILL.md` you are reading, so resolve them against that installed
-directory, wherever the provider put it. The artifacts you read and write belong to the
-consuming project, so resolve those against the project root you were given for this task.
+skill's own resources - the `phases/` files, `assets/idea-ledger.md`, `assets/handoff.md` and
+the `references/` files - sit beside the `SKILL.md` you are reading, so resolve them
+against that installed directory, wherever the provider put it. The artifacts you read
+and write belong to the consuming project, so resolve those against the project root you
+were given for this task.
 The current shell directory is neither by default: an installed skill is routinely loaded
 from outside the project it is working on.
 
-## 1. Recover what already exists
 
-Look for an existing ledger before creating one: at the selected ledger destination when one was selected, otherwise `docs/devforge/ideas/` by default, or whatever artifact map the project has adopted (check `CLAUDE.md`, `AGENTS.md`, or an existing `docs/devforge/` tree). Read it if found. Also read a `change-request` if the user is pointing you at one. Reading it tells you what is out there; it does not tell you what to do with it. An `accepted` status on a change request is a decision recorded in that document's own process, about that document - it is not the user adopting it into this ledger, and it is not by itself your authorization to act. What you do with it is settled by what the user has actually authorized: in this request, or in an earlier instruction of theirs that still stands and covers this change.
+## Phase map
 
-Revise the existing ledger as a new revision rather than starting a parallel one. Losing the earlier alternatives is the specific harm this skill exists to prevent.
+Read a phase file when you reach that phase. Do not load them all up front.
 
-Before you overwrite it, keep the bytes you are replacing. A `supersedes` entry naming revision 1 and its digest is only true while those bytes are still reachable, and the path you are about to write is precisely where they will stop being reachable - the reference would then resolve to revision 2 at the digest of revision 1. So copy the current file somewhere stable and authorized first: the project's own archive convention if it has one, otherwise a sibling like `IDEAS-001.r1.md` next to the ledger. Verify the copy's digest against what you are about to cite, and point the reference at the copy's path, not at the live one. If you cannot preserve them - the archive location is not yours to write, or the earlier bytes were already gone when you arrived - record that in `missing_inputs` and cite only what actually exists. A digest with no reachable bytes behind it is a claim the next reader cannot check.
+| Phase | Read it when | It produces |
+| --- | --- | --- |
+| [01 Recover](phases/phase-01-recover.md) | Always, first. | What already exists, preserved bytes with verified digests, and what could not be resolved. |
+| [02 Explore](phases/phase-02-explore.md) | The ordinary path, after Recover. | The ideas, their alternatives, and the unknowns that stayed unknown. |
+| [03 Record](phases/phase-03-record.md) | Once there is something to write down. | The idea ledger at its selected destination. |
+| [04 Focus](phases/phase-04-focus.md) | Always, after Record - and directly after Recover on a routed handoff-only task. | One concrete next step, and the handoff. |
+| [05 Read back and verify](phases/phase-05-readback.md) | Always, once anything was written. | Write ordering, digests and every locator read back and matching. |
+| [06 Completion summary](phases/phase-06-completion-summary.md) | Always, last. | The short terminal summary. Nothing else. |
 
-### When the upstream has moved on
+Recover, Explore, Record and Focus are the four phase names a managed runtime uses, and they keep their identities and order here. **05 and 06 are package-local steps, not runtime phases: never supply either as a checkpoint `phase` value.** The skill-authoring contract classifies no brainstorm phase; 06 is a proposal to that contract's owner and is not adopted. See [phase mapping](references/phase-mapping.md).
 
-Discovering that an upstream you cite has been superseded is a finding about context. Two separate things follow, and running them together is how a ledger quietly gains a commitment nobody made:
+Three routes reach the end: the ordinary run 01 to 06; a routed handoff-only task, which goes 01, 04, 05, 06 with Explore and Record `NOT_APPLICABLE` and no ledger; and a blocked or partial result from any phase, which saves what it has, reads it back at 05, and goes to 06 saying so. A genuinely blocking question pauses in the phase you were in - waiting is not a route to the end.
 
-- **Repairing your reference** is mechanical. If the revision your ledger cites is archived somewhere reachable, find it, check that it hashes to the digest you cite, and point the locator at the archive. That fixes a broken path. It changes nothing about what has been adopted.
-- **Adopting the newer revision** is a decision, and it needs what every decision needs: actual authorization from the user that covers this change. That can be the user asking in this request - or a standing instruction they recorded earlier and have not withdrawn, whose scope reaches this change. A delegation is real authority. Asking again for permission the user already gave, in writing, is its own failure: it hands work back to someone who did the deciding precisely so they would not have to be present for it.
+## Conditional references
 
-  What cannot stand in for authorization: finding the old bytes, the newer document's `accepted` status, or its own `decision_ref` - that field records a decision made about that document, not the user's adoption of it here. So read the authorization you are relying on and check it actually covers *this* change, at this scope, for this artifact. A delegation about IDEA-001's scope says nothing about IDEA-002 or a stack choice, and one that has been withdrawn or expired says nothing at all.
+Read one when its situation arises, not by default.
 
-  When you do act on a prior authorization, cite it as the authority - which record, its revision, and the scope it grants - and keep that separate from the change request whose content you applied. Authority and source are two different facts about the same act, and a reader who cannot see both cannot tell an authorized update from an invented one. Do not write it up as though the user said it fresh in this conversation; they did not, and the record should say what actually happened.
+| Reference | Read it when |
+| --- | --- |
+| [Managed runtime](references/managed-runtime.md) | Your provider's runtime context supplied a phase, a task ID and a fresh challenge for this task - you need the checkpoint fields, the blocking-question form, or the routed handoff-only path. Also read it before claiming a session finished. |
+| [Recording rules](references/recording-rules.md) | You are writing artifact frontmatter, or: no session record exists (the usual case), an assignment or ownership record names someone else as the writer for what you were about to write, an upstream input no longer matches the revision you referenced, or a check you wanted to run could not run. It covers the envelope fields, what bootstrap mode does and does not license, and how to report those conditions without inventing an identifier. |
+| [Phase mapping](references/phase-mapping.md) | You are reviewing this refactor, reconciling an older finding against the current file layout, or looking for an instruction that used to be inline in `SKILL.md`. |
 
-So when the task in front of you is "add an idea", add the idea. Record the newer revision as observed context: name it, state its scope, and flag exactly which of your recorded decisions it would affect and why - in your open questions, and in the handoff's continuation as the next thing worth the user's attention. The adopted decision stays standing, at the strength the user gave it, with its own basis intact.
+## When something is missing or a check cannot run
 
-What this rules out is the tempting version: supersede the adopted decision, write the newer scope into the idea rows, advance `decision_ref` to the newer document's date, and tell the user to say so if they disagree. That is adoption with an undo button. It puts the user in the position of having to notice and reverse a commitment they never made, which is exactly the silent promotion this skill exists to prevent. Surfacing the conflict is genuinely useful. Resolving it on their behalf is not yours to do.
+Use the words precisely, because these are the project's fixed vocabulary and blending them hides real gaps: `NOT_RUN` for something planned and not attempted, `COULD_NOT_RUN` for a required observation that was blocked, with the actual cause recorded, `NOT_APPLICABLE` only for a stated scope exclusion, and `NOT_EVALUATED` for behaviour nobody has evaluated. The absence of an error is not a pass.
 
-None of which makes an adopted input unusable or requires re-approval of decisions that have not changed. A decision the user already made stays good for what it already covers, and so does an instruction they left standing. If the task really is "bring the ledger up to the new change request", or the user told you last week to keep doing exactly that, then that *is* the authorization and you do it - recording which one you relied on. The question is only ever whether real authorization covers this change, never whether you can construct a reason the user would probably approve.
+A missing fact goes in `missing_inputs`, never into template filler, and a required field still holding a placeholder means the result is a draft. If a destination you were assigned is unwritable or held by another owner, stop the dependent write and report the collision - naming what you saw and where you read it. Do not delete, reset, revert or force anything, and do not quietly write somewhere else; relocating leaves the path someone is actually watching empty. Discussion can continue.
 
-## 2. Explore
+## Stopping
 
-Draw out, in whatever order the conversation actually goes: the problem, who is affected, what a good outcome looks like, what alternatives exist, and what is genuinely uncertain.
+You are done when the ledger holds what was actually said with its origins intact, the open questions carry their consequences, one concrete next step is named with its non-goals, the handoff resolves to artifacts that exist, every locator and digest has been read back, and the closing summary states the outcome, the ledger and handoff links, what is proposed versus adopted and what remains open, any blocker, and one next action with its owner.
 
-Ask when the answer would change direction. If the user has given you almost nothing ("I want to build something"), ask one concrete, useful question and wait - do not populate a ledger with a plausible-sounding user and problem to have something to show. An empty field the user can fill is more valuable than a filled field they have to notice and correct.
+A blocked or routed result is also a complete result, and so is an honest draft that no runtime verified. Each is finished when it says what was produced, what was not, and why - a blocked outcome reported honestly is a finished result; one presented as success is not.
 
-Research is optional and only for factual claims that matter. When you do, record the URL, retrieval date, and the specific claim supported; that goes in `evidence`, and it stays distinguishable from inference.
+Stop and hand back instead when a decision needs an adoption the user has not given, when a selected destination or identity is not available, or when a question genuinely blocks the work. Say what is blocked, what would unblock it, and who owns that.
 
-Do not select a stack yourself. Naming a technology as an illustration is fine; turning it into a choice is not - that belongs to a later architecture phase, and it needs a product brief first.
-
-When the *user* has already stated a technology decision or preference, that is different: record it, with `user` origin and its actual scope. "It has to run offline on iOS" and "I'd probably reach for Postgres, but I'm not attached" are both theirs and neither is yours, but they are not the same commitment. Keep them at the strength the user gave them - do not widen a preference into a decision, do not soften a decision into a preference, and do not drop a real constraint on the grounds that architecture comes later. A later phase revisits what the user decided; it does not make the decision unrecordable now.
-
-## 3. Record
-
-Write the ledger from `assets/idea-ledger.md`. The columns exist for specific reasons:
-
-- **Origin** is `user`, `AI proposal`, or a reference to actual evidence. When you summarize the user rather than quoting them, it is still theirs - but keep the summary faithful and keep the uncertainty they expressed.
-- **State** is `proposed` until the user adopts it - in their own words here, or under an earlier instruction of theirs whose scope covers it. A decision row's `decision_ref` stays `null` until then, and the frontmatter `decision_ref` stays `null` while no adoption exists. When the adoption rests on a standing instruction rather than something said in this conversation, `decision_ref` names that record, so a later reader can see the actual basis instead of inferring a conversation that never happened. Enthusiasm is not adoption; "yeah that sounds right" about a specific statement is.
-- **Related idea IDs** carry splits and merges. When two ideas merge, the new idea links to both origins and the originals stay in the table rather than being deleted. The user needs to be able to walk backwards.
-- **Assumptions and open questions** are where uncertainty lives instead of being smoothed away. Each one gets a consequence and the smallest observation that would settle it.
-
-Idea IDs are stable and never reused. A superseded idea keeps its ID and its row.
-
-## 4. Focus
-
-Close on one concrete next step: the smallest discovery task or experiment that would resolve the most consequential open question, with its non-goals stated. If it needs a capability the project does not have, name that need - route a real capability gap to devforge-project-expert-creator, but do not manufacture an expert to fill an org chart.
-
-Then write a handoff from `assets/handoff.md` to the selected handoff destination - `docs/devforge/handoffs/` only when nothing was selected. *Where the artifacts go* above covers which applies and what to do when the selected path is not available.
-
-The next-session prompt must name something that actually exists. Much of the DevForge roster is specified but not implemented, so check what is really installed before naming it rather than reading a name off the roster. At the time of writing, `devforge-define-product` and `devforge-change` are specified but absent, which matters because define-product is the ledger's usual consumer.
-
-When the natural next step has no installed skill, say so as a capability gap: name the capability, say it is not installed, and give a next task the user can actually act on - authoring or evaluating that skill, or simply continuing in plain language. A gap reported honestly is a useful result. A gap papered over with a plausible skill name is not.
-
-Keep three things separate, in the handoff and in what you tell the user: what you *suggest* as a continuation, what is *installed and available*, and what you *actually invoked*. Suggesting a skill is not evidence it exists, and its existence is not evidence you ran it. Never present a slash command or `devforge` subcommand you have not confirmed.
-
-## Before you call it done
-
-No artifact carries its own digest, so the ordering of the writes is what keeps the
-references true:
-
-1. Write the ledger, then hash it.
-2. Write the handoff, putting the ledger's digest in its output row - and, on the
-   ordinary ledger-plus-handoff path, bind the completed ledger in the handoff's own
-   `upstream` frontmatter: one unambiguous entry carrying that ledger's artifact ID, its
-   revision, `store: project`, its selected path, that same digest, and the ledger
-   headings you actually relied on. The output row and the upstream entry are separate
-   claims, and a correct row does not supply the causal one - a managed runtime checks
-   the frontmatter binding at Focus, against the ledger bytes it just read. A routed
-   handoff-only task produces no ledger and carries no such entry.
-   `references/recording-rules.md` has the exact fields.
-3. Hash last. A digest computed before one more edit describes bytes that no longer
-   exist, so if you touch a file again, hash it again. The handoff's own digest never
-   goes inside the handoff, and a handoff does not list itself among its own outputs.
-4. Then read your own references back, after the last write. Every `upstream`,
-   `supersedes`, output row, resume line, invalidation condition and continuation note
-   that names a revision, a path or a digest has to resolve, right now, to bytes that
-   match at that locator. Digests get repeated - the same file typically appears in an
-   output table, a custody line and an invalidation condition - and a stale copy in any
-   one of those is the same defect as a wrong primary reference, just harder to notice.
-   Check each occurrence rather than only the first.
-
-A required field still holding a placeholder means the result is a draft and cannot be
-presented as ready. A missing fact goes in `missing_inputs`, never into template filler.
-
-`producer.skill_revision` is the SHA-256 of the installed `SKILL.md` file's bytes - one
-file. It is not a digest of the package, and it is not the plugin version, which can be
-identical across two different drafts and therefore identifies nothing about the bytes.
-Name which one you actually have, in the artifact and not only in your message to the
-user: a bare 64-character string tells a later reader nothing about what was hashed, and
-they have no way to recover it. A short parenthetical is enough, on every artifact you
-emit, not just the first. A managed runtime binds the installed resource identities
-itself. Where nothing observable gives you the value, `unknown` is the honest entry; a
-plausible-looking digest is not.
-
-Then tell the user: where the ledger is saved, what is newly proposed versus actually
-adopted, what remains open, and the one next action. Be exact about what was and was not
-checked. Structural conformance and semantic quality are separate observations, and
-passing the first is not evidence about the second - no available tool judges whether the
-ideas are any good, whether the attributions are faithful, or whether the ledger means
-what it says. If a runtime verified these artifacts it reports that result itself, with
-its own locator and digest; if none did, they are unverified drafts and should be
-described that way.
-
-## Filling the envelope honestly
-
-Read `references/recording-rules.md` when you write the artifact frontmatter, or when any of these come up: no session record exists (the usual case), an assignment or ownership record names someone else as the writer for what you were about to write, an upstream input no longer matches the revision you referenced, or a check you wanted to run could not run. It covers the envelope fields, what bootstrap mode does and does not license, and how to report those conditions without inventing an identifier.
+Do not keep going past this. A ledger the user can come back to, with its alternatives intact and its uncertainty visible, is the finished result of this skill; another round of polish, a second ledger or a decision made on their behalf is not.
