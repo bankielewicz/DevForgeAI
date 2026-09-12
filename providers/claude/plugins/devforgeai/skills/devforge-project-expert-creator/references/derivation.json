@@ -2,7 +2,8 @@
   "schema_version": "devforge.package-derivation/v1",
   "skill": "devforge-project-expert-creator",
   "provider": "claude",
-  "recorded_at_utc": "2026-09-10T18:33:02Z",
+  "recorded_at_utc": "2026-09-11T22:43:59Z",
+  "first_recorded_at_utc": "2026-09-10T18:33:02Z",
   "purpose": "Package-local copies and adaptations must state where they came from, so a later reader can tell a deliberate refresh from silent drift. Required by the skill-authoring contract, 'Package-local template copies and their derivation records are inside the assigned skill's source fence'.",
 
   "authoring_route": {
@@ -82,13 +83,22 @@
   "derivations": [
     {
       "destination": "SKILL.md",
-      "destination_sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+      "destination_sha256": "f031cddc8ebfe65a4eaa00f5435b295a515aa14ba061f504ef1df31589ae1670",
       "prior_destination_sha256_chain": [
         {
           "sha256": "1e9929a5713de1df05e2b0bbafdc49de388e74104e584f4ec77c237c35362a0e",
           "revision": "candidate 1",
           "preserved_at": { "store": "git", "locator": "commit 69b6090bde458f48cae0f5751035be65fdb4593c" },
           "note": "The bytes the E1 bootstrap review observed. Superseded by repair pass 1; the findings recorded against them do not transfer to the changed bytes."
+        },
+        {
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "revision": "candidate 2, the 122-line inline-workflow entry point",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit 8d2f22b82a08a25731c1be05e91f55247d1026ad"
+          },
+          "note": "The bytes refactor pass 1 started from. references/phase-mapping.md maps every section of these bytes to its new location and names what was condensed, relocated or replaced. Findings recorded against them do not transfer."
         }
       ],
       "kind": "instructions: authored in-package as an enhancement of the Claude baseline; not a copy",
@@ -104,7 +114,7 @@
     },
     {
       "destination": "references/framework-context.md",
-      "destination_sha256": "884d915f6b65f11540283ee3ed241d2e33cd54c24d22d93e51e3496d49501c66",
+      "destination_sha256": "fa6242208ff7909567a373283d65cc5f52df235ffbbd3098a7c14011609a011d",
       "kind": "distilled reference: not a copy; a narrowed restatement of shared contract rules for this skill's situations",
       "sources": [
         { "artifact": "skill-authoring-contract", "revision": 3, "path": "docs/mvp/skill-authoring-contract.md", "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53", "sections_used": ["Scope and sources", "Sources, ownership, and runtime copies", "Per-skill structure and distribution", "Resource and script paths", "Common authoring workflow", "Three separately reported evaluation tiers"] },
@@ -119,7 +129,7 @@
     },
     {
       "destination": "references/existing-skill-selection.md",
-      "destination_sha256": "89a070c3fbee10a8bce513101a0dd50bbfaec431fd3056fddc8d3113e5b933df",
+      "destination_sha256": "9a250140f16ab2624887ac2845be5e595e2ad622483004b89945551ebe4cc7b8",
       "kind": "bounded adaptation of a port-source reference",
       "sources": [
         { "artifact": "Codex references/existing-skill-selection.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/existing-skill-selection.md", "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464" },
@@ -130,7 +140,7 @@
     },
     {
       "destination": "references/interview-guide.md",
-      "destination_sha256": "0157e51472cbf206b73d818e0243708906496ab8d72a9b1cbefd7cfab3134d76",
+      "destination_sha256": "eb15c77ab502d5822104c73703eedb8b35542b853be37402b891be448419090b",
       "kind": "bounded adaptation of a port-source reference, merged with a superseded package asset",
       "sources": [
         { "artifact": "Codex references/interview-guide.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/interview-guide.md", "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e" },
@@ -142,7 +152,7 @@
     },
     {
       "destination": "references/validator-handoff.md",
-      "destination_sha256": "0cb2975c440d5df14e14d3b5f875393254eeeb72537684e421a5b740d0945f7f",
+      "destination_sha256": "beff0660bd37332f6d0109536f2f4c01eb60920c8ce484ac47e8be90794352a7",
       "kind": "bounded adaptation of a port-source reference, absorbing the minimum record shapes",
       "sources": [
         { "artifact": "Codex references/validator-handoff.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/validator-handoff.md", "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60" },
@@ -154,7 +164,7 @@
     },
     {
       "destination": "references/manual-operation.md",
-      "destination_sha256": "3b3eb092033239bd8f20f0eb1d087b810cbd87fd641225531b15abc02b3b572c",
+      "destination_sha256": "ac3c92754bcc1880faa907b5266728005794bbe4db67ae545de89afd1278b246",
       "kind": "bounded adaptation of a port-source reference, with a command table rebuilt against observed help output",
       "sources": [
         { "artifact": "Codex references/manual-operation.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/manual-operation.md", "sha256": "b506bb343d0b8f1925646e82629babd344323ad9dc3b1471932294a857dc9d72" },
@@ -166,19 +176,20 @@
     },
     {
       "destination": "references/sources.md",
-      "destination_sha256": "c4b749085a2187ca97f188debdb47e9b720182b28fc6d592fafb9d84cdf11eac",
+      "destination_sha256": "94783ab05bef11c859af3733714c7601ff72204deeb1bfa7ea7be0b982f3b091",
       "kind": "authored in-package",
       "sources": [
-        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-10" },
+        { "artifact": "Claude Code skills documentation", "store": "web", "url": "https://code.claude.com/docs/en/skills", "retrieved_utc": "2026-09-11", "first_retrieved_utc": "2026-09-10", "claims_used": "the rendered SKILL.md enters the conversation once and stays across later turns and is not re-read, so standing instructions belong in it and on-demand detail in linked files; keep SKILL.md under 500 lines; description and when_to_use are truncated at 1,536 characters in the listing; the Agent Skills specification allows six frontmatter fields for uploaded packages" },
+        { "artifact": "Skill authoring best practices", "store": "web", "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices", "retrieved_utc": "2026-09-11", "scope": "generic Agent Skills platform guidance, not Claude Code client behaviour", "claims_used": "keep the body under 500 lines and split at that limit; SKILL.md is an overview pointing at detailed material; keep references one level deep; give a reference file over about 100 lines a contents list; push a large multi-step workflow into separate files; description at most 1,024 characters, third person, what plus when" },
         { "artifact": "Claude Code subagents documentation", "store": "web", "url": "https://code.claude.com/docs/en/sub-agents", "retrieved_utc": "2026-09-10" },
         { "artifact": "Codex references/sources.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/references/sources.md", "sha256": "7e44a8b04e1a5a52ea65b785613ca7960147f0d555f687465c6e90f822757bad", "role": "table shape and refresh-sequence precedent only" }
       ],
-      "transformation": "Records the two Claude documentation pages actually fetched on 2026-09-10 with the specific claims relied on, and states explicitly that the Codex creator's OpenAI sources are not carried over. The Agent Skills specification is recorded as referenced through the framework authoring contract rather than fetched at this revision.",
+      "transformation": "Records the Claude documentation pages actually fetched with the specific claims relied on, and states explicitly that the Codex creator's OpenAI sources are not carried over. The Agent Skills specification is recorded as referenced through the framework authoring contract rather than fetched at this revision. Refactor pass 1, 2026-09-11: code.claude.com/docs/en/skills was fetched again and the platform best-practices page was fetched for the first time; the table keeps their applicable scope apart, notes where their description limits differ, and records the one pattern deliberately not adopted - the copy-and-tick progress checklist.",
       "claims_not_made": "Documentation claims are not observations of client behaviour for this package."
     },
     {
       "destination": "assets/skill-design-spec.md",
-      "destination_sha256": "715ef3bdf9082ace4c3b3eeda27e8bf9e4663355bcebed2f5d997fefc5a26ef9",
+      "destination_sha256": "ba943ab6685123488525bca313abcb9760ad20574898fbd242c9a8c12c301848",
       "kind": "asset: bounded adaptation of a port-source template",
       "source": { "artifact": "Codex assets/skill-design-spec.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/skill-design-spec.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "3556e165c11644b315793d978f257db115ef430171c92744edd8ba619b2d8ead" },
       "governing_source_note": "docs/mvp has no shared skill-design-spec template; the Codex package asset is the only existing version and is therefore the source of record for this copy.",
@@ -187,7 +198,7 @@
     },
     {
       "destination": "assets/handoff.md",
-      "destination_sha256": "d741d4dfadbb37353f5542dbb825ab7df9bbdb7be10e4380e262f54e0f663790",
+      "destination_sha256": "353b2597526f6f802ab206579bc5db80f8b4880b4abc9131281538a3785a68fe",
       "kind": "asset: bounded adaptation of the governing shared template",
       "source": { "artifact": "shared handoff template", "store": "project", "path": "docs/mvp/templates/shared/handoff.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206" },
       "adaptation_precedent": { "artifact": "Codex assets/handoff.md", "path": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator/assets/handoff.md", "sha256": "f421ddd18c91d21c8a3e443012b600aec2af55fb7fccc4e1df803a443049eca4" },
@@ -214,7 +225,7 @@
     },
     {
       "destination": "assets/expert-skill.md",
-      "destination_sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5",
+      "destination_sha256": "882215a5e08d924159796306521e22e0ddd185cdaada8c28914ace2add72d5f3",
       "kind": "asset: governing output template copied into the package",
       "source": { "artifact": "expert-skill template", "store": "project", "path": "docs/mvp/templates/devforge-project-expert-creator/expert-skill.md", "revision": "selected at base c17e758417da64928a0f47fc2600304465ac3f3c", "sha256": "1626481317b0a798dd02f8cca55716b8dce7b4c613765799568eecdd7db614f5" },
       "transformation": "none; byte-identical copy",
@@ -231,7 +242,7 @@
     },
     {
       "destination": "evals/evals.json",
-      "destination_sha256": "64de1a96299fd36da983f4aed320c349776a976422bda69c917497544223b1f4",
+      "destination_sha256": "f71badfab81d188ff178260e8d55ee8bd9b1fa6a25cac459be60cfe639921e69",
       "kind": "authored eval cases; source-only, excluded from installed copies and runtime exports",
       "sources": [
         { "artifact": "evals template", "store": "project", "path": "docs/mvp/templates/skill-authoring/evals.json", "sha256": "508b56b608f6b7f382d1e36573caf5ab0ba4db4cd6a6c4fa94adb16d0d9f5692", "role": "base field shape" },
@@ -243,7 +254,7 @@
     },
     {
       "destination": "evals/triggers/trigger-queries.json",
-      "destination_sha256": "29a4fe7f9b93394c47942f794a70025dd9ea2a4d27557b0f8b5682cdd4972d39",
+      "destination_sha256": "3b6ad4f9cb55a5b8ad056f5a6226b26a4a87408b11792d8f2f68cc42153f6e47",
       "kind": "authored tier-A trigger queries; source-only",
       "sources": [
         { "artifact": "trigger-queries template", "store": "project", "path": "docs/mvp/templates/skill-authoring/trigger-queries.json", "sha256": "8b64b614a0599aab6a52fd6ec59975e79dd698b9cba722765b0793d546e1dec4", "role": "base field shape" },
@@ -265,11 +276,288 @@
         "evals/fixtures/draft-xspec-with-placeholder.md": "935ab781ff6b144a1843982933c2df867273c87363288487bba9bfca47671694",
         "evals/fixtures/stale/ARCH-001.md": "d30ce790d5be2d5c493672c5e5568f4eeecc824e52d71e9b68ef9103ef33648b",
         "evals/fixtures/stale/preserved/ARCH-001.r1.md": "65d99ab516b5fb2bca9e0d45dc5587c27d692fc426957329173a6d357ad70314",
-        "evals/fixtures/stale/XPKG-001.md": "a437f858371ec2d10c0a98845456b7133ac2155f385b41a2f4f448cf2a6f6c52"
+        "evals/fixtures/stale/XPKG-001.md": "a437f858371ec2d10c0a98845456b7133ac2155f385b41a2f4f448cf2a6f6c52",
+        "evals/fixtures/framework-requirements.md": "45ccb61bf8aed02a3aec63bfb32af73a1a6c3f7fa02ee0f782dcce72f1a29cb7",
+        "evals/fixtures/synthetic-release-check/SKILL.md": "f6ac83fb3c0c28ae3d3702b4a4a178150d1cadcedae9a7aaa48c1db5c9afc4c2",
+        "evals/fixtures/cross-provider/claude/synthetic-ledger-audit/SKILL.md": "63ad31de3a2ab2bc1e18f04925c0c455cf53164e197dc55a190028b6944c143d",
+        "evals/fixtures/cross-provider/codex/synthetic-ledger-audit/SKILL.md": "246655b9079fc93814a1650117cb2e3cc6a916e76cebe19db89e13b4d24c6821"
       },
       "transformation": "project.md adapts the Codex synthetic notes project, with the installation target changed to the consuming project's .claude/skills/notes-storage. The other eight are new, authored for the common cases the Codex set did not cover. All are labelled synthetic in their own text, describe no real project and create no authority. All paths are package-relative and stay inside the evals directory.",
       "reproducibility_note": "fixtures/stale/XPKG-001.md cites ARCH-001 revision 1 at 65d99ab5..., which is the real digest of fixtures/stale/preserved/ARCH-001.r1.md, while the file at the cited path is revision 2 at d30ce790.... The staleness mismatch is therefore verifiable from these bytes rather than asserted. Changing either file invalidates that case until the record is re-derived.",
-      "not_external": "No fixture points at an external evidence store or an absolute path; nothing outside this package is required to stage them."
+      "not_external": "No fixture points at an external evidence store or an absolute path; nothing outside this package is required to stage them.",
+      "known_defect": {
+        "path": "evals/fixtures/existing-expert/SKILL.md",
+        "detail": "Its frontmatter name is notes-storage and its parent directory is existing-expert. devforge validate framework requires every SKILL.md's frontmatter name to equal its parent directory name, so these bytes are a latent BLOCK; earlier blocking paths in the checkout mask it today.",
+        "pre_existing_at": "8d2f22b82a08a25731c1be05e91f55247d1026ad",
+        "not_corrected_here": "The path and its digest 14615e93... are bound in frozen evaluation evidence under docs/skill-authoring/history/. Renaming the directory would invalidate those recorded manifest paths, so the correction belongs to the evidence owner and is reported rather than applied."
+      }
+    },
+    {
+      "destination": "phases/phase-01-intake.md",
+      "destination_sha256": "e02678981423ef960d60edbe02fbd7b9ace53465545984be674e3ce5cfb3ab69",
+      "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
+      "relocated_from": "1. Intake (lines 44-50) and When an evaluator sends findings back (lines 100-106)",
+      "sources": [
+        {
+          "artifact": "SKILL-007",
+          "revision": 3,
+          "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+          "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+        },
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator SKILL.md, baseline",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit 8d2f22b82a08a25731c1be05e91f55247d1026ad"
+          },
+          "role": "relocation source: section 1. Intake (lines 44-50) and When an evaluator sends findings back (lines 100-106)"
+        }
+      ],
+      "transformation": "Relocated, then split into purpose, needed inputs, substantive work, produced outputs and next-phase conditions. The devforge expert prepare paragraph is kept verbatim but placed under the project-expert branch, because it is a project-expertise command, and a framework-workflow-skill branch states the grounding that target needs instead. The third paragraph of the evaluator-findings section is not repeated here; see references/phase-mapping.md.",
+      "claims_not_made": "A phase file states obligations. It enforces no progression and implements no gate; phase state, transitions, validators, mutation permission and acceptance belong to the compiled DevForge CLI. Nothing here is evidence about behaviour."
+    },
+    {
+      "destination": "phases/phase-02-selection.md",
+      "destination_sha256": "f3edf4a9996da763b354a9e7f248f9228abcff57d952751a1d7711a74481ec3e",
+      "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
+      "relocated_from": "2. Selection (lines 52-60)",
+      "sources": [
+        {
+          "artifact": "SKILL-007",
+          "revision": 3,
+          "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+          "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+        },
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator SKILL.md, baseline",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit 8d2f22b82a08a25731c1be05e91f55247d1026ad"
+          },
+          "role": "relocation source: section 2. Selection (lines 52-60)"
+        }
+      ],
+      "transformation": "Relocated with the four baseline paragraphs intact. The comparison list gains provider and behaviour, and two paragraphs are added: same-provider reuse candidacy, and cross-provider equivalents being intentional implementations rather than duplicates.",
+      "claims_not_made": "A phase file states obligations. It enforces no progression and implements no gate; phase state, transitions, validators, mutation permission and acceptance belong to the compiled DevForge CLI. Nothing here is evidence about behaviour."
+    },
+    {
+      "destination": "phases/phase-03-design.md",
+      "destination_sha256": "cb85b7f364f7b692c79a6908f505dfce00840c4a9c5f737370d05919a9f3a42d",
+      "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
+      "relocated_from": "3. Design (lines 62-72)",
+      "sources": [
+        {
+          "artifact": "SKILL-007",
+          "revision": 3,
+          "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+          "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+        },
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator SKILL.md, baseline",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit 8d2f22b82a08a25731c1be05e91f55247d1026ad"
+          },
+          "role": "relocation source: section 3. Design (lines 62-72)"
+        }
+      ],
+      "transformation": "Relocated. The opening ordering paragraph is condensed into the phase purpose; the phase-map design for a multi-step target, the no-forced-count rule, question grouping, carrying classifications forward and planning a refactor mapping are added.",
+      "claims_not_made": "A phase file states obligations. It enforces no progression and implements no gate; phase state, transitions, validators, mutation permission and acceptance belong to the compiled DevForge CLI. Nothing here is evidence about behaviour."
+    },
+    {
+      "destination": "phases/phase-04-authoring.md",
+      "destination_sha256": "59c02abb43045b992dc0fbd072b7cb9627e053b36fdb22e3437aec4dcc51d789",
+      "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
+      "relocated_from": "4. Authoring (lines 74-86)",
+      "sources": [
+        {
+          "artifact": "SKILL-007",
+          "revision": 3,
+          "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+          "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+        },
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator SKILL.md, baseline",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit 8d2f22b82a08a25731c1be05e91f55247d1026ad"
+          },
+          "role": "relocation source: section 4. Authoring (lines 74-86)"
+        }
+      ],
+      "transformation": "Relocated with all six baseline paragraphs intact. Added: authoring a multi-step workflow skill as an entry point plus phase files, carrying out and recording a refactor mapping, and the relocated sentence that applying a change does not close a finding.",
+      "claims_not_made": "A phase file states obligations. It enforces no progression and implements no gate; phase state, transitions, validators, mutation permission and acceptance belong to the compiled DevForge CLI. Nothing here is evidence about behaviour."
+    },
+    {
+      "destination": "phases/phase-05-prepared-transfer.md",
+      "destination_sha256": "5baf3a12ef0862572e88a26016b909ee7f64cfb0ef355eeeb1c235c396582782",
+      "kind": "instructions: authored in-package as a package-local phase file, relocated from the baseline SKILL.md workflow",
+      "relocated_from": "5. Prepared transfer (lines 88-98)",
+      "sources": [
+        {
+          "artifact": "SKILL-007",
+          "revision": 3,
+          "path": "docs/mvp/specifications/skill-007-devforge-project-expert-creator.md",
+          "sha256": "983b5714a8285a10873f9d43861349b4b792a779aed1d7e5e6fd4af4e3efac1c"
+        },
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator SKILL.md, baseline",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit 8d2f22b82a08a25731c1be05e91f55247d1026ad"
+          },
+          "role": "relocation source: section 5. Prepared transfer (lines 88-98)"
+        }
+      ],
+      "transformation": "Relocated essentially verbatim. Added: the produced outputs are saved and read back before the completion phase, so the summary links to paths that exist.",
+      "claims_not_made": "A phase file states obligations. It enforces no progression and implements no gate; phase state, transitions, validators, mutation permission and acceptance belong to the compiled DevForge CLI. Nothing here is evidence about behaviour."
+    },
+    {
+      "destination": "phases/phase-06-completion-summary.md",
+      "destination_sha256": "822592e6e122b188057ccad6ebc37e04828737d7a9e2b93fe7192d6c35fe6430",
+      "kind": "instructions: authored in-package as a new package-local phase file",
+      "relocated_from": "(new phase; no baseline section)",
+      "sources": [
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "owner brief, 2026-09-11",
+          "store": "task allocation",
+          "role": "verbatim requirements supplied with this assignment; not a repository artifact, and it amends no contract and classifies no phase"
+        }
+      ],
+      "transformation": "Authored for the owner brief's presentation requirement: save the detailed artifact and handoff, then present a short summary. Its classification is recorded as PROPOSED and not adopted, with the two options and the evidence question that decides them in references/phase-mapping.md.",
+      "claims_not_made": "A phase file states obligations. It enforces no progression and implements no gate; phase state, transitions, validators, mutation permission and acceptance belong to the compiled DevForge CLI. Nothing here is evidence about behaviour."
+    },
+    {
+      "destination": "assets/phase-file.md",
+      "destination_sha256": "5349d73bcbdcf925b52d1eb4ae666d1b5bce531df75b1e08f0dc5a70c239254e",
+      "kind": "asset: authored in-package output template",
+      "sources": [
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "Skill authoring best practices",
+          "store": "web",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+          "retrieved_utc": "2026-09-11",
+          "claims_used": "split a large multi-step workflow into separate files and tell the reader which to read; keep references one level deep from SKILL.md; keep the body under 500 lines; give a reference file over about 100 lines a contents list"
+        },
+        {
+          "artifact": "owner brief, 2026-09-11",
+          "store": "task allocation",
+          "role": "verbatim requirements supplied with this assignment; not a repository artifact, and it amends no contract and classifies no phase"
+        }
+      ],
+      "transformation": "The shape of one produced phases/phase-NN-name.md - purpose, needed inputs, substantive work, produced outputs, next phase - plus the rules that keep a set coherent. The published copy-and-tick progress-checklist pattern is deliberately not carried over: it would be the phase narration and self-issued PASS this framework prohibits.",
+      "claims_not_made": "A template is authored material. No client behaviour was observed."
+    },
+    {
+      "destination": "assets/completion-summary.md",
+      "destination_sha256": "ac9cd338be373944c290b83697a43c0231ea9712cf32c01b3ae25eedb0a20970",
+      "kind": "asset: authored in-package output template",
+      "sources": [
+        {
+          "artifact": "owner brief, 2026-09-11",
+          "store": "task allocation",
+          "role": "verbatim requirements supplied with this assignment; not a repository artifact, and it amends no contract and classifies no phase"
+        },
+        {
+          "artifact": "artifact-contract",
+          "revision": 2,
+          "path": "docs/mvp/artifact-contract.md",
+          "sha256": "00d8c4f4bf619b8361e056c2b77c8215595755a0eb6262b865e6a8f464c1d2b5",
+          "sections_used": [
+            "Output storage and stable candidate snapshots",
+            "Decisions, readiness, and evaluation are separate"
+          ]
+        },
+        {
+          "artifact": "package handoff template",
+          "path": "assets/handoff.md",
+          "role": "the retained-evidence document this summary links to rather than repeats"
+        }
+      ],
+      "transformation": "The terminal summary's five required elements, the rules that keep it honest, and four worked examples - draft-ready, completed, partial and blocked - measured at 61, 64, 64 and 79 words. Example paths are synthetic.",
+      "claims_not_made": "A summary is presentation. It carries no envelope, no identity and no digest, and it adds nothing to the saved record."
+    },
+    {
+      "destination": "references/phase-mapping.md",
+      "destination_sha256": "e8110482bae738953be4f2703658aa6fe5c19a110428a3303ac64e2b3747c75f",
+      "kind": "reference: authored in-package maintenance record for this package's own refactor",
+      "sources": [
+        {
+          "artifact": "skill-authoring-contract",
+          "revision": 3,
+          "path": "docs/mvp/skill-authoring-contract.md",
+          "sha256": "371462385b4e32d1b347f959abb779f4be4251e357c5720a9aef039113eb4b53"
+        },
+        {
+          "artifact": "owner brief, 2026-09-11",
+          "store": "task allocation",
+          "role": "verbatim requirements supplied with this assignment; not a repository artifact, and it amends no contract and classifies no phase"
+        },
+        {
+          "artifact": "Claude devforge-project-expert-creator SKILL.md, baseline",
+          "path": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator/SKILL.md",
+          "sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+          "preserved_at": {
+            "store": "git",
+            "locator": "commit 8d2f22b82a08a25731c1be05e91f55247d1026ad"
+          },
+          "role": "the frozen 122-line baseline this record maps from"
+        }
+      ],
+      "transformation": "Old-to-new section mapping for the 2026-09-11 phase refactor; the three sentences whose behaviour was condensed, relocated or replaced; the phase-06 classification proposal with the evidence question that decides it; and the record that phases/ is proposed for the authoring contract's per-skill structure list rather than already in it.",
+      "claims_not_made": "This package does not edit the contract. A proposal is not an adoption, and phase 06's classification is not claimed."
     }
   ],
 
@@ -291,6 +579,8 @@
     "The DevForge CLI's command surface changes: re-check references/manual-operation.md against actual --help output before relying on any row.",
     "Either Claude documentation page cited in references/sources.md changes materially: re-check the claims relied on and update the retrieval date.",
     "The integration owner rules on the inapplicable 'Promoted Codex content mapping' sections carried verbatim in assets/expert-spec.md and assets/expert-package.md.",
+    "Either Claude documentation page recorded in references/sources.md changes its structural guidance or its stated limits: re-fetch it, update that table with the new retrieval date and claims, and update this record.",
+    "The skill-authoring contract adds phases/ to its per-skill structure list, or classifies a completion phase: references/phase-mapping.md records both as proposals today and must be updated with this record when either is decided.",
     "This record is maintained by the skill author inside the skill's source fence. It records derivation only and modifies, reinterprets or waives no shared template or contract."
   ],
 
@@ -353,6 +643,72 @@
       "finding": "source changes recorded; reevaluation required"
     },
     "claims_not_made": "Applying a change means the source was edited. It closes no finding. F-001 through F-006 keep their original IDs and severities, were observed against 69b6090bde458f48cae0f5751035be65fdb4593c, and do not transfer to these changed bytes; the new candidate requires its own evaluation."
+  },
+
+  "refactor_pass_1": {
+    "recorded_at_utc": "2026-09-11T22:43:59Z",
+    "base_revision": "8d2f22b82a08a25731c1be05e91f55247d1026ad",
+    "worktree_branch": "author/claude-creator-phases-20260911",
+    "supersedes_candidate_skill_sha256": "342b82923e64cef0c2ab77fdb8fc11b92fc68ea145642c486d2a937c5363f3d9",
+    "input": {
+      "artifact": "owner brief, 2026-09-11, five verbatim requirements",
+      "store": "task allocation",
+      "note": "Supplied with the assignment. It is not a repository artifact, it amends no contract and it classifies no phase."
+    },
+    "what_changed": [
+      "SKILL.md became the entry point; the five phase sections moved into phases/phase-01..05 with their identities, order and Enforced classification intact.",
+      "phases/phase-06-completion-summary.md was added; its classification is PROPOSED and not adopted.",
+      "The project-expert versus framework-workflow-skill target split was added, with the grounding each needs and the rule that a framework refactor needs no production application.",
+      "assets/skill-design-spec.md gained a package-local phase map and an old-to-new instruction mapping table; assets/expert-skill.md gained an optional phase map; assets/phase-file.md and assets/completion-summary.md are new; assets/handoff.md now separates the saved handoff from the terminal summary.",
+      "references/phase-mapping.md is new; sources.md, framework-context.md, existing-skill-selection.md, interview-guide.md, manual-operation.md and validator-handoff.md took consistency edits.",
+      "evals gained cases 11-16, four synthetic fixtures and three trigger queries; cases 1-10 and their fixtures are unchanged."
+    ],
+    "behaviour_changed": {
+      "condensed": "The design phase's opening ordering paragraph is now the phase purpose.",
+      "relocated": "The sentence that applying a change does not close a finding moved from the evaluator-findings section to phase 04, where the edit happens. It was already carried in references/validator-handoff.md.",
+      "replaced": "The stopping condition's clause 'and the next task is explicit and real' is replaced by the summary's required contents, which include one next action and its owner.",
+      "full_mapping": "references/phase-mapping.md"
+    },
+    "checks": {
+      "author_side": "Link resolution, phase reachability in both directions, resource completeness, frontmatter shape, derivation coverage and digest match, and eval fixture resolution were inspected by the author. Inspection is not a gate; the compiled CLI owns every real validator.",
+      "packaging": "devforge install framework and devforge install export-plugin were run with the pinned release binary against this worktree. phases/ installs and exports with the rest of the runtime package; evals/ does not.",
+      "not_run": "No native evaluation campaign, and no case, trigger query, discovery, activation or installation-acceptance observation. Behaviour is NOT_EVALUATED and every authored case outcome is NOT_RUN."
+    },
+    "claims_not_made": "A refactor record identifies which bytes moved where. It is not evidence that the result behaves correctly, that any contract accepted phases/, or that phase 06 has a classification."
+  },
+
+  "review_l_repair_pass": {
+    "recorded_at_utc": "2026-09-11T23:13:11Z",
+    "input": {
+      "artifact": "independent review L of 921abe844b700a1e7e9a4ae276124a09972b7842",
+      "disposition": "APPROVE_WITH_MINOR_FINDINGS",
+      "store": "task allocation",
+      "note": "Findings P2-1, P3-1, P3-2, P3-5 and P3-6 were accepted and applied. P3-3 concerns the worker's report, not this package. P3-4 (the existing-expert fixture) and P3-7 (a docs/mvp path named in evals prose) are pre-existing and belong to their owners; no candidate change was made for them."
+    },
+    "changes": [
+      "P2-1: every route that reaches phase 06 without passing phase 05 now instructs saving its record to the assigned durable location and reading it back - phase 02 for a reuse recommendation, and the stop-and-hand-back branch of phases 01, 03 and 04 for a partial or blocked result. Phase 06's opening assertion is now route-aware. The save stays out of phase 06, which produces presentation only.",
+      "P3-1: phase 06's closing duplication of the SKILL.md stopping prohibition was removed; the entry point keeps it.",
+      "P3-2: phase 06 no longer calls the outcome words 'the fixed vocabulary'. That phrase is reserved for the result-status words, and the two sets are explicitly not interchangeable.",
+      "P3-5: phase 02's Unresolved branch names phase 03 as its continuation.",
+      "P3-6: phase 02 defines the generated installation or export mapping in place and points at the reference's recorded-outputs list.",
+      "references/phase-mapping.md records the added save obligation as an addition rather than a relocation, and Option B's justification now says the saving half sits in the Enforced phase that produces each route's record rather than in phase 05 alone."
+    ],
+    "claims_not_made": "A repair record identifies which bytes changed. The review observed source and packaging only; behaviour remains NOT_EVALUATED and every authored eval case remains NOT_RUN."
+  },
+
+  "pr23_minor_wording_repair": {
+    "base_revision": "2716eaf7c9a209b7883b4ea356bb8947cb63a198",
+    "review": "review-ai-pr23-2716eaf/review-report.md; findings F1-F3",
+    "changes": [
+      "F1: distinguish accepted requirements from the proposed unknown-field rule in the draft-ready example.",
+      "F2: distinguish untouched candidate files from the saved assigned intake/selection record; preserve the collision and no-bypass boundary.",
+      "F3: no separately bound presentation-completion artifact is required; retained client history is not a runtime receipt."
+    ],
+    "prior_destination_sha256": {
+      "references/phase-mapping.md": "6884f876c99758e690d6a0fed0a757e4afbb145a4587b4c0cb57be7f04a4a37e",
+      "assets/completion-summary.md": "9b7b1d5acae370168b96ab4b247da223e77677f2d718899acb08388102901a3c"
+    },
+    "claims_not_made": "Wording repair only; prior packaging and inherited structural-blocker evidence remain scoped to their recorded bytes. No native evaluation, installation, new gate or phase classification."
   },
 
   "self_reference_note": "This file does not carry its own digest. It is hashed by the candidate's file manifest like every other package file, and no entry above records a digest of this record.",

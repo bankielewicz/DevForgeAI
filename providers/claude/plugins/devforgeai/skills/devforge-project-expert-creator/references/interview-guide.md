@@ -28,6 +28,7 @@ Do not demand another example when the task is already clear. Propose a concrete
 | Scope and activation | Activating requests, boundaries, nearby exclusions | Which related work belongs to a different skill? |
 | Inputs and results | Required inputs, missing-input behaviour, deliverable, format, completion criteria | Can it proceed when this input is missing, or must it stop? |
 | Workflow | Stable workflow, phase and task IDs, decisions, dependencies | What changes the path, and what has to wait? |
+| Workflow shape | Whether the work has distinct ordered steps at all, and where it starts and finishes | Which steps have genuinely different inputs and outputs? |
 | Task-specific rules | Requirements versus preferences; the real authorisation boundary | Which decisions are fixed, and which may the worker make alone? |
 | Tools and resources | Actual runtime and version, available integrations, fallbacks | Which of these are actually available in the consuming project? |
 | Acceptance cases | Representative cases and expected behaviour, captured only | Which observable result would show the requirement was met? |
@@ -37,6 +38,12 @@ Do not demand another example when the task is already clear. Propose a concrete
 | Repair intake | Frozen inputs, finding and change IDs, permitted changes, retained requirements | Is this a required repair, an authorised enhancement, a proposal, or an investigation? |
 
 Derive routine details such as a proposed skill name and its discovery description rather than asking. Keep a proposed default visibly distinct from a user requirement. Never request a credential or secret value.
+
+## Deciding the workflow's shape
+
+Derive this from the work rather than asking whether the user wants phases. Distinct ordered steps with distinct inputs and outputs are phases; a body of decision guidance with no ordering is not, and a reference-only expert gets no phases at all. Do not force a count in either direction, and do not propose a phase whose only content is announcing that another phase is finished.
+
+Ask only when the answer would actually change the design: where the work starts, where it finishes, which steps may be skipped and under what condition, and whether an existing named step is being renamed or genuinely added. Group those into one round. When a refactor moves an inline workflow into phase files, no new interview is needed for the steps that already exist - their decisions and classifications carry forward, and only a genuinely new, unclassified item needs the optional-or-required question below.
 
 ## The expert specification's content checklist
 

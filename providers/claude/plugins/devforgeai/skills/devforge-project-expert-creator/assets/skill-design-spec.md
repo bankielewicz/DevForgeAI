@@ -84,6 +84,24 @@ For each genuinely new, unclassified item, ask the user whether it is optional o
 **When to stop or seek clarification — optional:**
 [Concrete conditions that prevent meaningful or authorised progress.]
 
+**Package-local phase map — for a multi-step workflow skill:**
+
+Fill this when the target's work has distinct steps with distinct inputs and outputs. Do not force a phase count in either direction, and leave this section out entirely for a reference-only expert: a body of decision guidance with no ordered steps needs no phases and no ceremony invented to reach a number.
+
+Each row becomes one package-relative phase file in the authored package, written from the package's phase-file template. The entry `SKILL.md` links every one of them directly, so each stays one level deep from the file the client always loads.
+
+| Phase ID and file | Applies when | Required inputs | Expected artifacts | Immediate continuation |
+|---|---|---|---|---|
+| P1 — `phases/phase-01-[name].md` | [Always, or the condition that selects it.] | [Which declared inputs it consumes.] | [What exists afterwards, and where it is saved.] | [The one next phase, plus any early exit.] |
+| P2 — `phases/phase-02-[name].md` | [Condition.] | [Inputs.] | [Artifacts.] | [Next phase.] |
+
+- **Start:** [The phase every request enters at.]
+- **Finish:** [The final reporting and handoff phase. Every route ends here, including a reuse result, a partial result and a blocked one.]
+- **Final reporting phase:** required. It saves the detailed artifact and the handoff first, then presents a short completion summary — the outcome, one sentence of useful result, links to the primary artifact and the handoff, the material decision or blocker if there is one, and one next action with its owner. Inventories, digest tables and verification matrices stay in the saved artifacts.
+- **Reachability:** [Confirm that every phase file appears in the map and every map entry is a file that exists.]
+
+A phase file describes obligations. It does not enforce progression: phase state, transitions, gates, validators, mutation permission and acceptance belong to the compiled DevForge CLI. Record any enforcement requirement in the route table below rather than writing phase narration, a self-issued PASS or a simulated advance sequence into the authored skill.
+
 ## 5. Task-specific rules
 
 **Required standards or conventions:**
@@ -114,6 +132,7 @@ For each genuinely new, unclassified item, ask the user whether it is optional o
 | Resource | Purpose | When it is needed |
 |---|---|---|
 | [Reference document.] | [Rules or domain knowledge.] | [Relevant task or condition.] |
+| [Phase file — multi-step workflow only.] | [The detailed work of one phase.] | [On reaching that phase; never preloaded.] |
 | [Template or asset.] | [Basis for a generated output.] | [Relevant deliverable.] |
 | [Script.] | [Repeated deterministic operation.] | [Relevant workflow step.] |
 
@@ -315,6 +334,18 @@ Complete this after authoring or enhancement. It is an authoring record, not a c
 | Finding IDs — if any | Change ID | Change type | Requirement IDs preserved or changed | Disposition | Old path and SHA-256 | New path and SHA-256 | Summary or reason |
 |---|---|---|---|---|---|---|---|
 | [F-### or not applicable.] | [CHG-###.] | [Required repair / authorised enhancement / unapproved proposal / bounded investigation.] | [IDs.] | [applied / deferred / declined.] | [Path and hash; absent for a new file.] | [Path and hash; absent for a removed file.] | [Bounded result or reason.] |
+
+**Old-to-new instruction mapping — when a workflow moved into phase files:**
+
+Required whenever an enhancement relocates instructions: from an inline workflow into `phases/`, between phase files, or out of a phase file into the entry point. One row per source section. Behaviour, accepted decisions, stable IDs and the meaning of every reference are preserved unless a change is explicitly authorised — and then it is named here, not left for a reader to find.
+
+| Old section and line range | New location | Behaviour omitted or changed |
+|---|---|---|
+| [Section heading, lines at the frozen revision.] | [`phases/phase-NN-[name].md`, the entry point, or a reference path.] | [None — moved verbatim / the exact sentence dropped or altered, and the authority for it.] |
+
+- **Identities preserved:** [Workflow, phase, task, requirement and finding IDs that keep their meaning.]
+- **References re-pointed:** [Any link whose target moved. A link that now resolves somewhere else is a changed behaviour.]
+- **Nothing omitted silently:** [Confirm every old section appears in a row, or record which ones do not and why.]
 
 **New canonical source manifest:**
 [Complete package-relative file-to-hash map, the candidate identity, and a separate retained manifest path and hash. No manifest includes its own digest. Record missing values and their reasons explicitly.]

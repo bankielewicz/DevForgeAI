@@ -1,7 +1,7 @@
 {
   "skill_name": "devforge-project-expert-creator",
   "provider": "claude",
-  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. Tier A only: these observe whether the terminal consults this skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
+  "schema_note": "Each entry follows docs/mvp/templates/skill-authoring/trigger-queries.json (id, query, should_trigger, split) plus a category field. The framework_workflow_skill category was added 2026-09-11 for requests that ask for a framework workflow skill to be authored or refactored; its splits were assigned then and are fixed like the rest. Tier A only: these observe whether the terminal consults this skill for a request that does not name it. No entry supplies the skill path or name except the explicit_invocation category, which is recorded separately and is never counted as implicit activation evidence.",
   "split_policy": "Fixed and stratified by should_trigger and category, assigned once at authoring time and recorded here. It is not re-randomised per run. Validation entries and their should_trigger values must not be placed in an author-loop or task-worker context; only the train split may drive any description iteration.",
   "runner_dependency": "Executing these queries requires the evaluation harness supplied by the Claude devforge-evaluate-expert package, which is not present at this revision. No query below has been run; every outcome is NOT_RUN.",
   "negative_note": "A negative query passes only on a successful terminal result with no consultation of this skill. A timeout, error, truncated stream or premature EOF is COULD_NOT_RUN. Observing a different skill being selected during an incomplete run does not complete the negative assertion.",
@@ -33,6 +33,10 @@
     { "id": "A7c", "category": "negative_near_miss_expert", "query": "Write me a short internal guide explaining our deploy process to new joiners.", "should_trigger": false, "split": "validation" },
 
     { "id": "A8a", "category": "negative_early_exploration", "query": "I have three product ideas and I cannot decide which problem is worth solving.", "should_trigger": false, "split": "train" },
-    { "id": "A8b", "category": "negative_ordinary_task", "query": "Fix the failing test in test_store.py.", "should_trigger": false, "split": "validation" }
+    { "id": "A8b", "category": "negative_ordinary_task", "query": "Fix the failing test in test_store.py.", "should_trigger": false, "split": "validation" },
+
+    { "id": "A9a", "category": "framework_workflow_skill", "query": "We need a Claude skill for our release check workflow. Author it against the accepted requirements and the contract.", "should_trigger": true, "split": "train" },
+    { "id": "A9b", "category": "framework_workflow_skill", "query": "Our review skill has its whole workflow inline and nobody can read it any more. Can we split the steps into separate files without losing what it does?", "should_trigger": true, "split": "train" },
+    { "id": "A9c", "category": "framework_workflow_skill", "query": "The Codex side already has a ledger audit workflow. We want the Claude one brought up to the same behaviour.", "should_trigger": true, "split": "validation" }
   ]
 }
