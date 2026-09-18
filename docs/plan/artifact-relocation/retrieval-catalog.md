@@ -18,7 +18,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-da7726f7676bee27
 
 - Original: `docs/plan/framework-foundation/20260915T111940Z/verification.md`
-- Current local: `worktrees/framework-foundation/20260915T111940Z/verification.md`
+- Current local: `artifacts/evidence/framework-foundation/20260915T111940Z/verification.md`
 - Planned local: `artifacts/evidence/framework-foundation/20260915T111940Z/verification.md`
 - SHA256: `b17d6513dd70644a96ecb1536d0730b2fce19cea73058d0352c1c6657292103a`; bytes: 1010
 - Availability: PUBLISHED_GIT_AND_LOCAL
@@ -27,7 +27,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-8930ed99c9f61ca9
 
 - Original: `docs/plan/framework-mvp-planning/20260915T145455Z/verification.md`
-- Current local: `worktrees/framework-mvp-planning/20260915T145455Z/verification.md`
+- Current local: `artifacts/evidence/framework-mvp-planning/20260915T145455Z/verification.md`
 - Planned local: `artifacts/evidence/framework-mvp-planning/20260915T145455Z/verification.md`
 - SHA256: `e29958c4f31eb581d6823ae5431590e160c8c6b030be983ae8785ab949520a0d`; bytes: 920
 - Availability: PUBLISHED_GIT_AND_LOCAL
