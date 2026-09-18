@@ -1,2 +1,0 @@
-{"case_id": "revision-02-resolved-package_links", "grader_id": "package_links", "params": {"path": "destination"}, "expected": "PASS"}
-{"case_id": "revision-02-resolved-build_traceability", "grader_id": "build_traceability", "params": {"evidence": "evidence", "destination": "destination"}, "expected": "PASS"}

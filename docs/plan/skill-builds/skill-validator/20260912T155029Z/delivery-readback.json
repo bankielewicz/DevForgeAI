@@ -1,9 +1,0 @@
-{
-  "source": "actual delivered development package",
-  "destination": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
-  "baseline_separate": true,
-  "delivered_matches_generated_baseline": true,
-  "full_file_set_readback": true,
-  "evaluator_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\evaluations\\delivered-001",
-  "provenance_publication": "PENDING behavioral case review and labeled self-review"
-}

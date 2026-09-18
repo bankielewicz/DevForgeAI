@@ -1,3 +1,0 @@
-# Enforcement recommendations
-
-No new implementation is authorized by this assessment. Destination identity/readback remains skill guidance plus editable execution evidence. A future separately selected protected acceptance service could validate original selection, allowed roots, delivered-file digests and completeness before accepting a project result. Such authority would belong to compiled Rust under DevForgeAI policy; no hook, service, plugin, or gate is claimed implemented here. Bypass/coverage limitation: model-written records and Python observers alone cannot enforce custody against hostile or concurrent mutation. Verification would require denied mismatched paths, stale/missing outputs and provenance tests against an actual implemented authority.

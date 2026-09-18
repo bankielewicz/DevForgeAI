@@ -1,9 +1,0 @@
-{
-  "original_case": "test_valid_capture_and_publication",
-  "expected_reference": {
-    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260914T2131571597777Z\\trials\\independent\\test_valid_capture_and_publication\\input\\requirements.txt",
-    "sha256": "c65f4af633695377e5659aaeb393766d1275d42b8b6ab139726c9f32b96100a5"
-  },
-  "method": "Decode the JSON source reference then compare raw path and digest; no production re-execution",
-  "reason": "Original assertion compared JSON-escaped Windows path to unescaped text."
-}

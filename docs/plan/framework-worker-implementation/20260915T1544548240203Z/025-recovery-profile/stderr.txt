@@ -1,5 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.54s
-     Running tests\contract.rs (target\debug\deps\contract-568c215465856fe8.exe)
-     Running tests\profile.rs (target\debug\deps\profile-f4ec718a4e9d0e7d.exe)
-     Running tests\recovery.rs (target\debug\deps\recovery-44a64d6006814309.exe)

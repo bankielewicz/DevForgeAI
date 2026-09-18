@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 79964 (child process of PID 31700) has been terminated.
-SUCCESS: The process with PID 104984 (child process of PID 85688) has been terminated.
-SUCCESS: The process with PID 59600 (child process of PID 105792) has been terminated.
-SUCCESS: The process with PID 85688 (child process of PID 105792) has been terminated.
-SUCCESS: The process with PID 31700 (child process of PID 105792) has been terminated.
-SUCCESS: The process with PID 88380 (child process of PID 105792) has been terminated.
-SUCCESS: The process with PID 105792 (child process of PID 69316) has been terminated.

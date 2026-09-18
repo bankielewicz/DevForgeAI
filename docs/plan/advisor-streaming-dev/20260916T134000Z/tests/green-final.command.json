@@ -1,9 +1,0 @@
-{
-  "command": "python -B -X utf8 -m unittest discover -s docs/plan/skill-authorings/advisor/20260916T134000Z-streaming/candidate/tests -p test_streaming.py -v",
-  "working_directory": "C:\\Projects\\DevForgeAI",
-  "exit_code": 0,
-  "duration_seconds": 11.7013011,
-  "phase": "green",
-  "cases": 30,
-  "scope": "development streaming tests including injected AP-04 cleanup faults"
-}

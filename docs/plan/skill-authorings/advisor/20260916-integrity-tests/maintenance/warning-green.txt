@@ -1,7 +1,0 @@
-test_continuously_filled_queue_still_obeys_cleanup_ceiling (test_streaming.StreamProcessTests) ... ok
-
-----------------------------------------------------------------------
-Ran 1 test in 5.219s
-
-OK
-ResourceWarnings: []

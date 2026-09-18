@@ -1,7 +1,0 @@
-
-running 2 tests
-test roots_are_absolute_local_and_nonoverlapping ... ok
-test private_environment_identity_and_exclusive_lock_survive_reopen ... ok
-
-test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
-

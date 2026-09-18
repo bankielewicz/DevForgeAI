@@ -1,1 +1,0 @@
-Attempt 01 IR-11 used sorted manifest object keys in package digest. Existing observe.compact preserves schema manifest key order path,bytes,sha256. Correct synthetic inputs in fresh attempt; retain original cases/results. This is an oracle harness correction, not a target repair.

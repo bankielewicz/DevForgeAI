@@ -1,3 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.02s
-     Running tests/protocol.rs (/tmp/devforgeai-manual-build.k0dzpK/debug/deps/protocol-06929464da1f10e0)

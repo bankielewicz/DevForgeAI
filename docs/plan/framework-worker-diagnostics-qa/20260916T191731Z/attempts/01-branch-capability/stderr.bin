@@ -1,3 +1,0 @@
-warning: --branch option is unstable
-info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
-warning: --branch flag requires nightly toolchain; consider using `cargo +nightly llvm-cov`

@@ -1,9 +1,0 @@
-{
-  "executor": "independent operational validator revalidation",
-  "expected": "Evidence-backed reassessment of prior findings without target edits",
-  "input_paths": [
-    "skill-builder",
-    "prompt.txt"
-  ],
-  "timeout_seconds": 900
-}

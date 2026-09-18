@@ -1,3 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (/mnt/c/Projects/DevForgeAI/devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.59s
-     Running tests/capture.rs (/tmp/devforgeai-index-20260914T0727264112301Z/debug/deps/capture-ec1ef611bcbfb040)

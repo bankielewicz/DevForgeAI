@@ -1,6 +1,0 @@
-
-running 1 test
-test tray_startup_defaults_are_opt_in_and_polling_is_bounded ... ok
-
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-

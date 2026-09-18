@@ -1,6 +1,0 @@
-test_first_prewrite_stage_drift_leaves_no_destination (test_prewrite_destination.PrewriteDestination) ... ok
-
-----------------------------------------------------------------------
-Ran 1 test in 0.538s
-
-OK

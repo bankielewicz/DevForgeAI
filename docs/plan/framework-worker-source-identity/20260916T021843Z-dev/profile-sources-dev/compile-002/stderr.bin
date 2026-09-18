@@ -1,3 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.39s
-  Executable unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity\20260916T021843Z-dev\profile-sources-dev\target-dev\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)

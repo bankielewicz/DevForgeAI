@@ -1,1 +1,0 @@
-Trial user edit: append the comment "User note: preserve receipt troubleshooting context." to the existing scripts/receipt_totals.py after adoption capture and before revision planning. This deliberate development edit is not authorization to override a resulting conflict.

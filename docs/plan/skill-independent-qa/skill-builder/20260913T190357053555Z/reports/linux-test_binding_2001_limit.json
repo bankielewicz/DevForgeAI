@@ -1,1 +1,0 @@
-{"exit_code":2,"observation":{"schema_version":"binding-observation-v1","status":"UNAVAILABLE","reason_code":"CAPTURE_LIMIT","binding_sha256":"17d7fa0336d6b8bdc551aea67146ffa768e3eda91a7244215af19844ec56501d","package_digest":null,"details":[]},"effects_unchanged":true}

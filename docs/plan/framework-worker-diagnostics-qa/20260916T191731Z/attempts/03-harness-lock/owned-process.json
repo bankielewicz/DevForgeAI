@@ -1,8 +1,0 @@
-{
-  "pid": 42332,
-  "argv": [
-    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
-    "generate-lockfile",
-    "--offline"
-  ]
-}

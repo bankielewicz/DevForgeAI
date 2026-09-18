@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 24768 (child process of PID 44452) has been terminated.
-SUCCESS: The process with PID 37756 (child process of PID 65844) has been terminated.
-SUCCESS: The process with PID 33448 (child process of PID 61164) has been terminated.
-SUCCESS: The process with PID 44452 (child process of PID 61164) has been terminated.
-SUCCESS: The process with PID 65844 (child process of PID 61164) has been terminated.
-SUCCESS: The process with PID 70836 (child process of PID 61164) has been terminated.
-SUCCESS: The process with PID 61164 (child process of PID 3572) has been terminated.

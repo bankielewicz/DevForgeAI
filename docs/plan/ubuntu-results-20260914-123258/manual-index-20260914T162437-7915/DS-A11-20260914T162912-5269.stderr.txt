@@ -1,2 +1,0 @@
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
-     Running tests/service.rs (/tmp/devforgeai-manual-build.k0dzpK/debug/deps/service-efda9b4c6389ba3a)

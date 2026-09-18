@@ -1,8 +1,0 @@
-{
-  "command": "& 'C:\\Program Files\\Python310\\python.exe' -B -X utf8 'docs\\plan\\framework-discovery-planning\\20260918T014059438Z\\verify_docs.py'",
-  "cwd": "C:\\Projects\\DevForgeAI",
-  "powershell_version": "7.6.6",
-  "started_at_utc": "2026-09-18T01:55:35.9793935Z",
-  "ended_at_utc": "2026-09-18T01:55:36.2684027Z",
-  "exit_code": 0
-}

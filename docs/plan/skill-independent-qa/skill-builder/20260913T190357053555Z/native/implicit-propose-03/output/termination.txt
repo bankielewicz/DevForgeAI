@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 53872 (child process of PID 45172) has been terminated.
-SUCCESS: The process with PID 56240 (child process of PID 19988) has been terminated.
-SUCCESS: The process with PID 98024 (child process of PID 69092) has been terminated.
-SUCCESS: The process with PID 45172 (child process of PID 69092) has been terminated.
-SUCCESS: The process with PID 19988 (child process of PID 69092) has been terminated.
-SUCCESS: The process with PID 75716 (child process of PID 69092) has been terminated.
-SUCCESS: The process with PID 69092 (child process of PID 69484) has been terminated.

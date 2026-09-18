@@ -1,6 +1,8 @@
 # User-selected local directories.
 /tmp/
 /.claude/skills/legacy/
+/worktrees/
+/docs/plan/archive/
 
 # Generated build and dependency directories.
 target/

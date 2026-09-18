@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 25008 (child process of PID 21328) has been terminated.
-SUCCESS: The process with PID 15328 (child process of PID 51836) has been terminated.
-SUCCESS: The process with PID 12228 (child process of PID 30416) has been terminated.
-SUCCESS: The process with PID 21328 (child process of PID 30416) has been terminated.
-SUCCESS: The process with PID 51836 (child process of PID 30416) has been terminated.
-SUCCESS: The process with PID 104148 (child process of PID 30416) has been terminated.
-SUCCESS: The process with PID 30416 (child process of PID 69316) has been terminated.

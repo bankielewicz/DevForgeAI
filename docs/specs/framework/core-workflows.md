@@ -2,7 +2,7 @@
 id: DFF-02
 status: planning-baseline
 implementation_readiness: not-ready
-updated: 2026-09-17
+updated: 2026-09-18
 ---
 
 # Core workflows and artifact flow
@@ -51,8 +51,8 @@ The user selected **brainstorm -> prd-create -> prd-review** because "specificat
 | Route position | Responsibility and output | Status and next consumer |
 | --- | --- | --- |
 | Phase 1: `brainstorm` | Explore the selected uncertainty; produce a grounded discovery brief, named gaps or a reuse handoff | [DFF-WF-01](workflows/phase-1-brainstorm-spec.md) specifies the standalone skill; package not authored by this work. |
-| Phase 2: `prd-create` | Produce product/feature requirements, acceptance, constraints and referenced design decisions from a brief or equivalent input | Proposed workflow; full specification remains separate. Consumed by PRD review. |
-| Phase 3: `prd-review` | Assess the identified PRD and architecture references for contradictions, missing behavior, architecture sufficiency, feasibility and testability | Proposed workflow; findings return to their owners. Sufficient selected scope can enter work planning. |
+| Phase 2: `prd-create` | Produce product/feature requirements, acceptance, constraints and referenced design decisions from a brief or equivalent input | [DFF-WF-02 authoring specification](workflows/phase-2-prd-create-spec.md); skill not authored by this documentation task. Consumed by PRD review. |
+| Phase 3: `prd-review` | Assess the identified PRD and architecture references for contradictions, missing behavior, architecture sufficiency, feasibility and testability | [DFF-WF-03 authoring specification](workflows/phase-3-prd-review-spec.md); scoped assessment and independent retest, with findings returned to their owners. Sufficient selected scope can enter work planning. |
 | Work planning | Propose capability/epic boundaries, canonical clause ownership and dependency reasons | DFF-03; a planning responsibility, not a claim that a new `work-plan` package exists. |
 | Story creation and readiness | Author selected stories, then assess known blocking decisions and verification obligations | Existing story-create contract plus proposed readiness review; no automatic implementation. |
 | Optional sprint grouping | Group selected work for coordination while preserving dependencies | A planning choice; sprint membership cannot waive a prerequisite. |

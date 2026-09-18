@@ -1,1 +1,0 @@
-{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["$.member_ids: duplicate items"], "ordered_member_ids": []}

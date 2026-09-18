@@ -1,2 +1,0 @@
-{"case_id": "accounting", "grader_id": "manifest_accounting", "params": {"source": "source", "destination": "destination", "evidence": "evidence"}, "expected": "PASS"}
-{"case_id": "__control_links", "grader_id": "package_links", "params": {"path": "control/destination"}, "expected": "PASS"}

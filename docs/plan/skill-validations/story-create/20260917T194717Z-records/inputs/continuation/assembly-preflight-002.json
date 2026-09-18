@@ -1,9 +1,0 @@
-{
-  "result": "MATCH",
-  "source_rows_identical": 16,
-  "historical_references_verified": 153,
-  "historical_manifest_references": 7,
-  "prior_manifest_sha256": "a1ed7e831384b611c0cb18e720887ef00edc00c060f84e98232ace4b40c73f27",
-  "current_manifest_sha256": "f2ad48644a9c3abd12b125f0e90be391ef51108531f82321e646005666fdafc9",
-  "interpretation": "Original checks keep original manifest bytes; current origin binds current snapshot. No source mutation or new assessment generated."
-}

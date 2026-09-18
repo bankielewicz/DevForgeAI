@@ -1,2 +1,0 @@
-    Checking devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.69s

@@ -1,2 +1,0 @@
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.05s
-     Running tests/protocol.rs (/tmp/devforgeai-manual-build.k0dzpK/debug/deps/protocol-06929464da1f10e0)

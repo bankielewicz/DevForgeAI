@@ -1,1 +1,0 @@
-[{"case_id": "complete", "builder_exit": 0, "validator_exit": 0, "expected_exit": 0, "parent_unchanged": true}, {"case_id": "omitted-parent", "builder_exit": 1, "validator_exit": 1, "expected_exit": 1, "parent_unchanged": true}]

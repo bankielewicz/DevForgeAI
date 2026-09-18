@@ -1,3 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.35s
-     Running tests\admission.rs (target\debug\deps\admission-97bc59d477a7a1c9.exe)

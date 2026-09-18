@@ -1,4 +1,0 @@
-
-running 2 tests
-test corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation has been running for over 60 seconds
-test simultaneous_starts_and_process_level_index_lifecycle has been running for over 60 seconds

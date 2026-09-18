@@ -1,5 +1,0 @@
-usage: observe.py records [-h] --run-root RUN_ROOT
-
-options:
-  -h, --help           show this help message and exit
-  --run-root RUN_ROOT

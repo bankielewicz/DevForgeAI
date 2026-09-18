@@ -1,1 +1,0 @@
-Begin rejected before staging: history_review requires exact no_known_history value. No run directory or candidate created. Original contract retained. Successor uses contract-02.json and run 20260915-02.

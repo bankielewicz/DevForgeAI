@@ -1,9 +1,0 @@
-{
-  "files_read": 43,
-  "python_ast_parse": "PASS",
-  "json_parse": "PASS",
-  "package_manifest_exact": true,
-  "broken_local_links": [],
-  "source_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2",
-  "omissions": []
-}

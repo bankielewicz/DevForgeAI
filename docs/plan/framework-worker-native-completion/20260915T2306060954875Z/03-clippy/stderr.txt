@@ -1,6 +1,0 @@
-    Checking fastrand v2.5.0
-    Checking once_cell v1.21.4
-    Checking getrandom v0.4.3
-    Checking devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Checking tempfile v3.27.0
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.26s

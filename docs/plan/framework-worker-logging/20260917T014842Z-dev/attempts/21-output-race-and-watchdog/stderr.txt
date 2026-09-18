@@ -1,3 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe-logging)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.16s
-     Running tests\process_windows.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T014842Z-dev\target\debug\deps\process_windows-4f4eb8a376530b1f.exe)

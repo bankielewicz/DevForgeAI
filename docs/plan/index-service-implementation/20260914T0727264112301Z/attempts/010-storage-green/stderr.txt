@@ -1,3 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.03s
-     Running tests\storage.rs (target\debug\deps\storage-38e6b5304a5b48a5.exe)

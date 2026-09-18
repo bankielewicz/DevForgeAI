@@ -1,1 +1,0 @@
-{"state": "PARTIAL", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-01\\fixtures\\followup-02\\author-drift\\docs\\plan\\author-drift-run", "applied_paths": [], "issues": ["SOURCE_CHANGED live target differs from captured current"]}

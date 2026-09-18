@@ -1,8 +1,0 @@
-{
-  "observed_utc": "2026-09-16T19:45:10.5225316Z",
-  "method": "Get-Process image path restricted to the QA output root; command receipts and real job accounting supply completion evidence",
-  "qa_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z",
-  "matching_processes": [],
-  "matching_count": 0,
-  "processes_terminated_by_this_check": 0
-}

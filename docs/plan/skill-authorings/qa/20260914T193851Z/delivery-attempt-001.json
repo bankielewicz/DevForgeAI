@@ -1,7 +1,0 @@
-{
-  "exit_code": 1,
-  "continuation": "delivery-002.py corrects project-root parent index; original attempt retained.",
-  "command": "python -B -X utf8 docs/plan/skill-authorings/qa/20260914T193851Z/delivery.py",
-  "error": "ModuleNotFoundError: No module named 'authoring'",
-  "cause": "Delivery-note helper selected docs as project root; import failed before any delivery artifacts were written. Published skill and baseline unaffected."
-}

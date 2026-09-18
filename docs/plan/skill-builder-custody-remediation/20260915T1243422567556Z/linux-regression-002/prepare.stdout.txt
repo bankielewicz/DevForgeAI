@@ -1,1 +1,0 @@
-{"snapshot": "/tmp/devforgeai-regression-v3-same-process-002", "source_files": 47, "fixture_files": 75}

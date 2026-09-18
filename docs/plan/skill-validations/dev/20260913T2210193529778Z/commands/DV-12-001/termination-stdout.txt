@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 89628 (child process of PID 32732) has been terminated.
-SUCCESS: The process with PID 88552 (child process of PID 97564) has been terminated.
-SUCCESS: The process with PID 94180 (child process of PID 92180) has been terminated.
-SUCCESS: The process with PID 32732 (child process of PID 92180) has been terminated.
-SUCCESS: The process with PID 97564 (child process of PID 92180) has been terminated.
-SUCCESS: The process with PID 27692 (child process of PID 92180) has been terminated.
-SUCCESS: The process with PID 92180 (child process of PID 69316) has been terminated.

@@ -1,8 +1,0 @@
-{
-  "executor": "operational skill-validator implementation assessment",
-  "implementation": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator",
-  "cases": "exact input-packages/skill-validator/tests",
-  "expected": "Regression assertions from preserved legacy cases plus new user-contract custody/handoff cases; no failure expected",
-  "timeout_seconds": 120,
-  "write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-006-authoring-inputs"
-}

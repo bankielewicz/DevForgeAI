@@ -1,7 +1,0 @@
-{
-  "action": "CLI matrix success",
-  "started_utc": "2026-09-17T11:10:44.007558+00:00",
-  "plan_sha256": "e89ea045db1b6a9b529310793a51e5f7eba8b68a0689180c35bc65970702f87b",
-  "script_sha256": "323f937988adc21cd7593439ee48815287c70c6a3a6294c397f71c87a8d41e43",
-  "executable_sha256": "cdd7de15eece11ad4c6f8b910ddca947bcc0ca0e98cd1ed939e61ddd73975bcd"
-}

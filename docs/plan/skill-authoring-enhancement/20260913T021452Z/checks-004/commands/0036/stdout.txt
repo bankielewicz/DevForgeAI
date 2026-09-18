@@ -1,1 +1,0 @@
-{"bytes": 36, "excluded_boundaries": [], "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\disposable\\builder-enhancement-test-p_fxpqm8\\project\\docs\\plan\\explicit.md", "sha256": "e730871923e8ed4ad7e39d910aed517db61b6bb1b295f523c356cc0417222756", "skill_name": null, "status": "RESOLVED"}

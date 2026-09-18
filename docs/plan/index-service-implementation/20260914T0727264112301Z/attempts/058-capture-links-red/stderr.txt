@@ -1,8 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (/mnt/c/Projects/DevForgeAI/devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.63s
-     Running tests/capture.rs (/tmp/devforgeai-index-20260914T0727264112301Z/debug/deps/capture-ec1ef611bcbfb040)
-
-thread 'capture_rejects_directory_links_and_outside_targets_but_allows_internal_file_links' (715306) panicked at tests/capture.rs:19:5:
-Directory links must never be traversed, even within the root
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-error: test failed, to rerun pass `--test capture`

@@ -1,1 +1,0 @@
-{"fixture_unchanged":true,"open_work":["qa-work"],"oracle":"not_evaluated","outcome":"failed","reason":"protocol_error","thread_id":"qa-thread","tree_stopped":true,"turn_id":"qa-turn","usage":null,"worker_exit_code":1}

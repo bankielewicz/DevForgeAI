@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 88944 (child process of PID 71820) has been terminated.
-SUCCESS: The process with PID 55524 (child process of PID 45460) has been terminated.
-SUCCESS: The process with PID 42900 (child process of PID 8216) has been terminated.
-SUCCESS: The process with PID 71820 (child process of PID 8216) has been terminated.
-SUCCESS: The process with PID 45460 (child process of PID 8216) has been terminated.
-SUCCESS: The process with PID 79828 (child process of PID 8216) has been terminated.
-SUCCESS: The process with PID 8216 (child process of PID 69316) has been terminated.

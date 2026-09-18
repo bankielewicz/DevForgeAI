@@ -1,8 +1,0 @@
-{
-  "scope": "Metadata only for the conventional local Codex log directory; no log content/config/credential read",
-  "directory": "C:\\Users\\bryan\\.codex\\log",
-  "exists": false,
-  "files": [],
-  "actual_pinned_app_server_log_destination_proven": false,
-  "native_launches": 0
-}

@@ -1,1 +1,0 @@
-{"state": "AUTHORED", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\followup-02\\records\\docs\\plan\\set-c-complete-run", "applied_paths": ["SKILL.md", "assets/devforgeai-skill.json", "references/adaptive-contract.md", "scripts/check_project_binding.py"], "issues": []}

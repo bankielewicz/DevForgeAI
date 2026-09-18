@@ -1,1 +1,0 @@
-Initial evidence capture exited 1 before creating a snapshot: PROJECT was resolved one directory too shallow, to C:\Projects\DevForgeAI\docs. FileNotFoundError occurred for docs\src\agents\skills\skill-builder. Corrected the evidence-only locator to ROOT.parents[3]. This is setup failure, not behavioral red. No production files had changed.

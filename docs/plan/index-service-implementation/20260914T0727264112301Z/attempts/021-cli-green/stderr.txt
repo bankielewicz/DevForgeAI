@@ -1,4 +1,0 @@
-   Compiling tokio v1.53.1
-   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.42s
-     Running tests\cli.rs (target\debug\deps\cli-867286b0cd7aee92.exe)

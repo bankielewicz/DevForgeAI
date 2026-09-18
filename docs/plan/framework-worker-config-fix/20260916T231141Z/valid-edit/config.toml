@@ -1,3 +1,0 @@
-notify = ["root-notifier"]
-[history]
-persistence = "save-all"

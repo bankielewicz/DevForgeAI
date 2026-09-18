@@ -1,3 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.81s
-     Running tests\remediation.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-qa\20260915T1834258428322Z-green\target\debug\deps\remediation-06d7f233ed62a9b7.exe)

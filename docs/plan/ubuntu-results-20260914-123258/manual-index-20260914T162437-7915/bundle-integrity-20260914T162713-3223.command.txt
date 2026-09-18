@@ -1,1 +1,0 @@
-bash -c cd\ ..\ \&\&\ sha256sum\ -c\ TRANSFER-SHA256SUMS 

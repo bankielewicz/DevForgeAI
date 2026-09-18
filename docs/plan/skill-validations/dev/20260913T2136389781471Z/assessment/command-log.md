@@ -1,3 +1,0 @@
-# Execution accounting
-
-Exact argv, working directory, UTC times, timeout, exit code and byte-bound stdout/stderr are in inputs/observations/*.receipt.json. Source snapshots use the same observed helper, and manifests record actual capture time. Initial exploratory read-only commands and the first snapshot were emitted in the host transcript; no fabricated timing is assigned to those. TDD contract red failed on the missing required artifacts; green passed after creation. Grader tests are evaluator checks, not dev behavior. No refactor was needed. The runner performs no model calls and creates only fresh output under trials/.

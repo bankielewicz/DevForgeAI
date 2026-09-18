@@ -2,7 +2,7 @@
 id: DFF-12
 status: planning-baseline
 implementation_readiness: not-ready
-updated: 2026-09-17
+updated: 2026-09-18
 ---
 
 # Roadmap, decisions and unresolved questions
@@ -45,6 +45,8 @@ The core must work within supported Codex and an individual ChatGPT Pro subscrip
 | DEC-24 | Specified first brainstorm packaging: ordinary standalone skill with a reusable core responsibility; no adaptive descriptor/binding exception is inserted into existing schemas | DFF-WF-01; DFF-05; AMB-12 remains open generally |
 | DEC-25 | Documented readiness target: zero known unresolved blocking ambiguities for selected work; no claim of absolute certainty or calibrated AI-completion probability | DFF-03; future persisted schema remains open |
 | DEC-26 | Documented continuity: provenance, dependency-aware parallel work, combined-candidate QA, authorized delivery and feedback during work; existing skill scopes and MIG-01/02/03 remain intact | DFF-03/04/08/09/11 |
+| DEC-27 | Selected phase 2 specification: portable standalone prd-create consumes the existing brief or equivalent requirements, produces a traceable revisioned PRD and hands it to independent PRD review; package authoring/evaluation remain later work | DFF-WF-02; DFF-02/03/04/08; no general binding/schema migration |
+| DEC-28 | Selected phase 3 specification: portable standalone prd-review independently assesses identified requirements and architecture for a declared next use, preserves inputs, reports actionable findings and retests corrections; report delivery, review result and protected acceptance stay separate | DFF-WF-03; DFF-02/03/04/08; protected independence and broader schema work remain open |
 
 ## Ambiguity register
 
@@ -84,6 +86,22 @@ The applicable owner documents now record: intake at three levels; iterative arc
 
 [Input identities and before snapshots](../../plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json) preserve the earlier documents. Prior runtime, source, operational skills, specifications outside the selected framework documents and retained evidence are not rewritten by this work. Historical manifests still bind their original bytes; a later consumer must select and verify the revision it actually uses.
 
+## PRD authoring disposition, 2026-09-17
+
+The selected [DFF-WF-02 specification](workflows/phase-2-prd-create-spec.md) defines prd-create with 20 requirements and 26 future mandatory evaluation cases. Inputs include the unchanged brainstorm-brief-v1 contract and equivalent selected requirements. The primary output is one PRD with provenance, observable acceptance, applicable quality and architecture obligations, dependency mappings and explicit questions. READY_FOR_REVIEW is an authoring disposition, not independent review approval or implementation acceptance.
+
+Default revisioned output preserves predecessors; explicitly selected canonical-path revision retains a verified before-image and detects conflicting edits. Existing compatible project templates retain their conventions. Missing essential product decisions block only affected work; declared architecture questions may transfer to review. This narrows AMB-04 for PRD authoring without defining universal work-state schemas, protected transitions or the full prd-review workflow. AMB-12/13/20/21 and MIG-01/02/03 remain unchanged.
+
+The [retained brainstorm assessment](../../plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md) is upstream evidence, not a fresh run or validation of prd-create. [Phase 2 input identities and before snapshots](../../plan/framework-prd-planning/20260918T030029557Z/inputs-before.json) preserve the documentation and selected skill inputs inspected for this task. Next selectable work is skill-builder authoring from DFF-WF-02; the next workflow specification is prd-review. Neither is automatically invoked by this documentation delivery.
+
+## PRD review disposition, 2026-09-18
+
+[DFF-WF-03](workflows/phase-3-prd-review-spec.md) specifies prd-review with 20 requirements and 32 future mandatory cases. It consumes product-requirements-v1 or equivalent selected PRDs and governing sources, preserves their bytes, and produces one review report. PASS, CHANGES_REQUIRED and INCOMPLETE apply only to the identified scope and intended next use; completeness and delivery state are separate. Architecture questions can be deferred only with concrete later-stage boundaries. Known authors cannot present their self-review as independent PASS or finding closure.
+
+Retest independently compares the new candidate with original finding conditions; approved scope changes are distinguished from demonstrated fixes. Paired content/digest acquisition and semantic reassessment after drift apply through final report readback. The [upstream prd-create retest](../../plan/skill-validations/prd-create/20260918T121331Z/validation-report.md) is retained evidence for its own candidate, not a phase 3 assessment. [Current input identities and preserved before snapshots](../../plan/framework-prd-review-planning/20260918T125021440Z/inputs-before.json) retain the existing phase 2 documentation edits as this task's base.
+
+This narrows AMB-04 for the PRD-review report and handoff only. AMB-07 protected independence, AMB-12/13/20/21 setup/binding concerns and MIG-01/02/03 remain open at their existing scope. No authoring, installation, runtime transition, automatic product review or framework acceptance is performed. The next selectable authoring input is DFF-WF-03; work planning remains the later responsibility rather than an invented package name or mandatory phase 4 implementation.
+
 ## Compatibility and migration register
 
 ### First worker contract disposition, 2026-09-15
@@ -118,7 +136,7 @@ These are planning increments, not five compulsory runtime stages or five implem
 
 ## Next session task
 
-For the discovery work stream, the next selectable authoring input is [DFF-WF-01](workflows/phase-1-brainstorm-spec.md); the next workflow specification is prd-create, followed by prd-review. Selecting this documentation task does not automatically select skill authoring or either later specification. Their required consumers and review boundaries are recorded in DFF-02 and DFF-WF-01.
+For the discovery work stream, the next selectable authoring input is [DFF-WF-03: prd-review](workflows/phase-3-prd-review-spec.md), using its explicit-path skill-builder request. The next responsibility after sufficient PRD review is DFF-03 work planning; its complete skill specification remains a separate selection. This documentation task does not automatically select skill authoring, evaluation or later workflow execution. DFF-WF-01/02, their source packages and retained assessments remain preserved inputs.
 
 The earlier [MVP planning handoff](../../plan/framework-mvp-next-session.md), [DFF-WORKER-FEAS-01 v1.0.0](runtime/codex-worker-feasibility-v1.md) and its [scoped coding handoff](../../plan/framework-worker-coding-handoff.md) remain a separate runtime work stream. Native Pro trials remain separately selected and profile-dependent. Inspect current candidate/evidence before that work; do not begin implementation from this entire planning directory.
 

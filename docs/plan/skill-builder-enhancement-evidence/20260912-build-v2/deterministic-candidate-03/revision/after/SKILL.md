@@ -1,1 +1,0 @@
-New generated skill.

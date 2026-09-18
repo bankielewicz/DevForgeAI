@@ -1,8 +1,0 @@
-{
-  "observed_at": "2026-09-15T21:38:46.2496894Z",
-  "os_description": "Microsoft Windows 10.0.26200",
-  "os_architecture": "X64",
-  "drive_format": "NTFS",
-  "drive_type": "Fixed",
-  "optional_cim_caption_status": "BLOCKED: Access denied; retained in host-observation.json as null. Runtime OS/platform identification and filesystem format supplied by independent native read APIs."
-}

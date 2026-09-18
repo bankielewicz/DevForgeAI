@@ -1,8 +1,0 @@
-{
-  "state_matches": true,
-  "package_matches": true,
-  "baseline_target_matches": true,
-  "baseline_files_match": true,
-  "reference_validation": "Every explicit custody Ref was read/hash-verified and captured by inputs/bootstrap.py; capture-index binds exact originals. No builder invoked.",
-  "history_kind": "authoring-v1 baseline; not legacy generated/adopted history"
-}

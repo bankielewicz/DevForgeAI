@@ -1,5 +1,0 @@
-usage: observe.py structure [-h] --source SOURCE
-
-options:
-  -h, --help       show this help message and exit
-  --source SOURCE  skill directory or snapshot source/ directory

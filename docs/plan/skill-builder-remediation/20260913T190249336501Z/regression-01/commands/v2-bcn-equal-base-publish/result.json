@@ -1,8 +1,0 @@
-{
-  "exit": 0,
-  "timeout": false,
-  "end_utc": "2026-09-13T19:13:36.880764+00:00",
-  "elapsed_seconds": 0.48499999998603016,
-  "stdout_sha256": "01c65638fd19d87d74cf47b132560632ca9c5e69521ec384b7c3bec2be8a7414",
-  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-}

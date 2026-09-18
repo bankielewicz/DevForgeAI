@@ -1,1 +1,0 @@
-{"case_id": "routing-adoption-positive-routing_outcomes_v2", "grader_id": "routing_outcomes_v2", "params": {"expected": "routing/expected.jsonl", "observed": "routing/observed.jsonl"}, "expected": "PASS"}

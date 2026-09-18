@@ -1,3 +1,0 @@
-Use $skill-builder at C:\Projects\DevForgeAI\docs\plan\skill-adaptive-implementations\skill-builder\20260913T083452607505Z\native\20260913T085649459358Z-ordinary\project\tools\skill-builder\SKILL.md.
-Create a small skill named release-brief in C:\Projects\DevForgeAI\docs\plan\skill-adaptive-implementations\skill-builder\20260913T083452607505Z\native\20260913T085649459358Z-ordinary\project\skills\release-brief that turns supplied release notes into three factual bullets. It should read supplied text and return the bullets in conversation. No external effects are needed. This request authorizes creation and the necessary local evidence.
-Only local files under this disposable project may be written. Do not install or change host configuration.

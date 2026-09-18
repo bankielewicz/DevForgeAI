@@ -1,9 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-error: cannot find macro `json` in this scope
-   --> tests\profile_protocol.rs:303:15
-    |
-303 |             [&json!("not_measured")],
-    |               ^^^^
-
-error: could not compile `devforgeai-codex-worker-probe` (test "profile_protocol") due to 1 previous error
-warning: build failed, waiting for other jobs to finish...

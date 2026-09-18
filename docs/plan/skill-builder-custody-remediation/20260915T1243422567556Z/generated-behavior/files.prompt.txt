@@ -1,6 +1,0 @@
-Use the skill at C:\Users\bryan\AppData\Local\Temp\meeting-actions-independent-20map638\meeting-actions\SKILL.md to complete these requests. Read that SKILL.md first. Work only in C:\Users\bryan\AppData\Local\Temp\meeting-actions-independent-20map638. Do not use other skills or external services.
-
-These are three separate user requests; label each response by its case ID.
-CASE F1: Read the meeting notes in "notes original.md" and write the action table to the relative destination "résumé actions 東京.md".
-CASE F2: From the notes "Marta will check the release package tomorrow", write the action table to the destination "blocked destination.md". Do not remove or replace existing directories or their contents.
-CASE F3: Read the meeting notes in "notes original.md" and write the action table to "notes original.md".

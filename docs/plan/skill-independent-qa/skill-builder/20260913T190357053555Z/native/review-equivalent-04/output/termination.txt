@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 105676 (child process of PID 58620) has been terminated.
-SUCCESS: The process with PID 95284 (child process of PID 89540) has been terminated.
-SUCCESS: The process with PID 50476 (child process of PID 97756) has been terminated.
-SUCCESS: The process with PID 89540 (child process of PID 97756) has been terminated.
-SUCCESS: The process with PID 58620 (child process of PID 97756) has been terminated.
-SUCCESS: The process with PID 61140 (child process of PID 97756) has been terminated.
-SUCCESS: The process with PID 97756 (child process of PID 3572) has been terminated.

@@ -1,3 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.48s
-     Running tests/benchmark_fixture.rs (/tmp/devforgeai-manual-build.k0dzpK/debug/deps/benchmark_fixture-a8f368925a93a41e)

@@ -1,4 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.81s
-     Running tests\oracle.rs (target\debug\deps\oracle-47fcac9ccd1e58ff.exe)
-error: test failed, to rerun pass `--test oracle`

@@ -1,7 +1,0 @@
-{
-  "record_kind": "command_receipt_correction",
-  "affected_receipts": ["skill-builder-delivery-command.json", "skill-validator-delivery-command.json"],
-  "correction": "Those receipts show the CLI-equivalent publish invocation. The actual command executed was python -B -X utf8 docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\deliver.py. That retained driver called authoring.publish(delivery) in-process for each package. No authoring.py CLI process was launched for real delivery. Original receipts are preserved.",
-  "actual_exit_code": 0,
-  "actual_result": "Both development packages AUTHORED with no issues; exact delivered files equal tested candidate snapshots."
-}

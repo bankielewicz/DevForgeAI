@@ -1,4 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.45s
-     Running tests\requirements.rs (target\debug\deps\requirements-b18fd1220e746d15.exe)
-error: test failed, to rerun pass `--test requirements`

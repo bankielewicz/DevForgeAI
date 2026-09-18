@@ -1,7 +1,0 @@
-
-running 2 tests
-test corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation ... ok
-test simultaneous_starts_and_process_level_index_lifecycle ... ok
-
-test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
-

@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 52048 (child process of PID 52092) has been terminated.
-SUCCESS: The process with PID 104196 (child process of PID 86112) has been terminated.
-SUCCESS: The process with PID 103636 (child process of PID 89680) has been terminated.
-SUCCESS: The process with PID 86112 (child process of PID 89680) has been terminated.
-SUCCESS: The process with PID 52092 (child process of PID 89680) has been terminated.
-SUCCESS: The process with PID 78192 (child process of PID 89680) has been terminated.
-SUCCESS: The process with PID 89680 (child process of PID 69316) has been terminated.

@@ -1,1 +1,0 @@
-Original begin rejected the history_review prose value before creating the run. The helper requires exact no_known_history for an absent target with no baseline. Original input and exit-2 output remain retained. This fresh contract changes only run_id, history_review and retry_of; the completed design and source inputs are unchanged. No target files were written.

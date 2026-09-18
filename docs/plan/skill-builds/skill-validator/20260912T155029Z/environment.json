@@ -1,9 +1,0 @@
-{
-  "timestamp": "2026-09-12T15:51:45.098610+00:00",
-  "platform": "Windows-10-10.0.26200-SP0",
-  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
-  "shell": "PowerShell 7",
-  "codex_cli": "Get-Command codex returned no command; host subagents available",
-  "checker_path": "C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
-  "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620"
-}

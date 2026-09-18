@@ -1,1 +1,0 @@
-bash -o pipefail -c $'{ rg --files -0 src tests queries schemas fixtures examples licenses packaging &&\n       printf "%s\\0" Cargo.toml Cargo.lock grammar-manifest.json README.md; } |\n     sort -zu | xargs -0 sha256sum' 

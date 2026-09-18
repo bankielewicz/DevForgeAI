@@ -1,1 +1,0 @@
-error: --ignore-run-fail may not be used together with --no-fail-fast

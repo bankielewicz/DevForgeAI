@@ -1,1 +1,0 @@
-{"bytes": 53, "excluded_boundaries": [], "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-g03pwg3f\\project\\docs\\design\\specs\\found.md", "sha256": "c9a90292d9d83363321a0d560c50a1aa3201f5bbd46188bad0008e8c6feeca45", "skill_name": "synthetic-total", "status": "RESOLVED"}

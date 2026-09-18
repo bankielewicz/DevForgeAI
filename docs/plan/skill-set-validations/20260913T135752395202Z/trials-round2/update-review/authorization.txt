@@ -1,1 +1,0 @@
-Assess selected synthetic notes variant, preserving facts and inputs; local files only.

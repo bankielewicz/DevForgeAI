@@ -1,8 +1,0 @@
-interface:
-  display_name: Old
-  short_description: A sufficiently long existing description
-  brand_color: "#123456"
-policy:
-  allow_implicit_invocation: false
-dependencies:
-  tools: []

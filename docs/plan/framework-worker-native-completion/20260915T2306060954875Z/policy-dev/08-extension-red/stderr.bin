@@ -1,4 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.55s
-     Running tests\launch_policy.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion\20260915T2306060954875Z\policy-dev\target\debug\deps\launch_policy-63708247ed9d05a9.exe)
-error: test failed, to rerun pass `--test launch_policy`

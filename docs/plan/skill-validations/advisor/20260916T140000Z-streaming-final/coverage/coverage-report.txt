@@ -1,7 +1,0 @@
-Name                                                                                                                           Stmts   Miss Branch BrPart     Cover   Missing
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-C:\Projects\DevForgeAI\docs\plan\skill-validations\advisor\20260916T140000Z-streaming-final\source\evals\run_evaluation.py        72      1     22      1  97.8723%   29
-C:\Projects\DevForgeAI\docs\plan\skill-validations\advisor\20260916T140000Z-streaming-final\source\scripts\advisor_run.py        320      8    148      7  96.3675%   228, 244, 265, 272, 287, 294-295, 297
-C:\Projects\DevForgeAI\docs\plan\skill-validations\advisor\20260916T140000Z-streaming-final\source\scripts\advisor_stream.py     243     22     88      8  90.9366%   69, 78, 122, 130->exit, 136->exit, 155-156, 183-184, 193->204, 201->203, 220-225, 232-234, 241, 317-321
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-TOTAL                                                                                                                            635     31    258     16  94.5129%

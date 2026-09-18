@@ -1,1 +1,0 @@
-Assess exactly A and B in disposable fixtures. No external effects.
