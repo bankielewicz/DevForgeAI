@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="29" errors="0" failures="3" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2026-09-18" time="10:16:16">
+  <environment platform="Microsoft Windows 11 Pro|C:\WINDOWS|\Device\Harddisk1\Partition3" nunit-version="2.5.8.0" user="bryan" machine-name="DESKTOP-88FARC5" os-version="10.0.26200" user-domain="DESKTOP-88FARC5" cwd="C:\Projects\DevForgeAI\worktrees\git\operator-console" clr-version="10.0.12" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Failure" success="False" time="79.2106" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1" executed="True" result="Failure" success="False" time="79.2106" asserts="0" description="C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="Safe main synchronization" executed="True" result="Success" success="True" time="24.7186" asserts="0" description="Safe main synchronization">
+            <results>
+              <test-case description="switches a clean task branch and fast-forwards main while retaining a recovery point" name="Safe main synchronization.switches a clean task branch and fast-forwards main while retaining a recovery point" time="3.4416" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="refuses divergent or ahead main and preserves both local branches" name="Safe main synchronization.refuses divergent or ahead main and preserves both local branches" time="4.5652" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="refuses main occupied by another worktree without moving its checkout" name="Safe main synchronization.refuses main occupied by another worktree without moving its checkout" time="1.268" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="protects ignored file collisions during a fast-forward" name="Safe main synchronization.protects ignored file collisions during a fast-forward" time="3.1565" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="creates missing main while preserving detached commits through a recovery ref" name="Safe main synchronization.creates missing main while preserving detached commits through a recovery ref" time="2.8998" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="keeps the original branch and checkpoint on a fetch failure" name="Safe main synchronization.keeps the original branch and checkpoint on a fetch failure" time="2.5773" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="refuses untracked data introduced during fetch" name="Safe main synchronization.refuses untracked data introduced during fetch" time="2.6844" asserts="0" success="True" result="Success" executed="True" />
+              <test-suite type="ParameterizedTest" name="Safe main synchronization.refuses &lt;Kind&gt; changes without touching local bytes" executed="True" result="Success" success="True" time="3.3684" asserts="0" description="refuses &lt;Kind&gt; changes without touching local bytes">
+                <results>
+                  <test-case description="refuses unstaged changes without touching local bytes" name="Safe main synchronization.refuses unstaged changes without touching local bytes" time="1.1093" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="refuses staged changes without touching local bytes" name="Safe main synchronization.refuses staged changes without touching local bytes" time="1.1424" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="refuses untracked changes without touching local bytes" name="Safe main synchronization.refuses untracked changes without touching local bytes" time="1.1168" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Checkpoints and mutation admission" executed="True" result="Success" success="True" time="33.9847" asserts="0" description="Checkpoints and mutation admission">
+            <results>
+              <test-case description="preserves staged, unstaged, deleted and Unicode binary untracked content independently" name="Checkpoints and mutation admission.preserves staged, unstaged, deleted and Unicode binary untracked content independently" time="1.9554" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="retains a clearly incomplete checkpoint when the byte limit prevents capture" name="Checkpoints and mutation admission.retains a clearly incomplete checkpoint when the byte limit prevents capture" time="1.582" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="rejects operation markers and submodules without altering the index" name="Checkpoints and mutation admission.rejects operation markers and submodules without altering the index" time="2.9384" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="rejects junction capture instead of following an untracked directory" name="Checkpoints and mutation admission.rejects junction capture instead of following an untracked directory" time="1.3381" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="reports no checkpoints and rejects subdirectory or nonrepository roots" name="Checkpoints and mutation admission.reports no checkpoints and rejects subdirectory or nonrepository roots" time="1.1435" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Common operator actions" executed="True" result="Success" success="True" time="51.9899" asserts="0" description="Common operator actions">
+            <results>
+              <test-case description="switches an existing clean branch and refuses missing or option-shaped names" name="Common operator actions.switches an existing clean branch and refuses missing or option-shaped names" time="4.004" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="creates a real task worktree without switching the primary checkout" name="Common operator actions.creates a real task worktree without switching the primary checkout" time="1.9234" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="commits only staged files on task branches with a prior checkpoint" name="Common operator actions.commits only staged files on task branches with a prior checkpoint" time="3.3777" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="pushes an explicit task branch and refuses main" name="Common operator actions.pushes an explicit task branch and refuses main" time="1.737" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="requires explicit approval for mutating noninteractive actions" name="Common operator actions.requires explicit approval for mutating noninteractive actions" time="6.6075" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Rust build and console entry" executed="True" result="Success" success="True" time="60.3494" asserts="0" description="Rust build and console entry">
+            <results>
+              <test-case description="builds an actual Rust executable in both profiles and preserves the lockfile" name="Rust build and console entry.builds an actual Rust executable in both profiles and preserves the lockfile" time="3.241" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="retains compiler errors without reporting a stale executable as success" name="Rust build and console entry.retains compiler errors without reporting a stale executable as success" time="1.356" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="rejects absent manifests and a manifest with the wrong binary target" name="Rust build and console entry.rejects absent manifests and a manifest with the wrong binary target" time="1.4087" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="runs the public script for status and returns a failing exit code for an unapproved mutation" name="Rust build and console entry.runs the public script for status and returns a failing exit code for an unapproved mutation" time="2.076" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Interactive menu and command routing" executed="True" result="Success" success="True" time="70.3376" asserts="0" description="Interactive menu and command routing">
+            <results>
+              <test-case description="handles invalid choices, cancellation, prompts and errors while returning to the menu" name="Interactive menu and command routing.handles invalid choices, cancellation, prompts and errors while returning to the menu" time="2.9254" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="routes task actions and only requests draft PR creation" name="Interactive menu and command routing.routes task actions and only requests draft PR creation" time="6.9128" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Hidden changes and concurrent branch movement" executed="True" result="Failure" success="False" time="78.7965" asserts="0" description="Hidden changes and concurrent branch movement">
+            <results>
+              <test-case description="refuses a same-commit branch switch by another writer during fetch" name="Hidden changes and concurrent branch movement.refuses a same-commit branch switch by another writer during fetch" time="2.8278" asserts="0" success="False" result="Failure" executed="True">
+                <failure>
+                  <message>Expected an exception with message like '*local ref changed*' to be thrown, but no exception was thrown.</message>
+                  <stack-trace>at { Sync-OperatorMain $fixture.Repo } | Should -Throw '*local ref changed*', C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1:356
+at &lt;ScriptBlock&gt;, C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1:356</stack-trace>
+                </failure>
+              </test-case>
+              <test-suite type="ParameterizedTest" name="Hidden changes and concurrent branch movement.refuses &lt;Flag&gt; index flags instead of treating hidden edits as clean" executed="True" result="Failure" success="False" time="5.4368" asserts="0" description="refuses &lt;Flag&gt; index flags instead of treating hidden edits as clean">
+                <results>
+                  <test-case description="refuses --assume-unchanged index flags instead of treating hidden edits as clean" name="Hidden changes and concurrent branch movement.refuses --assume-unchanged index flags instead of treating hidden edits as clean" time="2.7238" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>Expected an exception with message like '*index flags*' to be thrown, but no exception was thrown.</message>
+                      <stack-trace>at { Sync-OperatorMain $fixture.Repo } | Should -Throw '*index flags*', C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1:342
+at &lt;ScriptBlock&gt;, C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1:342</stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case description="refuses --skip-worktree index flags instead of treating hidden edits as clean" name="Hidden changes and concurrent branch movement.refuses --skip-worktree index flags instead of treating hidden edits as clean" time="2.713" asserts="0" success="False" result="Failure" executed="True">
+                    <failure>
+                      <message>Expected an exception with message like '*index flags*' to be thrown, but no exception was thrown.</message>
+                      <stack-trace>at { Sync-OperatorMain $fixture.Repo } | Should -Throw '*index flags*', C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1:342
+at &lt;ScriptBlock&gt;, C:\Projects\DevForgeAI\worktrees\git\operator-console\tests\operator-console\OperatorConsole.Tests.ps1:342</stack-trace>
+                    </failure>
+                  </test-case>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

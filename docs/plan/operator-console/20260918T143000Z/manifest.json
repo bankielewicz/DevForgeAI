@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "CandidateRoot": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console",
+  "BaseCommit": "164b652572cbb349e2c44eb3270f4d653bac05e5",
+  "Branch": "feat/operator-console",
+  "Source": [
+    {
+      "Path": "DevForgeAI-Console.ps1",
+      "Bytes": 1094,
+      "SHA256": "28282adedc93bd7232ab5d6c69aa0ce1cf08c0377379113b2859852cb9b3e14e"
+    },
+    {
+      "Path": "scripts/operator-console/OperatorConsole.psm1",
+      "Bytes": 22051,
+      "SHA256": "525b0930a5659734fd0ca2ce9d5b4564db79bb01f1ef66de394a0233ff80bf03"
+    },
+    {
+      "Path": "tests/operator-console/OperatorConsole.Tests.ps1",
+      "Bytes": 23064,
+      "SHA256": "4cc887b1b0f42ac3716b4cbf4a94425e806ad827804ea195e80d93bd71cee8d4"
+    },
+    {
+      "Path": "docs/workflows/operator-console.md",
+      "Bytes": 9357,
+      "SHA256": "57ed31719f412fc2e61d2e18c6ff85ccfd90f2aeddeea84e4133f5e0ae1a82d9"
+    }
+  ],
+  "Evidence": [
+    {
+      "Path": "docs/plan/operator-console/20260918T143000Z/coverage.xml",
+      "Bytes": 20566,
+      "SHA256": "5a510205d90437ee7802425991e0e0f1ef21245af39e47cf22f777ae2b7f8082"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918T143000Z/red.xml",
+      "Bytes": 2374,
+      "SHA256": "a61255b80570d1ac53dd786a2aba22fb11405c5ed29e731e70cd3150306fca6e"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918T143000Z/rust-build.json",
+      "Bytes": 4620,
+      "SHA256": "cb06b0ff70ba8db479d94ae95a9647ada13db7d6ed8c263f3149b1d755b8362a"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918T143000Z/safety-regression-red.xml",
+      "Bytes": 14037,
+      "SHA256": "fa891639b1278340272af3e52931a8ba9ee70cdf01f851423c2d755f0ff072bd"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918T143000Z/static-analysis.json",
+      "Bytes": 9393,
+      "SHA256": "6fa123b557a8b487369db38bd1b5656a83a8d8af5b1479c70bec823dc36bdfe0"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918T143000Z/tests.xml",
+      "Bytes": 12255,
+      "SHA256": "6d6f670bea96182f151d337437b797b5309c9191b3018295cad29efe16f9a1c1"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918T143000Z/validation-report.md",
+      "Bytes": 6670,
+      "SHA256": "2f6d6aec8195d5792397a8d584b844aae925d39db975a31894a1e5d4d88fe05a"
+    }
+  ],
+  "Binary": {
+    "Publication": "LOCAL_ONLY",
+    "SHA256": "1c3d8e299512d1e4844179100c956313c1f57603696d95a44d45d1a939424987",
+    "Path": "devforgeai/target/debug/devforgeai.exe"
+  }
+}
