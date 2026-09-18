@@ -16,6 +16,23 @@
 - Stay within the requested scope. Do not install components or alter startup configuration merely to complete validation.
 - Use request_user_input tool to resolve ambiguities with clickable or tabbed choices.
 
+## Repository changes and delivery
+
+Before modifying repository source, skills or documentation—or committing,
+pushing or opening a PR—read and follow
+[Worktree and PR delivery](docs/workflows/worktree-and-pr-delivery.md).
+
+Do not load that procedure for discussion or read-only inspection.
+If the task later becomes a change request, load it before the first edit.
+
+A change request authorizes the task worktree, branch, commits, push and
+draft PR described by that procedure, unless the user limits those effects.
+Preserve unrelated work. Merging, installation and deployment require
+separate authorization.
+
+Keep the selected skill's responsibility boundaries intact. In particular,
+skill-builder authoring does not automatically invoke skill validation.
+
 ## Commands and execution environment
 
 Run from the workspace root unless the selected package documents another directory. Inspect actual manifests, tools, scripts, and tests before using commands from specifications or old reports.
