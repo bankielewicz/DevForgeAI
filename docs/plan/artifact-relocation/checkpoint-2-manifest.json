@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "Checkpoint": 2,
+  "Bindings": [
+    {
+      "Path": ".gitignore",
+      "Bytes": 1253,
+      "SHA256": "36203144d953d3e6baff0b7b2714633b0d877969ed5379ca7d5739bbde9274d7"
+    },
+    {
+      "Path": "AGENTS.md",
+      "Bytes": 10741,
+      "SHA256": "68046ee90518e6c6e4523e3b8d114a921602aebd26374f1187d7c50ca780316e"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/checkpoint-2.md",
+      "Bytes": 1794,
+      "SHA256": "6ba659bcf949c8ae19c40a785e42fa1a026e4dfea2014ea3ccfbc0da606f7e52"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/retrieval-catalog.json",
+      "Bytes": 62089,
+      "SHA256": "b77b5150c15577524b1a6db36ae6f83ae9ac5cc7275a7a57a628d46c884972dd"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/retrieval-catalog.md",
+      "Bytes": 50510,
+      "SHA256": "5e92d5d82da5656515bb1c8d752170125b15d6a85c70c246c2ca2e7b7647b0b8"
+    },
+    {
+      "Path": "docs/plan/framework-mvp-next-session.md",
+      "Bytes": 7713,
+      "SHA256": "bd9a9a5f6d67ed490d3e688fca503efef7288dcc53fedc937471ac345098ed85"
+    },
+    {
+      "Path": "docs/plan/framework-worker-coding-handoff.md",
+      "Bytes": 4423,
+      "SHA256": "0b4936bc313061daa03079de844a08b0bc28a5aa2ca5a76f0ca1ee85cfbd155c"
+    },
+    {
+      "Path": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+      "Bytes": 21939,
+      "SHA256": "87477219fba73564725cd08ca82b099c4361579fa3aff41c439406de89677946"
+    },
+    {
+      "Path": "docs/plan/skill-builder-qa-remediation-plan.md",
+      "Bytes": 10173,
+      "SHA256": "adc77f65f03a8f2cd979f2fa32110295759ce684be4d96d5db9813e39d5dc2f2"
+    },
+    {
+      "Path": "docs/plan/skill-validator-confirmed-findings-remediation-workflow.md",
+      "Bytes": 5467,
+      "SHA256": "c06ce7de4f0b8c58512a1fd2c9b1e00900af8bb53f8330213c59fdd8d8476453"
+    },
+    {
+      "Path": "docs/specs/framework/index.md",
+      "Bytes": 11997,
+      "SHA256": "cd27fd6500f0421ae5346dd35fd87df1ff91a8517fc9605edabe7b44687d7dbd"
+    },
+    {
+      "Path": "docs/specs/framework/knowledge-and-continuity.md",
+      "Bytes": 6764,
+      "SHA256": "a4c709f3324258134b222fab1e0d1c83548e5ed2beeb1795cf970019864d7a43"
+    },
+    {
+      "Path": "docs/specs/framework/project-context-and-policy.md",
+      "Bytes": 9069,
+      "SHA256": "d9d078ab782c1af7b538282fd5275137bc9fda2088d704b24c6e57cf63c8126e"
+    },
+    {
+      "Path": "docs/specs/framework/quality-and-delivery.md",
+      "Bytes": 10547,
+      "SHA256": "7a61291347231f3a2ac90975657950c8ee3e3f6780d9c50b2b7b69f47dabbb4a"
+    },
+    {
+      "Path": "docs/specs/framework/roadmap-and-decisions.md",
+      "Bytes": 25845,
+      "SHA256": "006b97e7e5da48bcf482bdf2ff89a6c39255e37cb6ac50b39399396343b030eb"
+    },
+    {
+      "Path": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+      "Bytes": 37901,
+      "SHA256": "679a4902949c788743018a6018644db44dffb24ecb13ea65b75b4633fc559b8b"
+    },
+    {
+      "Path": "docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+      "Bytes": 13424,
+      "SHA256": "53282dff0f305b9fbdc834d962caff7635a1a98385002bc1fac3e306fe13da39"
+    },
+    {
+      "Path": "docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+      "Bytes": 9236,
+      "SHA256": "5dd08b7263ee6245c82a975915a5ea157fd77837bfa478bd296d291cc534446f"
+    },
+    {
+      "Path": "docs/specs/framework/workflows/phase-2-prd-create-spec.md",
+      "Bytes": 35330,
+      "SHA256": "b045a0f4f7807d1628c03bafa6ecceec981ce4e1d2c8c54401ecf7a0290dd74f"
+    },
+    {
+      "Path": "docs/specs/framework/workflows/phase-3-prd-review-spec.md",
+      "Bytes": 39133,
+      "SHA256": "a105200af8c73f6071e8839dcbedae7402ef2cf18436561fbb88d65d6721c149"
+    },
+    {
+      "Path": "docs/specs/skill-builder-postmvp-spec.md",
+      "Bytes": 28165,
+      "SHA256": "fce424ff441c3a1241f9848bdae98fe5da43788558ed8161df9f6d7cffd91d5a"
+    },
+    {
+      "Path": "docs/workflows/artifact-retention.md",
+      "Bytes": 5950,
+      "SHA256": "89e84ef3e4cf7c483019e1264f59a72cbbd9c6a604e348de2f5bcbbcce5fa4cc"
+    }
+  ],
+  "Relocation": "NOT_STARTED"
+}

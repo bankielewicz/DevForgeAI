@@ -9,7 +9,7 @@ updated: 2026-09-15
 
 # Bounded native worker readiness amendment
 
-[Base worker contract](codex-worker-feasibility-v1.md) · [Authority design](../../../plan/devforgeai-codex-rust-enforcement-design.md) · [Discovery](../../../plan/framework-native-readiness/20260915T1937559109498Z/launcher-identity.json)
+[Base worker contract](codex-worker-feasibility-v1.md) · [Authority design](../../../plan/devforgeai-codex-rust-enforcement-design.md) · [Discovery](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-native-readiness/20260915T1937559109498Z/launcher-identity.json)
 
 ## Selection and scope
 

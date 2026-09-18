@@ -35,6 +35,10 @@ skill-builder authoring does not automatically invoke skill validation.
 
 ## Commands and execution environment
 
+When creating execution evidence, relocating retained artifacts or considering
+cleanup, read [Artifact retention](docs/workflows/artifact-retention.md). Keep
+routine source-only work free of that additional context unless it needs it.
+
 Run from the workspace root unless the selected package documents another directory. Inspect actual manifests, tools, scripts, and tests before using commands from specifications or old reports.
 
 - For Rust changes, use the selected Cargo manifest and lockfile. Run formatting, Clippy, tests, and executed-line coverage after discovering the installed toolchain and coverage collector.

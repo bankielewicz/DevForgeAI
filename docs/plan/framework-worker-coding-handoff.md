@@ -7,7 +7,7 @@ updated: 2026-09-15
 
 # Coding handoff: one Codex worker feasibility harness
 
-Select [DFF-WORKER-FEAS-01 version 1.0.0](../specs/framework/runtime/codex-worker-feasibility-v1.md), with exact dependency hashes in the [delivery manifest](framework-worker-contract/20260915T151300Z/delivery-manifest.json), captured [Codex schema identities](framework-worker-contract/20260915T151300Z/schema-manifest.json), and [discovery/verification](framework-worker-contract/20260915T151300Z/verification.md).
+Select [DFF-WORKER-FEAS-01 version 1.0.0](../specs/framework/runtime/codex-worker-feasibility-v1.md), with exact dependency hashes in the [delivery manifest](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/delivery-manifest.json), captured [Codex schema identities](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/schema-manifest.json), and [discovery/verification](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/verification.md).
 
 The contract is ready for offline harness implementation. Native Pro trials, production support, protected acceptance and the complete MVP remain unqualified. This file prepares the next request; it does not initiate implementation or authorize model execution.
 

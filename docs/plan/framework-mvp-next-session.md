@@ -9,7 +9,7 @@ updated: 2026-09-15
 
 ## Continuation recorded
 
-This planning prompt was followed on 2026-09-15. Its result is [DFF-WORKER-FEAS-01 v1.0.0](../specs/framework/runtime/codex-worker-feasibility-v1.md), with [verification](framework-worker-contract/20260915T151300Z/verification.md) and a new [scoped coding handoff](framework-worker-coding-handoff.md). The original prompt below remains historical context; the new handoff selects only offline implementation of the nonproduction worker harness. No runtime implementation or model trial occurred during contract finalization.
+This planning prompt was followed on 2026-09-15. Its result is [DFF-WORKER-FEAS-01 v1.0.0](../specs/framework/runtime/codex-worker-feasibility-v1.md), with [verification](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/verification.md) and a new [scoped coding handoff](framework-worker-coding-handoff.md). The original prompt below remains historical context; the new handoff selects only offline implementation of the nonproduction worker harness. No runtime implementation or model trial occurred during contract finalization.
 
 ## Start here
 
@@ -50,7 +50,7 @@ This handoff authorizes documentation/contract finalization. It does not authori
 
 Return the selected unit, exact contract path/version and dependency identities, resolved/open AMB questions, concrete independent acceptance oracles, actual local discovery commands/outcomes, and the scoped coding prompt. Do not return another unbounded roadmap, invent running CLI commands, or claim tests/coverage for prose.
 
-Current documents and prior-copy preservation are recorded in [verification](framework-mvp-planning/20260915T145455Z/verification.md) and its linked manifest. Those observations concern documentation, not implementation or framework acceptance. Read the manifest entries for the selected documents and verify current bytes before relying on them.
+Current documents and prior-copy preservation are recorded in [verification](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-mvp-planning/20260915T145455Z/verification.md) and its linked manifest. Those observations concern documentation, not implementation or framework acceptance. Read the manifest entries for the selected documents and verify current bytes before relying on them.
 
 ## Copyable next-session prompt
 
