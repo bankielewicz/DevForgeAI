@@ -26,7 +26,7 @@ The current request authorizes this specification and its documentation handoff,
 | DFF-02/03/04/08 | Preserve selected scope, canonical policy, clause ownership, dependencies, independent review and delivery distinctions. |
 | Bounded design decisions in this specification | First version is a standalone reusable core responsibility. One PRD is the primary output; adapt to existing project conventions, preserve revisions and leave operational bindings untouched. |
 
-The retained [brainstorm assessment](../../../plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md) and [no-change handoff](../../../plan/skill-validations/brainstorm/20260918T021707Z/handoff.json) identify its earlier Windows/PowerShell assessment. They are upstream context, not evaluation of prd-create. Preserve that candidate, specification and evidence. Documentation of this consumer does not amend the producer's schema or claim a fresh producer assessment.
+The retained [brainstorm assessment](../../../plan/artifact-relocation/retrieval-catalog.md#artifact-b5076cf8205ac50e) and [no-change handoff](../../../plan/artifact-relocation/retrieval-catalog.md#artifact-1e03ecdf7287e57d) identify its earlier Windows/PowerShell assessment. They are upstream context, not evaluation of prd-create. Preserve that candidate, specification and evidence. Documentation of this consumer does not amend the producer's schema or claim a fresh producer assessment.
 
 ## 2. Skill identity, activation and input contract
 

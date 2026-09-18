@@ -7,7 +7,7 @@ updated: 2026-09-16
 
 # Reviewed plugin-cache junction identity
 
-The user approved the [bounded proposal](../../../plan/framework-worker-native-continuation/20260916T013303Z/source-inventory-proposal.md). This companion amends only the source-inventory reparse rule and inventory schema in [preflight v1](codex-worker-preflight-v1.md), and the corresponding profile-source clause of [native readiness](codex-worker-native-readiness-v1.md). The old documents and their evidence remain unchanged. All other [base worker](codex-worker-feasibility-v1.md) requirements remain mandatory.
+The user approved the [bounded proposal](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-native-continuation/20260916T013303Z/source-inventory-proposal.md). This companion amends only the source-inventory reparse rule and inventory schema in [preflight v1](codex-worker-preflight-v1.md), and the corresponding profile-source clause of [native readiness](codex-worker-native-readiness-v1.md). The old documents and their evidence remain unchanged. All other [base worker](codex-worker-feasibility-v1.md) requirements remain mandatory.
 
 ## SI-01: Closed, machine-specific identity
 

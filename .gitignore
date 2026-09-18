@@ -2,6 +2,7 @@
 /tmp/
 /.claude/skills/legacy/
 /worktrees/
+/artifacts/
 /docs/plan/archive/
 
 # Generated build and dependency directories.

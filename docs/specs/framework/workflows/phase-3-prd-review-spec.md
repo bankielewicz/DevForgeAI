@@ -26,7 +26,7 @@ This request selects the specification and authoring handoff only. The future de
 | Current prd-create source and retained retest | Pair interpreted content with its raw-byte identity; reconcile affected claims after drift rather than refreshing hashes alone. A successful write with failed readback is not verified delivery. |
 | Bounded design decisions specified here | First version is a portable standalone skill. One review report contains the scope, evidence inventory, assessment matrix, findings, retest dispositions and manual handoff. No automated gates or extra constitution pack. |
 
-The retained [prd-create validation report](../../../plan/skill-validations/prd-create/20260918T121331Z/validation-report.md) records 31/31 required Windows/PowerShell cases passing and its [finding retest](../../../plan/skill-validations/prd-create/20260918T121331Z/finding-retest.json) resolves the prior source-drift finding for that identified candidate. These are upstream evidence, not tests of prd-review. Preserve their scope and bytes; this specification neither reruns nor extends that assessment to other hosts, installation or framework acceptance.
+The retained [prd-create validation report](../../../plan/artifact-relocation/retrieval-catalog.md#artifact-f404b98ad1754dd4) records 31/31 required Windows/PowerShell cases passing and its [finding retest](../../../plan/artifact-relocation/retrieval-catalog.md#artifact-d7b6f229903e4517) resolves the prior source-drift finding for that identified candidate. These are upstream evidence, not tests of prd-review. Preserve their scope and bytes; this specification neither reruns nor extends that assessment to other hosts, installation or framework acceptance.
 
 ## 2. Skill identity and inputs
 

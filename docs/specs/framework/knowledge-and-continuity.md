@@ -53,3 +53,16 @@ The [index](index.md) and [roadmap](roadmap-and-decisions.md) identify the next 
 The continued discussion proposes a user `.devforgeai` data root and CLI-mediated history/context retrieval. [Runtime architecture](runtime/architecture.md#persistence-and-project-knowledge) records the logical history/knowledge/workflow distinction and why physical database partitioning remains a decision. A database per role or a fixed two-database layout is not selected. The [MVP handoff](../../plan/framework-mvp-next-session.md) narrows the next contract task without claiming that persistence or a new home directory has been implemented.
 
 Current [dev](../../../src/agents/skills/dev/SKILL.md) and [qa](../../../src/agents/skills/qa/SKILL.md) include evidence/resume responsibilities. The broader context packaging and index navigation described here are not a shipped continuity service. Define checkpoint schema/versioning, index-update ownership, retention, stale-reference behavior and context selection limits. The next expansion exercises a cold resume of the fictional change with one missing artifact and one changed dependency, recording exactly which facts and work remain usable.
+
+## Selected artifact lifecycle policy (2026-09-18)
+
+The [artifact retention procedure](../../workflows/artifact-retention.md) now defines
+purpose classes, identity-versus-locator separation, local/shared availability,
+retention eligibility and holds for the selected migration. It refines the earlier
+open retention decision without implementing a continuity service or extending any
+closed schema. Relocation records preserve original locators and sealed report
+bytes. Resolve their current locations through the
+[retrieval catalog](../../plan/artifact-relocation/retrieval-catalog.md); unchanged
+published historical records may use immutable Git links. Inaccessible or expired
+artifacts remain explicit retrieval gaps. Execution records from another candidate
+never become fresh qualification merely because their location was repaired.

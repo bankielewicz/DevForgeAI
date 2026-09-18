@@ -72,3 +72,15 @@ Skill-package validation remains distinct from product QA. The [skill validator]
 - **DFF-08-Q4:** What protected identities and predicates distinguish independent closure, delivery readiness, acceptance, and release authorization?
 
 Next, specify one candidate-to-QA-to-repair-to-retest exchange for OrderDesk, including one stale-evidence rejection and one unavailable required platform. Resolve its policy compatibility decisions in [roadmap and decisions](roadmap-and-decisions.md) before defining machine-enforced quality transitions.
+
+## Evidence storage and relocation
+
+Required raw reports remain retained under the selected project policy; they need
+not all be committed to ordinary Git history. Publish concise candidate-bound
+summaries and retrievable artifact references. Exact candidate/input bytes and
+original observations must remain distinguishable; a Git commit or rerun cannot
+replace uncommitted inputs or historical results. Local-only availability is an
+explicit independent-review limitation. Missing required evidence blocks the
+assessment that depends on it; hashes alone do not establish its availability.
+Follow [artifact retention](../../workflows/artifact-retention.md) for relocation
+receipts, hold handling and pre-effect rechecks. No storage tool grants acceptance.

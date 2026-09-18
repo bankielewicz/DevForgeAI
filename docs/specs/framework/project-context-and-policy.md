@@ -67,3 +67,13 @@ The [adaptive discovery contract](../../plan/skill-builder-adaptive-enhancement-
 ## Open decisions and next expansion
 
 Define policy-profile fields, precedence among project sources, exception provenance, and exact handling of selected work across a policy revision. Decide who owns business facts and how conflicting stakeholder assertions are adjudicated. Next expansion supplies two explicit example profiles and a conflict/change walkthrough; it does not run an installer or change any active project policy.
+
+## Artifact policy selection
+
+The selected [artifact retention procedure](../../workflows/artifact-retention.md)
+separates project records, retained evidence, working checkouts and rebuildable
+material. Project policy owns storage budgets, availability, retention eligibility,
+exception authority and holds. No fixed retention duration is a framework constant.
+Unknown policy is a visible gap; a storage budget does not authorize loss of required
+evidence. Holds identify an owner and review date, or explicitly retain that missing
+decision. The current migration selects local storage and no automatic disposal.

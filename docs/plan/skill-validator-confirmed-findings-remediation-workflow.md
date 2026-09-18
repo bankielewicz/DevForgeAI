@@ -2,7 +2,7 @@
 
 ## 1. Select the repair scope and establish identity
 
-Repair QA-01 through QA-04 in the development skill-validator package according to [the focused remediation specification](skill-validations/skill-validator/20260913T201813155594Z/revision-spec.md).
+Repair QA-01 through QA-04 in the development skill-validator package according to [the focused remediation specification](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/skill-validations/skill-validator/20260913T201813155594Z/revision-spec.md).
 
 - Proposal SHA-256: `832de4a0d2512f9f50481aeb822645c3830bfd005da954a0a10070dc69b92c25`.
 - Expected pre-edit target: 75 files; package SHA-256 `d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1`.

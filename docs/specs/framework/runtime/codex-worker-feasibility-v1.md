@@ -9,7 +9,7 @@ updated: 2026-09-15
 
 # Codex worker feasibility contract
 
-[Runtime owner](architecture.md) · [MVP scope](../mvp/scope.md) · [Coding handoff](../../../plan/framework-worker-coding-handoff.md) · [Discovery and identities](../../../plan/framework-worker-contract/20260915T151300Z/verification.md)
+[Runtime owner](architecture.md) · [MVP scope](../mvp/scope.md) · [Coding handoff](../../../plan/framework-worker-coding-handoff.md) · [Discovery and identities](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/verification.md)
 
 ## 1. Selected outcome and claim
 
@@ -57,7 +57,7 @@ Proposed destination: `C:\Projects\DevForgeAI\devforgeai\experiments\codex-worke
 
 Use `serde =1.0.229` with derive, `serde_json =1.0.151`, `sha2 =0.10.9`, `windows-sys =0.61.2` with the Win32 Foundation/Security/Threading/JobObjects/Pipes/IO/FileSystem bindings needed for the specified APIs, and dev dependency `tempfile =3.27.0`. These versions exist in the current index lockfile; this does not assert all features or dependencies are cached. Standard threads, channels and `Instant` suffice; no database, async runtime, HTTP client or model SDK is required. Resolve a separate lockfile offline first. A missing dependency is a setup gap, not a test failure or authorization to install.
 
-Normative parents: AGENTS.md, DFF-01, DFF-03/04/08, DFF-RUNTIME-01, DFF-MVP-01/02 and DFF-EVAL-01. The [delivery manifest](../../../plan/framework-worker-contract/20260915T151300Z/delivery-manifest.json) binds exact files; [input manifest](../../../plan/framework-worker-contract/20260915T151300Z/inputs-before.json) preserves their discovery identities. Parent planning documents supply only relevant constraints, not additional deliverables. The captured [Codex schema manifest](../../../plan/framework-worker-contract/20260915T151300Z/schema-manifest.json) binds every upstream schema file. Do not silently regenerate it against a newer executable.
+Normative parents: AGENTS.md, DFF-01, DFF-03/04/08, DFF-RUNTIME-01, DFF-MVP-01/02 and DFF-EVAL-01. The [delivery manifest](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/delivery-manifest.json) binds exact files; [input manifest](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/inputs-before.json) preserves their discovery identities. Parent planning documents supply only relevant constraints, not additional deliverables. The captured [Codex schema manifest](https://github.com/bankielewicz/DevForgeAI/blob/87fd32de0b35793f4891ec9139d50764bdddd568/docs/plan/framework-worker-contract/20260915T151300Z/schema-manifest.json) binds every upstream schema file. Do not silently regenerate it against a newer executable.
 
 ## 4. Proposed terminal and local data contracts
 
