@@ -1,0 +1,120 @@
+{
+  "Version": 1,
+  "Checkpoint": 3,
+  "Root": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool",
+  "Source": [
+    {
+      "Path": "scripts/artifact-relocation/Move-EvidenceCollection.ps1",
+      "Bytes": 14517,
+      "SHA256": "a6f4a9491a418617df2f40e0056facb6bb596cd6a563d5045411864b3c0fc971"
+    },
+    {
+      "Path": "tests/artifact-relocation/Relocation.Tests.ps1",
+      "Bytes": 17013,
+      "SHA256": "351de699c67db698ef015af27837befd5c993f4ea323b26db07bb479ab94ce16"
+    },
+    {
+      "Path": "docs/workflows/evidence-relocation-tool.md",
+      "Bytes": 5353,
+      "SHA256": "b7e304b6004b46f010da375eba7560d3b05013311a34685fbd06a9e1493c28a2"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/admission-review.json",
+      "Bytes": 38699,
+      "SHA256": "fb89f8f621fc532038a6c35acaa25acc004b3f67632976fed0669a42b43ff23c"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/preview-summary.json",
+      "Bytes": 16738,
+      "SHA256": "c90cf2ec185dee69d0a934da9182e5a811fc3b24c863a9b405137b9e87554490"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/checkpoint-3.md",
+      "Bytes": 5772,
+      "SHA256": "2b4d7e810b7b75b1c3e9cab856fa5cf5975a044e16f5f9d537c25011ae488c3a"
+    }
+  ],
+  "LocalEvidence": [
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\red.xml",
+      "Bytes": 2358,
+      "SHA256": "36887884ebf40d1d78e1d909020979595bf593ba2f71c42a5fcb48a6b73fa0d7",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\green-focused.xml",
+      "Bytes": 2507,
+      "SHA256": "cab0459d8aea1dd28612b24b9293adcecfd2021a867bc0971f3c7f8a7489ba23",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\green-focused-002.xml",
+      "Bytes": 1842,
+      "SHA256": "cee2647fddc6d687b3f2d4874597ed0e9e8dc667b9885e67a8c0135a357637eb",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\regression-001.xml",
+      "Bytes": 12808,
+      "SHA256": "74ce5b6ec78d29061acbb65a40badaaac1ad2d733210ab7ab81c19e4e8530d5f",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\receipt-boundary-red.xml",
+      "Bytes": 3916,
+      "SHA256": "0c7e12a8fdaeda8bd8cd3aaf9e2609698091d2b8dc9c9c94366880cad753f91b",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\regression-002.xml",
+      "Bytes": 14115,
+      "SHA256": "b075addc475ae4c3e982720eb23dedd03b5337c98d435760baa139c724a7fb3d",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\coverage-001.xml",
+      "Bytes": 12697,
+      "SHA256": "ad6f1a3c37a8c9f29fc821bab07bb786085e0f37be835beb2afd4345eaf5951c",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\coverage-002.xml",
+      "Bytes": 13127,
+      "SHA256": "218d768a0c78b8628a1942078c4f2ed992a1c0efb24e4aa047e3b6afacbff835",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\static-002.json",
+      "Bytes": 720,
+      "SHA256": "0d0f4892f8ccb020b50d3259edc1324e9dcfbd50bf39d3cd8beb124ae2afd6a2",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\context.json",
+      "Bytes": 1158,
+      "SHA256": "c8f580fdfbd26467365478dc45af7a0580ea8df5948ad741d96dc2612bf6c5c0",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\preview-results.json",
+      "Bytes": 13268,
+      "SHA256": "cc7fd8970ee1315cc7c514a821620461d649432cc4eaec1e13390218b64dca1b",
+      "Availability": "LOCAL_ONLY"
+    }
+  ],
+  "RequiredCases": {
+    "Passed": 37,
+    "Total": 37
+  },
+  "Lines": {
+    "Total": 148,
+    "Covered": 148
+  },
+  "Commands": {
+    "Total": 300,
+    "Covered": 293
+  },
+  "Relocation": "NOT_STARTED",
+  "IndependentQA": "NOT_RUN",
+  "FrameworkAcceptance": "NOT_EVALUATED"
+}
