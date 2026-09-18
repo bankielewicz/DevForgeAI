@@ -9,7 +9,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-5985fdf3c35d9195
 
 - Original: `docs/plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json`
-- Current local: `worktrees/framework-discovery-planning/20260918T014059438Z/inputs-before.json`
+- Current local: `artifacts/evidence/framework-discovery-planning/20260918T014059438Z/inputs-before.json`
 - Planned local: `artifacts/evidence/framework-discovery-planning/20260918T014059438Z/inputs-before.json`
 - SHA256: `9487f25a4b1665cf90894313b27326cf1097b4aa68550c054bf530289489491a`; bytes: 7669
 - Availability: PUBLISHED_GIT_AND_LOCAL
@@ -45,7 +45,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-ee3662bae9660e88
 
 - Original: `docs/plan/framework-prd-planning/20260918T030029557Z/inputs-before.json`
-- Current local: `worktrees/framework-prd-planning/20260918T030029557Z/inputs-before.json`
+- Current local: `artifacts/evidence/framework-prd-planning/20260918T030029557Z/inputs-before.json`
 - Planned local: `artifacts/evidence/framework-prd-planning/20260918T030029557Z/inputs-before.json`
 - SHA256: `f1b44505172f31f2bcf1b0e73ede37a044f1e0391eca948b22dbb0f44c13d0f8`; bytes: 9958
 - Availability: LOCAL_ONLY
@@ -53,7 +53,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-1b12f45bffabd501
 
 - Original: `docs/plan/framework-prd-review-planning/20260918T125021440Z/inputs-before.json`
-- Current local: `worktrees/framework-prd-review-planning/20260918T125021440Z/inputs-before.json`
+- Current local: `artifacts/evidence/framework-prd-review-planning/20260918T125021440Z/inputs-before.json`
 - Planned local: `artifacts/evidence/framework-prd-review-planning/20260918T125021440Z/inputs-before.json`
 - SHA256: `bfd18cc720c14ea52cb344571c4fb62181b56c90171f152ec196892c878b92f5`; bytes: 10058
 - Availability: LOCAL_ONLY
@@ -267,7 +267,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-33e8030d5992c2fa
 
 - Original: `docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md`
-- Current local: `worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md`
+- Current local: `artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md`
 - Planned local: `artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md`
 - SHA256: `31adb590beacbfa27d9c10859f7701eb9ddc12195969b824c5cf26fa290c0e20`; bytes: 2054
 - Availability: PUBLISHED_GIT_AND_LOCAL
@@ -276,7 +276,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-3065a42d580b4ba5
 
 - Original: `docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md`
-- Current local: `worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md`
+- Current local: `artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md`
 - Planned local: `artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md`
 - SHA256: `847c8afcc49509fa23d680a7b13413a02699b56c9f077b0359550a8ef30ecafe`; bytes: 7938
 - Availability: PUBLISHED_GIT_AND_LOCAL
@@ -285,7 +285,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-7c8c2dbb687fedb2
 
 - Original: `docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md`
-- Current local: `worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md`
+- Current local: `artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md`
 - Planned local: `artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md`
 - SHA256: `441a62b60fd4dfc62a5bcd028cdf8fc0319b20e43fae9f222817fbe1c6c4d812`; bytes: 18955
 - Availability: PUBLISHED_GIT_AND_LOCAL
@@ -294,7 +294,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-0bed72f3ed1c9735
 
 - Original: `docs/plan/index-service-remediation/20260914T1950304158791Z/final-delivery.md`
-- Current local: `worktrees/index-service-remediation/20260914T1950304158791Z/final-delivery.md`
+- Current local: `artifacts/evidence/index-service-remediation/20260914T1950304158791Z/final-delivery.md`
 - Planned local: `artifacts/evidence/index-service-remediation/20260914T1950304158791Z/final-delivery.md`
 - SHA256: `284a7ae8909ecd4e4a7ae96f0fbffcd28416fb705d5a58b171e6d49723283b92`; bytes: 3516
 - Availability: PUBLISHED_GIT_AND_LOCAL
@@ -303,7 +303,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-62fba0aade934d5e
 
 - Original: `docs/plan/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md`
-- Current local: `worktrees/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md`
+- Current local: `artifacts/evidence/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md`
 - Planned local: `artifacts/evidence/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md`
 - SHA256: `f59f751634f4b5f157b6bee8b0838a7d0343b96707a6e95a2ba402a120104cb7`; bytes: 27970
 - Availability: PUBLISHED_GIT_AND_LOCAL
@@ -578,7 +578,7 @@ Historical logs remain unchanged; this catalog supplies their relocated targets.
 ## artifact-31acd0a0c815a14e
 
 - Original: `docs/plan/skill-builder-remediation/20260913T190249336501Z/REPORT.md`
-- Current local: `worktrees/skill-builder-remediation/20260913T190249336501Z/REPORT.md`
+- Current local: `artifacts/evidence/skill-builder-remediation/20260913T190249336501Z/REPORT.md`
 - Planned local: `artifacts/evidence/skill-builder-remediation/20260913T190249336501Z/REPORT.md`
 - SHA256: `c64feb3e483e5df111fc8996451d5c5009cc47ce142524e56a85c248125ba50b`; bytes: 9211
 - Availability: PUBLISHED_GIT_AND_LOCAL

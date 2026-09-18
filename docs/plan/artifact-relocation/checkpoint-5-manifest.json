@@ -1,0 +1,61 @@
+{
+  "Version": 1,
+  "Checkpoint": 5,
+  "ParentCommit": "a321db391b97eb28e6169eb6cef3cd9fbd9fce82",
+  "SourceCommit": "4684a6486b8c226e38fc27b1ec696cee0a6f30d0",
+  "ToolSHA256": "a6f4a9491a418617df2f40e0056facb6bb596cd6a563d5045411864b3c0fc971",
+  "Bindings": [
+    {
+      "Path": "docs/plan/artifact-relocation/checkpoint-5.md",
+      "Bytes": 7616,
+      "SHA256": "63d3d7fa94f92bfe65f54c88b71f72bc704fe398fd06e364c416a5f9462e8046"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/checkpoint-5-results.json",
+      "Bytes": 53791,
+      "SHA256": "43f4b3f37fca6d2688e32ca1b661828664b4c77ad9571bdd17dbf1be6f8e7b71"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/retrieval-catalog.json",
+      "Bytes": 62188,
+      "SHA256": "7ff75d31a68727846ab8dd462c2406386119c738379243b77c15757a0cf07804"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/retrieval-catalog.md",
+      "Bytes": 50609,
+      "SHA256": "4c303a70cb04ac4876b4cab21cba5066b99d8174dc209ff4390f635c6056516d"
+    }
+  ],
+  "LocalEvidence": [
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-rollout\\tmp\\finalize-checkpoint-5.ps1",
+      "Bytes": 7698,
+      "SHA256": "75e90ab6789eee8697be9a00496a3872a2b31b1b2b1d93aa2e442ef436c04810",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-rollout\\tmp\\relocation-rollout-001\\primary-before.json",
+      "Bytes": 1987,
+      "SHA256": "1f68057d53379b01af1d20caad4e1a2e08659479512688d4e21d11cf30ab9f15",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-rollout\\tmp\\relocation-rollout-001\\results.json",
+      "Bytes": 23852,
+      "SHA256": "04b0a9cf225d86dc82f320621f131c14dbb104d17d589b2b95d7697a0a5ebfbc",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-rollout\\tmp\\relocation-rollout-001\\progress.jsonl",
+      "Bytes": 21577,
+      "SHA256": "689ef2b2d575088bc4b4c906eeb713ed65087f235a1be0c496a13ef438febe4c",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-rollout\\tmp\\relocation-rollout-001\\final-verification.json",
+      "Bytes": 355,
+      "SHA256": "98484c67186e97292fa7e2e562a18e489eac8f6f66af6ceb3ef3868ca4810e8d",
+      "Availability": "LOCAL_ONLY"
+    }
+  ]
+}
