@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "Root": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation",
+  "Base": "4b4609fa411f190ac31b6639131244107405822c",
+  "Branch": "fix/operator-console-confirmation",
+  "Source": [
+    {
+      "Path": "DevForgeAI-Console.ps1",
+      "Bytes": 1153,
+      "SHA256": "a77130c15e20ac6113adffdf89e8876cce19b79fef6866423d5c7290a3e0fd68"
+    },
+    {
+      "Path": "scripts/operator-console/OperatorConsole.psm1",
+      "Bytes": 23956,
+      "SHA256": "1d8a225f1902b0db04f4d011f5954e41b5a21a712450e363f71de81742e365b5"
+    },
+    {
+      "Path": "tests/operator-console/Compatibility.Tests.ps1",
+      "Bytes": 5604,
+      "SHA256": "ac5d577cee15d5f92eefd25e0036f4b55a2a74d62ea1a3fb22c34cbaae0830cb"
+    },
+    {
+      "Path": "tests/operator-console/OperatorConsole.Tests.ps1",
+      "Bytes": 23454,
+      "SHA256": "d6f2f0a1256f001609414fba3e52afd5088c88992cfa3814f6646a2a413200f6"
+    },
+    {
+      "Path": "docs/workflows/operator-console.md",
+      "Bytes": 10813,
+      "SHA256": "116ff5514068ae1f324208638b1c5423956b148f9b0ec6251bfc761512b7ea5e"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918-confirmation/validation-report.md",
+      "Bytes": 5100,
+      "SHA256": "04c0469ae790f7d4b17b96b43022f2a44fc9ff567bf8aa97a819aad48cab6df5"
+    }
+  ],
+  "Evidence": [
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\run-checks.ps1",
+      "Bytes": 1451,
+      "SHA256": "f3d01844da00057bd9943f30d67ab7a53a64adc46b5c6f6ed617f4c8b9516750",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\smoke-confirmation.ps1",
+      "Bytes": 2644,
+      "SHA256": "2fb2863a77cda021dc395f5f64a2307ef50cd1aa5d84c7cd28fe3a34be1805f0",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\static-module.json",
+      "Bytes": 23728,
+      "SHA256": "6d56400bb9628fce4112e49a988d97f5e1bc83d049a20cca7a0da4b8532a1227",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\smoke-results.json",
+      "Bytes": 912,
+      "SHA256": "3fe486b9fbcb1a83dfc8b23610b97d502daa79633e23203e9e7c41fcda38bc96",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\smoke-ps51\\transcript.txt",
+      "Bytes": 4132,
+      "SHA256": "0bb68dd508049b93a2a1fd71e8d28e8453cdc40489351008d920b2db9e879030",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\smoke-ps7\\transcript.txt",
+      "Bytes": 4124,
+      "SHA256": "d09b61db4731a26a70ccb7cd0b5929fa31041244543e51e24dfce8a27ece70bb",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\red-51\\result.json",
+      "Bytes": 170,
+      "SHA256": "6edb0b21e3248a51d5286330a8da0d4b768b44554ea1e96fa58291a985d82406",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\red-51\\tests.xml",
+      "Bytes": 9952,
+      "SHA256": "00a1a8ad335a4d75be0d634c1ada3ba0f69699b2c80ec2872542adaa949e2bed",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\red-7\\coverage-detail.json",
+      "Bytes": 6,
+      "SHA256": "abdfbffecbe18ed94df9829819e596ee285b52a94aa108514452a9121721c789",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\red-7\\result.json",
+      "Bytes": 137,
+      "SHA256": "e16ee5dfc970bea7b81433d49b9d2163c31552983ebf3f5819a1eca5c5e49d78",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\red-7\\tests.xml",
+      "Bytes": 9944,
+      "SHA256": "4f3999abcec671f3b24a9b1abbfcd7497452b7027a9421e5292035883cd33991",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-51\\coverage-detail.json",
+      "Bytes": 409465,
+      "SHA256": "e544e91f7cddfaf8e247c879d2c612d9f07b4852b8146dfe0aa791cad3488fcb",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-51\\coverage.xml",
+      "Bytes": 22642,
+      "SHA256": "73e03cd4855b55340d3eaceb966b1b7892f2fc49ff72bb4970a04124d2beffd1",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-51\\result.json",
+      "Bytes": 170,
+      "SHA256": "e2fe241d457e815765c895ebe9f09bab989e1466d734299197603fd36b2d1d43",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-51\\tests.xml",
+      "Bytes": 18047,
+      "SHA256": "1bb698a6d5175c928fffc668a98ef003c252e4874a87112cc16496b9f9b4dfcd",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-7\\coverage-detail.json",
+      "Bytes": 231244,
+      "SHA256": "95a1ccadb76d5b1e9f778ca4765355cdd022c56d1b66a7beb6a7d072c0b1b540",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-7\\coverage.xml",
+      "Bytes": 22639,
+      "SHA256": "d1a380c97cc89dfac34b9042f5b3fad02a64629607cfe2445eba8e5a118b3635",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-7\\result.json",
+      "Bytes": 137,
+      "SHA256": "5f2ee26290a76391152b01d06e403ccc489d8a08c576c70c4b0da5f9aa32e1f8",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-confirmation\\tmp\\confirmation-001\\final-7\\tests.xml",
+      "Bytes": 18041,
+      "SHA256": "95ccb7a7d2ca3fa637aeb27f8461e2de07facac04f780d9b4f00d2719da988d7",
+      "Availability": "LOCAL_ONLY"
+    }
+  ],
+  "IndependentQA": "NOT_RUN",
+  "FrameworkAcceptance": "NOT_EVALUATED"
+}

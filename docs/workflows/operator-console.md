@@ -39,7 +39,11 @@ HEAD on separate lines. Plain text remains readable without color or ANSI suppor
 | 12 / 13 | Compile CLI, debug / release | Locked Cargo build; offline by default, with a separate download choice. |
 | 0 | Exit | Leaves all worktrees, branches and checkpoints in place. |
 
-Changes require typing `YES`. Noninteractive actions require `-Approve` instead:
+Changes require typing `yes` (any capitalization; surrounding spaces are ignored).
+Enter, `no`, abbreviations such as `y`, and other text cancel. Successful actions
+print `Completed: <action>.`, even when the underlying command returns no text.
+Failed actions print `STOPPED:` and do not print a completion message.
+Noninteractive actions require `-Approve` instead:
 
 ```powershell
 .\DevForgeAI-Console.ps1 -Action Status
@@ -52,6 +56,10 @@ For branch actions use `-Branch 'feat/my-task'`; for commits use
 `git --literal-pathspecs add -- <path>` before choosing commit. Creating a new
 worktree does not transfer uncommitted files into it. Existing worktrees, local
 archives and checkpoints are never automatically deleted.
+
+If a fast-forward or branch switch updates the console's files while its menu is
+running, choose `0` and launch the script again to load the updated module. The
+running menu keeps its already loaded code; a changed HEAD does not reload it.
 
 ## What makes updating main safe
 

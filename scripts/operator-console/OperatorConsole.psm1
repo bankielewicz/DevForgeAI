@@ -368,10 +368,14 @@ function Start-OperatorMenu {
         if ($action -in @('BuildDebug', 'BuildRelease')) { $parameters.AllowNetwork = (Read-Host 'Allow Cargo dependency downloads? [y/N]') -eq 'y' }
         if ($action -notin @('Status', 'Recovery', 'PullRequests')) {
             Write-Host "Selected action: $action in $($repo.Root). Stop other writers before continuing."
-            if ((Read-Host 'Type YES to proceed') -cne 'YES') { Write-Host 'Cancelled.'; continue }
+            $confirmation = [string](Read-Host 'Type yes to proceed (Enter cancels)')
+            if ($confirmation.Trim() -ine 'yes') { Write-Host 'Cancelled.'; continue }
             $parameters.Approve = $true
         }
-        try { Invoke-OperatorAction @parameters | Format-List | Out-Host }
+        try {
+            Invoke-OperatorAction @parameters | Format-List | Out-Host
+            Write-Host "Completed: $action." -ForegroundColor Green
+        }
         catch { Write-Host "STOPPED: $($_.Exception.Message)" -ForegroundColor Yellow }
     }
 }
